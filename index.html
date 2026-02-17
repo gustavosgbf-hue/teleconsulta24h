@@ -1,159 +1,254 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Teleconsulta 24h | Atendimento Médico Online</title>
-  <meta name="description" content="Atendimento médico online. Orientação rápida e segura.">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pronto Atendimento Online | Consulta médica sem burocracia</title>
+  <meta name="description" content="Atendimento médico online. Orientação rápida, clara e segura.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
 
-<header class="header">
-  <div class="container header-flex">
-    <div class="logo">Teleconsulta 24h</div>
-    <a class="btn-ghost" href="#faq">Dúvidas</a>
+<body>
+<header class="topbar">
+  <div class="wrap topbar__in">
+    <div class="brand">
+      <span class="brand__dot"></span>
+      <span class="brand__name">Pronto Atendimento Online</span>
+    </div>
+
+    <nav class="nav">
+      <a href="#como">Como funciona</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+
     <a class="btn" id="ctaTop" href="#">Agendar</a>
   </div>
 </header>
 
 <main>
 
+  <!-- HERO Apple-like -->
   <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy reveal from-left">
-        <div class="pill">100% online • Seguro • Atendimento nacional</div>
-        <h1>Resolva seu problema sem sair de casa.</h1>
-        <p class="sub">
-          Teleconsulta objetiva, com orientação clara e foco em segurança.
-          Documentos médicos apenas quando clinicamente indicados.
-        </p>
+    <div class="wrap hero__in">
+      <div class="hero__copy reveal from-up">
+        <div class="eyebrow">Atendimento médico online</div>
+        <h1>Quando você precisa de médico, esperar não é opção.</h1>
+        <p class="lead">Orientação objetiva, com foco em segurança, sinais de alerta e próximos passos. Sem enrolação.</p>
 
-        <div class="hero-row">
+        <div class="hero__row">
           <div class="price">
-            <span class="price-currency">R$</span>
-            <span class="price-value">49,90</span>
+            <div class="price__label">Consulta</div>
+            <div class="price__value">R$ 49,90</div>
           </div>
-          <a class="btn btn-lg" id="ctaHero" href="#">Chamar no WhatsApp</a>
+          <a class="btn btn--lg" id="ctaHero" href="#">Chamar no WhatsApp</a>
         </div>
 
-        <div class="trust">
-          <div class="trust-item">Médico com CRM ativo</div>
-          <div class="trust-item">Consulta registrada</div>
-          <div class="trust-item">Sigilo e privacidade</div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__n" data-count="800">0</div>
+            <div class="stat__t">atendimentos online</div>
+          </div>
+          <div class="stat">
+            <div class="stat__n" data-count="200">0</div>
+            <div class="stat__t">avaliações de pacientes</div>
+          </div>
+          <div class="stat">
+            <div class="stat__n">4,9★</div>
+            <div class="stat__t">média (seleção)</div>
+          </div>
         </div>
       </div>
 
-      <div class="hero-media reveal from-right">
-        <div class="media-card">
-          <img src="img-hero.jpg" alt="Saúde digital em ambiente clínico">
-          <div class="media-overlay">
-            <div class="media-title">Atendimento online</div>
-            <div class="media-sub">simples, rápido e seguro</div>
+      <div class="hero__media reveal from-up">
+        <div class="mediaCard">
+          <img src="img-hero.jpg" alt="Saúde digital em ambiente clínico moderno" />
+          <div class="mediaCard__glass">
+            <div class="mediaCard__title">Atendimento online</div>
+            <div class="mediaCard__sub">simples • rápido • seguro</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="hero-glow"></div>
+
+    <div class="hero__fade"></div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal from-up">
-        <h2>Um modelo simples, pensado para leigos</h2>
-        <p>Você chama, explica o que sente e recebe orientação clara sobre o que fazer agora.</p>
+  <!-- Sticky Apple section -->
+  <section class="sticky" id="como">
+    <div class="wrap sticky__in">
+
+      <div class="sticky__left">
+        <div class="sticky__leftInner">
+          <div class="eyebrow">Como funciona</div>
+          <h2>Você rola. O essencial aparece.</h2>
+          <p class="lead small">
+            Um fluxo direto: você chama, explica o que sente, recebe orientação clara e sabe exatamente o que fazer agora.
+          </p>
+
+          <div class="pillrow">
+            <span class="pill">Sem app</span>
+            <span class="pill">Sem cadastro</span>
+            <span class="pill">Entrada por WhatsApp</span>
+          </div>
+
+          <div class="miniSteps">
+            <div class="miniStep">
+              <div class="miniStep__n">1</div>
+              <div class="miniStep__t">Clique e chame</div>
+              <div class="miniStep__p">Mensagem pronta, sem burocracia.</div>
+            </div>
+            <div class="miniStep">
+              <div class="miniStep__n">2</div>
+              <div class="miniStep__t">Avaliação dirigida</div>
+              <div class="miniStep__p">Perguntas curtas e objetivas.</div>
+            </div>
+            <div class="miniStep">
+              <div class="miniStep__n">3</div>
+              <div class="miniStep__t">Conduta clara</div>
+              <div class="miniStep__p">O que fazer + sinais de alerta.</div>
+            </div>
+          </div>
+
+          <a class="btn" id="ctaSticky" href="#">Agendar agora</a>
+        </div>
       </div>
 
-      <div class="tiles">
-        <article class="tile reveal from-left">
-          <img src="img-1.jpg" alt="Médica em consulta">
-          <div class="tile-body">
-            <h3>Atendimento humano</h3>
-            <p>Perguntas objetivas e direcionadas para entender rápido o cenário.</p>
-          </div>
-        </article>
+      <div class="sticky__right">
+        <div class="stack">
+          <article class="card reveal from-right">
+            <div class="card__tag">Rápido</div>
+            <h3>Foco no que muda sua decisão hoje.</h3>
+            <p>Se dá pra resolver em casa, você sai com plano. Se não dá, você sai sabendo pra onde ir e por quê.</p>
+          </article>
 
-        <article class="tile reveal from-up">
-          <img src="img-2.jpg" alt="Paciente usando celular">
-          <div class="tile-body">
-            <h3>WhatsApp como entrada</h3>
-            <p>Sem app, sem cadastro chato. Clique e comece.</p>
-          </div>
-        </article>
+          <article class="card reveal from-right">
+            <div class="card__tag">Seguro</div>
+            <h3>Sinais de alerta vêm primeiro.</h3>
+            <p>Orientação sempre priorizando risco. Se houver gravidade, a recomendação é atendimento presencial.</p>
+          </article>
 
-        <article class="tile reveal from-right">
-          <img src="img-3.jpg" alt="Ambiente clínico e tecnologia">
-          <div class="tile-body">
-            <h3>Segurança</h3>
-            <p>Orientação e sinais de alerta. Se precisar, você é encaminhado ao presencial.</p>
-          </div>
-        </article>
+          <article class="card reveal from-right">
+            <div class="card__tag">Claro</div>
+            <h3>Sem linguagem difícil.</h3>
+            <p>Explicação simples + próximos passos práticos. Você não fica “no escuro”.</p>
+          </article>
+
+          <article class="card reveal from-right">
+            <div class="card__tag">Transparente</div>
+            <h3>Documentos só quando indicados.</h3>
+            <p>Receitas/atestados/exames dependem de avaliação e indicação clínica — não é “automático”.</p>
+          </article>
+        </div>
       </div>
+
     </div>
   </section>
 
-  <section class="section alt">
-    <div class="container">
-      <div class="section-head reveal from-up">
-        <h2>Como funciona</h2>
-        <p>Sem enrolação. Um fluxo direto do início ao plano.</p>
+  <!-- Reviews carousel -->
+  <section class="reviews" id="avaliacoes">
+    <div class="wrap">
+      <div class="head reveal from-up">
+        <div class="eyebrow">Prova social</div>
+        <h2>Pacientes descrevem melhor do que qualquer anúncio.</h2>
+        <p class="lead small">Seleção de avaliações reais (nomes preservados como você pediu).</p>
       </div>
 
-      <div class="steps">
-        <div class="step reveal from-left">
-          <div class="step-n">1</div>
-          <div class="step-t">Você chama no WhatsApp</div>
-          <div class="step-p">Envia queixa e há quanto tempo começou.</div>
+      <div class="carousel reveal from-up" aria-roledescription="carousel">
+        <button class="carBtn" id="prev" aria-label="Anterior">‹</button>
+
+        <div class="carViewport">
+          <div class="carTrack" id="track">
+
+            <article class="review">
+              <div class="review__top">
+                <div class="review__who">Israel</div>
+                <div class="review__stars" aria-label="5 estrelas">★★★★★</div>
+              </div>
+              <p>“Adiantou a consulta… explicou tudo com clareza e educação… se colocou à disposição para dúvidas posteriores. Primeira experiência em telemedicina e adorei.”</p>
+            </article>
+
+            <article class="review">
+              <div class="review__top">
+                <div class="review__who">Rosimeire</div>
+                <div class="review__stars" aria-label="5 estrelas">★★★★★</div>
+              </div>
+              <p>“Excelente atendimento. Médico atencioso, dedicado, fácil comunicação… solicitou exames necessários e estou confiante no tratamento após os resultados.”</p>
+            </article>
+
+            <article class="review">
+              <div class="review__top">
+                <div class="review__who">Juelito</div>
+                <div class="review__stars" aria-label="5 estrelas">★★★★★</div>
+              </div>
+              <p>“Extremamente atencioso. Orientações completas sobre medicações e sobre minha saúde em geral. Superou muito minhas expectativas.”</p>
+            </article>
+
+            <article class="review">
+              <div class="review__top">
+                <div class="review__who">Mariângela</div>
+                <div class="review__stars" aria-label="5 estrelas">★★★★★</div>
+              </div>
+              <p>“Muito atencioso e prestativo, explicou com clareza e empatia. Senti-me acolhida e confiante durante a consulta.”</p>
+            </article>
+
+            <article class="review">
+              <div class="review__top">
+                <div class="review__who">Eduardo</div>
+                <div class="review__stars" aria-label="5 estrelas">★★★★★</div>
+              </div>
+              <p>“Profissional sensacional e humano… realmente se importa com a queixa. Saí da consulta satisfeito e tranquilo.”</p>
+            </article>
+
+          </div>
         </div>
-        <div class="step reveal from-up">
-          <div class="step-n">2</div>
-          <div class="step-t">Avaliação dirigida</div>
-          <div class="step-p">Perguntas rápidas e objetivas.</div>
-        </div>
-        <div class="step reveal from-right">
-          <div class="step-n">3</div>
-          <div class="step-t">Conduta clara</div>
-          <div class="step-p">O que fazer agora + sinais de alerta.</div>
-        </div>
+
+        <button class="carBtn" id="next" aria-label="Próximo">›</button>
+
+        <div class="dots" id="dots" aria-label="Navegação do carrossel"></div>
       </div>
 
-      <div class="cta-bar reveal from-up">
+      <div class="ctaLine reveal from-up">
         <div>
-          <div class="cta-title">Quer resolver isso agora?</div>
-          <div class="cta-sub">Clique e já manda a mensagem pronta.</div>
+          <div class="ctaLine__t">Quer resolver isso agora?</div>
+          <div class="ctaLine__p">Clique e já manda a mensagem pronta.</div>
         </div>
-        <a class="btn" id="ctaMid" href="#">Agendar</a>
+        <a class="btn" id="ctaReviews" href="#">Chamar no WhatsApp</a>
       </div>
     </div>
   </section>
 
-  <section class="section" id="faq">
-    <div class="container">
-      <div class="section-head reveal from-up">
-        <h2>Ficou com alguma dúvida?</h2>
-        <p>Respostas curtas e diretas.</p>
+  <!-- FAQ -->
+  <section class="faq" id="duvidas">
+    <div class="wrap">
+      <div class="head reveal from-up">
+        <div class="eyebrow">Dúvidas</div>
+        <h2>Respostas rápidas.</h2>
+        <p class="lead small">Pra não travar sua decisão.</p>
       </div>
 
-      <div class="faq">
-        <details class="faq-item reveal from-left">
-          <summary>É seguro fazer consulta online?</summary>
-          <div class="faq-a">É seguro para quadros selecionados. Se houver sinais de gravidade, a orientação é procurar atendimento presencial.</div>
+      <div class="faqGrid">
+        <details class="qa reveal from-left">
+          <summary>Teleconsulta é segura?</summary>
+          <div class="qa__a">É segura para quadros selecionados. Se houver sinais de gravidade, a orientação é procurar atendimento presencial.</div>
         </details>
 
-        <details class="faq-item reveal from-right">
-          <summary>Posso receber receitas/atestados?</summary>
-          <div class="faq-a">Somente quando clinicamente indicado após avaliação. Nem todo caso é elegível à distância.</div>
+        <details class="qa reveal from-right">
+          <summary>Posso receber receita/atestado?</summary>
+          <div class="qa__a">Somente quando clinicamente indicado após avaliação. Nem todo caso é elegível à distância.</div>
         </details>
 
-        <details class="faq-item reveal from-left">
+        <details class="qa reveal from-left">
           <summary>Serve para qualquer lugar do Brasil?</summary>
-          <div class="faq-a">Sim. O atendimento é online e você pode estar em qualquer estado/país.</div>
+          <div class="qa__a">Sim. Atendimento online para qualquer estado/país (quando aplicável).</div>
         </details>
 
-        <details class="faq-item reveal from-right">
+        <details class="qa reveal from-right">
           <summary>Quando devo ir direto para emergência?</summary>
-          <div class="faq-a">Dor no peito, falta de ar importante, desmaio, confusão mental, sinais de AVC ou piora rápida.</div>
+          <div class="qa__a">Dor no peito, falta de ar importante, desmaio, confusão mental, sinais de AVC ou piora rápida.</div>
         </details>
       </div>
 
@@ -165,8 +260,8 @@
 
 </main>
 
-<footer class="footer reveal from-up">
-  <div class="container footer-text">
+<footer class="footer">
+  <div class="wrap footer__in">
     JG FONSECA SERVIÇOS MÉDICOS LTDA | CNPJ: 55.789.896/0001-21<br>
     Médico responsável: Gustavo Fonseca. (98) 98927-2727. drgustavofons@gmail.com
   </div>
@@ -186,21 +281,83 @@
     "Olá, gostaria de agendar atendimento médico online.\n\nNome:\nIdade:\nCidade:\nQueixa principal:\nInício dos sintomas:\n"
   );
   const link = `https://wa.me/${numero}?text=${mensagem}`;
-  document.getElementById("ctaTop").href = link;
-  document.getElementById("ctaHero").href = link;
-  document.getElementById("ctaMid").href = link;
-  document.getElementById("whatsapp-float").href = link;
+  ["ctaTop","ctaHero","ctaSticky","ctaReviews","whatsapp-float"].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.href = link;
+  });
 
-  // Scroll animations (entra/sai ao rolar)
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('show');
-      else e.target.classList.remove('show');
+  // Reveal on scroll (Apple vibe)
+  const reveals = document.querySelectorAll(".reveal");
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if (e.isIntersecting) e.target.classList.add("show");
+      else e.target.classList.remove("show");
     });
-  }, { threshold: 0.18 });
+  }, {threshold: 0.18});
+  reveals.forEach(el=>io.observe(el));
 
-  els.forEach(el => io.observe(el));
+  // Count-up (once)
+  const counters = document.querySelectorAll("[data-count]");
+  const ioCount = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      if (el.dataset.done) return;
+      el.dataset.done = "1";
+      const target = Number(el.dataset.count || "0");
+      let start = 0;
+      const dur = 900;
+      const t0 = performance.now();
+      const tick = (t)=>{
+        const p = Math.min(1, (t - t0) / dur);
+        const val = Math.round(start + (target - start) * (1 - Math.pow(1-p, 3)));
+        el.textContent = val + "+";
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, {threshold: 0.35});
+  counters.forEach(el=>ioCount.observe(el));
+
+  // Reviews carousel
+  const track = document.getElementById("track");
+  const slides = Array.from(track.children);
+  const dotsWrap = document.getElementById("dots");
+  let idx = 0;
+  let timer = null;
+
+  function buildDots(){
+    slides.forEach((_, i)=>{
+      const b = document.createElement("button");
+      b.className = "dot";
+      b.setAttribute("aria-label", "Ir para avaliação " + (i+1));
+      b.addEventListener("click", ()=>go(i, true));
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  function update(){
+    track.style.transform = `translateX(${-idx * 100}%)`;
+    Array.from(dotsWrap.children).forEach((d,i)=>d.classList.toggle("on", i===idx));
+  }
+
+  function go(i, user){
+    idx = (i + slides.length) % slides.length;
+    update();
+    if (user) restart();
+  }
+
+  function restart(){
+    if (timer) clearInterval(timer);
+    timer = setInterval(()=>go(idx+1, false), 5200);
+  }
+
+  document.getElementById("prev").addEventListener("click", ()=>go(idx-1, true));
+  document.getElementById("next").addEventListener("click", ()=>go(idx+1, true));
+
+  buildDots();
+  update();
+  restart();
 </script>
 
 </body>
