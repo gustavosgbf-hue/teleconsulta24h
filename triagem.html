@@ -389,10 +389,16 @@ RESPONSIVE
 
 <div class="terms-footer">
   <label class="terms-check" id="checkLabel">
-    <input type="checkbox" id="termsCheck"/>
-    <span>Li e concordo com os Termos de Uso, a Politica de Privacidade e o TCLE para teleatendimento.</span>
+    <input type="checkbox" id="termsCheck" onchange="toggleAceitar(this)"/>
+    <span>Li e concordo com os Termos de Uso, Politica de Privacidade e TCLE.</span>
   </label>
-  <button class="btn-accept enabled" id="btnAccept" style="opacity:.4;pointer-events:none">Aceitar e iniciar triagem &rarr;</button>
+  <button id="btnAccept" onclick="iniciarTriagem()" style="
+    width:100%;padding:14px;border-radius:14px;border:none;
+    background-color:#b4e05a;color:#051208;
+    font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;
+    cursor:pointer;opacity:.35;pointer-events:none;
+    box-shadow:0 6px 24px rgba(180,224,90,.28);
+  ">Aceitar e iniciar triagem &rarr;</button>
 </div>
 ```
 
@@ -458,28 +464,26 @@ const API_KEY = 'sk-ant-COLE-SUA-CHAVE-AQUI';
 // TERMS SCREEN
 // ══════════════════════════════════════════
 const termsScroll = document.getElementById('termsScroll');
-const termsCheck  = document.getElementById('termsCheck');
-const checkLabel  = document.getElementById('checkLabel');
-const btnAccept   = document.getElementById('btnAccept');
-const scrollHint  = document.getElementById('scrollHint');
 
 // Simple checkbox - no scroll dependency
 
-termsCheck.addEventListener('change', () => {
-  if(termsCheck.checked){
-    btnAccept.style.opacity = '1';
-    btnAccept.style.pointerEvents = 'auto';
+// Simple toggle for accept button
+window.toggleAceitar = function(cb){
+  var btn = document.getElementById('btnAccept');
+  if(cb.checked){
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
   } else {
-    btnAccept.style.opacity = '.4';
-    btnAccept.style.pointerEvents = 'none';
+    btn.style.opacity = '.35';
+    btn.style.pointerEvents = 'none';
   }
-});
+};
 
-btnAccept.addEventListener('click', () => {
+window.iniciarTriagem = function(){
   showScreen('triage');
-  document.getElementById('nav-step').textContent = 'Triagem Médica';
+  document.getElementById('nav-step').textContent = 'Triagem Medica';
   startTriage();
-});
+};
 
 // ══════════════════════════════════════════
 // SCREEN MANAGEMENT
