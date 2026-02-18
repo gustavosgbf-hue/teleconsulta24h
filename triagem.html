@@ -392,7 +392,7 @@ RESPONSIVE
     <input type="checkbox" id="termsCheck"/>
     <span>Li e concordo com os Termos de Uso, a Politica de Privacidade e o TCLE para teleatendimento.</span>
   </label>
-  <button class="btn-accept" id="btnAccept">Aceitar e iniciar triagem &rarr;</button>
+  <button class="btn-accept enabled" id="btnAccept" style="opacity:.4;pointer-events:none">Aceitar e iniciar triagem &rarr;</button>
 </div>
 ```
 
@@ -467,11 +467,11 @@ const scrollHint  = document.getElementById('scrollHint');
 
 termsCheck.addEventListener('change', () => {
   if(termsCheck.checked){
-    btnAccept.classList.add('enabled');
-    btnAccept.disabled = false;
+    btnAccept.style.opacity = '1';
+    btnAccept.style.pointerEvents = 'auto';
   } else {
-    btnAccept.classList.remove('enabled');
-    btnAccept.disabled = true;
+    btnAccept.style.opacity = '.4';
+    btnAccept.style.pointerEvents = 'none';
   }
 });
 
