@@ -301,11 +301,20 @@ function enviarWhats(){
   }
   document.getElementById('waPhone').style.borderColor='';
 
-  var mod = modalidade==='vid' ? 'Videoconferência' : 'Mensagem (chat)';
+  var mod = modalidade==='vid' ? '📹 Videoconferência' : '💬 Mensagem (chat)';
+
+  // Format summary: split by comma into bullet lines
+  var raw = (anamnesis.summary || '');
+  var formatted = raw
+    .split(/,\s*(?=[A-ZÀÁÂÃÉÊÍÓÔÕÚÇ])/)
+    .map(function(item){ return '• ' + item.trim(); })
+    .join('\n');
+
   var msg = '🏥 *Triagem concluída — Pronto Atendimento Online*\n\n'
-    + '*Modalidade preferida:* ' + mod + '\n'
-    + '*WhatsApp do paciente:* ' + phone + '\n\n'
-    + '*Anamnese:*\n' + (anamnesis.summary || '') + '\n\n'
+    + '📌 *Modalidade solicitada:* ' + mod + '\n'
+    + '📱 *WhatsApp informado:* ' + phone + '\n\n'
+    + '🗒️ *Anamnese estruturada:*\n\n'
+    + formatted + '\n\n'
     + '_(Mensagem gerada automaticamente pela triagem online)_';
 
   window.open('https://wa.me/'+SEU_WHATS+'?text='+encodeURIComponent(msg), '_blank');
