@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Pronto Atendimento Online</title>
-<meta name="description" content="Atendimento medico online. Avaliacao clara, direta e segura."/>
+<title>Próximo Atendimento Online</title>
+<meta name="description" content="Atendimento medico online. Avaliação clara, direta e segura."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -427,7 +427,7 @@ a{color:inherit;text-decoration:none}
 .wp-send:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.38)}
 
 /* RESPONSIVE */
-@media(max-width:960px){
+@média(max-width:960px){
   .hero__grid{grid-template-columns:1fr;gap:36px}
   .hero__photo-wrap{aspect-ratio:16/9;max-height:400px}
   .imgcards__grid{grid-template-columns:1fr 1fr}
@@ -438,7 +438,7 @@ a{color:inherit;text-decoration:none}
   .faq__sticky{position:relative;top:auto}
   .cta-bot__box{padding:36px 28px}
 }
-@media(max-width:640px){
+@média(max-width:640px){
   .hero{padding:52px 0 44px}
   .hero__h{font-size:38px}
   .hero__ctas{flex-direction:column;align-items:flex-start}
@@ -448,6 +448,13 @@ a{color:inherit;text-decoration:none}
   .cta-bot__box{flex-direction:column;align-items:flex-start;padding:28px 22px}
   .nav__live{display:none}
 }
+
+/* APPLE SCROLL FADE */
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:none}
+.fade-up:nth-child(2){transition-delay:.1s}
+.fade-up:nth-child(3){transition-delay:.2s}
+.fade-up:nth-child(4){transition-delay:.3s}
 </style>
 </head>
 <body>
@@ -459,7 +466,7 @@ a{color:inherit;text-decoration:none}
   <div class="wrap nav__in">
     <div class="nav__brand">
       <div class="live-dot"></div>
-      Pronto Atendimento Online
+      Próximo Atendimento Online
     </div>
     <div class="nav__actions">
       <div class="nav__live">
@@ -482,7 +489,7 @@ a{color:inherit;text-decoration:none}
         Telemedicina &middot; Brasil e exterior
       </div>
       <h1 class="hero__h">
-        Avaliacao<br><em>medica online.</em>
+        Avaliação<br><em>médica online.</em>
       </h1>
       <p class="hero__tagline">
         Clara. Direta. Segura.<br>
@@ -503,18 +510,18 @@ a{color:inherit;text-decoration:none}
         <div class="hstat-sep"></div>
         <div class="hstat">
           <span class="hstat__n">200+</span>
-          <span class="hstat__l">avaliacoes</span>
+          <span class="hstat__l">avaliações</span>
         </div>
         <div class="hstat-sep"></div>
         <div class="hstat">
           <span class="hstat__n">4,9 &#9733;</span>
-          <span class="hstat__l">media</span>
+          <span class="hstat__l">média</span>
         </div>
       </div>
     </div>
     <div>
       <div class="hero__photo-wrap">
-        <img src="img-hero.jpg" alt="Medica em atendimento online" loading="eager"/>
+        <img src="img-hero.jpg" alt="Médica em atendimento online" loading="eager"/>
         <div class="hero__glass">
           <div class="hero__glass-dot"></div>
           <div>
@@ -530,15 +537,15 @@ a{color:inherit;text-decoration:none}
 <!-- STRIP -->
 <div class="strip z1" aria-hidden="true">
   <div class="strip__track">
-    <div class="strip__item"><span>&#10022;</span> Medico com CRM ativo</div>
-    <div class="strip__item"><span>&#10022;</span> Consulta em prontuario</div>
-    <div class="strip__item"><span>&#10022;</span> Portugues e ingles</div>
+    <div class="strip__item"><span>&#10022;</span> Médico com CRM ativo</div>
+    <div class="strip__item"><span>&#10022;</span> Consulta em prontuário</div>
+    <div class="strip__item"><span>&#10022;</span> Português e inglês</div>
     <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
     <div class="strip__item"><span>&#10022;</span> CFM 2.314/2022</div>
     <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
-    <div class="strip__item"><span>&#10022;</span> Medico com CRM ativo</div>
-    <div class="strip__item"><span>&#10022;</span> Consulta em prontuario</div>
-    <div class="strip__item"><span>&#10022;</span> Portugues e ingles</div>
+    <div class="strip__item"><span>&#10022;</span> Médico com CRM ativo</div>
+    <div class="strip__item"><span>&#10022;</span> Consulta em prontuário</div>
+    <div class="strip__item"><span>&#10022;</span> Português e inglês</div>
     <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
     <div class="strip__item"><span>&#10022;</span> CFM 2.314/2022</div>
     <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
@@ -549,17 +556,17 @@ a{color:inherit;text-decoration:none}
 <section class="sec z1">
   <div class="wrap">
     <div class="sec-label">Atendimento</div>
-    <h2 class="sec-h">O que voce <em>encontra.</em></h2>
+    <h2 class="sec-h">O que você <em>encontra.</em></h2>
     <div class="imgcards__grid">
-      <div class="icard">
-        <img src="img-1.jpg" alt="Medica em consulta" loading="lazy"/>
+      <div class="icard fade-up">
+        <img src="img-1.jpg" alt="Médica em consulta" loading="lazy"/>
         <div class="icard__label">Atendimento humano</div>
       </div>
-      <div class="icard">
+      <div class="icard fade-up">
         <img src="img-2.jpg" alt="Telemedicina pelo celular" loading="lazy"/>
         <div class="icard__label">Direto pelo WhatsApp</div>
       </div>
-      <div class="icard">
+      <div class="icard fade-up">
         <img src="img-3.jpg" alt="Ambiente clinico" loading="lazy"/>
         <div class="icard__label">Ambiente seguro</div>
       </div>
@@ -571,36 +578,36 @@ a{color:inherit;text-decoration:none}
 <section class="sec z1" id="como">
   <div class="wrap">
     <div class="sec-label">Processo</div>
-    <h2 class="sec-h">Tres passos.<br><em>Do sintoma a conduta.</em></h2>
+    <h2 class="sec-h">Três passos.<br><em>Do sintoma à conduta.</em></h2>
     <div class="how__grid">
-      <div class="how-card">
+      <div class="how-card fade-up">
         <div class="how-card__n">01</div>
-        <h3>Voce chama</h3>
+        <h3>Você chama</h3>
         <p>Triagem guiada por IA. Sem cadastro, sem app, sem espera.</p>
       </div>
-      <div class="how-card">
+      <div class="how-card fade-up">
         <div class="how-card__n">02</div>
-        <h3>Avaliacao objetiva</h3>
+        <h3>Avaliação objetiva</h3>
         <p>Perguntas direcionadas ao que realmente importa. Sem rodeios.</p>
       </div>
-      <div class="how-card">
+      <div class="how-card fade-up">
         <div class="how-card__n">03</div>
         <h3>Conduta clara</h3>
         <p>O que fazer agora e quando buscar atendimento presencial.</p>
       </div>
     </div>
     <p class="how__legal">
-      Receitas, atestados e exames dependem de avaliacao medica individual, conforme Resolucao CFM n 2.314/2022.
+      Receitas, atestados e exames dependem de avaliacao medica individual, conforme Resolução CFM nº 2.314/2022.
     </p>
   </div>
 </section>
 
 <!-- REVIEWS -->
-<section class="reviews z1" id="avaliacoes">
+<section class="reviews z1" id="avaliações">
   <div class="wrap">
     <div class="sec-label">Pacientes</div>
-    <h2 class="sec-h">Quem ja foi <em>atendido.</em></h2>
-    <div class="reviews__score">&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;4,9 media &middot; 200+ avaliacoes</div>
+    <h2 class="sec-h">Quem já foi <em>atendido.</em></h2>
+    <div class="reviews__score">&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;4,9 média &middot; 200+ avaliações</div>
     <div class="car-outer">
       <div class="car-vp">
         <div class="car-tk" id="carTk">
@@ -609,21 +616,21 @@ a{color:inherit;text-decoration:none}
               <strong class="rcard__name">Israel</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Adiantou a consulta, o que foi muito bom. Muito simpatico, explicou tudo com clareza e educacao, se colocando a disposicao para quaisquer duvidas posteriores. Primeira experiencia em telemedicina e adorei.</p>
+            <p class="rcard__quote">Adiantou a consulta, o que foi muito bom. Muito simpático, explicou tudo com clareza e educacao, se colocando a disposicao para quaisquer duvidas posteriores. Primeira experiencia em telemedicina e adorei.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
               <strong class="rcard__name">Rosimeire</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Excelente atendimento. Medico atencioso, dedicado, muito educado, facil comunicacao. Ouviu atentamente meus sintomas e solicitou os exames necessarios. Certamente retornarei.</p>
+            <p class="rcard__quote">Excelente atendimento. Médico atencioso, dedicado, muito educado, facil comunicacao. Ouviu atentamente meus sintomas e solicitou os exames necessarios. Certamente retornarei.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
               <strong class="rcard__name">Juelito</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Profissional extremamente atencioso. Orientou sobre medicacoes e sobre minha saude em geral. Superou e muito as minhas expectativas.</p>
+            <p class="rcard__quote">Profissional extremamente atencioso. Orientou sobre medicações e sobre minha saude em geral. Superou e muito as minhas expectativas.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
@@ -637,14 +644,14 @@ a{color:inherit;text-decoration:none}
               <strong class="rcard__name">Eduardo</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Profissional sensacional e humano. Ja e a quarta consulta com ele. Nota-se que realmente se importa com a queixa do paciente. Sai satisfeito e tranquilo.</p>
+            <p class="rcard__quote">Profissional sensacional e humano. Já é a quarta consulta com ele. Nota-se que realmente se importa com a queixa do paciente. Saí satisfeito e tranquilo.</p>
           </article>
         </div>
       </div>
       <div class="car-footer">
         <div class="car-arrows">
           <button class="car-arrow" id="carPrev" aria-label="Anterior">&#8592;</button>
-          <button class="car-arrow" id="carNext" aria-label="Proximo">&#8594;</button>
+          <button class="car-arrow" id="carNext" aria-label="Próximo">&#8594;</button>
         </div>
         <div class="car-pips" id="carPips"></div>
       </div>
@@ -655,30 +662,30 @@ a{color:inherit;text-decoration:none}
 <!-- FAQ -->
 <section class="faq z1" id="duvidas">
   <div class="wrap">
-    <div class="sec-label">Duvidas</div>
+    <div class="sec-label">Dúvidas</div>
     <h2 class="sec-h">Respostas <em>diretas.</em></h2>
     <div class="faq__layout">
       <div class="faq__sticky">
-        <h2 class="sec-h" style="font-size:clamp(20px,2.6vw,32px)">Ainda com<br>alguma duvida?</h2>
-        <p>Manda uma mensagem direta sem formulario, sem espera.</p>
+        <h2 class="sec-h" style="font-size:clamp(20px,2.6vw,32px)">Ainda com<br>alguma dúvida?</h2>
+        <p>Manda uma mensagem direta sem formulário, sem espera.</p>
         <button class="btn btn--outline" onclick="openWidget()">Falar no WhatsApp</button>
       </div>
       <div class="faq__items">
-        <details class="qa">
-          <summary>A teleconsulta e segura?</summary>
-          <div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imediato.</div>
+        <details class="qa fade-up">
+          <summary>A teleconsulta é segura?</summary>
+          <div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imédiato.</div>
         </details>
-        <details class="qa">
+        <details class="qa fade-up">
           <summary>Posso receber receita ou atestado?</summary>
-          <div class="qa__ans">Somente quando clinicamente indicado apos avaliacao. Nao e automatico e depende inteiramente do quadro.</div>
+          <div class="qa__ans">Somente quando clinicamente indicado após avaliação. Não é automático e depende inteiramente do quadro.</div>
         </details>
-        <details class="qa">
+        <details class="qa fade-up">
           <summary>Atende fora do Brasil?</summary>
-          <div class="qa__ans">Sim. Atendimento em portugues e ingles para pacientes no exterior.</div>
+          <div class="qa__ans">Sim. Atendimento em português e inglês para pacientes no exterior.</div>
         </details>
-        <details class="qa">
-          <summary>Quando devo ir direto a emergencia?</summary>
-          <div class="qa__ans">Dor no peito, falta de ar importante, desmaio, confusao mental ou sinais de AVC. Emergencia presencial imediatamente.</div>
+        <details class="qa fade-up">
+          <summary>Quando devo ir direto à emergência?</summary>
+          <div class="qa__ans">Dor no peito, falta de ar importante, desmaio, confusão mental ou sinais de AVC. Emergência presencial imédiatamente.</div>
         </details>
       </div>
     </div>
@@ -703,8 +710,8 @@ a{color:inherit;text-decoration:none}
 <!-- FOOTER -->
 <footer class="footer z1">
   <div class="wrap footer__in">
-    JG FONSECA SERVICOS MEDICOS LTDA &nbsp;|&nbsp; CNPJ: 55.789.896/0001-21<br>
-    Medico responsavel: Gustavo Fonseca &nbsp;&middot;&nbsp; (98) 98927-2727 &nbsp;&middot;&nbsp; drgustavofons@gmail.com
+    JG FONSECA SERVIÇOS MÉDICOS LTDA &nbsp;|&nbsp; CNPJ: 55.789.896/0001-21<br>
+    Médico responsável: Gustavo Fonseca &nbsp;&middot;&nbsp; (98) 98927-2727 &nbsp;&middot;&nbsp; drgustavofons@gmail.com
   </div>
 </footer>
 
@@ -721,7 +728,7 @@ a{color:inherit;text-decoration:none}
     <div class="wp-head">
       <div class="wp-head-icon">&#128172;</div>
       <div>
-        <div class="wp-head-title">Pronto Atendimento Online</div>
+        <div class="wp-head-title">Próximo Atendimento Online</div>
         <div class="wp-head-sub">Online agora &middot; Resposta em minutos</div>
       </div>
       <button class="wp-close" onclick="closeWidget()">&#215;</button>
@@ -763,7 +770,7 @@ var timer;
 slides.forEach(function(_,i){
   var p = document.createElement('button');
   p.className = 'pip';
-  p.setAttribute('aria-label','Avaliacao '+(i+1));
+  p.setAttribute('aria-label','Avaliação '+(i+1));
   p.onclick = function(){ go(i); };
   pips.appendChild(p);
 });
@@ -786,6 +793,17 @@ document.querySelectorAll('.qa').forEach(function(d){
     }
   });
 });
+</script>
+
+<script>
+// SCROLL FADE
+var fades = document.querySelectorAll('.fade-up');
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:0.12});
+fades.forEach(function(el){ obs.observe(el); });
 </script>
 </body>
 </html>
