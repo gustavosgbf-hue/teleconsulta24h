@@ -2,511 +2,175 @@
 
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Pronto Atendimento Online</title>
-  <meta name="description" content="Atendimento médico online — avaliação clara, direta e segura."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pronto Atendimento Online</title>
+<meta name="description" content="Atendimento médico online — avaliação clara, direta e segura."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════
-   RESET & BASE
-══════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:'Outfit',system-ui,sans-serif;
-  background:#060d0b;
-  color:rgba(255,255,255,.92);
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
+body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;width:100%;height:100%;object-fit:cover}
 a{color:inherit;text-decoration:none}
-h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:500}
-
-/* ══════════════════════════════════════
-TOKENS
-══════════════════════════════════════ */
-:root{
-–g1:#b4e05a;   /* lime accent */
-–g2:#5ee0a0;   /* teal accent */
-–dark:#060d0b;
-–dark2:#0c1a16;
-–card:rgba(255,255,255,.045);
-–line:rgba(255,255,255,.09);
-–muted:rgba(255,255,255,.55);
-–muted2:rgba(255,255,255,.35);
-–r:18px;
-}
-
-/* ══════════════════════════════════════
-NOISE GRAIN
-══════════════════════════════════════ */
-body::before{
-content:’’;
-position:fixed;inset:0;z-index:0;pointer-events:none;
-background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘300’ height=‘300’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘300’ height=‘300’ filter=‘url(%23n)’ opacity=‘0.035’/%3E%3C/svg%3E”);
-background-size:300px;
-opacity:.6;
-}
-
-/* ══════════════════════════════════════
-BG GLOW
-══════════════════════════════════════ */
-.bg-glow{
-position:fixed;inset:0;z-index:0;pointer-events:none;
-background:
-radial-gradient(ellipse 80vw 60vh at 15% 0%,  rgba(180,224,90,.13)  0%,transparent 60%),
-radial-gradient(ellipse 60vw 50vh at 90% 5%,  rgba(94,224,160,.10)  0%,transparent 55%),
-radial-gradient(ellipse 50vw 50vh at 50% 100%,rgba(94,224,160,.07)  0%,transparent 60%);
-}
-
+:root{--g1:#b4e05a;--g2:#5ee0a0;--line:rgba(255,255,255,.09);--card:rgba(255,255,255,.045);--muted:rgba(255,255,255,.55);--muted2:rgba(255,255,255,.32)}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80vw 60vh at 15% 0%,rgba(180,224,90,.12) 0%,transparent 60%),radial-gradient(ellipse 60vw 50vh at 90% 5%,rgba(94,224,160,.09) 0%,transparent 55%)}
 .z1{position:relative;z-index:1}
-
-/* ══════════════════════════════════════
-WRAP
-══════════════════════════════════════ */
 .wrap{width:min(1140px,92vw);margin:0 auto}
 
-/* ══════════════════════════════════════
-BUTTONS
-══════════════════════════════════════ */
-.btn{
-display:inline-flex;align-items:center;justify-content:center;gap:9px;
-padding:13px 22px;border-radius:14px;border:none;
-font-family:‘Outfit’,sans-serif;font-size:.9rem;font-weight:600;
-cursor:pointer;transition:transform .12s ease,box-shadow .2s ease;
-background-color:#b4e05a;
-background-image:-webkit-linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);
-background-image:linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);
--webkit-appearance:none;appearance:none;
-color:#051208;
-box-shadow:0 6px 28px rgba(180,224,90,.28);
-}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(180,224,90,.36),inset 0 1px 0 rgba(255,255,255,.18)}
-.btn:active{transform:translateY(0)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 24px;border-radius:14px;border:none;font-family:‘Outfit’,sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;background-color:#b4e05a;background-image:-webkit-linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);background-image:linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);-webkit-appearance:none;appearance:none;color:#051208;box-shadow:0 6px 24px rgba(180,224,90,.28);transition:transform .12s ease,box-shadow .2s ease;text-decoration:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(180,224,90,.36)}
 .btn–lg{padding:16px 28px;font-size:1rem;border-radius:16px}
-.btn–outline{
-background-color:rgba(255,255,255,.08)!important;
-background-image:none!important;
-color:#fff!important;
-border:1px solid rgba(255,255,255,.25)!important;
-box-shadow:none!important;
-}
-.btn–outline:hover{background-color:rgba(255,255,255,.14)!important;box-shadow:none!important}
+.btn–outline{background-color:rgba(255,255,255,.08)!important;background-image:none!important;color:rgba(255,255,255,.9)!important;border:1px solid rgba(255,255,255,.22)!important;box-shadow:none!important}
+.btn–outline:hover{background-color:rgba(255,255,255,.13)!important;transform:none!important;box-shadow:none!important}
 
-/* ══════════════════════════════════════
-NAV
-══════════════════════════════════════ */
-.nav{
-position:sticky;top:0;z-index:100;
-padding:0;
-background:rgba(6,13,11,.70);
-backdrop-filter:blur(18px) saturate(160%);
-border-bottom:1px solid var(–line);
-}
-.nav__in{
-display:flex;align-items:center;justify-content:space-between;
-padding:14px 0;gap:16px;
-}
-.nav__brand{
-display:flex;align-items:center;gap:11px;
-font-family:‘Outfit’,sans-serif;font-weight:600;font-size:.95rem;
-letter-spacing:-.01em;
-}
-.nav__live{
-display:flex;align-items:center;gap:7px;
-padding:5px 11px;border-radius:999px;
-border:1px solid rgba(94,224,160,.25);
-background:rgba(94,224,160,.07);
-font-size:.7rem;font-weight:500;color:rgba(255,255,255,.7);
-letter-spacing:.04em;text-transform:uppercase;
-}
-.live-dot{
-width:7px;height:7px;border-radius:50%;
-background:var(–g2);flex-shrink:0;
-animation:livePulse 2s ease-in-out infinite;
-}
-@keyframes livePulse{
-0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}
-50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}
-}
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,13,11,.75);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(–line)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px}
+.nav__brand{display:flex;align-items:center;gap:10px;font-family:‘Outfit’,sans-serif;font-weight:600;font-size:.92rem}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(–g2);flex-shrink:0;animation:livePulse 2s ease-in-out infinite}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
+.nav__live{display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;border:1px solid rgba(94,224,160,.22);background:rgba(94,224,160,.06);font-size:.7rem;font-weight:500;color:rgba(255,255,255,.65);letter-spacing:.04em;text-transform:uppercase}
+.nav__actions{display:flex;align-items:center;gap:10px}
 
-/* ══════════════════════════════════════
-HERO
-══════════════════════════════════════ */
-.hero{padding:90px 0 70px}
-.hero__grid{
-display:grid;
-grid-template-columns:1.1fr .9fr;
-gap:50px;align-items:center;
-}
-
-/* left */
-.hero__kicker{
-display:inline-flex;align-items:center;gap:8px;
-font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
-color:var(–g1);margin-bottom:22px;
-}
+.hero{padding:80px 0 60px}
+.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.hero__kicker{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(–g1);margin-bottom:22px}
 .hero__kicker-line{width:28px;height:1px;background:var(–g1);opacity:.6}
-
-h1.hero__h{
-font-size:clamp(44px,6vw,78px);
-line-height:1.0;letter-spacing:-.03em;
-margin-bottom:20px;
-}
-h1.hero__h em{
-font-style:italic;
-color:#b4e05a;
-}
-.hero__tagline{
-font-size:1.05rem;font-weight:300;color:var(–muted);
-line-height:1.65;letter-spacing:.01em;margin-bottom:36px;
-}
-.hero__row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:44px}
-.price-block{
-border:1px solid var(–line);background:var(–card);
-border-radius:var(–r);padding:12px 18px;
-}
-.price-block__label{
-font-size:.65rem;font-weight:500;letter-spacing:.12em;
-text-transform:uppercase;color:var(–muted2);margin-bottom:4px;
-}
-.price-block__val{
-font-family:‘Outfit’,sans-serif;font-size:1.45rem;
-font-weight:600;letter-spacing:-.02em;
-}
-.hero__stats{display:flex;align-items:center;gap:0}
-.hstat{
-display:flex;flex-direction:column;align-items:center;
-padding:0 22px;
-}
+h1.hero__h{font-family:‘Playfair Display’,Georgia,serif;font-size:clamp(42px,5.5vw,74px);line-height:1.02;letter-spacing:-.03em;margin-bottom:18px;font-weight:500}
+h1.hero__h em{font-style:italic;color:#b4e05a}
+.hero__tagline{font-size:1rem;font-weight:300;color:var(–muted);line-height:1.7;margin-bottom:34px}
+.hero__ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.price-block{border:1px solid var(–line);background:var(–card);border-radius:16px;padding:12px 18px}
+.price-block__label{font-size:.64rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(–muted2);margin-bottom:4px}
+.price-block__val{font-family:‘Outfit’,sans-serif;font-size:1.45rem;font-weight:600;letter-spacing:-.02em}
+.hero__stats{display:flex;align-items:center}
+.hstat{display:flex;flex-direction:column;align-items:center;padding:0 22px}
 .hstat:first-child{padding-left:0}
-.hstat__n{
-font-family:‘Playfair Display’,serif;
-font-size:1.6rem;font-weight:700;line-height:1;
-}
+.hstat__n{font-family:‘Playfair Display’,serif;font-size:1.55rem;font-weight:700;line-height:1;color:#b4e05a}
 .hstat__l{font-size:.72rem;font-weight:400;color:var(–muted);margin-top:4px}
-.hstat-sep{width:1px;height:32px;background:var(–line)}
+.hstat-sep{width:1px;height:30px;background:var(–line)}
+.hero__photo-wrap{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(–line);box-shadow:0 40px 100px rgba(0,0,0,.5);aspect-ratio:4/5}
+.hero__photo-wrap::after{content:’’;position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,13,11,.6) 0%,transparent 40%)}
+.hero__glass{position:absolute;bottom:16px;left:16px;right:16px;z-index:2;display:flex;align-items:center;gap:11px;padding:13px 16px;border-radius:14px;background:rgba(6,13,11,.55);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}
+.hero__glass-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(–g2);animation:livePulse 2s ease-in-out infinite}
+.hero__glass-title{font-size:.88rem;font-weight:600}
+.hero__glass-sub{font-size:.74rem;color:var(–muted);margin-top:1px}
 
-/* right — photo */
-.hero__photo-wrap{
-position:relative;border-radius:26px;overflow:hidden;
-border:1px solid var(–line);
-box-shadow:0 50px 120px rgba(0,0,0,.55);
-aspect-ratio:4/5;
-}
-.hero__photo-wrap img{border-radius:26px}
-/* gradient overlay bottom */
-.hero__photo-wrap::after{
-content:’’;position:absolute;inset:0;
-background:linear-gradient(0deg,rgba(6,13,11,.65) 0%,transparent 45%);
-}
-.hero__glass{
-position:absolute;bottom:18px;left:18px;right:18px;z-index:2;
-display:flex;align-items:center;gap:12px;
-padding:14px 16px;border-radius:16px;
-background:rgba(6,13,11,.50);
-backdrop-filter:blur(14px);
-border:1px solid rgba(255,255,255,.12);
-}
-.hero__glass-dot{
-width:9px;height:9px;border-radius:50%;flex-shrink:0;
-background:var(–g2);
-animation:livePulse 2s ease-in-out infinite;
-}
-.hero__glass-title{font-size:.9rem;font-weight:600}
-.hero__glass-sub{font-size:.75rem;color:var(–muted);margin-top:1px}
-
-/* ══════════════════════════════════════
-MARQUEE STRIP
-══════════════════════════════════════ */
-.strip{
-border-top:1px solid var(–line);border-bottom:1px solid var(–line);
-padding:14px 0;overflow:hidden;background:rgba(255,255,255,.015);
-}
-.strip__track{
-display:flex;gap:48px;white-space:nowrap;
-animation:marquee 28s linear infinite;
-}
-.strip__track:hover{animation-play-state:paused}
+.strip{border-top:1px solid var(–line);border-bottom:1px solid var(–line);padding:13px 0;overflow:hidden;background:rgba(255,255,255,.015)}
+.strip__track{display:flex;gap:44px;white-space:nowrap;animation:marquee 26s linear infinite}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.strip__item{
-display:flex;align-items:center;gap:10px;
-font-size:.78rem;font-weight:500;color:var(–muted);
-letter-spacing:.04em;text-transform:uppercase;flex-shrink:0;
-}
+.strip__item{display:flex;align-items:center;gap:9px;font-size:.76rem;font-weight:500;color:var(–muted);letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
 .strip__item span{color:var(–g1)}
 
-/* ══════════════════════════════════════
-SECTION COMMON
-══════════════════════════════════════ */
-.sec{padding:90px 0;border-top:1px solid var(–line)}
-.sec-label{
-font-size:.68rem;font-weight:500;letter-spacing:.18em;
-text-transform:uppercase;color:var(–g1);margin-bottom:14px;
-}
-.sec-h{
-font-size:clamp(28px,3.8vw,50px);
-line-height:1.08;letter-spacing:-.025em;margin-bottom:0;
-}
-.sec-h em{font-style:italic;color:#5ee0a0}
-.sec-sub{font-size:.95rem;font-weight:300;color:var(–muted);line-height:1.7;margin-top:12px}
+.sec{padding:80px 0;border-top:1px solid var(–line)}
+.sec-label{font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(–g1);margin-bottom:14px}
+.sec-h{font-family:‘Playfair Display’,Georgia,serif;font-size:clamp(26px,3.5vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:500}
+.sec-h em{font-style:italic;color:var(–g2)}
 
-/* ══════════════════════════════════════
-IMAGE CARDS (3 images)
-══════════════════════════════════════ */
-.imgcards{padding:90px 0;border-top:1px solid var(–line)}
-.imgcards__head{margin-bottom:44px}
-.imgcards__grid{
-display:grid;
-grid-template-columns:1.4fr 1fr 1fr;
-gap:14px;align-items:start;
-}
-.icard{
-position:relative;overflow:hidden;border-radius:20px;
-border:1px solid var(–line);
-box-shadow:0 24px 60px rgba(0,0,0,.35);
-}
-.icard:first-child{grid-row:span 1;aspect-ratio:3/4}
+.imgcards__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px;align-items:start;margin-top:40px}
+.icard{position:relative;overflow:hidden;border-radius:18px;border:1px solid var(–line)}
+.icard:first-child{aspect-ratio:3/4}
 .icard:not(:first-child){aspect-ratio:4/5}
-.icard img{
-transition:transform .6s ease;
-border-radius:20px;
-}
+.icard img{transition:transform .6s ease}
 .icard:hover img{transform:scale(1.04)}
-.icard::after{
-content:’’;position:absolute;inset:0;
-background:linear-gradient(0deg,rgba(6,13,11,.7) 0%,transparent 50%);
-}
-.icard__label{
-position:absolute;bottom:16px;left:16px;z-index:2;
-font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
-color:rgba(255,255,255,.8);
-padding:7px 12px;border-radius:999px;
-background:rgba(6,13,11,.45);
-backdrop-filter:blur(8px);
-border:1px solid rgba(255,255,255,.12);
-}
+.icard::after{content:’’;position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,13,11,.65) 0%,transparent 50%)}
+.icard__label{position:absolute;bottom:14px;left:14px;z-index:2;font-size:.72rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85);padding:6px 12px;border-radius:999px;background:rgba(6,13,11,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1)}
 
-/* ══════════════════════════════════════
-HOW IT WORKS
-══════════════════════════════════════ */
-.how__grid{
-display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
-margin-top:44px;
-}
-.how-card{
-border:1px solid rgba(255,255,255,.09);
-background:rgba(255,255,255,.045);
-border-radius:20px;padding:28px 24px;
-transition:border-color .25s,background .25s;
-}
-.how-card:hover{
-border-color:rgba(180,224,90,.28);
-background:rgba(180,224,90,.04);
-}
-.how-card__n{
-font-family:‘Playfair Display’,serif;
-font-size:2.8rem;font-weight:700;
-color:#b4e05a;
-line-height:1;margin-bottom:18px;
-}
-.how-card h3{
-font-family:‘Outfit’,sans-serif;font-size:1rem;font-weight:600;margin-bottom:10px;
-}
-.how-card p{font-size:.875rem;font-weight:300;color:var(–muted);line-height:1.7}
-.how__legal{
-margin-top:28px;text-align:center;
-font-size:.76rem;font-weight:300;color:var(–muted2);line-height:1.65;
-}
+.how__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.how-card{border:1px solid var(–line);background:rgba(255,255,255,.04);border-radius:18px;padding:26px 22px}
+.how-card__n{font-family:‘Playfair Display’,serif;font-size:2.6rem;font-weight:700;color:#b4e05a;line-height:1;margin-bottom:16px}
+.how-card h3{font-family:‘Outfit’,sans-serif;font-size:.95rem;font-weight:600;margin-bottom:8px}
+.how-card p{font-size:.85rem;font-weight:300;color:var(–muted);line-height:1.7}
+.how__legal{margin-top:24px;text-align:center;font-size:.74rem;font-weight:300;color:var(–muted2);line-height:1.65}
 
-/* ══════════════════════════════════════
-REVIEWS CAROUSEL
-══════════════════════════════════════ */
-.reviews{padding:90px 0;border-top:1px solid var(–line)}
-.reviews__subhead{
-display:flex;align-items:center;gap:14px;margin-top:10px;
-}
-.reviews__score{
-display:flex;align-items:center;gap:8px;
-padding:7px 14px;border-radius:999px;
-border:1px solid rgba(180,224,90,.25);
-background:rgba(180,224,90,.06);
-font-size:.8rem;font-weight:500;color:var(–g1);
-}
-.car-outer{
-margin-top:44px;
-border:1px solid var(–line);border-radius:24px;overflow:hidden;
-background:var(–card);
-box-shadow:0 30px 80px rgba(0,0,0,.35);
-}
+.reviews{padding:80px 0;border-top:1px solid var(–line)}
+.reviews__score{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:7px 14px;border-radius:999px;border:1px solid rgba(180,224,90,.22);background:rgba(180,224,90,.06);font-size:.78rem;font-weight:500;color:var(–g1)}
+.car-outer{margin-top:40px;border:1px solid var(–line);border-radius:22px;overflow:hidden;background:rgba(255,255,255,.04)}
 .car-vp{overflow:hidden}
-.car-tk{
-display:flex;
-transition:transform .52s cubic-bezier(.4,0,.2,1);
-}
-.rcard{
-flex:0 0 100%;
-padding:40px 44px;
-}
-.rcard__top{
-display:flex;align-items:center;justify-content:space-between;
-margin-bottom:20px;
-}
-.rcard__name{font-size:1rem;font-weight:600}
-.rcard__stars{color:var(–g1);letter-spacing:3px;font-size:.85rem}
-.rcard__quote{
-font-family:‘Outfit’,sans-serif;
-font-size:1rem;font-style:normal;
-font-weight:300;line-height:1.75;
-color:rgba(255,255,255,.80);
-}
-.car-footer{
-display:flex;align-items:center;justify-content:space-between;
-padding:14px 24px;
-border-top:1px solid var(–line);
-background:rgba(0,0,0,.18);
-gap:12px;
-}
+.car-tk{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.rcard{flex:0 0 100%;padding:36px 40px}
+.rcard__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.rcard__name{font-size:.95rem;font-weight:600}
+.rcard__stars{color:#b4e05a;letter-spacing:3px;font-size:.82rem}
+.rcard__quote{font-size:.95rem;font-weight:300;line-height:1.75;color:rgba(255,255,255,.8)}
+.car-footer{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;border-top:1px solid var(–line);background:rgba(0,0,0,.15);gap:12px}
 .car-arrows{display:flex;gap:8px}
-.car-arrow{
-width:38px;height:38px;border-radius:50%;
-border:1px solid var(–line);background:rgba(255,255,255,.04);
-color:rgba(255,255,255,.8);font-size:1rem;
-display:flex;align-items:center;justify-content:center;
-cursor:pointer;transition:background .15s,border-color .15s;
-}
-.car-arrow:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
+.car-arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(–line);background:rgba(255,255,255,.04);color:rgba(255,255,255,.8);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;-webkit-appearance:none;appearance:none}
+.car-arrow:hover{background:rgba(255,255,255,.09)}
 .car-pips{display:flex;gap:6px;align-items:center}
-.pip{
-width:6px;height:6px;border-radius:50%;
-background:rgba(255,255,255,.22);border:none;cursor:pointer;
-transition:background .2s,transform .2s;
-}
-.pip.on{background:var(–g1);transform:scale(1.4)}
+.pip{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;transition:background .2s,transform .2s;-webkit-appearance:none;appearance:none}
+.pip.on{background:#b4e05a;transform:scale(1.4)}
 
-/* ══════════════════════════════════════
-FAQ
-══════════════════════════════════════ */
-.faq{padding:90px 0;border-top:1px solid var(–line)}
-.faq__layout{
-display:grid;grid-template-columns:1fr 1.6fr;
-gap:60px;align-items:start;margin-top:44px;
-}
-.faq__sticky{position:sticky;top:90px}
-.faq__sticky .sec-h{margin-bottom:20px}
-.faq__sticky p{font-size:.9rem;font-weight:300;color:var(–muted);line-height:1.7;margin-bottom:28px}
+.faq{padding:80px 0;border-top:1px solid var(–line)}
+.faq__layout{display:grid;grid-template-columns:1fr 1.6fr;gap:56px;align-items:start;margin-top:40px}
+.faq__sticky{position:sticky;top:80px}
+.faq__sticky p{font-size:.88rem;font-weight:300;color:var(–muted);line-height:1.7;margin:14px 0 20px}
 .faq__items{display:flex;flex-direction:column;gap:8px}
-.qa{
-border:1px solid var(–line);background:var(–card);
-border-radius:var(–r);overflow:hidden;
-transition:border-color .2s ease;
-}
-.qa[open]{border-color:rgba(180,224,90,.3)}
-.qa summary{
-display:flex;justify-content:space-between;align-items:center;
-list-style:none;padding:17px 20px;cursor:pointer;
-font-size:.9375rem;font-weight:500;gap:12px;
-user-select:none;
-}
+.qa{border:1px solid var(–line);background:rgba(255,255,255,.04);border-radius:16px;overflow:hidden;transition:border-color .2s}
+.qa[open]{border-color:rgba(180,224,90,.28)}
+.qa summary{display:flex;justify-content:space-between;align-items:center;list-style:none;padding:16px 18px;cursor:pointer;font-size:.9rem;font-weight:500;gap:12px;user-select:none}
 .qa summary::-webkit-details-marker{display:none}
-.qa summary::after{
-content:’+’;font-size:1.3rem;font-weight:300;
-color:var(–g1);flex-shrink:0;line-height:1;
-transition:transform .25s ease;
-}
+.qa summary::after{content:’+’;font-size:1.3rem;font-weight:300;color:#b4e05a;flex-shrink:0;line-height:1;transition:transform .25s}
 .qa[open] summary::after{transform:rotate(45deg)}
-.qa__ans{
-padding:0 20px 18px;
-font-size:.875rem;font-weight:300;color:var(–muted);line-height:1.75;
-}
+.qa__ans{padding:0 18px 16px;font-size:.85rem;font-weight:300;color:var(–muted);line-height:1.75}
 
-/* ══════════════════════════════════════
-CTA BOTTOM
-══════════════════════════════════════ */
-.cta-bot{padding:90px 0;border-top:1px solid var(–line)}
-.cta-bot__box{
-position:relative;overflow:hidden;
-border:1px solid rgba(180,224,90,.2);
-border-radius:28px;padding:56px 60px;
-background:linear-gradient(135deg,rgba(180,224,90,.07),rgba(94,224,160,.04));
-display:flex;align-items:center;justify-content:space-between;gap:32px;
-flex-wrap:wrap;
-}
-.cta-bot__box::before{
-content:’’;position:absolute;inset:0;pointer-events:none;
-background:radial-gradient(ellipse 60% 80% at 0% 50%,rgba(180,224,90,.10),transparent 70%);
-}
-.cta-bot__h{
-font-size:clamp(26px,3.5vw,44px);
-line-height:1.08;letter-spacing:-.025em;margin-bottom:10px;
-}
-.cta-bot__sub{font-size:.9375rem;font-weight:300;color:var(–muted)}
+.cta-bot{padding:80px 0;border-top:1px solid var(–line)}
+.cta-bot__box{position:relative;overflow:hidden;border:1px solid rgba(180,224,90,.18);border-radius:26px;padding:52px 56px;background:linear-gradient(135deg,rgba(180,224,90,.06),rgba(94,224,160,.03));display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.cta-bot__h{font-family:‘Playfair Display’,serif;font-size:clamp(24px,3.2vw,42px);line-height:1.1;letter-spacing:-.025em;margin-bottom:8px;font-weight:500}
+.cta-bot__sub{font-size:.9rem;font-weight:300;color:var(–muted)}
 
-/* ══════════════════════════════════════
-FOOTER
-══════════════════════════════════════ */
-.footer{
-padding:28px 0 36px;border-top:1px solid var(–line);
-}
-.footer__in{
-text-align:center;font-size:.73rem;font-weight:300;
-color:var(–muted2);line-height:1.75;
-}
+.footer{padding:26px 0 32px;border-top:1px solid var(–line)}
+.footer__in{text-align:center;font-size:.72rem;font-weight:300;color:var(–muted2);line-height:1.75}
 
-/* ══════════════════════════════════════
-WA FLOAT
-══════════════════════════════════════ */
-#waf{
-position:fixed;right:22px;bottom:22px;z-index:200;
-width:58px;height:58px;border-radius:50%;
-background:#25D366;
-display:flex;align-items:center;justify-content:center;
-box-shadow:0 8px 30px rgba(0,0,0,.4);
-transition:transform .15s ease;
-animation:waPulse 3s ease-in-out infinite;
-}
+#waf{position:fixed;right:20px;bottom:20px;z-index:200;width:56px;height:56px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,.4);transition:transform .15s;-webkit-appearance:none;appearance:none;animation:waPulse 3s ease-in-out infinite}
 #waf:hover{transform:scale(1.1);animation:none}
-@keyframes waPulse{
-0%,100%{box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,.45)}
-60%{box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 0 12px rgba(37,211,102,.0)}
-}
+@keyframes waPulse{0%,100%{box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,.4)}60%{box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 0 12px rgba(37,211,102,0)}}
 
-/* ══════════════════════════════════════
-RESPONSIVE
-══════════════════════════════════════ */
+#wa-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);align-items:flex-end;justify-content:flex-end;padding:20px}
+#wa-overlay.open{display:flex}
+#wa-popup{width:min(370px,94vw);border-radius:20px;background:#0e1a15;border:1px solid rgba(255,255,255,.09);box-shadow:0 40px 100px rgba(0,0,0,.6);overflow:hidden;animation:popIn .28s cubic-bezier(.34,1.4,.64,1);transform-origin:bottom right}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(18px)}to{opacity:1;transform:none}}
+.wp-head{background:#25D366;padding:16px 18px 14px;display:flex;align-items:center;gap:11px}
+.wp-head-icon{width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wp-head-title{font-family:‘Outfit’,sans-serif;font-weight:600;font-size:.9rem;color:#fff}
+.wp-head-sub{font-size:.72rem;color:rgba(255,255,255,.8);margin-top:2px}
+.wp-close{margin-left:auto;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:1.4rem;line-height:1;padding:4px;-webkit-appearance:none}
+.wp-bubble{margin:16px 15px 12px;background:#1a2b22;border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:12px 14px;font-size:.83rem;font-weight:300;color:rgba(255,255,255,.72);line-height:1.6}
+.wp-form{padding:0 15px 16px;display:flex;flex-direction:column;gap:9px}
+.wp-inp{width:100%;padding:10px 13px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);font-family:‘Outfit’,sans-serif;font-size:.85rem;font-weight:300;color:#fff;outline:none;resize:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.wp-inp::placeholder{color:rgba(255,255,255,.3)}
+.wp-inp:focus{border-color:rgba(94,224,160,.35)}
+.wp-send{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:12px;border:none;cursor:pointer;background:#25D366;color:#fff;font-family:‘Outfit’,sans-serif;font-size:.88rem;font-weight:600;box-shadow:0 5px 18px rgba(37,211,102,.28);transition:transform .12s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.wp-send:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.38)}
+
 @media(max-width:960px){
-.hero__grid{grid-template-columns:1fr;gap:40px}
-.hero__photo-wrap{aspect-ratio:16/9;max-height:420px}
+.hero__grid{grid-template-columns:1fr;gap:36px}
+.hero__photo-wrap{aspect-ratio:16/9;max-height:400px}
 .imgcards__grid{grid-template-columns:1fr 1fr}
 .icard:first-child{grid-column:span 2;aspect-ratio:16/7}
 .icard:not(:first-child){aspect-ratio:4/3}
 .how__grid{grid-template-columns:1fr}
-.faq__layout{grid-template-columns:1fr;gap:36px}
+.faq__layout{grid-template-columns:1fr;gap:32px}
 .faq__sticky{position:relative;top:auto}
-.cta-bot__box{padding:40px 32px}
+.cta-bot__box{padding:36px 28px}
 }
 @media(max-width:640px){
-.hero{padding:60px 0 50px}
-h1.hero__h{font-size:42px}
-.hero__row{flex-direction:column;align-items:flex-start}
+.hero{padding:52px 0 44px}
+h1.hero__h{font-size:40px}
+.hero__ctas{flex-direction:column;align-items:flex-start}
 .imgcards__grid{grid-template-columns:1fr}
 .icard:first-child{grid-column:auto;aspect-ratio:4/3}
-.rcard{padding:28px 22px}
-.rcard__quote{font-size:1rem}
-.cta-bot__box{flex-direction:column;align-items:flex-start;padding:32px 24px}
+.rcard{padding:26px 20px}
+.cta-bot__box{flex-direction:column;align-items:flex-start;padding:28px 22px}
+.nav__live{display:none}
 }
 </style>
 
 </head>
 <body>
-
 <div class="bg-glow" aria-hidden="true"></div>
-
-<!-- ── NAV ────────────────────────────────── -->
 
 <header class="nav z1">
   <div class="wrap nav__in">
@@ -514,520 +178,217 @@ h1.hero__h{font-size:42px}
       <div class="live-dot"></div>
       Pronto Atendimento Online
     </div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <div class="nav__live">
-        <div class="live-dot"></div>
-        Online agora
-      </div>
-      <a class="btn" id="cta-nav" href="#">Agendar</a>
+    <div class="nav__actions">
+      <div class="nav__live"><div class="live-dot"></div>Online agora</div>
+      <a class="btn" href="triagem.html">Iniciar consulta</a>
     </div>
   </div>
 </header>
 
 <main class="z1">
-
-  <!-- ── HERO ──────────────────────────────── -->
-
-  <section class="hero">
-    <div class="wrap hero__grid">
-
-```
-  <div class="hero__left">
-    <div class="hero__kicker">
-      <span class="hero__kicker-line"></span>
-      Telemedicina · Brasil e exterior
-    </div>
-
-    <h1 class="hero__h">
-      Avaliação<br>
-      <em>médica online.</em>
-    </h1>
-
-    <p class="hero__tagline">
-      Clara. Direta. Segura.<br>
-      Sem burocracia, sem espera.
-    </p>
-
-    <div class="hero__row">
-      <div class="price-block">
-        <div class="price-block__label">Consulta</div>
-        <div class="price-block__val">R$&thinsp;49,90</div>
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <div class="hero__kicker"><span class="hero__kicker-line"></span>Telemedicina &middot; Brasil e exterior</div>
+      <h1 class="hero__h">Avalia&ccedil;&atilde;o<br><em>m&eacute;dica online.</em></h1>
+      <p class="hero__tagline">Clara. Direta. Segura.<br>Sem burocracia, sem espera.</p>
+      <div class="hero__ctas">
+        <div class="price-block">
+          <div class="price-block__label">Consulta</div>
+          <div class="price-block__val">R$&thinsp;49,90</div>
+        </div>
+        <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
       </div>
-      <a class="btn btn--lg" id="cta-hero" href="#">
-        <svg width="19" height="19" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-          <path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/>
-        </svg>
-        Chamar no WhatsApp
-      </a>
-    </div>
-
-    <div class="hero__stats">
-      <div class="hstat">
-        <span class="hstat__n" data-count="800">0</span>
-        <span class="hstat__l">atendimentos</span>
-      </div>
-      <div class="hstat-sep"></div>
-      <div class="hstat">
-        <span class="hstat__n" data-count="200">0</span>
-        <span class="hstat__l">avaliações</span>
-      </div>
-      <div class="hstat-sep"></div>
-      <div class="hstat">
-        <span class="hstat__n">4,9★</span>
-        <span class="hstat__l">média</span>
+      <div class="hero__stats">
+        <div class="hstat"><span class="hstat__n">800+</span><span class="hstat__l">atendimentos</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat__n">200+</span><span class="hstat__l">avalia&ccedil;&otilde;es</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat__n">4,9&#9733;</span><span class="hstat__l">m&eacute;dia</span></div>
       </div>
     </div>
-  </div>
-
-  <div class="hero__right">
-    <div class="hero__photo-wrap">
-      <img src="img-hero.jpg" alt="Médica em atendimento online"/>
-      <div class="hero__glass">
-        <div class="hero__glass-dot"></div>
-        <div>
-          <div class="hero__glass-title">Online agora</div>
-          <div class="hero__glass-sub">Resposta em minutos</div>
+    <div>
+      <div class="hero__photo-wrap">
+        <img src="img-hero.jpg" alt="Médica em atendimento online"/>
+        <div class="hero__glass">
+          <div class="hero__glass-dot"></div>
+          <div>
+            <div class="hero__glass-title">Online agora</div>
+            <div class="hero__glass-sub">Resposta em minutos</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-</div>
-```
-
-  </section>
-
-  <!-- ── STRIP ─────────────────────────────── -->
-
-  <div class="strip z1">
-    <div class="strip__track" aria-hidden="true">
-      <div class="strip__item"><span>✦</span> Médico com CRM ativo</div>
-      <div class="strip__item"><span>✦</span> Consulta registrada em prontuário</div>
-      <div class="strip__item"><span>✦</span> Atendimento em português e inglês</div>
-      <div class="strip__item"><span>✦</span> Brasil e exterior</div>
-      <div class="strip__item"><span>✦</span> Conforme CFM nº 2.314/2022</div>
-      <div class="strip__item"><span>✦</span> 800+ atendimentos realizados</div>
-      <div class="strip__item"><span>✦</span> Médico com CRM ativo</div>
-      <div class="strip__item"><span>✦</span> Consulta registrada em prontuário</div>
-      <div class="strip__item"><span>✦</span> Atendimento em português e inglês</div>
-      <div class="strip__item"><span>✦</span> Brasil e exterior</div>
-      <div class="strip__item"><span>✦</span> Conforme CFM nº 2.314/2022</div>
-      <div class="strip__item"><span>✦</span> 800+ atendimentos realizados</div>
-    </div>
-  </div>
-
-  <!-- ── IMAGE CARDS ───────────────────────── -->
-
-  <section class="imgcards z1">
-    <div class="wrap">
-      <div class="imgcards__head">
-        <div class="sec-label">Atendimento</div>
-        <h2 class="sec-h">O que você <em>encontra.</em></h2>
-      </div>
-      <div class="imgcards__grid">
-        <div class="icard">
-          <img src="img-1.jpg" alt="Médica em consulta presencial"/>
-          <div class="icard__label">Atendimento humano</div>
-        </div>
-        <div class="icard">
-          <img src="img-2.jpg" alt="Paciente usando telemedicina"/>
-          <div class="icard__label">Direto pelo WhatsApp</div>
-        </div>
-        <div class="icard">
-          <img src="img-3.jpg" alt="Ambiente clínico moderno"/>
-          <div class="icard__label">Ambiente seguro</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── HOW ───────────────────────────────── -->
-
-  <section class="sec z1" id="como">
-    <div class="wrap">
-      <div>
-        <div class="sec-label">Processo</div>
-        <h2 class="sec-h">Três passos.<br><em>Do sintoma à conduta.</em></h2>
-      </div>
-      <div class="how__grid">
-        <div class="how-card">
-          <div class="how-card__n">01</div>
-          <h3>Você chama</h3>
-          <p>Mensagem pronta no WhatsApp. Sem cadastro, sem app, sem espera.</p>
-        </div>
-        <div class="how-card">
-          <div class="how-card__n">02</div>
-          <h3>Avaliação objetiva</h3>
-          <p>Perguntas direcionadas ao que realmente importa. Sem rodeios, sem enrolação.</p>
-        </div>
-        <div class="how-card">
-          <div class="how-card__n">03</div>
-          <h3>Conduta clara</h3>
-          <p>O que fazer agora — e os sinais que indicam a necessidade de atendimento presencial.</p>
-        </div>
-      </div>
-      <p class="how__legal">
-        Receitas, atestados e solicitações de exames dependem de avaliação médica individual e indicação clínica, conforme Resolução CFM nº&nbsp;2.314/2022.
-      </p>
-    </div>
-  </section>
-
-  <!-- ── REVIEWS ───────────────────────────── -->
-
-  <section class="reviews z1" id="avaliacoes">
-    <div class="wrap">
-      <div>
-        <div class="sec-label">Pacientes</div>
-        <h2 class="sec-h">Quem já foi <em>atendido.</em></h2>
-        <div class="reviews__subhead">
-          <div class="reviews__score">★★★★★ &nbsp;4,9 média · 200+ avaliações</div>
-        </div>
-      </div>
-
-```
-  <div class="car-outer">
-    <div class="car-vp">
-      <div class="car-tk" id="carTk">
-
-        <article class="rcard">
-          <div class="rcard__top">
-            <strong class="rcard__name">Israel</strong>
-            <span class="rcard__stars" aria-label="5 estrelas">★★★★★</span>
-          </div>
-          <p class="rcard__quote">"Adiantou a consulta, o que foi muito bom para os dois. Muito simpático, explicou tudo com clareza e educação, se colocando à disposição para quaisquer dúvidas posteriores. Primeira experiência em telemedicina e adorei."</p>
-        </article>
-
-        <article class="rcard">
-          <div class="rcard__top">
-            <strong class="rcard__name">Rosimeire</strong>
-            <span class="rcard__stars" aria-label="5 estrelas">★★★★★</span>
-          </div>
-          <p class="rcard__quote">"Excelente atendimento. Médico atencioso, dedicado, muito educado, fácil comunicação. Ouviu atentamente meus sintomas e solicitou os exames necessários. Certamente retornarei."</p>
-        </article>
-
-        <article class="rcard">
-          <div class="rcard__top">
-            <strong class="rcard__name">Juelito</strong>
-            <span class="rcard__stars" aria-label="5 estrelas">★★★★★</span>
-          </div>
-          <p class="rcard__quote">"Profissional extremamente atencioso. Orientou sobre medicações e sobre minha saúde em geral. Pode afirmar que superou e muito as minhas expectativas."</p>
-        </article>
-
-        <article class="rcard">
-          <div class="rcard__top">
-            <strong class="rcard__name">Mariângela</strong>
-            <span class="rcard__stars" aria-label="5 estrelas">★★★★★</span>
-          </div>
-          <p class="rcard__quote">"Muito atencioso, prestativo e explicou com clareza, demonstrando empatia. Senti-me acolhida e confiante durante a consulta."</p>
-        </article>
-
-        <article class="rcard">
-          <div class="rcard__top">
-            <strong class="rcard__name">Eduardo</strong>
-            <span class="rcard__stars" aria-label="5 estrelas">★★★★★</span>
-          </div>
-          <p class="rcard__quote">"Profissional sensacional e humano — já é a quarta consulta com ele. Nota-se que realmente se importa com a queixa do paciente. Saí satisfeito e tranquilo."</p>
-        </article>
-
-      </div>
-    </div>
-    <div class="car-footer">
-      <div class="car-arrows">
-        <button class="car-arrow" id="car-prev" aria-label="Anterior">&#8592;</button>
-        <button class="car-arrow" id="car-next" aria-label="Próximo">&#8594;</button>
-      </div>
-      <div class="car-pips" id="carPips"></div>
-    </div>
+<div class="strip z1" aria-hidden="true">
+  <div class="strip__track">
+    <div class="strip__item"><span>&#10022;</span> M&eacute;dico com CRM ativo</div>
+    <div class="strip__item"><span>&#10022;</span> Consulta em prontu&aacute;rio</div>
+    <div class="strip__item"><span>&#10022;</span> Portugu&ecirc;s e ingl&ecirc;s</div>
+    <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
+    <div class="strip__item"><span>&#10022;</span> CFM n&ordm; 2.314/2022</div>
+    <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
+    <div class="strip__item"><span>&#10022;</span> M&eacute;dico com CRM ativo</div>
+    <div class="strip__item"><span>&#10022;</span> Consulta em prontu&aacute;rio</div>
+    <div class="strip__item"><span>&#10022;</span> Portugu&ecirc;s e ingl&ecirc;s</div>
+    <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
+    <div class="strip__item"><span>&#10022;</span> CFM n&ordm; 2.314/2022</div>
+    <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
   </div>
 </div>
-```
 
-  </section>
+<section class="sec z1">
+  <div class="wrap">
+    <div class="sec-label">Atendimento</div>
+    <h2 class="sec-h">O que voc&ecirc; <em>encontra.</em></h2>
+    <div class="imgcards__grid">
+      <div class="icard"><img src="img-1.jpg" alt="Médica em consulta"/><div class="icard__label">Atendimento humano</div></div>
+      <div class="icard"><img src="img-2.jpg" alt="Chat pelo celular"/><div class="icard__label">Direto pelo WhatsApp</div></div>
+      <div class="icard"><img src="img-3.jpg" alt="Ambiente clínico"/><div class="icard__label">Ambiente seguro</div></div>
+    </div>
+  </div>
+</section>
 
-  <!-- ── FAQ ───────────────────────────────── -->
+<section class="sec z1" id="como">
+  <div class="wrap">
+    <div class="sec-label">Processo</div>
+    <h2 class="sec-h">Tr&ecirc;s passos.<br><em>Do sintoma &agrave; conduta.</em></h2>
+    <div class="how__grid">
+      <div class="how-card"><div class="how-card__n">01</div><h3>Voc&ecirc; chama</h3><p>Triagem guiada por IA. Sem cadastro, sem app, sem espera.</p></div>
+      <div class="how-card"><div class="how-card__n">02</div><h3>Avalia&ccedil;&atilde;o objetiva</h3><p>Perguntas direcionadas ao que realmente importa. Sem rodeios.</p></div>
+      <div class="how-card"><div class="how-card__n">03</div><h3>Conduta clara</h3><p>O que fazer agora e quando buscar atendimento presencial.</p></div>
+    </div>
+    <p class="how__legal">Receitas, atestados e exames dependem de avalia&ccedil;&atilde;o m&eacute;dica individual, conforme Resolu&ccedil;&atilde;o CFM n&ordm;&nbsp;2.314/2022.</p>
+  </div>
+</section>
 
-  <section class="faq z1" id="duvidas">
-    <div class="wrap">
+<section class="reviews z1" id="avaliacoes">
+  <div class="wrap">
+    <div class="sec-label">Pacientes</div>
+    <h2 class="sec-h">Quem j&aacute; foi <em>atendido.</em></h2>
+    <div class="reviews__score">&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;4,9 m&eacute;dia &middot; 200+ avalia&ccedil;&otilde;es</div>
+    <div class="car-outer">
+      <div class="car-vp">
+        <div class="car-tk" id="carTk">
+          <article class="rcard"><div class="rcard__top"><strong class="rcard__name">Israel</strong><span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rcard__quote">"Adiantou a consulta, o que foi muito bom. Muito simp&aacute;tico, explicou tudo com clareza. Primeira experi&ecirc;ncia em telemedicina e adorei."</p></article>
+          <article class="rcard"><div class="rcard__top"><strong class="rcard__name">Rosimeire</strong><span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rcard__quote">"Excelente atendimento. M&eacute;dico atencioso, dedicado, muito educado. Ouviu meus sintomas e solicitou os exames necess&aacute;rios. Certamente retornarei."</p></article>
+          <article class="rcard"><div class="rcard__top"><strong class="rcard__name">Juelito</strong><span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rcard__quote">"Profissional extremamente atencioso. Orientou sobre medica&ccedil;&otilde;es e sobre minha sa&uacute;de em geral. Superou e muito as minhas expectativas."</p></article>
+          <article class="rcard"><div class="rcard__top"><strong class="rcard__name">Eduardo</strong><span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rcard__quote">"Profissional sensacional e humano. Nota-se que realmente se importa com a queixa do paciente. Sa&iacute; satisfeito e tranquilo."</p></article>
+        </div>
+      </div>
+      <div class="car-footer">
+        <div class="car-arrows">
+          <button class="car-arrow" id="car-prev">&#8592;</button>
+          <button class="car-arrow" id="car-next">&#8594;</button>
+        </div>
+        <div class="car-pips" id="carPips"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq z1" id="duvidas">
+  <div class="wrap">
+    <div class="sec-label">D&uacute;vidas</div>
+    <h2 class="sec-h">Respostas <em>diretas.</em></h2>
+    <div class="faq__layout">
+      <div class="faq__sticky">
+        <h2 class="sec-h" style="font-size:clamp(20px,2.6vw,32px)">Ainda com alguma d&uacute;vida?</h2>
+        <p>Manda uma mensagem direta, sem formul&aacute;rio, sem espera.</p>
+        <button class="btn btn--outline" onclick="openWidget()">Falar no WhatsApp</button>
+      </div>
+      <div class="faq__items">
+        <details class="qa"><summary>A teleconsulta &eacute; segura?</summary><div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imediato.</div></details>
+        <details class="qa"><summary>Posso receber receita ou atestado?</summary><div class="qa__ans">Somente quando clinicamente indicado ap&oacute;s avalia&ccedil;&atilde;o. N&atilde;o &eacute; autom&aacute;tico &mdash; depende do quadro.</div></details>
+        <details class="qa"><summary>Atende fora do Brasil?</summary><div class="qa__ans">Sim. Atendimento em portugu&ecirc;s e ingl&ecirc;s para pacientes no exterior.</div></details>
+        <details class="qa"><summary>Quando devo ir direto &agrave; emerg&ecirc;ncia?</summary><div class="qa__ans">Dor no peito, falta de ar importante, desmaio ou sinais de AVC &mdash; emerg&ecirc;ncia presencial imediatamente.</div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-bot z1">
+  <div class="wrap">
+    <div class="cta-bot__box">
       <div>
-        <div class="sec-label">Dúvidas</div>
-        <h2 class="sec-h">Respostas <em>diretas.</em></h2>
+        <h2 class="cta-bot__h">Resolve hoje.</h2>
+        <p class="cta-bot__sub">Clique e inicie sua triagem agora.</p>
       </div>
-      <div class="faq__layout">
-        <div class="faq__sticky">
-          <h2 class="sec-h" style="font-size:clamp(22px,2.8vw,34px);margin-bottom:14px">Ainda com<br>alguma dúvida?</h2>
-          <p>Manda uma mensagem direta — sem formulário, sem espera.</p>
-          <a class="btn btn--outline" id="cta-faq" href="#">Falar no WhatsApp</a>
-        </div>
-        <div class="faq__items">
-          <details class="qa">
-            <summary>A teleconsulta é segura?</summary>
-            <div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imediato.</div>
-          </details>
-          <details class="qa">
-            <summary>Posso receber receita ou atestado?</summary>
-            <div class="qa__ans">Somente quando clinicamente indicado após avaliação. Não é automático — depende inteiramente do quadro.</div>
-          </details>
-          <details class="qa">
-            <summary>Atende fora do Brasil?</summary>
-            <div class="qa__ans">Sim. Atendimento em português e inglês para pacientes no exterior.</div>
-          </details>
-          <details class="qa">
-            <summary>Quando devo ir direto à emergência?</summary>
-            <div class="qa__ans">Dor no peito, falta de ar importante, desmaio, confusão mental ou sinais de AVC — emergência presencial imediatamente.</div>
-          </details>
-        </div>
-      </div>
+      <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
     </div>
-  </section>
-
-  <!-- ── CTA FINAL ──────────────────────────── -->
-
-  <section class="cta-bot z1">
-    <div class="wrap">
-      <div class="cta-bot__box">
-        <div>
-          <h2 class="cta-bot__h">Resolve hoje.</h2>
-          <p class="cta-bot__sub">Clique — a mensagem já está pronta.</p>
-        </div>
-        <a class="btn btn--lg" id="cta-final" href="#">
-          <svg width="19" height="19" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-            <path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/>
-          </svg>
-          Chamar no WhatsApp
-        </a>
-      </div>
-    </div>
-  </section>
-
+  </div>
+</section>
 </main>
-
-<!-- ── FOOTER ─────────────────────────────── -->
 
 <footer class="footer z1">
   <div class="wrap footer__in">
-    JG FONSECA SERVIÇOS MÉDICOS LTDA &nbsp;|&nbsp; CNPJ: 55.789.896/0001-21<br>
-    Médico responsável: Gustavo Fonseca &nbsp;·&nbsp; (98) 98927-2727 &nbsp;·&nbsp; drgustavofons@gmail.com
+    JG FONSECA SERVI&Ccedil;OS M&Eacute;DICOS LTDA &nbsp;|&nbsp; CNPJ: 55.789.896/0001-21<br>
+    M&eacute;dico respons&aacute;vel: Gustavo Fonseca &nbsp;&middot;&nbsp; (98) 98927-2727 &nbsp;&middot;&nbsp; drgustavofons@gmail.com
   </div>
 </footer>
 
-<!-- ── WA WIDGET ───────────────────────────── -->
-
-<style>
-/* float button */
-#waf{
-  position:fixed;right:22px;bottom:22px;z-index:200;
-  width:58px;height:58px;border-radius:50%;
-  background:#25D366;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 30px rgba(0,0,0,.4);
-  cursor:pointer;border:none;
-  transition:transform .15s ease;
-  animation:waPulse 3s ease-in-out infinite;
-}
-#waf:hover{transform:scale(1.1);animation:none}
-@keyframes waPulse{
-  0%,100%{box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,.45)}
-  60%{box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 0 12px rgba(37,211,102,.0)}
-}
-
-/* overlay */
-#wa-overlay{
-  display:none;
-  position:fixed;inset:0;z-index:300;
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(4px);
-  align-items:flex-end;justify-content:flex-end;
-  padding:22px;
-}
-#wa-overlay.open{display:flex}
-
-/* popup card */
-#wa-popup{
-  width:min(380px,94vw);
-  border-radius:22px;
-  background:#0e1a15;
-  border:1px solid rgba(255,255,255,.10);
-  box-shadow:0 40px 100px rgba(0,0,0,.6);
-  overflow:hidden;
-  animation:popIn .28s cubic-bezier(.34,1.56,.64,1);
-  transform-origin:bottom right;
-}
-@keyframes popIn{
-  from{opacity:0;transform:scale(.88) translateY(20px)}
-  to{opacity:1;transform:none}
-}
-
-/* popup header */
-.wp-head{
-  background:#25D366;
-  padding:18px 20px 16px;
-  display:flex;align-items:center;gap:12px;
-}
-.wp-head-icon{
-  width:40px;height:40px;border-radius:50%;
-  background:rgba(0,0,0,.18);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.wp-head-title{font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;color:#fff}
-.wp-head-sub{font-size:.75rem;color:rgba(255,255,255,.8);margin-top:2px;font-weight:400}
-.wp-close{
-  margin-left:auto;background:none;border:none;cursor:pointer;
-  color:rgba(255,255,255,.8);font-size:1.4rem;line-height:1;padding:4px;
-  transition:color .15s;
-}
-.wp-close:hover{color:#fff}
-
-/* bubble */
-.wp-bubble{
-  margin:18px 16px 14px;
-  background:#1a2b22;border:1px solid rgba(255,255,255,.07);
-  border-radius:14px;padding:13px 15px;
-  font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:300;
-  color:rgba(255,255,255,.75);line-height:1.6;
-}
-
-/* form */
-.wp-form{padding:0 16px 18px;display:flex;flex-direction:column;gap:10px}
-.wp-inp{
-  width:100%;padding:11px 14px;border-radius:12px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.10);
-  font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:300;
-  color:#fff;outline:none;resize:none;
-  transition:border-color .2s;
-}
-.wp-inp::placeholder{color:rgba(255,255,255,.35)}
-.wp-inp:focus{border-color:rgba(94,224,160,.4);background:rgba(255,255,255,.08)}
-.wp-send{
-  display:flex;align-items:center;justify-content:center;gap:9px;
-  width:100%;padding:13px;border-radius:13px;border:none;cursor:pointer;
-  background:#25D366;
-  font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;color:#fff;
-  box-shadow:0 6px 20px rgba(37,211,102,.3);
-  transition:transform .12s,box-shadow .2s;
-}
-.wp-send:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(37,211,102,.4)}
-.wp-send:active{transform:none}
-</style>
-
-<!-- float trigger -->
-
-<button id="waf" aria-label="Chamar no WhatsApp" onclick="openWidget()">
-  <svg viewBox="0 0 32 32" fill="white" width="29" height="29" aria-hidden="true">
-    <path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/>
-  </svg>
+<button id="waf" aria-label="WhatsApp" onclick="openWidget()">
+  <svg viewBox="0 0 32 32" fill="white" width="27" height="27"><path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/></svg>
 </button>
 
-<!-- overlay + popup -->
-
-<div id="wa-overlay" role="dialog" aria-modal="true" aria-label="Iniciar atendimento" onclick="overlayClick(event)">
+<div id="wa-overlay" onclick="overlayClick(event)">
   <div id="wa-popup">
     <div class="wp-head">
-      <div class="wp-head-icon">
-        <svg viewBox="0 0 32 32" fill="white" width="22" height="22">
-          <path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/>
-        </svg>
-      </div>
-      <div>
-        <div class="wp-head-title">Pronto Atendimento Online</div>
-        <div class="wp-head-sub">🟢 Online agora · Resposta em minutos</div>
-      </div>
-      <button class="wp-close" onclick="closeWidget()" aria-label="Fechar">×</button>
+      <div class="wp-head-icon"><svg viewBox="0 0 32 32" fill="white" width="20" height="20"><path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/></svg></div>
+      <div><div class="wp-head-title">Pronto Atendimento Online</div><div class="wp-head-sub">Online agora &middot; Resposta em minutos</div></div>
+      <button class="wp-close" onclick="closeWidget()">&#215;</button>
     </div>
-
-```
-<div class="wp-bubble">
-  Olá! Preencha abaixo e te respondo em minutos. 👋
-</div>
-
-<div class="wp-form">
-  <input class="wp-inp" id="wp-nome" type="text" placeholder="Seu nome" autocomplete="given-name"/>
-  <input class="wp-inp" id="wp-idade" type="text" placeholder="Idade" inputmode="numeric"/>
-  <input class="wp-inp" id="wp-tel" type="tel" placeholder="WhatsApp (com DDD)" autocomplete="tel"/>
-  <textarea class="wp-inp" id="wp-queixa" rows="3" placeholder="Queixa principal e há quanto tempo…"></textarea>
-  <button class="wp-send" onclick="enviarWA()">
-    <svg viewBox="0 0 32 32" fill="white" width="18" height="18">
-      <path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/>
-    </svg>
-    Iniciar conversa no WhatsApp
-  </button>
-</div>
-```
-
+    <div class="wp-bubble">Ol&aacute;! Preencha abaixo e te respondo em minutos.</div>
+    <div class="wp-form">
+      <input class="wp-inp" id="wp-nome" type="text" placeholder="Seu nome" autocomplete="given-name"/>
+      <input class="wp-inp" id="wp-idade" type="text" placeholder="Idade" inputmode="numeric"/>
+      <input class="wp-inp" id="wp-tel" type="tel" placeholder="WhatsApp (com DDD)" autocomplete="tel"/>
+      <textarea class="wp-inp" id="wp-queixa" rows="3" placeholder="Queixa principal e h&aacute; quanto tempo..."></textarea>
+      <button class="wp-send" onclick="enviarWA()">Iniciar conversa no WhatsApp</button>
+    </div>
   </div>
 </div>
 
 <script>
-// ── WIDGET ──
-function openWidget(){ document.getElementById("wa-overlay").classList.add("open"); setTimeout(()=>document.getElementById("wp-nome").focus(),100); }
-function closeWidget(){ document.getElementById("wa-overlay").classList.remove("open"); }
-function overlayClick(e){ if(e.target===document.getElementById("wa-overlay")) closeWidget(); }
-document.addEventListener("keydown", e => { if(e.key==="Escape") closeWidget(); });
-
+function openWidget(){ document.getElementById('wa-overlay').classList.add('open'); setTimeout(()=>document.getElementById('wp-nome').focus(),100); }
+function closeWidget(){ document.getElementById('wa-overlay').classList.remove('open'); }
+function overlayClick(e){ if(e.target===document.getElementById('wa-overlay')) closeWidget(); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeWidget(); });
 function enviarWA(){
-  const nome   = document.getElementById("wp-nome").value.trim();
-  const idade  = document.getElementById("wp-idade").value.trim();
-  const tel    = document.getElementById("wp-tel").value.trim();
-  const queixa = document.getElementById("wp-queixa").value.trim();
-  if(!nome){ document.getElementById("wp-nome").focus(); return; }
-  const msg = `Olá, gostaria de atendimento médico online.\n\n👤 Nome: ${nome}\n🎂 Idade: ${idade||"—"}\n📱 Telefone: ${tel||"—"}\n🩺 Queixa: ${queixa||"—"}`;
-  window.open(`https://wa.me/5598989272727?text=${encodeURIComponent(msg)}`,"_blank");
+  var nome=document.getElementById('wp-nome').value.trim();
+  var idade=document.getElementById('wp-idade').value.trim();
+  var tel=document.getElementById('wp-tel').value.trim();
+  var queixa=document.getElementById('wp-queixa').value.trim();
+  if(!nome){ document.getElementById('wp-nome').focus(); return; }
+  var msg='Olá, gostaria de atendimento médico online.\n\n👤 Nome: '+nome+'\n🎂 Idade: '+(idade||'—')+'\n📱 Telefone: '+(tel||'—')+'\n🩺 Queixa: '+(queixa||'—');
+  window.open('https://wa.me/5598989272727?text='+encodeURIComponent(msg),'_blank');
   closeWidget();
 }
-
-// ── WA LINKS (botões do site abrem widget) ──
-const WA_BTNS = ["cta-nav","cta-hero","cta-faq","cta-final"];
-WA_BTNS.forEach(id => {
-  const el = document.getElementById(id);
-  if(el){ el.removeAttribute("href"); el.addEventListener("click", e=>{ e.preventDefault(); openWidget(); }); }
-});
-
-// No scroll reveal - all visible
-
-// ── COUNTERS ──
-const ioC = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(!e.isIntersecting || e.target.dataset.done) return;
-    e.target.dataset.done ="1";
-    const target = +e.target.dataset.count;
-    const t0 = performance.now();
-    const tick = t => {
-      const p = Math.min(1,(t-t0)/1100);
-      e.target.textContent = Math.round(target*(1-Math.pow(1-p,3))) +"+";
-      if(p<1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  });
-},{threshold:0.4});
-document.querySelectorAll("[data-count]").forEach(el => ioC.observe(el));
-
-// ── CAROUSEL ──
-const tk = document.getElementById("carTk");
-const pipsWrap = document.getElementById("carPips");
-const slides = Array.from(tk.children);
-let idx=0, timer;
-slides.forEach((_,i) => {
-  const p = document.createElement("button");
-  p.className ="pip";
-  p.setAttribute("aria-label",`Avaliação ${i+1}`);
-  p.onclick = () => go(i);
+var tk=document.getElementById('carTk');
+var pipsWrap=document.getElementById('carPips');
+var slides=Array.from(tk.children);
+var idx=0,timer;
+slides.forEach(function(_,i){
+  var p=document.createElement('button');
+  p.className='pip';
+  p.setAttribute('aria-label','Avaliação '+(i+1));
+  p.onclick=function(){go(i);};
   pipsWrap.appendChild(p);
 });
 function go(i){
-  idx = (i+slides.length)%slides.length;
-  tk.style.transform = `translateX(${-idx*100}%)`;
-  Array.from(pipsWrap.children).forEach((p,j) => p.classList.toggle("on",j===idx));
-  clearInterval(timer);
-  timer = setInterval(() => go(idx+1), 5800);
+  idx=(i+slides.length)%slides.length;
+  tk.style.transform='translateX('+(-idx*100)+'%)';
+  Array.from(pipsWrap.children).forEach(function(p,j){ p.classList.toggle('on',j===idx); });
+  clearInterval(timer); timer=setInterval(function(){go(idx+1);},5800);
 }
-document.getElementById("car-prev").onclick = () => go(idx-1);
-document.getElementById("car-next").onclick = () => go(idx+1);
+document.getElementById('car-prev').onclick=function(){go(idx-1);};
+document.getElementById('car-next').onclick=function(){go(idx+1);};
 go(0);
-
-// ── FAQ accordion ──
-document.querySelectorAll(".qa").forEach(d => {
-  d.addEventListener("toggle", () => {
-    if(d.open) document.querySelectorAll(".qa[open]").forEach(o => { if(o!==d) o.removeAttribute("open"); });
+document.querySelectorAll('.qa').forEach(function(d){
+  d.addEventListener('toggle',function(){
+    if(d.open) document.querySelectorAll('.qa[open]').forEach(function(o){ if(o!==d) o.removeAttribute('open'); });
   });
 });
 </script>
