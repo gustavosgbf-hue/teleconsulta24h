@@ -392,13 +392,13 @@ RESPONSIVE
     <input type="checkbox" id="termsCheck" onchange="toggleAceitar(this)"/>
     <span>Li e concordo com os Termos de Uso, Politica de Privacidade e TCLE.</span>
   </label>
-  <button id="btnAccept" onclick="iniciarTriagem()" style="
+  <button id="btnAccept" onclick="iniciarTriagem()" disabled style="
     width:100%;padding:14px;border-radius:14px;border:none;
     background-color:#b4e05a;color:#051208;
     font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;
-    cursor:pointer;opacity:.35;pointer-events:none;
+    cursor:not-allowed;opacity:.35;
     box-shadow:0 6px 24px rgba(180,224,90,.28);
-  ">Aceitar e iniciar triagem &rarr;</button>
+  ">Aceitar e iniciar triagem</button>
 </div>
 ```
 
@@ -471,11 +471,13 @@ const termsScroll = document.getElementById('termsScroll');
 window.toggleAceitar = function(cb){
   var btn = document.getElementById('btnAccept');
   if(cb.checked){
+    btn.disabled = false;
     btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
+    btn.style.cursor = 'pointer';
   } else {
+    btn.disabled = true;
     btn.style.opacity = '.35';
-    btn.style.pointerEvents = 'none';
+    btn.style.cursor = 'not-allowed';
   }
 };
 
