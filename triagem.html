@@ -239,10 +239,11 @@ function addMsg(chatId, type, text){
   var chat = document.getElementById(chatId);
   var div = document.createElement('div');
   div.className = 'msg msg--' + type;
-  var av = type === 'bot' ? '&#129514;' : '&#128100;';
-  div.innerHTML = (type === 'bot' ? '<div class="msg__av">' + av + '</div>' : '') +
-    '<div class="msg__bubble">' + text.replace(/\n/g,'<br>') + '</div>' +
-    (type === 'user' ? '<div class="msg__av">' + av + '</div>' : '');
+  var botAv = '<div class="msg__av">&#x1F3E5;</div>';
+  var userAv = '<div class="msg__av">&#x1F464;</div>';
+  var safeText = String(text || '').replace(/\n/g,'<br>');
+  var bubble = '<div class="msg__bubble">' + safeText + '</div>';
+  div.innerHTML = type === 'bot' ? botAv + bubble : bubble + userAv;
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
 }
