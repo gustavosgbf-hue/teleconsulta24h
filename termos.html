@@ -3,37 +3,98 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Termos de Uso</title>
+<title>Termos de Uso · Pronto Atendimento Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-body{font-family:Arial,Helvetica,sans-serif;background:#0e1116;color:#e6edf3;max-width:900px;margin:40px auto;padding:20px;line-height:1.7}
-h1,h2{color:#fff}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.88);-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:#b4e05a;text-decoration:none}
+a:hover{text-decoration:underline}
+
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80vw 60vh at 15% 0%,rgba(180,224,90,.10) 0%,transparent 60%),
+  radial-gradient(ellipse 60vw 50vh at 90% 5%,rgba(94,224,160,.07) 0%,transparent 55%);}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,13,11,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.09)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.nav__brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem;color:#fff;text-decoration:none}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#5ee0a0;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
+.nav__back{font-size:.78rem;color:rgba(255,255,255,.45);font-weight:400}
+
+.wrap{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:60px 24px 80px}
+
+.doc-label{font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#b4e05a;margin-bottom:14px}
+.doc-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:500;line-height:1.1;letter-spacing:-.025em;margin-bottom:10px}
+.doc-meta{font-size:.78rem;color:rgba(255,255,255,.35);font-weight:300;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.09)}
+
+.doc-section{margin-bottom:36px}
+.doc-section h2{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.doc-section h2::before{content:'';display:inline-block;width:20px;height:1px;background:#b4e05a;opacity:.6;flex-shrink:0}
+.doc-section p{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.65);line-height:1.8}
+
+.doc-footer{margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.09);font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300;line-height:1.8;text-align:center}
 </style>
 </head>
 <body>
+<div class="bg-glow" aria-hidden="true"></div>
 
-<h1>Termos de Uso</h1>
+<nav class="nav">
+  <a class="nav__brand" href="index.html"><div class="live-dot"></div>Pronto Atendimento Online</a>
+  <span class="nav__back">← Voltar</span>
+</nav>
 
-<p>Ao utilizar este serviço, o usuário declara estar ciente e de acordo com os termos abaixo.</p>
+<div class="wrap">
+  <div class="doc-label">Documento legal</div>
+  <h1 class="doc-title">Termos de Uso</h1>
+  <p class="doc-meta">JG FONSECA SERVIÇOS MÉDICOS LTDA · CNPJ 55.789.896/0001-21 · Última atualização: fevereiro de 2026</p>
 
-<h2>1. Natureza do Serviço</h2>
-<p>O serviço consiste em atendimento médico remoto, realizado por profissional com CRM ativo, conforme Resolução CFM nº 2.314/2022.</p>
+  <div class="doc-section">
+    <h2>Aceitação</h2>
+    <p>Ao utilizar este serviço, o usuário declara estar ciente e de acordo com todos os termos abaixo. O uso implica aceitação integral.</p>
+  </div>
 
-<h2>2. Triagem Automatizada</h2>
-<p>A triagem inicial pode utilizar ferramenta de inteligência artificial como apoio, não substituindo avaliação médica.</p>
+  <div class="doc-section">
+    <h2>Natureza do serviço</h2>
+    <p>Atendimento médico remoto realizado por profissional com CRM ativo, conforme Resolução CFM nº 2.314/2022. O serviço não substitui consulta presencial em situações de urgência ou emergência.</p>
+  </div>
 
-<h2>3. Limitações</h2>
-<p>Casos que indiquem gravidade ou urgência exigem atendimento presencial imediato.</p>
+  <div class="doc-section">
+    <h2>Triagem automatizada</h2>
+    <p>A triagem inicial utiliza inteligência artificial como ferramenta de apoio para coleta de anamnese. Não constitui diagnóstico médico e não substitui avaliação clínica individual.</p>
+  </div>
 
-<h2>4. Receitas e Atestados</h2>
-<p>São emitidos exclusivamente após avaliação médica individual.</p>
+  <div class="doc-section">
+    <h2>Limitações clínicas</h2>
+    <p>Casos que indiquem gravidade, urgência ou risco de vida requerem atendimento presencial imediato. O médico responsável orientará quando necessário. Em caso de dúvida, procure o pronto-socorro.</p>
+  </div>
 
-<h2>5. Responsabilidade</h2>
-<p>O paciente é responsável pela veracidade das informações fornecidas.</p>
+  <div class="doc-section">
+    <h2>Receitas e atestados</h2>
+    <p>São emitidos exclusivamente após avaliação médica individual e quando houver indicação clínica. Não são fornecidos de forma automática ou mediante solicitação sem consulta.</p>
+  </div>
 
-<h2>6. Foro</h2>
-<p>Fica eleito o foro da comarca do domicílio do responsável técnico para dirimir eventuais controvérsias.</p>
+  <div class="doc-section">
+    <h2>Responsabilidade do paciente</h2>
+    <p>O paciente é responsável pela veracidade, precisão e completude das informações fornecidas durante a triagem e o atendimento. Informações falsas podem comprometer a qualidade do cuidado.</p>
+  </div>
 
-<p>Última atualização: 2026</p>
+  <div class="doc-section">
+    <h2>Pagamento</h2>
+    <p>O valor da consulta é informado previamente. O pagamento é condição para realização do atendimento médico, salvo em situações de orientação emergencial.</p>
+  </div>
 
+  <div class="doc-section">
+    <h2>Foro</h2>
+    <p>Fica eleito o foro da comarca de São Luís — MA, domicílio do responsável técnico, para dirimir eventuais controvérsias decorrentes destes termos.</p>
+  </div>
+
+  <div class="doc-footer">
+    JG FONSECA SERVIÇOS MÉDICOS LTDA · CNPJ 55.789.896/0001-21<br>
+    Dr. Gustavo Fonseca · CRM 14325-MA · drgustavofons@gmail.com
+  </div>
+</div>
 </body>
 </html>
