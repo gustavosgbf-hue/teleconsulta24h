@@ -473,26 +473,6 @@ animation:waPulse 3s ease-in-out infinite;
 }
 
 /* ══════════════════════════════════════
-REVEAL ANIMATIONS
-══════════════════════════════════════ */
-.rv{transition:opacity .8s ease,transform .8s ease}
-body.js-ready .rv{opacity:0;transform:translateY(22px)}
-body.js-ready .rv.from-l{transform:translateX(-26px)}
-body.js-ready .rv.from-r{transform:translateX(26px)}
-body.js-ready .rv.in{opacity:1!important;transform:none!important}
-.d1{transition-delay:.08s}
-.d2{transition-delay:.16s}
-.d3{transition-delay:.24s}
-.d4{transition-delay:.32s}
-@media(prefers-reduced-motion:reduce){
-.rv,body.js-ready .rv,body.js-ready .rv.in{
-opacity:1!important;transform:none!important;transition:none!important
-}
-.car-tk{transition:none!important}
-.strip__track{animation:none!important}
-}
-
-/* ══════════════════════════════════════
 RESPONSIVE
 ══════════════════════════════════════ */
 @media(max-width:960px){
@@ -550,22 +530,22 @@ h1.hero__h{font-size:42px}
 
 ```
   <div class="hero__left">
-    <div class="hero__kicker rv d1">
+    <div class="hero__kicker">
       <span class="hero__kicker-line"></span>
       Telemedicina · Brasil e exterior
     </div>
 
-    <h1 class="hero__h rv d2">
+    <h1 class="hero__h">
       Avaliação<br>
       <em>médica online.</em>
     </h1>
 
-    <p class="hero__tagline rv d3">
+    <p class="hero__tagline">
       Clara. Direta. Segura.<br>
       Sem burocracia, sem espera.
     </p>
 
-    <div class="hero__row rv d3">
+    <div class="hero__row">
       <div class="price-block">
         <div class="price-block__label">Consulta</div>
         <div class="price-block__val">R$&thinsp;49,90</div>
@@ -578,7 +558,7 @@ h1.hero__h{font-size:42px}
       </a>
     </div>
 
-    <div class="hero__stats rv d4">
+    <div class="hero__stats">
       <div class="hstat">
         <span class="hstat__n" data-count="800">0</span>
         <span class="hstat__l">atendimentos</span>
@@ -596,7 +576,7 @@ h1.hero__h{font-size:42px}
     </div>
   </div>
 
-  <div class="hero__right rv d2 from-r">
+  <div class="hero__right">
     <div class="hero__photo-wrap">
       <img src="img-hero.jpg" alt="Médica em atendimento online"/>
       <div class="hero__glass">
@@ -637,20 +617,20 @@ h1.hero__h{font-size:42px}
 
   <section class="imgcards z1">
     <div class="wrap">
-      <div class="imgcards__head rv">
+      <div class="imgcards__head">
         <div class="sec-label">Atendimento</div>
         <h2 class="sec-h">O que você <em>encontra.</em></h2>
       </div>
       <div class="imgcards__grid">
-        <div class="icard rv d1">
+        <div class="icard">
           <img src="img-1.jpg" alt="Médica em consulta presencial"/>
           <div class="icard__label">Atendimento humano</div>
         </div>
-        <div class="icard rv d2">
+        <div class="icard">
           <img src="img-2.jpg" alt="Paciente usando telemedicina"/>
           <div class="icard__label">Direto pelo WhatsApp</div>
         </div>
-        <div class="icard rv d3">
+        <div class="icard">
           <img src="img-3.jpg" alt="Ambiente clínico moderno"/>
           <div class="icard__label">Ambiente seguro</div>
         </div>
@@ -662,28 +642,28 @@ h1.hero__h{font-size:42px}
 
   <section class="sec z1" id="como">
     <div class="wrap">
-      <div class="rv">
+      <div>
         <div class="sec-label">Processo</div>
         <h2 class="sec-h">Três passos.<br><em>Do sintoma à conduta.</em></h2>
       </div>
       <div class="how__grid">
-        <div class="how-card rv d1">
+        <div class="how-card">
           <div class="how-card__n">01</div>
           <h3>Você chama</h3>
           <p>Mensagem pronta no WhatsApp. Sem cadastro, sem app, sem espera.</p>
         </div>
-        <div class="how-card rv d2">
+        <div class="how-card">
           <div class="how-card__n">02</div>
           <h3>Avaliação objetiva</h3>
           <p>Perguntas direcionadas ao que realmente importa. Sem rodeios, sem enrolação.</p>
         </div>
-        <div class="how-card rv d3">
+        <div class="how-card">
           <div class="how-card__n">03</div>
           <h3>Conduta clara</h3>
           <p>O que fazer agora — e os sinais que indicam a necessidade de atendimento presencial.</p>
         </div>
       </div>
-      <p class="how__legal rv">
+      <p class="how__legal">
         Receitas, atestados e solicitações de exames dependem de avaliação médica individual e indicação clínica, conforme Resolução CFM nº&nbsp;2.314/2022.
       </p>
     </div>
@@ -693,7 +673,7 @@ h1.hero__h{font-size:42px}
 
   <section class="reviews z1" id="avaliacoes">
     <div class="wrap">
-      <div class="rv">
+      <div>
         <div class="sec-label">Pacientes</div>
         <h2 class="sec-h">Quem já foi <em>atendido.</em></h2>
         <div class="reviews__subhead">
@@ -702,7 +682,7 @@ h1.hero__h{font-size:42px}
       </div>
 
 ```
-  <div class="car-outer rv">
+  <div class="car-outer">
     <div class="car-vp">
       <div class="car-tk" id="carTk">
 
@@ -765,30 +745,30 @@ h1.hero__h{font-size:42px}
 
   <section class="faq z1" id="duvidas">
     <div class="wrap">
-      <div class="rv">
+      <div>
         <div class="sec-label">Dúvidas</div>
         <h2 class="sec-h">Respostas <em>diretas.</em></h2>
       </div>
       <div class="faq__layout">
-        <div class="faq__sticky rv">
+        <div class="faq__sticky">
           <h2 class="sec-h" style="font-size:clamp(22px,2.8vw,34px);margin-bottom:14px">Ainda com<br>alguma dúvida?</h2>
           <p>Manda uma mensagem direta — sem formulário, sem espera.</p>
           <a class="btn btn--outline" id="cta-faq" href="#">Falar no WhatsApp</a>
         </div>
         <div class="faq__items">
-          <details class="qa rv d1">
+          <details class="qa">
             <summary>A teleconsulta é segura?</summary>
             <div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imediato.</div>
           </details>
-          <details class="qa rv d2">
+          <details class="qa">
             <summary>Posso receber receita ou atestado?</summary>
             <div class="qa__ans">Somente quando clinicamente indicado após avaliação. Não é automático — depende inteiramente do quadro.</div>
           </details>
-          <details class="qa rv d3">
+          <details class="qa">
             <summary>Atende fora do Brasil?</summary>
             <div class="qa__ans">Sim. Atendimento em português e inglês para pacientes no exterior.</div>
           </details>
-          <details class="qa rv d4">
+          <details class="qa">
             <summary>Quando devo ir direto à emergência?</summary>
             <div class="qa__ans">Dor no peito, falta de ar importante, desmaio, confusão mental ou sinais de AVC — emergência presencial imediatamente.</div>
           </details>
@@ -801,7 +781,7 @@ h1.hero__h{font-size:42px}
 
   <section class="cta-bot z1">
     <div class="wrap">
-      <div class="cta-bot__box rv">
+      <div class="cta-bot__box">
         <div>
           <h2 class="cta-bot__h">Resolve hoje.</h2>
           <p class="cta-bot__sub">Clique — a mensagem já está pronta.</p>
@@ -999,29 +979,18 @@ WA_BTNS.forEach(id => {
   if(el){ el.removeAttribute("href"); el.addEventListener("click", e=>{ e.preventDefault(); openWidget(); }); }
 });
 
-// ── SCROLL REVEAL ──
-// Mark body so CSS hides .rv elements (safe: only hides after JS runs)
-document.body.classList.add("js-ready");
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("in"); });
-}, {threshold:0.08,rootMargin:"0px 0px -30px 0px"});
-document.querySelectorAll(".rv").forEach(el => {
-  // Immediately reveal if already in viewport (fixes iOS first-screen issue)
-  const r = el.getBoundingClientRect();
-  if(r.top < window.innerHeight && r.bottom > 0) { el.classList.add("in"); return; }
-  io.observe(el);
-});
+// No scroll reveal - all visible
 
 // ── COUNTERS ──
 const ioC = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if(!e.isIntersecting || e.target.dataset.done) return;
-    e.target.dataset.done = "1";
+    e.target.dataset.done ="1";
     const target = +e.target.dataset.count;
     const t0 = performance.now();
     const tick = t => {
       const p = Math.min(1,(t-t0)/1100);
-      e.target.textContent = Math.round(target*(1-Math.pow(1-p,3))) + "+";
+      e.target.textContent = Math.round(target*(1-Math.pow(1-p,3))) +"+";
       if(p<1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -1036,7 +1005,7 @@ const slides = Array.from(tk.children);
 let idx=0, timer;
 slides.forEach((_,i) => {
   const p = document.createElement("button");
-  p.className = "pip";
+  p.className ="pip";
   p.setAttribute("aria-label",`Avaliação ${i+1}`);
   p.onclick = () => go(i);
   pipsWrap.appendChild(p);
