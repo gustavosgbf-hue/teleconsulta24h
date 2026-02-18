@@ -4,20 +4,457 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Pronto Atendimento Online</title>
-<meta name="description" content="Atendimento médico online com avaliação clara, direta e responsável."/>
+<meta name="description" content="Atendimento medico online. Avaliacao clara, direta e segura."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <style>
-/* ⚠️ MANTIVE SEU CSS ORIGINAL AQUI SEM ALTERAÇÕES */
-/* Cole aqui exatamente o mesmo CSS que você já tem */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',sans-serif;
+  background:#060d0b;
+  color:rgba(255,255,255,.92);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+
+:root{
+  --g1:#b4e05a;
+  --g2:#5ee0a0;
+  --line:rgba(255,255,255,.09);
+  --card:rgba(255,255,255,.045);
+  --muted:rgba(255,255,255,.55);
+  --muted2:rgba(255,255,255,.32);
+}
+
+.bg-glow{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80vw 60vh at 15% 0%,rgba(180,224,90,.12) 0%,transparent 60%),
+    radial-gradient(ellipse 60vw 50vh at 90% 5%,rgba(94,224,160,.09) 0%,transparent 55%);
+}
+.z1{position:relative;z-index:1}
+.wrap{width:min(1140px,92vw);margin:0 auto}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:14px 24px;border-radius:14px;border:none;
+  font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  background-color:#b4e05a;
+  background-image:-webkit-linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);
+  background-image:linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);
+  -webkit-appearance:none;appearance:none;
+  color:#051208;
+  box-shadow:0 6px 24px rgba(180,224,90,.28);
+  transition:transform .12s,box-shadow .2s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(180,224,90,.36)}
+.btn:active{transform:none}
+.btn--lg{padding:16px 28px;font-size:1rem;border-radius:16px}
+.btn--outline{
+  background-color:rgba(255,255,255,.08)!important;
+  background-image:none!important;
+  color:rgba(255,255,255,.9)!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  box-shadow:none!important;
+}
+.btn--outline:hover{background-color:rgba(255,255,255,.14)!important;transform:none!important;box-shadow:none!important}
+
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(6,13,11,.8);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.nav__in{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;gap:16px;
+}
+.nav__brand{
+  display:flex;align-items:center;gap:10px;
+  font-weight:600;font-size:.92rem;
+}
+.live-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--g2);
+  animation:livePulse 2s ease-in-out infinite;flex-shrink:0;
+}
+@keyframes livePulse{
+  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}
+  50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}
+}
+.nav__live{
+  display:flex;align-items:center;gap:7px;
+  padding:5px 12px;border-radius:999px;
+  border:1px solid rgba(94,224,160,.22);
+  background:rgba(94,224,160,.06);
+  font-size:.7rem;font-weight:500;
+  color:rgba(255,255,255,.65);
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.nav__actions{display:flex;align-items:center;gap:10px}
+
+/* HERO */
+.hero{padding:80px 0 60px}
+.hero__grid{
+  display:grid;grid-template-columns:1.1fr .9fr;
+  gap:50px;align-items:center;
+}
+.hero__kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--g1);margin-bottom:22px;
+}
+.hero__kicker-line{width:28px;height:1px;background:var(--g1);opacity:.6}
+.hero__h{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(40px,5.5vw,72px);
+  line-height:1.03;letter-spacing:-.03em;
+  margin-bottom:18px;font-weight:500;
+}
+.hero__h em{font-style:italic;color:#b4e05a}
+.hero__tagline{
+  font-size:1rem;font-weight:300;color:var(--muted);
+  line-height:1.7;margin-bottom:34px;
+}
+.hero__ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.price-block{
+  border:1px solid var(--line);background:var(--card);
+  border-radius:16px;padding:12px 18px;
+}
+.price-block__label{
+  font-size:.64rem;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted2);margin-bottom:4px;
+}
+.price-block__val{
+  font-family:'Outfit',sans-serif;
+  font-size:1.45rem;font-weight:600;letter-spacing:-.02em;
+}
+.hero__stats{display:flex;align-items:center}
+.hstat{display:flex;flex-direction:column;align-items:center;padding:0 22px}
+.hstat:first-child{padding-left:0}
+.hstat__n{
+  font-family:'Playfair Display',serif;
+  font-size:1.55rem;font-weight:700;line-height:1;color:#b4e05a;
+}
+.hstat__l{font-size:.72rem;font-weight:400;color:var(--muted);margin-top:4px}
+.hstat-sep{width:1px;height:30px;background:var(--line)}
+
+.hero__photo-wrap{
+  position:relative;border-radius:24px;overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:0 40px 100px rgba(0,0,0,.5);
+  aspect-ratio:4/5;
+}
+.hero__photo-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(6,13,11,.6) 0%,transparent 40%);
+}
+.hero__glass{
+  position:absolute;bottom:16px;left:16px;right:16px;z-index:2;
+  display:flex;align-items:center;gap:11px;
+  padding:13px 16px;border-radius:14px;
+  background:rgba(6,13,11,.55);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.1);
+}
+.hero__glass-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--g2);
+  animation:livePulse 2s ease-in-out infinite;flex-shrink:0;
+}
+.hero__glass-title{font-size:.88rem;font-weight:600}
+.hero__glass-sub{font-size:.74rem;color:var(--muted);margin-top:1px}
+
+/* STRIP */
+.strip{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:13px 0;overflow:hidden;background:rgba(255,255,255,.015);
+}
+.strip__track{
+  display:flex;gap:44px;white-space:nowrap;
+  animation:marquee 26s linear infinite;
+}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.strip__item{
+  display:flex;align-items:center;gap:9px;
+  font-size:.76rem;font-weight:500;color:var(--muted);
+  letter-spacing:.04em;text-transform:uppercase;flex-shrink:0;
+}
+.strip__item span{color:var(--g1)}
+
+/* SECTION */
+.sec{padding:80px 0;border-top:1px solid var(--line)}
+.sec-label{
+  font-size:.68rem;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--g1);margin-bottom:14px;
+}
+.sec-h{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(26px,3.5vw,46px);
+  line-height:1.1;letter-spacing:-.025em;font-weight:500;
+}
+.sec-h em{font-style:italic;color:var(--g2)}
+
+/* IMAGE CARDS */
+.imgcards__grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;
+  gap:12px;align-items:start;margin-top:40px;
+}
+.icard{
+  position:relative;overflow:hidden;
+  border-radius:18px;border:1px solid var(--line);
+}
+.icard:first-child{aspect-ratio:3/4}
+.icard:not(:first-child){aspect-ratio:4/5}
+.icard img{transition:transform .6s ease}
+.icard:hover img{transform:scale(1.04)}
+.icard::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(6,13,11,.65) 0%,transparent 50%);
+}
+.icard__label{
+  position:absolute;bottom:14px;left:14px;z-index:2;
+  font-size:.72rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);padding:6px 12px;border-radius:999px;
+  background:rgba(6,13,11,.5);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+/* HOW */
+.how__grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin-top:40px;
+}
+.how-card{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  border-radius:18px;padding:26px 22px;
+}
+.how-card__n{
+  font-family:'Playfair Display',serif;
+  font-size:2.6rem;font-weight:700;
+  color:#b4e05a;line-height:1;margin-bottom:16px;
+}
+.how-card h3{font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;margin-bottom:8px}
+.how-card p{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.7}
+.how__legal{
+  margin-top:24px;text-align:center;
+  font-size:.74rem;font-weight:300;color:var(--muted2);line-height:1.65;
+}
+
+/* REVIEWS */
+.reviews{padding:80px 0;border-top:1px solid var(--line)}
+.reviews__score{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:10px;padding:7px 14px;border-radius:999px;
+  border:1px solid rgba(180,224,90,.22);
+  background:rgba(180,224,90,.06);
+  font-size:.78rem;font-weight:500;color:var(--g1);
+}
+.car-outer{
+  margin-top:40px;border:1px solid var(--line);border-radius:22px;
+  overflow:hidden;background:rgba(255,255,255,.04);
+}
+.car-vp{overflow:hidden}
+.car-tk{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.rcard{flex:0 0 100%;padding:36px 40px}
+.rcard__top{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;
+}
+.rcard__name{font-size:.95rem;font-weight:600}
+.rcard__stars{color:#b4e05a;letter-spacing:3px;font-size:.82rem}
+.rcard__quote{
+  font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:300;
+  line-height:1.75;color:rgba(255,255,255,.8);
+}
+.car-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 22px;border-top:1px solid var(--line);
+  background:rgba(0,0,0,.15);gap:12px;
+}
+.car-arrows{display:flex;gap:8px}
+.car-arrow{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,.8);font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .15s;
+  -webkit-appearance:none;appearance:none;
+}
+.car-arrow:hover{background:rgba(255,255,255,.09)}
+.car-pips{display:flex;gap:6px;align-items:center}
+.pip{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.2);border:none;cursor:pointer;
+  transition:background .2s,transform .2s;
+  -webkit-appearance:none;appearance:none;
+}
+.pip.on{background:#b4e05a;transform:scale(1.4)}
+
+/* FAQ */
+.faq{padding:80px 0;border-top:1px solid var(--line)}
+.faq__layout{
+  display:grid;grid-template-columns:1fr 1.6fr;
+  gap:56px;align-items:start;margin-top:40px;
+}
+.faq__sticky{position:sticky;top:80px}
+.faq__sticky p{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.7;margin:14px 0 22px}
+.faq__items{display:flex;flex-direction:column;gap:8px}
+.qa{
+  border:1px solid var(--line);background:rgba(255,255,255,.04);
+  border-radius:16px;overflow:hidden;transition:border-color .2s;
+}
+.qa[open]{border-color:rgba(180,224,90,.28)}
+.qa summary{
+  display:flex;justify-content:space-between;align-items:center;
+  list-style:none;padding:16px 18px;cursor:pointer;
+  font-size:.9rem;font-weight:500;gap:12px;user-select:none;
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{
+  content:'+';font-size:1.3rem;font-weight:300;
+  color:#b4e05a;flex-shrink:0;line-height:1;
+  transition:transform .25s ease;
+}
+.qa[open] summary::after{transform:rotate(45deg)}
+.qa__ans{
+  padding:0 18px 16px;
+  font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.75;
+}
+
+/* CTA FINAL */
+.cta-bot{padding:80px 0;border-top:1px solid var(--line)}
+.cta-bot__box{
+  border:1px solid rgba(180,224,90,.18);
+  border-radius:26px;padding:52px 56px;
+  background:linear-gradient(135deg,rgba(180,224,90,.06),rgba(94,224,160,.03));
+  display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+}
+.cta-bot__h{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,3.2vw,42px);
+  line-height:1.1;letter-spacing:-.025em;margin-bottom:8px;font-weight:500;
+}
+.cta-bot__sub{font-size:.9rem;font-weight:300;color:var(--muted)}
+
+/* FOOTER */
+.footer{padding:26px 0 32px;border-top:1px solid var(--line)}
+.footer__in{
+  text-align:center;font-size:.72rem;font-weight:300;
+  color:var(--muted2);line-height:1.75;
+}
+
+/* WA FLOAT */
+#waf{
+  position:fixed;right:20px;bottom:20px;z-index:200;
+  width:56px;height:56px;border-radius:50%;
+  background:#25D366;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px rgba(0,0,0,.4);
+  -webkit-appearance:none;appearance:none;
+  animation:waPulse 3s ease-in-out infinite;
+  transition:transform .15s;
+}
+#waf:hover{transform:scale(1.1);animation:none}
+@keyframes waPulse{
+  0%,100%{box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,.4)}
+  60%{box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 0 12px rgba(37,211,102,0)}
+}
+
+/* WIDGET */
+#wa-overlay{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,.55);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  align-items:flex-end;justify-content:flex-end;padding:20px;
+}
+#wa-overlay.open{display:flex}
+#wa-popup{
+  width:min(370px,94vw);border-radius:20px;
+  background:#0e1a15;border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 40px 100px rgba(0,0,0,.6);overflow:hidden;
+  animation:popIn .28s cubic-bezier(.34,1.4,.64,1);transform-origin:bottom right;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(18px)}to{opacity:1;transform:none}}
+.wp-head{
+  background:#25D366;padding:16px 18px 14px;
+  display:flex;align-items:center;gap:11px;
+}
+.wp-head-icon{
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(0,0,0,.18);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;
+}
+.wp-head-title{font-family:'Outfit',sans-serif;font-weight:600;font-size:.9rem;color:#fff}
+.wp-head-sub{font-size:.72rem;color:rgba(255,255,255,.8);margin-top:2px}
+.wp-close{
+  margin-left:auto;background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,.8);font-size:1.4rem;line-height:1;
+  -webkit-appearance:none;appearance:none;
+}
+.wp-bubble{
+  margin:16px 15px 12px;
+  background:#1a2b22;border:1px solid rgba(255,255,255,.07);
+  border-radius:13px;padding:12px 14px;
+  font-size:.83rem;font-weight:300;color:rgba(255,255,255,.72);line-height:1.6;
+}
+.wp-form{padding:0 15px 16px;display:flex;flex-direction:column;gap:9px}
+.wp-inp{
+  width:100%;padding:10px 13px;border-radius:11px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+  font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:300;
+  color:#fff;outline:none;resize:none;
+  transition:border-color .2s;-webkit-appearance:none;appearance:none;
+}
+.wp-inp::placeholder{color:rgba(255,255,255,.3)}
+.wp-inp:focus{border-color:rgba(94,224,160,.35)}
+.wp-send{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:12px;border-radius:12px;border:none;cursor:pointer;
+  background:#25D366;color:#fff;
+  font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;
+  -webkit-appearance:none;appearance:none;
+  box-shadow:0 5px 18px rgba(37,211,102,.28);
+  transition:transform .12s,box-shadow .2s;
+}
+.wp-send:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.38)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero__grid{grid-template-columns:1fr;gap:36px}
+  .hero__photo-wrap{aspect-ratio:16/9;max-height:400px}
+  .imgcards__grid{grid-template-columns:1fr 1fr}
+  .icard:first-child{grid-column:span 2;aspect-ratio:16/7}
+  .icard:not(:first-child){aspect-ratio:4/3}
+  .how__grid{grid-template-columns:1fr}
+  .faq__layout{grid-template-columns:1fr;gap:32px}
+  .faq__sticky{position:relative;top:auto}
+  .cta-bot__box{padding:36px 28px}
+}
+@media(max-width:640px){
+  .hero{padding:52px 0 44px}
+  .hero__h{font-size:38px}
+  .hero__ctas{flex-direction:column;align-items:flex-start}
+  .imgcards__grid{grid-template-columns:1fr}
+  .icard:first-child{grid-column:auto;aspect-ratio:4/3}
+  .rcard{padding:26px 20px}
+  .cta-bot__box{flex-direction:column;align-items:flex-start;padding:28px 22px}
+  .nav__live{display:none}
+}
 </style>
 </head>
-
 <body>
+
 <div class="bg-glow" aria-hidden="true"></div>
 
+<!-- NAV -->
 <header class="nav z1">
   <div class="wrap nav__in">
     <div class="nav__brand">
@@ -27,7 +464,7 @@
     <div class="nav__actions">
       <div class="nav__live">
         <div class="live-dot"></div>
-        Atendimento conforme disponibilidade
+        Online agora
       </div>
       <a class="btn" href="triagem.html">Iniciar consulta</a>
     </div>
@@ -36,21 +473,21 @@
 
 <main class="z1">
 
+<!-- HERO -->
 <section class="hero">
   <div class="wrap hero__grid">
     <div>
       <div class="hero__kicker">
         <span class="hero__kicker-line"></span>
-        Telemedicina conforme Resolução CFM nº 2.314/2022
+        Telemedicina &middot; Brasil e exterior
       </div>
       <h1 class="hero__h">
-        Avaliação<br><em>médica online.</em>
+        Avaliacao<br><em>medica online.</em>
       </h1>
       <p class="hero__tagline">
-        Clara. Direta. Responsável.<br>
-        Atendimento remoto conforme disponibilidade médica.
+        Clara. Direta. Segura.<br>
+        Sem burocracia, sem espera.
       </p>
-
       <div class="hero__ctas">
         <div class="price-block">
           <div class="price-block__label">Consulta</div>
@@ -58,33 +495,31 @@
         </div>
         <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
       </div>
-
       <div class="hero__stats">
         <div class="hstat">
           <span class="hstat__n">800+</span>
-          <span class="hstat__l">atendimentos realizados</span>
+          <span class="hstat__l">atendimentos</span>
         </div>
         <div class="hstat-sep"></div>
         <div class="hstat">
           <span class="hstat__n">200+</span>
-          <span class="hstat__l">avaliações verificáveis</span>
+          <span class="hstat__l">avaliacoes</span>
         </div>
         <div class="hstat-sep"></div>
         <div class="hstat">
-          <span class="hstat__n">4,9★</span>
-          <span class="hstat__l">média de satisfação</span>
+          <span class="hstat__n">4,9 &#9733;</span>
+          <span class="hstat__l">media</span>
         </div>
       </div>
     </div>
-
     <div>
       <div class="hero__photo-wrap">
-        <img src="img-hero.jpg" alt="Atendimento médico remoto"/>
+        <img src="img-hero.jpg" alt="Medica em atendimento online" loading="eager"/>
         <div class="hero__glass">
           <div class="hero__glass-dot"></div>
           <div>
-            <div class="hero__glass-title">Atendimento online</div>
-            <div class="hero__glass-sub">Conforme disponibilidade médica</div>
+            <div class="hero__glass-title">Online agora</div>
+            <div class="hero__glass-sub">Resposta em minutos</div>
           </div>
         </div>
       </div>
@@ -92,87 +527,265 @@
   </div>
 </section>
 
+<!-- STRIP -->
 <div class="strip z1" aria-hidden="true">
   <div class="strip__track">
-    <div class="strip__item"><span>✦</span> Médico com CRM ativo</div>
-    <div class="strip__item"><span>✦</span> Registro conforme normas do CFM</div>
-    <div class="strip__item"><span>✦</span> Atendimento remoto responsável</div>
-    <div class="strip__item"><span>✦</span> Português e inglês</div>
-    <div class="strip__item"><span>✦</span> Resolução CFM nº 2.314/2022</div>
+    <div class="strip__item"><span>&#10022;</span> Medico com CRM ativo</div>
+    <div class="strip__item"><span>&#10022;</span> Consulta em prontuario</div>
+    <div class="strip__item"><span>&#10022;</span> Portugues e ingles</div>
+    <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
+    <div class="strip__item"><span>&#10022;</span> CFM 2.314/2022</div>
+    <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
+    <div class="strip__item"><span>&#10022;</span> Medico com CRM ativo</div>
+    <div class="strip__item"><span>&#10022;</span> Consulta em prontuario</div>
+    <div class="strip__item"><span>&#10022;</span> Portugues e ingles</div>
+    <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
+    <div class="strip__item"><span>&#10022;</span> CFM 2.314/2022</div>
+    <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
   </div>
 </div>
 
+<!-- IMAGE CARDS -->
 <section class="sec z1">
   <div class="wrap">
     <div class="sec-label">Atendimento</div>
-    <h2 class="sec-h">O que você <em>encontra.</em></h2>
-
+    <h2 class="sec-h">O que voce <em>encontra.</em></h2>
     <div class="imgcards__grid">
       <div class="icard">
-        <img src="img-1.jpg" alt="Atendimento médico humano"/>
-        <div class="icard__label">Avaliação médica individual</div>
+        <img src="img-1.jpg" alt="Medica em consulta" loading="lazy"/>
+        <div class="icard__label">Atendimento humano</div>
       </div>
       <div class="icard">
-        <img src="img-2.jpg" alt="Chat médico"/>
-        <div class="icard__label">Atendimento via chat</div>
+        <img src="img-2.jpg" alt="Telemedicina pelo celular" loading="lazy"/>
+        <div class="icard__label">Direto pelo WhatsApp</div>
       </div>
       <div class="icard">
-        <img src="img-3.jpg" alt="Ambiente clínico"/>
-        <div class="icard__label">Sigilo e confidencialidade</div>
+        <img src="img-3.jpg" alt="Ambiente clinico" loading="lazy"/>
+        <div class="icard__label">Ambiente seguro</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- HOW -->
 <section class="sec z1" id="como">
   <div class="wrap">
     <div class="sec-label">Processo</div>
-    <h2 class="sec-h">Três etapas.<br><em>Do sintoma à conduta.</em></h2>
-
+    <h2 class="sec-h">Tres passos.<br><em>Do sintoma a conduta.</em></h2>
     <div class="how__grid">
       <div class="how-card">
         <div class="how-card__n">01</div>
-        <h3>Triagem inicial</h3>
-        <p>Triagem automatizada como apoio inicial. Não substitui avaliação médica.</p>
+        <h3>Voce chama</h3>
+        <p>Triagem guiada por IA. Sem cadastro, sem app, sem espera.</p>
       </div>
       <div class="how-card">
         <div class="how-card__n">02</div>
-        <h3>Avaliação médica</h3>
-        <p>Atendimento individual conduzido por médico com CRM ativo.</p>
+        <h3>Avaliacao objetiva</h3>
+        <p>Perguntas direcionadas ao que realmente importa. Sem rodeios.</p>
       </div>
       <div class="how-card">
         <div class="how-card__n">03</div>
-        <h3>Orientação e conduta</h3>
-        <p>Orientação clínica responsável e encaminhamento presencial quando necessário.</p>
+        <h3>Conduta clara</h3>
+        <p>O que fazer agora e quando buscar atendimento presencial.</p>
       </div>
     </div>
-
     <p class="how__legal">
-      Receitas, atestados e exames são emitidos exclusivamente após avaliação médica individual,
-      conforme Resolução CFM nº 2.314/2022.
+      Receitas, atestados e exames dependem de avaliacao medica individual, conforme Resolucao CFM n 2.314/2022.
     </p>
   </div>
 </section>
 
-<section style="padding:40px 0;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.7;">
-A triagem automatizada utiliza tecnologia de inteligência artificial como ferramenta de apoio inicial e não substitui avaliação médica.
+<!-- REVIEWS -->
+<section class="reviews z1" id="avaliacoes">
+  <div class="wrap">
+    <div class="sec-label">Pacientes</div>
+    <h2 class="sec-h">Quem ja foi <em>atendido.</em></h2>
+    <div class="reviews__score">&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;4,9 media &middot; 200+ avaliacoes</div>
+    <div class="car-outer">
+      <div class="car-vp">
+        <div class="car-tk" id="carTk">
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Israel</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Adiantou a consulta, o que foi muito bom. Muito simpatico, explicou tudo com clareza e educacao, se colocando a disposicao para quaisquer duvidas posteriores. Primeira experiencia em telemedicina e adorei.</p>
+          </article>
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Rosimeire</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Excelente atendimento. Medico atencioso, dedicado, muito educado, facil comunicacao. Ouviu atentamente meus sintomas e solicitou os exames necessarios. Certamente retornarei.</p>
+          </article>
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Juelito</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Profissional extremamente atencioso. Orientou sobre medicacoes e sobre minha saude em geral. Superou e muito as minhas expectativas.</p>
+          </article>
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Mariangela</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Muito atencioso, prestativo e explicou com clareza, demonstrando empatia. Senti-me acolhida e confiante durante a consulta.</p>
+          </article>
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Eduardo</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Profissional sensacional e humano. Ja e a quarta consulta com ele. Nota-se que realmente se importa com a queixa do paciente. Sai satisfeito e tranquilo.</p>
+          </article>
+        </div>
+      </div>
+      <div class="car-footer">
+        <div class="car-arrows">
+          <button class="car-arrow" id="carPrev" aria-label="Anterior">&#8592;</button>
+          <button class="car-arrow" id="carNext" aria-label="Proximo">&#8594;</button>
+        </div>
+        <div class="car-pips" id="carPips"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq z1" id="duvidas">
+  <div class="wrap">
+    <div class="sec-label">Duvidas</div>
+    <h2 class="sec-h">Respostas <em>diretas.</em></h2>
+    <div class="faq__layout">
+      <div class="faq__sticky">
+        <h2 class="sec-h" style="font-size:clamp(20px,2.6vw,32px)">Ainda com<br>alguma duvida?</h2>
+        <p>Manda uma mensagem direta sem formulario, sem espera.</p>
+        <button class="btn btn--outline" onclick="openWidget()">Falar no WhatsApp</button>
+      </div>
+      <div class="faq__items">
+        <details class="qa">
+          <summary>A teleconsulta e segura?</summary>
+          <div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imediato.</div>
+        </details>
+        <details class="qa">
+          <summary>Posso receber receita ou atestado?</summary>
+          <div class="qa__ans">Somente quando clinicamente indicado apos avaliacao. Nao e automatico e depende inteiramente do quadro.</div>
+        </details>
+        <details class="qa">
+          <summary>Atende fora do Brasil?</summary>
+          <div class="qa__ans">Sim. Atendimento em portugues e ingles para pacientes no exterior.</div>
+        </details>
+        <details class="qa">
+          <summary>Quando devo ir direto a emergencia?</summary>
+          <div class="qa__ans">Dor no peito, falta de ar importante, desmaio, confusao mental ou sinais de AVC. Emergencia presencial imediatamente.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-bot z1">
+  <div class="wrap">
+    <div class="cta-bot__box">
+      <div>
+        <h2 class="cta-bot__h">Resolve hoje.</h2>
+        <p class="cta-bot__sub">Clique e inicie sua triagem agora.</p>
+      </div>
+      <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
+    </div>
+  </div>
 </section>
 
 </main>
 
+<!-- FOOTER -->
 <footer class="footer z1">
   <div class="wrap footer__in">
-    JG FONSECA SERVIÇOS MÉDICOS LTDA | CNPJ: 55.789.896/0001-21<br>
-    Médico responsável: Dr. Gustavo Fonseca · CRM 14325-MA<br><br>
-
-    <a href="termos.html" target="_blank">Termos de Uso</a> · 
-    <a href="privacy.html" target="_blank">Política de Privacidade</a><br><br>
-
-    Este serviço não substitui atendimento presencial em situações de urgência ou emergência.<br>
-    Em caso de dor no peito, falta de ar intensa, desmaio ou sinais neurológicos, procure atendimento imediato.
+    JG FONSECA SERVICOS MEDICOS LTDA &nbsp;|&nbsp; CNPJ: 55.789.896/0001-21<br>
+    Medico responsavel: Gustavo Fonseca &nbsp;&middot;&nbsp; (98) 98927-2727 &nbsp;&middot;&nbsp; drgustavofons@gmail.com
   </div>
 </footer>
 
+<!-- WA FLOAT -->
+<button id="waf" aria-label="WhatsApp" onclick="openWidget()">
+  <svg viewBox="0 0 32 32" fill="white" width="27" height="27" aria-hidden="true">
+    <path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/>
+  </svg>
+</button>
 
+<!-- WA WIDGET -->
+<div id="wa-overlay" onclick="overlayClick(event)">
+  <div id="wa-popup">
+    <div class="wp-head">
+      <div class="wp-head-icon">&#128172;</div>
+      <div>
+        <div class="wp-head-title">Pronto Atendimento Online</div>
+        <div class="wp-head-sub">Online agora &middot; Resposta em minutos</div>
+      </div>
+      <button class="wp-close" onclick="closeWidget()">&#215;</button>
+    </div>
+    <div class="wp-bubble">Ola! Preencha abaixo e te respondo em minutos.</div>
+    <div class="wp-form">
+      <input class="wp-inp" id="wp-nome" type="text" placeholder="Seu nome" autocomplete="given-name"/>
+      <input class="wp-inp" id="wp-idade" type="text" placeholder="Idade" inputmode="numeric"/>
+      <input class="wp-inp" id="wp-tel" type="tel" placeholder="WhatsApp com DDD" autocomplete="tel"/>
+      <textarea class="wp-inp" id="wp-queixa" rows="3" placeholder="Queixa principal e ha quanto tempo..."></textarea>
+      <button class="wp-send" onclick="enviarWA()">Iniciar conversa no WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// WA WIDGET
+function openWidget(){ document.getElementById('wa-overlay').classList.add('open'); }
+function closeWidget(){ document.getElementById('wa-overlay').classList.remove('open'); }
+function overlayClick(e){ if(e.target===document.getElementById('wa-overlay')) closeWidget(); }
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeWidget(); });
+function enviarWA(){
+  var nome   = document.getElementById('wp-nome').value.trim();
+  var idade  = document.getElementById('wp-idade').value.trim();
+  var tel    = document.getElementById('wp-tel').value.trim();
+  var queixa = document.getElementById('wp-queixa').value.trim();
+  if(!nome){ document.getElementById('wp-nome').focus(); return; }
+  var msg = 'Ola, gostaria de atendimento medico online.\n\nNome: '+nome+'\nIdade: '+(idade||'--')+'\nTelefone: '+(tel||'--')+'\nQueixa: '+(queixa||'--');
+  window.open('https://wa.me/5598989272727?text='+encodeURIComponent(msg),'_blank');
+  closeWidget();
+}
+
+// CAROUSEL
+var tk    = document.getElementById('carTk');
+var pips  = document.getElementById('carPips');
+var slides = Array.from(tk.children);
+var idx = 0;
+var timer;
+slides.forEach(function(_,i){
+  var p = document.createElement('button');
+  p.className = 'pip';
+  p.setAttribute('aria-label','Avaliacao '+(i+1));
+  p.onclick = function(){ go(i); };
+  pips.appendChild(p);
+});
+function go(i){
+  idx = (i + slides.length) % slides.length;
+  tk.style.transform = 'translateX('+ (-idx*100) +'%)';
+  Array.from(pips.children).forEach(function(p,j){ p.classList.toggle('on', j===idx); });
+  clearInterval(timer);
+  timer = setInterval(function(){ go(idx+1); }, 5800);
+}
+document.getElementById('carPrev').onclick = function(){ go(idx-1); };
+document.getElementById('carNext').onclick = function(){ go(idx+1); };
+go(0);
+
+// FAQ — one open at a time
+document.querySelectorAll('.qa').forEach(function(d){
+  d.addEventListener('toggle',function(){
+    if(d.open){
+      document.querySelectorAll('.qa[open]').forEach(function(o){ if(o!==d) o.removeAttribute('open'); });
+    }
+  });
+});
+</script>
 </body>
 </html>
