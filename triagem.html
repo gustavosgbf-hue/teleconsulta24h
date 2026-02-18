@@ -425,20 +425,10 @@ RESPONSIVE
   </div>
 </div>
 
-<script type="module">
-import { initializeApp }   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, doc, addDoc, onSnapshot, query, orderBy, serverTimestamp, updateDoc }
-  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-import { FIREBASE_CONFIG }  from './firebase-config.js';
-
-const fbApp = initializeApp(FIREBASE_CONFIG);
-const db    = getFirestore(fbApp);
-let consultaId = null; // Firebase doc ID for this consult
-
+<script>
 // ══════════════════════════════════════════
-// CHAVE DA API — substitua pelo seu valor
+// SEM FIREBASE POR AGORA
 // ══════════════════════════════════════════
-const API_KEY = 'sk-ant-COLE-SUA-CHAVE-AQUI';
 
 // ══════════════════════════════════════════
 // TERMS SCREEN
@@ -745,22 +735,7 @@ async function finishTriage(){
   addDoctorMsg('bot', 'Sua triagem foi recebida! O Dr. Gustavo foi notificado e entrara em contato em breve. Tempo medio de resposta: ate 12 horas. Se seu quadro piorar (falta de ar, dor no peito, desmaio), procure pronto-socorro imediatamente.');
 }
 
-function listenDoctorMessages(){
-  if(!consultaId) return;
-  const q = query(
-    collection(db,'consultas',consultaId,'mensagens'),
-    orderBy('criadoEm','asc')
-  );
-  onSnapshot(q, snap => {
-    snap.docChanges().forEach(change => {
-      if(change.type !== 'added') return;
-      const m = change.doc.data();
-      if(m.autor === 'medico'){
-        addDoctorMsg('bot', m.texto || '');
-      }
-    });
-  });
-}
+// Firebase listener desativado
 
 async function sendDoctorMsg(){
   const val = doctorInput.value.trim();
@@ -769,19 +744,7 @@ async function sendDoctorMsg(){
   doctorInput.style.height = 'auto';
   addDoctorMsg('user', val);
 
-  // Save to Firebase
-  if(consultaId){
-    try {
-      await addDoc(collection(db,'consultas',consultaId,'mensagens'),{
-        autor:'paciente',
-        texto:val,
-        criadoEm: serverTimestamp()
-      });
-      await updateDoc(doc(db,'consultas',consultaId),{
-        ultimaAtividade: serverTimestamp()
-      });
-    } catch(e){ console.error('Msg save error:',e); }
-  }
+  // Firebase desativado
 }
 
 doctorInput.addEventListener('keydown', e => {
