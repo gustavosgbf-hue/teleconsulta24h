@@ -4,829 +4,393 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Triagem Médica · Pronto Atendimento Online</title>
+<title>Pronto Atendimento Online</title>
+<meta name="description" content="Atendimento médico online — avaliação clara, direta e segura."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:'Outfit',sans-serif;
-  background:#060d0b;
-  color:rgba(255,255,255,.92);
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-  min-height:100vh;
-}
-
-:root{
-–g1:#b4e05a;
-–g2:#5ee0a0;
-–dark:#060d0b;
-–card:rgba(255,255,255,.05);
-–line:rgba(255,255,255,.09);
-–muted:rgba(255,255,255,.55);
-–muted2:rgba(255,255,255,.32);
-}
-
-/* BG */
-.bg-glow{
-position:fixed;inset:0;z-index:0;pointer-events:none;
-background:
-radial-gradient(ellipse 70vw 50vh at 10% 0%, rgba(180,224,90,.11) 0%,transparent 60%),
-radial-gradient(ellipse 50vw 40vh at 90% 10%,rgba(94,224,160,.09) 0%,transparent 55%);
-}
-
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+:root{--g1:#b4e05a;--g2:#5ee0a0;--line:rgba(255,255,255,.09);--card:rgba(255,255,255,.045);--muted:rgba(255,255,255,.55);--muted2:rgba(255,255,255,.32)}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80vw 60vh at 15% 0%,rgba(180,224,90,.12) 0%,transparent 60%),radial-gradient(ellipse 60vw 50vh at 90% 5%,rgba(94,224,160,.09) 0%,transparent 55%)}
 .z1{position:relative;z-index:1}
+.wrap{width:min(1140px,92vw);margin:0 auto}
 
-/* NAV */
-.nav{
-position:sticky;top:0;z-index:100;
-background:rgba(6,13,11,.75);
-backdrop-filter:blur(18px);
-border-bottom:1px solid var(–line);
-padding:13px 20px;
-display:flex;align-items:center;gap:12px;
-}
-.nav__brand{
-font-family:‘Outfit’,sans-serif;font-weight:600;font-size:.9rem;
-color:rgba(255,255,255,.9);
-}
-.nav__step{
-margin-left:auto;
-font-size:.72rem;font-weight:500;letter-spacing:.08em;
-color:var(–muted2);text-transform:uppercase;
-}
-.live-dot{
-width:7px;height:7px;border-radius:50%;background:var(–g2);flex-shrink:0;
-animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{
-0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}
-50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}
-}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 24px;border-radius:14px;border:none;font-family:‘Outfit’,sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;background-color:#b4e05a;background-image:-webkit-linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);background-image:linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);-webkit-appearance:none;appearance:none;color:#051208;box-shadow:0 6px 24px rgba(180,224,90,.28);transition:transform .12s ease,box-shadow .2s ease;text-decoration:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(180,224,90,.36)}
+.btn–lg{padding:16px 28px;font-size:1rem;border-radius:16px}
+.btn–outline{background-color:rgba(255,255,255,.08)!important;background-image:none!important;color:rgba(255,255,255,.9)!important;border:1px solid rgba(255,255,255,.22)!important;box-shadow:none!important}
+.btn–outline:hover{background-color:rgba(255,255,255,.13)!important;transform:none!important;box-shadow:none!important}
 
-/* SCREENS */
-.screen{display:none;min-height:calc(100vh - 53px)}
-.screen.active{display:flex;flex-direction:column}
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,13,11,.75);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(–line)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px}
+.nav__brand{display:flex;align-items:center;gap:10px;font-family:‘Outfit’,sans-serif;font-weight:600;font-size:.92rem}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(–g2);flex-shrink:0;animation:livePulse 2s ease-in-out infinite}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
+.nav__live{display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;border:1px solid rgba(94,224,160,.22);background:rgba(94,224,160,.06);font-size:.7rem;font-weight:500;color:rgba(255,255,255,.65);letter-spacing:.04em;text-transform:uppercase}
+.nav__actions{display:flex;align-items:center;gap:10px}
 
-/* ═══════════════════════════
-SCREEN 1 · TERMS
-═══════════════════════════ */
-#screen-terms{
-align-items:center;justify-content:center;
-padding:32px 20px;
-}
-.terms-box{
-width:min(640px,100%);
-border:1px solid var(–line);
-border-radius:22px;
-background:rgba(255,255,255,.03);
-overflow:hidden;
-}
-.terms-head{
-padding:28px 28px 20px;
-border-bottom:1px solid var(–line);
-}
-.terms-head h1{
-font-family:‘Playfair Display’,serif;
-font-size:1.5rem;font-weight:500;
-margin-bottom:6px;
-}
-.terms-head p{font-size:.82rem;color:var(–muted);font-weight:300;line-height:1.6}
+.hero{padding:80px 0 60px}
+.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.hero__kicker{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(–g1);margin-bottom:22px}
+.hero__kicker-line{width:28px;height:1px;background:var(–g1);opacity:.6}
+h1.hero__h{font-family:‘Playfair Display’,Georgia,serif;font-size:clamp(42px,5.5vw,74px);line-height:1.02;letter-spacing:-.03em;margin-bottom:18px;font-weight:500}
+h1.hero__h em{font-style:italic;color:#b4e05a}
+.hero__tagline{font-size:1rem;font-weight:300;color:var(–muted);line-height:1.7;margin-bottom:34px}
+.hero__ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.price-block{border:1px solid var(–line);background:var(–card);border-radius:16px;padding:12px 18px}
+.price-block__label{font-size:.64rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(–muted2);margin-bottom:4px}
+.price-block__val{font-family:‘Outfit’,sans-serif;font-size:1.45rem;font-weight:600;letter-spacing:-.02em}
+.hero__stats{display:flex;align-items:center}
+.hstat{display:flex;flex-direction:column;align-items:center;padding:0 22px}
+.hstat:first-child{padding-left:0}
+.hstat__n{font-family:‘Playfair Display’,serif;font-size:1.55rem;font-weight:700;line-height:1;color:#b4e05a}
+.hstat__l{font-size:.72rem;font-weight:400;color:var(–muted);margin-top:4px}
+.hstat-sep{width:1px;height:30px;background:var(–line)}
+.hero__photo-wrap{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(–line);box-shadow:0 40px 100px rgba(0,0,0,.5);aspect-ratio:4/5}
+.hero__photo-wrap::after{content:’’;position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,13,11,.6) 0%,transparent 40%)}
+.hero__glass{position:absolute;bottom:16px;left:16px;right:16px;z-index:2;display:flex;align-items:center;gap:11px;padding:13px 16px;border-radius:14px;background:rgba(6,13,11,.55);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}
+.hero__glass-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(–g2);animation:livePulse 2s ease-in-out infinite}
+.hero__glass-title{font-size:.88rem;font-weight:600}
+.hero__glass-sub{font-size:.74rem;color:var(–muted);margin-top:1px}
 
-.terms-scroll{
-height:320px;overflow-y:auto;
-padding:20px 28px;
-font-size:.8rem;font-weight:300;color:var(–muted);line-height:1.8;
-scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;
-}
-.terms-scroll::-webkit-scrollbar{width:4px}
-.terms-scroll::-webkit-scrollbar-track{background:transparent}
-.terms-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:4px}
-.terms-scroll h3{
-font-family:‘Outfit’,sans-serif;font-size:.82rem;font-weight:600;
-color:rgba(255,255,255,.75);margin:16px 0 6px;
-}
-.terms-scroll p{margin-bottom:10px}
+.strip{border-top:1px solid var(–line);border-bottom:1px solid var(–line);padding:13px 0;overflow:hidden;background:rgba(255,255,255,.015)}
+.strip__track{display:flex;gap:44px;white-space:nowrap;animation:marquee 26s linear infinite}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.strip__item{display:flex;align-items:center;gap:9px;font-size:.76rem;font-weight:500;color:var(–muted);letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
+.strip__item span{color:var(–g1)}
 
-.terms-footer{
-padding:18px 28px 24px;
-border-top:1px solid var(–line);
-background:rgba(0,0,0,.15);
-}
-.terms-check{
-display:flex;align-items:flex-start;gap:12px;
-margin-bottom:16px;cursor:pointer;opacity:1;
-}
-.terms-check input[type=checkbox]{
-width:18px;height:18px;flex-shrink:0;margin-top:2px;
-accent-color:var(–g1);cursor:pointer;
-}
-.terms-check span{
-font-size:.82rem;font-weight:400;color:rgba(255,255,255,.75);line-height:1.55;
-}
-.terms-scroll-hint{
-font-size:.72rem;color:var(–muted2);text-align:center;
-margin-bottom:12px;
-}
-.btn-accept{
-width:100%;padding:14px;border-radius:14px;border:none;
-background-color:#b4e05a;
-background-image:-webkit-linear-gradient(135deg,#b4e05a,#5ee0a0);
-background-image:linear-gradient(135deg,#b4e05a,#5ee0a0);
--webkit-appearance:none;appearance:none;
-color:#051208;font-family:‘Outfit’,sans-serif;font-weight:600;font-size:.95rem;
-cursor:pointer;transition:transform .12s,box-shadow .2s;
-box-shadow:0 6px 24px rgba(180,224,90,.28);
-opacity:.4;pointer-events:none;
-}
-.btn-accept.enabled{opacity:1;pointer-events:auto}
-.btn-accept.enabled:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(180,224,90,.36)}
-/* checkbox visible by default */
-#checkLabel{opacity:1;pointer-events:auto}
+.sec{padding:80px 0;border-top:1px solid var(–line)}
+.sec-label{font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(–g1);margin-bottom:14px}
+.sec-h{font-family:‘Playfair Display’,Georgia,serif;font-size:clamp(26px,3.5vw,46px);line-height:1.1;letter-spacing:-.025em;font-weight:500}
+.sec-h em{font-style:italic;color:var(–g2)}
 
-/* ═══════════════════════════
-SCREEN 2 · TRIAGE CHAT
-═══════════════════════════ */
-#screen-triage{
-flex-direction:column;
-height:calc(100vh - 53px);
-}
-.chat-area{
-flex:1;overflow-y:auto;
-padding:24px 20px;
-display:flex;flex-direction:column;gap:14px;
-scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent;
-}
-.chat-area::-webkit-scrollbar{width:3px}
-.chat-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+.imgcards__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px;align-items:start;margin-top:40px}
+.icard{position:relative;overflow:hidden;border-radius:18px;border:1px solid var(–line)}
+.icard:first-child{aspect-ratio:3/4}
+.icard:not(:first-child){aspect-ratio:4/5}
+.icard img{transition:transform .6s ease}
+.icard:hover img{transform:scale(1.04)}
+.icard::after{content:’’;position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,13,11,.65) 0%,transparent 50%)}
+.icard__label{position:absolute;bottom:14px;left:14px;z-index:2;font-size:.72rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85);padding:6px 12px;border-radius:999px;background:rgba(6,13,11,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1)}
 
-/* messages */
-.msg{
-display:flex;gap:10px;align-items:flex-end;
-animation:msgIn .3s ease;
-}
-@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.msg–bot{align-self:flex-start;max-width:88%}
-.msg–user{align-self:flex-end;flex-direction:row-reverse;max-width:80%}
+.how__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.how-card{border:1px solid var(–line);background:rgba(255,255,255,.04);border-radius:18px;padding:26px 22px}
+.how-card__n{font-family:‘Playfair Display’,serif;font-size:2.6rem;font-weight:700;color:#b4e05a;line-height:1;margin-bottom:16px}
+.how-card h3{font-family:‘Outfit’,sans-serif;font-size:.95rem;font-weight:600;margin-bottom:8px}
+.how-card p{font-size:.85rem;font-weight:300;color:var(–muted);line-height:1.7}
+.how__legal{margin-top:24px;text-align:center;font-size:.74rem;font-weight:300;color:var(–muted2);line-height:1.65}
 
-.msg__avatar{
-width:32px;height:32px;border-radius:50%;flex-shrink:0;
-background:linear-gradient(135deg,rgba(180,224,90,.25),rgba(94,224,160,.15));
-border:1px solid rgba(94,224,160,.25);
-display:flex;align-items:center;justify-content:center;
-font-size:.8rem;
-}
-.msg__bubble{
-padding:12px 16px;border-radius:18px;
-font-size:.9rem;font-weight:300;line-height:1.65;
-}
-.msg–bot .msg__bubble{
-background:rgba(255,255,255,.07);
-border:1px solid var(–line);
-border-bottom-left-radius:5px;
-color:rgba(255,255,255,.88);
-}
-.msg–user .msg__bubble{
-background:#b4e05a;
-background-image:-webkit-linear-gradient(135deg,#b4e05a,#6ed49a);
-background-image:linear-gradient(135deg,#b4e05a,#6ed49a);
-color:#051208;font-weight:500;
-border-bottom-right-radius:5px;
-}
+.reviews{padding:80px 0;border-top:1px solid var(–line)}
+.reviews__score{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:7px 14px;border-radius:999px;border:1px solid rgba(180,224,90,.22);background:rgba(180,224,90,.06);font-size:.78rem;font-weight:500;color:var(–g1)}
+.car-outer{margin-top:40px;border:1px solid var(–line);border-radius:22px;overflow:hidden;background:rgba(255,255,255,.04)}
+.car-vp{overflow:hidden}
+.car-tk{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.rcard{flex:0 0 100%;padding:36px 40px}
+.rcard__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.rcard__name{font-size:.95rem;font-weight:600}
+.rcard__stars{color:#b4e05a;letter-spacing:3px;font-size:.82rem}
+.rcard__quote{font-size:.95rem;font-weight:300;line-height:1.75;color:rgba(255,255,255,.8)}
+.car-footer{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;border-top:1px solid var(–line);background:rgba(0,0,0,.15);gap:12px}
+.car-arrows{display:flex;gap:8px}
+.car-arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(–line);background:rgba(255,255,255,.04);color:rgba(255,255,255,.8);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;-webkit-appearance:none;appearance:none}
+.car-arrow:hover{background:rgba(255,255,255,.09)}
+.car-pips{display:flex;gap:6px;align-items:center}
+.pip{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;transition:background .2s,transform .2s;-webkit-appearance:none;appearance:none}
+.pip.on{background:#b4e05a;transform:scale(1.4)}
 
-/* typing indicator */
-.typing{display:flex;gap:4px;padding:14px 16px;align-items:center}
-.typing span{
-width:6px;height:6px;border-radius:50%;
-background:rgba(255,255,255,.4);
-animation:typingDot 1.2s ease-in-out infinite;
-}
-.typing span:nth-child(2){animation-delay:.2s}
-.typing span:nth-child(3){animation-delay:.4s}
-@keyframes typingDot{
-0%,80%,100%{transform:translateY(0);opacity:.4}
-40%{transform:translateY(-5px);opacity:1}
-}
+.faq{padding:80px 0;border-top:1px solid var(–line)}
+.faq__layout{display:grid;grid-template-columns:1fr 1.6fr;gap:56px;align-items:start;margin-top:40px}
+.faq__sticky{position:sticky;top:80px}
+.faq__sticky p{font-size:.88rem;font-weight:300;color:var(–muted);line-height:1.7;margin:14px 0 20px}
+.faq__items{display:flex;flex-direction:column;gap:8px}
+.qa{border:1px solid var(–line);background:rgba(255,255,255,.04);border-radius:16px;overflow:hidden;transition:border-color .2s}
+.qa[open]{border-color:rgba(180,224,90,.28)}
+.qa summary{display:flex;justify-content:space-between;align-items:center;list-style:none;padding:16px 18px;cursor:pointer;font-size:.9rem;font-weight:500;gap:12px;user-select:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:’+’;font-size:1.3rem;font-weight:300;color:#b4e05a;flex-shrink:0;line-height:1;transition:transform .25s}
+.qa[open] summary::after{transform:rotate(45deg)}
+.qa__ans{padding:0 18px 16px;font-size:.85rem;font-weight:300;color:var(–muted);line-height:1.75}
 
-/* options */
-.options{
-display:flex;flex-wrap:wrap;gap:8px;
-padding:4px 0 8px;
-}
-.opt{
-padding:9px 16px;border-radius:999px;
-border:1px solid rgba(180,224,90,.35);
-background:rgba(180,224,90,.06);
-color:rgba(255,255,255,.85);
-font-family:‘Outfit’,sans-serif;font-size:.82rem;font-weight:500;
-cursor:pointer;transition:background .15s,border-color .15s,transform .1s;
--webkit-appearance:none;appearance:none;
-}
-.opt:hover{background:rgba(180,224,90,.14);border-color:rgba(180,224,90,.6);transform:translateY(-1px)}
-.opt:active{transform:none}
+.cta-bot{padding:80px 0;border-top:1px solid var(–line)}
+.cta-bot__box{position:relative;overflow:hidden;border:1px solid rgba(180,224,90,.18);border-radius:26px;padding:52px 56px;background:linear-gradient(135deg,rgba(180,224,90,.06),rgba(94,224,160,.03));display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.cta-bot__h{font-family:‘Playfair Display’,serif;font-size:clamp(24px,3.2vw,42px);line-height:1.1;letter-spacing:-.025em;margin-bottom:8px;font-weight:500}
+.cta-bot__sub{font-size:.9rem;font-weight:300;color:var(–muted)}
 
-/* input bar */
-.input-bar{
-padding:12px 16px 20px;
-background:rgba(6,13,11,.8);
-backdrop-filter:blur(12px);
-border-top:1px solid var(–line);
-display:flex;gap:10px;align-items:flex-end;
-}
-.input-bar textarea{
-flex:1;padding:11px 15px;border-radius:14px;
-background:rgba(255,255,255,.07);
-border:1px solid var(–line);
-color:#fff;font-family:‘Outfit’,sans-serif;font-size:.875rem;font-weight:300;
-resize:none;outline:none;min-height:44px;max-height:120px;
-line-height:1.5;
-transition:border-color .2s;
--webkit-appearance:none;
-}
-.input-bar textarea::placeholder{color:rgba(255,255,255,.3)}
-.input-bar textarea:focus{border-color:rgba(94,224,160,.4)}
-.send-btn{
-width:44px;height:44px;border-radius:50%;border:none;
-background-color:#b4e05a;
-background-image:-webkit-linear-gradient(135deg,#b4e05a,#5ee0a0);
-background-image:linear-gradient(135deg,#b4e05a,#5ee0a0);
--webkit-appearance:none;appearance:none;
-color:#051208;cursor:pointer;flex-shrink:0;
-display:flex;align-items:center;justify-content:center;
-transition:transform .12s,box-shadow .15s;
-box-shadow:0 4px 14px rgba(180,224,90,.3);
-}
-.send-btn:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(180,224,90,.4)}
-.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.footer{padding:26px 0 32px;border-top:1px solid var(–line)}
+.footer__in{text-align:center;font-size:.72rem;font-weight:300;color:var(–muted2);line-height:1.75}
 
-/* progress bar */
-.progress-bar{
-height:3px;background:var(–line);
-position:relative;
-}
-.progress-fill{
-height:100%;
-background:linear-gradient(90deg,#b4e05a,#5ee0a0);
-transition:width .5s ease;
-border-radius:0 2px 2px 0;
-}
+#waf{position:fixed;right:20px;bottom:20px;z-index:200;width:56px;height:56px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,.4);transition:transform .15s;-webkit-appearance:none;appearance:none;animation:waPulse 3s ease-in-out infinite}
+#waf:hover{transform:scale(1.1);animation:none}
+@keyframes waPulse{0%,100%{box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,.4)}60%{box-shadow:0 8px 28px rgba(0,0,0,.4),0 0 0 12px rgba(37,211,102,0)}}
 
-/* ═══════════════════════════
-SCREEN 3 · DOCTOR CHAT
-═══════════════════════════ */
-#screen-chat{
-flex-direction:column;
-height:calc(100vh - 53px);
-}
-.chat-header{
-padding:14px 20px;
-border-bottom:1px solid var(–line);
-background:rgba(255,255,255,.02);
-display:flex;align-items:center;gap:12px;
-}
-.chat-header__avatar{
-width:38px;height:38px;border-radius:50%;
-background:linear-gradient(135deg,rgba(180,224,90,.2),rgba(94,224,160,.15));
-border:1px solid rgba(94,224,160,.3);
-display:flex;align-items:center;justify-content:center;font-size:1rem;
-}
-.chat-header__name{font-weight:600;font-size:.92rem}
-.chat-header__status{
-font-size:.72rem;color:var(–g2);font-weight:400;margin-top:1px;
-display:flex;align-items:center;gap:5px;
-}
-.summary-badge{
-margin-left:auto;
-padding:6px 12px;border-radius:999px;
-border:1px solid rgba(180,224,90,.3);
-background:rgba(180,224,90,.06);
-font-size:.7rem;font-weight:500;color:var(–g1);
-cursor:pointer;
--webkit-appearance:none;appearance:none;
-transition:background .15s;
-}
-.summary-badge:hover{background:rgba(180,224,90,.12)}
+#wa-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);align-items:flex-end;justify-content:flex-end;padding:20px}
+#wa-overlay.open{display:flex}
+#wa-popup{width:min(370px,94vw);border-radius:20px;background:#0e1a15;border:1px solid rgba(255,255,255,.09);box-shadow:0 40px 100px rgba(0,0,0,.6);overflow:hidden;animation:popIn .28s cubic-bezier(.34,1.4,.64,1);transform-origin:bottom right}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(18px)}to{opacity:1;transform:none}}
+.wp-head{background:#25D366;padding:16px 18px 14px;display:flex;align-items:center;gap:11px}
+.wp-head-icon{width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wp-head-title{font-family:‘Outfit’,sans-serif;font-weight:600;font-size:.9rem;color:#fff}
+.wp-head-sub{font-size:.72rem;color:rgba(255,255,255,.8);margin-top:2px}
+.wp-close{margin-left:auto;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:1.4rem;line-height:1;padding:4px;-webkit-appearance:none}
+.wp-bubble{margin:16px 15px 12px;background:#1a2b22;border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:12px 14px;font-size:.83rem;font-weight:300;color:rgba(255,255,255,.72);line-height:1.6}
+.wp-form{padding:0 15px 16px;display:flex;flex-direction:column;gap:9px}
+.wp-inp{width:100%;padding:10px 13px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);font-family:‘Outfit’,sans-serif;font-size:.85rem;font-weight:300;color:#fff;outline:none;resize:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.wp-inp::placeholder{color:rgba(255,255,255,.3)}
+.wp-inp:focus{border-color:rgba(94,224,160,.35)}
+.wp-send{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:12px;border:none;cursor:pointer;background:#25D366;color:#fff;font-family:‘Outfit’,sans-serif;font-size:.88rem;font-weight:600;box-shadow:0 5px 18px rgba(37,211,102,.28);transition:transform .12s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.wp-send:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.38)}
 
-/* summary panel */
-.summary-panel{
-display:none;
-margin:12px 16px;
-border:1px solid rgba(180,224,90,.2);
-border-radius:16px;
-background:rgba(180,224,90,.04);
-padding:16px 18px;
-font-size:.8rem;font-weight:300;color:var(–muted);
-line-height:1.75;
-white-space:pre-wrap;
+@media(max-width:960px){
+.hero__grid{grid-template-columns:1fr;gap:36px}
+.hero__photo-wrap{aspect-ratio:16/9;max-height:400px}
+.imgcards__grid{grid-template-columns:1fr 1fr}
+.icard:first-child{grid-column:span 2;aspect-ratio:16/7}
+.icard:not(:first-child){aspect-ratio:4/3}
+.how__grid{grid-template-columns:1fr}
+.faq__layout{grid-template-columns:1fr;gap:32px}
+.faq__sticky{position:relative;top:auto}
+.cta-bot__box{padding:36px 28px}
 }
-.summary-panel.open{display:block}
-.summary-panel strong{color:rgba(255,255,255,.8);font-weight:500}
-
-/* ═══════════════════════════
-RESPONSIVE
-═══════════════════════════ */
-@media(max-width:480px){
-.terms-head{padding:20px 18px 16px}
-.terms-scroll{padding:16px 18px;height:260px}
-.terms-footer{padding:14px 18px 20px}
-.msg__bubble{font-size:.85rem}
+@media(max-width:640px){
+.hero{padding:52px 0 44px}
+h1.hero__h{font-size:40px}
+.hero__ctas{flex-direction:column;align-items:flex-start}
+.imgcards__grid{grid-template-columns:1fr}
+.icard:first-child{grid-column:auto;aspect-ratio:4/3}
+.rcard{padding:26px 20px}
+.cta-bot__box{flex-direction:column;align-items:flex-start;padding:28px 22px}
+.nav__live{display:none}
 }
 </style>
 
 </head>
 <body>
-
 <div class="bg-glow" aria-hidden="true"></div>
 
-<!-- NAV -->
-
-<nav class="nav z1">
-  <div class="live-dot"></div>
-  <span class="nav__brand">Pronto Atendimento Online</span>
-  <span class="nav__step" id="nav-step">Termos de Uso</span>
-</nav>
-
-<!-- ═══════════ SCREEN 1: TERMS ═══════════ -->
-
-<div id="screen-terms" class="screen active z1">
-  <div class="terms-box">
-    <div class="terms-head">
-      <h1>Termos de Uso & TCLE</h1>
-      <p>Leia com atenção antes de iniciar sua triagem médica online.</p>
+<header class="nav z1">
+  <div class="wrap nav__in">
+    <div class="nav__brand">
+      <div class="live-dot"></div>
+      Pronto Atendimento Online
     </div>
-
-```
-<div class="terms-scroll" id="termsScroll">
-  <h3>1. O que é este serviço</h3>
-  <p>O Pronto Atendimento Online é um serviço de telemedicina que facilita o contato entre médico e paciente, permitindo orientação médica remota por chat, conforme a Resolução CFM nº 2.314/2022. O atendimento pode incluir avaliação clínica à distância, esclarecimento de dúvidas, orientações e, quando clinicamente adequado, emissão de documentos médicos digitais válidos em território nacional.</p>
-
-  <h3>2. Limitações do serviço</h3>
-  <p>Este serviço NÃO substitui pronto-atendimento presencial, emergência ou urgência. Situações que envolvem dor torácica intensa, falta de ar importante, desmaio, sinais de AVC, sangramento ativo ou qualquer quadro grave exigem busca imediata de atendimento presencial de urgência.</p>
-  <p>A resposta do médico pode levar até 12 horas após o início da triagem, pois há limitação de disponibilidade. O paciente declara que compreende essa limitação e que seu quadro não é uma emergência.</p>
-
-  <h3>3. Responsabilidade pelas informações</h3>
-  <p>Você declara que todas as respostas fornecidas durante a triagem são verdadeiras, completas e refletem seu quadro atual. A omissão de dados relevantes ou simulação de sintomas pode resultar em recusa de emissão de documentos e interrupção do atendimento.</p>
-
-  <h3>4. Atestados, receitas e documentos médicos</h3>
-  <p>A emissão de atestado, CID, afastamento laboral, prescrição de medicamentos ou solicitação de exames NÃO É AUTOMÁTICA. O médico só emitirá documentos se houver justificativa clínica suficiente, dentro da ética e das normas do CFM. Você está contratando avaliação médica, não "compra garantida de atestado ou receita".</p>
-
-  <h3>5. Privacidade e LGPD</h3>
-  <p>A plataforma coleta e trata dados pessoais e dados de saúde (dados sensíveis). Esses dados são utilizados exclusivamente para viabilizar o atendimento médico, manter o prontuário clínico e cumprir obrigações legais e regulatórias. Não compartilharemos dados identificáveis com terceiros para fins publicitários.</p>
-  <p>O médico está vinculado ao sigilo profissional e ao Código de Ética Médica. O conteúdo do chat integra o prontuário do paciente.</p>
-
-  <h3>6. Consentimento Livre e Esclarecido (TCLE)</h3>
-  <p>Ao aceitar, você confirma que: (i) compreende a natureza do atendimento remoto e suas limitações; (ii) concorda com o tempo de resposta de até 12 horas; (iii) autoriza o tratamento dos seus dados pessoais de saúde para fins de prestação do serviço; (iv) reconhece que documentos médicos só serão emitidos com indicação clínica; (v) compromete-se a agir com boa-fé e veracidade.</p>
-
-  <h3>7. Uso adequado e condutas proibidas</h3>
-  <p>É expressamente proibido: simular sintomas para obter documentos sem base clínica, alterar ou ceder a terceiros documentos médicos emitidos, assediar ou coagir o médico. Tentativas de fraude poderão ser comunicadas às autoridades competentes.</p>
-
-  <h3>8. Legislação aplicável</h3>
-  <p>Estes termos são regidos pelas leis brasileiras, incluindo o Código de Defesa do Consumidor, a LGPD e as resoluções do CFM aplicáveis à telemedicina.</p>
-</div>
-
-<div class="terms-footer">
-  <label class="terms-check">
-    <input type="checkbox" id="termsCheck"/>
-    <span>Li e concordo com os Termos de Uso, Politica de Privacidade e TCLE.</span>
-  </label>
-  <button id="btnAccept" disabled style="
-    width:100%;padding:14px;border-radius:14px;border:none;
-    background-color:#b4e05a;color:#051208;
-    font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;
-    cursor:not-allowed;opacity:.35;
-    box-shadow:0 6px 24px rgba(180,224,90,.28);
-  ">Aceitar e iniciar triagem</button>
-</div>
-```
-
+    <div class="nav__actions">
+      <div class="nav__live"><div class="live-dot"></div>Online agora</div>
+      <a class="btn" href="triagem.html">Iniciar consulta</a>
+    </div>
   </div>
-</div>
+</header>
 
-<!-- ═══════════ SCREEN 2: TRIAGE ═══════════ -->
-
-<div id="screen-triage" class="screen z1">
-  <div class="progress-bar">
-    <div class="progress-fill" id="progressFill" style="width:0%"></div>
-  </div>
-  <div class="chat-area" id="triageChat"></div>
-  <div class="input-bar">
-    <textarea id="triageInput" placeholder="Digite sua resposta…" rows="1" disabled></textarea>
-    <button class="send-btn" id="triageSend" disabled aria-label="Enviar">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-      </svg>
-    </button>
-  </div>
-</div>
-
-<!-- ═══════════ SCREEN 3: DOCTOR CHAT ═══════════ -->
-
-<div id="screen-chat" class="screen z1">
-  <div class="chat-header">
-    <div class="chat-header__avatar">👨‍⚕️</div>
+<main class="z1">
+<section class="hero">
+  <div class="wrap hero__grid">
     <div>
-      <div class="chat-header__name">Dr. Gustavo Fonseca</div>
-      <div class="chat-header__status"><span class="live-dot" style="width:6px;height:6px"></span> Online</div>
+      <div class="hero__kicker"><span class="hero__kicker-line"></span>Telemedicina &middot; Brasil e exterior</div>
+      <h1 class="hero__h">Avalia&ccedil;&atilde;o<br><em>m&eacute;dica online.</em></h1>
+      <p class="hero__tagline">Clara. Direta. Segura.<br>Sem burocracia, sem espera.</p>
+      <div class="hero__ctas">
+        <div class="price-block">
+          <div class="price-block__label">Consulta</div>
+          <div class="price-block__val">R$&thinsp;49,90</div>
+        </div>
+        <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hstat"><span class="hstat__n">800+</span><span class="hstat__l">atendimentos</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat__n">200+</span><span class="hstat__l">avalia&ccedil;&otilde;es</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat__n">4,9&#9733;</span><span class="hstat__l">m&eacute;dia</span></div>
+      </div>
     </div>
-    <button class="summary-badge" id="summaryToggle" onclick="toggleSummary()">📋 Ver anamnese</button>
+    <div>
+      <div class="hero__photo-wrap">
+        <img src="img-hero.jpg" alt="Médica em atendimento online"/>
+        <div class="hero__glass">
+          <div class="hero__glass-dot"></div>
+          <div>
+            <div class="hero__glass-title">Online agora</div>
+            <div class="hero__glass-sub">Resposta em minutos</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="summary-panel" id="summaryPanel"></div>
-  <div class="chat-area" id="doctorChat"></div>
-  <div class="input-bar">
-    <textarea id="doctorInput" placeholder="Escreva sua mensagem para o médico…" rows="1"></textarea>
-    <button class="send-btn" id="doctorSend" aria-label="Enviar" onclick="sendDoctorMsg()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-      </svg>
-    </button>
+</section>
+
+<div class="strip z1" aria-hidden="true">
+  <div class="strip__track">
+    <div class="strip__item"><span>&#10022;</span> M&eacute;dico com CRM ativo</div>
+    <div class="strip__item"><span>&#10022;</span> Consulta em prontu&aacute;rio</div>
+    <div class="strip__item"><span>&#10022;</span> Portugu&ecirc;s e ingl&ecirc;s</div>
+    <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
+    <div class="strip__item"><span>&#10022;</span> CFM n&ordm; 2.314/2022</div>
+    <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
+    <div class="strip__item"><span>&#10022;</span> M&eacute;dico com CRM ativo</div>
+    <div class="strip__item"><span>&#10022;</span> Consulta em prontu&aacute;rio</div>
+    <div class="strip__item"><span>&#10022;</span> Portugu&ecirc;s e ingl&ecirc;s</div>
+    <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
+    <div class="strip__item"><span>&#10022;</span> CFM n&ordm; 2.314/2022</div>
+    <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
   </div>
 </div>
 
-<script type="module">
-import { initializeApp }   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, doc, addDoc, onSnapshot, query, orderBy, serverTimestamp, updateDoc }
-  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-import { FIREBASE_CONFIG }  from './firebase-config.js';
+<section class="sec z1">
+  <div class="wrap">
+    <div class="sec-label">Atendimento</div>
+    <h2 class="sec-h">O que voc&ecirc; <em>encontra.</em></h2>
+    <div class="imgcards__grid">
+      <div class="icard"><img src="img-1.jpg" alt="Médica em consulta"/><div class="icard__label">Atendimento humano</div></div>
+      <div class="icard"><img src="img-2.jpg" alt="Chat pelo celular"/><div class="icard__label">Direto pelo WhatsApp</div></div>
+      <div class="icard"><img src="img-3.jpg" alt="Ambiente clínico"/><div class="icard__label">Ambiente seguro</div></div>
+    </div>
+  </div>
+</section>
 
-const fbApp = initializeApp(FIREBASE_CONFIG);
-const db    = getFirestore(fbApp);
-let consultaId = null; // Firebase doc ID for this consult
+<section class="sec z1" id="como">
+  <div class="wrap">
+    <div class="sec-label">Processo</div>
+    <h2 class="sec-h">Tr&ecirc;s passos.<br><em>Do sintoma &agrave; conduta.</em></h2>
+    <div class="how__grid">
+      <div class="how-card"><div class="how-card__n">01</div><h3>Voc&ecirc; chama</h3><p>Triagem guiada por IA. Sem cadastro, sem app, sem espera.</p></div>
+      <div class="how-card"><div class="how-card__n">02</div><h3>Avalia&ccedil;&atilde;o objetiva</h3><p>Perguntas direcionadas ao que realmente importa. Sem rodeios.</p></div>
+      <div class="how-card"><div class="how-card__n">03</div><h3>Conduta clara</h3><p>O que fazer agora e quando buscar atendimento presencial.</p></div>
+    </div>
+    <p class="how__legal">Receitas, atestados e exames dependem de avalia&ccedil;&atilde;o m&eacute;dica individual, conforme Resolu&ccedil;&atilde;o CFM n&ordm;&nbsp;2.314/2022.</p>
+  </div>
+</section>
 
-// ══════════════════════════════════════════
-// CHAVE DA API — substitua pelo seu valor
-// ══════════════════════════════════════════
-const API_KEY = 'sk-ant-COLE-SUA-CHAVE-AQUI';
+<section class="reviews z1" id="avaliacoes">
+  <div class="wrap">
+    <div class="sec-label">Pacientes</div>
+    <h2 class="sec-h">Quem j&aacute; foi <em>atendido.</em></h2>
+    <div class="reviews__score">&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;4,9 m&eacute;dia &middot; 200+ avalia&ccedil;&otilde;es</div>
+    <div class="car-outer">
+      <div class="car-vp">
+        <div class="car-tk" id="carTk">
+          <article class="rcard"><div class="rcard__top"><strong class="rcard__name">Israel</strong><span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rcard__quote">"Adiantou a consulta, o que foi muito bom. Muito simp&aacute;tico, explicou tudo com clareza. Primeira experi&ecirc;ncia em telemedicina e adorei."</p></article>
+          <article class="rcard"><div class="rcard__top"><strong class="rcard__name">Rosimeire</strong><span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rcard__quote">"Excelente atendimento. M&eacute;dico atencioso, dedicado, muito educado. Ouviu meus sintomas e solicitou os exames necess&aacute;rios. Certamente retornarei."</p></article>
+          <article class="rcard"><div class="rcard__top"><strong class="rcard__name">Juelito</strong><span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rcard__quote">"Profissional extremamente atencioso. Orientou sobre medica&ccedil;&otilde;es e sobre minha sa&uacute;de em geral. Superou e muito as minhas expectativas."</p></article>
+          <article class="rcard"><div class="rcard__top"><strong class="rcard__name">Eduardo</strong><span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rcard__quote">"Profissional sensacional e humano. Nota-se que realmente se importa com a queixa do paciente. Sa&iacute; satisfeito e tranquilo."</p></article>
+        </div>
+      </div>
+      <div class="car-footer">
+        <div class="car-arrows">
+          <button class="car-arrow" id="car-prev">&#8592;</button>
+          <button class="car-arrow" id="car-next">&#8594;</button>
+        </div>
+        <div class="car-pips" id="carPips"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-// ══════════════════════════════════════════
-// TERMS SCREEN
-// ══════════════════════════════════════════
-const termsScroll = document.getElementById('termsScroll');
+<section class="faq z1" id="duvidas">
+  <div class="wrap">
+    <div class="sec-label">D&uacute;vidas</div>
+    <h2 class="sec-h">Respostas <em>diretas.</em></h2>
+    <div class="faq__layout">
+      <div class="faq__sticky">
+        <h2 class="sec-h" style="font-size:clamp(20px,2.6vw,32px)">Ainda com alguma d&uacute;vida?</h2>
+        <p>Manda uma mensagem direta, sem formul&aacute;rio, sem espera.</p>
+        <button class="btn btn--outline" onclick="openWidget()">Falar no WhatsApp</button>
+      </div>
+      <div class="faq__items">
+        <details class="qa"><summary>A teleconsulta &eacute; segura?</summary><div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imediato.</div></details>
+        <details class="qa"><summary>Posso receber receita ou atestado?</summary><div class="qa__ans">Somente quando clinicamente indicado ap&oacute;s avalia&ccedil;&atilde;o. N&atilde;o &eacute; autom&aacute;tico &mdash; depende do quadro.</div></details>
+        <details class="qa"><summary>Atende fora do Brasil?</summary><div class="qa__ans">Sim. Atendimento em portugu&ecirc;s e ingl&ecirc;s para pacientes no exterior.</div></details>
+        <details class="qa"><summary>Quando devo ir direto &agrave; emerg&ecirc;ncia?</summary><div class="qa__ans">Dor no peito, falta de ar importante, desmaio ou sinais de AVC &mdash; emerg&ecirc;ncia presencial imediatamente.</div></details>
+      </div>
+    </div>
+  </div>
+</section>
 
-// Simple checkbox - no scroll dependency
-
-// Terms checkbox + button
-const termsCheck = document.getElementById('termsCheck');
-const btnAccept  = document.getElementById('btnAccept');
-
-function updateAcceptButton(){
-  if(termsCheck.checked){
-    btnAccept.disabled = false;
-    btnAccept.style.opacity = '1';
-    btnAccept.style.cursor = 'pointer';
-  } else {
-    btnAccept.disabled = true;
-    btnAccept.style.opacity = '.35';
-    btnAccept.style.cursor = 'not-allowed';
-  }
-}
-termsCheck.addEventListener('change', updateAcceptButton);
-updateAcceptButton();
-
-btnAccept.addEventListener('click', () => {
-  showScreen('triage');
-  document.getElementById('nav-step').textContent = 'Triagem Medica';
-  startTriage();
-});
-
-// ══════════════════════════════════════════
-// SCREEN MANAGEMENT
-// ══════════════════════════════════════════
-function showScreen(name){
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-'+name).classList.add('active');
-}
-
-// ══════════════════════════════════════════
-// TRIAGE CHAT ENGINE
-// ══════════════════════════════════════════
-const triageChat  = document.getElementById('triageChat');
-const triageInput = document.getElementById('triageInput');
-const triageSend  = document.getElementById('triageSend');
-const progressFill = document.getElementById('progressFill');
-
-let triageHistory = [];    // messages sent to API
-let anamnesis = {};        // collected data
-let awaitingFreeText = false;
-let triageDone = false;
-
-// System prompt for triage AI
-const SYSTEM_TRIAGE = `Você é um assistente de triagem médica de um serviço de telemedicina chamado "Pronto Atendimento Online". Sua função é conduzir uma anamnese inicial estruturada em português brasileiro, de forma empática, clara e objetiva, como uma enfermeira experiente.
-
-FLUXO OBRIGATÓRIO (siga esta sequência, adaptando conforme respostas):
-1. Peça nome completo
-2. Pergunte idade e sexo (pode juntar numa pergunta)
-3. Pergunte a queixa principal
-4. Pergunte há quanto tempo está assim e intensidade (0-10)
-5. Faça perguntas de follow-up clínico relevantes para a queixa (ex: irradiação, febre, perda de peso, trauma, fatores de melhora/piora, outros sintomas associados) — máximo 3-4 perguntas adicionais, uma por vez
-6. Pergunte sobre antecedentes: doenças crônicas, alergias a medicamentos, medicamentos em uso, e se mulher: gestação/lactação
-7. Pergunte se precisa de atestado e/ou receita; se sim, peça ocupação, dias de afastamento necessários e se autoriza incluir CID
-8. Quando tiver todas as informações, responda EXATAMENTE com este JSON (sem texto antes ou depois):
-{"done":true,"summary":"📋 ANAMNESE\n\n👤 Identificação\n• Nome: [nome]\n• Idade: [idade]\n• Sexo: [sexo]\n\n🩺 Queixa Principal\n[queixa]\n\n🗒️ História Mórbida Atual\n[sintomas detalhados]\n\n📌 História Mórbida Pregressa\n• Doenças crônicas: []\n• Alergia a medicamentos: []\n• Medicamentos em uso: []\n[gestação se aplicável]\n\n📄 Documentos solicitados\n[atestado/receita ou nenhum]"}
-
-REGRAS:
-- Faça UMA pergunta por vez
-- Seja breve e direto
-- Use linguagem acessível, não técnica
-- Se a queixa indicar emergência (dor torácica intensa, falta de ar grave, sinais de AVC), oriente buscar pronto-socorro IMEDIATAMENTE e encerre
-- Não faça diagnóstico, apenas colete informações
-- Máximo 12 perguntas no total`;
-
-async function callTriageAPI(userMessage){
-  triageHistory.push({role:'user', content: userMessage});
-  
-  try {
-    const res = await fetch('https://triagem-api.onrender.com/api/triage', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        system: SYSTEM_TRIAGE,
-        messages: triageHistory
-      })
-    });
-    const data = await res.json();
-    const text = data.text || data.content?.[0]?.text || '';
-    triageHistory.push({role:'assistant', content: text});
-    return text;
-  } catch(e){
-    return 'Desculpe, houve um erro de conexao. Tente novamente.';
-  }
-}
-
-function addMsg(role, text, opts=[]){
-  const wrap = document.createElement('div');
-  wrap.className = `msg msg--${role}`;
-  
-  if(role === 'bot'){
-    wrap.innerHTML = `
-      <div class="msg__avatar">🩺</div>
+<section class="cta-bot z1">
+  <div class="wrap">
+    <div class="cta-bot__box">
       <div>
-        <div class="msg__bubble">${text.replace(/\n/g,'<br>')}</div>
-        ${opts.length ? `<div class="options">${opts.map(o=>`<button class="opt" onclick="selectOpt('${o}')">${o}</button>`).join('')}</div>` : ''}
-      </div>`;
-  } else {
-    wrap.innerHTML = `
-      <div class="msg__bubble">${text}</div>
-      <div class="msg__avatar">👤</div>`;
-  }
-  triageChat.appendChild(wrap);
-  triageChat.scrollTop = triageChat.scrollHeight;
+        <h2 class="cta-bot__h">Resolve hoje.</h2>
+        <p class="cta-bot__sub">Clique e inicie sua triagem agora.</p>
+      </div>
+      <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer z1">
+  <div class="wrap footer__in">
+    JG FONSECA SERVI&Ccedil;OS M&Eacute;DICOS LTDA &nbsp;|&nbsp; CNPJ: 55.789.896/0001-21<br>
+    M&eacute;dico respons&aacute;vel: Gustavo Fonseca &nbsp;&middot;&nbsp; (98) 98927-2727 &nbsp;&middot;&nbsp; drgustavofons@gmail.com
+  </div>
+</footer>
+
+<button id="waf" aria-label="WhatsApp" onclick="openWidget()">
+  <svg viewBox="0 0 32 32" fill="white" width="27" height="27"><path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/></svg>
+</button>
+
+<div id="wa-overlay" onclick="overlayClick(event)">
+  <div id="wa-popup">
+    <div class="wp-head">
+      <div class="wp-head-icon"><svg viewBox="0 0 32 32" fill="white" width="20" height="20"><path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/></svg></div>
+      <div><div class="wp-head-title">Pronto Atendimento Online</div><div class="wp-head-sub">Online agora &middot; Resposta em minutos</div></div>
+      <button class="wp-close" onclick="closeWidget()">&#215;</button>
+    </div>
+    <div class="wp-bubble">Ol&aacute;! Preencha abaixo e te respondo em minutos.</div>
+    <div class="wp-form">
+      <input class="wp-inp" id="wp-nome" type="text" placeholder="Seu nome" autocomplete="given-name"/>
+      <input class="wp-inp" id="wp-idade" type="text" placeholder="Idade" inputmode="numeric"/>
+      <input class="wp-inp" id="wp-tel" type="tel" placeholder="WhatsApp (com DDD)" autocomplete="tel"/>
+      <textarea class="wp-inp" id="wp-queixa" rows="3" placeholder="Queixa principal e h&aacute; quanto tempo..."></textarea>
+      <button class="wp-send" onclick="enviarWA()">Iniciar conversa no WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function openWidget(){ document.getElementById('wa-overlay').classList.add('open'); setTimeout(()=>document.getElementById('wp-nome').focus(),100); }
+function closeWidget(){ document.getElementById('wa-overlay').classList.remove('open'); }
+function overlayClick(e){ if(e.target===document.getElementById('wa-overlay')) closeWidget(); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeWidget(); });
+function enviarWA(){
+  var nome=document.getElementById('wp-nome').value.trim();
+  var idade=document.getElementById('wp-idade').value.trim();
+  var tel=document.getElementById('wp-tel').value.trim();
+  var queixa=document.getElementById('wp-queixa').value.trim();
+  if(!nome){ document.getElementById('wp-nome').focus(); return; }
+  var msg='Olá, gostaria de atendimento médico online.\n\n👤 Nome: '+nome+'\n🎂 Idade: '+(idade||'—')+'\n📱 Telefone: '+(tel||'—')+'\n🩺 Queixa: '+(queixa||'—');
+  window.open('https://wa.me/5598989272727?text='+encodeURIComponent(msg),'_blank');
+  closeWidget();
 }
-
-function addTyping(){
-  const t = document.createElement('div');
-  t.className = 'msg msg--bot';
-  t.id = 'typing-indicator';
-  t.innerHTML = `<div class="msg__avatar">🩺</div><div class="msg__bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
-  triageChat.appendChild(t);
-  triageChat.scrollTop = triageChat.scrollHeight;
-  return t;
+var tk=document.getElementById('carTk');
+var pipsWrap=document.getElementById('carPips');
+var slides=Array.from(tk.children);
+var idx=0,timer;
+slides.forEach(function(_,i){
+  var p=document.createElement('button');
+  p.className='pip';
+  p.setAttribute('aria-label','Avaliação '+(i+1));
+  p.onclick=function(){go(i);};
+  pipsWrap.appendChild(p);
+});
+function go(i){
+  idx=(i+slides.length)%slides.length;
+  tk.style.transform='translateX('+(-idx*100)+'%)';
+  Array.from(pipsWrap.children).forEach(function(p,j){ p.classList.toggle('on',j===idx); });
+  clearInterval(timer); timer=setInterval(function(){go(idx+1);},5800);
 }
-
-function removeTyping(){
-  const t = document.getElementById('typing-indicator');
-  if(t) t.remove();
-}
-
-function setInputEnabled(v){
-  triageInput.disabled = !v;
-  triageSend.disabled = !v;
-  awaitingFreeText = v;
-}
-
-function updateProgress(step, total=12){
-  progressFill.style.width = `${Math.min(100, Math.round((step/total)*100))}%`;
-}
-
-let stepCount = 0;
-async function botReply(userMsg){
-  setInputEnabled(false);
-  addTyping();
-  
-  const reply = await callTriageAPI(userMsg);
-  removeTyping();
-  stepCount++;
-  updateProgress(stepCount);
-
-  // Check if triage is done
-  const jsonMatch = reply.match(/\{[\s\S]*"done"\s*:\s*true[\s\S]*\}/);
-  if(jsonMatch){
-    try{
-      const data = JSON.parse(jsonMatch[0]);
-      anamnesis.summary = data.summary;
-      triageDone = true;
-      addMsg('bot', '✅ Triagem concluída! Seu resumo foi enviado para o médico. Aguarde — ele entrará em contato em breve pelo chat ao lado.');
-      updateProgress(12);
-      setTimeout(() => finishTriage(), 2200);
-      return;
-    } catch(e){}
-  }
-
-  // Parse reply for quick-reply options
-  const lines = reply.split('\n').filter(l => l.trim());
-  const mainText = lines.filter(l => !l.startsWith('→')).join('\n');
-  const opts = lines.filter(l => l.startsWith('→')).map(l => l.replace('→','').trim());
-  
-  addMsg('bot', mainText, opts);
-  setInputEnabled(true);
-  triageInput.focus();
-}
-
-function selectOpt(val){
-  document.querySelectorAll('.opt').forEach(b => {
-    b.disabled = true; b.style.opacity = '.5';
+document.getElementById('car-prev').onclick=function(){go(idx-1);};
+document.getElementById('car-next').onclick=function(){go(idx+1);};
+go(0);
+document.querySelectorAll('.qa').forEach(function(d){
+  d.addEventListener('toggle',function(){
+    if(d.open) document.querySelectorAll('.qa[open]').forEach(function(o){ if(o!==d) o.removeAttribute('open'); });
   });
-  addMsg('user', val);
-  botReply(val);
-}
-
-async function startTriage(){
-  setInputEnabled(false);
-  addTyping();
-  
-  // First message - no user input yet
-  const firstMsg = await callTriageAPI('Olá, acabei de aceitar os termos e gostaria de iniciar minha triagem.');
-  removeTyping();
-  addMsg('bot', firstMsg);
-  setInputEnabled(true);
-  triageInput.focus();
-}
-
-// Send on Enter
-triageInput.addEventListener('keydown', e => {
-  if(e.key === 'Enter' && !e.shiftKey){
-    e.preventDefault();
-    sendTriageMsg();
-  }
 });
-triageSend.addEventListener('click', sendTriageMsg);
-
-function sendTriageMsg(){
-  const val = triageInput.value.trim();
-  if(!val || !awaitingFreeText) return;
-  triageInput.value = '';
-  triageInput.style.height = 'auto';
-  addMsg('user', val);
-  botReply(val);
-}
-
-// Auto-resize textarea
-triageInput.addEventListener('input', function(){
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-});
-
-// ══════════════════════════════════════════
-// DOCTOR CHAT
-// ══════════════════════════════════════════
-const doctorChat  = document.getElementById('doctorChat');
-const doctorInput = document.getElementById('doctorInput');
-const summaryPanel = document.getElementById('summaryPanel');
-
-let doctorHistory = [];
-
-const SYSTEM_DOCTOR = `Você é o Dr. Gustavo Fonseca, médico generalista atendendo por chat em uma plataforma de telemedicina. Você recebeu a anamnese abaixo de um paciente e agora conduz o atendimento pelo chat.
-
-Seu estilo:
-- Humano, empático, direto e claro
-- Usa linguagem acessível, sem jargão desnecessário
-- Faz perguntas quando precisa de informação adicional
-- Orienta sobre próximos passos, sinais de alerta e quando buscar emergência presencial
-- Se clinicamente indicado, informa que pode emitir atestado/receita e solicita informações adicionais necessárias
-- NÃO faz diagnósticos definitivos sem exame físico; orienta de forma responsável
-- Se houver sinal de emergência, orienta ir ao pronto-socorro imediatamente`;
-
-async function callDoctorAPI(userMsg){
-  doctorHistory.push({role:'user', content: userMsg});
-  try{
-    const res = await fetch('https://triagem-api.onrender.com/api/doctor',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        system: SYSTEM_DOCTOR + '\n\nANAMNESE DO PACIENTE:\n' + (anamnesis.summary||''),
-        messages: doctorHistory
-      })
-    });
-    const data = await res.json();
-    const text = data.text || data.content?.[0]?.text || '';
-    doctorHistory.push({role:'assistant', content: text});
-    return text;
-  } catch(e){
-    return 'Erro de conexão. Tente novamente.';
-  }
-}
-
-function addDoctorMsg(role, text){
-  const wrap = document.createElement('div');
-  wrap.className = `msg msg--${role}`;
-  if(role === 'bot'){
-    wrap.innerHTML = `<div class="msg__avatar">👨‍⚕️</div><div class="msg__bubble">${text.replace(/\n/g,'<br>')}</div>`;
-  } else {
-    wrap.innerHTML = `<div class="msg__bubble">${text}</div><div class="msg__avatar">👤</div>`;
-  }
-  doctorChat.appendChild(wrap);
-  doctorChat.scrollTop = doctorChat.scrollHeight;
-}
-
-function addDoctorTyping(){
-  const t = document.createElement('div');
-  t.className = 'msg msg--bot';
-  t.id = 'doc-typing';
-  t.innerHTML = `<div class="msg__avatar">👨‍⚕️</div><div class="msg__bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
-  doctorChat.appendChild(t);
-  doctorChat.scrollTop = doctorChat.scrollHeight;
-}
-
-async function finishTriage(){
-  showScreen('chat');
-  document.getElementById('nav-step').textContent = 'Chat Médico';
-  summaryPanel.textContent = anamnesis.summary || '';
-
-  // Save consult to Firebase
-  try {
-    const ref = await addDoc(collection(db,'consultas'),{
-      nome:          anamnesis.nome   || '',
-      idade:         anamnesis.idade  || '',
-      sexo:          anamnesis.sexo   || '',
-      queixa:        anamnesis.queixa || '',
-      anamnese:      anamnesis.summary || '',
-      precisaAtestado: /atestado/i.test(anamnesis.summary||''),
-      precisaReceita:  /receita/i.test(anamnesis.summary||''),
-      status:        'aguardando',
-      criadoEm:      serverTimestamp(),
-      ultimaAtividade: serverTimestamp()
-    });
-    consultaId = ref.id;
-
-    // Save triage summary as first system message
-    await addDoc(collection(db,'consultas',consultaId,'mensagens'),{
-      autor:'sistema',
-      texto:'📋 Triagem concluída. Anamnese disponível no painel.',
-      criadoEm: serverTimestamp()
-    });
-
-    // Listen for doctor messages in real time
-    listenDoctorMessages();
-  } catch(e){
-    console.error('Firebase error:', e);
-  }
-
-  // Show waiting message
-  addDoctorMsg('bot', 'Sua triagem foi recebida! O Dr. Gustavo foi notificado e entrara em contato em breve. Tempo medio de resposta: ate 12 horas. Se seu quadro piorar (falta de ar, dor no peito, desmaio), procure pronto-socorro imediatamente.');
-}
-
-function listenDoctorMessages(){
-  if(!consultaId) return;
-  const q = query(
-    collection(db,'consultas',consultaId,'mensagens'),
-    orderBy('criadoEm','asc')
-  );
-  onSnapshot(q, snap => {
-    snap.docChanges().forEach(change => {
-      if(change.type !== 'added') return;
-      const m = change.doc.data();
-      if(m.autor === 'medico'){
-        addDoctorMsg('bot', m.texto || '');
-      }
-    });
-  });
-}
-
-async function sendDoctorMsg(){
-  const val = doctorInput.value.trim();
-  if(!val) return;
-  doctorInput.value = '';
-  doctorInput.style.height = 'auto';
-  addDoctorMsg('user', val);
-
-  // Save to Firebase
-  if(consultaId){
-    try {
-      await addDoc(collection(db,'consultas',consultaId,'mensagens'),{
-        autor:'paciente',
-        texto:val,
-        criadoEm: serverTimestamp()
-      });
-      await updateDoc(doc(db,'consultas',consultaId),{
-        ultimaAtividade: serverTimestamp()
-      });
-    } catch(e){ console.error('Msg save error:',e); }
-  }
-}
-
-doctorInput.addEventListener('keydown', e => {
-  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendDoctorMsg(); }
-});
-doctorInput.addEventListener('input', function(){
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-});
-
-function toggleSummary(){
-  summaryPanel.classList.toggle('open');
-}
 </script>
 
 </body>
