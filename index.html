@@ -78,7 +78,9 @@ display:inline-flex;align-items:center;justify-content:center;gap:9px;
 padding:13px 22px;border-radius:14px;border:none;
 font-family:‘Outfit’,sans-serif;font-size:.9rem;font-weight:600;
 cursor:pointer;transition:transform .12s ease,box-shadow .2s ease;
+background:-webkit-linear-gradient(135deg,var(–g1) 0%,var(–g2) 100%);
 background:linear-gradient(135deg,var(–g1) 0%,var(–g2) 100%);
+-webkit-appearance:none;
 color:#051208;
 box-shadow:0 6px 28px rgba(180,224,90,.28),inset 0 1px 0 rgba(255,255,255,.18);
 }
@@ -473,17 +475,19 @@ animation:waPulse 3s ease-in-out infinite;
 /* ══════════════════════════════════════
 REVEAL ANIMATIONS
 ══════════════════════════════════════ */
-.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
-.rv.in{opacity:1;transform:none}
-.rv.from-l{transform:translateX(-30px)}
-.rv.from-r{transform:translateX(30px)}
-.rv.in.from-l,.rv.in.from-r{transform:none}
+.rv{transition:opacity .8s ease,transform .8s ease}
+body.js-ready .rv{opacity:0;transform:translateY(22px)}
+body.js-ready .rv.from-l{transform:translateX(-26px)}
+body.js-ready .rv.from-r{transform:translateX(26px)}
+body.js-ready .rv.in{opacity:1!important;transform:none!important}
 .d1{transition-delay:.08s}
 .d2{transition-delay:.16s}
 .d3{transition-delay:.24s}
 .d4{transition-delay:.32s}
 @media(prefers-reduced-motion:reduce){
-.rv,.rv.in{opacity:1!important;transform:none!important;transition:none!important}
+.rv,body.js-ready .rv,body.js-ready .rv.in{
+opacity:1!important;transform:none!important;transition:none!important
+}
 .car-tk{transition:none!important}
 .strip__track{animation:none!important}
 }
@@ -996,10 +1000,17 @@ WA_BTNS.forEach(id => {
 });
 
 // ── SCROLL REVEAL ──
+// Mark body so CSS hides .rv elements (safe: only hides after JS runs)
+document.body.classList.add("js-ready");
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("in"); });
-}, {threshold:0.1});
-document.querySelectorAll(".rv").forEach(el => io.observe(el));
+}, {threshold:0.08,rootMargin:"0px 0px -30px 0px"});
+document.querySelectorAll(".rv").forEach(el => {
+  // Immediately reveal if already in viewport (fixes iOS first-screen issue)
+  const r = el.getBoundingClientRect();
+  if(r.top < window.innerHeight && r.bottom > 0) { el.classList.add("in"); return; }
+  io.observe(el);
+});
 
 // ── COUNTERS ──
 const ioC = new IntersectionObserver(entries => {
