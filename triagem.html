@@ -109,6 +109,36 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .wa-opt.selected,.wa-opt:hover{border-color:rgba(37,211,102,.4);background:rgba(37,211,102,.08);color:#fff}
 .wa-send{width:100%;padding:14px;border-radius:14px;border:none;background:#25D366;color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;-webkit-appearance:none;box-shadow:0 6px 24px rgba(37,211,102,.28);transition:transform .12s,box-shadow .2s}
 .wa-send:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(37,211,102,.38)}
+
+/* ── PAGAMENTO ── */
+#screen-payment{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
+.pay-box{width:min(500px,100%);border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.03);overflow:hidden;backdrop-filter:blur(8px)}
+.pay-head{padding:24px 26px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}
+.pay-icon{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.18),rgba(94,224,160,.12));border:1px solid rgba(180,224,90,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.pay-head-text h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:3px}
+.pay-head-text p{font-size:.76rem;color:var(--muted);font-weight:300}
+.pay-body{padding:24px 26px}
+.pay-valor{display:flex;align-items:center;justify-content:space-between;background:rgba(180,224,90,.06);border:1px solid rgba(180,224,90,.15);border-radius:16px;padding:16px 20px;margin-bottom:22px}
+.pay-valor-left .label{font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px}
+.pay-valor-left .desc{font-size:.78rem;color:rgba(255,255,255,.5);font-weight:300;margin-top:3px}
+.pay-price{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b4e05a;line-height:1}
+.pay-label{font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px;margin-top:0}
+.pay-input{width:100%;padding:12px 16px;border-radius:13px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:300;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;margin-bottom:14px}
+.pay-input::placeholder{color:rgba(255,255,255,.25)}
+.pay-input:focus{border-color:rgba(94,224,160,.35);background:rgba(255,255,255,.08)}
+.pay-btn{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.28);transition:opacity .2s,transform .12s,box-shadow .2s;letter-spacing:.01em}
+.pay-btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(180,224,90,.4)}
+.pay-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.pay-qr-wrap{display:none;margin-top:22px;text-align:center;animation:msgIn .3s ease}
+.pay-qr-wrap.show{display:block}
+.pay-qr-img{width:190px;height:190px;border-radius:16px;border:2px solid rgba(180,224,90,.25);background:#fff;padding:6px;margin:0 auto 16px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.pay-copy-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;border:1px solid rgba(180,224,90,.3);background:rgba(180,224,90,.07);color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;-webkit-appearance:none;appearance:none;transition:background .15s;margin-bottom:14px}
+.pay-copy-btn:hover{background:rgba(180,224,90,.14)}
+.pay-status-msg{font-size:.8rem;color:rgba(255,255,255,.4);font-weight:300}
+.pay-status-msg.ok{color:#5ee0a0;font-weight:500}
+.pay-divider{display:flex;align-items:center;gap:10px;margin:20px 0 0;font-size:.7rem;color:rgba(255,255,255,.2);letter-spacing:.04em}
+.pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+.pay-seguro{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300}
 </style>
 </head>
 <body>
@@ -198,9 +228,8 @@ var btn = document.getElementById('btnAceitar');
 chk.addEventListener('change', function(){ btn.classList.toggle('on', chk.checked); });
 btn.addEventListener('click', function(){
   if(!chk.checked) return;
-  showScreen('triage');
-  document.getElementById('nav-step').textContent = 'TRIAGEM MÉDICA';
-  startTriage();
+  showScreen('payment');
+  document.getElementById('nav-step').textContent = 'PAGAMENTO';
 });
 
 /* SCREENS */
@@ -362,6 +391,134 @@ var triageInput = document.getElementById('triageInput');
 triageInput.addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,110)+'px'; });
 triageInput.addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendTriage(this.value.trim()); } });
 document.getElementById('triageSend').addEventListener('click', function(){ sendTriage(triageInput.value.trim()); });
+
+/* ── PAGAMENTO ── */
+var pixCode = '';
+var paymentId = '';
+var paymentPoller = null;
+
+async function gerarPix(){
+  var nome = document.getElementById('payNome').value.trim();
+  var email = document.getElementById('payEmail').value.trim();
+
+  if(!nome){ document.getElementById('payNome').focus(); return; }
+  if(!email || !email.includes('@')){ document.getElementById('payEmail').focus(); return; }
+
+  var btn = document.getElementById('payBtn');
+  btn.disabled = true;
+  btn.textContent = 'Gerando QR Code...';
+
+  try {
+    var res = await fetch('https://triagem-api.onrender.com/api/payment', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ nome: nome, email: email })
+    });
+    var data = await res.json();
+
+    if(!data.ok || !data.qr_code_base64){
+      btn.disabled = false;
+      btn.textContent = 'Gerar QR Code Pix';
+      alert('Erro ao gerar pagamento. Tente novamente.');
+      return;
+    }
+
+    pixCode = data.qr_code;
+    paymentId = data.payment_id;
+
+    document.getElementById('payQrImg').src = 'data:image/png;base64,' + data.qr_code_base64;
+    document.getElementById('payQrWrap').classList.add('show');
+
+    btn.textContent = 'QR gerado — aguardando pagamento';
+
+    // Polling a cada 4s para verificar pagamento
+    paymentPoller = setInterval(async function(){
+      try {
+        var r = await fetch('https://triagem-api.onrender.com/api/payment/' + paymentId);
+        var d = await r.json();
+        if(d.status === 'approved'){
+          clearInterval(paymentPoller);
+          pagamentoConfirmado(nome);
+        }
+      } catch(e){}
+    }, 4000);
+
+  } catch(e){
+    btn.disabled = false;
+    btn.textContent = 'Gerar QR Code Pix';
+    alert('Erro de conexão. Verifique sua internet.');
+  }
+}
+
+function copiarPix(){
+  if(!pixCode) return;
+  navigator.clipboard.writeText(pixCode).then(function(){
+    var b = document.getElementById('payCopyBtn');
+    b.textContent = '✓ Copiado!';
+    setTimeout(function(){ b.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar código Pix'; }, 2000);
+  });
+}
+
+function pagamentoConfirmado(nome){
+  clearInterval(paymentPoller);
+  document.getElementById('payStatusMsg').textContent = '✓ Pagamento confirmado! Iniciando triagem...';
+  document.getElementById('payStatusMsg').classList.add('ok');
+  setTimeout(function(){
+    showScreen('triage');
+    document.getElementById('nav-step').textContent = 'TRIAGEM MÉDICA';
+    startTriage();
+  }, 1500);
+}
+
 </script>
+
+<!-- SCREEN: PAGAMENTO -->
+<div id="screen-payment" class="screen">
+  <div class="pay-box">
+    <div class="pay-head">
+      <div class="pay-icon">💳</div>
+      <div class="pay-head-text">
+        <h2>Pagamento seguro</h2>
+        <p>Pix instantâneo via Mercado Pago</p>
+      </div>
+    </div>
+    <div class="pay-body">
+      <div class="pay-valor">
+        <div class="pay-valor-left">
+          <div class="label">Consulta médica online</div>
+          <div class="desc">Receitas e atestados quando indicados</div>
+        </div>
+        <div class="pay-price">R$&nbsp;49,90</div>
+      </div>
+
+      <div class="pay-label">Seu nome</div>
+      <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
+
+      <div class="pay-label">Seu e-mail</div>
+      <input class="pay-input" id="payEmail" type="email" placeholder="Para o comprovante" autocomplete="email"/>
+
+      <button class="pay-btn" id="payBtn" onclick="gerarPix()">
+        Gerar QR Code Pix
+      </button>
+
+      <!-- QR CODE -->
+      <div class="pay-qr-wrap" id="payQrWrap">
+        <img id="payQrImg" class="pay-qr-img" src="" alt="QR Code Pix"/>
+        <br/>
+        <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar código Pix
+        </button>
+        <div class="pay-status-msg" id="payStatusMsg">Aguardando pagamento...</div>
+      </div>
+
+      <div class="pay-divider">pagamento processado por</div>
+      <div class="pay-seguro">
+        🔒 Mercado Pago · Ambiente seguro · Dados criptografados
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
