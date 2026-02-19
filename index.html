@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Próximo Atendimento Online</title>
-<meta name="description" content="Atendimento médico online. Avaliação clara, direta e segura."/>
+<meta name="description" content="Atendimento medico online. Avaliação clara, direta e segura."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -505,18 +505,18 @@ a{color:inherit;text-decoration:none}
         <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
       </div>
       <div class="hero__stats">
-        <div class="hstat">
-          <span class="hstat__n">800+</span>
+        <div class="hstat fade-up">
+          <span class="hstat__n" data-target="800">0</span>
           <span class="hstat__l">atendimentos</span>
         </div>
         <div class="hstat-sep"></div>
-        <div class="hstat">
-          <span class="hstat__n">200+</span>
+        <div class="hstat fade-up">
+          <span class="hstat__n" data-target="200">0</span>
           <span class="hstat__l">avaliações</span>
         </div>
         <div class="hstat-sep"></div>
-        <div class="hstat">
-          <span class="hstat__n">4,9 &#9733;</span>
+        <div class="hstat fade-up">
+          <span class="hstat__n" id="starStat">5,0 &#9733;</span>
           <span class="hstat__l">média</span>
         </div>
       </div>
@@ -607,7 +607,7 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
     <p class="how__legal">
-      Receitas, atestados e exames dependem de avaliação médica individual, conforme Resolução CFM nº 2.314/2022.
+      Receitas, atestados e exames dependem de avaliacao medica individual, conforme Resolução CFM nº 2.314/2022.
     </p>
   </div>
 </section>
@@ -617,7 +617,7 @@ a{color:inherit;text-decoration:none}
   <div class="wrap">
     <div class="sec-label">Pacientes</div>
     <h2 class="sec-h">Quem já foi <em>atendido.</em></h2>
-    <div class="reviews__score">&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;4,9 média &middot; 200+ avaliações</div>
+    <div class="reviews__score">&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;5,0 média &middot; 200+ avaliações</div>
     <div class="car-outer">
       <div class="car-vp">
         <div class="car-tk" id="carTk">
@@ -626,21 +626,21 @@ a{color:inherit;text-decoration:none}
               <strong class="rcard__name">Israel</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Adiantou a consulta, o que foi muito bom. Muito simpático, explicou tudo com clareza e educação, se colocando à disposição para quaisquer dúvidas posteriores. Primeira experiência em telemedicina e adorei.</p>
+            <p class="rcard__quote">Adiantou a consulta, o que foi muito bom. Muito simpático, explicou tudo com clareza e educacao, se colocando a disposicao para quaisquer duvidas posteriores. Primeira experiencia em telemedicina e adorei.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
               <strong class="rcard__name">Rosimeire</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Excelente atendimento. Médico atencioso, dedicado, muito educado, fácil comunicação. Ouviu atentamente meus sintomas e solicitou os exames necessários. Certamente retornarei.</p>
+            <p class="rcard__quote">Excelente atendimento. Médico atencioso, dedicado, muito educado, facil comunicacao. Ouviu atentamente meus sintomas e solicitou os exames necessarios. Certamente retornarei.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
               <strong class="rcard__name">Juelito</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Profissional extremamente atencioso. Orientou sobre medicações e sobre minha saúde em geral. Superou e muito as minhas expectativas.</p>
+            <p class="rcard__quote">Profissional extremamente atencioso. Orientou sobre medicações e sobre minha saude em geral. Superou e muito as minhas expectativas.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
@@ -687,7 +687,7 @@ a{color:inherit;text-decoration:none}
         </details>
         <details class="qa fade-up">
           <summary>Posso receber receita ou atestado?</summary>
-          <div class="qa__ans">Sim, quando clinicamente indicado após avaliação médica. Atestados para trabalho, faculdade ou outros fins, e receitas, são emitidos na mesma consulta sem necessidade de retorno. Dependem do quadro avaliado pelo médico, conforme CFM nº 2.314/2022.</div>
+          <div class="qa__ans">Sim — quando clinicamente indicado após avaliação médica. Atestados para trabalho, faculdade ou outros fins, e receitas, são emitidos na mesma consulta sem necessidade de retorno. Dependem do quadro avaliado pelo médico, conforme CFM nº 2.314/2022.</div>
         </details>
         <details class="qa fade-up">
           <summary>Atende fora do Brasil?</summary>
@@ -707,7 +707,7 @@ a{color:inherit;text-decoration:none}
   <div class="wrap">
     <div class="cta-bot__box">
       <div>
-        <h2 class="cta-bot__h">Resolva hoje.</h2>
+        <h2 class="cta-bot__h">Resolve hoje.</h2>
         <p class="cta-bot__sub">Clique e inicie sua triagem agora.</p>
       </div>
       <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
@@ -747,12 +747,12 @@ a{color:inherit;text-decoration:none}
       </div>
       <button class="wp-close" onclick="closeWidget()">&#215;</button>
     </div>
-    <div class="wp-bubble">Olá! Preencha abaixo e te respondo em minutos.</div>
+    <div class="wp-bubble">Ola! Preencha abaixo e te respondo em minutos.</div>
     <div class="wp-form">
       <input class="wp-inp" id="wp-nome" type="text" placeholder="Seu nome" autocomplete="given-name"/>
       <input class="wp-inp" id="wp-idade" type="text" placeholder="Idade" inputmode="numeric"/>
       <input class="wp-inp" id="wp-tel" type="tel" placeholder="WhatsApp com DDD" autocomplete="tel"/>
-      <textarea class="wp-inp" id="wp-queixa" rows="3" placeholder="Queixa principal e há quanto tempo..."></textarea>
+      <textarea class="wp-inp" id="wp-queixa" rows="3" placeholder="Queixa principal e ha quanto tempo..."></textarea>
       <button class="wp-send" onclick="enviarWA()">Iniciar conversa no WhatsApp</button>
     </div>
   </div>
@@ -770,7 +770,7 @@ function enviarWA(){
   var tel    = document.getElementById('wp-tel').value.trim();
   var queixa = document.getElementById('wp-queixa').value.trim();
   if(!nome){ document.getElementById('wp-nome').focus(); return; }
-  var msg = 'Olá, gostaria de atendimento médico online.\n\nNome: '+nome+'\nIdade: '+(idade||'--')+'\nTelefone: '+(tel||'--')+'\nQueixa: '+(queixa||'--');
+  var msg = 'Ola, gostaria de atendimento medico online.\n\nNome: '+nome+'\nIdade: '+(idade||'--')+'\nTelefone: '+(tel||'--')+'\nQueixa: '+(queixa||'--');
   window.open('https://wa.me/5598989272727?text='+encodeURIComponent(msg),'_blank');
   closeWidget();
 }
@@ -807,6 +807,38 @@ document.querySelectorAll('.qa').forEach(function(d){
     }
   });
 });
+
+/* ── COUNTER ANIMATION ── */
+function animateCounter(el){
+  var target = parseInt(el.getAttribute('data-target'));
+  var duration = 1400;
+  var start = null;
+  function step(ts){
+    if(!start) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    var ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(ease * target) + '+';
+    if(progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + '+';
+  }
+  requestAnimationFrame(step);
+}
+
+var countersStarted = false;
+var origObserverCallback = window._fadeObserverCallback;
+
+var statsObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting && !countersStarted){
+      countersStarted = true;
+      document.querySelectorAll('.hstat [data-target]').forEach(animateCounter);
+    }
+  });
+}, {threshold: 0.3});
+
+var statsSection = document.querySelector('.hero__stats');
+if(statsSection) statsObserver.observe(statsSection);
+
 </script>
 
 <script>
