@@ -607,7 +607,7 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
     <p class="how__legal">
-      Receitas, atestados e exames dependem de avaliacao medica individual, conforme Resolução CFM nº 2.314/2022.
+      Receitas, atestados e exames dependem de avaliação médica individual, conforme Resolução CFM nº 2.314/2022.
     </p>
   </div>
 </section>
@@ -626,21 +626,21 @@ a{color:inherit;text-decoration:none}
               <strong class="rcard__name">Israel</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Adiantou a consulta, o que foi muito bom. Muito simpático, explicou tudo com clareza e educacao, se colocando a disposicao para quaisquer duvidas posteriores. Primeira experiencia em telemedicina e adorei.</p>
+            <p class="rcard__quote">Adiantou a consulta, o que foi muito bom. Muito simpático, explicou tudo com clareza e educação, se colocando à disposição para quaisquer dúvidas posteriores. Primeira experiência em telemedicina e adorei.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
               <strong class="rcard__name">Rosimeire</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Excelente atendimento. Médico atencioso, dedicado, muito educado, facil comunicacao. Ouviu atentamente meus sintomas e solicitou os exames necessarios. Certamente retornarei.</p>
+            <p class="rcard__quote">Excelente atendimento. Médico atencioso, dedicado, muito educado, fácil comunicação. Ouviu atentamente meus sintomas e solicitou os exames necessários. Certamente retornarei.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
               <strong class="rcard__name">Juelito</strong>
               <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             </div>
-            <p class="rcard__quote">Profissional extremamente atencioso. Orientou sobre medicações e sobre minha saude em geral. Superou e muito as minhas expectativas.</p>
+            <p class="rcard__quote">Profissional extremamente atencioso. Orientou sobre medicações e sobre minha saúde em geral. Superou e muito as minhas expectativas.</p>
           </article>
           <article class="rcard">
             <div class="rcard__top">
@@ -683,11 +683,11 @@ a{color:inherit;text-decoration:none}
       <div class="faq__items">
         <details class="qa fade-up">
           <summary>A teleconsulta é segura?</summary>
-          <div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imédiato.</div>
+          <div class="qa__ans">Segura para quadros selecionados. Quando identifico sinais de gravidade, oriento atendimento presencial imediato.</div>
         </details>
         <details class="qa fade-up">
           <summary>Posso receber receita ou atestado?</summary>
-          <div class="qa__ans">Sim — quando clinicamente indicado após avaliação médica. Atestados para trabalho, faculdade ou outros fins, e receitas, são emitidos na mesma consulta sem necessidade de retorno. Dependem do quadro avaliado pelo médico, conforme CFM nº 2.314/2022.</div>
+          <div class="qa__ans">Sim, quando clinicamente indicado após avaliação médica. Atestados para trabalho, faculdade ou outros fins, e receitas, são emitidos na mesma consulta sem necessidade de retorno. Dependem do quadro avaliado pelo médico, conforme CFM nº 2.314/2022.</div>
         </details>
         <details class="qa fade-up">
           <summary>Atende fora do Brasil?</summary>
@@ -695,7 +695,7 @@ a{color:inherit;text-decoration:none}
         </details>
         <details class="qa fade-up">
           <summary>Quando devo ir direto à emergência?</summary>
-          <div class="qa__ans">Dor no peito, falta de ar importante, desmaio, confusão mental ou sinais de AVC. Emergência presencial imédiatamente.</div>
+          <div class="qa__ans">Dor no peito, falta de ar importante, desmaio, confusão mental ou sinais de AVC. Emergência presencial imediatamente.</div>
         </details>
       </div>
     </div>
@@ -747,12 +747,12 @@ a{color:inherit;text-decoration:none}
       </div>
       <button class="wp-close" onclick="closeWidget()">&#215;</button>
     </div>
-    <div class="wp-bubble">Ola! Preencha abaixo e te respondo em minutos.</div>
+    <div class="wp-bubble">Olá! Preencha abaixo e te respondo em minutos.</div>
     <div class="wp-form">
       <input class="wp-inp" id="wp-nome" type="text" placeholder="Seu nome" autocomplete="given-name"/>
       <input class="wp-inp" id="wp-idade" type="text" placeholder="Idade" inputmode="numeric"/>
       <input class="wp-inp" id="wp-tel" type="tel" placeholder="WhatsApp com DDD" autocomplete="tel"/>
-      <textarea class="wp-inp" id="wp-queixa" rows="3" placeholder="Queixa principal e ha quanto tempo..."></textarea>
+      <textarea class="wp-inp" id="wp-queixa" rows="3" placeholder="Queixa principal e há quanto tempo..."></textarea>
       <button class="wp-send" onclick="enviarWA()">Iniciar conversa no WhatsApp</button>
     </div>
   </div>
@@ -770,7 +770,7 @@ function enviarWA(){
   var tel    = document.getElementById('wp-tel').value.trim();
   var queixa = document.getElementById('wp-queixa').value.trim();
   if(!nome){ document.getElementById('wp-nome').focus(); return; }
-  var msg = 'Ola, gostaria de atendimento medico online.\n\nNome: '+nome+'\nIdade: '+(idade||'--')+'\nTelefone: '+(tel||'--')+'\nQueixa: '+(queixa||'--');
+  var msg = 'Ola, gostaria de atendimento médico online.\n\nNome: '+nome+'\nIdade: '+(idade||'--')+'\nTelefone: '+(tel||'--')+'\nQueixa: '+(queixa||'--');
   window.open('https://wa.me/5598989272727?text='+encodeURIComponent(msg),'_blank');
   closeWidget();
 }
