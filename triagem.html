@@ -139,6 +139,21 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .pay-divider{display:flex;align-items:center;gap:10px;margin:20px 0 0;font-size:.7rem;color:rgba(255,255,255,.2);letter-spacing:.04em}
 .pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
 .pay-seguro{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300}
+
+/* SCREEN CONFIRMAÇÃO */
+#screen-confirm{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
+.confirm-box{width:min(480px,100%);border:1px solid rgba(94,224,160,.2);border-radius:24px;background:rgba(255,255,255,.03);overflow:hidden;text-align:center;padding:48px 32px}
+.confirm-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.15),rgba(94,224,160,.1));border:1px solid rgba(94,224,160,.3);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 24px}
+.confirm-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:500;margin-bottom:10px}
+.confirm-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:32px}
+.confirm-card{background:rgba(94,224,160,.05);border:1px solid rgba(94,224,160,.15);border-radius:16px;padding:18px 20px;margin-bottom:24px;text-align:left}
+.confirm-card-row{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;padding:4px 0}
+.confirm-card-row .ck{color:rgba(255,255,255,.4);font-weight:300}
+.confirm-card-row .cv{color:rgba(255,255,255,.85);font-weight:500}
+.confirm-wa-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:14px;border:none;background:#25D366;color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 20px rgba(37,211,102,.25);transition:transform .12s}
+.confirm-wa-btn:hover{transform:translateY(-1px)}
+.confirm-note{margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.25);font-weight:300}
+
 </style>
 </head>
 <body>
@@ -304,7 +319,7 @@ async function sendTriage(text){
     if(parsed.done && parsed.summary){
       anamnesis.summary = parsed.summary;
       updateProgress(12);
-      setTimeout(function(){ goToWhats(); }, 600);
+      setTimeout(function(){ finishTriage(); }, 600);
       pending=false; document.getElementById('triageSend').disabled=false;
       return;
     }
@@ -320,6 +335,36 @@ async function sendTriage(text){
 }
 
 /* WHATSAPP SCREEN */
+var pacienteNome = '';
+var pacienteTel = '';
+
+async function finishTriage(){
+  // Disparar email para os medicos
+  try {
+    fetch('https://triagem-api.onrender.com/api/notify', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        nome: pacienteNome,
+        tel: pacienteTel,
+        triagem: anamnesis.summary || ''
+      })
+    });
+  } catch(e){ console.warn('Notify error:', e); }
+
+  // Mostrar tela de confirmacao
+  showScreen('confirm');
+  document.getElementById('nav-step').textContent = 'CONCLUÍDO';
+  document.getElementById('confirmNome').textContent = pacienteNome;
+  document.getElementById('confirmTel').textContent = pacienteTel;
+
+  // Botao WhatsApp Business
+  var waMsg = 'Olá! Acabei de concluir minha triagem no ConsultaJá24h. Aguardo o contato do médico.';
+  document.getElementById('confirmWaBtn').onclick = function(){
+    window.open('https://wa.me/5598989272727?text=' + encodeURIComponent(waMsg), '_blank');
+  };
+}
+
 function goToWhats(){
   showScreen('whats');
   document.getElementById('nav-step').textContent = 'FINALIZAR';
@@ -399,10 +444,10 @@ var paymentPoller = null;
 
 async function gerarPix(){
   var nome = document.getElementById('payNome').value.trim();
-  var email = document.getElementById('payEmail').value.trim();
+  var tel = document.getElementById('payTel').value.trim().replace(/\D/g,'');
 
   if(!nome){ document.getElementById('payNome').focus(); return; }
-  if(!email || !email.includes('@')){ document.getElementById('payEmail').focus(); return; }
+  if(!tel || tel.length < 10){ document.getElementById('payTel').focus(); return; }
 
   var btn = document.getElementById('payBtn');
   btn.disabled = true;
@@ -412,7 +457,7 @@ async function gerarPix(){
     var res = await fetch('https://triagem-api.onrender.com/api/payment', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ nome: nome, email: email })
+      body: JSON.stringify({ nome: nome, tel: tel })
     });
     var data = await res.json();
 
@@ -438,7 +483,7 @@ async function gerarPix(){
         var d = await r.json();
         if(d.status === 'approved'){
           clearInterval(paymentPoller);
-          pagamentoConfirmado(nome);
+          pagamentoConfirmado(nome, tel);
         }
       } catch(e){}
     }, 4000);
@@ -459,8 +504,13 @@ function copiarPix(){
   });
 }
 
-function pagamentoConfirmado(nome){
+var pacienteNome = '';
+var pacienteTel = '';
+
+function pagamentoConfirmado(nome, tel){
   clearInterval(paymentPoller);
+  pacienteNome = nome;
+  pacienteTel = tel;
   document.getElementById('payStatusMsg').textContent = '✓ Pagamento confirmado! Iniciando triagem...';
   document.getElementById('payStatusMsg').classList.add('ok');
   setTimeout(function(){
@@ -494,8 +544,8 @@ function pagamentoConfirmado(nome){
       <div class="pay-label">Seu nome</div>
       <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
 
-      <div class="pay-label">Seu e-mail</div>
-      <input class="pay-input" id="payEmail" type="email" placeholder="Para o comprovante" autocomplete="email"/>
+      <div class="pay-label">Seu WhatsApp</div>
+      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número (ex: 98999990000)" autocomplete="tel" inputmode="numeric"/>
 
       <button class="pay-btn" id="payBtn" onclick="gerarPix()">
         Gerar QR Code Pix
@@ -520,6 +570,26 @@ function pagamentoConfirmado(nome){
         🔒 Mercado Pago · Ambiente seguro · Dados criptografados
       </div>
     </div>
+  </div>
+</div>
+
+
+<!-- SCREEN: CONFIRMAÇÃO -->
+<div id="screen-confirm" class="screen">
+  <div class="confirm-box">
+    <div class="confirm-icon">✓</div>
+    <h2 class="confirm-title">Triagem recebida!</h2>
+    <p class="confirm-sub">Sua triagem foi enviada para nossa equipe médica.<br>Um médico entrará em contato no seu WhatsApp em breve.</p>
+    <div class="confirm-card">
+      <div class="confirm-card-row"><span class="ck">Paciente</span><span class="cv" id="confirmNome">—</span></div>
+      <div class="confirm-card-row"><span class="ck">WhatsApp</span><span class="cv" id="confirmTel">—</span></div>
+      <div class="confirm-card-row"><span class="ck">Status</span><span class="cv" style="color:#5ee0a0">✓ Triagem concluída</span></div>
+    </div>
+    <button class="confirm-wa-btn" id="confirmWaBtn">
+      <svg viewBox="0 0 32 32" fill="white" width="18" height="18"><path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/></svg>
+      Confirmar no WhatsApp
+    </button>
+    <p class="confirm-note">Você também receberá contato direto do médico responsável.</p>
   </div>
 </div>
 
