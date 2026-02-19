@@ -34,7 +34,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .screen.active{display:flex;flex-direction:column}
 
 /* TERMOS */
-#screen-terms{align-items:center;justify-content:center;padding:24px}
+#screen-terms{align-items:center;justify-content:center;padding:20px;min-height:calc(100vh - 52px)}
 .terms-box{width:min(580px,100%);border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.03);overflow:hidden}
 .terms-head{padding:22px 24px 18px;border-bottom:1px solid var(--line)}
 .terms-head h1{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:5px}
@@ -42,12 +42,23 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .terms-body{padding:20px 24px;display:flex;flex-direction:column;gap:10px}
 .titem{font-size:.82rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.7;padding-left:12px;border-left:2px solid rgba(180,224,90,.3)}
 .titem strong{color:rgba(255,255,255,.85);font-weight:500;display:block;margin-bottom:2px}
-.terms-foot{padding:18px 24px 24px;border-top:1px solid var(--line);background:rgba(0,0,0,.2)}
+.terms-foot{padding:20px 24px 26px;border-top:1px solid var(--line);background:rgba(0,0,0,.25)}
 .check-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;cursor:pointer}
-.check-row input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color:#b4e05a;flex-shrink:0;cursor:pointer}
-.check-row span{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.55;font-weight:300}
-.btn-aceitar{width:100%;padding:14px;border-radius:14px;border:none;background-color:#b4e05a;color:#051208;font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;cursor:not-allowed;opacity:.35;display:block;-webkit-appearance:none;appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.2);transition:opacity .2s,box-shadow .2s}
-.btn-aceitar.on{opacity:1;cursor:pointer;box-shadow:0 6px 24px rgba(180,224,90,.35)}
+.check-row input[type=checkbox]{width:22px;height:22px;margin-top:1px;accent-color:#b4e05a;flex-shrink:0;cursor:pointer;border-radius:5px}
+.check-row span{font-size:.84rem;color:rgba(255,255,255,.82);line-height:1.55;font-weight:400}
+.btn-aceitar{
+  width:100%;padding:15px;border-radius:14px;border:none;
+  background:linear-gradient(135deg,#b4e05a,#5ee0a0);
+  color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;
+  cursor:not-allowed;opacity:.3;display:block;
+  -webkit-appearance:none;appearance:none;
+  box-shadow:0 6px 24px rgba(180,224,90,.15);
+  transition:opacity .25s,box-shadow .25s,transform .12s;
+  letter-spacing:.01em;
+}
+.btn-aceitar.on{opacity:1;cursor:pointer;box-shadow:0 8px 28px rgba(180,224,90,.4)}
+.btn-aceitar.on:hover{transform:translateY(-1px);box-shadow:0 12px 32px rgba(180,224,90,.5)}
+.btn-aceitar.on:active{transform:none}
 
 /* TRIAGEM CHAT */
 #screen-triage{flex-direction:column}
@@ -324,16 +335,26 @@ function enviarWhats(){
 async function callAPI(endpoint, system, history, userMsg){
   history.push({role:'user', content:userMsg});
   try {
+    var controller = new AbortController();
+    var timeout = setTimeout(function(){ controller.abort(); }, 35000);
     var res = await fetch('https://triagem-api.onrender.com'+endpoint, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system:system, messages:history})
+      body:JSON.stringify({system:system, messages:history}),
+      signal: controller.signal
     });
+    clearTimeout(timeout);
+    if(!res.ok){ throw new Error('HTTP '+res.status); }
     var data = await res.json();
     var text = data.text || (data.content&&data.content[0]&&data.content[0].text) || '';
+    if(!text) throw new Error('resposta vazia');
     history.push({role:'assistant', content:text});
     return text;
-  } catch(e){ history.pop(); return 'Erro de conexão. Verifique sua internet e tente novamente.'; }
+  } catch(e){
+    history.pop();
+    if(e.name==='AbortError') return 'O servidor demorou demais para responder. Pode ser que esteja iniciando — aguarde 30 segundos e tente enviar a mesma mensagem novamente.';
+    return 'Erro de conexão (' + e.message + '). Verifique sua internet e tente novamente.';
+  }
 }
 
 /* INPUT HANDLERS */
