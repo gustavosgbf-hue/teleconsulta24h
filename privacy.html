@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Política de Privacidade · Pronto Atendimento Online</title>
+<title>Política de Privacidade · ConsultaJá24h</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -12,29 +12,31 @@
 body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.88);-webkit-font-smoothing:antialiased;min-height:100vh}
 a{color:#b4e05a;text-decoration:none}
 a:hover{text-decoration:underline}
-
 .bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(ellipse 80vw 60vh at 15% 0%,rgba(180,224,90,.10) 0%,transparent 60%),
   radial-gradient(ellipse 60vw 50vh at 90% 5%,rgba(94,224,160,.07) 0%,transparent 55%);}
-
 .nav{position:sticky;top:0;z-index:100;background:rgba(6,13,11,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.09)}
 .nav__in{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
-.nav__brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem;color:#fff;text-decoration:none}
-.live-dot{width:7px;height:7px;border-radius:50%;background:#5ee0a0;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+.nav__brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
-.nav__back{font-size:.78rem;color:rgba(255,255,255,.45);font-weight:400}
-
+.nav__back{
+  font-size:.78rem;font-weight:500;
+  color:rgba(255,255,255,.4);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;
+  padding:6px 14px;
+  transition:color .15s,border-color .15s;
+  text-decoration:none;
+}
+.nav__back:hover{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25);text-decoration:none}
 .wrap{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:60px 24px 80px}
-
 .doc-label{font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#b4e05a;margin-bottom:14px}
 .doc-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:500;line-height:1.1;letter-spacing:-.025em;margin-bottom:10px}
 .doc-meta{font-size:.78rem;color:rgba(255,255,255,.35);font-weight:300;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.09)}
-
 .doc-section{margin-bottom:36px}
 .doc-section h2{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:10px}
 .doc-section h2::before{content:'';display:inline-block;width:20px;height:1px;background:#b4e05a;opacity:.6;flex-shrink:0}
 .doc-section p{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.65);line-height:1.8}
-
 .doc-footer{margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.09);font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300;line-height:1.8;text-align:center}
 </style>
 </head>
@@ -42,59 +44,51 @@ a:hover{text-decoration:underline}
 <div class="bg-glow" aria-hidden="true"></div>
 
 <nav class="nav">
-  <a class="nav__brand" href="index.html"><div class="live-dot"></div>Pronto Atendimento Online</a>
-  <span class="nav__back">← Voltar</span>
+  <div class="nav__in">
+    <a class="nav__brand" href="index.html">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="36" height="36" style="flex-shrink:0">
+        <defs>
+          <radialGradient id="nb" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#0d1f17"/>
+            <stop offset="100%" stop-color="#060d0b"/>
+          </radialGradient>
+          <linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b4e05a"/>
+            <stop offset="100%" stop-color="#5ee0a0"/>
+          </linearGradient>
+          <linearGradient id="nr" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b4e05a" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#5ee0a0" stop-opacity="0.15"/>
+          </linearGradient>
+        </defs>
+        <circle cx="22" cy="22" r="21" fill="none" stroke="url(#nr)" stroke-width="0.8"/>
+        <circle cx="22" cy="22" r="19.5" fill="url(#nb)"/>
+        <rect x="19.5" y="10" width="3.8" height="24" rx="1.2" fill="url(#ng)"/>
+        <rect x="10" y="19.5" width="24" height="3.8" rx="1.2" fill="url(#ng)"/>
+        <rect x="22.5" y="19.5" width="11.5" height="3.8" rx="0" fill="url(#nb)"/>
+        <polyline points="22.5,21.4 25,21.4 26.5,17 28,26 29.5,20 31,21.4 34,21.4"
+          fill="none" stroke="url(#ng)" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.98rem;font-weight:700;letter-spacing:-.01em;line-height:1">
+        <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.72rem;font-weight:500;color:rgba(255,255,255,.38);margin-left:1px;-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
+      </span>
+    </a>
+    <a href="index.html" class="nav__back">← Voltar ao site</a>
+  </div>
 </nav>
 
 <div class="wrap">
   <div class="doc-label">Documento legal</div>
   <h1 class="doc-title">Política de Privacidade</h1>
   <p class="doc-meta">JG FONSECA SERVIÇOS MÉDICOS LTDA · CNPJ 55.789.896/0001-21 · Última atualização: fevereiro de 2026</p>
-
-  <div class="doc-section">
-    <h2>Responsável pelo tratamento</h2>
-    <p>Os dados são tratados por JG FONSECA SERVIÇOS MÉDICOS LTDA, CNPJ 55.789.896/0001-21, sob responsabilidade técnica do Dr. Gustavo Fonseca — CRM 14325-MA. Contato: drgustavofons@gmail.com</p>
-  </div>
-
-  <div class="doc-section">
-    <h2>Dados coletados</h2>
-    <p>Podem ser coletados nome, idade, sexo, sintomas, histórico clínico relevante e demais informações fornecidas voluntariamente pelo paciente durante a triagem e o atendimento médico.</p>
-  </div>
-
-  <div class="doc-section">
-    <h2>Finalidade</h2>
-    <p>Os dados são utilizados exclusivamente para realização de avaliação médica remota, conforme Resolução CFM nº 2.314/2022. Não são utilizados para fins comerciais, publicidade ou compartilhamento com terceiros não vinculados ao atendimento.</p>
-  </div>
-
-  <div class="doc-section">
-    <h2>Base legal</h2>
-    <p>O tratamento ocorre mediante consentimento expresso do titular, nos termos da Lei nº 13.709/2018 (LGPD), e para cumprimento de obrigação legal decorrente do exercício da medicina.</p>
-  </div>
-
-  <div class="doc-section">
-    <h2>Armazenamento e segurança</h2>
-    <p>Os dados são processados de forma segura. Informações necessárias ao registro clínico seguem as normas do Conselho Federal de Medicina quanto ao prazo e forma de guarda de prontuários.</p>
-  </div>
-
-  <div class="doc-section">
-    <h2>Compartilhamento</h2>
-    <p>Dados poderão ser compartilhados exclusivamente com plataformas necessárias à emissão de receitas digitais ou registro clínico, quando aplicável, mediante obrigação contratual de sigilo.</p>
-  </div>
-
-  <div class="doc-section">
-    <h2>Direitos do titular</h2>
-    <p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados a qualquer momento, quando legalmente possível, pelo e-mail drgustavofons@gmail.com.</p>
-  </div>
-
-  <div class="doc-section">
-    <h2>Emergências</h2>
-    <p>Este serviço não substitui atendimento presencial em situações de urgência ou emergência. Em caso de risco de vida, ligue 192 (SAMU) ou vá ao pronto-socorro mais próximo.</p>
-  </div>
-
-  <div class="doc-footer">
-    JG FONSECA SERVIÇOS MÉDICOS LTDA · CNPJ 55.789.896/0001-21<br>
-    Dr. Gustavo Fonseca · CRM 14325-MA · drgustavofons@gmail.com
-  </div>
-</div>
-</body>
-</html>
+  <div class="doc-section"><h2>Responsável pelo tratamento</h2><p>Os dados são tratados por JG FONSECA SERVIÇOS MÉDICOS LTDA, CNPJ 55.789.896/0001-21, sob responsabilidade técnica do Dr. Gustavo Fonseca — CRM 14325-MA. Contato: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="771305100204031601181118190437101a161e1b5914181a">[email&#160;protected]</a></p></div>
+  <div class="doc-section"><h2>Dados coletados</h2><p>Coletamos nome, WhatsApp, sintomas, histórico clínico, alergias, medicamentos em uso e demais informações fornecidas durante a triagem e o atendimento. O registro de identificação e o consentimento são armazenados com data, hora e IP para fins de auditoria, conforme exigência da LGPD.</p></div>
+  <div class="doc-section"><h2>Finalidade</h2><p>Os dados são utilizados exclusivamente para realização de avaliação médica remota, conforme Resolução CFM nº 2.314/2022. Não são utilizados para fins comerciais, publicidade ou compartilhamento com terceiros não vinculados ao atendimento.</p></div>
+  <div class="doc-section"><h2>Base legal</h2><p>O tratamento ocorre mediante consentimento específico e destacado do titular, nos termos do art. 11 da Lei nº 13.709/2018 (LGPD), e para cumprimento de obrigação legal decorrente do exercício da medicina.</p></div>
+  <div class="doc-section"><h2>Triagem automatizada e IA</h2><p>A etapa de triagem utiliza ferramenta de inteligência artificial para coleta estruturada de anamnese. A ferramenta não realiza diagnóstico, não classifica risco e não define conduta. Toda informação é obrigatoriamente revisada por médico habilitado antes do atendimento. Nos termos do art. 20 da LGPD, não há decisão exclusivamente automatizada que produza efeitos clínicos ou jurídicos sobre o paciente.</p></div>
+  <div class="doc-section"><h2>Transferência internacional de dados</h2><p>Para viabilizar a triagem automatizada, dados poderão ser processados por provedor internacional de inteligência artificial (OpenAI), sob cláusulas contratuais compatíveis com os arts. 33 a 36 da LGPD. O tratamento de pagamentos é realizado pelo Mercado Pago. O envio de notificações aos médicos utiliza o serviço Resend. Todos os fornecedores operam sob obrigação contratual de sigilo e proteção de dados.</p></div>
+  <div class="doc-section"><h2>Armazenamento e segurança</h2><p>Os dados são processados de forma segura com controle de acesso restrito, registro de logs e criptografia quando aplicável. As informações clínicas seguem as normas do CFM quanto ao prazo e forma de guarda de prontuários.</p></div>
+  <div class="doc-section"><h2>Compartilhamento</h2><p>Dados poderão ser compartilhados exclusivamente com plataformas necessárias à emissão de receitas digitais ou registro clínico (Memed / Doctoralia), quando aplicável, mediante obrigação contratual de sigilo.</p></div>
+  <div class="doc-section"><h2>Direitos do titular</h2><p>Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados a qualquer momento, quando legalmente possível, pelo e-mail <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c485e4b595f584d5a434a43425f6c4b414d4540024f4341">[email&#160;protected]</a>.</p></div>
+  <div class="doc-section"><h2>Emergências</h2><p>Este serviço não substitui atendimento presencial em situações de urgência ou emergência. Em caso de risco de vid
