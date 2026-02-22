@@ -14,7 +14,7 @@
 
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ConsultaJá24h · Telemedicina Online</title>
-<meta name="description" content="Atendimento medico online. Avaliação clara, direta e segura."/>
+<meta name="description" content="Consulta médica online com receita, atestado e pedido de exames. Médico com CRM ativo. A partir de R$49,90."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -111,7 +111,7 @@ a{color:inherit;text-decoration:none}
 .nav__actions{display:flex;align-items:center;gap:10px}
 
 /* HERO */
-.hero{padding:80px 0 60px}
+.hero{padding:72px 0 56px}
 .hero__grid{
   display:grid;grid-template-columns:1.1fr .9fr;
   gap:50px;align-items:center;
@@ -119,33 +119,88 @@ a{color:inherit;text-decoration:none}
 .hero__kicker{
   display:inline-flex;align-items:center;gap:8px;
   font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--g1);margin-bottom:22px;
+  color:var(--g1);margin-bottom:20px;
 }
 .hero__kicker-line{width:28px;height:1px;background:var(--g1);opacity:.6}
 .hero__h{
   font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(40px,5.5vw,72px);
+  font-size:clamp(38px,5.2vw,68px);
   line-height:1.03;letter-spacing:-.03em;
-  margin-bottom:18px;font-weight:500;
+  margin-bottom:14px;font-weight:500;
 }
 .hero__h em{font-style:italic;color:#b4e05a}
+
+/* ── NOVO: serviços em destaque imediato ── */
+.hero__services{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:28px;
+}
+.hero__svc{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 13px;border-radius:999px;
+  border:1px solid rgba(180,224,90,.25);
+  background:rgba(180,224,90,.07);
+  font-size:.75rem;font-weight:500;color:var(--g1);
+  letter-spacing:.02em;
+}
+.hero__svc-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--g1);flex-shrink:0;
+}
+
 .hero__tagline{
-  font-size:1rem;font-weight:300;color:var(--muted);
-  line-height:1.7;margin-bottom:34px;
+  font-size:.92rem;font-weight:300;color:var(--muted);
+  line-height:1.65;margin-bottom:30px;
 }
-.hero__ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:44px}
-.price-block{
-  border:1px solid var(--line);background:var(--card);
-  border-radius:16px;padding:12px 18px;
+
+/* ── NOVO: CTA unificado preço + botão ── */
+.hero__cta-block{
+  display:flex;align-items:stretch;gap:0;
+  margin-bottom:40px;
+  border-radius:16px;overflow:hidden;
+  border:1px solid rgba(180,224,90,.22);
+  width:fit-content;
+  box-shadow:0 8px 32px rgba(180,224,90,.15);
 }
-.price-block__label{
-  font-size:.64rem;font-weight:500;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--muted2);margin-bottom:4px;
+.hero__price{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:14px 20px;
+  background:rgba(180,224,90,.08);
+  border-right:1px solid rgba(180,224,90,.18);
 }
-.price-block__val{
+.hero__price-label{
+  font-size:.6rem;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted2);margin-bottom:3px;
+}
+.hero__price-val{
   font-family:'Outfit',sans-serif;
-  font-size:1.45rem;font-weight:600;letter-spacing:-.02em;
+  font-size:1.35rem;font-weight:700;letter-spacing:-.02em;
+  color:#b4e05a;
 }
+.hero__cta-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:16px 26px;border:none;
+  font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:700;
+  cursor:pointer;text-decoration:none;
+  background-color:#b4e05a;
+  background-image:-webkit-linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);
+  background-image:linear-gradient(135deg,#b4e05a 0%,#5ee0a0 100%);
+  -webkit-appearance:none;appearance:none;
+  color:#051208;
+  transition:filter .15s,transform .12s;
+  border-radius:0;
+}
+.hero__cta-btn:hover{filter:brightness(1.08);transform:translateX(2px)}
+.hero__cta-btn svg{transition:transform .15s}
+.hero__cta-btn:hover svg{transform:translateX(3px)}
+
+.hero__trust{
+  display:flex;align-items:center;gap:8px;
+  font-size:.73rem;font-weight:300;color:var(--muted2);
+  margin-bottom:36px;
+}
+.hero__trust-icon{color:var(--g2);font-size:.85rem}
+
 .hero__stats{display:flex;align-items:center}
 .hstat{display:flex;flex-direction:column;align-items:center;padding:0 22px}
 .hstat:first-child{padding-left:0}
@@ -451,9 +506,11 @@ a{color:inherit;text-decoration:none}
   .cta-bot__box{padding:36px 28px}
 }
 @media(max-width:640px){
-  .hero{padding:52px 0 44px}
-  .hero__h{font-size:38px}
-  .hero__ctas{flex-direction:column;align-items:flex-start}
+  .hero{padding:44px 0 36px}
+  .hero__h{font-size:36px}
+  .hero__cta-block{width:100%}
+  .hero__cta-btn{flex:1}
+  .hero__services{gap:6px}
   .imgcards__grid{grid-template-columns:1fr}
   .icard:first-child{grid-column:auto;aspect-ratio:4/3}
   .rcard{padding:26px 20px}
@@ -486,7 +543,6 @@ a{color:inherit;text-decoration:none}
   <div class="wrap nav__in">
     <div class="nav__brand">
       <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none">
-        <!-- Logo icon inline SVG -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="34" height="34" style="flex-shrink:0">
           <defs>
             <radialGradient id="nb" cx="50%" cy="40%" r="60%">
@@ -511,7 +567,6 @@ a{color:inherit;text-decoration:none}
             fill="none" stroke="url(#ng)" stroke-width="1.6"
             stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <!-- Wordmark -->
         <span style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.98rem;font-weight:700;letter-spacing:-.01em;line-height:1">
           <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.72rem;font-weight:500;color:rgba(255,255,255,.38);margin-left:1px;-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
         </span>
@@ -540,17 +595,37 @@ a{color:inherit;text-decoration:none}
       <h1 class="hero__h">
         Avaliação<br><em>médica online.</em>
       </h1>
-      <p class="hero__tagline">
-        Clara. Direta. Segura.<br>
-        Sem burocracia, sem espera.
-      </p>
-      <div class="hero__ctas">
-        <div class="price-block">
-          <div class="price-block__label">Consulta</div>
-          <div class="price-block__val">R$ 49,90</div>
-        </div>
-        <a class="btn btn--lg" href="triagem.html">Iniciar consulta</a>
+
+      <!-- SERVIÇOS EM DESTAQUE IMEDIATO -->
+      <div class="hero__services">
+        <span class="hero__svc"><span class="hero__svc-dot"></span>Consulta</span>
+        <span class="hero__svc"><span class="hero__svc-dot"></span>Receita médica</span>
+        <span class="hero__svc"><span class="hero__svc-dot"></span>Atestado</span>
+        <span class="hero__svc"><span class="hero__svc-dot"></span>Pedido de exames</span>
       </div>
+
+      <p class="hero__tagline">
+        Sem burocracia, sem espera.<br>
+        Médico com CRM ativo. Resultado na hora.
+      </p>
+
+      <!-- CTA UNIFICADO: preço + botão -->
+      <div class="hero__cta-block">
+        <div class="hero__price">
+          <div class="hero__price-label">Consulta completa</div>
+          <div class="hero__price-val">R$ 49,90</div>
+        </div>
+        <a class="hero__cta-btn" href="triagem.html">
+          Iniciar agora
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="hero__trust">
+        <span class="hero__trust-icon">&#9679;</span>
+        Pix seguro via Mercado Pago &nbsp;&middot;&nbsp; Resposta em minutos
+      </div>
+
       <div class="hero__stats">
         <div class="hstat fade-up">
           <span class="hstat__n" data-target="800">0</span>
@@ -592,12 +667,6 @@ a{color:inherit;text-decoration:none}
     <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
     <div class="strip__item"><span>&#10022;</span> CFM 2.314/2022</div>
     <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
-    <div class="strip__item"><span>&#10022;</span> Médico com CRM ativo</div>
-    <div class="strip__item"><span>&#10022;</span> Consulta em prontuário</div>
-    <div class="strip__item"><span>&#10022;</span> Português e inglês</div>
-    <div class="strip__item"><span>&#10022;</span> Brasil e exterior</div>
-    <div class="strip__item"><span>&#10022;</span> CFM 2.314/2022</div>
-    <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
     <div class="strip__item"><span>&#10022;</span> Atestados e receitas na mesma consulta</div>
     <div class="strip__item"><span>&#10022;</span> Solicitação de exames quando indicado</div>
     <div class="strip__item"><span>&#10022;</span> Médico com CRM ativo</div>
@@ -607,6 +676,7 @@ a{color:inherit;text-decoration:none}
     <div class="strip__item"><span>&#10022;</span> CFM 2.314/2022</div>
     <div class="strip__item"><span>&#10022;</span> 800+ atendimentos</div>
     <div class="strip__item"><span>&#10022;</span> Atestados e receitas na mesma consulta</div>
+    <div class="strip__item"><span>&#10022;</span> Solicitação de exames quando indicado</div>
   </div>
 </div>
 
@@ -774,9 +844,9 @@ a{color:inherit;text-decoration:none}
   <div class="wrap footer__in">
     JG FONSECA SERVIÇOS MÉDICOS LTDA &nbsp;|&nbsp; CNPJ: 55.789.896/0001-21<br>
     Médico responsável: Dr. Gustavo Fonseca &nbsp;&middot;&nbsp; CRM 14325-MA<br><br>
-    <a href="termos.html" style="color:rgba(255,255,255,.45);text-decoration:none" target="_blank">Termos de Uso</a>
+    <a href="termos.html" target="_blank">Termos de Uso</a>
     &nbsp;&middot;&nbsp;
-    <a href="privacy.html" style="color:rgba(255,255,255,.45);text-decoration:none" target="_blank">Política de Privacidade</a><br><br>
+    <a href="privacy.html" target="_blank">Política de Privacidade</a><br><br>
     Este serviço não substitui atendimento presencial em situações de urgência ou emergência.
   </div>
 </footer>
@@ -860,7 +930,7 @@ document.querySelectorAll('.qa').forEach(function(d){
   });
 });
 
-/* ── COUNTER ANIMATION ── */
+/* COUNTER ANIMATION */
 function animateCounter(el){
   var target = parseInt(el.getAttribute('data-target'));
   var duration = 1400;
@@ -877,8 +947,6 @@ function animateCounter(el){
 }
 
 var countersStarted = false;
-var origObserverCallback = window._fadeObserverCallback;
-
 var statsObserver = new IntersectionObserver(function(entries){
   entries.forEach(function(entry){
     if(entry.isIntersecting && !countersStarted){
@@ -890,7 +958,6 @@ var statsObserver = new IntersectionObserver(function(entries){
 
 var statsSection = document.querySelector('.hero__stats');
 if(statsSection) statsObserver.observe(statsSection);
-
 </script>
 
 <script>
