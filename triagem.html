@@ -124,7 +124,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .wa-opt.selected,.wa-opt:hover{border-color:rgba(37,211,102,.4);background:rgba(37,211,102,.08);color:#fff}
 .wa-send:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(37,211,102,.38)}
 
-/* ── PAGAMENTO ── */
+/* PAGAMENTO */
 #screen-payment{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
 .pay-box{width:min(500px,100%);border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.03);overflow:hidden;backdrop-filter:blur(8px)}
 .pay-head{padding:24px 26px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}
@@ -167,7 +167,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .confirm-wa-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:14px;border:none;background:#25D366;color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 20px rgba(37,211,102,.25);transition:transform .12s}
 .confirm-wa-btn:hover{transform:translateY(-1px)}
 .confirm-note{margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.25);font-weight:300}
-
 </style>
 </head>
 <body>
@@ -194,7 +193,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
       </span>
     </a>
-    <span class="nav__step" id="nav-step">TERMOS DE USO</span>
+    <span class="nav__step" id="nav-step">IDENTIFICAÇÃO</span>
   </div>
 </nav>
 
@@ -261,10 +260,79 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   </div>
 </div>
 
+<!-- SCREEN: PAGAMENTO -->
+<div id="screen-payment" class="screen">
+  <div class="pay-box">
+    <div class="pay-head">
+      <div class="pay-icon">💳</div>
+      <div class="pay-head-text">
+        <h2>Pagamento seguro</h2>
+        <p>Pix instantâneo via Mercado Pago</p>
+      </div>
+    </div>
+    <div class="pay-body">
+      <div class="pay-valor">
+        <div class="pay-valor-left">
+          <div class="label">Consulta médica online</div>
+          <div class="desc">Receitas e atestados quando indicados</div>
+        </div>
+        <div class="pay-price">R$&nbsp;49,90</div>
+      </div>
 
+      <div class="pay-label">Seu nome</div>
+      <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
+
+      <div class="pay-label">Seu WhatsApp</div>
+      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número (ex: 98999990000)" autocomplete="tel" inputmode="numeric"/>
+
+      <button class="pay-btn" id="payBtn" onclick="gerarPix()">
+        Gerar QR Code Pix
+      </button>
+      <p style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:12px;line-height:1.6;">
+        ✓ Após confirmação do pagamento, sua triagem inicia automaticamente.<br>Nenhuma ação adicional necessária.
+      </p>
+
+      <div class="pay-qr-wrap" id="payQrWrap">
+        <img id="payQrImg" class="pay-qr-img" src="" alt="QR Code Pix"/>
+        <br/>
+        <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar código Pix
+        </button>
+        <div class="pay-status-msg" id="payStatusMsg">Aguardando pagamento...</div>
+      </div>
+
+      <div class="pay-divider">pagamento processado por</div>
+      <div class="pay-seguro">
+        🔒 Mercado Pago · Ambiente seguro · Dados criptografados
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: CONFIRMAÇÃO -->
+<div id="screen-confirm" class="screen">
+  <div class="confirm-box">
+    <div class="confirm-icon">✓</div>
+    <h2 class="confirm-title">Triagem recebida!</h2>
+    <p class="confirm-sub">Sua triagem foi enviada para nossa equipe médica.<br>Um médico entrará em contato no seu WhatsApp em breve.</p>
+    <div class="confirm-card">
+      <div class="confirm-card-row"><span class="ck">Paciente</span><span class="cv" id="confirmNome">—</span></div>
+      <div class="confirm-card-row"><span class="ck">WhatsApp</span><span class="cv" id="confirmTel">—</span></div>
+      <div class="confirm-card-row"><span class="ck">Status</span><span class="cv" style="color:#5ee0a0">✓ Triagem concluída</span></div>
+    </div>
+    <button class="confirm-wa-btn" id="confirmWaBtn">
+      <svg viewBox="0 0 32 32" fill="white" width="18" height="18"><path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/></svg>
+      Confirmar no WhatsApp
+    </button>
+    <p class="confirm-note">Você também receberá contato direto do médico responsável.</p>
+  </div>
+</div>
 
 <script>
-var SEU_WHATS = '5598989272727'; // seu número
+var SEU_WHATS = '5598989272727';
+var pacienteNome = '';
+var pacienteTel = '';
 
 /* IDENTIFICAÇÃO */
 function avancarIdentificacao(){
@@ -273,18 +341,15 @@ function avancarIdentificacao(){
   if(!nome){ document.getElementById('idNome').focus(); return; }
   if(!tel || tel.length < 10){ document.getElementById('idTel').focus(); return; }
 
-  // Salva globalmente
   pacienteNome = nome;
   pacienteTel  = tel;
 
-  // Registra identificação no backend
   fetch('https://triagem-api.onrender.com/api/identify', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({ nome:nome, tel:tel })
   }).catch(function(){});
 
-  // Preenche campos de pagamento
   document.getElementById('payNome').value = nome;
   document.getElementById('payTel').value  = tel;
 
@@ -299,7 +364,6 @@ chk.addEventListener('change', function(){ btn.classList.toggle('on', chk.checke
 btn.addEventListener('click', function(){
   if(!chk.checked) return;
 
-  // Log de consentimento LGPD
   fetch('https://triagem-api.onrender.com/api/consent', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -321,13 +385,25 @@ var triageHistory = [];
 var anamnesis = {};
 var step = 0;
 var pending = false;
-var modalidade = 'msg';
 
-var SYSTEM_TRIAGE = 'Você é um assistente de triagem médica de um serviço de telemedicina chamado "Pronto Atendimento Online". Conduza uma anamnese inicial estruturada em português brasileiro, de forma empática, clara e objetiva.\n\nSiga esta ordem obrigatória:\n1. Peça o nome completo do paciente\n2. Pergunte idade e sexo\n3. Pergunte a queixa principal\n4. Pergunte há quanto tempo tem o sintoma e intensidade (0-10)\n5. Faça perguntas clínicas relevantes: febre, outros sintomas associados, fatores de melhora/piora\n6. Pergunte sobre doenças crônicas, alergias e medicamentos em uso\n7. Pergunte se precisa de atestado ou receita\n\nIMPORTANTE:\n- Faça UMA pergunta por vez\n- Seja breve e direto\n- Use linguagem acessível\n- Quando tiver coletado todos os dados, responda APENAS com JSON: {"done":true,"summary":"[anamnese formatada]"}\n- Se identificar sinais de emergência (dor no peito intensa, falta de ar grave, desmaio), oriente ir ao pronto-socorro imediatamente';
+// ─── PROMPT ENXUTO: máximo 4 interações ───────────────────────────────────────
+var SYSTEM_TRIAGE = 'Você é um assistente de triagem médica do ConsultaJá24h. '
+  + 'O nome e WhatsApp do paciente já foram coletados antes desta conversa — NÃO peça novamente.\n\n'
+  + 'Conduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro, de forma empática e direta:\n\n'
+  + '1. Pergunte idade, sexo e qual é o problema (queixa principal)\n'
+  + '2. Pergunte há quanto tempo tem o sintoma e intensidade (0-10). Se relevante, pergunte sobre febre.\n'
+  + '3. Pergunte se tem doenças crônicas, alergias ou medicamentos em uso\n'
+  + '4. Pergunte se precisa de atestado ou receita\n\n'
+  + 'IMPORTANTE:\n'
+  + '- Faça UMA pergunta por vez\n'
+  + '- Seja breve e use linguagem acessível\n'
+  + '- Se identificar emergência (dor no peito intensa, falta de ar grave, desmaio), oriente ir ao pronto-socorro imediatamente\n'
+  + '- Quando tiver coletado todos os dados, responda APENAS com este JSON (sem mais texto): {"done":true,"summary":"[anamnese formatada]"}';
 
 /* TRIAGE */
 function startTriage(){
-  addMsg('triageChat','bot','Olá! Sou o assistente de triagem do Pronto Atendimento Online. Vou fazer algumas perguntas rápidas para preparar seu atendimento médico.\n\nPodemos começar? Qual é o seu nome completo?');
+  var primeiroNome = pacienteNome.split(' ')[0];
+  addMsg('triageChat','bot','Olá, ' + primeiroNome + '! Vou fazer algumas perguntas rápidas para preparar seu atendimento.\n\nQual é a sua idade, sexo e qual o problema que está sentindo?');
   step=1; updateProgress(1);
 }
 
@@ -352,7 +428,7 @@ function showTyping(chatId){
   chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
 }
 function removeTyping(chatId){ var el=document.getElementById(chatId+'-typing'); if(el) el.remove(); }
-function updateProgress(s){ document.getElementById('progressFill').style.width=Math.min(Math.round((s/12)*100),100)+'%'; }
+function updateProgress(s){ document.getElementById('progressFill').style.width=Math.min(Math.round((s/6)*100),100)+'%'; }
 
 function setQuickReplies(opts){
   var box=document.getElementById('quickReplies'); box.innerHTML='';
@@ -381,7 +457,7 @@ async function sendTriage(text){
     var parsed = JSON.parse(clean);
     if(parsed.done && parsed.summary){
       anamnesis.summary = parsed.summary;
-      updateProgress(12);
+      updateProgress(6);
       setTimeout(function(){ finishTriage(); }, 600);
       pending=false; document.getElementById('triageSend').disabled=false;
       return;
@@ -389,17 +465,18 @@ async function sendTriage(text){
   } catch(e){}
 
   addMsg('triageChat','bot',reply);
-  if(step===3) setQuickReplies(['Masculino','Feminino','Prefiro não dizer']);
-  if(step===5) setQuickReplies(['1-3','4-6','7-8','9-10']);
-  if(step===7) setQuickReplies(['Sim, tenho febre','Não tenho febre']);
-  if(step===9) setQuickReplies(['Sim','Não']);
-  if(step===10) setQuickReplies(['Apenas atestado','Apenas receita','Ambos','Nenhum']);
+
+  // Quick replies contextuais
+  if(step===2) setQuickReplies(['Masculino','Feminino','Prefiro não dizer']);
+  if(step===3) setQuickReplies(['Sim, tenho febre','Não tenho febre']);
+  if(step===4) setQuickReplies(['Não tenho','Sim, tenho']);
+  if(step===5) setQuickReplies(['Apenas atestado','Apenas receita','Ambos','Nenhum']);
+
   pending=false; document.getElementById('triageSend').disabled=false;
 }
 
-/* WHATSAPP SCREEN */
+/* FINISH TRIAGE */
 async function finishTriage(){
-  // Disparar email para os medicos
   try {
     fetch('https://triagem-api.onrender.com/api/notify', {
       method: 'POST',
@@ -412,57 +489,15 @@ async function finishTriage(){
     });
   } catch(e){ console.warn('Notify error:', e); }
 
-  // Mostrar tela de confirmacao
   showScreen('confirm');
   document.getElementById('nav-step').textContent = 'CONCLUÍDO';
   document.getElementById('confirmNome').textContent = pacienteNome;
   document.getElementById('confirmTel').textContent = pacienteTel;
 
-  // Botao WhatsApp Business
   var waMsg = 'Olá! Acabei de concluir minha triagem no ConsultaJá24h. Aguardo o contato do médico.';
   document.getElementById('confirmWaBtn').onclick = function(){
     window.open('https://wa.me/5598989272727?text=' + encodeURIComponent(waMsg), '_blank');
   };
-}
-
-function goToWhats(){
-  showScreen('whats');
-  document.getElementById('nav-step').textContent = 'FINALIZAR';
-  document.getElementById('waSummary').textContent = anamnesis.summary || '';
-}
-
-function selectOpt(opt){
-  modalidade = opt;
-  document.getElementById('optMsg').classList.toggle('selected', opt==='msg');
-  document.getElementById('optVid').classList.toggle('selected', opt==='vid');
-}
-
-function enviarWhats(){
-  var phone = document.getElementById('waPhone').value.replace(/\D/g,'');
-  if(!phone || phone.length < 10){
-    document.getElementById('waPhone').focus();
-    document.getElementById('waPhone').style.borderColor='rgba(255,100,100,.5)';
-    return;
-  }
-  document.getElementById('waPhone').style.borderColor='';
-
-  var mod = modalidade==='vid' ? '📹 Videoconferência' : '💬 Mensagem (chat)';
-
-  // Format summary: split by comma into bullet lines
-  var raw = (anamnesis.summary || '');
-  var formatted = raw
-    .split(/,\s*(?=[A-ZÀÁÂÃÉÊÍÓÔÕÚÇ])/)
-    .map(function(item){ return '• ' + item.trim(); })
-    .join('\n');
-
-  var msg = '🏥 *Triagem concluída — Pronto Atendimento Online*\n\n'
-    + '📌 *Modalidade solicitada:* ' + mod + '\n'
-    + '📱 *WhatsApp informado:* ' + phone + '\n\n'
-    + '🗒️ *Anamnese estruturada:*\n\n'
-    + formatted + '\n\n'
-    + '_(Mensagem gerada automaticamente pela triagem online)_';
-
-  window.open('https://wa.me/'+SEU_WHATS+'?text='+encodeURIComponent(msg), '_blank');
 }
 
 /* API */
@@ -497,7 +532,7 @@ triageInput.addEventListener('input', function(){ this.style.height='auto'; this
 triageInput.addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendTriage(this.value.trim()); } });
 document.getElementById('triageSend').addEventListener('click', function(){ sendTriage(triageInput.value.trim()); });
 
-/* ── PAGAMENTO ── */
+/* PAGAMENTO */
 var pixCode = '';
 var paymentId = '';
 var paymentPoller = null;
@@ -533,10 +568,8 @@ async function gerarPix(){
 
     document.getElementById('payQrImg').src = 'data:image/png;base64,' + data.qr_code_base64;
     document.getElementById('payQrWrap').classList.add('show');
-
     btn.textContent = 'QR gerado — aguardando pagamento';
 
-    // Polling a cada 4s para verificar pagamento
     paymentPoller = setInterval(async function(){
       try {
         var r = await fetch('https://triagem-api.onrender.com/api/payment/' + paymentId);
@@ -559,99 +592,25 @@ function copiarPix(){
   if(!pixCode) return;
   navigator.clipboard.writeText(pixCode).then(function(){
     var b = document.getElementById('payCopyBtn');
-    b.textContent = '✓ Copiado!';
-    setTimeout(function(){ b.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar código Pix'; }, 2000);
+    b.textContent = '\u2713 Copiado!';
+    setTimeout(function(){ b.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar c\u00f3digo Pix'; }, 2000);
   });
 }
-
-var pacienteNome = '';
-var pacienteTel = '';
 
 function pagamentoConfirmado(nome, tel){
   clearInterval(paymentPoller);
   pacienteNome = nome;
   pacienteTel = tel;
-  document.getElementById('payStatusMsg').textContent = '✓ Pagamento confirmado! Iniciando triagem...';
+  document.getElementById('payStatusMsg').textContent = '\u2713 Pagamento confirmado! Iniciando triagem...';
   document.getElementById('payStatusMsg').classList.add('ok');
   setTimeout(function(){
     showScreen('triage');
-    document.getElementById('nav-step').textContent = 'TRIAGEM MÉDICA';
+    document.getElementById('nav-step').textContent = 'TRIAGEM M\u00c9DICA';
     startTriage();
   }, 1500);
 }
-
 </script>
 
-<!-- SCREEN: PAGAMENTO -->
-<div id="screen-payment" class="screen">
-  <div class="pay-box">
-    <div class="pay-head">
-      <div class="pay-icon">💳</div>
-      <div class="pay-head-text">
-        <h2>Pagamento seguro</h2>
-        <p>Pix instantâneo via Mercado Pago</p>
-      </div>
-    </div>
-    <div class="pay-body">
-      <div class="pay-valor">
-        <div class="pay-valor-left">
-          <div class="label">Consulta médica online</div>
-          <div class="desc">Receitas e atestados quando indicados</div>
-        </div>
-        <div class="pay-price">R$&nbsp;49,90</div>
-      </div>
-
-      <div class="pay-label">Seu nome</div>
-      <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
-
-      <div class="pay-label">Seu WhatsApp</div>
-      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número (ex: 98999990000)" autocomplete="tel" inputmode="numeric"/>
-
-      <button class="pay-btn" id="payBtn" onclick="gerarPix()">
-        Gerar QR Code Pix
-      </button>
-      <p style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:12px;line-height:1.6;">
-        ✓ Após confirmação do pagamento, sua triagem inicia automaticamente.<br>Nenhuma ação adicional necessária.
-      </p>
-
-      <!-- QR CODE -->
-      <div class="pay-qr-wrap" id="payQrWrap">
-        <img id="payQrImg" class="pay-qr-img" src="" alt="QR Code Pix"/>
-        <br/>
-        <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar código Pix
-        </button>
-        <div class="pay-status-msg" id="payStatusMsg">Aguardando pagamento...</div>
-      </div>
-
-      <div class="pay-divider">pagamento processado por</div>
-      <div class="pay-seguro">
-        🔒 Mercado Pago · Ambiente seguro · Dados criptografados
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- SCREEN: CONFIRMAÇÃO -->
-<div id="screen-confirm" class="screen">
-  <div class="confirm-box">
-    <div class="confirm-icon">✓</div>
-    <h2 class="confirm-title">Triagem recebida!</h2>
-    <p class="confirm-sub">Sua triagem foi enviada para nossa equipe médica.<br>Um médico entrará em contato no seu WhatsApp em breve.</p>
-    <div class="confirm-card">
-      <div class="confirm-card-row"><span class="ck">Paciente</span><span class="cv" id="confirmNome">—</span></div>
-      <div class="confirm-card-row"><span class="ck">WhatsApp</span><span class="cv" id="confirmTel">—</span></div>
-      <div class="confirm-card-row"><span class="ck">Status</span><span class="cv" style="color:#5ee0a0">✓ Triagem concluída</span></div>
-    </div>
-    <button class="confirm-wa-btn" id="confirmWaBtn">
-      <svg viewBox="0 0 32 32" fill="white" width="18" height="18"><path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/></svg>
-      Confirmar no WhatsApp
-    </button>
-    <p class="confirm-note">Você também receberá contato direto do médico responsável.</p>
-  </div>
-</div>
 <!-- Event snippet for Compra conversion page -->
 <script>
   gtag('event', 'conversion', {
