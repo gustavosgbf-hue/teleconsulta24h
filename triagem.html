@@ -116,14 +116,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .send-btn:hover{transform:scale(1.08)}
 .send-btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
 
-/* SCREEN WHATSAPP */
-.wa-head-text h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:3px}
-.wa-head-text p{font-size:.78rem;color:var(--muted);font-weight:300}
-.wa-input::placeholder{color:rgba(255,255,255,.28)}
-.wa-input:focus{border-color:rgba(94,224,160,.35)}
-.wa-opt.selected,.wa-opt:hover{border-color:rgba(37,211,102,.4);background:rgba(37,211,102,.08);color:#fff}
-.wa-send:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(37,211,102,.38)}
-
 /* PAGAMENTO */
 #screen-payment{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
 .pay-box{width:min(500px,100%);border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.03);overflow:hidden;backdrop-filter:blur(8px)}
@@ -285,6 +277,9 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div class="pay-label">Seu WhatsApp</div>
       <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número (ex: 98999990000)" autocomplete="tel" inputmode="numeric"/>
 
+      <div class="pay-label">CPF</div>
+      <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
+
       <button class="pay-btn" id="payBtn" onclick="gerarPix()">
         Gerar QR Code Pix
       </button>
@@ -333,6 +328,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 var SEU_WHATS = '5598989272727';
 var pacienteNome = '';
 var pacienteTel = '';
+var pacienteCPF = '';
 
 /* IDENTIFICAÇÃO */
 function avancarIdentificacao(){
@@ -386,7 +382,6 @@ var anamnesis = {};
 var step = 0;
 var pending = false;
 
-// ─── PROMPT ENXUTO: máximo 4 interações ───────────────────────────────────────
 var SYSTEM_TRIAGE = 'Você é um assistente de triagem médica do ConsultaJá24h. '
   + 'O nome e WhatsApp do paciente já foram coletados antes desta conversa — NÃO peça novamente.\n\n'
   + 'Conduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro, de forma empática e direta:\n\n'
@@ -466,7 +461,6 @@ async function sendTriage(text){
 
   addMsg('triageChat','bot',reply);
 
-  // Quick replies contextuais
   if(step===2) setQuickReplies(['Masculino','Feminino','Prefiro não dizer']);
   if(step===3) setQuickReplies(['Sim, tenho febre','Não tenho febre']);
   if(step===4) setQuickReplies(['Não tenho','Sim, tenho']);
@@ -484,6 +478,7 @@ async function finishTriage(){
       body: JSON.stringify({
         nome: pacienteNome,
         tel: pacienteTel,
+        cpf: pacienteCPF,
         triagem: anamnesis.summary || ''
       })
     });
@@ -540,9 +535,11 @@ var paymentPoller = null;
 async function gerarPix(){
   var nome = document.getElementById('payNome').value.trim();
   var tel = document.getElementById('payTel').value.trim().replace(/\D/g,'');
+  var cpf = document.getElementById('payCPF').value.trim();
 
   if(!nome){ document.getElementById('payNome').focus(); return; }
   if(!tel || tel.length < 10){ document.getElementById('payTel').focus(); return; }
+  if(!cpf){ document.getElementById('payCPF').focus(); return; }
 
   var btn = document.getElementById('payBtn');
   btn.disabled = true;
@@ -576,7 +573,7 @@ async function gerarPix(){
         var d = await r.json();
         if(d.status === 'approved'){
           clearInterval(paymentPoller);
-          pagamentoConfirmado(nome, tel);
+          pagamentoConfirmado(nome, tel, cpf);
         }
       } catch(e){}
     }, 4000);
@@ -597,10 +594,11 @@ function copiarPix(){
   });
 }
 
-function pagamentoConfirmado(nome, tel){
+function pagamentoConfirmado(nome, tel, cpf){
   clearInterval(paymentPoller);
   pacienteNome = nome;
   pacienteTel = tel;
+  pacienteCPF = cpf || '';
   document.getElementById('payStatusMsg').textContent = '\u2713 Pagamento confirmado! Iniciando triagem...';
   document.getElementById('payStatusMsg').classList.add('ok');
   setTimeout(function(){
