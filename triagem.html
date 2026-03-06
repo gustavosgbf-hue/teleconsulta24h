@@ -11,7 +11,6 @@
 </script>
 <meta charset="utf-8"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ConsultaJá24h · Triagem Médica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +34,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
 .nav{position:sticky;top:0;z-index:100;background:rgba(6,13,11,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .nav__in{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;gap:12px}
-.nav__brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem}
+.nav__brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem;text-decoration:none}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
 .nav__step{font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
@@ -71,19 +70,39 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .check-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;cursor:pointer}
 .check-row input[type=checkbox]{width:22px;height:22px;margin-top:1px;accent-color:#b4e05a;flex-shrink:0;cursor:pointer;border-radius:5px}
 .check-row span{font-size:.84rem;color:rgba(255,255,255,.82);line-height:1.55;font-weight:400}
-.btn-aceitar{
-  width:100%;padding:15px;border-radius:14px;border:none;
-  background:linear-gradient(135deg,#b4e05a,#5ee0a0);
-  color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;
-  cursor:not-allowed;opacity:.3;display:block;
-  -webkit-appearance:none;appearance:none;
-  box-shadow:0 6px 24px rgba(180,224,90,.15);
-  transition:opacity .25s,box-shadow .25s,transform .12s;
-  letter-spacing:.01em;
-}
+.btn-aceitar{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:not-allowed;opacity:.3;display:block;-webkit-appearance:none;appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.15);transition:opacity .25s,box-shadow .25s,transform .12s;letter-spacing:.01em}
 .btn-aceitar.on{opacity:1;cursor:pointer;box-shadow:0 8px 28px rgba(180,224,90,.4)}
 .btn-aceitar.on:hover{transform:translateY(-1px);box-shadow:0 12px 32px rgba(180,224,90,.5)}
-.btn-aceitar.on:active{transform:none}
+
+/* MODALIDADE */
+#screen-modalidade{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
+.modal-box{width:min(520px,100%)}
+.modal-head{text-align:center;margin-bottom:32px}
+.modal-head h1{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:500;margin-bottom:8px}
+.modal-head p{font-size:.85rem;color:var(--muted);font-weight:300;line-height:1.6}
+.modal-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:480px){.modal-cards{grid-template-columns:1fr}}
+.modal-card{border:2px solid var(--line);border-radius:20px;background:rgba(255,255,255,.03);padding:28px 22px;cursor:pointer;transition:all .2s;text-align:center;position:relative;overflow:hidden}
+.modal-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s;border-radius:18px}
+.modal-card.chat::before{background:radial-gradient(ellipse at 50% 0%,rgba(37,211,102,.1),transparent 60%)}
+.modal-card.video::before{background:radial-gradient(ellipse at 50% 0%,rgba(94,224,160,.12),transparent 60%)}
+.modal-card:hover{border-color:rgba(94,224,160,.3);transform:translateY(-2px)}
+.modal-card:hover::before{opacity:1}
+.modal-card.selected.chat{border-color:rgba(37,211,102,.5);background:rgba(37,211,102,.06)}
+.modal-card.selected.video{border-color:rgba(94,224,160,.5);background:rgba(94,224,160,.06)}
+.modal-card.selected::before{opacity:1}
+.mc-icon{font-size:2.2rem;margin-bottom:14px;display:block}
+.mc-title{font-size:1.05rem;font-weight:600;margin-bottom:6px}
+.mc-desc{font-size:.78rem;color:var(--muted);font-weight:300;line-height:1.6}
+.mc-badge{display:inline-block;margin-top:10px;font-size:.68rem;font-weight:600;padding:3px 10px;border-radius:999px;letter-spacing:.06em;text-transform:uppercase}
+.modal-card.chat .mc-badge{background:rgba(37,211,102,.12);color:#25d366}
+.modal-card.video .mc-badge{background:rgba(94,224,160,.12);color:var(--g2)}
+.modal-card.selected .mc-check{display:flex}
+.mc-check{display:none;position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#b4e05a,#5ee0a0);align-items:center;justify-content:center}
+.mc-check svg{width:12px;height:12px;color:#051208}
+.btn-modal-continuar{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:not-allowed;opacity:.3;margin-top:20px;transition:opacity .25s,transform .12s;-webkit-appearance:none}
+.btn-modal-continuar.on{opacity:1;cursor:pointer}
+.btn-modal-continuar.on:hover{transform:translateY(-1px)}
 
 /* TRIAGEM CHAT */
 #screen-triage{flex-direction:column}
@@ -146,19 +165,48 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
 .pay-seguro{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300}
 
-/* SCREEN CONFIRMAÇÃO */
-#screen-confirm{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
-.confirm-box{width:min(480px,100%);border:1px solid rgba(94,224,160,.2);border-radius:24px;background:rgba(255,255,255,.03);overflow:hidden;text-align:center;padding:48px 32px}
-.confirm-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.15),rgba(94,224,160,.1));border:1px solid rgba(94,224,160,.3);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 24px}
-.confirm-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:500;margin-bottom:10px}
-.confirm-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:32px}
-.confirm-card{background:rgba(94,224,160,.05);border:1px solid rgba(94,224,160,.15);border-radius:16px;padding:18px 20px;margin-bottom:24px;text-align:left}
-.confirm-card-row{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;padding:4px 0}
-.confirm-card-row .ck{color:rgba(255,255,255,.4);font-weight:300}
-.confirm-card-row .cv{color:rgba(255,255,255,.85);font-weight:500}
-.confirm-wa-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:14px;border:none;background:#25D366;color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 20px rgba(37,211,102,.25);transition:transform .12s}
-.confirm-wa-btn:hover{transform:translateY(-1px)}
-.confirm-note{margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.25);font-weight:300}
+/* SALA DE ESPERA */
+#screen-espera{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
+.espera-box{width:min(480px,100%);text-align:center}
+.espera-anim{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.15),rgba(94,224,160,.1));border:1px solid rgba(94,224,160,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative}
+.espera-anim::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(94,224,160,.15);animation:expandRing 2s ease-in-out infinite}
+.espera-anim::after{content:'';position:absolute;inset:-16px;border-radius:50%;border:1px solid rgba(94,224,160,.08);animation:expandRing 2s ease-in-out infinite .4s}
+@keyframes expandRing{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.1);opacity:0}}
+.espera-titulo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:500;margin-bottom:10px}
+.espera-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:28px}
+.espera-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;font-size:.82rem;font-weight:600;margin-bottom:32px}
+.espera-badge.chat{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366}
+.espera-badge.video{background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);color:var(--g2)}
+.espera-status{font-size:.78rem;color:rgba(255,255,255,.3);font-weight:300;margin-bottom:40px}
+.espera-status span{color:rgba(255,255,255,.5)}
+/* CONSULTA POR CHAT */
+.chat-consulta{width:100%;max-width:600px;margin:0 auto;display:none;animation:msgIn .4s ease}
+.chat-consulta.ativo{display:flex;flex-direction:column}
+.chat-msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:20px;min-height:300px;max-height:420px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:16px 16px 0 0;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
+.chat-msgs::-webkit-scrollbar{width:3px}
+.chat-msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+.chat-input-row{display:flex;gap:10px;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-top:none;border-radius:0 0 16px 16px}
+.chat-input-row textarea{flex:1;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:300;resize:none;outline:none;min-height:42px;max-height:100px;line-height:1.5;-webkit-appearance:none}
+.chat-input-row textarea:focus{border-color:rgba(94,224,160,.35)}
+.chat-input-row textarea::placeholder{color:rgba(255,255,255,.25)}
+.chat-send{width:42px;height:42px;border-radius:50%;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .12s;-webkit-appearance:none}
+.chat-send:hover{transform:scale(1.08)}
+.chat-send:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.cmsg{display:flex;gap:8px;align-items:flex-end;animation:msgIn .2s ease}
+.cmsg.paciente{flex-direction:row-reverse}
+.cmsg .av{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.cmsg .bub{padding:10px 14px;border-radius:14px;font-size:.85rem;font-weight:300;line-height:1.6;max-width:80%}
+.cmsg.medico .bub{background:rgba(255,255,255,.06);border:1px solid var(--line);border-bottom-left-radius:4px;color:rgba(255,255,255,.88)}
+.cmsg.paciente .bub{background:linear-gradient(135deg,#b4e05a,#6ed49a);color:#051208;font-weight:500;border-bottom-right-radius:4px}
+.cmsg .ts{font-size:.62rem;color:rgba(255,255,255,.2);margin-bottom:2px;text-align:right}
+.chat-consulta .chat-header{text-align:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.chat-consulta .chat-header h3{font-size:1rem;font-weight:600;margin-bottom:4px}
+.chat-consulta .chat-header p{font-size:.75rem;color:var(--muted);font-weight:300}
+/* BOTÃO MEET */
+.btn-meet{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:14px;border:none;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(66,133,244,.3);transition:transform .12s,box-shadow .2s;margin-top:8px}
+.btn-meet:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(66,133,244,.4)}
+.btn-meet-wrap{display:none;animation:msgIn .4s ease}
+.btn-meet-wrap.ativo{display:block;text-align:center}
 </style>
 </head>
 <body>
@@ -234,12 +282,39 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <input type="checkbox" id="termsCheck"/>
         <span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a>, <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a> e TCLE, incluindo o uso de triagem automatizada por IA e eventual transferência internacional de dados.</span>
       </label>
-      <button class="btn-aceitar" id="btnAceitar">Aceitar e iniciar triagem</button>
+      <button class="btn-aceitar" id="btnAceitar">Aceitar e continuar</button>
     </div>
   </div>
 </div>
 
-<!-- SCREEN 2: TRIAGEM -->
+<!-- SCREEN 2: ESCOLHA DE MODALIDADE -->
+<div id="screen-modalidade" class="screen">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h1>Como prefere ser atendido?</h1>
+      <p>Escolha a modalidade da sua consulta. O médico estará disponível na forma que você preferir.</p>
+    </div>
+    <div class="modal-cards">
+      <div class="modal-card chat" onclick="selecionarModalidade('chat', this)">
+        <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span class="mc-icon">💬</span>
+        <div class="mc-title">Consulta por chat</div>
+        <div class="mc-desc">Troca de mensagens em tempo real com o médico pela plataforma.</div>
+        <span class="mc-badge">Texto</span>
+      </div>
+      <div class="modal-card video" onclick="selecionarModalidade('video', this)">
+        <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span class="mc-icon">🎥</span>
+        <div class="mc-title">Consulta por vídeo</div>
+        <div class="mc-desc">Consulta ao vivo com o médico via Google Meet.</div>
+        <span class="mc-badge">Videochamada</span>
+      </div>
+    </div>
+    <button class="btn-modal-continuar" id="btnModalContinuar" disabled>Continuar com esta modalidade →</button>
+  </div>
+</div>
+
+<!-- SCREEN 3: TRIAGEM -->
 <div id="screen-triage" class="screen">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="chat-area" id="triageChat"></div>
@@ -252,7 +327,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   </div>
 </div>
 
-<!-- SCREEN: PAGAMENTO -->
+<!-- SCREEN 4: PAGAMENTO -->
 <div id="screen-payment" class="screen">
   <div class="pay-box">
     <div class="pay-head">
@@ -281,7 +356,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
       <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:6px;line-height:1.5">Utilizado para cadastro do paciente e emissão de documentos médicos quando necessário.</div>
 
-      <button class="pay-btn" id="payBtn" onclick="gerarPix()">
+      <button class="pay-btn" id="payBtn" onclick="gerarPix()" style="margin-top:18px">
         Gerar QR Code Pix
       </button>
       <p style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:12px;line-height:1.6;">
@@ -306,78 +381,124 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   </div>
 </div>
 
-<!-- SCREEN: CONFIRMAÇÃO -->
-<div id="screen-confirm" class="screen">
-  <div class="confirm-box">
-    <div class="confirm-icon">✓</div>
-    <h2 class="confirm-title">Triagem recebida!</h2>
-    <p class="confirm-sub">Sua triagem foi enviada para nossa equipe médica.<br>Um médico entrará em contato no seu WhatsApp em breve.</p>
-    <div class="confirm-card">
-      <div class="confirm-card-row"><span class="ck">Paciente</span><span class="cv" id="confirmNome">—</span></div>
-      <div class="confirm-card-row"><span class="ck">WhatsApp</span><span class="cv" id="confirmTel">—</span></div>
-      <div class="confirm-card-row"><span class="ck">Status</span><span class="cv" style="color:#5ee0a0">✓ Triagem concluída</span></div>
+<!-- SCREEN 5: SALA DE ESPERA / CONSULTA -->
+<div id="screen-espera" class="screen">
+  <div class="espera-box">
+    <div class="espera-anim" id="esperaAnim">
+      <span style="font-size:2rem" id="esperaIcon">⏳</span>
     </div>
-    <button class="confirm-wa-btn" id="confirmWaBtn">
-      <svg viewBox="0 0 32 32" fill="white" width="18" height="18"><path d="M16 3C9.4 3 4 8.2 4 14.7c0 2.6.8 5 2.3 7.1L4 29l7.4-2.3c2 .9 4.2 1.3 6.6 1.3 6.6 0 12-5.2 12-11.7S22.6 3 16 3zm6.8 16.6c-.3.8-1.8 1.6-2.5 1.7-.6.1-1.3.2-2.1-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-.1-3.8.3-.4.7-.6 1-.6h.7c.2 0 .5 0 .7.5.3.7 1 2.3 1.1 2.4.1.1.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.3.4-.5.6-.2.2-.3.4-.1.7.2.3 1 1.6 2.2 2.6 1.5 1.3 2.7 1.7 3 1.9.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1.9.3.2.5.3.6.5.1.2.1 1.2-.2 2z"/></svg>
-      Confirmar no WhatsApp
-    </button>
-    <p class="confirm-note">Você também receberá contato direto do médico responsável.</p>
+    <h2 class="espera-titulo" id="esperaTitulo">Sua consulta está sendo preparada</h2>
+    <p class="espera-sub" id="esperaSub">Um médico assumirá seu atendimento em breve.<br>Por favor, aguarde nesta página.</p>
+    <div class="espera-badge" id="esperaBadge">
+      <span id="esperaBadgeIcon">💬</span>
+      <span id="esperaBadgeText">Consulta por chat</span>
+    </div>
+    <p class="espera-status" id="esperaStatusTxt">Verificando disponibilidade... <span id="esperaContador"></span></p>
+
+    <!-- Chat interno (aparece quando médico assume e tipo = chat) -->
+    <div class="chat-consulta" id="chatConsulta">
+      <div class="chat-header">
+        <h3>💬 Consulta iniciada</h3>
+        <p>O médico entrou na conversa. Você já pode enviar sua mensagem.</p>
+      </div>
+      <div class="chat-msgs" id="chatMsgs">
+        <div class="cmsg medico">
+          <div class="av">🩺</div>
+          <div>
+            <div class="ts" id="chatMedicoNome">Médico</div>
+            <div class="bub">Olá! Já estou aqui. Pode me contar o que está sentindo com mais detalhes?</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <textarea id="chatInputPaciente" placeholder="Digite sua mensagem..." rows="1"></textarea>
+        <button class="chat-send" id="chatSendPaciente" onclick="enviarMensagemChat()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Botão Meet (aparece quando médico assume e tipo = video) -->
+    <div class="btn-meet-wrap" id="meetWrap">
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:16px;font-weight:300">O médico está pronto para te atender. Clique para entrar na videochamada:</p>
+      <a href="#" id="btnMeetLink" class="btn-meet" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+        Entrar na videochamada
+      </a>
+      <p style="margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.25)">Link do Google Meet gerado pelo médico</p>
+    </div>
   </div>
 </div>
 
 <script>
-var SEU_WHATS = '5598989272727';
+var API = 'https://triagem-api.onrender.com';
 var pacienteNome = '';
 var pacienteTel = '';
 var pacienteCPF = '';
+var tipoConsulta = '';
+var atendimentoId = null;
+var esperaPoller = null;
+var chatPoller = null;
+var ultimaMensagemId = 0;
+var chatAtivo = false;
 
-/* IDENTIFICAÇÃO */
-function avancarIdentificacao(){
-  var nome = document.getElementById('idNome').value.trim();
-  var tel  = document.getElementById('idTel').value.trim().replace(/\D/g,'');
-  if(!nome){ document.getElementById('idNome').focus(); return; }
-  if(!tel || tel.length < 10){ document.getElementById('idTel').focus(); return; }
-
-  pacienteNome = nome;
-  pacienteTel  = tel;
-
-  fetch('https://triagem-api.onrender.com/api/identify', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ nome:nome, tel:tel })
-  }).catch(function(){});
-
-  document.getElementById('payNome').value = nome;
-  document.getElementById('payTel').value  = tel;
-
-  showScreen('terms');
-  document.getElementById('nav-step').textContent = 'TERMOS DE USO';
-}
-
-/* TERMOS */
-var chk = document.getElementById('termsCheck');
-var btn = document.getElementById('btnAceitar');
-chk.addEventListener('change', function(){ btn.classList.toggle('on', chk.checked); });
-btn.addEventListener('click', function(){
-  if(!chk.checked) return;
-
-  fetch('https://triagem-api.onrender.com/api/consent', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ nome:pacienteNome, tel:pacienteTel, versao:'termos-v1.0' })
-  }).catch(function(){});
-
-  showScreen('payment');
-  document.getElementById('nav-step').textContent = 'PAGAMENTO';
-});
-
-/* SCREENS */
+/* ── UTILS ── */
 function showScreen(name){
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('screen-'+name).classList.add('active');
 }
 
-/* STATE */
+/* ── IDENTIFICAÇÃO ── */
+function avancarIdentificacao(){
+  var nome = document.getElementById('idNome').value.trim();
+  var tel  = document.getElementById('idTel').value.trim().replace(/\D/g,'');
+  if(!nome){ document.getElementById('idNome').focus(); return; }
+  if(!tel || tel.length < 10){ document.getElementById('idTel').focus(); return; }
+  pacienteNome = nome;
+  pacienteTel  = tel;
+  fetch(API+'/api/identify', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ nome:nome, tel:tel })
+  }).catch(function(){});
+  document.getElementById('payNome').value = nome;
+  document.getElementById('payTel').value  = tel;
+  showScreen('terms');
+  document.getElementById('nav-step').textContent = 'TERMOS DE USO';
+}
+
+/* ── TERMOS ── */
+var chk = document.getElementById('termsCheck');
+var btnAceit = document.getElementById('btnAceitar');
+chk.addEventListener('change', function(){ btnAceit.classList.toggle('on', chk.checked); });
+btnAceit.addEventListener('click', function(){
+  if(!chk.checked) return;
+  fetch(API+'/api/consent', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ nome:pacienteNome, tel:pacienteTel, versao:'termos-v1.0' })
+  }).catch(function(){});
+  showScreen('modalidade');
+  document.getElementById('nav-step').textContent = 'MODALIDADE';
+});
+
+/* ── MODALIDADE ── */
+function selecionarModalidade(tipo, el){
+  document.querySelectorAll('.modal-card').forEach(function(c){ c.classList.remove('selected'); });
+  el.classList.add('selected');
+  tipoConsulta = tipo;
+  var btn = document.getElementById('btnModalContinuar');
+  btn.disabled = false;
+  btn.classList.add('on');
+  btn.textContent = (tipo === 'chat' ? '💬 Continuar com chat →' : '🎥 Continuar com vídeo →');
+}
+
+document.getElementById('btnModalContinuar').addEventListener('click', function(){
+  if(!tipoConsulta) return;
+  showScreen('triage');
+  document.getElementById('nav-step').textContent = 'TRIAGEM MÉDICA';
+  startTriage();
+});
+
+/* ── TRIAGEM ── */
 var triageHistory = [];
 var anamnesis = {};
 var step = 0;
@@ -396,7 +517,6 @@ var SYSTEM_TRIAGE = 'Você é um assistente de triagem médica do ConsultaJá24h
   + '- Se identificar emergência (dor no peito intensa, falta de ar grave, desmaio), oriente ir ao pronto-socorro imediatamente\n'
   + '- Quando tiver coletado todos os dados, responda APENAS com este JSON (sem mais texto): {"done":true,"summary":"[anamnese formatada]"}';
 
-/* TRIAGE */
 function startTriage(){
   var primeiroNome = pacienteNome.split(' ')[0];
   addMsg('triageChat','bot','Olá, ' + primeiroNome + '! Vou fazer algumas perguntas rápidas para preparar seu atendimento.\n\nQual é a sua idade, sexo e qual o problema que está sentindo?');
@@ -454,14 +574,13 @@ async function sendTriage(text){
     if(parsed.done && parsed.summary){
       anamnesis.summary = parsed.summary;
       updateProgress(6);
-      setTimeout(function(){ finishTriage(); }, 600);
+      setTimeout(function(){ irParaPagamento(); }, 600);
       pending=false; document.getElementById('triageSend').disabled=false;
       return;
     }
   } catch(e){}
 
   addMsg('triageChat','bot',reply);
-
   if(step===2) setQuickReplies(['Masculino','Feminino','Prefiro não dizer']);
   if(step===3) setQuickReplies(['Sim, tenho febre','Não tenho febre']);
   if(step===4) setQuickReplies(['Não tenho','Sim, tenho']);
@@ -470,65 +589,12 @@ async function sendTriage(text){
   pending=false; document.getElementById('triageSend').disabled=false;
 }
 
-/* FINISH TRIAGE */
-async function finishTriage(){
-  try {
-    fetch('https://triagem-api.onrender.com/api/notify', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        nome: pacienteNome,
-        tel: pacienteTel,
-        cpf: pacienteCPF,
-        triagem: anamnesis.summary || ''
-      })
-    });
-  } catch(e){ console.warn('Notify error:', e); }
-
-  showScreen('confirm');
-  document.getElementById('nav-step').textContent = 'CONCLUÍDO';
-  document.getElementById('confirmNome').textContent = pacienteNome;
-  document.getElementById('confirmTel').textContent = pacienteTel;
-
-  var waMsg = 'Olá! Acabei de concluir minha triagem no ConsultaJá24h. Aguardo o contato do médico.';
-  document.getElementById('confirmWaBtn').onclick = function(){
-    window.open('https://wa.me/5598989272727?text=' + encodeURIComponent(waMsg), '_blank');
-  };
+/* ── PAGAMENTO ── */
+function irParaPagamento(){
+  showScreen('payment');
+  document.getElementById('nav-step').textContent = 'PAGAMENTO';
 }
 
-/* API */
-async function callAPI(endpoint, system, history, userMsg){
-  history.push({role:'user', content:userMsg});
-  try {
-    var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 35000);
-    var res = await fetch('https://triagem-api.onrender.com'+endpoint, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system:system, messages:history}),
-      signal: controller.signal
-    });
-    clearTimeout(timeout);
-    if(!res.ok){ throw new Error('HTTP '+res.status); }
-    var data = await res.json();
-    var text = data.text || (data.content&&data.content[0]&&data.content[0].text) || '';
-    if(!text) throw new Error('resposta vazia');
-    history.push({role:'assistant', content:text});
-    return text;
-  } catch(e){
-    history.pop();
-    if(e.name==='AbortError') return 'O servidor demorou demais para responder. Pode ser que esteja iniciando — aguarde 30 segundos e tente enviar a mesma mensagem novamente.';
-    return 'Erro de conexão (' + e.message + '). Verifique sua internet e tente novamente.';
-  }
-}
-
-/* INPUT HANDLERS */
-var triageInput = document.getElementById('triageInput');
-triageInput.addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,110)+'px'; });
-triageInput.addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendTriage(this.value.trim()); } });
-document.getElementById('triageSend').addEventListener('click', function(){ sendTriage(triageInput.value.trim()); });
-
-/* PAGAMENTO */
 var pixCode = '';
 var paymentId = '';
 var paymentPoller = null;
@@ -537,7 +603,6 @@ async function gerarPix(){
   var nome = document.getElementById('payNome').value.trim();
   var tel = document.getElementById('payTel').value.trim().replace(/\D/g,'');
   var cpf = document.getElementById('payCPF').value.trim();
-
   if(!nome){ document.getElementById('payNome').focus(); return; }
   if(!tel || tel.length < 10){ document.getElementById('payTel').focus(); return; }
   if(!cpf){ document.getElementById('payCPF').focus(); return; }
@@ -547,30 +612,25 @@ async function gerarPix(){
   btn.textContent = 'Gerando QR Code...';
 
   try {
-    var res = await fetch('https://triagem-api.onrender.com/api/payment', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ nome: nome, tel: tel })
+    var res = await fetch(API+'/api/payment', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ nome:nome, tel:tel })
     });
     var data = await res.json();
-
     if(!data.ok || !data.qr_code_base64){
       btn.disabled = false;
       btn.textContent = 'Gerar QR Code Pix';
       alert('Erro ao gerar pagamento. Tente novamente.');
       return;
     }
-
     pixCode = data.qr_code;
     paymentId = data.payment_id;
-
     document.getElementById('payQrImg').src = 'data:image/png;base64,' + data.qr_code_base64;
     document.getElementById('payQrWrap').classList.add('show');
     btn.textContent = 'QR gerado — aguardando pagamento';
-
     paymentPoller = setInterval(async function(){
       try {
-        var r = await fetch('https://triagem-api.onrender.com/api/payment/' + paymentId);
+        var r = await fetch(API+'/api/payment/'+paymentId);
         var d = await r.json();
         if(d.status === 'approved'){
           clearInterval(paymentPoller);
@@ -578,7 +638,6 @@ async function gerarPix(){
         }
       } catch(e){}
     }, 4000);
-
   } catch(e){
     btn.disabled = false;
     btn.textContent = 'Gerar QR Code Pix';
@@ -595,19 +654,193 @@ function copiarPix(){
   });
 }
 
-function pagamentoConfirmado(nome, tel, cpf){
+async function pagamentoConfirmado(nome, tel, cpf){
   clearInterval(paymentPoller);
   pacienteNome = nome;
   pacienteTel = tel;
   pacienteCPF = cpf || '';
-  document.getElementById('payStatusMsg').textContent = '\u2713 Pagamento confirmado! Iniciando triagem...';
+  document.getElementById('payStatusMsg').textContent = '\u2713 Pagamento confirmado! Notificando médico...';
   document.getElementById('payStatusMsg').classList.add('ok');
+
+  // Notifica backend e obtém o ID do atendimento
+  try {
+    var r = await fetch(API+'/api/notify', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        nome: pacienteNome,
+        tel: pacienteTel,
+        cpf: pacienteCPF,
+        triagem: anamnesis.summary || '',
+        tipo: tipoConsulta
+      })
+    });
+    var d = await r.json();
+    if(d.atendimentoId) atendimentoId = d.atendimentoId;
+  } catch(e){ console.warn('Notify error:', e); }
+
   setTimeout(function(){
-    showScreen('triage');
-    document.getElementById('nav-step').textContent = 'TRIAGEM M\u00c9DICA';
-    startTriage();
-  }, 1500);
+    mostrarSalaEspera();
+  }, 1200);
 }
+
+/* ── SALA DE ESPERA ── */
+function mostrarSalaEspera(){
+  showScreen('espera');
+  document.getElementById('nav-step').textContent = 'AGUARDANDO MÉDICO';
+
+  var badge = document.getElementById('esperaBadge');
+  badge.className = 'espera-badge ' + tipoConsulta;
+  document.getElementById('esperaBadgeIcon').textContent = tipoConsulta === 'video' ? '🎥' : '💬';
+  document.getElementById('esperaBadgeText').textContent = tipoConsulta === 'video' ? 'Consulta por vídeo' : 'Consulta por chat';
+
+  iniciarPollingEspera();
+}
+
+var tentativas = 0;
+function iniciarPollingEspera(){
+  tentativas = 0;
+  verificarStatus();
+  esperaPoller = setInterval(verificarStatus, 5000);
+}
+
+async function verificarStatus(){
+  if(!atendimentoId){ atualizarContador(); return; }
+  try {
+    var res = await fetch(API+'/api/atendimento/status/'+atendimentoId);
+    var data = await res.json();
+    if(!data.ok) return;
+    var a = data.atendimento;
+    atualizarContador();
+    if(a.status === 'assumido'){
+      clearInterval(esperaPoller);
+      medicoAssumiu(a);
+    }
+  } catch(e){}
+}
+
+function atualizarContador(){
+  tentativas++;
+  var mins = Math.floor(tentativas * 5 / 60);
+  var secs = (tentativas * 5) % 60;
+  var label = mins > 0 ? mins + 'min ' + secs + 's' : secs + 's';
+  var el = document.getElementById('esperaContador');
+  if(el) el.textContent = label;
+}
+
+function medicoAssumiu(atendimento){
+  document.getElementById('esperaTitulo').textContent = 'Médico disponível!';
+  document.getElementById('esperaSub').textContent = 'O médico assumiu seu atendimento. A consulta está iniciando.';
+  document.getElementById('esperaIcon').textContent = '✓';
+  document.getElementById('esperaStatusTxt').textContent = '';
+  document.getElementById('esperaAnim').style.background = 'linear-gradient(135deg,rgba(94,224,160,.2),rgba(180,224,90,.15))';
+
+  if(tipoConsulta === 'chat'){
+    iniciarChatConsulta(atendimento);
+  } else {
+    iniciarVideoConsulta(atendimento);
+  }
+}
+
+/* ── CHAT INTERNO ── */
+function iniciarChatConsulta(atendimento){
+  var cc = document.getElementById('chatConsulta');
+  cc.classList.add('ativo');
+  if(atendimento.medico_nome){
+    document.getElementById('chatMedicoNome').textContent = atendimento.medico_nome;
+  }
+  chatAtivo = true;
+  chatPoller = setInterval(buscarMensagens, 2000);
+
+  var inp = document.getElementById('chatInputPaciente');
+  inp.addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
+  inp.addEventListener('keydown', function(e){
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensagemChat(); }
+  });
+}
+
+async function buscarMensagens(){
+  if(!atendimentoId || !chatAtivo) return;
+  try {
+    var res = await fetch(API+'/api/chat/'+atendimentoId);
+    var data = await res.json();
+    if(!data.ok) return;
+    var novas = data.mensagens.filter(function(m){ return m.id > ultimaMensagemId; });
+    novas.forEach(function(m){
+      if(m.autor === 'medico'){
+        adicionarMsgChat(m.autor, m.texto, m.criado_em);
+      }
+      ultimaMensagemId = m.id;
+    });
+  } catch(e){}
+}
+
+async function enviarMensagemChat(){
+  var inp = document.getElementById('chatInputPaciente');
+  var texto = inp.value.trim();
+  if(!texto || !atendimentoId) return;
+  inp.value = '';
+  inp.style.height = 'auto';
+  adicionarMsgChat('paciente', texto, new Date().toISOString());
+  try {
+    await fetch(API+'/api/chat/enviar', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ atendimentoId: atendimentoId, autor:'paciente', texto:texto })
+    });
+  } catch(e){}
+}
+
+function adicionarMsgChat(autor, texto, timestamp){
+  var msgs = document.getElementById('chatMsgs');
+  var div = document.createElement('div');
+  div.className = 'cmsg ' + autor;
+  var hora = new Date(timestamp).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  var av = autor === 'medico' ? '🩺' : '🧑';
+  var safe = String(texto).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  div.innerHTML = '<div class="av">'+av+'</div><div><div class="ts">'+hora+'</div><div class="bub">'+safe+'</div></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+/* ── VIDEOCHAMADA ── */
+function iniciarVideoConsulta(atendimento){
+  var wrap = document.getElementById('meetWrap');
+  wrap.classList.add('ativo');
+  if(atendimento.meet_link){
+    document.getElementById('btnMeetLink').href = atendimento.meet_link;
+  }
+}
+
+/* ── API OPENAI ── */
+async function callAPI(endpoint, system, history, userMsg){
+  history.push({role:'user', content:userMsg});
+  try {
+    var controller = new AbortController();
+    var timeout = setTimeout(function(){ controller.abort(); }, 35000);
+    var res = await fetch(API+endpoint, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system:system, messages:history}),
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    if(!res.ok){ throw new Error('HTTP '+res.status); }
+    var data = await res.json();
+    var text = data.text || (data.content&&data.content[0]&&data.content[0].text) || '';
+    if(!text) throw new Error('resposta vazia');
+    history.push({role:'assistant', content:text});
+    return text;
+  } catch(e){
+    history.pop();
+    if(e.name==='AbortError') return 'O servidor demorou demais para responder. Aguarde 30 segundos e tente novamente.';
+    return 'Erro de conexão (' + e.message + '). Verifique sua internet e tente novamente.';
+  }
+}
+
+/* ── INPUT HANDLERS ── */
+var triageInput = document.getElementById('triageInput');
+triageInput.addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,110)+'px'; });
+triageInput.addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendTriage(this.value.trim()); } });
+document.getElementById('triageSend').addEventListener('click', function(){ sendTriage(triageInput.value.trim()); });
 </script>
 
 <!-- Event snippet for Compra conversion page -->
