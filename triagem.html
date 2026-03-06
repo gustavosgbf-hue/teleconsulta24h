@@ -127,6 +127,17 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .pay-copy-btn:hover{background:rgba(180,224,90,.14)}
 .pay-status-msg{font-size:.8rem;color:rgba(255,255,255,.4);font-weight:300}
 .pay-status-msg.ok{color:#5ee0a0;font-weight:500}
+.retorno-bloco{display:none;margin-top:20px;background:rgba(94,224,160,.06);border:1px solid rgba(94,224,160,.2);border-radius:14px;padding:16px 18px;text-align:left}
+.retorno-bloco.show{display:block}
+.retorno-bloco-titulo{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:8px}
+.retorno-bloco-aviso{font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:12px;line-height:1.5}
+.retorno-url{font-size:.72rem;color:#5ee0a0;word-break:break-all;background:rgba(0,0,0,.2);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-family:monospace;line-height:1.6}
+.retorno-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn-copiar-link{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;border:1px solid rgba(94,224,160,.3);background:rgba(94,224,160,.08);color:#5ee0a0;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;-webkit-appearance:none;transition:background .15s}
+.btn-copiar-link:hover{background:rgba(94,224,160,.16)}
+.btn-copiar-link.copiado{background:rgba(94,224,160,.18);border-color:#5ee0a0}
+.btn-continuar-triagem{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;-webkit-appearance:none;transition:opacity .15s}
+.btn-continuar-triagem:hover{opacity:.9}
 .pay-divider{display:flex;align-items:center;gap:10px;margin:18px 0 0;font-size:.7rem;color:rgba(255,255,255,.2)}
 .pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
 .pay-seguro{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300}
@@ -363,6 +374,20 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
           Copiar código Pix
         </button>
         <div class="pay-status-msg" id="payStatusMsg">Aguardando pagamento...</div>
+        <div class="retorno-bloco" id="retornoBloco">
+          <div class="retorno-bloco-titulo">🔗 Seu link de retorno</div>
+          <div class="retorno-bloco-aviso">Se a página fechar ou atualizar, use este link para retomar sua consulta:</div>
+          <div class="retorno-url" id="retornoUrl"></div>
+          <div class="retorno-btns">
+            <button class="btn-copiar-link" id="btnCopiarLink" onclick="copiarLinkRetorno()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copiar link
+            </button>
+            <button class="btn-continuar-triagem" onclick="continuarParaTriagem()">
+              Continuar para triagem →
+            </button>
+          </div>
+        </div>
       </div>
       <div class="pay-divider">pagamento processado por</div>
       <div class="pay-seguro">🔒 Mercado Pago · Ambiente seguro · Dados criptografados</div>
@@ -743,29 +768,66 @@ function copiarPix(){
 async function pagamentoConfirmado(nome,tel,cpf){
   document.getElementById('payStatusMsg').textContent='\u2713 Pagamento confirmado!';
   document.getElementById('payStatusMsg').classList.add('ok');
-  await esperar(800);
+  await esperar(600);
 
   if(modoAgendamento){
-    // AGENDAMENTO: criar pré e confirmar
     await confirmarAgendamento(nome,tel,cpf);
     return;
   }
-  // CONSULTA NORMAL: registra na fila ANTES de mostrar a triagem
-  // Garante que o paciente aparece no sistema mesmo que abandone a triagem
+
+  // Registra na fila ANTES de mostrar a triagem
   try{
     var rPre=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,triagem:'(Triagem em andamento — aguardando resposta do paciente)',tipo:tipoConsulta})});
+      body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,triagem:'(Triagem em andamento \u2014 aguardando resposta do paciente)',tipo:tipoConsulta})});
     var dPre=await rPre.json();
     if(dPre.atendimentoId){
       atendimentoId=dPre.atendimentoId;
       salvarSessao();
-      if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
+      if(dPre.linkRetorno){
+        history.replaceState(null,'',dPre.linkRetorno);
+        var linkCompleto=window.location.href;
+        document.getElementById('retornoUrl').textContent=linkCompleto;
+        document.getElementById('retornoBloco').classList.add('show');
+        document.getElementById('payBtn').style.display='none';
+        return; // Paciente clica em "Continuar para triagem"
+      }
     }
   }catch(e){console.warn('Pre-registro error:',e);}
+  continuarParaTriagem();
+}
+
+function continuarParaTriagem(){
   showScreen('triage');
-  document.getElementById('nav-step').textContent='TRIAGEM MÉDICA';
+  document.getElementById('nav-step').textContent='TRIAGEM M\u00c9DICA';
   startTriage();
 }
+
+function copiarLinkRetorno(){
+  var link=document.getElementById('retornoUrl').textContent;
+  var btn=document.getElementById('btnCopiarLink');
+  function mostrarCopiado(){
+    btn.textContent='\u2713 Copiado!';
+    btn.classList.add('copiado');
+    setTimeout(function(){
+      btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar link';
+      btn.classList.remove('copiado');
+    },2500);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(link).then(mostrarCopiado).catch(function(){
+      fallbackCopy(link); mostrarCopiado();
+    });
+  } else { fallbackCopy(link); mostrarCopiado(); }
+}
+
+function fallbackCopy(text){
+  var el=document.createElement('textarea');
+  el.value=text; el.style.position='fixed'; el.style.opacity='0';
+  document.body.appendChild(el); el.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(el);
+}
+
 
 async function confirmarAgendamento(nome,tel,cpf){
   try{
