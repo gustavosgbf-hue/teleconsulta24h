@@ -1,18 +1,16 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
+  window.dataLayer=window.dataLayer||[];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-17964942771');
+  gtag('js',new Date()); gtag('config','AW-17964942771');
 </script>
 <meta charset="utf-8"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ConsultaJá24h · Triagem Médica</title>
+<title>ConsultaJá24h · Consulta Médica Online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -20,34 +18,23 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;min-height:100vh}
 body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-
-:root{
-  --g1:#b4e05a;--g2:#5ee0a0;
-  --line:rgba(255,255,255,.09);
-  --card:rgba(255,255,255,.045);
-  --muted:rgba(255,255,255,.55);
-}
-
-.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 70vw 60vh at 10% 0%,rgba(180,224,90,.12) 0%,transparent 60%),
-  radial-gradient(ellipse 50vw 40vh at 90% 10%,rgba(94,224,160,.09) 0%,transparent 55%);}
-
-.nav{position:sticky;top:0;z-index:100;background:rgba(6,13,11,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+:root{--g1:#b4e05a;--g2:#5ee0a0;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.55)}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70vw 60vh at 10% 0%,rgba(180,224,90,.12) 0%,transparent 60%),radial-gradient(ellipse 50vw 40vh at 90% 10%,rgba(94,224,160,.09) 0%,transparent 55%)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,13,11,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .nav__in{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;gap:12px}
 .nav__brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem;text-decoration:none}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
 .nav__step{font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
-
 .screen{display:none;min-height:calc(100vh - 52px);position:relative;z-index:1}
 .screen.active{display:flex;flex-direction:column}
-
+.box-center{align-items:center;justify-content:center;padding:20px}
+.box{border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.03);overflow:hidden}
+.box-head{padding:22px 24px 18px;border-bottom:1px solid var(--line)}
+.box-head h1{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:5px}
+.box-head p{font-size:.78rem;color:var(--muted);font-weight:300}
 /* IDENTIFICAÇÃO */
-#screen-identify{align-items:center;justify-content:center;padding:20px;min-height:calc(100vh - 52px)}
-.identify-box{width:min(480px,100%);border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.03);overflow:hidden}
-.identify-head{padding:22px 24px 18px;border-bottom:1px solid var(--line)}
-.identify-head h1{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:5px}
-.identify-head p{font-size:.78rem;color:var(--muted);font-weight:300}
+#screen-identify .box{width:min(480px,100%)}
 .identify-body{padding:22px 24px;display:flex;flex-direction:column;gap:14px}
 .id-label{font-size:.75rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:4px}
 .id-input{width:100%;padding:12px 14px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:300;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none}
@@ -56,166 +43,152 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .id-note{font-size:.72rem;color:rgba(255,255,255,.28);font-weight:300;line-height:1.6;padding:10px 14px;background:rgba(255,255,255,.02);border-radius:10px;border:1px solid rgba(255,255,255,.06)}
 .id-btn{width:100%;padding:14px;border-radius:13px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.25);transition:transform .12s,box-shadow .2s}
 .id-btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(180,224,90,.38)}
-
 /* TERMOS */
-#screen-terms{align-items:center;justify-content:center;padding:20px;min-height:calc(100vh - 52px)}
-.terms-box{width:min(580px,100%);border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.03);overflow:hidden}
-.terms-head{padding:22px 24px 18px;border-bottom:1px solid var(--line)}
-.terms-head h1{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:5px}
-.terms-head p{font-size:.78rem;color:var(--muted);font-weight:300}
+#screen-terms .box{width:min(580px,100%)}
 .terms-body{padding:20px 24px;display:flex;flex-direction:column;gap:10px}
 .titem{font-size:.82rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.7;padding-left:12px;border-left:2px solid rgba(180,224,90,.3)}
 .titem strong{color:rgba(255,255,255,.85);font-weight:500;display:block;margin-bottom:2px}
 .terms-foot{padding:20px 24px 26px;border-top:1px solid var(--line);background:rgba(0,0,0,.25)}
 .check-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;cursor:pointer}
-.check-row input[type=checkbox]{width:22px;height:22px;margin-top:1px;accent-color:#b4e05a;flex-shrink:0;cursor:pointer;border-radius:5px}
+.check-row input[type=checkbox]{width:22px;height:22px;margin-top:1px;accent-color:#b4e05a;flex-shrink:0;cursor:pointer}
 .check-row span{font-size:.84rem;color:rgba(255,255,255,.82);line-height:1.55;font-weight:400}
-.btn-aceitar{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:not-allowed;opacity:.3;display:block;-webkit-appearance:none;appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.15);transition:opacity .25s,box-shadow .25s,transform .12s;letter-spacing:.01em}
+.btn-aceitar{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:not-allowed;opacity:.3;display:block;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.15);transition:opacity .25s,transform .12s}
 .btn-aceitar.on{opacity:1;cursor:pointer;box-shadow:0 8px 28px rgba(180,224,90,.4)}
-.btn-aceitar.on:hover{transform:translateY(-1px);box-shadow:0 12px 32px rgba(180,224,90,.5)}
-
+.btn-aceitar.on:hover{transform:translateY(-1px)}
 /* MODALIDADE */
-#screen-modalidade{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
-.modal-box{width:min(520px,100%)}
-.modal-head{text-align:center;margin-bottom:32px}
-.modal-head h1{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:500;margin-bottom:8px}
+#screen-modalidade .modal-wrap{width:min(520px,100%);padding:24px 20px}
+.modal-head{text-align:center;margin-bottom:28px}
+.modal-head h1{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;margin-bottom:8px}
 .modal-head p{font-size:.85rem;color:var(--muted);font-weight:300;line-height:1.6}
 .modal-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:480px){.modal-cards{grid-template-columns:1fr}}
-.modal-card{border:2px solid var(--line);border-radius:20px;background:rgba(255,255,255,.03);padding:28px 22px;cursor:pointer;transition:all .2s;text-align:center;position:relative;overflow:hidden}
-.modal-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s;border-radius:18px}
-.modal-card.chat::before{background:radial-gradient(ellipse at 50% 0%,rgba(37,211,102,.1),transparent 60%)}
-.modal-card.video::before{background:radial-gradient(ellipse at 50% 0%,rgba(94,224,160,.12),transparent 60%)}
+.modal-card{border:2px solid var(--line);border-radius:20px;background:rgba(255,255,255,.03);padding:26px 20px;cursor:pointer;transition:all .2s;text-align:center;position:relative}
 .modal-card:hover{border-color:rgba(94,224,160,.3);transform:translateY(-2px)}
-.modal-card:hover::before{opacity:1}
 .modal-card.selected.chat{border-color:rgba(37,211,102,.5);background:rgba(37,211,102,.06)}
 .modal-card.selected.video{border-color:rgba(94,224,160,.5);background:rgba(94,224,160,.06)}
-.modal-card.selected::before{opacity:1}
-.mc-icon{font-size:2.2rem;margin-bottom:14px;display:block}
-.mc-title{font-size:1.05rem;font-weight:600;margin-bottom:6px}
-.mc-desc{font-size:.78rem;color:var(--muted);font-weight:300;line-height:1.6}
+.mc-icon{font-size:2rem;margin-bottom:12px;display:block}
+.mc-title{font-size:1rem;font-weight:600;margin-bottom:6px}
+.mc-desc{font-size:.78rem;color:var(--muted);font-weight:300;line-height:1.5}
 .mc-badge{display:inline-block;margin-top:10px;font-size:.68rem;font-weight:600;padding:3px 10px;border-radius:999px;letter-spacing:.06em;text-transform:uppercase}
 .modal-card.chat .mc-badge{background:rgba(37,211,102,.12);color:#25d366}
 .modal-card.video .mc-badge{background:rgba(94,224,160,.12);color:var(--g2)}
-.modal-card.selected .mc-check{display:flex}
 .mc-check{display:none;position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#b4e05a,#5ee0a0);align-items:center;justify-content:center}
+.modal-card.selected .mc-check{display:flex}
 .mc-check svg{width:12px;height:12px;color:#051208}
-.btn-modal-continuar{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:not-allowed;opacity:.3;margin-top:20px;transition:opacity .25s,transform .12s;-webkit-appearance:none}
-.btn-modal-continuar.on{opacity:1;cursor:pointer}
-.btn-modal-continuar.on:hover{transform:translateY(-1px)}
-
-/* TRIAGEM CHAT */
+.btn-modal-cont{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:not-allowed;opacity:.3;margin-top:18px;transition:opacity .25s,transform .12s;-webkit-appearance:none}
+.btn-modal-cont.on{opacity:1;cursor:pointer}
+.btn-modal-cont.on:hover{transform:translateY(-1px)}
+/* PAGAMENTO */
+#screen-payment .box{width:min(500px,100%)}
+.pay-head{padding:22px 24px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}
+.pay-icon{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.18),rgba(94,224,160,.12));border:1px solid rgba(180,224,90,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.pay-head-text h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:3px}
+.pay-head-text p{font-size:.76rem;color:var(--muted);font-weight:300}
+.pay-body{padding:22px 24px}
+.pay-valor{display:flex;align-items:center;justify-content:space-between;background:rgba(180,224,90,.06);border:1px solid rgba(180,224,90,.15);border-radius:16px;padding:16px 20px;margin-bottom:20px}
+.pay-valor-left .label{font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px}
+.pay-valor-left .desc{font-size:.78rem;color:rgba(255,255,255,.5);font-weight:300;margin-top:3px}
+.pay-price{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b4e05a;line-height:1}
+.pay-label{font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px}
+.pay-input{width:100%;padding:12px 16px;border-radius:13px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:300;outline:none;transition:border-color .2s;-webkit-appearance:none;margin-bottom:14px}
+.pay-input::placeholder{color:rgba(255,255,255,.25)}
+.pay-input:focus{border-color:rgba(94,224,160,.35)}
+.pay-btn{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.28);transition:opacity .2s,transform .12s;margin-top:4px}
+.pay-btn:hover{transform:translateY(-1px)}
+.pay-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.pay-qr-wrap{display:none;margin-top:20px;text-align:center}
+.pay-qr-wrap.show{display:block}
+.pay-qr-img{width:190px;height:190px;border-radius:16px;border:2px solid rgba(180,224,90,.25);background:#fff;padding:6px;margin:0 auto 14px;display:block}
+.pay-copy-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;border:1px solid rgba(180,224,90,.3);background:rgba(180,224,90,.07);color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;-webkit-appearance:none;transition:background .15s;margin-bottom:12px}
+.pay-copy-btn:hover{background:rgba(180,224,90,.14)}
+.pay-status-msg{font-size:.8rem;color:rgba(255,255,255,.4);font-weight:300}
+.pay-status-msg.ok{color:#5ee0a0;font-weight:500}
+.pay-divider{display:flex;align-items:center;gap:10px;margin:18px 0 0;font-size:.7rem;color:rgba(255,255,255,.2)}
+.pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+.pay-seguro{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300}
+/* TRIAGEM */
 #screen-triage{flex-direction:column}
 .progress-bar{height:3px;background:rgba(255,255,255,.06);flex-shrink:0}
 .progress-fill{height:100%;background:linear-gradient(90deg,#b4e05a,#5ee0a0);transition:width .5s ease;width:0%}
 .chat-area{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
 .chat-area::-webkit-scrollbar{width:3px}
 .chat-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
-.msg{display:flex;gap:10px;align-items:flex-end;animation:msgIn .25s ease}
-@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg{display:flex;gap:10px;align-items:flex-end;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .msg--bot{align-self:flex-start;max-width:85%}
 .msg--user{align-self:flex-end;flex-direction:row-reverse;max-width:85%}
 .msg__av{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
 .msg__bubble{padding:11px 15px;border-radius:16px;font-size:.875rem;font-weight:300;line-height:1.65}
 .msg--bot .msg__bubble{background:rgba(255,255,255,.06);border:1px solid var(--line);border-bottom-left-radius:4px;color:rgba(255,255,255,.88)}
-.msg--user .msg__bubble{background-color:#b4e05a;background-image:linear-gradient(135deg,#b4e05a,#6ed49a);color:#051208;font-weight:500;border-bottom-right-radius:4px}
+.msg--user .msg__bubble{background:linear-gradient(135deg,#b4e05a,#6ed49a);color:#051208;font-weight:500;border-bottom-right-radius:4px}
 .typing{display:flex;gap:4px;padding:11px 15px;align-items:center}
 .typing span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);animation:typDot 1.2s ease-in-out infinite}
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
 @keyframes typDot{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-5px);opacity:1}}
 .quick-replies{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px 12px}
-.qr{padding:8px 16px;border-radius:999px;border:1px solid rgba(180,224,90,.3);background:rgba(180,224,90,.06);color:var(--g1);font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;transition:background .15s;-webkit-appearance:none;appearance:none}
+.qr{padding:8px 16px;border-radius:999px;border:1px solid rgba(180,224,90,.3);background:rgba(180,224,90,.06);color:var(--g1);font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;transition:background .15s;-webkit-appearance:none}
 .qr:hover{background:rgba(180,224,90,.14)}
 .input-bar{padding:12px 16px 20px;border-top:1px solid var(--line);background:rgba(6,13,11,.9);display:flex;gap:10px;align-items:flex-end;flex-shrink:0}
 .input-bar textarea{flex:1;padding:10px 14px;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:#fff;font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:300;resize:none;outline:none;min-height:42px;max-height:110px;line-height:1.5;transition:border-color .2s;-webkit-appearance:none}
 .input-bar textarea::placeholder{color:rgba(255,255,255,.28)}
 .input-bar textarea:focus{border-color:rgba(94,224,160,.35)}
-.send-btn{width:42px;height:42px;border-radius:50%;border:none;background-color:#b4e05a;background-image:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .12s;box-shadow:0 4px 14px rgba(180,224,90,.28);-webkit-appearance:none;appearance:none}
+.send-btn{width:42px;height:42px;border-radius:50%;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .12s;box-shadow:0 4px 14px rgba(180,224,90,.28);-webkit-appearance:none}
 .send-btn:hover{transform:scale(1.08)}
 .send-btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
-
-/* PAGAMENTO */
-#screen-payment{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
-.pay-box{width:min(500px,100%);border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.03);overflow:hidden;backdrop-filter:blur(8px)}
-.pay-head{padding:24px 26px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}
-.pay-icon{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.18),rgba(94,224,160,.12));border:1px solid rgba(180,224,90,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
-.pay-head-text h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:3px}
-.pay-head-text p{font-size:.76rem;color:var(--muted);font-weight:300}
-.pay-body{padding:24px 26px}
-.pay-valor{display:flex;align-items:center;justify-content:space-between;background:rgba(180,224,90,.06);border:1px solid rgba(180,224,90,.15);border-radius:16px;padding:16px 20px;margin-bottom:22px}
-.pay-valor-left .label{font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px}
-.pay-valor-left .desc{font-size:.78rem;color:rgba(255,255,255,.5);font-weight:300;margin-top:3px}
-.pay-price{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b4e05a;line-height:1}
-.pay-label{font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px;margin-top:0}
-.pay-input{width:100%;padding:12px 16px;border-radius:13px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:300;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;margin-bottom:14px}
-.pay-input::placeholder{color:rgba(255,255,255,.25)}
-.pay-input:focus{border-color:rgba(94,224,160,.35);background:rgba(255,255,255,.08)}
-.pay-btn{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.28);transition:opacity .2s,transform .12s,box-shadow .2s;letter-spacing:.01em}
-.pay-btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(180,224,90,.4)}
-.pay-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
-.pay-qr-wrap{display:none;margin-top:22px;text-align:center;animation:msgIn .3s ease}
-.pay-qr-wrap.show{display:block}
-.pay-qr-img{width:190px;height:190px;border-radius:16px;border:2px solid rgba(180,224,90,.25);background:#fff;padding:6px;margin:0 auto 16px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.pay-copy-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;border:1px solid rgba(180,224,90,.3);background:rgba(180,224,90,.07);color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;-webkit-appearance:none;appearance:none;transition:background .15s;margin-bottom:14px}
-.pay-copy-btn:hover{background:rgba(180,224,90,.14)}
-.pay-status-msg{font-size:.8rem;color:rgba(255,255,255,.4);font-weight:300}
-.pay-status-msg.ok{color:#5ee0a0;font-weight:500}
-.pay-divider{display:flex;align-items:center;gap:10px;margin:20px 0 0;font-size:.7rem;color:rgba(255,255,255,.2);letter-spacing:.04em}
-.pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
-.pay-seguro{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300}
-
-/* SALA DE ESPERA */
-#screen-espera{align-items:center;justify-content:center;padding:24px;min-height:calc(100vh - 52px)}
-.espera-box{width:min(480px,100%);text-align:center}
-.espera-anim{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.15),rgba(94,224,160,.1));border:1px solid rgba(94,224,160,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative}
-.espera-anim::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(94,224,160,.15);animation:expandRing 2s ease-in-out infinite}
-.espera-anim::after{content:'';position:absolute;inset:-16px;border-radius:50%;border:1px solid rgba(94,224,160,.08);animation:expandRing 2s ease-in-out infinite .4s}
-@keyframes expandRing{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.1);opacity:0}}
-.espera-titulo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:500;margin-bottom:10px}
-.espera-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:28px}
-.espera-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;font-size:.82rem;font-weight:600;margin-bottom:32px}
+/* ESPERA */
+#screen-espera .espera-box{width:min(560px,100%);text-align:center;padding:32px 20px}
+.espera-anim{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.15),rgba(94,224,160,.1));border:1px solid rgba(94,224,160,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;transition:background .5s}
+.espera-anim::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(94,224,160,.15);animation:ring 2s ease-in-out infinite}
+.espera-anim::after{content:'';position:absolute;inset:-16px;border-radius:50%;border:1px solid rgba(94,224,160,.08);animation:ring 2s ease-in-out infinite .4s}
+@keyframes ring{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.1);opacity:0}}
+.espera-titulo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;margin-bottom:10px}
+.espera-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:24px}
+.espera-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;font-size:.82rem;font-weight:600;margin-bottom:24px}
 .espera-badge.chat{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366}
 .espera-badge.video{background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);color:var(--g2)}
-.espera-status{font-size:.78rem;color:rgba(255,255,255,.3);font-weight:300;margin-bottom:40px}
-.espera-status span{color:rgba(255,255,255,.5)}
-/* CONSULTA POR CHAT */
-.chat-consulta{width:100%;max-width:600px;margin:0 auto;display:none;animation:msgIn .4s ease}
+.espera-status{font-size:.78rem;color:rgba(255,255,255,.3);font-weight:300;margin-bottom:32px}
+/* CHAT PACIENTE */
+.chat-consulta{width:100%;display:none;text-align:left}
 .chat-consulta.ativo{display:flex;flex-direction:column}
-.chat-msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:20px;min-height:300px;max-height:420px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:16px 16px 0 0;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
+.chat-header-box{text-align:center;margin-bottom:14px;padding:14px 20px;background:rgba(37,211,102,.06);border:1px solid rgba(37,211,102,.15);border-radius:14px}
+.chat-header-box h3{font-size:.95rem;font-weight:600;margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:8px}
+.chat-header-box p{font-size:.75rem;color:var(--muted);font-weight:300}
+.online-dot{width:6px;height:6px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+.chat-msgs{overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:16px;min-height:250px;max-height:360px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:16px 16px 0 0;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.08) transparent}
 .chat-msgs::-webkit-scrollbar{width:3px}
-.chat-msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+.chat-msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
 .chat-input-row{display:flex;gap:10px;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-top:none;border-radius:0 0 16px 16px}
 .chat-input-row textarea{flex:1;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:300;resize:none;outline:none;min-height:42px;max-height:100px;line-height:1.5;-webkit-appearance:none}
 .chat-input-row textarea:focus{border-color:rgba(94,224,160,.35)}
 .chat-input-row textarea::placeholder{color:rgba(255,255,255,.25)}
 .chat-send{width:42px;height:42px;border-radius:50%;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .12s;-webkit-appearance:none}
 .chat-send:hover{transform:scale(1.08)}
-.chat-send:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.cmsg{display:flex;gap:8px;align-items:flex-end;animation:msgIn .2s ease}
+.cmsg{display:flex;gap:8px;align-items:flex-end;animation:fadeUp .2s ease}
 .cmsg.paciente{flex-direction:row-reverse}
 .cmsg .av{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
-.cmsg .bub{padding:10px 14px;border-radius:14px;font-size:.85rem;font-weight:300;line-height:1.6;max-width:80%}
+.cmsg .bwrap{display:flex;flex-direction:column;max-width:78%}
+.cmsg.paciente .bwrap{align-items:flex-end}
+.cmsg .bub{padding:10px 14px;border-radius:14px;font-size:.85rem;font-weight:300;line-height:1.6}
 .cmsg.medico .bub{background:rgba(255,255,255,.06);border:1px solid var(--line);border-bottom-left-radius:4px;color:rgba(255,255,255,.88)}
 .cmsg.paciente .bub{background:linear-gradient(135deg,#b4e05a,#6ed49a);color:#051208;font-weight:500;border-bottom-right-radius:4px}
-.cmsg .ts{font-size:.62rem;color:rgba(255,255,255,.2);margin-bottom:2px;text-align:right}
-.chat-consulta .chat-header{text-align:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
-.chat-consulta .chat-header h3{font-size:1rem;font-weight:600;margin-bottom:4px}
-.chat-consulta .chat-header p{font-size:.75rem;color:var(--muted);font-weight:300}
-/* BOTÃO MEET */
-.btn-meet{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:14px;border:none;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(66,133,244,.3);transition:transform .12s,box-shadow .2s;margin-top:8px}
-.btn-meet:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(66,133,244,.4)}
-.btn-meet-wrap{display:none;animation:msgIn .4s ease}
-.btn-meet-wrap.ativo{display:block;text-align:center}
+.cmsg .ts{font-size:.62rem;color:rgba(255,255,255,.2);margin-top:2px;padding:0 2px}
+/* MEET */
+.meet-wrap{display:none}
+.meet-wrap.ativo{display:block;text-align:center}
+.meet-aguardando{padding:20px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;margin-bottom:18px}
+.meet-aguardando p{font-size:.85rem;color:var(--muted);font-weight:300;line-height:1.6}
+.btn-meet{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:14px;border:none;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(66,133,244,.3);transition:transform .12s,box-shadow .2s}
+.btn-meet:not(.disabled):hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(66,133,244,.45)}
+.btn-meet.disabled{opacity:.4;pointer-events:none}
 </style>
 </head>
 <body>
-
 <div class="bg-glow" aria-hidden="true"></div>
 
 <nav class="nav">
   <div class="nav__in">
-    <a href="index.html" class="nav__brand" style="text-decoration:none">
+    <a href="index.html" class="nav__brand">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="30" height="30" style="flex-shrink:0">
         <defs>
           <radialGradient id="nb" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#0d1f17"/><stop offset="100%" stop-color="#060d0b"/></radialGradient>
@@ -237,40 +210,26 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   </div>
 </nav>
 
-<!-- SCREEN 0: IDENTIFICAÇÃO -->
-<div id="screen-identify" class="screen active">
-  <div class="identify-box">
-    <div class="identify-head">
-      <h1>Bem-vindo</h1>
-      <p>Para começar, precisamos de alguns dados básicos.</p>
-    </div>
+<!-- S1: IDENTIFICAÇÃO -->
+<div id="screen-identify" class="screen active box-center">
+  <div class="box">
+    <div class="box-head"><h1>Bem-vindo</h1><p>Para começar, precisamos de alguns dados básicos.</p></div>
     <div class="identify-body">
-      <div>
-        <div class="id-label">Nome completo</div>
-        <input class="id-input" id="idNome" type="text" placeholder="Como você se chama?" autocomplete="name"/>
-      </div>
-      <div>
-        <div class="id-label">Seu WhatsApp</div>
-        <input class="id-input" id="idTel" type="tel" placeholder="DDD + número (ex: 98999990000)" autocomplete="tel" inputmode="numeric"/>
-      </div>
-      <div class="id-note">
-        🔒 Seus dados são registrados com segurança para vincular sua identidade ao consentimento e ao atendimento médico, conforme a LGPD.
-      </div>
+      <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Como você se chama?" autocomplete="name"/></div>
+      <div><div class="id-label">Seu WhatsApp</div><input class="id-input" id="idTel" type="tel" placeholder="DDD + número (ex: 98999990000)" autocomplete="tel" inputmode="numeric"/></div>
+      <div class="id-note">🔒 Seus dados são registrados com segurança para vincular sua identidade ao atendimento médico, conforme a LGPD.</div>
       <button class="id-btn" onclick="avancarIdentificacao()">Continuar →</button>
     </div>
   </div>
 </div>
 
-<!-- SCREEN 1: TERMOS -->
-<div id="screen-terms" class="screen">
-  <div class="terms-box">
-    <div class="terms-head">
-      <h1>Termos de Uso e TCLE</h1>
-      <p>Leia os pontos principais antes de iniciar sua triagem.</p>
-    </div>
+<!-- S2: TERMOS -->
+<div id="screen-terms" class="screen box-center">
+  <div class="box">
+    <div class="box-head"><h1>Termos de Uso e TCLE</h1><p>Leia os pontos principais antes de prosseguir.</p></div>
     <div class="terms-body">
       <div class="titem"><strong>Serviço</strong>Orientação médica remota por profissional com CRM ativo, conforme Resolução CFM nº 2.314/2022. Não substitui atendimento presencial em urgências.</div>
-      <div class="titem"><strong>Triagem automatizada</strong>A etapa inicial utiliza inteligência artificial exclusivamente para coleta estruturada de anamnese. Não constitui diagnóstico. Toda informação é revisada pelo médico antes do atendimento.</div>
+      <div class="titem"><strong>Triagem automatizada</strong>A etapa de coleta de queixa utiliza IA exclusivamente para anamnese estruturada. Não constitui diagnóstico. Toda informação é revisada pelo médico.</div>
       <div class="titem"><strong>Transferência de dados</strong>Para viabilizar a triagem, dados podem ser processados por provedor internacional de IA, com garantias contratuais adequadas, conforme Arts. 33–36 da LGPD.</div>
       <div class="titem"><strong>Documentos</strong>Atestados e receitas são emitidos exclusivamente quando há indicação clínica após avaliação médica. Não são automáticos.</div>
       <div class="titem"><strong>Privacidade</strong>Seus dados sensíveis de saúde são tratados com sigilo, sob base legal de consentimento específico, conforme Lei 13.709/2018 (LGPD).</div>
@@ -280,29 +239,26 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     <div class="terms-foot">
       <label class="check-row" for="termsCheck">
         <input type="checkbox" id="termsCheck"/>
-        <span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a>, <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a> e TCLE, incluindo o uso de triagem automatizada por IA e eventual transferência internacional de dados.</span>
+        <span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a>, <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a> e TCLE, incluindo uso de IA para triagem.</span>
       </label>
       <button class="btn-aceitar" id="btnAceitar">Aceitar e continuar</button>
     </div>
   </div>
 </div>
 
-<!-- SCREEN 2: ESCOLHA DE MODALIDADE -->
-<div id="screen-modalidade" class="screen">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h1>Como prefere ser atendido?</h1>
-      <p>Escolha a modalidade da sua consulta. O médico estará disponível na forma que você preferir.</p>
-    </div>
+<!-- S3: MODALIDADE -->
+<div id="screen-modalidade" class="screen box-center">
+  <div class="modal-wrap">
+    <div class="modal-head"><h1>Como prefere ser atendido?</h1><p>Escolha a modalidade da sua consulta.</p></div>
     <div class="modal-cards">
-      <div class="modal-card chat" onclick="selecionarModalidade('chat', this)">
+      <div class="modal-card chat" onclick="selecionarModalidade('chat',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
         <span class="mc-icon">💬</span>
         <div class="mc-title">Consulta por chat</div>
         <div class="mc-desc">Troca de mensagens em tempo real com o médico pela plataforma.</div>
         <span class="mc-badge">Texto</span>
       </div>
-      <div class="modal-card video" onclick="selecionarModalidade('video', this)">
+      <div class="modal-card video" onclick="selecionarModalidade('video',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
         <span class="mc-icon">🎥</span>
         <div class="mc-title">Consulta por vídeo</div>
@@ -310,11 +266,47 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <span class="mc-badge">Videochamada</span>
       </div>
     </div>
-    <button class="btn-modal-continuar" id="btnModalContinuar" disabled>Continuar com esta modalidade →</button>
+    <button class="btn-modal-cont" id="btnModalCont" disabled>Continuar →</button>
   </div>
 </div>
 
-<!-- SCREEN 3: TRIAGEM -->
+<!-- S4: PAGAMENTO -->
+<div id="screen-payment" class="screen box-center">
+  <div class="box">
+    <div class="pay-head">
+      <div class="pay-icon">💳</div>
+      <div class="pay-head-text"><h2>Pagamento seguro</h2><p>Pix instantâneo via Mercado Pago</p></div>
+    </div>
+    <div class="pay-body">
+      <div class="pay-valor">
+        <div class="pay-valor-left"><div class="label">Consulta médica online</div><div class="desc">Receitas e atestados quando indicados</div></div>
+        <div class="pay-price">R$&nbsp;49,90</div>
+      </div>
+      <div class="pay-label">Seu nome</div>
+      <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
+      <div class="pay-label">Seu WhatsApp</div>
+      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número (ex: 98999990000)" autocomplete="tel" inputmode="numeric"/>
+      <div class="pay-label">CPF</div>
+      <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:16px;line-height:1.5">Utilizado para emissão de documentos médicos quando necessário.</div>
+      <button class="pay-btn" id="payBtn" onclick="gerarPix()">Gerar QR Code Pix</button>
+      <p style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:10px;line-height:1.6">✓ Após o pagamento, a triagem inicia automaticamente.</p>
+      <div class="pay-qr-wrap" id="payQrWrap">
+        <img id="payQrImg" class="pay-qr-img" src="" alt="QR Code Pix"/>
+        <br/>
+        <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar código Pix
+        </button>
+        <div class="pay-status-msg" id="payStatusMsg">Aguardando pagamento...</div>
+      </div>
+      <div class="pay-divider">pagamento processado por</div>
+      <div class="pay-seguro">🔒 Mercado Pago · Ambiente seguro · Dados criptografados</div>
+    </div>
+  </div>
+</div>
+
+<!-- S5: TRIAGEM -->
 <div id="screen-triage" class="screen">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="chat-area" id="triageChat"></div>
@@ -327,531 +319,377 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   </div>
 </div>
 
-<!-- SCREEN 4: PAGAMENTO -->
-<div id="screen-payment" class="screen">
-  <div class="pay-box">
-    <div class="pay-head">
-      <div class="pay-icon">💳</div>
-      <div class="pay-head-text">
-        <h2>Pagamento seguro</h2>
-        <p>Pix instantâneo via Mercado Pago</p>
-      </div>
-    </div>
-    <div class="pay-body">
-      <div class="pay-valor">
-        <div class="pay-valor-left">
-          <div class="label">Consulta médica online</div>
-          <div class="desc">Receitas e atestados quando indicados</div>
-        </div>
-        <div class="pay-price">R$&nbsp;49,90</div>
-      </div>
-
-      <div class="pay-label">Seu nome</div>
-      <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
-
-      <div class="pay-label">Seu WhatsApp</div>
-      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número (ex: 98999990000)" autocomplete="tel" inputmode="numeric"/>
-
-      <div class="pay-label">CPF</div>
-      <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:6px;line-height:1.5">Utilizado para cadastro do paciente e emissão de documentos médicos quando necessário.</div>
-
-      <button class="pay-btn" id="payBtn" onclick="gerarPix()" style="margin-top:18px">
-        Gerar QR Code Pix
-      </button>
-      <p style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:12px;line-height:1.6;">
-        ✓ Após confirmação do pagamento, sua triagem inicia automaticamente.<br>Nenhuma ação adicional necessária.
-      </p>
-
-      <div class="pay-qr-wrap" id="payQrWrap">
-        <img id="payQrImg" class="pay-qr-img" src="" alt="QR Code Pix"/>
-        <br/>
-        <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar código Pix
-        </button>
-        <div class="pay-status-msg" id="payStatusMsg">Aguardando pagamento...</div>
-      </div>
-
-      <div class="pay-divider">pagamento processado por</div>
-      <div class="pay-seguro">
-        🔒 Mercado Pago · Ambiente seguro · Dados criptografados
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SCREEN 5: SALA DE ESPERA / CONSULTA -->
-<div id="screen-espera" class="screen">
+<!-- S6: ESPERA / CONSULTA -->
+<div id="screen-espera" class="screen box-center">
   <div class="espera-box">
-    <div class="espera-anim" id="esperaAnim">
-      <span style="font-size:2rem" id="esperaIcon">⏳</span>
-    </div>
-    <h2 class="espera-titulo" id="esperaTitulo">Sua consulta está sendo preparada</h2>
-    <p class="espera-sub" id="esperaSub">Um médico assumirá seu atendimento em breve.<br>Por favor, aguarde nesta página.</p>
-    <div class="espera-badge" id="esperaBadge">
-      <span id="esperaBadgeIcon">💬</span>
-      <span id="esperaBadgeText">Consulta por chat</span>
-    </div>
-    <p class="espera-status" id="esperaStatusTxt">Verificando disponibilidade... <span id="esperaContador"></span></p>
+    <div class="espera-anim" id="esperaAnim"><span style="font-size:2rem" id="esperaIcon">⏳</span></div>
+    <h2 class="espera-titulo" id="esperaTitulo">Preparando seu atendimento</h2>
+    <p class="espera-sub" id="esperaSub">Um médico assumirá sua consulta em breve.<br>Por favor, aguarde nesta página.</p>
+    <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">💬</span> <span id="esperaBadgeText">Consulta por chat</span></div>
+    <p class="espera-status" id="esperaStatusTxt">Verificando... <span id="esperaContador"></span></p>
 
-    <!-- Chat interno (aparece quando médico assume e tipo = chat) -->
+    <!-- Chat (tipo=chat, médico assumiu) -->
     <div class="chat-consulta" id="chatConsulta">
-      <div class="chat-header">
-        <h3>💬 Consulta iniciada</h3>
-        <p>O médico entrou na conversa. Você já pode enviar sua mensagem.</p>
+      <div class="chat-header-box">
+        <h3><div class="online-dot"></div> Consulta iniciada</h3>
+        <p id="chatMedicoLabel">Médico disponível — pode enviar sua mensagem</p>
       </div>
-      <div class="chat-msgs" id="chatMsgs">
-        <div class="cmsg medico">
-          <div class="av">🩺</div>
-          <div>
-            <div class="ts" id="chatMedicoNome">Médico</div>
-            <div class="bub">Olá! Já estou aqui. Pode me contar o que está sentindo com mais detalhes?</div>
-          </div>
-        </div>
-      </div>
+      <div class="chat-msgs" id="chatMsgs"></div>
       <div class="chat-input-row">
         <textarea id="chatInputPaciente" placeholder="Digite sua mensagem..." rows="1"></textarea>
-        <button class="chat-send" id="chatSendPaciente" onclick="enviarMensagemChat()">
+        <button class="chat-send" onclick="enviarMensagemChat()">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
     </div>
 
-    <!-- Botão Meet (aparece quando médico assume e tipo = video) -->
-    <div class="btn-meet-wrap" id="meetWrap">
-      <p style="font-size:.88rem;color:var(--muted);margin-bottom:16px;font-weight:300">O médico está pronto para te atender. Clique para entrar na videochamada:</p>
-      <a href="#" id="btnMeetLink" class="btn-meet" target="_blank">
+    <!-- Vídeo (tipo=video, médico assumiu) -->
+    <div class="meet-wrap" id="meetWrap">
+      <div class="meet-aguardando" id="meetAguardando">
+        <p>⏳ O médico está se preparando.<br>O link da videochamada aparecerá aqui em instantes.</p>
+      </div>
+      <a href="#" id="btnMeetLink" class="btn-meet disabled" target="_blank" rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
         Entrar na videochamada
       </a>
-      <p style="margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.25)">Link do Google Meet gerado pelo médico</p>
+      <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.25)">Link do Google Meet gerado pelo médico</p>
     </div>
   </div>
 </div>
 
 <script>
+/* ═══ ESTADO GLOBAL ═══ */
 var API = 'https://triagem-api.onrender.com';
-var pacienteNome = '';
-var pacienteTel = '';
-var pacienteCPF = '';
-var tipoConsulta = '';
+var pacienteNome = '', pacienteTel = '', pacienteCPF = '', tipoConsulta = '';
 var atendimentoId = null;
-var esperaPoller = null;
-var chatPoller = null;
-var ultimaMensagemId = 0;
-var chatAtivo = false;
+var pixCode = '', paymentId = '';
+var paymentPoller = null, esperaPoller = null, chatPoller = null, meetPoller = null;
+var ultimaMsgId = 0, chatAtivo = false, tentativas = 0;
 
-/* ── UTILS ── */
-function showScreen(name){
-  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById('screen-'+name).classList.add('active');
+/* ═══ NAVEGAÇÃO ═══ */
+function showScreen(n){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('screen-'+n).classList.add('active');
 }
 
-/* ── IDENTIFICAÇÃO ── */
+/* ═══ S1 — IDENTIFICAÇÃO ═══ */
 function avancarIdentificacao(){
   var nome = document.getElementById('idNome').value.trim();
-  var tel  = document.getElementById('idTel').value.trim().replace(/\D/g,'');
-  if(!nome){ document.getElementById('idNome').focus(); return; }
-  if(!tel || tel.length < 10){ document.getElementById('idTel').focus(); return; }
-  pacienteNome = nome;
-  pacienteTel  = tel;
-  fetch(API+'/api/identify', {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ nome:nome, tel:tel })
-  }).catch(function(){});
-  document.getElementById('payNome').value = nome;
-  document.getElementById('payTel').value  = tel;
+  var tel  = document.getElementById('idTel').value.replace(/\D/g,'');
+  if(!nome){document.getElementById('idNome').focus();return;}
+  if(!tel||tel.length<10){document.getElementById('idTel').focus();return;}
+  pacienteNome=nome; pacienteTel=tel;
+  fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,tel:tel})}).catch(function(){});
+  document.getElementById('payNome').value=nome;
+  document.getElementById('payTel').value=tel;
   showScreen('terms');
-  document.getElementById('nav-step').textContent = 'TERMOS DE USO';
+  document.getElementById('nav-step').textContent='TERMOS DE USO';
 }
 
-/* ── TERMOS ── */
-var chk = document.getElementById('termsCheck');
-var btnAceit = document.getElementById('btnAceitar');
-chk.addEventListener('change', function(){ btnAceit.classList.toggle('on', chk.checked); });
-btnAceit.addEventListener('click', function(){
-  if(!chk.checked) return;
-  fetch(API+'/api/consent', {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ nome:pacienteNome, tel:pacienteTel, versao:'termos-v1.0' })
-  }).catch(function(){});
-  showScreen('modalidade');
-  document.getElementById('nav-step').textContent = 'MODALIDADE';
-});
+/* ═══ S2 — TERMOS ═══ */
+(function(){
+  var chk=document.getElementById('termsCheck');
+  var btn=document.getElementById('btnAceitar');
+  chk.addEventListener('change',function(){btn.classList.toggle('on',chk.checked);});
+  btn.addEventListener('click',function(){
+    if(!chk.checked)return;
+    fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,versao:'termos-v1.0'})}).catch(function(){});
+    showScreen('modalidade');
+    document.getElementById('nav-step').textContent='MODALIDADE';
+  });
+})();
 
-/* ── MODALIDADE ── */
-function selecionarModalidade(tipo, el){
-  document.querySelectorAll('.modal-card').forEach(function(c){ c.classList.remove('selected'); });
+/* ═══ S3 — MODALIDADE ═══ */
+function selecionarModalidade(tipo,el){
+  document.querySelectorAll('.modal-card').forEach(function(c){c.classList.remove('selected');});
   el.classList.add('selected');
-  tipoConsulta = tipo;
-  var btn = document.getElementById('btnModalContinuar');
-  btn.disabled = false;
-  btn.classList.add('on');
-  btn.textContent = (tipo === 'chat' ? '💬 Continuar com chat →' : '🎥 Continuar com vídeo →');
+  tipoConsulta=tipo;
+  var btn=document.getElementById('btnModalCont');
+  btn.disabled=false; btn.classList.add('on');
+  btn.textContent=tipo==='chat'?'💬 Continuar com chat →':'🎥 Continuar com vídeo →';
 }
-
-document.getElementById('btnModalContinuar').addEventListener('click', function(){
-  if(!tipoConsulta) return;
-  showScreen('triage');
-  document.getElementById('nav-step').textContent = 'TRIAGEM MÉDICA';
-  startTriage();
+document.getElementById('btnModalCont').addEventListener('click',function(){
+  if(!tipoConsulta)return;
+  showScreen('payment');
+  document.getElementById('nav-step').textContent='PAGAMENTO';
 });
 
-/* ── TRIAGEM ── */
-var triageHistory = [];
-var anamnesis = {};
-var step = 0;
-var pending = false;
+/* ═══ S4 — PAGAMENTO ═══ */
+async function gerarPix(){
+  var nome=document.getElementById('payNome').value.trim();
+  var tel=document.getElementById('payTel').value.replace(/\D/g,'');
+  var cpf=document.getElementById('payCPF').value.trim();
+  if(!nome){document.getElementById('payNome').focus();return;}
+  if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
+  if(!cpf){document.getElementById('payCPF').focus();return;}
+  var btn=document.getElementById('payBtn');
+  btn.disabled=true; btn.textContent='Gerando QR Code...';
+  try{
+    var res=await fetch(API+'/api/payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,tel:tel})});
+    var data=await res.json();
+    if(!data.ok||!data.qr_code_base64){btn.disabled=false;btn.textContent='Gerar QR Code Pix';alert('Erro ao gerar pagamento. Tente novamente.');return;}
+    pixCode=data.qr_code; paymentId=data.payment_id;
+    document.getElementById('payQrImg').src='data:image/png;base64,'+data.qr_code_base64;
+    document.getElementById('payQrWrap').classList.add('show');
+    btn.textContent='QR gerado — aguardando pagamento';
+    paymentPoller=setInterval(async function(){
+      try{var r=await fetch(API+'/api/payment/'+paymentId);var d=await r.json();if(d.status==='approved'){clearInterval(paymentPoller);pagamentoConfirmado(nome,tel,cpf);}}catch(e){}
+    },4000);
+  }catch(e){btn.disabled=false;btn.textContent='Gerar QR Code Pix';alert('Erro de conexão. Verifique sua internet.');}
+}
+function copiarPix(){
+  if(!pixCode)return;
+  navigator.clipboard.writeText(pixCode).then(function(){
+    var b=document.getElementById('payCopyBtn'); b.textContent='\u2713 Copiado!';
+    setTimeout(function(){b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar c\u00f3digo Pix';},2200);
+  });
+}
 
-var SYSTEM_TRIAGE = 'Você é um assistente de triagem médica do ConsultaJá24h. '
-  + 'O nome e WhatsApp do paciente já foram coletados antes desta conversa — NÃO peça novamente.\n\n'
-  + 'Conduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro, de forma empática e direta:\n\n'
-  + '1. Pergunte idade, sexo e qual é o problema (queixa principal)\n'
-  + '2. Pergunte há quanto tempo tem o sintoma e intensidade (0-10). Se relevante, pergunte sobre febre.\n'
-  + '3. Pergunte se tem doenças crônicas, alergias ou medicamentos em uso\n'
-  + '4. Pergunte se precisa de atestado ou receita\n\n'
-  + 'IMPORTANTE:\n'
-  + '- Faça UMA pergunta por vez\n'
-  + '- Seja breve e use linguagem acessível\n'
-  + '- Se identificar emergência (dor no peito intensa, falta de ar grave, desmaio), oriente ir ao pronto-socorro imediatamente\n'
-  + '- Quando tiver coletado todos os dados, responda APENAS com este JSON (sem mais texto): {"done":true,"summary":"[anamnese formatada]"}';
+/* PAGAMENTO APROVADO → triagem */
+async function pagamentoConfirmado(nome,tel,cpf){
+  pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf||'';
+  document.getElementById('payStatusMsg').textContent='\u2713 Pagamento confirmado! Iniciando triagem...';
+  document.getElementById('payStatusMsg').classList.add('ok');
+  await esperar(1000);
+  showScreen('triage');
+  document.getElementById('nav-step').textContent='TRIAGEM MÉDICA';
+  startTriage();
+}
+
+/* ═══ S5 — TRIAGEM ═══ */
+var triageHistory=[], anamnesis={}, step=0, pending=false;
+var SYSTEM_TRIAGE='Você é um assistente de triagem médica do ConsultaJá24h. '
+  +'O nome e WhatsApp do paciente já foram coletados — NÃO peça novamente.\n\n'
+  +'Conduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro, de forma empática e direta:\n\n'
+  +'1. Pergunte idade, sexo e qual é o problema (queixa principal)\n'
+  +'2. Pergunte há quanto tempo tem o sintoma e intensidade (0-10). Se relevante, pergunte sobre febre.\n'
+  +'3. Pergunte se tem doenças crônicas, alergias ou medicamentos em uso\n'
+  +'4. Pergunte se precisa de atestado ou receita\n\n'
+  +'IMPORTANTE:\n'
+  +'- Faça UMA pergunta por vez\n'
+  +'- Seja breve e use linguagem acessível\n'
+  +'- Se identificar emergência (dor no peito intensa, falta de ar grave, desmaio), oriente ir ao pronto-socorro imediatamente\n'
+  +'- Quando tiver coletado todos os dados, responda APENAS com este JSON (sem mais texto): {"done":true,"summary":"[anamnese formatada]"}';
 
 function startTriage(){
-  var primeiroNome = pacienteNome.split(' ')[0];
-  addMsg('triageChat','bot','Olá, ' + primeiroNome + '! Vou fazer algumas perguntas rápidas para preparar seu atendimento.\n\nQual é a sua idade, sexo e qual o problema que está sentindo?');
+  triageHistory=[]; anamnesis={}; step=0;
+  addMsg('triageChat','bot','Olá, '+pacienteNome.split(' ')[0]+'! Agora vou fazer algumas perguntas rápidas para o médico.\n\nQual é a sua idade, sexo e qual o problema que está sentindo?');
   step=1; updateProgress(1);
 }
-
-function addMsg(chatId, type, text){
-  var chat = document.getElementById(chatId);
-  var div = document.createElement('div');
-  div.className = 'msg msg--'+type;
-  var botAv = '<div class="msg__av">&#x1F3E5;</div>';
-  var userAv = '<div class="msg__av">&#x1F464;</div>';
-  var safe = String(text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-  var bubble = '<div class="msg__bubble">'+safe+'</div>';
-  div.innerHTML = type==='bot' ? botAv+bubble : bubble+userAv;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+function addMsg(id,tipo,texto){
+  var chat=document.getElementById(id); var div=document.createElement('div');
+  div.className='msg msg--'+tipo;
+  var safe=String(texto||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  var av=tipo==='bot'?'<div class="msg__av">&#x1F3E5;</div>':'<div class="msg__av">&#x1F464;</div>';
+  var bub='<div class="msg__bubble">'+safe+'</div>';
+  div.innerHTML=tipo==='bot'?av+bub:bub+av; chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
 }
-
-function showTyping(chatId){
-  var chat = document.getElementById(chatId);
-  var div = document.createElement('div');
-  div.className='msg msg--bot'; div.id=chatId+'-typing';
+function showTyping(id){
+  var chat=document.getElementById(id); var div=document.createElement('div');
+  div.className='msg msg--bot'; div.id=id+'-typ';
   div.innerHTML='<div class="msg__av">&#x1F3E5;</div><div class="msg__bubble"><div class="typing"><span></span><span></span><span></span></div></div>';
   chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
 }
-function removeTyping(chatId){ var el=document.getElementById(chatId+'-typing'); if(el) el.remove(); }
-function updateProgress(s){ document.getElementById('progressFill').style.width=Math.min(Math.round((s/6)*100),100)+'%'; }
-
-function setQuickReplies(opts){
+function removeTyping(id){var el=document.getElementById(id+'-typ');if(el)el.remove();}
+function updateProgress(s){document.getElementById('progressFill').style.width=Math.min(Math.round(s/6*100),100)+'%';}
+function setQR(opts){
   var box=document.getElementById('quickReplies'); box.innerHTML='';
-  if(!opts||!opts.length) return;
-  opts.forEach(function(o){
-    var b=document.createElement('button'); b.className='qr'; b.textContent=o;
-    b.onclick=function(){ sendTriage(o); box.innerHTML=''; };
-    box.appendChild(b);
-  });
+  if(!opts||!opts.length)return;
+  opts.forEach(function(o){var b=document.createElement('button');b.className='qr';b.textContent=o;b.onclick=function(){sendTriage(o);box.innerHTML='';};box.appendChild(b);});
 }
-
 async function sendTriage(text){
-  if(!text||pending) return;
+  if(!text||pending)return;
   pending=true; document.getElementById('triageSend').disabled=true;
   addMsg('triageChat','user',text);
-  document.getElementById('triageInput').value='';
-  document.getElementById('triageInput').style.height='auto';
-  setQuickReplies([]);
-  step++; updateProgress(step);
-  showTyping('triageChat');
-  var reply = await callAPI('/api/triage', SYSTEM_TRIAGE, triageHistory, text);
+  document.getElementById('triageInput').value=''; document.getElementById('triageInput').style.height='auto';
+  setQR([]); step++; updateProgress(step); showTyping('triageChat');
+  var reply=await callAPI('/api/triage',SYSTEM_TRIAGE,triageHistory,text);
   removeTyping('triageChat');
-
-  try {
-    var clean = String(reply).replace(/```json|```/g,'').trim();
-    var parsed = JSON.parse(clean);
-    if(parsed.done && parsed.summary){
-      anamnesis.summary = parsed.summary;
-      updateProgress(6);
-      setTimeout(function(){ irParaPagamento(); }, 600);
-      pending=false; document.getElementById('triageSend').disabled=false;
-      return;
-    }
-  } catch(e){}
-
+  try{
+    var clean=String(reply).replace(/```json|```/g,'').trim();
+    var parsed=JSON.parse(clean);
+    if(parsed.done&&parsed.summary){anamnesis.summary=parsed.summary;updateProgress(6);setTimeout(finalizarTriagem,600);pending=false;document.getElementById('triageSend').disabled=false;return;}
+  }catch(e){}
   addMsg('triageChat','bot',reply);
-  if(step===2) setQuickReplies(['Masculino','Feminino','Prefiro não dizer']);
-  if(step===3) setQuickReplies(['Sim, tenho febre','Não tenho febre']);
-  if(step===4) setQuickReplies(['Não tenho','Sim, tenho']);
-  if(step===5) setQuickReplies(['Apenas atestado','Apenas receita','Ambos','Nenhum']);
-
+  if(step===2)setQR(['Masculino','Feminino','Prefiro não dizer']);
+  if(step===3)setQR(['Sim, tenho febre','Não tenho febre']);
+  if(step===4)setQR(['Não tenho','Sim, tenho']);
+  if(step===5)setQR(['Apenas atestado','Apenas receita','Ambos','Nenhum']);
   pending=false; document.getElementById('triageSend').disabled=false;
 }
-
-/* ── PAGAMENTO ── */
-function irParaPagamento(){
-  showScreen('payment');
-  document.getElementById('nav-step').textContent = 'PAGAMENTO';
+async function finalizarTriagem(){
+  addMsg('triageChat','bot','Triagem concluída! Entrando na fila de atendimento...');
+  await esperar(1000);
+  try{
+    var r=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,cpf:pacienteCPF,triagem:anamnesis.summary||'',tipo:tipoConsulta})});
+    var d=await r.json();
+    if(d.atendimentoId) atendimentoId=d.atendimentoId;
+  }catch(e){console.warn('Notify error:',e);}
+  mostrarSalaEspera();
 }
 
-var pixCode = '';
-var paymentId = '';
-var paymentPoller = null;
-
-async function gerarPix(){
-  var nome = document.getElementById('payNome').value.trim();
-  var tel = document.getElementById('payTel').value.trim().replace(/\D/g,'');
-  var cpf = document.getElementById('payCPF').value.trim();
-  if(!nome){ document.getElementById('payNome').focus(); return; }
-  if(!tel || tel.length < 10){ document.getElementById('payTel').focus(); return; }
-  if(!cpf){ document.getElementById('payCPF').focus(); return; }
-
-  var btn = document.getElementById('payBtn');
-  btn.disabled = true;
-  btn.textContent = 'Gerando QR Code...';
-
-  try {
-    var res = await fetch(API+'/api/payment', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ nome:nome, tel:tel })
-    });
-    var data = await res.json();
-    if(!data.ok || !data.qr_code_base64){
-      btn.disabled = false;
-      btn.textContent = 'Gerar QR Code Pix';
-      alert('Erro ao gerar pagamento. Tente novamente.');
-      return;
-    }
-    pixCode = data.qr_code;
-    paymentId = data.payment_id;
-    document.getElementById('payQrImg').src = 'data:image/png;base64,' + data.qr_code_base64;
-    document.getElementById('payQrWrap').classList.add('show');
-    btn.textContent = 'QR gerado — aguardando pagamento';
-    paymentPoller = setInterval(async function(){
-      try {
-        var r = await fetch(API+'/api/payment/'+paymentId);
-        var d = await r.json();
-        if(d.status === 'approved'){
-          clearInterval(paymentPoller);
-          pagamentoConfirmado(nome, tel, cpf);
-        }
-      } catch(e){}
-    }, 4000);
-  } catch(e){
-    btn.disabled = false;
-    btn.textContent = 'Gerar QR Code Pix';
-    alert('Erro de conexão. Verifique sua internet.');
-  }
-}
-
-function copiarPix(){
-  if(!pixCode) return;
-  navigator.clipboard.writeText(pixCode).then(function(){
-    var b = document.getElementById('payCopyBtn');
-    b.textContent = '\u2713 Copiado!';
-    setTimeout(function(){ b.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar c\u00f3digo Pix'; }, 2000);
-  });
-}
-
-async function pagamentoConfirmado(nome, tel, cpf){
-  clearInterval(paymentPoller);
-  pacienteNome = nome;
-  pacienteTel = tel;
-  pacienteCPF = cpf || '';
-  document.getElementById('payStatusMsg').textContent = '\u2713 Pagamento confirmado! Notificando médico...';
-  document.getElementById('payStatusMsg').classList.add('ok');
-
-  // Notifica backend e obtém o ID do atendimento
-  try {
-    var r = await fetch(API+'/api/notify', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        nome: pacienteNome,
-        tel: pacienteTel,
-        cpf: pacienteCPF,
-        triagem: anamnesis.summary || '',
-        tipo: tipoConsulta
-      })
-    });
-    var d = await r.json();
-    if(d.atendimentoId) atendimentoId = d.atendimentoId;
-  } catch(e){ console.warn('Notify error:', e); }
-
-  setTimeout(function(){
-    mostrarSalaEspera();
-  }, 1200);
-}
-
-/* ── SALA DE ESPERA ── */
+/* ═══ S6 — SALA DE ESPERA ═══ */
 function mostrarSalaEspera(){
   showScreen('espera');
-  document.getElementById('nav-step').textContent = 'AGUARDANDO MÉDICO';
-
-  var badge = document.getElementById('esperaBadge');
-  badge.className = 'espera-badge ' + tipoConsulta;
-  document.getElementById('esperaBadgeIcon').textContent = tipoConsulta === 'video' ? '🎥' : '💬';
-  document.getElementById('esperaBadgeText').textContent = tipoConsulta === 'video' ? 'Consulta por vídeo' : 'Consulta por chat';
-
-  iniciarPollingEspera();
-}
-
-var tentativas = 0;
-function iniciarPollingEspera(){
-  tentativas = 0;
+  document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
+  var badge=document.getElementById('esperaBadge');
+  badge.className='espera-badge '+tipoConsulta;
+  document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
+  document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
+  tentativas=0;
   verificarStatus();
-  esperaPoller = setInterval(verificarStatus, 5000);
+  esperaPoller=setInterval(verificarStatus,5000);
 }
-
 async function verificarStatus(){
-  if(!atendimentoId){ atualizarContador(); return; }
-  try {
-    var res = await fetch(API+'/api/atendimento/status/'+atendimentoId);
-    var data = await res.json();
-    if(!data.ok) return;
-    var a = data.atendimento;
+  if(!atendimentoId){atualizarContador();return;}
+  try{
+    var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+    var data=await res.json();
+    if(!data.ok)return;
     atualizarContador();
-    if(a.status === 'assumido'){
+    var a=data.atendimento;
+    // só aciona uma vez
+    if((a.status==='assumido'||a.status==='encerrado')&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')){
       clearInterval(esperaPoller);
       medicoAssumiu(a);
     }
-  } catch(e){}
+  }catch(e){}
 }
-
 function atualizarContador(){
   tentativas++;
-  var mins = Math.floor(tentativas * 5 / 60);
-  var secs = (tentativas * 5) % 60;
-  var label = mins > 0 ? mins + 'min ' + secs + 's' : secs + 's';
-  var el = document.getElementById('esperaContador');
-  if(el) el.textContent = label;
+  var total=tentativas*5; var mins=Math.floor(total/60); var secs=total%60;
+  var el=document.getElementById('esperaContador');
+  if(el) el.textContent=(mins>0?mins+'min ':'')+secs+'s';
+}
+function medicoAssumiu(a){
+  document.getElementById('esperaTitulo').textContent='Médico disponível!';
+  document.getElementById('esperaSub').textContent='O médico assumiu seu atendimento. A consulta está iniciando.';
+  document.getElementById('esperaIcon').textContent='✓';
+  document.getElementById('esperaStatusTxt').textContent='';
+  document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(94,224,160,.2),rgba(180,224,90,.15))';
+  if(tipoConsulta==='chat') iniciarChatConsulta(a);
+  else iniciarVideoConsulta(a);
 }
 
-function medicoAssumiu(atendimento){
-  document.getElementById('esperaTitulo').textContent = 'Médico disponível!';
-  document.getElementById('esperaSub').textContent = 'O médico assumiu seu atendimento. A consulta está iniciando.';
-  document.getElementById('esperaIcon').textContent = '✓';
-  document.getElementById('esperaStatusTxt').textContent = '';
-  document.getElementById('esperaAnim').style.background = 'linear-gradient(135deg,rgba(94,224,160,.2),rgba(180,224,90,.15))';
-
-  if(tipoConsulta === 'chat'){
-    iniciarChatConsulta(atendimento);
-  } else {
-    iniciarVideoConsulta(atendimento);
-  }
-}
-
-/* ── CHAT INTERNO ── */
+/* ═══ CHAT PACIENTE ═══ */
 function iniciarChatConsulta(atendimento){
-  var cc = document.getElementById('chatConsulta');
-  cc.classList.add('ativo');
-  if(atendimento.medico_nome){
-    document.getElementById('chatMedicoNome').textContent = atendimento.medico_nome;
-  }
-  chatAtivo = true;
-  chatPoller = setInterval(buscarMensagens, 2000);
-
-  var inp = document.getElementById('chatInputPaciente');
-  inp.addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
-  inp.addEventListener('keydown', function(e){
-    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensagemChat(); }
+  if(atendimento.medico_nome) document.getElementById('chatMedicoLabel').textContent=atendimento.medico_nome+' — pode enviar sua mensagem';
+  document.getElementById('chatConsulta').classList.add('ativo');
+  // Carrega histórico completo primeiro
+  carregarHistoricoChat().then(function(){
+    chatAtivo=true;
+    chatPoller=setInterval(buscarMensagensNovas,3000);
   });
+  var inp=document.getElementById('chatInputPaciente');
+  inp.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMensagemChat();}});
 }
-
-async function buscarMensagens(){
-  if(!atendimentoId || !chatAtivo) return;
-  try {
-    var res = await fetch(API+'/api/chat/'+atendimentoId);
-    var data = await res.json();
-    if(!data.ok) return;
-    var novas = data.mensagens.filter(function(m){ return m.id > ultimaMensagemId; });
-    novas.forEach(function(m){
-      if(m.autor === 'medico'){
-        adicionarMsgChat(m.autor, m.texto, m.criado_em);
+async function carregarHistoricoChat(){
+  if(!atendimentoId)return;
+  try{
+    var res=await fetch(API+'/api/chat/'+atendimentoId);
+    var data=await res.json();
+    if(!data.ok)return;
+    var msgs=data.mensagens||[];
+    if(msgs.length>0){
+      // Renderiza todo o histórico (ambos os lados)
+      msgs.forEach(function(m){renderMsgChat(m.autor,m.texto,m.criado_em);ultimaMsgId=m.id;});
+    } else {
+      // Sem histórico ainda: mensagem de boas-vindas local
+      renderMsgChat('medico','Olá! Já estou aqui. Pode me contar o que está sentindo com mais detalhes?',new Date().toISOString());
+    }
+  }catch(e){}
+}
+async function buscarMensagensNovas(){
+  if(!atendimentoId||!chatAtivo)return;
+  try{
+    var res=await fetch(API+'/api/chat/'+atendimentoId);
+    var data=await res.json();
+    if(!data.ok)return;
+    (data.mensagens||[]).forEach(function(m){
+      if(m.id>ultimaMsgId){
+        // Só renderiza mensagens do médico (as do paciente já foram adicionadas otimisticamente)
+        if(m.autor==='medico') renderMsgChat(m.autor,m.texto,m.criado_em);
+        ultimaMsgId=m.id;
       }
-      ultimaMensagemId = m.id;
     });
-  } catch(e){}
+  }catch(e){}
 }
-
 async function enviarMensagemChat(){
-  var inp = document.getElementById('chatInputPaciente');
-  var texto = inp.value.trim();
-  if(!texto || !atendimentoId) return;
-  inp.value = '';
-  inp.style.height = 'auto';
-  adicionarMsgChat('paciente', texto, new Date().toISOString());
-  try {
-    await fetch(API+'/api/chat/enviar', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ atendimentoId: atendimentoId, autor:'paciente', texto:texto })
-    });
-  } catch(e){}
+  var inp=document.getElementById('chatInputPaciente');
+  var texto=inp.value.trim();
+  if(!texto||!atendimentoId)return;
+  inp.value=''; inp.style.height='auto';
+  renderMsgChat('paciente',texto,new Date().toISOString()); // otimista
+  try{
+    var r=await fetch(API+'/api/chat/enviar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({atendimentoId:atendimentoId,autor:'paciente',texto:texto})});
+    var d=await r.json();
+    if(d.ok&&d.mensagem&&d.mensagem.id>ultimaMsgId) ultimaMsgId=d.mensagem.id;
+  }catch(e){}
+}
+function renderMsgChat(autor,texto,timestamp){
+  var msgs=document.getElementById('chatMsgs'); var div=document.createElement('div');
+  div.className='cmsg '+autor;
+  var hora=''; try{hora=new Date(timestamp).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}catch(e){}
+  var av=autor==='medico'?'🩺':'🧑';
+  var safe=String(texto).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  div.innerHTML='<div class="av">'+av+'</div><div class="bwrap"><div class="bub">'+safe+'</div><div class="ts">'+hora+'</div></div>';
+  msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
 }
 
-function adicionarMsgChat(autor, texto, timestamp){
-  var msgs = document.getElementById('chatMsgs');
-  var div = document.createElement('div');
-  div.className = 'cmsg ' + autor;
-  var hora = new Date(timestamp).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-  var av = autor === 'medico' ? '🩺' : '🧑';
-  var safe = String(texto).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-  div.innerHTML = '<div class="av">'+av+'</div><div><div class="ts">'+hora+'</div><div class="bub">'+safe+'</div></div>';
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-/* ── VIDEOCHAMADA ── */
+/* ═══ VÍDEO PACIENTE ═══ */
 function iniciarVideoConsulta(atendimento){
-  var wrap = document.getElementById('meetWrap');
-  wrap.classList.add('ativo');
+  document.getElementById('meetWrap').classList.add('ativo');
   if(atendimento.meet_link){
-    document.getElementById('btnMeetLink').href = atendimento.meet_link;
+    ativarLinkMeet(atendimento.meet_link);
+  } else {
+    // Polling até o médico salvar o meet_link
+    meetPoller=setInterval(async function(){
+      try{
+        var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+        var data=await res.json();
+        if(data.ok&&data.atendimento.meet_link){clearInterval(meetPoller);ativarLinkMeet(data.atendimento.meet_link);}
+      }catch(e){}
+    },4000);
   }
 }
+function ativarLinkMeet(link){
+  var btn=document.getElementById('btnMeetLink');
+  btn.href=link; btn.classList.remove('disabled');
+  document.getElementById('meetAguardando').style.display='none';
+}
 
-/* ── API OPENAI ── */
-async function callAPI(endpoint, system, history, userMsg){
-  history.push({role:'user', content:userMsg});
-  try {
-    var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 35000);
-    var res = await fetch(API+endpoint, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system:system, messages:history}),
-      signal: controller.signal
-    });
-    clearTimeout(timeout);
-    if(!res.ok){ throw new Error('HTTP '+res.status); }
-    var data = await res.json();
-    var text = data.text || (data.content&&data.content[0]&&data.content[0].text) || '';
-    if(!text) throw new Error('resposta vazia');
-    history.push({role:'assistant', content:text});
-    return text;
-  } catch(e){
+/* ═══ API ═══ */
+async function callAPI(endpoint,system,history,userMsg){
+  history.push({role:'user',content:userMsg});
+  try{
+    var ctrl=new AbortController(); var t=setTimeout(function(){ctrl.abort();},35000);
+    var res=await fetch(API+endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:system,messages:history}),signal:ctrl.signal});
+    clearTimeout(t);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    var data=await res.json(); var text=data.text||'';
+    if(!text)throw new Error('resposta vazia');
+    history.push({role:'assistant',content:text}); return text;
+  }catch(e){
     history.pop();
-    if(e.name==='AbortError') return 'O servidor demorou demais para responder. Aguarde 30 segundos e tente novamente.';
-    return 'Erro de conexão (' + e.message + '). Verifique sua internet e tente novamente.';
+    if(e.name==='AbortError')return 'O servidor demorou demais. Aguarde 30 segundos e tente novamente.';
+    return 'Erro de conexão ('+e.message+'). Verifique sua internet.';
   }
 }
 
-/* ── INPUT HANDLERS ── */
-var triageInput = document.getElementById('triageInput');
-triageInput.addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,110)+'px'; });
-triageInput.addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendTriage(this.value.trim()); } });
-document.getElementById('triageSend').addEventListener('click', function(){ sendTriage(triageInput.value.trim()); });
-</script>
+/* ═══ UTILS ═══ */
+function esperar(ms){return new Promise(function(r){setTimeout(r,ms);});}
 
-<!-- Event snippet for Compra conversion page -->
+/* ═══ INPUTS TRIAGEM ═══ */
+(function(){
+  var ta=document.getElementById('triageInput');
+  ta.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,110)+'px';});
+  ta.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendTriage(this.value.trim());}});
+  document.getElementById('triageSend').addEventListener('click',function(){sendTriage(ta.value.trim());});
+})();
+</script>
 <script>
-  gtag('event', 'conversion', {
-      'send_to': 'AW-17964942771/AT3gCPTl0PsbELOLrfZC',
-      'value': 49.90,
-      'currency': 'BRL',
-      'transaction_id': ''
-  });
+gtag('event','conversion',{'send_to':'AW-17964942771/AT3gCPTl0PsbELOLrfZC','value':49.90,'currency':'BRL','transaction_id':''});
 </script>
-
 </body>
 </html>
