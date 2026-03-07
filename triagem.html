@@ -145,7 +145,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 #screen-triage{flex-direction:column}
 .progress-bar{height:3px;background:rgba(255,255,255,.06);flex-shrink:0}
 .progress-fill{height:100%;background:linear-gradient(90deg,#b4e05a,#5ee0a0);transition:width .5s ease;width:0%}
-/* Banner IA */
 .ia-banner{background:rgba(255,189,46,.06);border:1px solid rgba(255,189,46,.18);border-radius:0;padding:10px 20px;display:flex;align-items:center;gap:10px;font-size:.78rem;color:rgba(255,189,46,.9);font-weight:400;flex-shrink:0}
 .ia-banner strong{font-weight:600}
 .chat-area{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
@@ -186,7 +185,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .espera-badge.chat{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366}
 .espera-badge.video{background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);color:var(--g2)}
 .espera-status{font-size:.78rem;color:rgba(255,255,255,.3);font-weight:300;margin-bottom:32px}
-/* CHAT PACIENTE */
 .chat-consulta{width:100%;display:none;text-align:left}
 .chat-consulta.ativo{display:flex;flex-direction:column}
 .medico-entrou-banner{display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(94,224,160,.07);border:1px solid rgba(94,224,160,.2);border-radius:14px;margin-bottom:14px;font-size:.85rem;color:rgba(255,255,255,.85);font-weight:500}
@@ -215,7 +213,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .cmsg.medico .bub{background:rgba(255,255,255,.06);border:1px solid var(--line);border-bottom-left-radius:4px;color:rgba(255,255,255,.88)}
 .cmsg.paciente .bub{background:linear-gradient(135deg,#b4e05a,#6ed49a);color:#051208;font-weight:500;border-bottom-right-radius:4px}
 .cmsg .ts{font-size:.62rem;color:rgba(255,255,255,.2);margin-top:2px;padding:0 2px}
-/* MEET */
 .meet-wrap{display:none}
 .meet-wrap.ativo{display:block;text-align:center}
 .meet-aguardando{padding:20px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;margin-bottom:18px}
@@ -223,14 +220,12 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-meet{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:14px;border:none;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(66,133,244,.3);transition:transform .12s,box-shadow .2s}
 .btn-meet:not(.disabled):hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(66,133,244,.45)}
 .btn-meet.disabled{opacity:.4;pointer-events:none}
-/* ENCERRADO */
 .encerrado-box{width:min(480px,100%);text-align:center;padding:32px 20px}
 .encerrado-icon{font-size:3rem;margin-bottom:20px}
 .encerrado-titulo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;margin-bottom:10px;color:var(--g2)}
 .encerrado-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:28px}
 .encerrado-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:13px;border:none;background:rgba(255,255,255,.06);border:1px solid var(--line);color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;-webkit-appearance:none;transition:background .2s}
 .encerrado-btn:hover{background:rgba(255,255,255,.1)}
-/* LOADING */
 .loading-overlay{position:fixed;inset:0;z-index:999;background:#060d0b;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .loading-overlay.hide{display:none}
 .loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.08);border-top-color:var(--g2);border-radius:50%;animation:spin .8s linear infinite}
@@ -240,7 +235,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 </head>
 <body>
 <div class="bg-glow" aria-hidden="true"></div>
-<div class="loading-overlay" id="loading-overlay"><div class="loading-spinner"></div><div class="loading-txt">Verificando sessão...</div></div>
+<div class="loading-overlay" id="loading-overlay"><div class="loading-spinner"></div><div class="loading-txt">Verificando sess\u00e3o...</div></div>
 
 <nav class="nav">
   <div class="nav__in">
@@ -253,30 +248,34 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <polyline points="22.5,21.4 25,21.4 26.5,17 28,26 29.5,20 31,21.4 34,21.4" fill="none" stroke="url(#ng)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.92rem;font-weight:700;letter-spacing:-.01em">
-        <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
+        <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">J\u00e1</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
       </span>
     </a>
-    <span class="nav__step" id="nav-step">IDENTIFICAÇÃO</span>
+    <span class="nav__step" id="nav-step">IDENTIFICA\u00c7\u00c3O</span>
   </div>
 </nav>
 
 <!-- S1: IDENTIFICAÇÃO -->
 <div id="screen-identify" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Bem-vindo</h1><p>Precisamos de alguns dados básicos para iniciar.</p></div>
+    <div class="box-head"><h1>Bem-vindo</h1><p>Precisamos de alguns dados b\u00e1sicos para iniciar.</p></div>
     <div class="identify-body">
-      <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Como você se chama?" autocomplete="name"/></div>
+      <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Como voc\u00ea se chama?" autocomplete="name"/></div>
       <div><div class="id-label">WhatsApp (com DDD)</div><input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric"/></div>
+      <div>
+        <div class="id-label">Data de nascimento</div>
+        <input class="id-input" id="idNascimento" type="date" style="color-scheme:dark"/>
+      </div>
       <div>
         <div class="id-label">Telefone para receber documentos (SMS) <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">opcional</span></div>
         <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
         <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
           <input type="checkbox" id="chkSameNumber" onchange="toggleSameNumber(this)"/>
-          Usar o mesmo número do WhatsApp
+          Usar o mesmo n\u00famero do WhatsApp
         </label>
       </div>
-      <div class="id-note">🔒 Seus dados são registrados com segurança conforme a LGPD.</div>
-      <button class="id-btn" onclick="avancarIdentificacao()">Continuar →</button>
+      <div class="id-note">\ud83d\udd12 Seus dados s\u00e3o registrados com seguran\u00e7a conforme a LGPD.</div>
+      <button class="id-btn" onclick="avancarIdentificacao()">Continuar \u2192</button>
     </div>
   </div>
 </div>
@@ -286,15 +285,15 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   <div class="box">
     <div class="box-head"><h1>Termos de Uso e TCLE</h1><p>Leia os pontos principais antes de prosseguir.</p></div>
     <div class="terms-body">
-      <div class="titem"><strong>Serviço</strong>Orientação médica remota por profissional com CRM ativo, conforme Resolução CFM nº 2.314/2022. Não substitui atendimento presencial em urgências.</div>
-      <div class="titem"><strong>Triagem automatizada</strong>A coleta de anamnese usa IA para estruturar as informações. Não constitui diagnóstico. Toda informação é revisada pelo médico.</div>
-      <div class="titem"><strong>Transferência de dados</strong>Dados podem ser processados por provedor internacional de IA com garantias contratuais, conforme Arts. 33–36 da LGPD.</div>
-      <div class="titem"><strong>Documentos</strong>Atestados e receitas são emitidos exclusivamente quando há indicação clínica. Não são automáticos.</div>
-      <div class="titem"><strong>Privacidade</strong>Dados sensíveis de saúde tratados com sigilo, conforme Lei 13.709/2018 (LGPD).</div>
-      <div class="titem"><strong>Emergências</strong>Em caso de dor no peito, falta de ar grave, desmaio ou risco de vida, procure pronto-socorro imediatamente.</div>
+      <div class="titem"><strong>Servi\u00e7o</strong>Orienta\u00e7\u00e3o m\u00e9dica remota por profissional com CRM ativo, conforme Resolu\u00e7\u00e3o CFM n\u00ba 2.314/2022. N\u00e3o substitui atendimento presencial em urg\u00eancias.</div>
+      <div class="titem"><strong>Triagem automatizada</strong>A coleta de anamnese usa IA para estruturar as informa\u00e7\u00f5es. N\u00e3o constitui diagn\u00f3stico. Toda informa\u00e7\u00e3o \u00e9 revisada pelo m\u00e9dico.</div>
+      <div class="titem"><strong>Transfer\u00eancia de dados</strong>Dados podem ser processados por provedor internacional de IA com garantias contratuais, conforme Arts. 33\u201336 da LGPD.</div>
+      <div class="titem"><strong>Documentos</strong>Atestados e receitas s\u00e3o emitidos exclusivamente quando h\u00e1 indica\u00e7\u00e3o cl\u00ednica. N\u00e3o s\u00e3o autom\u00e1ticos.</div>
+      <div class="titem"><strong>Privacidade</strong>Dados sens\u00edveis de sa\u00fade tratados com sigilo, conforme Lei 13.709/2018 (LGPD).</div>
+      <div class="titem"><strong>Emerg\u00eancias</strong>Em caso de dor no peito, falta de ar grave, desmaio ou risco de vida, procure pronto-socorro imediatamente.</div>
     </div>
     <div class="terms-foot">
-      <label class="check-row" for="termsCheck"><input type="checkbox" id="termsCheck"/><span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a>, <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a> e TCLE, incluindo uso de IA para triagem.</span></label>
+      <label class="check-row" for="termsCheck"><input type="checkbox" id="termsCheck"/><span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a>, <a href="privacy.html" target="_blank" style="color:#b4e05a">Pol\u00edtica de Privacidade</a> e TCLE, incluindo uso de IA para triagem.</span></label>
       <button class="btn-aceitar" id="btnAceitar">Aceitar e continuar</button>
     </div>
   </div>
@@ -307,18 +306,18 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     <div class="modal-cards">
       <div class="modal-card chat" onclick="selecionarModalidade('chat',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="mc-icon">💬</span><div class="mc-title">Consulta por chat</div>
-        <div class="mc-desc">Mensagens em tempo real com o médico pela plataforma.</div>
+        <span class="mc-icon">\ud83d\udcac</span><div class="mc-title">Consulta por chat</div>
+        <div class="mc-desc">Mensagens em tempo real com o m\u00e9dico pela plataforma.</div>
         <span class="mc-badge">Texto</span>
       </div>
       <div class="modal-card video" onclick="selecionarModalidade('video',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="mc-icon">🎥</span><div class="mc-title">Consulta por vídeo</div>
+        <span class="mc-icon">\ud83c\udfa5</span><div class="mc-title">Consulta por v\u00eddeo</div>
         <div class="mc-desc">Consulta ao vivo via Google Meet.</div>
         <span class="mc-badge">Videochamada</span>
       </div>
     </div>
-    <button class="btn-modal-cont" id="btnModalCont" disabled>Continuar →</button>
+    <button class="btn-modal-cont" id="btnModalCont" disabled>Continuar \u2192</button>
   </div>
 </div>
 
@@ -329,16 +328,15 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     <p id="disp-sub">Aguarde um instante.</p>
     <div class="dispon-status verde" id="disp-status-badge" style="margin:0 auto 24px"><div class="dispon-dot"></div><span id="disp-status-txt">Verificando...</span></div>
     <p class="dispon-info" id="disp-info"></p>
-    <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Prosseguir para pagamento →</button>
-    <!-- Agendamento (aparece se indisponível) -->
+    <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Prosseguir para pagamento \u2192</button>
     <div id="agend-section" style="display:none;text-align:left;margin-top:8px">
       <div class="box" style="border-radius:18px">
-        <div class="box-head"><h1 style="font-size:1.1rem">📅 Agendar para mais tarde</h1><p>Escolha um horário disponível e pague para confirmar.</p></div>
+        <div class="box-head"><h1 style="font-size:1.1rem">\ud83d\udcc5 Agendar para mais tarde</h1><p>Escolha um hor\u00e1rio dispon\u00edvel e pague para confirmar.</p></div>
         <div style="padding:20px 22px">
-          <div class="agend-note">⚠️ Isso é um agendamento. Você será atendido no horário escolhido, não agora.</div>
-          <div class="agend-titulo">Horários disponíveis:</div>
+          <div class="agend-note">\u26a0\ufe0f Isso \u00e9 um agendamento. Voc\u00ea ser\u00e1 atendido no hor\u00e1rio escolhido, n\u00e3o agora.</div>
+          <div class="agend-titulo">Hor\u00e1rios dispon\u00edveis:</div>
           <div class="horarios-grid" id="horarios-grid"></div>
-          <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Agendar este horário →</button>
+          <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Agendar este hor\u00e1rio \u2192</button>
         </div>
       </div>
     </div>
@@ -349,34 +347,34 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <div id="screen-payment" class="screen box-center">
   <div class="box">
     <div class="pay-head">
-      <div class="pay-icon">💳</div>
-      <div class="pay-head-text"><h2>Pagamento seguro</h2><p id="pay-subtitulo">Pix instantâneo via Mercado Pago</p></div>
+      <div class="pay-icon">\ud83d\udcb3</div>
+      <div class="pay-head-text"><h2>Pagamento seguro</h2><p id="pay-subtitulo">Pix instant\u00e2neo via Mercado Pago</p></div>
     </div>
     <div class="pay-body">
       <div class="pay-valor">
-        <div class="pay-valor-left"><div class="label" id="pay-label-tipo">Consulta médica online</div><div class="desc">Receitas e atestados quando indicados</div></div>
+        <div class="pay-valor-left"><div class="label" id="pay-label-tipo">Consulta m\u00e9dica online</div><div class="desc">Receitas e atestados quando indicados</div></div>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
       <div class="pay-label">Seu nome</div>
       <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
       <div class="pay-label">Seu WhatsApp</div>
-      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número" autocomplete="tel" inputmode="numeric"/>
+      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + n\u00famero" autocomplete="tel" inputmode="numeric"/>
       <div class="pay-label">CPF</div>
       <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:16px;line-height:1.5">Utilizado para emissão de documentos médicos quando necessário.</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:16px;line-height:1.5">Utilizado para emiss\u00e3o de documentos m\u00e9dicos quando necess\u00e1rio.</div>
       <button class="pay-btn" id="payBtn" onclick="gerarPix()">Gerar QR Code Pix</button>
-      <p id="pay-note" style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:10px;line-height:1.6">✓ Após o pagamento, a triagem inicia automaticamente.</p>
+      <p id="pay-note" style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:10px;line-height:1.6">\u2713 Ap\u00f3s o pagamento, a triagem inicia automaticamente.</p>
       <div class="pay-qr-wrap" id="payQrWrap">
         <img id="payQrImg" class="pay-qr-img" src="" alt="QR Code Pix"/>
         <br/>
         <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar código Pix
+          Copiar c\u00f3digo Pix
         </button>
         <div class="pay-status-msg" id="payStatusMsg">Aguardando pagamento...</div>
         <div class="retorno-bloco" id="retornoBloco">
-          <div class="retorno-bloco-titulo">🔗 Seu link de retorno</div>
-          <div class="retorno-bloco-aviso">Se a página fechar ou atualizar, use este link para retomar sua consulta:</div>
+          <div class="retorno-bloco-titulo">\ud83d\udd17 Seu link de retorno</div>
+          <div class="retorno-bloco-aviso">Se a p\u00e1gina fechar ou atualizar, use este link para retomar sua consulta:</div>
           <div class="retorno-url" id="retornoUrl"></div>
           <div class="retorno-btns">
             <button class="btn-copiar-link" id="btnCopiarLink" onclick="copiarLinkRetorno()">
@@ -384,13 +382,13 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
               Copiar link
             </button>
             <button class="btn-continuar-triagem" onclick="continuarParaTriagem()">
-              Continuar para triagem →
+              Continuar para triagem \u2192
             </button>
           </div>
         </div>
       </div>
       <div class="pay-divider">pagamento processado por</div>
-      <div class="pay-seguro">🔒 Mercado Pago · Ambiente seguro · Dados criptografados</div>
+      <div class="pay-seguro">\ud83d\udd12 Mercado Pago \u00b7 Ambiente seguro \u00b7 Dados criptografados</div>
     </div>
   </div>
 </div>
@@ -399,8 +397,8 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <div id="screen-triage" class="screen">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="ia-banner">
-    <span style="font-size:1.1rem">🤖</span>
-    <span><strong>Assistente de Triagem Automática</strong> — Você ainda não está falando com um médico. Estas perguntas preparam seu atendimento.</span>
+    <span style="font-size:1.1rem">\ud83e\udd16</span>
+    <span><strong>Assistente de Triagem Autom\u00e1tica</strong> \u2014 Voc\u00ea ainda n\u00e3o est\u00e1 falando com um m\u00e9dico. Estas perguntas preparam seu atendimento.</span>
   </div>
   <div class="chat-area" id="triageChat"></div>
   <div class="quick-replies" id="quickReplies"></div>
@@ -415,20 +413,19 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <!-- S7: ESPERA / CONSULTA -->
 <div id="screen-espera" class="screen box-center">
   <div class="espera-box">
-    <div class="espera-anim" id="esperaAnim"><span style="font-size:2rem" id="esperaIcon">⏳</span></div>
+    <div class="espera-anim" id="esperaAnim"><span style="font-size:2rem" id="esperaIcon">\u23f3</span></div>
     <h2 class="espera-titulo" id="esperaTitulo">Preparando seu atendimento</h2>
-    <p class="espera-sub" id="esperaSub">Um médico assumirá sua consulta em breve.<br>Por favor, aguarde nesta página.</p>
-    <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">💬</span> <span id="esperaBadgeText">Consulta por chat</span></div>
+    <p class="espera-sub" id="esperaSub">Um m\u00e9dico assumir\u00e1 sua consulta em breve.<br>Por favor, aguarde nesta p\u00e1gina.</p>
+    <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">\ud83d\udcac</span> <span id="esperaBadgeText">Consulta por chat</span></div>
     <p class="espera-status" id="esperaStatusTxt">Verificando... <span id="esperaContador"></span></p>
-    <!-- Chat -->
     <div class="chat-consulta" id="chatConsulta">
       <div class="medico-entrou-banner" id="medicoEntrou" style="display:none">
-        <span>👨‍⚕️</span>
-        <div><strong id="medicoNomeBanner">Dr. Médico</strong> entrou na consulta.<br><span style="font-size:.78rem;font-weight:300;color:rgba(255,255,255,.5)">Agora você está falando com um médico.</span></div>
+        <span>\ud83d\udc68\u200d\u2695\ufe0f</span>
+        <div><strong id="medicoNomeBanner">Dr. M\u00e9dico</strong> entrou na consulta.<br><span style="font-size:.78rem;font-weight:300;color:rgba(255,255,255,.5)">Agora voc\u00ea est\u00e1 falando com um m\u00e9dico.</span></div>
       </div>
       <div class="chat-header-box">
         <h3><div class="online-dot"></div> Consulta iniciada</h3>
-        <p id="chatMedicoLabel">Médico disponível — pode enviar sua mensagem</p>
+        <p id="chatMedicoLabel">M\u00e9dico dispon\u00edvel \u2014 pode enviar sua mensagem</p>
       </div>
       <div class="chat-msgs" id="chatMsgs"></div>
       <div class="chat-input-row">
@@ -438,18 +435,17 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         </button>
       </div>
     </div>
-    <!-- Vídeo -->
     <div class="meet-wrap" id="meetWrap">
       <div class="medico-entrou-banner" id="medicoEntrouVideo" style="display:none">
-        <span>👨‍⚕️</span>
-        <div><strong id="medicoNomeBannerVideo">Dr. Médico</strong> está pronto para a videochamada.<br><span style="font-size:.78rem;font-weight:300;color:rgba(255,255,255,.5)">Agora você está falando com um médico.</span></div>
+        <span>\ud83d\udc68\u200d\u2695\ufe0f</span>
+        <div><strong id="medicoNomeBannerVideo">Dr. M\u00e9dico</strong> est\u00e1 pronto para a videochamada.<br><span style="font-size:.78rem;font-weight:300;color:rgba(255,255,255,.5)">Agora voc\u00ea est\u00e1 falando com um m\u00e9dico.</span></div>
       </div>
-      <div class="meet-aguardando" id="meetAguardando"><p>⏳ O médico está se preparando.<br>O link da videochamada aparecerá aqui em instantes.</p></div>
+      <div class="meet-aguardando" id="meetAguardando"><p>\u23f3 O m\u00e9dico est\u00e1 se preparando.<br>O link da videochamada aparecer\u00e1 aqui em instantes.</p></div>
       <a href="#" id="btnMeetLink" class="btn-meet disabled" target="_blank" rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
         Entrar na videochamada
       </a>
-      <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.25)">Link gerado pelo médico via Google Meet</p>
+      <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.25)">Link gerado pelo m\u00e9dico via Google Meet</p>
     </div>
   </div>
 </div>
@@ -457,9 +453,9 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <!-- S8: ENCERRADO -->
 <div id="screen-encerrado" class="screen box-center">
   <div class="encerrado-box">
-    <div class="encerrado-icon">✅</div>
+    <div class="encerrado-icon">\u2705</div>
     <h2 class="encerrado-titulo">Consulta encerrada</h2>
-    <p class="encerrado-sub">Seu atendimento foi finalizado pelo médico.<br>Esperamos que tenha sido uma boa experiência.</p>
+    <p class="encerrado-sub">Seu atendimento foi finalizado pelo m\u00e9dico.<br>Esperamos que tenha sido uma boa experi\u00eancia.</p>
     <button class="encerrado-btn" onclick="novaConsulta()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
       Iniciar nova consulta
@@ -472,7 +468,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
    ESTADO GLOBAL
 ═══════════════════════════════════════════ */
 var API = 'https://triagem-api.onrender.com';
-var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', tipoConsulta = '';
+var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', tipoConsulta = '';
 var atendimentoId = null;
 var agendamentoId = null;
 var horarioAgendado = null;
@@ -481,7 +477,7 @@ var modoAgendamento = false;
 var pixCode = '', paymentId = '';
 var paymentPoller = null, esperaPoller = null, chatPoller = null, meetPoller = null, encerradoPoller = null;
 var ultimaMsgId = 0, chatAtivo = false, tentativas = 0;
-var dispData = null; // dados de disponibilidade
+var dispData = null;
 
 /* ═══════════════════════════════════════════
    SESSÃO — localStorage
@@ -493,64 +489,44 @@ function salvarSessao(){
     ts: Date.now()
   }));
 }
-function limparSessao(){
-  localStorage.removeItem('cj_sessao');
-}
+function limparSessao(){ localStorage.removeItem('cj_sessao'); }
 function carregarSessao(){
   try {
     var s = localStorage.getItem('cj_sessao');
     if(!s) return null;
     var obj = JSON.parse(s);
-    // Expira após 8h
     if(Date.now() - (obj.ts||0) > 8*60*60*1000){ limparSessao(); return null; }
     return obj;
   } catch(e){ return null; }
 }
 
 /* ═══════════════════════════════════════════
-   INICIALIZAÇÃO — restaurar ou começar do zero
+   INICIALIZAÇÃO
 ═══════════════════════════════════════════ */
 (async function init(){
-  // Verifica se tem ?consulta=ID na URL
   var urlId = new URLSearchParams(location.search).get('consulta');
   var sessao = carregarSessao();
   var idParaRestaurar = urlId ? parseInt(urlId) : (sessao ? sessao.atendimentoId : null);
-
   if(idParaRestaurar){
     try{
       var res = await fetch(API+'/api/atendimento/status/'+idParaRestaurar);
       var data = await res.json();
       if(data.ok && data.atendimento){
         var a = data.atendimento;
-        atendimentoId = a.id;
-        tipoConsulta = a.tipo || 'chat';
-        pacienteNome = a.nome || '';
-        pacienteTel  = a.tel  || '';
-        pacienteCPF  = a.cpf  || '';
-        salvarSessao();
-
-        esconderLoading();
-        if(a.status === 'encerrado'){
-          mostrarTelaEncerrado();
-        } else if(a.status === 'assumido'){
-          mostrarSalaEspera();
-          clearInterval(esperaPoller);
-          medicoAssumiu(a);
-        } else {
-          // aguardando
-          mostrarSalaEspera();
-        }
+        atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+        pacienteNome = a.nome || ''; pacienteTel = a.tel || ''; pacienteCPF = a.cpf || '';
+        salvarSessao(); esconderLoading();
+        if(a.status === 'encerrado'){ mostrarTelaEncerrado(); }
+        else if(a.status === 'assumido'){ mostrarSalaEspera(); clearInterval(esperaPoller); medicoAssumiu(a); }
+        else { mostrarSalaEspera(); }
         return;
       }
     } catch(e){}
   }
-  esconderLoading();
-  showScreen('identify');
+  esconderLoading(); showScreen('identify');
 })();
 
-function esconderLoading(){
-  document.getElementById('loading-overlay').classList.add('hide');
-}
+function esconderLoading(){ document.getElementById('loading-overlay').classList.add('hide'); }
 
 /* ═══════════════════════════════════════════
    NAVEGAÇÃO
@@ -568,23 +544,18 @@ function showScreen(n){
 function toggleSameNumber(chk){
   var docInput = document.getElementById('idTelDoc');
   var telInput = document.getElementById('idTel');
-  if(chk.checked){
-    docInput.value = telInput.value;
-    docInput.disabled = true;
-    docInput.style.opacity = '.4';
-  } else {
-    docInput.disabled = false;
-    docInput.style.opacity = '1';
-  }
+  if(chk.checked){ docInput.value = telInput.value; docInput.disabled = true; docInput.style.opacity = '.4'; }
+  else { docInput.disabled = false; docInput.style.opacity = '1'; }
 }
 function avancarIdentificacao(){
   var nome = document.getElementById('idNome').value.trim();
   var tel  = document.getElementById('idTel').value.replace(/\D/g,'');
+  var nascimento = document.getElementById('idNascimento').value;
   var chkSame = document.getElementById('chkSameNumber').checked;
   var telDoc  = chkSame ? tel : document.getElementById('idTelDoc').value.replace(/\D/g,'');
   if(!nome){document.getElementById('idNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('idTel').focus();return;}
-  pacienteNome=nome; pacienteTel=tel; pacienteTelDoc=telDoc||tel;
+  pacienteNome=nome; pacienteTel=tel; pacienteTelDoc=telDoc||tel; pacienteNascimento=nascimento||'';
   fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,tel})}).catch(function(){});
   document.getElementById('payNome').value=nome;
   document.getElementById('payTel').value=tel;
@@ -612,15 +583,13 @@ function avancarIdentificacao(){
 ═══════════════════════════════════════════ */
 function selecionarModalidade(tipo,el){
   document.querySelectorAll('.modal-card').forEach(function(c){c.classList.remove('selected');});
-  el.classList.add('selected');
-  tipoConsulta=tipo;
+  el.classList.add('selected'); tipoConsulta=tipo;
   var btn=document.getElementById('btnModalCont');
   btn.disabled=false; btn.classList.add('on');
   btn.textContent=tipo==='chat'?'💬 Continuar com chat →':'🎥 Continuar com vídeo →';
 }
 document.getElementById('btnModalCont').addEventListener('click',function(){
-  if(!tipoConsulta)return;
-  verificarDisponibilidade();
+  if(!tipoConsulta)return; verificarDisponibilidade();
 });
 
 /* ═══════════════════════════════════════════
@@ -633,15 +602,12 @@ async function verificarDisponibilidade(){
   document.getElementById('disp-sub').textContent='Aguarde um instante.';
   document.getElementById('btnDispCont').style.display='none';
   document.getElementById('agend-section').style.display='none';
-
   try{
     var res = await fetch(API+'/api/disponibilidade');
     dispData = await res.json();
   } catch(e){
-    // Se não conseguir verificar, deixa prosseguir
     dispData = {ok:true,disponivel:true,status:'verde',mensagem:'Atendimento disponível',tempoEstimado:5,medicosOnline:0,horariosAgendamento:[]};
   }
-
   renderDisponibilidade(dispData);
 }
 
@@ -650,18 +616,13 @@ function renderDisponibilidade(d){
   var sub = d.disponivel
     ? (d.medicosOnline > 0 ? d.medicosOnline+' médico(s) disponível(is) · Espera estimada: ~'+d.tempoEstimado+' min' : 'Atendimento disponível — aguarde um médico entrar em plantão')
     : (d.mensagem || 'Atendimento indisponível no momento');
-
   document.getElementById('disp-titulo').textContent=titulo;
   document.getElementById('disp-sub').textContent='';
   document.getElementById('disp-info').textContent=sub;
-
   var badge = document.getElementById('disp-status-badge');
-  var corMap = {verde:'verde',amarelo:'amarelo',vermelho:'vermelho'};
-  badge.className = 'dispon-status ' + (corMap[d.status]||'verde');
-  var iconMap = {verde:'🟢',amarelo:'🟡',vermelho:'🔴'};
+  badge.className = 'dispon-status ' + (d.status||'verde');
   badge.querySelector('.dispon-dot').style.background = d.status==='verde'?'var(--g2)':d.status==='amarelo'?'#ffbd2e':'#ff8080';
   document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Indisponível';
-
   if(d.disponivel){
     document.getElementById('btnDispCont').style.display='block';
     document.getElementById('agend-section').style.display='none';
@@ -669,12 +630,8 @@ function renderDisponibilidade(d){
   } else {
     document.getElementById('btnDispCont').style.display='none';
     document.getElementById('agend-section').style.display='block';
-    modoAgendamento=true;
-    renderHorarios(d.horariosAgendamento||[]);
-    // Mostra botão de retorno
-    if(d.horarioRetorno){
-      document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo horário: '+d.horarioRetorno;
-    }
+    modoAgendamento=true; renderHorarios(d.horariosAgendamento||[]);
+    if(d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo horário: '+d.horarioRetorno;
   }
 }
 
@@ -683,10 +640,7 @@ function renderHorarios(horarios){
   horarioAgendado = null;
   document.getElementById('btnAgendar').disabled=true;
   document.getElementById('btnAgendar').classList.remove('on');
-  if(!horarios.length){
-    grid.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:.82rem">Nenhum horário disponível no momento.</p>';
-    return;
-  }
+  if(!horarios.length){ grid.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:.82rem">Nenhum horário disponível no momento.</p>'; return; }
   grid.innerHTML = horarios.map(function(h){
     return '<button class="horario-btn" onclick="selecionarHorario(this,\''+h.iso+'\')">' + h.label + '</button>';
   }).join('');
@@ -694,22 +648,13 @@ function renderHorarios(horarios){
 
 function selecionarHorario(el, iso){
   document.querySelectorAll('.horario-btn').forEach(function(b){b.classList.remove('selected');});
-  el.classList.add('selected');
-  horarioAgendado = iso;
+  el.classList.add('selected'); horarioAgendado = iso;
   var btn = document.getElementById('btnAgendar');
   btn.disabled=false; btn.classList.add('on');
 }
 
-function continuar_apos_disponibilidade(){
-  modoAgendamento=false;
-  irParaPagamento(false);
-}
-
-function prosseguirAgendamento(){
-  if(!horarioAgendado){ alert('Selecione um horário.'); return; }
-  modoAgendamento=true;
-  irParaPagamento(true);
-}
+function continuar_apos_disponibilidade(){ modoAgendamento=false; irParaPagamento(false); }
+function prosseguirAgendamento(){ if(!horarioAgendado){ alert('Selecione um horário.'); return; } modoAgendamento=true; irParaPagamento(true); }
 
 function irParaPagamento(agendamento){
   showScreen('payment');
@@ -760,36 +705,30 @@ async function gerarPix(){
 function copiarPix(){
   if(!pixCode)return;
   navigator.clipboard.writeText(pixCode).then(function(){
-    var b=document.getElementById('payCopyBtn'); b.textContent='\u2713 Copiado!';
-    setTimeout(function(){b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar c\u00f3digo Pix';},2200);
+    var b=document.getElementById('payCopyBtn'); b.textContent='✓ Copiado!';
+    setTimeout(function(){b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar código Pix';},2200);
   });
 }
 
 async function pagamentoConfirmado(nome,tel,cpf){
-  document.getElementById('payStatusMsg').textContent='\u2713 Pagamento confirmado!';
+  document.getElementById('payStatusMsg').textContent='✓ Pagamento confirmado!';
   document.getElementById('payStatusMsg').classList.add('ok');
   await esperar(600);
-
-  if(modoAgendamento){
-    await confirmarAgendamento(nome,tel,cpf);
-    return;
-  }
-
-  // Registra na fila ANTES de mostrar a triagem
+  if(modoAgendamento){ await confirmarAgendamento(nome,tel,cpf); return; }
   try{
     var rPre=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,triagem:'(Triagem em andamento \u2014 aguardando resposta do paciente)',tipo:tipoConsulta})});
+      body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,
+        triagem:'(Triagem em andamento — aguardando resposta do paciente)',tipo:tipoConsulta,data_nascimento:pacienteNascimento})});
     var dPre=await rPre.json();
     if(dPre.atendimentoId){
-      atendimentoId=dPre.atendimentoId;
-      salvarSessao();
+      atendimentoId=dPre.atendimentoId; salvarSessao();
       if(dPre.linkRetorno){
         history.replaceState(null,'',dPre.linkRetorno);
         var linkCompleto=window.location.href;
         document.getElementById('retornoUrl').textContent=linkCompleto;
         document.getElementById('retornoBloco').classList.add('show');
         document.getElementById('payBtn').style.display='none';
-        return; // Paciente clica em "Continuar para triagem"
+        return;
       }
     }
   }catch(e){console.warn('Pre-registro error:',e);}
@@ -798,7 +737,7 @@ async function pagamentoConfirmado(nome,tel,cpf){
 
 function continuarParaTriagem(){
   showScreen('triage');
-  document.getElementById('nav-step').textContent='TRIAGEM M\u00c9DICA';
+  document.getElementById('nav-step').textContent='TRIAGEM MÉDICA';
   startTriage();
 }
 
@@ -806,49 +745,29 @@ function copiarLinkRetorno(){
   var link=document.getElementById('retornoUrl').textContent;
   var btn=document.getElementById('btnCopiarLink');
   function mostrarCopiado(){
-    btn.textContent='\u2713 Copiado!';
-    btn.classList.add('copiado');
-    setTimeout(function(){
-      btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar link';
-      btn.classList.remove('copiado');
-    },2500);
+    btn.textContent='✓ Copiado!'; btn.classList.add('copiado');
+    setTimeout(function(){ btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar link'; btn.classList.remove('copiado'); },2500);
   }
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(link).then(mostrarCopiado).catch(function(){
-      fallbackCopy(link); mostrarCopiado();
-    });
-  } else { fallbackCopy(link); mostrarCopiado(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(link).then(mostrarCopiado).catch(function(){ fallbackCopy(link); mostrarCopiado(); }); }
+  else { fallbackCopy(link); mostrarCopiado(); }
 }
 
 function fallbackCopy(text){
-  var el=document.createElement('textarea');
-  el.value=text; el.style.position='fixed'; el.style.opacity='0';
-  document.body.appendChild(el); el.select();
-  try{ document.execCommand('copy'); }catch(e){}
-  document.body.removeChild(el);
+  var el=document.createElement('textarea'); el.value=text; el.style.position='fixed'; el.style.opacity='0';
+  document.body.appendChild(el); el.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(el);
 }
-
 
 async function confirmarAgendamento(nome,tel,cpf){
   try{
-    // 1. Cria agendamento pendente
-    var r1 = await fetch(API+'/api/agendamento/criar',{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,modalidade:tipoConsulta,horario_agendado:horarioAgendado})
-    });
+    var r1 = await fetch(API+'/api/agendamento/criar',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,modalidade:tipoConsulta,horario_agendado:horarioAgendado})});
     var d1 = await r1.json();
     if(!d1.ok){ alert('Erro ao criar agendamento: '+(d1.error||'tente novamente')); return; }
     agendamentoId = d1.agendamentoId;
-
-    // 2. Confirma com pagamento
-    var r2 = await fetch(API+'/api/agendamento/confirmar',{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({agendamentoId, paymentId})
-    });
+    var r2 = await fetch(API+'/api/agendamento/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({agendamentoId, paymentId})});
     var d2 = await r2.json();
     var h = d2.horarioFormatado || '';
-
-    // Mostra confirmação
     showScreen('espera');
     document.getElementById('nav-step').textContent='AGENDAMENTO CONFIRMADO';
     document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(66,133,244,.2),rgba(52,168,83,.15))';
@@ -859,9 +778,7 @@ async function confirmarAgendamento(nome,tel,cpf){
     document.getElementById('esperaBadgeIcon').textContent='📅';
     document.getElementById('esperaBadgeText').textContent='Agendado';
     document.getElementById('esperaStatusTxt').textContent='Um e-mail de confirmação foi enviado ao médico.';
-  }catch(e){
-    alert('Erro ao confirmar agendamento. Tente novamente.');
-  }
+  }catch(e){ alert('Erro ao confirmar agendamento. Tente novamente.'); }
 }
 
 /* ═══════════════════════════════════════════
@@ -870,7 +787,7 @@ async function confirmarAgendamento(nome,tel,cpf){
 var triageHistory=[], anamnesis={}, step=0, pending=false;
 var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados — NÃO peça novamente.\n\n'
   +'Conduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n'
-  +'1. Pergunte idade, sexo e qual o problema principal\n'
+  +'1. Pergunte qual o problema principal\n'
   +'2. Há quanto tempo, intensidade (0-10) e se tem febre\n'
   +'3. Doenças crônicas, alergias, medicamentos em uso\n'
   +'4. Precisa de atestado ou receita?\n\n'
@@ -879,7 +796,7 @@ var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e W
 
 function startTriage(){
   triageHistory=[]; anamnesis={}; step=0;
-  addMsg('triageChat','bot','Olá, '+pacienteNome.split(' ')[0]+'! Sou o assistente de triagem da ConsultaJá24h.\nVou fazer algumas perguntas rápidas para ajudar o médico a entender melhor seu caso.\n\nQual é a sua idade, sexo e qual o problema que está sentindo?');
+  addMsg('triageChat','bot','Olá, '+pacienteNome.split(' ')[0]+'! Sou o assistente de triagem da ConsultaJá24h.\nVou fazer algumas perguntas rápidas para ajudar o médico a entender melhor seu caso.\n\nQual é o problema que está sentindo?');
   step=1; updateProgress(1);
 }
 function addMsg(id,tipo,texto){
@@ -917,10 +834,8 @@ async function sendTriage(text){
     if(parsed.done&&parsed.summary){
       anamnesis.summary=parsed.summary; updateProgress(6);
       addMsg('triageChat','bot','Triagem concluída! ✓\nAguarde enquanto você entra na fila para atendimento com um médico.');
-      await esperar(1200);
-      finalizarTriagem();
-      pending=false; document.getElementById('triageSend').disabled=false;
-      return;
+      await esperar(1200); finalizarTriagem();
+      pending=false; document.getElementById('triageSend').disabled=false; return;
     }
   }catch(e){}
   addMsg('triageChat','bot',reply);
@@ -933,14 +848,13 @@ async function sendTriage(text){
 async function finalizarTriagem(){
   try{
     if(atendimentoId){
-      // Já foi registrado no pagamento — só atualiza a triagem completa
       var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({atendimentoId:atendimentoId,triagem:anamnesis.summary||''})});
       await r.json();
     } else {
-      // Fallback: cria registro completo (caso raro de sessão sem pré-registro)
       var r=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,triagem:anamnesis.summary||'',tipo:tipoConsulta})});
+        body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,
+          triagem:anamnesis.summary||'',tipo:tipoConsulta,data_nascimento:pacienteNascimento})});
       var d=await r.json();
       if(d.atendimentoId) atendimentoId=d.atendimentoId;
       if(d.linkRetorno) history.replaceState(null,'',d.linkRetorno);
@@ -960,8 +874,7 @@ function mostrarSalaEspera(){
   badge.className='espera-badge '+tipoConsulta;
   document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
   document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
-  tentativas=0;
-  verificarStatus();
+  tentativas=0; verificarStatus();
   esperaPoller=setInterval(verificarStatus,5000);
 }
 
@@ -973,17 +886,8 @@ async function verificarStatus(){
     if(!data.ok)return;
     atualizarContador();
     var a=data.atendimento;
-    if(a.status==='encerrado'){
-      clearInterval(esperaPoller);
-      clearInterval(chatPoller);
-      clearInterval(meetPoller);
-      encerrarConsultaPaciente();
-      return;
-    }
-    if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')){
-      clearInterval(esperaPoller);
-      medicoAssumiu(a);
-    }
+    if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
+    if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')){ clearInterval(esperaPoller); medicoAssumiu(a); }
   }catch(e){}
 }
 
@@ -1000,20 +904,13 @@ function medicoAssumiu(a){
   document.getElementById('esperaIcon').textContent='✓';
   document.getElementById('esperaStatusTxt').textContent='';
   document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(94,224,160,.2),rgba(180,224,90,.15))';
-  // Continua fazendo polling do status para detectar encerramento
   encerradoPoller=setInterval(async function(){
     try{
       var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
       var data=await res.json();
-      if(data.ok && data.atendimento.status==='encerrado'){
-        clearInterval(encerradoPoller);
-        clearInterval(chatPoller);
-        clearInterval(meetPoller);
-        encerrarConsultaPaciente();
-      }
+      if(data.ok && data.atendimento.status==='encerrado'){ clearInterval(encerradoPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); }
     }catch(e){}
   },8000);
-
   if(tipoConsulta==='chat') iniciarChatConsulta(a);
   else iniciarVideoConsulta(a);
 }
@@ -1029,10 +926,7 @@ function iniciarChatConsulta(atendimento){
     document.getElementById('medicoEntrou').style.display='flex';
   }
   document.getElementById('chatConsulta').classList.add('ativo');
-  carregarHistoricoChat().then(function(){
-    chatAtivo=true;
-    chatPoller=setInterval(buscarMensagensNovas,3000);
-  });
+  carregarHistoricoChat().then(function(){ chatAtivo=true; chatPoller=setInterval(buscarMensagensNovas,3000); });
   var inp=document.getElementById('chatInputPaciente');
   inp.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMensagemChat();}});
@@ -1044,9 +938,7 @@ async function carregarHistoricoChat(){
     var data=await res.json();
     if(!data.ok)return;
     var msgs=data.mensagens||[];
-    if(msgs.length>0){
-      msgs.forEach(function(m){renderMsgChat(m.autor,m.texto,m.criado_em);ultimaMsgId=m.id;});
-    }
+    if(msgs.length>0){ msgs.forEach(function(m){renderMsgChat(m.autor,m.texto,m.criado_em);ultimaMsgId=m.id;}); }
   }catch(e){}
 }
 async function buscarMensagensNovas(){
@@ -1056,10 +948,7 @@ async function buscarMensagensNovas(){
     var data=await res.json();
     if(!data.ok)return;
     (data.mensagens||[]).forEach(function(m){
-      if(m.id>ultimaMsgId){
-        if(m.autor==='medico') renderMsgChat(m.autor,m.texto,m.criado_em);
-        ultimaMsgId=m.id;
-      }
+      if(m.id>ultimaMsgId){ if(m.autor==='medico') renderMsgChat(m.autor,m.texto,m.criado_em); ultimaMsgId=m.id; }
     });
   }catch(e){}
 }
@@ -1090,14 +979,10 @@ function renderMsgChat(autor,texto,timestamp){
    VÍDEO PACIENTE
 ═══════════════════════════════════════════ */
 function iniciarVideoConsulta(atendimento){
-  if(atendimento.medico_nome){
-    document.getElementById('medicoNomeBannerVideo').textContent=atendimento.medico_nome;
-    document.getElementById('medicoEntrouVideo').style.display='flex';
-  }
+  if(atendimento.medico_nome){ document.getElementById('medicoNomeBannerVideo').textContent=atendimento.medico_nome; document.getElementById('medicoEntrouVideo').style.display='flex'; }
   document.getElementById('meetWrap').classList.add('ativo');
-  if(atendimento.meet_link){
-    ativarLinkMeet(atendimento.meet_link);
-  } else {
+  if(atendimento.meet_link){ ativarLinkMeet(atendimento.meet_link); }
+  else {
     meetPoller=setInterval(async function(){
       try{
         var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
@@ -1117,25 +1002,17 @@ function ativarLinkMeet(link){
    S8 — CONSULTA ENCERRADA
 ═══════════════════════════════════════════ */
 function encerrarConsultaPaciente(){
-  chatAtivo=false;
-  clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
-  // Desabilita inputs de chat
+  chatAtivo=false; clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
   var inp=document.getElementById('chatInputPaciente');
   var sendBtn=document.getElementById('chatSendBtn');
   if(inp){inp.disabled=true; inp.placeholder='Consulta encerrada';}
   if(sendBtn) sendBtn.disabled=true;
-  limparSessao();
-  mostrarTelaEncerrado();
+  limparSessao(); mostrarTelaEncerrado();
 }
-function mostrarTelaEncerrado(){
-  showScreen('encerrado');
-  document.getElementById('nav-step').textContent='CONSULTA ENCERRADA';
-}
+function mostrarTelaEncerrado(){ showScreen('encerrado'); document.getElementById('nav-step').textContent='CONSULTA ENCERRADA'; }
 function novaConsulta(){
-  limparSessao();
-  atendimentoId=null; tipoConsulta=''; chatAtivo=false; ultimaMsgId=0;
-  history.replaceState(null,'','/triagem.html');
-  showScreen('identify');
+  limparSessao(); atendimentoId=null; tipoConsulta=''; chatAtivo=false; ultimaMsgId=0;
+  history.replaceState(null,'','/triagem.html'); showScreen('identify');
   document.getElementById('nav-step').textContent='IDENTIFICAÇÃO';
 }
 
