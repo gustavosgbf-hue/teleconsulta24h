@@ -29,7 +29,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .box-head{padding:22px 24px 18px;border-bottom:1px solid var(--line)}
 .box-head h1{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:5px}
 .box-head p{font-size:.78rem;color:var(--muted);font-weight:300}
-/* ID */
 #screen-identify .box{width:min(480px,100%)}
 .identify-body{padding:22px 24px;display:flex;flex-direction:column;gap:14px}
 .id-label{font-size:.75rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:4px}
@@ -41,7 +40,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .check-same-row input{width:16px;height:16px;accent-color:#b4e05a;cursor:pointer;flex-shrink:0}
 .id-btn{width:100%;padding:14px;border-radius:13px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.25);transition:transform .12s,box-shadow .2s}
 .id-btn:hover{transform:translateY(-1px)}
-/* TERMOS */
 #screen-terms .box{width:min(580px,100%)}
 .terms-body{padding:20px 24px;display:flex;flex-direction:column;gap:10px}
 .titem{font-size:.82rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.7;padding-left:12px;border-left:2px solid rgba(180,224,90,.3)}
@@ -53,7 +51,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-aceitar{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:not-allowed;opacity:.3;display:block;-webkit-appearance:none;transition:opacity .25s,transform .12s}
 .btn-aceitar.on{opacity:1;cursor:pointer}
 .btn-aceitar.on:hover{transform:translateY(-1px)}
-/* MODALIDADE */
 #screen-modalidade .modal-wrap{width:min(520px,100%);padding:24px 20px}
 .modal-head{text-align:center;margin-bottom:28px}
 .modal-head h1{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;margin-bottom:8px}
@@ -76,7 +73,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-modal-cont{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:not-allowed;opacity:.3;margin-top:18px;transition:opacity .25s,transform .12s;-webkit-appearance:none}
 .btn-modal-cont.on{opacity:1;cursor:pointer}
 .btn-modal-cont.on:hover{transform:translateY(-1px)}
-/* DISPONIBILIDADE */
 #screen-disponibilidade .dispon-wrap{width:min(520px,100%);padding:24px 20px;text-align:center}
 .dispon-wrap h1{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:500;margin-bottom:8px}
 .dispon-wrap p{font-size:.85rem;color:var(--muted);font-weight:300;line-height:1.6;margin-bottom:24px}
@@ -91,9 +87,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .dispon-info{font-size:.8rem;color:rgba(255,255,255,.4);margin-bottom:20px;font-weight:300}
 .btn-dispon-cont{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.28);transition:transform .12s}
 .btn-dispon-cont:hover{transform:translateY(-1px)}
-/* AGENDAMENTO */
-.agend-titulo{font-size:1rem;font-weight:600;margin-bottom:6px;text-align:left}
-.agend-sub{font-size:.8rem;color:var(--muted);font-weight:300;margin-bottom:18px;text-align:left}
 .horarios-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
 .horario-btn{padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .18s;-webkit-appearance:none}
 .horario-btn:hover{border-color:rgba(66,133,244,.4);background:rgba(66,133,244,.08);color:#fff}
@@ -102,7 +95,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-agendar.on{opacity:1;cursor:pointer}
 .btn-agendar.on:hover{transform:translateY(-1px)}
 .agend-note{font-size:.72rem;color:rgba(255,255,255,.28);font-weight:300;line-height:1.6;padding:10px 14px;background:rgba(66,133,244,.04);border-radius:10px;border:1px solid rgba(66,133,244,.1);margin-bottom:16px;text-align:left}
-/* PAGAMENTO */
 #screen-payment .box{width:min(500px,100%)}
 .pay-head{padding:22px 24px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}
 .pay-icon{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.18),rgba(94,224,160,.12));border:1px solid rgba(180,224,90,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
@@ -141,7 +133,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .pay-divider{display:flex;align-items:center;gap:10px;margin:18px 0 0;font-size:.7rem;color:rgba(255,255,255,.2)}
 .pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
 .pay-seguro{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300}
-/* TRIAGEM */
 #screen-triage{flex-direction:column}
 .progress-bar{height:3px;background:rgba(255,255,255,.06);flex-shrink:0}
 .progress-fill{height:100%;background:linear-gradient(90deg,#b4e05a,#5ee0a0);transition:width .5s ease;width:0%}
@@ -173,7 +164,6 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .send-btn{width:42px;height:42px;border-radius:50%;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .12s;box-shadow:0 4px 14px rgba(180,224,90,.28);-webkit-appearance:none}
 .send-btn:hover{transform:scale(1.08)}
 .send-btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
-/* ESPERA */
 #screen-espera .espera-box{width:min(580px,100%);text-align:center;padding:32px 20px}
 .espera-anim{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.15),rgba(94,224,160,.1));border:1px solid rgba(94,224,160,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;transition:background .5s}
 .espera-anim::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(94,224,160,.15);animation:ring 2s ease-in-out infinite}
@@ -224,7 +214,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .encerrado-icon{font-size:3rem;margin-bottom:20px}
 .encerrado-titulo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;margin-bottom:10px;color:var(--g2)}
 .encerrado-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:28px}
-.encerrado-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:13px;border:none;background:rgba(255,255,255,.06);border:1px solid var(--line);color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;-webkit-appearance:none;transition:background .2s}
+.encerrado-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;-webkit-appearance:none;transition:background .2s}
 .encerrado-btn:hover{background:rgba(255,255,255,.1)}
 .loading-overlay{position:fixed;inset:0;z-index:999;background:#060d0b;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .loading-overlay.hide{display:none}
@@ -235,7 +225,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 </head>
 <body>
 <div class="bg-glow" aria-hidden="true"></div>
-<div class="loading-overlay" id="loading-overlay"><div class="loading-spinner"></div><div class="loading-txt">Verificando sess\u00e3o...</div></div>
+<div class="loading-overlay" id="loading-overlay"><div class="loading-spinner"></div><div class="loading-txt">Verificando sessão...</div></div>
 
 <nav class="nav">
   <div class="nav__in">
@@ -248,19 +238,19 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <polyline points="22.5,21.4 25,21.4 26.5,17 28,26 29.5,20 31,21.4 34,21.4" fill="none" stroke="url(#ng)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.92rem;font-weight:700;letter-spacing:-.01em">
-        <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">J\u00e1</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
+        <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
       </span>
     </a>
-    <span class="nav__step" id="nav-step">IDENTIFICA\u00c7\u00c3O</span>
+    <span class="nav__step" id="nav-step">IDENTIFICAÇÃO</span>
   </div>
 </nav>
 
 <!-- S1: IDENTIFICAÇÃO -->
 <div id="screen-identify" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Bem-vindo</h1><p>Precisamos de alguns dados b\u00e1sicos para iniciar.</p></div>
+    <div class="box-head"><h1>Bem-vindo</h1><p>Precisamos de alguns dados básicos para iniciar.</p></div>
     <div class="identify-body">
-      <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Como voc\u00ea se chama?" autocomplete="name"/></div>
+      <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Como você se chama?" autocomplete="name"/></div>
       <div><div class="id-label">WhatsApp (com DDD)</div><input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric"/></div>
       <div>
         <div class="id-label">Data de nascimento</div>
@@ -271,11 +261,11 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
         <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
           <input type="checkbox" id="chkSameNumber" onchange="toggleSameNumber(this)"/>
-          Usar o mesmo n\u00famero do WhatsApp
+          Usar o mesmo número do WhatsApp
         </label>
       </div>
-      <div class="id-note">\ud83d\udd12 Seus dados s\u00e3o registrados com seguran\u00e7a conforme a LGPD.</div>
-      <button class="id-btn" onclick="avancarIdentificacao()">Continuar \u2192</button>
+      <div class="id-note">🔒 Seus dados são registrados com segurança conforme a LGPD.</div>
+      <button class="id-btn" onclick="avancarIdentificacao()">Continuar →</button>
     </div>
   </div>
 </div>
@@ -285,15 +275,15 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   <div class="box">
     <div class="box-head"><h1>Termos de Uso e TCLE</h1><p>Leia os pontos principais antes de prosseguir.</p></div>
     <div class="terms-body">
-      <div class="titem"><strong>Servi\u00e7o</strong>Orienta\u00e7\u00e3o m\u00e9dica remota por profissional com CRM ativo, conforme Resolu\u00e7\u00e3o CFM n\u00ba 2.314/2022. N\u00e3o substitui atendimento presencial em urg\u00eancias.</div>
-      <div class="titem"><strong>Triagem automatizada</strong>A coleta de anamnese usa IA para estruturar as informa\u00e7\u00f5es. N\u00e3o constitui diagn\u00f3stico. Toda informa\u00e7\u00e3o \u00e9 revisada pelo m\u00e9dico.</div>
-      <div class="titem"><strong>Transfer\u00eancia de dados</strong>Dados podem ser processados por provedor internacional de IA com garantias contratuais, conforme Arts. 33\u201336 da LGPD.</div>
-      <div class="titem"><strong>Documentos</strong>Atestados e receitas s\u00e3o emitidos exclusivamente quando h\u00e1 indica\u00e7\u00e3o cl\u00ednica. N\u00e3o s\u00e3o autom\u00e1ticos.</div>
-      <div class="titem"><strong>Privacidade</strong>Dados sens\u00edveis de sa\u00fade tratados com sigilo, conforme Lei 13.709/2018 (LGPD).</div>
-      <div class="titem"><strong>Emerg\u00eancias</strong>Em caso de dor no peito, falta de ar grave, desmaio ou risco de vida, procure pronto-socorro imediatamente.</div>
+      <div class="titem"><strong>Serviço</strong>Orientação médica remota por profissional com CRM ativo, conforme Resolução CFM nº 2.314/2022. Não substitui atendimento presencial em urgências.</div>
+      <div class="titem"><strong>Triagem automatizada</strong>A coleta de anamnese usa IA para estruturar as informações. Não constitui diagnóstico. Toda informação é revisada pelo médico.</div>
+      <div class="titem"><strong>Transferência de dados</strong>Dados podem ser processados por provedor internacional de IA com garantias contratuais, conforme Arts. 33–36 da LGPD.</div>
+      <div class="titem"><strong>Documentos</strong>Atestados e receitas são emitidos exclusivamente quando há indicação clínica. Não são automáticos.</div>
+      <div class="titem"><strong>Privacidade</strong>Dados sensíveis de saúde tratados com sigilo, conforme Lei 13.709/2018 (LGPD).</div>
+      <div class="titem"><strong>Emergências</strong>Em caso de dor no peito, falta de ar grave, desmaio ou risco de vida, procure pronto-socorro imediatamente.</div>
     </div>
     <div class="terms-foot">
-      <label class="check-row" for="termsCheck"><input type="checkbox" id="termsCheck"/><span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a>, <a href="privacy.html" target="_blank" style="color:#b4e05a">Pol\u00edtica de Privacidade</a> e TCLE, incluindo uso de IA para triagem.</span></label>
+      <label class="check-row" for="termsCheck"><input type="checkbox" id="termsCheck"/><span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a>, <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a> e TCLE, incluindo uso de IA para triagem.</span></label>
       <button class="btn-aceitar" id="btnAceitar">Aceitar e continuar</button>
     </div>
   </div>
@@ -306,18 +296,18 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     <div class="modal-cards">
       <div class="modal-card chat" onclick="selecionarModalidade('chat',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="mc-icon">\ud83d\udcac</span><div class="mc-title">Consulta por chat</div>
-        <div class="mc-desc">Mensagens em tempo real com o m\u00e9dico pela plataforma.</div>
+        <span class="mc-icon">💬</span><div class="mc-title">Consulta por chat</div>
+        <div class="mc-desc">Mensagens em tempo real com o médico pela plataforma.</div>
         <span class="mc-badge">Texto</span>
       </div>
       <div class="modal-card video" onclick="selecionarModalidade('video',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="mc-icon">\ud83c\udfa5</span><div class="mc-title">Consulta por v\u00eddeo</div>
+        <span class="mc-icon">🎥</span><div class="mc-title">Consulta por vídeo</div>
         <div class="mc-desc">Consulta ao vivo via Google Meet.</div>
         <span class="mc-badge">Videochamada</span>
       </div>
     </div>
-    <button class="btn-modal-cont" id="btnModalCont" disabled>Continuar \u2192</button>
+    <button class="btn-modal-cont" id="btnModalCont" disabled>Continuar →</button>
   </div>
 </div>
 
@@ -328,15 +318,15 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     <p id="disp-sub">Aguarde um instante.</p>
     <div class="dispon-status verde" id="disp-status-badge" style="margin:0 auto 24px"><div class="dispon-dot"></div><span id="disp-status-txt">Verificando...</span></div>
     <p class="dispon-info" id="disp-info"></p>
-    <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Prosseguir para pagamento \u2192</button>
+    <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Prosseguir para pagamento →</button>
     <div id="agend-section" style="display:none;text-align:left;margin-top:8px">
       <div class="box" style="border-radius:18px">
-        <div class="box-head"><h1 style="font-size:1.1rem">\ud83d\udcc5 Agendar para mais tarde</h1><p>Escolha um hor\u00e1rio dispon\u00edvel e pague para confirmar.</p></div>
+        <div class="box-head"><h1 style="font-size:1.1rem">📅 Agendar para mais tarde</h1><p>Escolha um horário disponível e pague para confirmar.</p></div>
         <div style="padding:20px 22px">
-          <div class="agend-note">\u26a0\ufe0f Isso \u00e9 um agendamento. Voc\u00ea ser\u00e1 atendido no hor\u00e1rio escolhido, n\u00e3o agora.</div>
-          <div class="agend-titulo">Hor\u00e1rios dispon\u00edveis:</div>
+          <div class="agend-note">⚠️ Isso é um agendamento. Você será atendido no horário escolhido, não agora.</div>
+          <div style="font-size:1rem;font-weight:600;margin-bottom:6px">Horários disponíveis:</div>
           <div class="horarios-grid" id="horarios-grid"></div>
-          <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Agendar este hor\u00e1rio \u2192</button>
+          <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Agendar este horário →</button>
         </div>
       </div>
     </div>
@@ -347,34 +337,34 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <div id="screen-payment" class="screen box-center">
   <div class="box">
     <div class="pay-head">
-      <div class="pay-icon">\ud83d\udcb3</div>
-      <div class="pay-head-text"><h2>Pagamento seguro</h2><p id="pay-subtitulo">Pix instant\u00e2neo via Mercado Pago</p></div>
+      <div class="pay-icon">💳</div>
+      <div class="pay-head-text"><h2>Pagamento seguro</h2><p id="pay-subtitulo">Pix instantâneo via Mercado Pago</p></div>
     </div>
     <div class="pay-body">
       <div class="pay-valor">
-        <div class="pay-valor-left"><div class="label" id="pay-label-tipo">Consulta m\u00e9dica online</div><div class="desc">Receitas e atestados quando indicados</div></div>
+        <div class="pay-valor-left"><div class="label" id="pay-label-tipo">Consulta médica online</div><div class="desc">Receitas e atestados quando indicados</div></div>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
       <div class="pay-label">Seu nome</div>
       <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
       <div class="pay-label">Seu WhatsApp</div>
-      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + n\u00famero" autocomplete="tel" inputmode="numeric"/>
+      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número" autocomplete="tel" inputmode="numeric"/>
       <div class="pay-label">CPF</div>
       <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:16px;line-height:1.5">Utilizado para emiss\u00e3o de documentos m\u00e9dicos quando necess\u00e1rio.</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:16px;line-height:1.5">Utilizado para emissão de documentos médicos quando necessário.</div>
       <button class="pay-btn" id="payBtn" onclick="gerarPix()">Gerar QR Code Pix</button>
-      <p id="pay-note" style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:10px;line-height:1.6">\u2713 Ap\u00f3s o pagamento, a triagem inicia automaticamente.</p>
+      <p id="pay-note" style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:10px;line-height:1.6">✓ Após o pagamento, a triagem inicia automaticamente.</p>
       <div class="pay-qr-wrap" id="payQrWrap">
         <img id="payQrImg" class="pay-qr-img" src="" alt="QR Code Pix"/>
         <br/>
         <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar c\u00f3digo Pix
+          Copiar código Pix
         </button>
         <div class="pay-status-msg" id="payStatusMsg">Aguardando pagamento...</div>
         <div class="retorno-bloco" id="retornoBloco">
-          <div class="retorno-bloco-titulo">\ud83d\udd17 Seu link de retorno</div>
-          <div class="retorno-bloco-aviso">Se a p\u00e1gina fechar ou atualizar, use este link para retomar sua consulta:</div>
+          <div class="retorno-bloco-titulo">🔗 Seu link de retorno</div>
+          <div class="retorno-bloco-aviso">Se a página fechar ou atualizar, use este link para retomar sua consulta:</div>
           <div class="retorno-url" id="retornoUrl"></div>
           <div class="retorno-btns">
             <button class="btn-copiar-link" id="btnCopiarLink" onclick="copiarLinkRetorno()">
@@ -382,13 +372,13 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
               Copiar link
             </button>
             <button class="btn-continuar-triagem" onclick="continuarParaTriagem()">
-              Continuar para triagem \u2192
+              Continuar para triagem →
             </button>
           </div>
         </div>
       </div>
       <div class="pay-divider">pagamento processado por</div>
-      <div class="pay-seguro">\ud83d\udd12 Mercado Pago \u00b7 Ambiente seguro \u00b7 Dados criptografados</div>
+      <div class="pay-seguro">🔒 Mercado Pago · Ambiente seguro · Dados criptografados</div>
     </div>
   </div>
 </div>
@@ -397,8 +387,8 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <div id="screen-triage" class="screen">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="ia-banner">
-    <span style="font-size:1.1rem">\ud83e\udd16</span>
-    <span><strong>Assistente de Triagem Autom\u00e1tica</strong> \u2014 Voc\u00ea ainda n\u00e3o est\u00e1 falando com um m\u00e9dico. Estas perguntas preparam seu atendimento.</span>
+    <span style="font-size:1.1rem">🤖</span>
+    <span><strong>Assistente de Triagem Automática</strong> — Você ainda não está falando com um médico. Estas perguntas preparam seu atendimento.</span>
   </div>
   <div class="chat-area" id="triageChat"></div>
   <div class="quick-replies" id="quickReplies"></div>
@@ -413,19 +403,19 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <!-- S7: ESPERA / CONSULTA -->
 <div id="screen-espera" class="screen box-center">
   <div class="espera-box">
-    <div class="espera-anim" id="esperaAnim"><span style="font-size:2rem" id="esperaIcon">\u23f3</span></div>
+    <div class="espera-anim" id="esperaAnim"><span style="font-size:2rem" id="esperaIcon">⏳</span></div>
     <h2 class="espera-titulo" id="esperaTitulo">Preparando seu atendimento</h2>
-    <p class="espera-sub" id="esperaSub">Um m\u00e9dico assumir\u00e1 sua consulta em breve.<br>Por favor, aguarde nesta p\u00e1gina.</p>
-    <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">\ud83d\udcac</span> <span id="esperaBadgeText">Consulta por chat</span></div>
+    <p class="espera-sub" id="esperaSub">Um médico assumirá sua consulta em breve.<br>Por favor, aguarde nesta página.</p>
+    <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">💬</span> <span id="esperaBadgeText">Consulta por chat</span></div>
     <p class="espera-status" id="esperaStatusTxt">Verificando... <span id="esperaContador"></span></p>
     <div class="chat-consulta" id="chatConsulta">
       <div class="medico-entrou-banner" id="medicoEntrou" style="display:none">
-        <span>\ud83d\udc68\u200d\u2695\ufe0f</span>
-        <div><strong id="medicoNomeBanner">Dr. M\u00e9dico</strong> entrou na consulta.<br><span style="font-size:.78rem;font-weight:300;color:rgba(255,255,255,.5)">Agora voc\u00ea est\u00e1 falando com um m\u00e9dico.</span></div>
+        <span>👨‍⚕️</span>
+        <div><strong id="medicoNomeBanner">Dr. Médico</strong> entrou na consulta.<br><span style="font-size:.78rem;font-weight:300;color:rgba(255,255,255,.5)">Agora você está falando com um médico.</span></div>
       </div>
       <div class="chat-header-box">
         <h3><div class="online-dot"></div> Consulta iniciada</h3>
-        <p id="chatMedicoLabel">M\u00e9dico dispon\u00edvel \u2014 pode enviar sua mensagem</p>
+        <p id="chatMedicoLabel">Médico disponível — pode enviar sua mensagem</p>
       </div>
       <div class="chat-msgs" id="chatMsgs"></div>
       <div class="chat-input-row">
@@ -437,15 +427,15 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     </div>
     <div class="meet-wrap" id="meetWrap">
       <div class="medico-entrou-banner" id="medicoEntrouVideo" style="display:none">
-        <span>\ud83d\udc68\u200d\u2695\ufe0f</span>
-        <div><strong id="medicoNomeBannerVideo">Dr. M\u00e9dico</strong> est\u00e1 pronto para a videochamada.<br><span style="font-size:.78rem;font-weight:300;color:rgba(255,255,255,.5)">Agora voc\u00ea est\u00e1 falando com um m\u00e9dico.</span></div>
+        <span>👨‍⚕️</span>
+        <div><strong id="medicoNomeBannerVideo">Dr. Médico</strong> está pronto para a videochamada.<br><span style="font-size:.78rem;font-weight:300;color:rgba(255,255,255,.5)">Agora você está falando com um médico.</span></div>
       </div>
-      <div class="meet-aguardando" id="meetAguardando"><p>\u23f3 O m\u00e9dico est\u00e1 se preparando.<br>O link da videochamada aparecer\u00e1 aqui em instantes.</p></div>
+      <div class="meet-aguardando" id="meetAguardando"><p>⏳ O médico está se preparando.<br>O link da videochamada aparecerá aqui em instantes.</p></div>
       <a href="#" id="btnMeetLink" class="btn-meet disabled" target="_blank" rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
         Entrar na videochamada
       </a>
-      <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.25)">Link gerado pelo m\u00e9dico via Google Meet</p>
+      <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.25)">Link gerado pelo médico via Google Meet</p>
     </div>
   </div>
 </div>
@@ -453,9 +443,9 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <!-- S8: ENCERRADO -->
 <div id="screen-encerrado" class="screen box-center">
   <div class="encerrado-box">
-    <div class="encerrado-icon">\u2705</div>
+    <div class="encerrado-icon">✅</div>
     <h2 class="encerrado-titulo">Consulta encerrada</h2>
-    <p class="encerrado-sub">Seu atendimento foi finalizado pelo m\u00e9dico.<br>Esperamos que tenha sido uma boa experi\u00eancia.</p>
+    <p class="encerrado-sub">Seu atendimento foi finalizado pelo médico.<br>Esperamos que tenha sido uma boa experiência.</p>
     <button class="encerrado-btn" onclick="novaConsulta()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
       Iniciar nova consulta
@@ -464,45 +454,28 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 </div>
 
 <script>
-/* ═══════════════════════════════════════════
-   ESTADO GLOBAL
-═══════════════════════════════════════════ */
 var API = 'https://triagem-api.onrender.com';
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', tipoConsulta = '';
-var atendimentoId = null;
-var agendamentoId = null;
-var horarioAgendado = null;
-var modoAgendamento = false;
-
+var atendimentoId = null, agendamentoId = null, horarioAgendado = null, modoAgendamento = false;
 var pixCode = '', paymentId = '';
 var paymentPoller = null, esperaPoller = null, chatPoller = null, meetPoller = null, encerradoPoller = null;
 var ultimaMsgId = 0, chatAtivo = false, tentativas = 0;
 var dispData = null;
 
-/* ═══════════════════════════════════════════
-   SESSÃO — localStorage
-═══════════════════════════════════════════ */
 function salvarSessao(){
   if(!atendimentoId) return;
-  localStorage.setItem('cj_sessao', JSON.stringify({
-    atendimentoId, tipoConsulta, pacienteNome, pacienteTel, pacienteCPF,
-    ts: Date.now()
-  }));
+  localStorage.setItem('cj_sessao', JSON.stringify({atendimentoId, tipoConsulta, pacienteNome, pacienteTel, pacienteCPF, ts: Date.now()}));
 }
 function limparSessao(){ localStorage.removeItem('cj_sessao'); }
 function carregarSessao(){
   try {
-    var s = localStorage.getItem('cj_sessao');
-    if(!s) return null;
+    var s = localStorage.getItem('cj_sessao'); if(!s) return null;
     var obj = JSON.parse(s);
     if(Date.now() - (obj.ts||0) > 8*60*60*1000){ limparSessao(); return null; }
     return obj;
   } catch(e){ return null; }
 }
 
-/* ═══════════════════════════════════════════
-   INICIALIZAÇÃO
-═══════════════════════════════════════════ */
 (async function init(){
   var urlId = new URLSearchParams(location.search).get('consulta');
   var sessao = carregarSessao();
@@ -528,9 +501,6 @@ function carregarSessao(){
 
 function esconderLoading(){ document.getElementById('loading-overlay').classList.add('hide'); }
 
-/* ═══════════════════════════════════════════
-   NAVEGAÇÃO
-═══════════════════════════════════════════ */
 function showScreen(n){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   var el = document.getElementById('screen-'+n);
@@ -538,15 +508,13 @@ function showScreen(n){
   window.scrollTo(0,0);
 }
 
-/* ═══════════════════════════════════════════
-   S1 — IDENTIFICAÇÃO
-═══════════════════════════════════════════ */
 function toggleSameNumber(chk){
   var docInput = document.getElementById('idTelDoc');
   var telInput = document.getElementById('idTel');
   if(chk.checked){ docInput.value = telInput.value; docInput.disabled = true; docInput.style.opacity = '.4'; }
   else { docInput.disabled = false; docInput.style.opacity = '1'; }
 }
+
 function avancarIdentificacao(){
   var nome = document.getElementById('idNome').value.trim();
   var tel  = document.getElementById('idTel').value.replace(/\D/g,'');
@@ -555,7 +523,7 @@ function avancarIdentificacao(){
   var telDoc  = chkSame ? tel : document.getElementById('idTelDoc').value.replace(/\D/g,'');
   if(!nome){document.getElementById('idNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('idTel').focus();return;}
-  pacienteNome=nome; pacienteTel=tel; pacienteTelDoc=telDoc||tel; pacienteNascimento=nascimento||'';
+  pacienteNome=nome; pacienteTel=tel; pacienteTelDoc=telDoc||tel; pacienteNascimento=nascimento||'';;
   fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,tel})}).catch(function(){});
   document.getElementById('payNome').value=nome;
   document.getElementById('payTel').value=tel;
@@ -563,9 +531,6 @@ function avancarIdentificacao(){
   document.getElementById('nav-step').textContent='TERMOS DE USO';
 }
 
-/* ═══════════════════════════════════════════
-   S2 — TERMOS
-═══════════════════════════════════════════ */
 (function(){
   var chk=document.getElementById('termsCheck');
   var btn=document.getElementById('btnAceitar');
@@ -578,9 +543,6 @@ function avancarIdentificacao(){
   });
 })();
 
-/* ═══════════════════════════════════════════
-   S3 — MODALIDADE
-═══════════════════════════════════════════ */
 function selecionarModalidade(tipo,el){
   document.querySelectorAll('.modal-card').forEach(function(c){c.classList.remove('selected');});
   el.classList.add('selected'); tipoConsulta=tipo;
@@ -588,13 +550,8 @@ function selecionarModalidade(tipo,el){
   btn.disabled=false; btn.classList.add('on');
   btn.textContent=tipo==='chat'?'💬 Continuar com chat →':'🎥 Continuar com vídeo →';
 }
-document.getElementById('btnModalCont').addEventListener('click',function(){
-  if(!tipoConsulta)return; verificarDisponibilidade();
-});
+document.getElementById('btnModalCont').addEventListener('click',function(){ if(!tipoConsulta)return; verificarDisponibilidade(); });
 
-/* ═══════════════════════════════════════════
-   S4 — DISPONIBILIDADE
-═══════════════════════════════════════════ */
 async function verificarDisponibilidade(){
   showScreen('disponibilidade');
   document.getElementById('nav-step').textContent='DISPONIBILIDADE';
@@ -602,63 +559,44 @@ async function verificarDisponibilidade(){
   document.getElementById('disp-sub').textContent='Aguarde um instante.';
   document.getElementById('btnDispCont').style.display='none';
   document.getElementById('agend-section').style.display='none';
-  try{
-    var res = await fetch(API+'/api/disponibilidade');
-    dispData = await res.json();
-  } catch(e){
-    dispData = {ok:true,disponivel:true,status:'verde',mensagem:'Atendimento disponível',tempoEstimado:5,medicosOnline:0,horariosAgendamento:[]};
-  }
+  try{ var res = await fetch(API+'/api/disponibilidade'); dispData = await res.json(); }
+  catch(e){ dispData = {ok:true,disponivel:true,status:'verde',mensagem:'Atendimento disponível',tempoEstimado:5,medicosOnline:0,horariosAgendamento:[]}; }
   renderDisponibilidade(dispData);
 }
 
 function renderDisponibilidade(d){
-  var titulo = d.disponivel ? 'Atendimento disponível' : 'Sem disponibilidade agora';
-  var sub = d.disponivel
-    ? (d.medicosOnline > 0 ? d.medicosOnline+' médico(s) disponível(is) · Espera estimada: ~'+d.tempoEstimado+' min' : 'Atendimento disponível — aguarde um médico entrar em plantão')
-    : (d.mensagem || 'Atendimento indisponível no momento');
-  document.getElementById('disp-titulo').textContent=titulo;
+  document.getElementById('disp-titulo').textContent = d.disponivel ? 'Atendimento disponível' : 'Sem disponibilidade agora';
   document.getElementById('disp-sub').textContent='';
-  document.getElementById('disp-info').textContent=sub;
+  document.getElementById('disp-info').textContent = d.disponivel
+    ? (d.medicosOnline > 0 ? d.medicosOnline+' médico(s) disponível(is) · Espera: ~'+d.tempoEstimado+' min' : 'Atendimento disponível — aguarde um médico')
+    : (d.mensagem || 'Indisponível no momento');
   var badge = document.getElementById('disp-status-badge');
   badge.className = 'dispon-status ' + (d.status||'verde');
   badge.querySelector('.dispon-dot').style.background = d.status==='verde'?'var(--g2)':d.status==='amarelo'?'#ffbd2e':'#ff8080';
   document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Indisponível';
-  if(d.disponivel){
-    document.getElementById('btnDispCont').style.display='block';
-    document.getElementById('agend-section').style.display='none';
-    modoAgendamento=false;
-  } else {
-    document.getElementById('btnDispCont').style.display='none';
-    document.getElementById('agend-section').style.display='block';
-    modoAgendamento=true; renderHorarios(d.horariosAgendamento||[]);
-    if(d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo horário: '+d.horarioRetorno;
-  }
+  if(d.disponivel){ document.getElementById('btnDispCont').style.display='block'; document.getElementById('agend-section').style.display='none'; modoAgendamento=false; }
+  else { document.getElementById('btnDispCont').style.display='none'; document.getElementById('agend-section').style.display='block'; modoAgendamento=true; renderHorarios(d.horariosAgendamento||[]);
+    if(d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo: '+d.horarioRetorno; }
 }
 
 function renderHorarios(horarios){
-  var grid = document.getElementById('horarios-grid');
-  horarioAgendado = null;
-  document.getElementById('btnAgendar').disabled=true;
-  document.getElementById('btnAgendar').classList.remove('on');
-  if(!horarios.length){ grid.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:.82rem">Nenhum horário disponível no momento.</p>'; return; }
-  grid.innerHTML = horarios.map(function(h){
-    return '<button class="horario-btn" onclick="selecionarHorario(this,\''+h.iso+'\')">' + h.label + '</button>';
-  }).join('');
+  var grid = document.getElementById('horarios-grid'); horarioAgendado = null;
+  document.getElementById('btnAgendar').disabled=true; document.getElementById('btnAgendar').classList.remove('on');
+  if(!horarios.length){ grid.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:.82rem">Nenhum horário disponível.</p>'; return; }
+  grid.innerHTML = horarios.map(function(h){ return '<button class="horario-btn" onclick="selecionarHorario(this,\''+h.iso+'\')">'+h.label+'</button>'; }).join('');
 }
 
 function selecionarHorario(el, iso){
   document.querySelectorAll('.horario-btn').forEach(function(b){b.classList.remove('selected');});
   el.classList.add('selected'); horarioAgendado = iso;
-  var btn = document.getElementById('btnAgendar');
-  btn.disabled=false; btn.classList.add('on');
+  var btn = document.getElementById('btnAgendar'); btn.disabled=false; btn.classList.add('on');
 }
 
 function continuar_apos_disponibilidade(){ modoAgendamento=false; irParaPagamento(false); }
 function prosseguirAgendamento(){ if(!horarioAgendado){ alert('Selecione um horário.'); return; } modoAgendamento=true; irParaPagamento(true); }
 
 function irParaPagamento(agendamento){
-  showScreen('payment');
-  document.getElementById('nav-step').textContent='PAGAMENTO';
+  showScreen('payment'); document.getElementById('nav-step').textContent='PAGAMENTO';
   if(agendamento){
     var h = new Date(horarioAgendado).toLocaleString('pt-BR',{timeZone:'America/Fortaleza',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
     document.getElementById('pay-label-tipo').textContent='Agendamento — '+h;
@@ -671,9 +609,6 @@ function irParaPagamento(agendamento){
   }
 }
 
-/* ═══════════════════════════════════════════
-   S5 — PAGAMENTO
-═══════════════════════════════════════════ */
 async function gerarPix(){
   var nome=document.getElementById('payNome').value.trim();
   var tel=document.getElementById('payTel').value.replace(/\D/g,'');
@@ -681,25 +616,22 @@ async function gerarPix(){
   if(!nome){document.getElementById('payNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
   if(!cpf){document.getElementById('payCPF').focus();return;}
-  var btn=document.getElementById('payBtn');
-  btn.disabled=true; btn.textContent='Gerando QR Code...';
+  var btn=document.getElementById('payBtn'); btn.disabled=true; btn.textContent='Gerando QR Code...';
   try{
     var res=await fetch(API+'/api/payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,tel})});
     var d=await res.json();
-    if(!d.ok||!d.qr_code_base64){btn.disabled=false;btn.textContent='Gerar QR Code Pix';alert('Erro ao gerar pagamento. Tente novamente.');return;}
+    if(!d.ok||!d.qr_code_base64){btn.disabled=false;btn.textContent='Gerar QR Code Pix';alert('Erro ao gerar pagamento.');return;}
     pixCode=d.qr_code; paymentId=d.payment_id;
     document.getElementById('payQrImg').src='data:image/png;base64,'+d.qr_code_base64;
     document.getElementById('payQrWrap').classList.add('show');
     btn.textContent='QR gerado — aguardando pagamento';
     pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf;
     paymentPoller=setInterval(async function(){
-      try{
-        var r=await fetch(API+'/api/payment/'+paymentId);
-        var pd=await r.json();
+      try{ var r=await fetch(API+'/api/payment/'+paymentId); var pd=await r.json();
         if(pd.status==='approved'){clearInterval(paymentPoller);pagamentoConfirmado(nome,tel,cpf);}
       }catch(e){}
     },4000);
-  }catch(e){btn.disabled=false;btn.textContent='Gerar QR Code Pix';alert('Erro de conexão. Verifique sua internet.');}
+  }catch(e){btn.disabled=false;btn.textContent='Gerar QR Code Pix';alert('Erro de conexão.');}
 }
 
 function copiarPix(){
@@ -724,8 +656,7 @@ async function pagamentoConfirmado(nome,tel,cpf){
       atendimentoId=dPre.atendimentoId; salvarSessao();
       if(dPre.linkRetorno){
         history.replaceState(null,'',dPre.linkRetorno);
-        var linkCompleto=window.location.href;
-        document.getElementById('retornoUrl').textContent=linkCompleto;
+        document.getElementById('retornoUrl').textContent=window.location.href;
         document.getElementById('retornoBloco').classList.add('show');
         document.getElementById('payBtn').style.display='none';
         return;
@@ -736,22 +667,16 @@ async function pagamentoConfirmado(nome,tel,cpf){
 }
 
 function continuarParaTriagem(){
-  showScreen('triage');
-  document.getElementById('nav-step').textContent='TRIAGEM MÉDICA';
-  startTriage();
+  showScreen('triage'); document.getElementById('nav-step').textContent='TRIAGEM MÉDICA'; startTriage();
 }
 
 function copiarLinkRetorno(){
   var link=document.getElementById('retornoUrl').textContent;
   var btn=document.getElementById('btnCopiarLink');
-  function mostrarCopiado(){
-    btn.textContent='✓ Copiado!'; btn.classList.add('copiado');
-    setTimeout(function(){ btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar link'; btn.classList.remove('copiado'); },2500);
-  }
-  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(link).then(mostrarCopiado).catch(function(){ fallbackCopy(link); mostrarCopiado(); }); }
-  else { fallbackCopy(link); mostrarCopiado(); }
+  function ok(){ btn.textContent='✓ Copiado!'; btn.classList.add('copiado'); setTimeout(function(){ btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar link'; btn.classList.remove('copiado'); },2500); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(link).then(ok).catch(function(){fallbackCopy(link);ok();}); }
+  else { fallbackCopy(link); ok(); }
 }
-
 function fallbackCopy(text){
   var el=document.createElement('textarea'); el.value=text; el.style.position='fixed'; el.style.opacity='0';
   document.body.appendChild(el); el.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(el);
@@ -759,40 +684,28 @@ function fallbackCopy(text){
 
 async function confirmarAgendamento(nome,tel,cpf){
   try{
-    var r1 = await fetch(API+'/api/agendamento/criar',{method:'POST',headers:{'Content-Type':'application/json'},
+    var r1=await fetch(API+'/api/agendamento/criar',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,modalidade:tipoConsulta,horario_agendado:horarioAgendado})});
-    var d1 = await r1.json();
-    if(!d1.ok){ alert('Erro ao criar agendamento: '+(d1.error||'tente novamente')); return; }
-    agendamentoId = d1.agendamentoId;
-    var r2 = await fetch(API+'/api/agendamento/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({agendamentoId, paymentId})});
-    var d2 = await r2.json();
-    var h = d2.horarioFormatado || '';
-    showScreen('espera');
-    document.getElementById('nav-step').textContent='AGENDAMENTO CONFIRMADO';
+    var d1=await r1.json();
+    if(!d1.ok){ alert('Erro: '+(d1.error||'tente novamente')); return; }
+    agendamentoId=d1.agendamentoId;
+    var r2=await fetch(API+'/api/agendamento/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({agendamentoId,paymentId})});
+    var d2=await r2.json(); var h=d2.horarioFormatado||'';
+    showScreen('espera'); document.getElementById('nav-step').textContent='AGENDAMENTO CONFIRMADO';
     document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(66,133,244,.2),rgba(52,168,83,.15))';
     document.getElementById('esperaIcon').textContent='📅';
     document.getElementById('esperaTitulo').textContent='Agendamento confirmado!';
-    document.getElementById('esperaSub').textContent='Seu horário foi reservado'+(h?' para '+h:'')+'. Retorne neste link no horário agendado.';
+    document.getElementById('esperaSub').textContent='Seu horário foi reservado'+(h?' para '+h:'')+'.';
     document.getElementById('esperaBadge').className='espera-badge video';
     document.getElementById('esperaBadgeIcon').textContent='📅';
     document.getElementById('esperaBadgeText').textContent='Agendado';
-    document.getElementById('esperaStatusTxt').textContent='Um e-mail de confirmação foi enviado ao médico.';
-  }catch(e){ alert('Erro ao confirmar agendamento. Tente novamente.'); }
+    document.getElementById('esperaStatusTxt').textContent='E-mail de confirmação enviado.';
+  }catch(e){ alert('Erro ao confirmar agendamento.'); }
 }
 
-/* ═══════════════════════════════════════════
-   S6 — TRIAGEM IA
-═══════════════════════════════════════════ */
 var triageHistory=[], anamnesis={}, step=0, pending=false;
-var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados — NÃO peça novamente.\n\n'
-  +'Conduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n'
-  +'1. Pergunte qual o problema principal\n'
-  +'2. Há quanto tempo, intensidade (0-10) e se tem febre\n'
-  +'3. Doenças crônicas, alergias, medicamentos em uso\n'
-  +'4. Precisa de atestado ou receita?\n\n'
-  +'Regras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\n'
-  +'Quando coletar tudo, responda SOMENTE com JSON: {"done":true,"summary":"[resumo formatado]"}';
+var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados — NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo, responda SOMENTE com JSON: {"done":true,"summary":"[resumo formatado]"}';
 
 function startTriage(){
   triageHistory=[]; anamnesis={}; step=0;
@@ -833,7 +746,7 @@ async function sendTriage(text){
     var parsed=JSON.parse(clean);
     if(parsed.done&&parsed.summary){
       anamnesis.summary=parsed.summary; updateProgress(6);
-      addMsg('triageChat','bot','Triagem concluída! ✓\nAguarde enquanto você entra na fila para atendimento com um médico.');
+      addMsg('triageChat','bot','Triagem concluída! ✓\nAguarde enquanto você entra na fila.');
       await esperar(1200); finalizarTriagem();
       pending=false; document.getElementById('triageSend').disabled=false; return;
     }
@@ -848,9 +761,8 @@ async function sendTriage(text){
 async function finalizarTriagem(){
   try{
     if(atendimentoId){
-      var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({atendimentoId:atendimentoId,triagem:anamnesis.summary||''})});
-      await r.json();
+      await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({atendimentoId,triagem:anamnesis.summary||''})});
     } else {
       var r=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,
@@ -864,36 +776,27 @@ async function finalizarTriagem(){
   mostrarSalaEspera();
 }
 
-/* ═══════════════════════════════════════════
-   S7 — SALA DE ESPERA
-═══════════════════════════════════════════ */
 function mostrarSalaEspera(){
-  showScreen('espera');
-  document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
-  var badge=document.getElementById('esperaBadge');
-  badge.className='espera-badge '+tipoConsulta;
+  showScreen('espera'); document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
+  var badge=document.getElementById('esperaBadge'); badge.className='espera-badge '+tipoConsulta;
   document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
   document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
-  tentativas=0; verificarStatus();
-  esperaPoller=setInterval(verificarStatus,5000);
+  tentativas=0; verificarStatus(); esperaPoller=setInterval(verificarStatus,5000);
 }
 
 async function verificarStatus(){
   if(!atendimentoId){atualizarContador();return;}
   try{
     var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
-    var data=await res.json();
-    if(!data.ok)return;
-    atualizarContador();
-    var a=data.atendimento;
+    var data=await res.json(); if(!data.ok)return;
+    atualizarContador(); var a=data.atendimento;
     if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
     if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')){ clearInterval(esperaPoller); medicoAssumiu(a); }
   }catch(e){}
 }
 
 function atualizarContador(){
-  tentativas++;
-  var total=tentativas*5; var mins=Math.floor(total/60); var secs=total%60;
+  tentativas++; var total=tentativas*5; var mins=Math.floor(total/60); var secs=total%60;
   var el=document.getElementById('esperaContador');
   if(el) el.textContent=(mins>0?mins+'min ':'')+secs+'s';
 }
@@ -908,21 +811,17 @@ function medicoAssumiu(a){
     try{
       var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
       var data=await res.json();
-      if(data.ok && data.atendimento.status==='encerrado'){ clearInterval(encerradoPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); }
+      if(data.ok&&data.atendimento.status==='encerrado'){ clearInterval(encerradoPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); }
     }catch(e){}
   },8000);
   if(tipoConsulta==='chat') iniciarChatConsulta(a);
   else iniciarVideoConsulta(a);
 }
 
-/* ═══════════════════════════════════════════
-   CHAT PACIENTE
-═══════════════════════════════════════════ */
 function iniciarChatConsulta(atendimento){
   if(atendimento.medico_nome){
-    var nome = atendimento.medico_nome;
-    document.getElementById('chatMedicoLabel').textContent=nome+' — pode enviar sua mensagem';
-    document.getElementById('medicoNomeBanner').textContent=nome;
+    document.getElementById('chatMedicoLabel').textContent=atendimento.medico_nome+' — pode enviar sua mensagem';
+    document.getElementById('medicoNomeBanner').textContent=atendimento.medico_nome;
     document.getElementById('medicoEntrou').style.display='flex';
   }
   document.getElementById('chatConsulta').classList.add('ativo');
@@ -933,36 +832,27 @@ function iniciarChatConsulta(atendimento){
 }
 async function carregarHistoricoChat(){
   if(!atendimentoId)return;
-  try{
-    var res=await fetch(API+'/api/chat/'+atendimentoId);
-    var data=await res.json();
-    if(!data.ok)return;
-    var msgs=data.mensagens||[];
+  try{ var res=await fetch(API+'/api/chat/'+atendimentoId); var data=await res.json();
+    if(!data.ok)return; var msgs=data.mensagens||[];
     if(msgs.length>0){ msgs.forEach(function(m){renderMsgChat(m.autor,m.texto,m.criado_em);ultimaMsgId=m.id;}); }
   }catch(e){}
 }
 async function buscarMensagensNovas(){
   if(!atendimentoId||!chatAtivo)return;
-  try{
-    var res=await fetch(API+'/api/chat/'+atendimentoId);
-    var data=await res.json();
+  try{ var res=await fetch(API+'/api/chat/'+atendimentoId); var data=await res.json();
     if(!data.ok)return;
-    (data.mensagens||[]).forEach(function(m){
-      if(m.id>ultimaMsgId){ if(m.autor==='medico') renderMsgChat(m.autor,m.texto,m.criado_em); ultimaMsgId=m.id; }
-    });
+    (data.mensagens||[]).forEach(function(m){ if(m.id>ultimaMsgId){ if(m.autor==='medico') renderMsgChat(m.autor,m.texto,m.criado_em); ultimaMsgId=m.id; } });
   }catch(e){}
 }
 async function enviarMensagemChat(){
-  var inp=document.getElementById('chatInputPaciente');
-  var texto=inp.value.trim();
+  var inp=document.getElementById('chatInputPaciente'); var texto=inp.value.trim();
   if(!texto||!atendimentoId)return;
   inp.value=''; inp.style.height='auto';
   renderMsgChat('paciente',texto,new Date().toISOString());
   try{
     var r=await fetch(API+'/api/chat/enviar',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({atendimentoId,autor:'paciente',texto})});
-    var d=await r.json();
-    if(d.ok&&d.mensagem&&d.mensagem.id>ultimaMsgId) ultimaMsgId=d.mensagem.id;
+    var d=await r.json(); if(d.ok&&d.mensagem&&d.mensagem.id>ultimaMsgId) ultimaMsgId=d.mensagem.id;
   }catch(e){}
 }
 function renderMsgChat(autor,texto,timestamp){
@@ -975,36 +865,23 @@ function renderMsgChat(autor,texto,timestamp){
   msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
 }
 
-/* ═══════════════════════════════════════════
-   VÍDEO PACIENTE
-═══════════════════════════════════════════ */
 function iniciarVideoConsulta(atendimento){
   if(atendimento.medico_nome){ document.getElementById('medicoNomeBannerVideo').textContent=atendimento.medico_nome; document.getElementById('medicoEntrouVideo').style.display='flex'; }
   document.getElementById('meetWrap').classList.add('ativo');
   if(atendimento.meet_link){ ativarLinkMeet(atendimento.meet_link); }
-  else {
-    meetPoller=setInterval(async function(){
-      try{
-        var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
-        var data=await res.json();
-        if(data.ok&&data.atendimento.meet_link){clearInterval(meetPoller);ativarLinkMeet(data.atendimento.meet_link);}
-      }catch(e){}
-    },4000);
-  }
+  else { meetPoller=setInterval(async function(){
+    try{ var res=await fetch(API+'/api/atendimento/status/'+atendimentoId); var data=await res.json();
+      if(data.ok&&data.atendimento.meet_link){clearInterval(meetPoller);ativarLinkMeet(data.atendimento.meet_link);}
+    }catch(e){} },4000); }
 }
 function ativarLinkMeet(link){
-  var btn=document.getElementById('btnMeetLink');
-  btn.href=link; btn.classList.remove('disabled');
+  var btn=document.getElementById('btnMeetLink'); btn.href=link; btn.classList.remove('disabled');
   document.getElementById('meetAguardando').style.display='none';
 }
 
-/* ═══════════════════════════════════════════
-   S8 — CONSULTA ENCERRADA
-═══════════════════════════════════════════ */
 function encerrarConsultaPaciente(){
   chatAtivo=false; clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
-  var inp=document.getElementById('chatInputPaciente');
-  var sendBtn=document.getElementById('chatSendBtn');
+  var inp=document.getElementById('chatInputPaciente'); var sendBtn=document.getElementById('chatSendBtn');
   if(inp){inp.disabled=true; inp.placeholder='Consulta encerrada';}
   if(sendBtn) sendBtn.disabled=true;
   limparSessao(); mostrarTelaEncerrado();
@@ -1016,16 +893,12 @@ function novaConsulta(){
   document.getElementById('nav-step').textContent='IDENTIFICAÇÃO';
 }
 
-/* ═══════════════════════════════════════════
-   API OPENAI
-═══════════════════════════════════════════ */
 async function callAPI(endpoint,system,history,userMsg){
   history.push({role:'user',content:userMsg});
   try{
     var ctrl=new AbortController(); var t=setTimeout(function(){ctrl.abort();},35000);
     var res=await fetch(API+endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system,messages:history}),signal:ctrl.signal});
-    clearTimeout(t);
-    if(!res.ok)throw new Error('HTTP '+res.status);
+    clearTimeout(t); if(!res.ok)throw new Error('HTTP '+res.status);
     var data=await res.json(); var text=data.text||'';
     if(!text)throw new Error('vazia');
     history.push({role:'assistant',content:text}); return text;
@@ -1037,9 +910,6 @@ async function callAPI(endpoint,system,history,userMsg){
 }
 function esperar(ms){return new Promise(function(r){setTimeout(r,ms);});}
 
-/* ═══════════════════════════════════════════
-   INPUTS TRIAGEM
-═══════════════════════════════════════════ */
 (function(){
   var ta=document.getElementById('triageInput');
   ta.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,110)+'px';});
