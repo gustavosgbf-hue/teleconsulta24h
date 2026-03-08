@@ -10,7 +10,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
 
 :root{
   --g1:#b4e05a;--g2:#5ee0a0;
@@ -143,84 +143,52 @@ footer a:hover{color:var(--g2)}
 }
 
 /* WA WIDGET */
-.wa-btn{
-  position:fixed;bottom:28px;right:28px;z-index:9999;
-  width:58px;height:58px;border-radius:50%;
+#wa-wrapper{display:block}
+#wa-fab{
+  width:60px;height:60px;border-radius:50%;
   background:#25D366;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;border:none;outline:none;
-  box-shadow:0 6px 24px rgba(37,211,102,.50);
+  box-shadow:0 4px 20px rgba(37,211,102,.55);
   transition:transform .15s,box-shadow .2s;
 }
-.wa-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.65)}
-.wa-btn svg{display:block;width:30px;height:30px;flex-shrink:0}
-
-.wa-popup{
-  position:fixed;bottom:100px;right:28px;z-index:9998;
+#wa-fab:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.7)}
+#wa-popup{
+  position:absolute;bottom:72px;right:0;
   width:300px;
   background:#1a2420;
   border:1px solid rgba(255,255,255,.08);
   border-radius:18px;
   overflow:hidden;
-  box-shadow:0 16px 48px rgba(0,0,0,.5);
-  transform:scale(.9) translateY(12px);
+  box-shadow:0 16px 48px rgba(0,0,0,.6);
+  transform:scale(.9) translateY(10px);
   opacity:0;
   pointer-events:none;
-  transition:transform .22s cubic-bezier(.34,1.56,.64,1), opacity .18s ease;
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1),opacity .18s ease;
   transform-origin:bottom right;
 }
-.wa-popup.open{
-  transform:scale(1) translateY(0);
-  opacity:1;
-  pointer-events:all;
-}
-
-.wa-popup__head{
-  background:#25D366;
-  padding:14px 16px;
-  display:flex;align-items:center;gap:10px;
-}
-.wa-popup__head-dot{
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(255,255,255,.2);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
+#wa-popup.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.wa-popup__head{background:#25D366;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.wa-popup__head-dot{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .wa-popup__head-info h4{font-size:.85rem;font-weight:700;color:#fff;margin-bottom:2px}
 .wa-popup__head-info p{font-size:.7rem;color:rgba(255,255,255,.8);font-weight:400}
-
 .wa-popup__body{padding:14px}
-.wa-popup__msg{
-  background:rgba(255,255,255,.05);
-  border-radius:10px;
-  padding:10px 12px;
-  font-size:.8rem;color:rgba(255,255,255,.7);
-  line-height:1.55;margin-bottom:12px;
-}
-.wa-popup__body input,
-.wa-popup__body textarea{
-  width:100%;background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:10px;
-  padding:9px 12px;
-  font-family:'Outfit',sans-serif;font-size:.8rem;
-  color:rgba(255,255,255,.85);
-  outline:none;resize:none;
-  transition:border-color .15s;margin-bottom:8px;display:block;
-}
-.wa-popup__body input::placeholder,
-.wa-popup__body textarea::placeholder{color:rgba(255,255,255,.3)}
-.wa-popup__body input:focus,
-.wa-popup__body textarea:focus{border-color:rgba(37,211,102,.4)}
+.wa-popup__msg{background:rgba(255,255,255,.05);border-radius:10px;padding:10px 12px;font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.55;margin-bottom:12px}
+.wa-popup__body input,.wa-popup__body textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:9px 12px;font-family:'Outfit',sans-serif;font-size:.8rem;color:rgba(255,255,255,.85);outline:none;resize:none;transition:border-color .15s;margin-bottom:8px;display:block}
+.wa-popup__body input::placeholder,.wa-popup__body textarea::placeholder{color:rgba(255,255,255,.3)}
+.wa-popup__body input:focus,.wa-popup__body textarea:focus{border-color:rgba(37,211,102,.4)}
 .wa-popup__body textarea{height:72px}
-.wa-popup__send{
-  width:100%;padding:11px;
-  background:#25D366;color:#fff;
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:.82rem;
-  border:none;border-radius:10px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  transition:background .15s;
-}
+.wa-popup__send{width:100%;padding:11px;background:#25D366;color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:.82rem;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .15s}
 .wa-popup__send:hover{background:#1ebe5d}
+
+
+@keyframes wa-pulse{
+  0%{box-shadow:0 0 0 0 rgba(37,211,102,.55),0 4px 20px rgba(37,211,102,.4)}
+  70%{box-shadow:0 0 0 14px rgba(37,211,102,0),0 4px 20px rgba(37,211,102,.4)}
+  100%{box-shadow:0 0 0 0 rgba(37,211,102,0),0 4px 20px rgba(37,211,102,.4)}
+}
+#wa-fab{animation:wa-pulse 2s ease-in-out infinite}
+#wa-fab:hover{animation:none;transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.7)}
 
 </style>
 </head>
@@ -412,36 +380,40 @@ footer a:hover{color:var(--g2)}
 
 
 <!-- WA WIDGET -->
-<button class="wa-btn" onclick="toggleWa()" aria-label="WhatsApp">
-  <svg id="wa-icon" width="24" height="24" viewBox="0 0 24 24" fill="white">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-</button>
-
-<div class="wa-popup" id="waPopup">
-  <div class="wa-popup__head">
-    <div class="wa-popup__head-dot">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
+<div id="wa-wrapper">
+  <div id="wa-popup">
+    <div class="wa-popup__head">
+      <div class="wa-popup__head-dot">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </div>
+      <div class="wa-popup__head-info">
+        <h4>ConsultaJá24h</h4>
+        <p>Tire suas dúvidas</p>
+      </div>
     </div>
-    <div class="wa-popup__head-info">
-      <h4>ConsultaJá24h</h4>
-      <p>Tire suas dúvidas</p>
+    <div class="wa-popup__body">
+      <div class="wa-popup__msg">Olá! Tem alguma dúvida sobre o atendimento? Me conta que respondo rápido. 👋</div>
+      <input type="text" id="waNome" placeholder="Seu nome" />
+      <textarea id="waMensagem" placeholder="Qual é sua dúvida?"></textarea>
+      <button class="wa-popup__send" onclick="enviarWa()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar no WhatsApp
+      </button>
     </div>
   </div>
-  <div class="wa-popup__body">
-    <div class="wa-popup__msg">Olá! Tem alguma dúvida sobre o atendimento? Me conta que respondo rápido. 👋</div>
-    <input type="text" id="waNome" placeholder="Seu nome" />
-    <textarea id="waMensagem" placeholder="Qual é sua dúvida?"></textarea>
-    <button class="wa-popup__send" onclick="enviarWa()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Falar no WhatsApp
-    </button>
-  </div>
+  <button id="wa-fab" onclick="toggleWa()" aria-label="WhatsApp">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </button>
 </div>
-
 <script>
+(function(){
+  var w = document.getElementById('wa-wrapper');
+  if(w){
+    w.style.cssText = 'position:fixed !important;bottom:28px !important;right:28px !important;left:auto !important;z-index:2147483647 !important;display:block !important';
+    document.body.appendChild(w);
+  }
+})();
+
 function toggleFaq(btn){
   var item=btn.parentElement;
   var isOpen=item.classList.contains('open');
@@ -449,14 +421,13 @@ function toggleFaq(btn){
   if(!isOpen) item.classList.add('open');
 }
 function toggleWa(){
-  document.getElementById('waPopup').classList.toggle('open');
+  document.getElementById('wa-popup').classList.toggle('open');
 }
 function enviarWa(){
   var nome = document.getElementById('waNome').value.trim();
   var msg = document.getElementById('waMensagem').value.trim();
-  var texto = msg ? (nome ? 'Olá, meu nome é ' + nome + '. ' + msg : msg) : 'Olá, tenho uma dúvida sobre a consulta online.';
-  var url = 'https://wa.me/5598989272727?text=' + encodeURIComponent(texto);
-  window.open(url, '_blank');
+  var texto = (nome ? 'Olá, meu nome é ' + nome + '. ' : 'Olá! ') + (msg || 'Tenho uma dúvida sobre a consulta online.');
+  window.open('https://wa.me/5598989272727?text=' + encodeURIComponent(texto), '_blank');
 }
 </script>
 
