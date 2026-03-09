@@ -238,7 +238,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div><div class="id-label">WhatsApp (com DDD)</div><input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric"/></div>
       <div>
         <div class="id-label">Data de nascimento</div>
-        <input class="id-input" id="idNascimento" type="date" style="color-scheme:dark"/>
+        <input class="id-input" id="idNascimento" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraData(this)"/>
       </div>
       <div>
         <div class="id-label">Telefone para receber documentos (SMS) <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">opcional</span></div>
@@ -856,6 +856,14 @@ function esperar(ms){return new Promise(function(r){setTimeout(r,ms);});}
   ta.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendTriage(this.value.trim());}});
   document.getElementById('triageSend').addEventListener('click',function(){sendTriage(ta.value.trim());});
 })();
+
+function mascaraData(el){
+  var v=el.value.replace(/\D/g,'');
+  if(v.length>8)v=v.slice(0,8);
+  if(v.length>4) v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+  else if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
+  el.value=v;
+}
 </script>
 <script>gtag('event','conversion',{'send_to':'AW-17964942771/AT3gCPTl0PsbELOLrfZC','value':49.90,'currency':'BRL','transaction_id':''});</script>
 </body>
