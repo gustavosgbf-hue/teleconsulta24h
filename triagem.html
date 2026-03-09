@@ -95,6 +95,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-agendar.on{opacity:1;cursor:pointer}
 .btn-agendar.on:hover{transform:translateY(-1px)}
 .agend-note{font-size:.72rem;color:rgba(255,255,255,.28);font-weight:300;line-height:1.6;padding:10px 14px;background:rgba(66,133,244,.04);border-radius:10px;border:1px solid rgba(66,133,244,.1);margin-bottom:16px;text-align:left}
+/* ── PAGAMENTO ── */
 #screen-payment .box{width:min(500px,100%)}
 .pay-head{padding:22px 24px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}
 .pay-icon{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.18),rgba(94,224,160,.12));border:1px solid rgba(180,224,90,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
@@ -117,6 +118,14 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .pay-divider{display:flex;align-items:center;gap:10px;margin:18px 0 0;font-size:.7rem;color:rgba(255,255,255,.2)}
 .pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
 .pay-seguro{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300}
+/* ── QR dinâmico ── */
+.pay-qr-section{display:none;text-align:center;margin-top:20px}
+.pay-qr-section.ativo{display:block}
+.pay-qr-img{width:220px;height:220px;border-radius:16px;border:2px solid rgba(180,224,90,.25);background:#fff;padding:10px;display:block;margin:0 auto 14px;image-rendering:pixelated}
+.pay-polling-status{margin-top:14px;font-size:.78rem;color:rgba(255,255,255,.35);font-weight:300;line-height:1.6}
+.pay-polling-status.ok{color:#5ee0a0}
+.pay-polling-status.err{color:#ff8080}
+/* ── TRIAGEM ── */
 #screen-triage{flex-direction:column}
 .progress-bar{height:3px;background:rgba(255,255,255,.06);flex-shrink:0}
 .progress-fill{height:100%;background:linear-gradient(90deg,#b4e05a,#5ee0a0);transition:width .5s ease;width:0%}
@@ -148,6 +157,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .send-btn{width:42px;height:42px;border-radius:50%;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .12s;box-shadow:0 4px 14px rgba(180,224,90,.28);-webkit-appearance:none}
 .send-btn:hover{transform:scale(1.08)}
 .send-btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+/* ── ESPERA ── */
 #screen-espera .espera-box{width:min(580px,100%);text-align:center;padding:32px 20px}
 .espera-anim{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.15),rgba(94,224,160,.1));border:1px solid rgba(94,224,160,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;transition:background .5s}
 .espera-anim::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(94,224,160,.15);animation:ring 2s ease-in-out infinite}
@@ -194,6 +204,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-meet{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:14px;border:none;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(66,133,244,.3);transition:transform .12s,box-shadow .2s}
 .btn-meet:not(.disabled):hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(66,133,244,.45)}
 .btn-meet.disabled{opacity:.4;pointer-events:none}
+/* ── ENCERRADO ── */
 .encerrado-box{width:min(480px,100%);text-align:center;padding:32px 20px}
 .encerrado-icon{font-size:3rem;margin-bottom:20px}
 .encerrado-titulo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;margin-bottom:10px;color:var(--g2)}
@@ -329,6 +340,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <div class="pay-valor-left"><div class="label" id="pay-label-tipo">Consulta médica online</div><div class="desc">Receitas e atestados quando indicados</div></div>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
+
       <div class="pay-label">Seu nome</div>
       <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
       <div class="pay-label">Seu WhatsApp</div>
@@ -337,21 +349,24 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
       <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:20px;line-height:1.5">Utilizado para emissão de documentos médicos quando necessário.</div>
 
-      <div style="text-align:center;margin-bottom:20px">
+      <!-- Botão gerar QR -->
+      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Gerar QR Code Pix →</button>
+
+      <!-- QR dinâmico — aparece após gerarPagamento() -->
+      <div class="pay-qr-section" id="pay-qr-section">
         <div style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:12px">Escaneie o QR Code ou copie o código Pix</div>
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhIAAAISAQAAAACxRhsSAAAFYElEQVR4nO2dTY6jTAyGH38gZQlSDpCjkJuN5mZwlBygJVhGAvlbuFxV9Ez3LCZhosgsWk0gj0B65fJvRZS/Pab//hoBwQhGMILxBoxF0nEF/LRFrosIU59uFOlBpN8Elhb/Tvu45whGML5lNKqqqsAm0Km7Ap2q/LiJMPWbMMyb6Li0plgGVVWdH/kcwQjGl4fq3CjQKMPcqI7dCnQrqrqiI42aJsduJd1iN+Onr/IuwXhfRvvpXOyjpUXoPpBh7oWpn5HhdlKxm7r54c8RjGB8e+zsKWZF06Ku7gEMqmo2dgTsQtjTYBzOMHUCyHU5qUVP5pWqKiwipudBV+QKQKeq44OfIxjB+JqxWegONG5Aby3y43ZSWFqARuW6tJiKWVqYRMQiqpd6l2C8J6OFLqf6l80cUJ16BDyisiV/utyFqUeYLit1eeBV3iUY78vI/im/uKFjNq85/PeUQO24hn8ajOcz8IhpRcduNdmmPxZHuTCHEmC5p6pjFzoNxhGMKoSy0xFI+fsuhfUpXKKxxL7r1I/QaTCezvAsU7Gn2bzaH7edWJRlljXyUsE4lkFZ3kvJNNWeNJ9aabV81rhYw54G4xCGx1FdXsVhVzKdXaLJU3WvNFvb0Gkwns/whX7288H+S76o+6d1lF/irVj3g3Ecw9r33GxOF8+aTn2jfnqX4pAC+cIjnyMYwfj6KCkpU2cKkpqUSa3MJnUSyyKvWPeDcQyjheWsMtxOCmzA0gNsonbarVae0mE+rzKMINCo2H3d+qDnCEYwvjusr0+nvkEAFBShU2QYAdhahvm8CjQwWWF1E6BZxTr8XuVdgvHWjKoxWq3d5NO0CbBJWujz8fNyl+jnD8ZBDKpQ/xeHtC6eluy+V/+JPH8wjmJUcVTSpIkVdmMo6qnTXbk/6vvBOIhBye5T95x4uwmQYvsyFfX5u6/yLsF4X0ZVN01NJjlNlRukSvU/pa7mUgWIdT8YRzCyPS3GsqmFOcz77pPqZndhQ6fBeDqjmjdVFlCWXjyn2pKyAYAnVuubH/gcwQjGt4c3RgNl8R937VPpvtylMu6/G/Y0GE9nuE53DVLJNd21Q+/Gpfw0/NNgHMOgmNJq+Kmu76erJlbrmM7uKpGXCsYhjHo9r/Kn3s/vqdOsyVy8ynoOnQbj+Qz3MYEyXpK02+Ul367mnGq+EDoNxjGMPLO37uOjLwpVI1Cb18hLBeMQRpaj7qv6K9VsKZ72L6KujG/oNBhPZ+wHTHPPyW7vidqe+pJfRvxDp8F4PiPP7EE9s1eCqb09tYUe3LyGToNxFGM5pfm8nz3IlUZVrb2/UbmyieqtRccl1a7kmgsAU+x7HoxDGLv5faBMmQLFvOYeqhxblQnpsKfBeDrD125vkS5b9lRz0b/xT5OUQ6fBOIRR5/SriB6oO6JytbSM8+dsQOg0GM9nfC47VVugVdkorTtSklh9iDp0GoznM9wh1VIZ1VwoLRv55cZo1br5P+xpMI5h1COkmgeiSta0CLh0pIxFopHnD8YhjJ1Dqrv5vDxZkrbsKdFT1f8X634wjmC0QGPru7CcV536WbHdJUZFvOE0bTExXda0MwXLJvq45whGML47THWSxQpsrbK0KGxtUmf/0TLMPXZhuub9UGjW13mXYLwv4/PvRlabTaTc/+63JMcuN6ZC9PMH498wNqnKqDpvwqB3+yz5scspb4+SOwFf812C8U4M9zYB6BT/BdO7reywnBW6D1FoVIb5TNr9bDmr7Y32Mu8SjPdm5N/jW8R+vpxJTqpjdxeRy10YbidlEhFvlt7E/sQ+aME4hiH653v+cEyv8i7BCEYwgvEvGf8DS7Wo4Dgv8uAAAAAASUVORK5CYII=" alt="QR Code Pix - R$49,90" style="width:240px;height:240px;border-radius:16px;border:2px solid rgba(180,224,90,.25);background:#fff;padding:10px;display:block;margin:0 auto 14px;image-rendering:pixelated"/>
-        <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPixEstatico()">
+        <img id="pay-qr-img" class="pay-qr-img" src="" alt="QR Code Pix"/>
+        <br/>
+        <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           Copiar código Pix
         </button>
-        <div style="font-size:.72rem;color:rgba(255,255,255,.3);margin-top:8px;line-height:1.6">JG FONSECA SERVICOS MEDICOS LTDA · R$ 49,90</div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.3);margin-top:4px;line-height:1.6">JG FONSECA SERVICOS MEDICOS LTDA · R$ 49,90</div>
+        <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento...</div>
       </div>
 
-      <button class="pay-btn" id="payBtn" onclick="jaPagei()">✓ Já paguei — continuar</button>
-      <p id="pay-note" style="text-align:center;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:10px;line-height:1.6">Após confirmar o pagamento no seu extrato, clique no botão acima.</p>
-
       <div class="pay-divider">pagamento via</div>
-      <div class="pay-seguro">🔒 PIX instantâneo · Banco Inter Empresas · Dados criptografados</div>
+      <div class="pay-seguro">🔒 PIX instantâneo · Mercado Pago · Dados criptografados</div>
     </div>
   </div>
 </div>
@@ -430,7 +445,8 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 var API = 'https://triagem-api.onrender.com';
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', tipoConsulta = '';
 var atendimentoId = null, agendamentoId = null, horarioAgendado = null, modoAgendamento = false;
-var paymentPoller = null, esperaPoller = null, chatPoller = null, meetPoller = null, encerradoPoller = null;
+var paymentId = null, pixCode = '', paymentPoller = null;
+var esperaPoller = null, chatPoller = null, meetPoller = null, encerradoPoller = null;
 var ultimaMsgId = 0, chatAtivo = false, tentativas = 0;
 var dispData = null;
 
@@ -568,58 +584,139 @@ function continuar_apos_disponibilidade(){ modoAgendamento=false; irParaPagament
 function prosseguirAgendamento(){ if(!horarioAgendado){ alert('Selecione um horário.'); return; } modoAgendamento=true; irParaPagamento(true); }
 
 function irParaPagamento(agendamento){
-  showScreen('payment'); document.getElementById('nav-step').textContent='PAGAMENTO';
+  // Resetar estado do pagamento a cada entrada na tela
+  paymentId = null; pixCode = '';
+  clearInterval(paymentPoller);
+  var qrSection = document.getElementById('pay-qr-section');
+  qrSection.classList.remove('ativo');
+  var btn = document.getElementById('payBtn');
+  btn.style.display = 'block'; btn.disabled = false; btn.textContent = 'Gerar QR Code Pix →';
+  var statusEl = document.getElementById('pay-polling-status');
+  statusEl.textContent = '⏳ Aguardando confirmação do pagamento...';
+  statusEl.className = 'pay-polling-status';
+
+  showScreen('payment');
+  document.getElementById('nav-step').textContent='PAGAMENTO';
   if(agendamento){
     var h = new Date(horarioAgendado).toLocaleString('pt-BR',{timeZone:'America/Fortaleza',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
     document.getElementById('pay-label-tipo').textContent='Agendamento — '+h;
     document.getElementById('pay-subtitulo').textContent='Pagamento para confirmar agendamento';
-    document.getElementById('pay-note').textContent='✓ Após o pagamento, seu agendamento será confirmado.';
   } else {
     document.getElementById('pay-label-tipo').textContent='Consulta médica online';
     document.getElementById('pay-subtitulo').textContent='Pix instantâneo';
-    document.getElementById('pay-note').textContent='Após confirmar o pagamento no seu extrato, clique no botão acima.';
   }
 }
 
-var PIX_ESTATICO = '00020101021126740014br.gov.bcb.pix0136997fa6d3-81a1-429d-888c-d575ed868e900212Telemedicina520400005303986540549.905802BR5913JG F S M LTDA6008SAO LUIS62070503***63040B4F';
+// ── PAGAMENTO MP ───────────────────────────────────────────────────────────────
 
-function copiarPixEstatico(){
-  var b = document.getElementById('payCopyBtn');
-  function ok(){ b.textContent='✓ Copiado!'; setTimeout(function(){b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar código Pix';},2200); }
-  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(PIX_ESTATICO).then(ok).catch(function(){fallbackCopy(PIX_ESTATICO);ok();}); }
-  else { fallbackCopy(PIX_ESTATICO); ok(); }
-}
-
-async function jaPagei(){
-  var nome=document.getElementById('payNome').value.trim();
-  var tel=document.getElementById('payTel').value.replace(/\D/g,'');
-  var cpf=document.getElementById('payCPF').value.trim();
+async function gerarPagamento(){
+  var nome = document.getElementById('payNome').value.trim();
+  var tel  = document.getElementById('payTel').value.replace(/\D/g,'');
+  var cpf  = document.getElementById('payCPF').value.trim();
   if(!nome){document.getElementById('payNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
   if(!cpf){document.getElementById('payCPF').focus();return;}
   pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf;
-  var btn=document.getElementById('payBtn'); btn.disabled=true; btn.textContent='Registrando...';
-  if(modoAgendamento){ await confirmarAgendamento(nome,tel,cpf); return; }
+
+  var btn = document.getElementById('payBtn');
+  btn.disabled=true; btn.textContent='Gerando QR Code...';
+
   try{
-    var rPre=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,
-        triagem:'(Triagem em andamento — aguardando resposta do paciente)',tipo:tipoConsulta,data_nascimento:pacienteNascimento})});
-    var dPre=await rPre.json();
-    if(dPre.atendimentoId){
-      atendimentoId=dPre.atendimentoId; salvarSessao();
-      if(dPre.linkRetorno){ history.replaceState(null,'',dPre.linkRetorno); }
+    var res = await fetch(API+'/api/payment',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({nome, email:'paciente@consultaja24h.com.br'})
+    });
+    var data = await res.json();
+    if(!data.ok || !data.qr_code) throw new Error(data.error||'Sem QR');
+
+    paymentId = data.payment_id;
+    pixCode   = data.qr_code;
+
+    // Exibe QR
+    if(data.qr_code_base64){
+      document.getElementById('pay-qr-img').src = 'data:image/png;base64,'+data.qr_code_base64;
     }
-  }catch(e){console.warn('Pre-registro error:',e);}
-  continuarParaTriagem();
+    document.getElementById('pay-qr-section').classList.add('ativo');
+    btn.style.display='none';
+
+    // Pré-registro na fila (status='triagem' — não aparece na fila do médico ainda)
+    try{
+      var rPre = await fetch(API+'/api/notify',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({nome:pacienteNome, tel:pacienteTel, tel_documentos:pacienteTelDoc,
+          cpf:pacienteCPF, triagem:'(Aguardando pagamento)', tipo:tipoConsulta,
+          data_nascimento:pacienteNascimento})
+      });
+      var dPre = await rPre.json();
+      if(dPre.atendimentoId){
+        atendimentoId = dPre.atendimentoId; salvarSessao();
+        if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
+      }
+    }catch(e){ console.warn('Pre-registro error:',e); }
+
+    // Inicia polling de confirmação
+    iniciarPollingPagamento();
+
+  }catch(e){
+    btn.disabled=false; btn.textContent='Gerar QR Code Pix →';
+    var statusEl = document.getElementById('pay-polling-status');
+    statusEl.textContent='❌ Erro ao gerar QR Code. Tente novamente.';
+    statusEl.className='pay-polling-status err';
+    console.error('Erro payment:',e);
+  }
 }
 
-function continuarParaTriagem(){
-  showScreen('triage'); document.getElementById('nav-step').textContent='TRIAGEM MÉDICA'; startTriage();
+function iniciarPollingPagamento(){
+  clearInterval(paymentPoller);
+  paymentPoller = setInterval(verificarPagamento, 4000);
+}
+
+async function verificarPagamento(){
+  if(!paymentId) return;
+  try{
+    var res  = await fetch(API+'/api/payment/'+paymentId);
+    var data = await res.json();
+    if(!data.ok) return;
+
+    if(data.status === 'approved'){
+      clearInterval(paymentPoller);
+      var statusEl = document.getElementById('pay-polling-status');
+      statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
+      statusEl.className='pay-polling-status ok';
+      await esperar(800);
+      if(modoAgendamento){ await confirmarAgendamento(pacienteNome, pacienteTel, pacienteCPF); }
+      else { continuarParaTriagem(); }
+    } else if(data.status==='cancelled'||data.status==='rejected'){
+      clearInterval(paymentPoller);
+      var statusEl = document.getElementById('pay-polling-status');
+      statusEl.textContent='❌ Pagamento cancelado. Gere um novo QR Code.';
+      statusEl.className='pay-polling-status err';
+      document.getElementById('pay-qr-section').classList.remove('ativo');
+      var btn = document.getElementById('payBtn');
+      btn.style.display='block'; btn.disabled=false; btn.textContent='Gerar novo QR Code Pix →';
+    }
+  }catch(e){}
+}
+
+function copiarPix(){
+  var b = document.getElementById('payCopyBtn');
+  function ok(){
+    b.textContent='✓ Copiado!';
+    setTimeout(function(){
+      b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar código Pix';
+    },2200);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(pixCode).then(ok).catch(function(){fallbackCopy(pixCode);ok();}); }
+  else{ fallbackCopy(pixCode); ok(); }
 }
 
 function fallbackCopy(text){
   var el=document.createElement('textarea'); el.value=text; el.style.position='fixed'; el.style.opacity='0';
   document.body.appendChild(el); el.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(el);
+}
+
+function continuarParaTriagem(){
+  showScreen('triage'); document.getElementById('nav-step').textContent='TRIAGEM MÉDICA'; startTriage();
 }
 
 async function confirmarAgendamento(nome,tel,cpf){
@@ -630,7 +727,7 @@ async function confirmarAgendamento(nome,tel,cpf){
     if(!d1.ok){ alert('Erro: '+(d1.error||'tente novamente')); return; }
     agendamentoId=d1.agendamentoId;
     var r2=await fetch(API+'/api/agendamento/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({agendamentoId,paymentId:''})});
+      body:JSON.stringify({agendamentoId,paymentId:paymentId||''})});
     var d2=await r2.json(); var h=d2.horarioFormatado||'';
     showScreen('espera'); document.getElementById('nav-step').textContent='AGENDAMENTO CONFIRMADO';
     document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(66,133,244,.2),rgba(52,168,83,.15))';
@@ -643,6 +740,8 @@ async function confirmarAgendamento(nome,tel,cpf){
     document.getElementById('esperaStatusTxt').textContent='E-mail de confirmação enviado.';
   }catch(e){ alert('Erro ao confirmar agendamento.'); }
 }
+
+// ── TRIAGEM ────────────────────────────────────────────────────────────────────
 
 var triageHistory=[], anamnesis={}, step=0, pending=false;
 var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados — NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo, responda SOMENTE com JSON: {"done":true,"summary":"[resumo formatado]"}';
@@ -698,12 +797,15 @@ async function sendTriage(text){
   if(step===5)setQR(['Apenas atestado','Apenas receita','Ambos','Nenhum']);
   pending=false; document.getElementById('triageSend').disabled=false;
 }
+
 async function finalizarTriagem(){
   try{
     if(atendimentoId){
+      // Atualiza o pré-registro com a triagem real → muda status para 'aguardando' → aparece na fila
       await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({atendimentoId,triagem:anamnesis.summary||''})});
     } else {
+      // Sem pré-registro: cria direto com status 'aguardando'
       var r=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,
           triagem:anamnesis.summary||'',tipo:tipoConsulta,data_nascimento:pacienteNascimento})});
@@ -712,9 +814,11 @@ async function finalizarTriagem(){
       if(d.linkRetorno) history.replaceState(null,'',d.linkRetorno);
     }
     salvarSessao();
-  }catch(e){console.warn('Notify error:',e);}
+  }catch(e){ console.warn('Notify error:',e); }
   mostrarSalaEspera();
 }
+
+// ── SALA DE ESPERA ─────────────────────────────────────────────────────────────
 
 function mostrarSalaEspera(){
   showScreen('espera'); document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
@@ -829,9 +933,12 @@ function encerrarConsultaPaciente(){
 function mostrarTelaEncerrado(){ showScreen('encerrado'); document.getElementById('nav-step').textContent='CONSULTA ENCERRADA'; }
 function novaConsulta(){
   limparSessao(); atendimentoId=null; tipoConsulta=''; chatAtivo=false; ultimaMsgId=0;
+  paymentId=null; pixCode=''; clearInterval(paymentPoller);
   history.replaceState(null,'','/triagem.html'); showScreen('identify');
   document.getElementById('nav-step').textContent='IDENTIFICAÇÃO';
 }
+
+// ── UTILS ──────────────────────────────────────────────────────────────────────
 
 async function callAPI(endpoint,system,history,userMsg){
   history.push({role:'user',content:userMsg});
