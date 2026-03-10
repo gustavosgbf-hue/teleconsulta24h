@@ -350,16 +350,16 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:20px;line-height:1.5">Utilizado para emissão de documentos médicos quando necessário.</div>
 
       <!-- Botão mostrar QR -->
-      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Ver Chave PIX →</button>
+      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Ver QR Code Pix →</button>
 
       <!-- QR fixo do Inter — aparece após clique -->
       <div class="pay-qr-section" id="pay-qr-section">
         <div style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:12px">Clique para ver e colar a Chave PIX</div>
-       
+        <img id="pay-qr-img" class="pay-qr-img" src="" alt="QR Code Pix"/>
         <br/>
-        <!-- Campo Chave PIX -->
+        <!-- Campo Pix copia e cola -->
         <div style="margin-bottom:14px;width:100%">
-          <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Pix copia e cola</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Chave PIX</div>
           <div style="display:flex;align-items:center;gap:8px">
             <input id="pixChaveInput" readonly type="text" value=""
               style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(180,224,90,.2);border-radius:10px;padding:10px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.8rem;outline:none;-webkit-user-select:all;user-select:all;cursor:pointer"
@@ -608,7 +608,7 @@ function irParaPagamento(agendamento){
   var btn = document.getElementById('payBtn');
   var btnConfirm = document.getElementById('payConfirmBtn');
   if(btnConfirm){ btnConfirm.disabled=false; btnConfirm.textContent='✅ Já realizei o pagamento'; }
-  btn.style.display = 'block'; btn.disabled = false; btn.textContent = 'Ver QR Code Pix →';
+  btn.style.display = 'block'; btn.disabled = false; btn.textContent = 'Ver Chave PIX  →';
   var statusEl = document.getElementById('pay-polling-status');
   statusEl.textContent = '⏳ Realize o pagamento e clique no botão abaixo';
   statusEl.className = 'pay-polling-status';
@@ -689,7 +689,7 @@ async function gerarPagamento(){
     }catch(e){ console.warn('Pre-registro error:',e); }
 
   }catch(e){
-    btn.disabled=false; btn.textContent='Ver QR Code Pix →';
+    btn.disabled=false; btn.textContent='Ver Chave Pix →';
     var statusEl = document.getElementById('pay-polling-status');
     statusEl.textContent='❌ Erro ao carregar. Tente novamente.';
     statusEl.className='pay-polling-status err';
