@@ -349,24 +349,40 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
       <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:20px;line-height:1.5">Utilizado para emissão de documentos médicos quando necessário.</div>
 
-      <!-- Botão gerar QR -->
-      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Gerar QR Code Pix →</button>
+      <!-- Botão mostrar QR -->
+      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Ver QR Code Pix →</button>
 
-      <!-- QR dinâmico — aparece após gerarPagamento() -->
+      <!-- QR fixo do Inter — aparece após clique -->
       <div class="pay-qr-section" id="pay-qr-section">
-        <div style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:12px">Escaneie o QR Code ou copie o código Pix</div>
+        <div style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:12px">Escaneie o QR Code com seu app do banco</div>
         <img id="pay-qr-img" class="pay-qr-img" src="" alt="QR Code Pix"/>
         <br/>
-        <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar código Pix
-        </button>
+        <!-- Campo Pix copia e cola -->
+        <div style="margin-bottom:14px;width:100%">
+          <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Pix copia e cola</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <input id="pixChaveInput" readonly type="text" value=""
+              style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(180,224,90,.2);border-radius:10px;padding:10px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.8rem;outline:none;-webkit-user-select:all;user-select:all;cursor:pointer"
+              onclick="this.select();copiarPix()"/>
+            <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()" style="margin-bottom:0;white-space:nowrap;flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copiar
+            </button>
+          </div>
+        </div>
         <div style="font-size:.72rem;color:rgba(255,255,255,.3);margin-top:4px;line-height:1.6">JG FONSECA SERVICOS MEDICOS LTDA · R$ 49,90</div>
-        <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento...</div>
+        <div class="pay-polling-status" id="pay-polling-status">⏳ Realize o pagamento e clique no botão abaixo</div>
+        <!-- Botão de confirmação manual -->
+        <button class="pay-btn" id="payConfirmBtn" onclick="confirmarPagamentoManual()" style="margin-top:18px;background:linear-gradient(135deg,#5ee0a0,#b4e05a)">
+          ✅ Já realizei o pagamento
+        </button>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.25);margin-top:10px;line-height:1.5;text-align:center">
+          Após clicar, você será direcionado à triagem.<br>Pagamentos são verificados manualmente.
+        </div>
       </div>
 
       <div class="pay-divider">pagamento via</div>
-      <div class="pay-seguro">🔒 PIX instantâneo · Mercado Pago · Dados criptografados</div>
+      <div class="pay-seguro">🔒 PIX · Banco Inter PJ · Dados criptografados</div>
     </div>
   </div>
 </div>
@@ -590,9 +606,11 @@ function irParaPagamento(agendamento){
   var qrSection = document.getElementById('pay-qr-section');
   qrSection.classList.remove('ativo');
   var btn = document.getElementById('payBtn');
-  btn.style.display = 'block'; btn.disabled = false; btn.textContent = 'Gerar QR Code Pix →';
+  var btnConfirm = document.getElementById('payConfirmBtn');
+  if(btnConfirm){ btnConfirm.disabled=false; btnConfirm.textContent='✅ Já realizei o pagamento'; }
+  btn.style.display = 'block'; btn.disabled = false; btn.textContent = 'Ver QR Code Pix →';
   var statusEl = document.getElementById('pay-polling-status');
-  statusEl.textContent = '⏳ Aguardando confirmação do pagamento...';
+  statusEl.textContent = '⏳ Realize o pagamento e clique no botão abaixo';
   statusEl.className = 'pay-polling-status';
 
   showScreen('payment');
@@ -607,7 +625,12 @@ function irParaPagamento(agendamento){
   }
 }
 
-// ── PAGAMENTO MP ───────────────────────────────────────────────────────────────
+// ── PAGAMENTO MANUAL PIX INTER ────────────────────────────────────────────────
+// QR Code do Inter — coloque aqui a URL da imagem do QR ou base64
+// Para obter: abra o app Inter → Pix → Cobrar → R$49,90 → salvar imagem do QR
+// Ou use a chave Pix estática (CNPJ/email) sem imagem
+var PIX_QR_IMG = ''; // URL ou base64 da imagem QR do Inter (ex: 'https://...' ou 'data:image/png;base64,...')
+var PIX_CHAVE  = ''b7205c48-bf46-40ce-adce-f4cd1686bbfb; // Chave Pix estática para copiar (CNPJ, email ou celular)
 
 async function gerarPagamento(){
   var nome = document.getElementById('payNome').value.trim();
@@ -619,27 +642,38 @@ async function gerarPagamento(){
   pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf;
 
   var btn = document.getElementById('payBtn');
-  btn.disabled=true; btn.textContent='Gerando QR Code...';
+  btn.disabled=true; btn.textContent='Carregando...';
 
   try{
+    // Registra o interesse e obtém a chave Pix do servidor
     var res = await fetch(API+'/api/payment',{
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({nome, email:'paciente@consultaja24h.com.br'})
+      body: JSON.stringify({nome})
     });
     var data = await res.json();
-    if(!data.ok || !data.qr_code) throw new Error(data.error||'Sem QR');
+    if(!data.ok) throw new Error(data.error||'Erro ao iniciar pagamento');
 
     paymentId = data.payment_id;
-    pixCode   = data.qr_code;
+    // Se o servidor retornar chave Pix, usa ela
+    if(data.pix_chave) PIX_CHAVE = data.pix_chave;
 
-    // Exibe QR
-    if(data.qr_code_base64){
-      document.getElementById('pay-qr-img').src = 'data:image/png;base64,'+data.qr_code_base64;
+    // Preenche campo copia e cola visível
+    var inputChave = document.getElementById('pixChaveInput');
+    if(inputChave) inputChave.value = PIX_CHAVE || '';
+
+    // Exibe a imagem QR se disponível
+    var qrImg = document.getElementById('pay-qr-img');
+    if(PIX_QR_IMG){
+      qrImg.src = PIX_QR_IMG;
+      qrImg.style.display='block';
+    } else {
+      qrImg.style.display='none';
     }
+
     document.getElementById('pay-qr-section').classList.add('ativo');
     btn.style.display='none';
 
-    // Pré-registro na fila (status='triagem' — não aparece na fila do médico ainda)
+    // Pré-registro na fila (status='triagem' — NÃO aparece na fila do médico ainda)
     try{
       var rPre = await fetch(API+'/api/notify',{
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -654,61 +688,51 @@ async function gerarPagamento(){
       }
     }catch(e){ console.warn('Pre-registro error:',e); }
 
-    // Inicia polling de confirmação
-    iniciarPollingPagamento();
-
   }catch(e){
-    btn.disabled=false; btn.textContent='Gerar QR Code Pix →';
+    btn.disabled=false; btn.textContent='Ver QR Code Pix →';
     var statusEl = document.getElementById('pay-polling-status');
-    statusEl.textContent='❌ Erro ao gerar QR Code. Tente novamente.';
+    statusEl.textContent='❌ Erro ao carregar. Tente novamente.';
     statusEl.className='pay-polling-status err';
     console.error('Erro payment:',e);
   }
 }
 
-function iniciarPollingPagamento(){
-  clearInterval(paymentPoller);
-  paymentPoller = setInterval(verificarPagamento, 4000);
-}
-
-async function verificarPagamento(){
-  if(!paymentId) return;
+async function confirmarPagamentoManual(){
+  var btn = document.getElementById('payConfirmBtn');
+  btn.disabled=true; btn.textContent='Confirmando...';
   try{
-    var res  = await fetch(API+'/api/payment/'+paymentId);
-    var data = await res.json();
-    if(!data.ok) return;
+    // Notifica o servidor que o paciente confirmou o pagamento
+    await fetch(API+'/api/payment/confirmar-manual',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({paymentId, atendimentoId})
+    });
+  }catch(e){ console.warn('Confirmar manual error:',e); }
 
-    if(data.status === 'approved'){
-      clearInterval(paymentPoller);
-      var statusEl = document.getElementById('pay-polling-status');
-      statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
-      statusEl.className='pay-polling-status ok';
-      await esperar(800);
-      if(modoAgendamento){ await confirmarAgendamento(pacienteNome, pacienteTel, pacienteCPF); }
-      else { continuarParaTriagem(); }
-    } else if(data.status==='cancelled'||data.status==='rejected'){
-      clearInterval(paymentPoller);
-      var statusEl = document.getElementById('pay-polling-status');
-      statusEl.textContent='❌ Pagamento cancelado. Gere um novo QR Code.';
-      statusEl.className='pay-polling-status err';
-      document.getElementById('pay-qr-section').classList.remove('ativo');
-      var btn = document.getElementById('payBtn');
-      btn.style.display='block'; btn.disabled=false; btn.textContent='Gerar novo QR Code Pix →';
-    }
-  }catch(e){}
+  // Independente da resposta do servidor, avança para triagem
+  var statusEl = document.getElementById('pay-polling-status');
+  statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
+  statusEl.className='pay-polling-status ok';
+  btn.textContent='✅ Confirmado!';
+
+  await esperar(800);
+  if(modoAgendamento){ await confirmarAgendamento(pacienteNome, pacienteTel, pacienteCPF); }
+  else { continuarParaTriagem(); }
 }
 
 function copiarPix(){
-  var b = document.getElementById('payCopyBtn');
-  function ok(){
-    b.textContent='✓ Copiado!';
-    setTimeout(function(){
-      b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar código Pix';
-    },2200);
+  var chave = PIX_CHAVE || '';
+  if(!chave) return;
+  function ok(){ 
+    var b=document.getElementById('payCopyBtn'); 
+    var prev = b.innerHTML;
+    b.textContent='✓ Copiado!'; 
+    setTimeout(function(){ b.innerHTML=prev; }, 2000); 
   }
-  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(pixCode).then(ok).catch(function(){fallbackCopy(pixCode);ok();}); }
-  else{ fallbackCopy(pixCode); ok(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(chave).then(ok).catch(function(){fallbackCopy(chave);ok();}); }
+  else{ fallbackCopy(chave); ok(); }
 }
+
+
 
 function fallbackCopy(text){
   var el=document.createElement('textarea'); el.value=text; el.style.position='fixed'; el.style.opacity='0';
