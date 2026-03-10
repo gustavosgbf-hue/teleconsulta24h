@@ -316,9 +316,9 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Prosseguir para pagamento →</button>
     <div id="agend-section" style="display:none;text-align:left;margin-top:8px">
       <div class="box" style="border-radius:18px">
-        <div class="box-head"><h1 style="font-size:1.1rem">📅 Agendar para mais tarde</h1><p>Escolha um horário disponível e pague para confirmar.</p></div>
+        <div class="box-head"><h1 style="font-size:1.1rem">📅 Prefere agendar um horário?</h1><p>Escolha um horário e pague para confirmar. Você já faz a triagem agora.</p></div>
         <div style="padding:20px 22px">
-          <div class="agend-note">⚠️ Isso é um agendamento. Você será atendido no horário escolhido, não agora.</div>
+          <div class="agend-note">📋 Após o pagamento você responde algumas perguntas de triagem. O médico chegará preparado para seu atendimento.</div>
           <div style="font-size:1rem;font-weight:600;margin-bottom:6px">Horários disponíveis:</div>
           <div class="horarios-grid" id="horarios-grid"></div>
           <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Agendar este horário →</button>
@@ -588,9 +588,12 @@ function renderDisponibilidade(d){
   badge.className = 'dispon-status ' + (d.status||'verde');
   badge.querySelector('.dispon-dot').style.background = d.status==='verde'?'var(--g2)':d.status==='amarelo'?'#ffbd2e':'#ff8080';
   document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Indisponível';
-  if(d.disponivel){ document.getElementById('btnDispCont').style.display='block'; document.getElementById('agend-section').style.display='none'; modoAgendamento=false; }
-  else { document.getElementById('btnDispCont').style.display='none'; document.getElementById('agend-section').style.display='block'; modoAgendamento=true; renderHorarios(d.horariosAgendamento||[]);
-    if(d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo: '+d.horarioRetorno; }
+  // Atendimento imediato disponível: mostra botão prosseguir
+  document.getElementById('btnDispCont').style.display = d.disponivel ? 'block' : 'none';
+  // Agendamentos: SEMPRE mostrar, independente de disponibilidade imediata
+  document.getElementById('agend-section').style.display = 'block';
+  renderHorarios(d.horariosAgendamento||[]);
+  if(!d.disponivel && d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo atendimento: '+d.horarioRetorno;
 }
 
 function renderHorarios(horarios){
@@ -763,16 +766,25 @@ async function confirmarAgendamento(nome,tel,cpf){
     var r2=await fetch(API+'/api/agendamento/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({agendamentoId,paymentId:paymentId||''})});
     var d2=await r2.json(); var h=d2.horarioFormatado||'';
-    showScreen('espera'); document.getElementById('nav-step').textContent='AGENDAMENTO CONFIRMADO';
-    document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(66,133,244,.2),rgba(52,168,83,.15))';
-    document.getElementById('esperaIcon').textContent='📅';
-    document.getElementById('esperaTitulo').textContent='Agendamento confirmado!';
-    document.getElementById('esperaSub').textContent='Seu horário foi reservado'+(h?' para '+h:'')+'.';
-    document.getElementById('esperaBadge').className='espera-badge video';
-    document.getElementById('esperaBadgeIcon').textContent='📅';
-    document.getElementById('esperaBadgeText').textContent='Agendado';
-    document.getElementById('esperaStatusTxt').textContent='E-mail de confirmação enviado.';
+    // Agendamento confirmado — paciente faz triagem agora para o médico já ter as informações
+    continuarParaTriagemAgendamento(h);
   }catch(e){ alert('Erro ao confirmar agendamento.'); }
+}
+
+function continuarParaTriagemAgendamento(horarioFormatado){
+  // Guarda o horário para mostrar no final da triagem
+  window._horarioAgendado = horarioFormatado;
+  showScreen('triage');
+  document.getElementById('nav-step').textContent='TRIAGEM MÉDICA';
+  startTriageAgendamento();
+}
+
+function startTriageAgendamento(){
+  triageHistory=[]; anamnesis={}; step=0;
+  addMsg('triageChat','bot','Ótimo, '+(pacienteNome.split(' ')[0])+'! Agendamento confirmado para '+( window._horarioAgendado||'o horário escolhido')+'.
+
+Enquanto isso, me conta: qual é o problema que está sentindo? Assim o médico já chega preparado para te atender.');
+  step=1; updateProgress(1);
 }
 
 // ── TRIAGEM ────────────────────────────────────────────────────────────────────
@@ -853,7 +865,12 @@ async function finalizarTriagem(){
       if(d.linkRetorno) history.replaceState(null,'',d.linkRetorno);
     }
     salvarSessao();
-    mostrarSalaEspera();
+    // Se for agendamento, mostra confirmação; se for imediato, vai para sala de espera
+    if(modoAgendamento && agendamentoId){
+      mostrarConfirmacaoAgendamento();
+    } else {
+      mostrarSalaEspera();
+    }
   }catch(e){
     console.error('finalizarTriagem error:',e);
     // Remove mensagem de "registrando..."
@@ -869,6 +886,22 @@ async function finalizarTriagem(){
 }
 
 // ── SALA DE ESPERA ─────────────────────────────────────────────────────────────
+
+function mostrarConfirmacaoAgendamento(){
+  showScreen('espera');
+  document.getElementById('nav-step').textContent='AGENDAMENTO CONFIRMADO';
+  document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(66,133,244,.2),rgba(52,168,83,.15))';
+  document.getElementById('esperaIcon').textContent='📅';
+  document.getElementById('esperaTitulo').textContent='Tudo pronto!';
+  var h = window._horarioAgendado || '';
+  document.getElementById('esperaSub').textContent='Seu agendamento está confirmado'+(h?' para '+h:'')+'. O médico já terá sua triagem em mãos.';
+  document.getElementById('esperaBadge').className='espera-badge video';
+  document.getElementById('esperaBadgeIcon').textContent='📅';
+  document.getElementById('esperaBadgeText').textContent='Agendado';
+  document.getElementById('esperaStatusTxt').textContent='Você receberá contato no horário marcado.';
+  // Para o polling — não precisa verificar status para agendamento
+  clearInterval(esperaPoller);
+}
 
 function mostrarSalaEspera(){
   showScreen('espera'); document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
