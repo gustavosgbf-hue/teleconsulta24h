@@ -412,6 +412,11 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     <p class="espera-sub" id="esperaSub">Um médico assumirá sua consulta em breve.<br>Por favor, aguarde nesta página.</p>
     <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">💬</span> <span id="esperaBadgeText">Consulta por chat</span></div>
     <p class="espera-status" id="esperaStatusTxt">Verificando... <span id="esperaContador"></span></p>
+    <div style="margin-bottom:16px">
+      <button onclick="novaConsulta()" style="background:none;border:none;color:rgba(255,255,255,.25);font-family:'Outfit',sans-serif;font-size:.72rem;cursor:pointer;text-decoration:underline;padding:4px 8px">
+        Iniciar nova consulta
+      </button>
+    </div>
     <div class="chat-consulta" id="chatConsulta">
       <div class="medico-entrou-banner" id="medicoEntrou" style="display:none">
         <span>👨‍⚕️</span>
@@ -490,6 +495,11 @@ function carregarSessao(){
       var data = await res.json();
       if(data.ok && data.atendimento){
         var a = data.atendimento;
+        // Se status for triagem (pré-registro abandonado/pagamento não concluído),
+        // limpa sessão e deixa o paciente recomeçar do zero
+        if(a.status === 'triagem' || a.status === 'expirado' || a.status === 'arquivado'){
+          limparSessao(); esconderLoading(); showScreen('identify'); return;
+        }
         atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
         pacienteNome = a.nome || ''; pacienteTel = a.tel || ''; pacienteCPF = a.cpf || '';
         salvarSessao(); esconderLoading();
@@ -500,7 +510,7 @@ function carregarSessao(){
       }
     } catch(e){}
   }
-  esconderLoading(); showScreen('identify');
+  limparSessao(); esconderLoading(); showScreen('identify');
 })();
 
 function esconderLoading(){ document.getElementById('loading-overlay').classList.add('hide'); }
