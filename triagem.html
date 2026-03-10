@@ -781,9 +781,7 @@ function continuarParaTriagemAgendamento(horarioFormatado){
 
 function startTriageAgendamento(){
   triageHistory=[]; anamnesis={}; step=0;
-  addMsg('triageChat','bot','Ótimo, '+(pacienteNome.split(' ')[0])+'! Agendamento confirmado para '+( window._horarioAgendado||'o horário escolhido')+'.
-
-Enquanto isso, me conta: qual é o problema que está sentindo? Assim o médico já chega preparado para te atender.');
+  addMsg('triageChat','bot','Ótimo, '+(pacienteNome.split(' ')[0])+'! Agendamento confirmado para '+(window._horarioAgendado||'o horário escolhido')+'.\n\nEnquanto isso, me conta: qual é o problema que está sentindo? Assim o médico já chega preparado para te atender.');
   step=1; updateProgress(1);
 }
 
