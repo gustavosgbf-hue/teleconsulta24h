@@ -805,7 +805,7 @@ function startTriageAgendamento(){
 // ── TRIAGEM ────────────────────────────────────────────────────────────────────
 
 var triageHistory=[], anamnesis={}, step=0, pending=false;
-var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados — NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo, responda SOMENTE com JSON: {"done":true,"summary":"[resumo formatado]"}';
+var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados — NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo (após a 4ª pergunta respondida), responda APENAS com o JSON abaixo, sem nenhum texto antes ou depois:\n{"done":true,"summary":"[resumo formatado]"}';
 
 function startTriage(){
   triageHistory=[]; anamnesis={}; step=0;
@@ -843,8 +843,13 @@ async function sendTriage(text){
   removeTyping('triageChat');
   try{
     var clean=String(reply).replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(clean);
-    if(parsed.done&&parsed.summary){
+    var parsed=null;
+    try{ parsed=JSON.parse(clean); }catch(e){}
+    if(!parsed){
+      var match=clean.match(/\{[\s\S]*?"done"\s*:\s*true[\s\S]*?\}/);
+      if(match){ try{ parsed=JSON.parse(match[0]); }catch(e){} }
+    }
+    if(parsed&&parsed.done&&parsed.summary){
       anamnesis.summary=parsed.summary; updateProgress(6);
       addMsg('triageChat','bot','Triagem concluída! ✓\nAguarde enquanto você entra na fila.');
       await esperar(1200); finalizarTriagem();
