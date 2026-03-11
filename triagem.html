@@ -783,7 +783,17 @@ async function confirmarAgendamento(nome,tel,cpf){
     var r2=await fetch(API+'/api/agendamento/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({agendamentoId,paymentId:paymentId||''})});
     var d2=await r2.json(); var h=d2.horarioFormatado||'';
-    // Agendamento confirmado — paciente faz triagem agora para o médico já ter as informações
+    // Cria pré-registro na fila para ter atendimentoId antes da triagem
+    try{
+      var rPre=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,
+          triagem:'(Aguardando triagem de agendamento)',tipo:tipoConsulta,data_nascimento:pacienteNascimento})});
+      var dPre=await rPre.json();
+      if(dPre.atendimentoId){
+        atendimentoId=dPre.atendimentoId; salvarSessao();
+        if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
+      }
+    }catch(e){ console.warn('Pre-registro agendamento error:',e); }
     continuarParaTriagemAgendamento(h);
   }catch(e){ alert('Erro ao confirmar agendamento.'); }
 }
@@ -805,7 +815,7 @@ function startTriageAgendamento(){
 // ── TRIAGEM ────────────────────────────────────────────────────────────────────
 
 var triageHistory=[], anamnesis={}, step=0, pending=false;
-var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados — NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo (após a 4ª pergunta respondida), responda APENAS com o JSON abaixo, sem nenhum texto antes ou depois:\n{"done":true,"summary":"[resumo formatado]"}';
+var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados — NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo, responda SOMENTE com JSON: {"done":true,"summary":"[resumo formatado]"}';
 
 function startTriage(){
   triageHistory=[]; anamnesis={}; step=0;
