@@ -337,6 +337,11 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <div style="padding:18px 22px 22px">
           <div style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px">Horários disponíveis</div>
           <div class="horarios-grid" id="horarios-grid"></div>
+          <div style="margin-top:14px">
+            <label style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:8px">Seu e-mail (para confirmação e lembrete)</label>
+            <input id="inputEmailAgend" type="email" placeholder="seu@email.com" style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;box-sizing:border-box" oninput="validarEmailAgend()">
+            <div id="emailAgendErro" style="font-size:.72rem;color:#ff8080;margin-top:4px;display:none">E-mail inválido</div>
+          </div>
           <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Confirmar horário →</button>
         </div>
       </div>
@@ -481,7 +486,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
 <script>
 var API = 'https://triagem-api.onrender.com';
-var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', tipoConsulta = '';
+var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', pacienteEmail = '', tipoConsulta = '';
 var atendimentoId = null, agendamentoId = null, horarioAgendado = null, modoAgendamento = false;
 var paymentId = null, pixCode = '', paymentPoller = null;
 var esperaPoller = null, chatPoller = null, meetPoller = null, encerradoPoller = null;
@@ -620,14 +625,31 @@ function renderHorarios(horarios){
   grid.innerHTML = horarios.map(function(h){ return '<button class="horario-btn" onclick="selecionarHorario(this,\''+h.iso+'\')">'+h.label+'</button>'; }).join('');
 }
 
+function validarEmailAgend(){
+  var v = (document.getElementById('inputEmailAgend')||{}).value||'';
+  var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+  var erroEl = document.getElementById('emailAgendErro');
+  if(erroEl) erroEl.style.display = v&&!ok?'block':'none';
+  var btn=document.getElementById('btnAgendar');
+  if(horarioAgendado && ok){ btn.disabled=false; btn.classList.add('on'); }
+  else{ btn.disabled=true; btn.classList.remove('on'); }
+}
+
 function selecionarHorario(el, iso){
   document.querySelectorAll('.horario-btn').forEach(function(b){b.classList.remove('selected');});
   el.classList.add('selected'); horarioAgendado = iso;
-  var btn = document.getElementById('btnAgendar'); btn.disabled=false; btn.classList.add('on');
+  validarEmailAgend();
 }
 
 function continuar_apos_disponibilidade(){ modoAgendamento=false; irParaPagamento(false); }
-function prosseguirAgendamento(){ if(!horarioAgendado){ alert('Selecione um horário.'); return; } modoAgendamento=true; irParaPagamento(true); }
+function prosseguirAgendamento(){
+  if(!horarioAgendado){ alert('Selecione um horário.'); return; }
+  var emailEl = document.getElementById('inputEmailAgend');
+  var email = emailEl ? emailEl.value.trim() : '';
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ alert('Informe um e-mail válido para receber a confirmação.'); return; }
+  pacienteEmail = email;
+  modoAgendamento=true; irParaPagamento(true);
+}
 
 function irParaPagamento(agendamento){
   // Resetar estado do pagamento a cada entrada na tela
@@ -776,7 +798,7 @@ function continuarParaTriagem(){
 async function confirmarAgendamento(nome,tel,cpf){
   try{
     var r1=await fetch(API+'/api/agendamento/criar',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,modalidade:tipoConsulta,horario_agendado:horarioAgendado})});
+      body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,modalidade:tipoConsulta,horario_agendado:horarioAgendado,email:pacienteEmail})});
     var d1=await r1.json();
     if(!d1.ok){ alert('Erro: '+(d1.error||'tente novamente')); return; }
     agendamentoId=d1.agendamentoId;
