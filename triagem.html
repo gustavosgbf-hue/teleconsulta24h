@@ -337,9 +337,9 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <div style="padding:18px 22px 22px">
           <div style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px">Horários disponíveis</div>
           <div class="horarios-grid" id="horarios-grid"></div>
-          <div style="margin-top:14px">
-            <label style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:8px">Seu e-mail (para confirmação e lembrete)</label>
-            <input id="inputEmailAgend" type="email" placeholder="seu@email.com" style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;box-sizing:border-box" oninput="validarEmailAgend()">
+          <div id="email-agend-wrap" style="margin-top:16px;display:block">
+            <label style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:8px">Seu e-mail <span style="color:rgba(255,255,255,.5);text-transform:none;letter-spacing:0;font-weight:400">(para confirmação e lembrete)</span></label>
+            <input id="inputEmailAgend" type="email" placeholder="seu@email.com" style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-family:Outfit,sans-serif;font-size:.88rem;outline:none;box-sizing:border-box;display:block" oninput="validarEmailAgend()">
             <div id="emailAgendErro" style="font-size:.72rem;color:#ff8080;margin-top:4px;display:none">E-mail inválido</div>
           </div>
           <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Confirmar horário →</button>
