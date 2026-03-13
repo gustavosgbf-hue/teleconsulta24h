@@ -903,7 +903,7 @@ async function finalizarTriagem(){
     if(atendimentoId){
       // Atualiza o pré-registro com a triagem real → muda status para 'aguardando' → aparece na fila
       var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({atendimentoId,triagem:anamnesis.summary||''})});
+        body:JSON.stringify({atendimentoId,agendamentoId:agendamentoId||null,triagem:anamnesis.summary||''})});
       var d=await r.json();
       if(!d.ok) throw new Error(d.error||'Erro ao registrar triagem');
     } else {
