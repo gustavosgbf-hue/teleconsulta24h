@@ -553,10 +553,10 @@ function toggleSameNumber(chk){
 
 function avancarIdentificacao(){
   var nome = document.getElementById('idNome').value.trim();
-  var tel  = document.getElementById('idTel').value.replace(/\D/g,'');
+  var tel  = document.getElementById('idTel').value.replace(/\D/g,''); if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2); if(tel.length===12&&tel.startsWith('55'))tel=tel.slice(2);
   var nascimento = document.getElementById('idNascimento').value;
   var chkSame = document.getElementById('chkSameNumber').checked;
-  var telDoc  = chkSame ? tel : document.getElementById('idTelDoc').value.replace(/\D/g,'');
+  var telDocRaw = chkSame ? tel : document.getElementById('idTelDoc').value.replace(/\D/g,''); var telDoc = telDocRaw; if(telDoc.length===13&&telDoc.startsWith('55'))telDoc=telDoc.slice(2); if(telDoc.length===12&&telDoc.startsWith('55'))telDoc=telDoc.slice(2);
   if(!nome){document.getElementById('idNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('idTel').focus();return;}
   pacienteNome=nome; pacienteTel=tel; pacienteTelDoc=telDoc||tel; pacienteNascimento=nascimento||'';
@@ -686,7 +686,7 @@ var PIX_CHAVE  = '55.789.896/0001-21';
 
 async function gerarPagamento(){
   var nome = document.getElementById('payNome').value.trim();
-  var tel  = document.getElementById('payTel').value.replace(/\D/g,'');
+  var tel  = document.getElementById('payTel').value.replace(/\D/g,''); if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2); if(tel.length===12&&tel.startsWith('55'))tel=tel.slice(2);
   var cpf  = document.getElementById('payCPF').value.trim();
   if(!nome){document.getElementById('payNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
