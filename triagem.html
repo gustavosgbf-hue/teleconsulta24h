@@ -261,7 +261,11 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <input class="id-input" id="idNascimento" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraData(this)"/>
       </div>
       <div>
-        <div class="id-label">Telefone para receber documentos (SMS) <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">opcional</span></div>
+        <div class="id-label">E-mail <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">para receber receitas e documentos médicos (opcional)</span></div>
+        <input class="id-input" id="idEmail" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email"/>
+      </div>
+      <div>
+        <div class="id-label">Telefone para receber documentos por SMS <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">opcional</span></div>
         <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
         <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
           <input type="checkbox" id="chkSameNumber" onchange="toggleSameNumber(this)"/>
@@ -513,7 +517,7 @@ var dispData = null;
 
 function salvarSessao(){
   if(!atendimentoId) return;
-  localStorage.setItem('cj_sessao', JSON.stringify({atendimentoId, tipoConsulta, pacienteNome, pacienteTel, pacienteCPF, ts: Date.now()}));
+  localStorage.setItem('cj_sessao', JSON.stringify({atendimentoId, tipoConsulta, pacienteNome, pacienteTel, pacienteCPF, pacienteEmail, ts: Date.now()}));
 }
 function limparSessao(){ localStorage.removeItem('cj_sessao'); }
 function carregarSessao(){
@@ -573,11 +577,13 @@ function avancarIdentificacao(){
   var nome = document.getElementById('idNome').value.trim();
   var tel  = document.getElementById('idTel').value.replace(/\D/g,''); if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2); if(tel.length===12&&tel.startsWith('55'))tel=tel.slice(2);
   var nascimento = document.getElementById('idNascimento').value;
+  var emailId = document.getElementById('idEmail'); var emailVal = emailId ? emailId.value.trim() : '';
   var chkSame = document.getElementById('chkSameNumber').checked;
   var telDocRaw = chkSame ? tel : document.getElementById('idTelDoc').value.replace(/\D/g,''); var telDoc = telDocRaw; if(telDoc.length===13&&telDoc.startsWith('55'))telDoc=telDoc.slice(2); if(telDoc.length===12&&telDoc.startsWith('55'))telDoc=telDoc.slice(2);
   if(!nome){document.getElementById('idNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('idTel').focus();return;}
-  pacienteNome=nome; pacienteTel=tel; pacienteTelDoc=telDoc||tel; pacienteNascimento=nascimento||'';
+  if(emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)){document.getElementById('idEmail').focus();alert('E-mail inválido. Corrija ou deixe em branco.');return;}
+  pacienteNome=nome; pacienteTel=tel; pacienteTelDoc=telDoc||tel; pacienteNascimento=nascimento||''; pacienteEmail=emailVal||'';
   fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,tel})}).catch(function(){});
   document.getElementById('payNome').value=nome;
   document.getElementById('payTel').value=tel;
@@ -928,7 +934,7 @@ async function finalizarTriagem(){
       // Sem pré-registro: cria direto com status 'aguardando'
       var r=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,
-          triagem:anamnesis.summary||'',tipo:tipoConsulta,data_nascimento:pacienteNascimento})});
+          triagem:anamnesis.summary||'',tipo:tipoConsulta,data_nascimento:pacienteNascimento,email:pacienteEmail||''})});
       var d=await r.json();
       if(!d.ok) throw new Error(d.error||'Erro ao registrar');
       if(d.atendimentoId) atendimentoId=d.atendimentoId;
