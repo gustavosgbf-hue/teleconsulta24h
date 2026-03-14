@@ -192,6 +192,31 @@ footer a:hover{color:var(--g2)}
 #wa-fab{animation:wa-pulse 2s ease-in-out infinite}
 #wa-fab:hover{animation:none;transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.7)}
 
+
+/* ── SCROLL FADE-IN (estilo Apple) ────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(.22,.68,0,1.2), transform 0.7s cubic-bezier(.22,.68,0,1.2);
+  will-change: opacity, transform;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Delays escalonados para filhos */
+.reveal-group > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(.22,.68,0,1.2), transform 0.6s cubic-bezier(.22,.68,0,1.2);
+  will-change: opacity, transform;
+}
+.reveal-group.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0s }
+.reveal-group.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: .1s }
+.reveal-group.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: .2s }
+.reveal-group.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: .3s }
+.reveal-group.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: .4s }
+.reveal-group.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: .5s }
 </style>
 </head>
 <body>
@@ -229,7 +254,7 @@ footer a:hover{color:var(--g2)}
         Atendimento médico online · 24 horas por dia
       </div>
     </div>
-    <div class="hero__trust">
+    <div class="hero__trust reveal-group">
       <div class="hero__trust-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
         Médicos com CRM ativo
@@ -247,7 +272,7 @@ footer a:hover{color:var(--g2)}
 </section>
 
 
-<section style="position:relative;z-index:1;padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">
+<section class="reveal" style="position:relative;z-index:1;padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">
   <div style="max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:32px">
     <div style="display:flex;align-items:center;gap:10px">
       <span style="font-size:1.5rem">🩺</span>
@@ -284,7 +309,7 @@ footer a:hover{color:var(--g2)}
 </section>
 
 <hr class="divider"/>
-<section>
+<section class="reveal">
   <div class="section-inner">
     <div class="section-label">Por que escolher</div>
     <h2 class="section-title">Atendimento médico<br>de qualidade, onde você estiver</h2>
@@ -302,7 +327,7 @@ footer a:hover{color:var(--g2)}
 
 <hr class="divider"/>
 
-<section>
+<section class="reveal">
   <div class="section-inner">
     <div class="section-label">Compromisso</div>
     <h2 class="section-title">Atendimento médico<br>com ética e responsabilidade</h2>
@@ -327,7 +352,7 @@ footer a:hover{color:var(--g2)}
     <div class="section-label">Passo a passo</div>
     <h2 class="section-title">Como funciona</h2>
     <p class="section-sub">Três passos simples para ter acesso a orientação médica profissional.</p>
-    <div class="steps">
+    <div class="steps reveal-group">
       <div class="step"><div class="step__num">1</div><h3>Inicie o atendimento</h3><p>Clique no botão e preencha seus dados básicos. Todo o processo é seguro e protegido.</p></div>
       <div class="step"><div class="step__num">2</div><h3>Triagem e pagamento</h3><p>Responda algumas perguntas sobre sua saúde. Após o pagamento via PIX (QR Code), seu atendimento é confirmado.</p></div>
       <div class="step"><div class="step__num">3</div><h3>Consulta com o médico</h3><p>Um médico com CRM ativo inicia sua consulta por chat na plataforma ou vídeo (Google Meet), pronto para avaliar seu caso.</p></div>
@@ -337,7 +362,7 @@ footer a:hover{color:var(--g2)}
 
 <hr class="divider"/>
 
-<section>
+<section class="reveal">
   <div class="section-inner">
     <div class="section-label">Investimento</div>
     <h2 class="section-title">Consulta médica online</h2>
@@ -345,7 +370,7 @@ footer a:hover{color:var(--g2)}
       <div class="price-box__label">Valor da consulta</div>
       <div class="price-box__price"><sup>R$</sup>49<span style="font-size:2rem">,90</span></div>
       <p class="price-box__desc">Consulta por chat ou vídeo com médico registrado no CRM<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Valor acessível para atendimento médico rápido, sem deslocamento</span></p>
-      <div class="price-box__features">
+      <div class="price-box__features reveal-group">
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Consulta por chat ou vídeo</div>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Orientação médica individual</div>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Médico com CRM ativo</div>
@@ -363,7 +388,7 @@ footer a:hover{color:var(--g2)}
 
 <hr class="divider"/>
 
-<section>
+<section class="reveal">
   <div class="section-inner">
     <div class="section-label">Dúvidas frequentes</div>
     <h2 class="section-title">Perguntas sobre<br>o atendimento</h2>
@@ -378,7 +403,7 @@ footer a:hover{color:var(--g2)}
   </div>
 </section>
 
-<section class="cta-section">
+<section class="cta-section" class="cta-section reveal">
   <div class="section-label" style="text-align:center">Pronto para começar?</div>
   <h2 class="section-title" style="text-align:center;max-width:500px;margin:0 auto 16px">Fale com um médico<br><em style="font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">agora mesmo</em></h2>
   <p class="section-sub" style="text-align:center;margin:0 auto 40px">Consulta online com médico registrado no CRM. Atendimento por chat ou vídeo.</p>
@@ -458,5 +483,31 @@ function enviarWa(){
 }
 </script>
 
+
+<script>
+// Scroll fade-in — estilo Apple
+(function() {
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  function observeAll() {
+    document.querySelectorAll('.reveal, .reveal-group').forEach(function(el) {
+      io.observe(el);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', observeAll);
+  } else {
+    observeAll();
+  }
+})();
+</script>
 </body>
 </html>
