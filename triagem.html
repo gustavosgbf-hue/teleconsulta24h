@@ -5,7 +5,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-17964942771');</script>
 <meta charset="utf-8"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>ConsultaJá24h · Consulta Médica Online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,6 +213,24 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-meet{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:14px;border:none;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(66,133,244,.3);transition:transform .12s,box-shadow .2s}
 .btn-meet:not(.disabled):hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(66,133,244,.45)}
 .btn-meet.disabled{opacity:.4;pointer-events:none}
+/* ── BLOCOS DE CONFIANÇA ── */
+.trust-block{margin-bottom:16px;padding:14px 18px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+.trust-block--green{background:rgba(94,224,160,.05);border-color:rgba(94,224,160,.15)}
+.trust-block__title{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:10px}
+.trust-list{display:flex;flex-direction:column;gap:7px}
+.trust-list li{display:flex;align-items:flex-start;gap:9px;font-size:.82rem;font-weight:300;color:rgba(255,255,255,.7);line-height:1.5;list-style:none}
+.trust-list li .ti{font-size:.85rem;flex-shrink:0;margin-top:1px}
+.trust-steps{display:flex;flex-direction:column;gap:8px}
+.trust-step{display:flex;align-items:flex-start;gap:12px;font-size:.82rem;font-weight:300;color:rgba(255,255,255,.7);line-height:1.5}
+.trust-step__num{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.2),rgba(94,224,160,.15));border:1px solid rgba(180,224,90,.25);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--g1);flex-shrink:0;margin-top:1px}
+.trust-note{font-size:.75rem;font-weight:300;color:rgba(255,255,255,.4);line-height:1.6;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)}
+.pay-includes{margin-bottom:20px;padding:14px 18px;border-radius:14px;background:rgba(94,224,160,.04);border:1px solid rgba(94,224,160,.14)}
+.pay-includes__title{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(94,224,160,.7);margin-bottom:10px}
+.pay-includes ul{display:flex;flex-direction:column;gap:6px;list-style:none}
+.pay-includes li{display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:300;color:rgba(255,255,255,.75)}
+.pay-includes li::before{content:'✓';color:var(--g2);font-weight:700;font-size:.78rem;flex-shrink:0}
+.pay-time-note{font-size:.75rem;color:rgba(255,255,255,.38);font-weight:300;text-align:center;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)}
+
 /* ── ENCERRADO ── */
 .encerrado-box{width:min(480px,100%);text-align:center;padding:32px 20px}
 .encerrado-icon{font-size:3rem;margin-bottom:20px}
@@ -225,6 +243,28 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.08);border-top-color:var(--g2);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-txt{font-size:.85rem;color:rgba(255,255,255,.4);font-weight:300}
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .trust-block{padding:12px 14px}
+  .trust-step{font-size:.8rem}
+  .trust-list li{font-size:.8rem}
+  .pay-includes li{font-size:.8rem}
+  .trust-note{font-size:.72rem}
+  /* Identificação: campos maiores para toque */
+  .id-input{padding:13px 14px;font-size:max(.9rem,16px)}
+  .id-btn{padding:15px;font-size:1rem}
+  /* Chat de triagem: área de input confortável */
+  .input-bar textarea{font-size:max(.875rem,16px);padding:11px 14px}
+  .input-bar{padding:10px 14px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+  /* Tela espera: mais compacta */
+  .espera-titulo{font-size:1.2rem}
+  .espera-sub{font-size:.83rem}
+  /* Pagamento: mais folgado */
+  .pay-body{padding:18px 16px}
+  .pay-includes{padding:12px 14px}
+  /* Chat consulta: altura maior */
+  .chat-msgs{min-height:220px;max-height:calc(100dvh - 320px)}
+}
 </style>
 </head>
 <body>
@@ -252,7 +292,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <!-- S1: IDENTIFICAÇÃO -->
 <div id="screen-identify" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Bem-vindo</h1><p>Precisamos de alguns dados básicos para iniciar.</p></div>
+    <div class="box-head"><h1>Bem-vindo</h1><p>Preencha seus dados para iniciar a consulta. Após o pagamento, um médico com CRM ativo assumirá seu atendimento.</p></div>
     <div class="identify-body">
       <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Como você se chama?" autocomplete="name"/></div>
       <div><div class="id-label">WhatsApp (com DDD)</div><input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric"/></div>
@@ -273,6 +313,30 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         </label>
       </div>
       <div class="id-note">🔒 Seus dados são registrados com segurança conforme a LGPD.</div>
+
+      <!-- Como funciona -->
+      <div class="trust-block">
+        <div class="trust-block__title">Como funciona sua consulta</div>
+        <div class="trust-steps">
+          <div class="trust-step"><div class="trust-step__num">1</div><span>Responda algumas perguntas rápidas sobre sua saúde</span></div>
+          <div class="trust-step"><div class="trust-step__num">2</div><span>Nossa assistente organiza as informações para o médico</span></div>
+          <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico registrado no CRM assume sua consulta</span></div>
+          <div class="trust-step"><div class="trust-step__num">4</div><span>Você conversa diretamente com o médico por chat ou vídeo</span></div>
+        </div>
+        <div class="trust-note">⏱ Normalmente um médico assume sua consulta em poucos minutos.</div>
+      </div>
+
+      <!-- Legitimidade -->
+      <div class="trust-block trust-block--green">
+        <div class="trust-block__title">Atendimento médico online</div>
+        <ul class="trust-list">
+          <li><span class="ti">🩺</span><span>Consultas realizadas por médicos registrados no CRM</span></li>
+          <li><span class="ti">🔒</span><span>Atendimento seguro e confidencial — sigilo médico garantido</span></li>
+          <li><span class="ti">📋</span><span>Receita médica digital quando indicada</span></li>
+          <li><span class="ti">⚖️</span><span>Conforme Resolução CFM nº 2.314/2022</span></li>
+        </ul>
+      </div>
+
       <button class="id-btn" onclick="avancarIdentificacao()">Continuar →</button>
     </div>
   </div>
@@ -300,7 +364,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <!-- S3: MODALIDADE -->
 <div id="screen-modalidade" class="screen box-center">
   <div class="modal-wrap">
-    <div class="modal-head"><h1>Como prefere ser atendido?</h1><p>Escolha a modalidade da sua consulta.</p></div>
+    <div class="modal-head"><h1>Como prefere ser atendido?</h1><p>Escolha a modalidade. O médico estará disponível na opção que você selecionar.</p></div>
     <div class="modal-cards">
       <div class="modal-card chat" onclick="selecionarModalidade('chat',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -372,7 +436,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     </div>
     <div class="pay-body">
       <div class="pay-valor">
-        <div class="pay-valor-left"><div class="label" id="pay-label-tipo">Consulta médica online</div><div class="desc">Receitas e atestados quando indicados</div></div>
+        <div class="pay-valor-left"><div class="label" id="pay-label-tipo">Consulta médica online</div><div class="desc">Médico com CRM ativo · Sigilo garantido</div></div>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
 
@@ -383,6 +447,19 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div class="pay-label">CPF</div>
       <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
       <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:20px;line-height:1.5">Utilizado para emissão de documentos médicos quando necessário.</div>
+
+      <!-- O que está incluído -->
+      <div class="pay-includes">
+        <div class="pay-includes__title">Sua consulta inclui</div>
+        <ul>
+          <li>Atendimento com médico registrado no CRM</li>
+          <li>Consulta por chat ou vídeo</li>
+          <li>Receita médica digital quando indicada</li>
+          <li>Atestado médico quando indicado</li>
+          <li>Sigilo médico garantido</li>
+        </ul>
+        <div class="pay-time-note">⏱ Tempo médio para um médico assumir: alguns minutos</div>
+      </div>
 
       <!-- Botão mostrar QR -->
       <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Ver QR Code Pix →</button>
@@ -427,7 +504,10 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="ia-banner">
     <span style="font-size:1.1rem">🤖</span>
-    <span><strong>Assistente de Triagem Automática</strong> — Você ainda não está falando com um médico. Estas perguntas preparam seu atendimento.</span>
+    <div>
+      <strong>Preparando seu atendimento</strong>
+      <div style="font-size:.73rem;color:rgba(255,189,46,.75);margin-top:2px;font-weight:300">A assistente fará algumas perguntas rápidas para ajudar o médico a entender seu caso. Você ainda não está falando com um médico — suas respostas serão revisadas pelo médico antes do atendimento.</div>
+    </div>
   </div>
   <div class="chat-area" id="triageChat"></div>
   <div class="quick-replies" id="quickReplies"></div>
@@ -445,6 +525,13 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
     <div class="espera-anim" id="esperaAnim"><span style="font-size:2rem" id="esperaIcon">⏳</span></div>
     <h2 class="espera-titulo" id="esperaTitulo">Preparando seu atendimento</h2>
     <p class="espera-sub" id="esperaSub">Um médico assumirá sua consulta em breve.<br>Por favor, aguarde nesta página.</p>
+    <div style="margin:-8px auto 20px;max-width:400px;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);font-size:.78rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.6;text-align:left">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span>📩 Nossa equipe médica foi notificada e o primeiro médico disponível assumirá seu atendimento.</span>
+        <span>⏱ Tempo médio de espera: alguns minutos.</span>
+        <span>🔒 Suas informações são protegidas e seguem as normas de sigilo médico.</span>
+      </div>
+    </div>
     <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">💬</span> <span id="esperaBadgeText">Consulta por chat</span></div>
     <p class="espera-status" id="esperaStatusTxt">Verificando... <span id="esperaContador"></span></p>
     <div style="margin-bottom:16px">
