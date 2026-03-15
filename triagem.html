@@ -243,6 +243,57 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.08);border-top-color:var(--g2);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-txt{font-size:.85rem;color:rgba(255,255,255,.4);font-weight:300}
+/* ── FIELD FEEDBACK ── */
+.field-feedback{
+  display:flex;align-items:center;gap:6px;
+  font-size:.72rem;font-weight:400;
+  color:rgba(94,224,160,.85);
+  margin-top:5px;
+  opacity:0;transform:translateY(-4px);
+  transition:opacity .2s ease,transform .2s ease;
+  line-height:1;
+  pointer-events:none;
+}
+.field-feedback.show{opacity:1;transform:translateY(0)}
+.field-feedback svg{flex-shrink:0}
+
+/* ── AUTOPREENCHIMENTO ── */
+/* bloco sutil, sem borda chamativa — parece opcional de relance */
+.autofill-wrap{
+  padding:10px 14px;border-radius:10px;
+  background:transparent;border:1px solid rgba(255,255,255,.06);
+  display:flex;flex-direction:column;gap:7px;
+}
+.autofill-label{
+  /* fonte normal, sem uppercase — menos "sistema" */
+  font-size:.78rem;font-weight:300;
+  color:rgba(255,255,255,.38);line-height:1.5;
+}
+.autofill-row{display:flex;gap:8px;align-items:center}
+.autofill-input{
+  flex:1;padding:9px 12px;border-radius:9px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:300;
+  outline:none;transition:border-color .2s;-webkit-appearance:none;
+}
+.autofill-input:focus{border-color:rgba(94,224,160,.3)}
+.autofill-input::placeholder{color:rgba(255,255,255,.2)}
+/* botão discreto — ghost, não verde sólido */
+.autofill-btn{
+  padding:9px 13px;border-radius:9px;
+  background:transparent;border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.45);font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;
+  cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap;-webkit-appearance:none;
+}
+.autofill-btn:hover{border-color:rgba(94,224,160,.3);color:var(--g2)}
+/* status: aparece com fade, sem piscar */
+.autofill-status{
+  font-size:.73rem;font-weight:300;line-height:1.5;color:rgba(255,255,255,.45);
+  display:none;
+  opacity:0;transition:opacity .25s ease;
+}
+.autofill-status.show{display:block;opacity:1}
+
 /* ── MOBILE ── */
 @media(max-width:600px){
   .trust-block{padding:12px 14px}
@@ -294,11 +345,33 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   <div class="box">
     <div class="box-head"><h1>Bem-vindo</h1><p>Preencha seus dados para iniciar a consulta. Após o pagamento, um médico com CRM ativo assumirá seu atendimento.</p></div>
     <div class="identify-body">
+
+      <!-- Autopreenchimento — opcional, discreto -->
+      <div class="autofill-wrap">
+        <div class="autofill-label">Já consultou conosco antes? Digite seu WhatsApp para preencher seus dados automaticamente.</div>
+        <div class="autofill-row">
+          <input class="autofill-input" id="autofillTel" type="tel" placeholder="Seu WhatsApp" inputmode="numeric" onkeydown="if(event.key==='Enter')buscarCadastro()"/>
+          <button class="autofill-btn" onclick="buscarCadastro()">Preencher</button>
+        </div>
+        <div class="autofill-status" id="autofill-status"></div>
+      </div>
+
       <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Como você se chama?" autocomplete="name"/></div>
-      <div><div class="id-label">WhatsApp (com DDD)</div><input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric"/></div>
+      <div>
+        <div class="id-label">WhatsApp (com DDD)</div>
+        <input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric" oninput="feedbackTel(this)"/>
+        <div class="field-feedback" id="fb-tel">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          WhatsApp válido
+        </div>
+      </div>
       <div>
         <div class="id-label">Data de nascimento</div>
-        <input class="id-input" id="idNascimento" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraData(this)"/>
+        <input class="id-input" id="idNascimento" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraData(this);feedbackData(this)"/>
+        <div class="field-feedback" id="fb-nasc">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Data válida
+        </div>
       </div>
       <div>
         <div class="id-label">E-mail <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">para receber receitas e documentos médicos (opcional)</span></div>
@@ -337,7 +410,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         </ul>
       </div>
 
-      <button class="id-btn" onclick="avancarIdentificacao()">Continuar →</button>
+      <button class="id-btn" onclick="avancarIdentificacao()">Continuar para pagamento →</button>
     </div>
   </div>
 </div>
@@ -461,8 +534,26 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <div class="pay-time-note">⏱ Tempo médio para um médico assumir: alguns minutos</div>
       </div>
 
-      <!-- Botão mostrar QR -->
-      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Ver QR Code Pix →</button>
+      <!-- Botão pagar -->
+      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar consulta — R$&nbsp;49,90</button>
+
+      <!-- O que acontece depois -->
+      <div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)">
+        <div style="font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:8px">Após o pagamento confirmado</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:.78rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.5">
+            <span style="color:var(--g1);font-weight:700;flex-shrink:0">1</span>Você entra automaticamente na fila de atendimento
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:.78rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.5">
+            <span style="color:var(--g1);font-weight:700;flex-shrink:0">2</span>Um médico da equipe assume sua consulta em minutos
+          </div>
+        </div>
+      </div>
+
+      <!-- Reforço de segurança -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300">
+        🔒 Pagamento seguro via PIX · Nenhum dado bancário é armazenado
+      </div>
 
       <!-- QR fixo do Inter — aparece após clique -->
       <div class="pay-qr-section" id="pay-qr-section">
@@ -1255,6 +1346,71 @@ function mascaraData(el){
   if(v.length>4) v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
   else if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
   el.value=v;
+}
+
+// ── MICROINTERAÇÕES NOS CAMPOS ──────────────────────────────
+function feedbackTel(el) {
+  var fb = document.getElementById('fb-tel');
+  var digits = el.value.replace(/\D/g,'');
+  // remove 55 do DDI se presente
+  if(digits.length>11 && digits.startsWith('55')) digits = digits.slice(2);
+  // celular BR válido: 10 ou 11 dígitos
+  var ok = digits.length >= 10 && digits.length <= 11;
+  fb.classList.toggle('show', ok);
+}
+
+function feedbackData(el) {
+  var fb = document.getElementById('fb-nasc');
+  var v = el.value;
+  // DD/MM/AAAA preenchido
+  if(v.length !== 10) { fb.classList.remove('show'); return; }
+  var parts = v.split('/');
+  var d=parseInt(parts[0]), m=parseInt(parts[1]), y=parseInt(parts[2]);
+  var now = new Date().getFullYear();
+  var ok = d>=1&&d<=31 && m>=1&&m<=12 && y>=1900&&y<=now;
+  fb.classList.toggle('show', ok);
+}
+
+// ── AUTOPREENCHIMENTO ────────────────────────────────────────
+// Busca cadastro pelo WhatsApp — só preenche campos, não faz login
+async function buscarCadastro() {
+  var input = document.getElementById('autofillTel');
+  var status = document.getElementById('autofill-status');
+  var tel = input.value.replace(/\D/g,'');
+  if(tel.length>11 && tel.startsWith('55')) tel = tel.slice(2);
+  if(tel.length < 10) {
+    input.style.borderColor = 'rgba(255,95,87,.4)';
+    setTimeout(()=>{ input.style.borderColor=''; }, 1500);
+    return;
+  }
+  var btn = input.nextElementSibling;
+  btn.textContent = '...'; btn.disabled = true;
+  status.className = 'autofill-status';
+  status.style.display = 'none';
+  try {
+    var res = await fetch(API + '/api/paciente/buscar?tel=' + encodeURIComponent(tel));
+    var data = await res.json();
+    if(data.ok && data.paciente) {
+      var p = data.paciente;
+      if(p.nome)       document.getElementById('idNome').value = p.nome;
+      if(p.tel)        document.getElementById('idTel').value  = p.tel;
+      if(p.nascimento) document.getElementById('idNascimento').value = p.nascimento;
+      if(p.email)      document.getElementById('idEmail').value = p.email;
+      if(p.tel_doc)    document.getElementById('idTelDoc').value = p.tel_doc;
+      feedbackTel(document.getElementById('idTel'));
+      feedbackData(document.getElementById('idNascimento'));
+      status.textContent = '✔ Encontramos seu cadastro anterior.';
+    } else {
+      status.textContent = 'Não encontramos cadastro anterior. Vamos criar um para esta consulta.';
+      document.getElementById('idTel').value = tel;
+      feedbackTel(document.getElementById('idTel'));
+    }
+    status.className = 'autofill-status show';
+  } catch(e) {
+    status.textContent = 'Não foi possível verificar. Preencha seus dados abaixo.';
+    status.className = 'autofill-status show';
+  }
+  btn.textContent = 'Buscar'; btn.disabled = false;
 }
 </script>
 <script>gtag('event','conversion',{'send_to':'AW-17964942771/AT3gCPTl0PsbELOLrfZC','value':49.90,'currency':'BRL','transaction_id':''});</script>
