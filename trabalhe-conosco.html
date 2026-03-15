@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Trabalhe Conosco · ConsultaJá24h</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+
+:root{--g1:#b4e05a;--g2:#5ee0a0;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.55)}
+
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80vw 70vh at 15% -10%,rgba(180,224,90,.10) 0%,transparent 60%),
+    radial-gradient(ellipse 60vw 50vh at 90% 20%,rgba(94,224,160,.08) 0%,transparent 55%);
+}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,13,11,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1100px;margin:0 auto}
+.nav__brand{display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav__brand span{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;font-weight:700}
+.nav__brand .c1{color:rgba(255,255,255,.93)}
+.nav__brand .c2{background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav__brand .c3{font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
+.nav__back{font-size:.82rem;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav__back:hover{color:rgba(255,255,255,.8)}
+
+main{flex:1;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:60px 24px}
+
+.page{max-width:680px;width:100%;text-align:center}
+
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;border:1px solid rgba(94,224,160,.25);background:rgba(94,224,160,.06);font-size:.75rem;font-weight:500;color:var(--g2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:28px}
+
+.page h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.15;margin-bottom:12px;letter-spacing:-.02em}
+.page h1 em{font-style:italic;background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page__sub{font-size:.95rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:48px}
+
+/* Cards de seleção */
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:520px){.choices{grid-template-columns:1fr}}
+
+.choice{position:relative;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.04);padding:36px 28px;text-align:center;cursor:pointer;transition:border-color .2s,transform .2s,background .2s;text-decoration:none;display:block}
+.choice:hover{border-color:rgba(180,224,90,.3);background:rgba(180,224,90,.05);transform:translateY(-3px)}
+.choice.disabled{cursor:not-allowed;opacity:.5;pointer-events:none}
+
+.choice__icon{font-size:2.4rem;margin-bottom:16px;display:block}
+.choice__title{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:8px}
+.choice__desc{font-size:.82rem;font-weight:300;color:var(--muted);line-height:1.6}
+
+/* Badge "em breve" */
+.soon-badge{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:3px 10px;font-size:.65rem;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase}
+
+/* Opções de profissão (ocultas por padrão) */
+.professions{display:none;margin-top:16px;padding:24px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line);text-align:left}
+.professions h4{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.prof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.prof-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:.85rem;color:rgba(255,255,255,.5);cursor:not-allowed}
+.prof-item__icon{font-size:1.1rem;flex-shrink:0}
+.coming-soon-note{margin-top:14px;font-size:.78rem;color:rgba(255,255,255,.3);text-align:center;font-style:italic}
+
+footer{border-top:1px solid var(--line);padding:24px;text-align:center;position:relative;z-index:1}
+footer p{font-size:.72rem;color:rgba(255,255,255,.22);font-weight:300}
+footer a{color:rgba(255,255,255,.3);text-decoration:none}
+footer a:hover{color:var(--g2)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.page>*{animation:fadeUp .6s ease both}
+.badge{animation-delay:.05s}
+.page h1{animation-delay:.15s}
+.page__sub{animation-delay:.25s}
+.choices{animation-delay:.35s}
+</style>
+</head>
+<body>
+
+<div class="bg-glow" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav__in">
+    <a href="https://consultaja24h.com.br" class="nav__brand">
+      <div class="live-dot"></div>
+      <span><span class="c1">Consulta</span><span class="c2">Já</span><span class="c3">24h</span></span>
+    </a>
+    <a href="https://consultaja24h.com.br" class="nav__back">
+      ← Voltar ao site
+    </a>
+  </div>
+</nav>
+
+<main>
+  <div class="page">
+    <div class="badge">👩‍⚕️ Faça parte da equipe</div>
+    <h1>Trabalhe<br><em>conosco</em></h1>
+    <p class="page__sub">Selecione seu perfil profissional para continuar.</p>
+
+    <div class="choices">
+
+      <!-- MÉDICO — ATIVO -->
+      <a href="https://painel.consultaja24h.com.br/medico-cadastro.html" class="choice">
+        <span class="choice__icon">🩺</span>
+        <div class="choice__title">Sou Médico</div>
+        <div class="choice__desc">Médico com CRM ativo. Atenda pacientes online por chat ou vídeo, quando e onde quiser.</div>
+      </a>
+
+      <!-- OUTROS PROFISSIONAIS — INATIVO -->
+      <div class="choice disabled">
+        <span class="soon-badge">Em breve</span>
+        <span class="choice__icon">🏥</span>
+        <div class="choice__title">Sou Profissional da Saúde</div>
+        <div class="choice__desc">Psicólogo, enfermeiro, nutricionista e outros. Credenciamento em breve.</div>
+      </div>
+
+    </div>
+
+    <!-- Área de profissões (desabilitada, reservada para o futuro) -->
+    <div class="professions" id="professions">
+      <h4>Selecione sua profissão</h4>
+      <div class="prof-grid">
+        <div class="prof-item"><span class="prof-item__icon">🧠</span> Psicólogo(a)</div>
+        <div class="prof-item"><span class="prof-item__icon">💉</span> Enfermeiro(a)</div>
+        <div class="prof-item"><span class="prof-item__icon">🥗</span> Nutricionista</div>
+        <div class="prof-item"><span class="prof-item__icon">🦷</span> Dentista</div>
+        <div class="prof-item"><span class="prof-item__icon">💊</span> Farmacêutico(a)</div>
+        <div class="prof-item"><span class="prof-item__icon">🏃</span> Fisioterapeuta</div>
+        <div class="prof-item"><span class="prof-item__icon">🗣️</span> Fonoaudiólogo(a)</div>
+        <div class="prof-item"><span class="prof-item__icon">👁️</span> Outro profissional</div>
+      </div>
+      <p class="coming-soon-note">Credenciamento para profissionais de saúde em breve.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p>ConsultaJá24h · <a href="https://consultaja24h.com.br/termos.html">Termos de Uso</a> · <a href="https://consultaja24h.com.br/privacy.html">Privacidade</a></p>
+</footer>
+
+</body>
+</html>
