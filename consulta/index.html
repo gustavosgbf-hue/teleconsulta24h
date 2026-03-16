@@ -217,6 +217,56 @@ footer a:hover{color:var(--g2)}
 .reveal-group.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: .3s }
 .reveal-group.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: .4s }
 .reveal-group.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: .5s }
+
+/* ── [NOVO] Hero stats ── */
+.hero__stats{display:flex;align-items:center;margin-top:32px;flex-wrap:wrap;gap:0}
+.hstat{display:flex;flex-direction:column;align-items:center;padding:0 22px}
+.hstat:first-child{padding-left:0}
+.hstat__n{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;line-height:1;color:#b4e05a}
+.hstat__l{font-size:.72rem;font-weight:400;color:rgba(255,255,255,.45);margin-top:4px}
+.hstat-sep{width:1px;height:30px;background:rgba(255,255,255,.08)}
+/* ── [NOVO] Prova social inline hero ── */
+.hero__social-proof{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;margin-bottom:20px;padding:10px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(94,224,160,.15);border-radius:12px;max-width:fit-content}
+.hero__sp-stars{color:#f5c518;font-size:.85rem;letter-spacing:1px;flex-shrink:0}
+.hero__sp-text{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:.72rem;font-weight:300;color:rgba(255,255,255,.55);line-height:1.4}
+.hero__sp-score{font-weight:600;color:rgba(255,255,255,.85)}
+.hero__sp-sep{color:rgba(255,255,255,.2)}
+/* ── [NOVO] Seção prova social cards ── */
+.proof-section{position:relative;z-index:1;padding:64px 24px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
+.proof-section .section-inner{text-align:center}
+.proof__cards{display:flex;align-items:stretch;justify-content:center;gap:1px;flex-wrap:wrap;background:rgba(255,255,255,.07);border-radius:18px;overflow:hidden;max-width:580px;margin:32px auto 0}
+.proof__card{flex:1;min-width:150px;padding:28px 18px;background:#060d0b;display:flex;flex-direction:column;align-items:center;gap:6px;transition:background .2s}
+.proof__card:hover{background:rgba(255,255,255,.04)}
+.proof__num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;line-height:1;background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.proof__card-label{font-size:.72rem;font-weight:400;color:rgba(255,255,255,.45);text-align:center}
+/* ── [NOVO] Carousel depoimentos ── */
+.depoimentos-section{padding:64px 24px;border-top:1px solid rgba(255,255,255,.06)}
+.depoimentos-section .section-inner{max-width:760px;margin:0 auto}
+.reviews__score{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:7px 14px;border-radius:999px;border:1px solid rgba(180,224,90,.22);background:rgba(180,224,90,.06);font-size:.78rem;font-weight:500;color:#b4e05a}
+.car-outer{margin-top:32px;border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.04)}
+.car-vp{overflow:hidden}
+.car-tk{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.rcard{flex:0 0 100%;padding:32px 36px}
+.rcard__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.rcard__name{font-size:.95rem;font-weight:600}
+.rcard__stars{color:#b4e05a;letter-spacing:3px;font-size:.82rem}
+.rcard__quote{font-size:.93rem;font-weight:300;line-height:1.75;color:rgba(255,255,255,.8)}
+.car-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.15);gap:12px}
+.car-arrows{display:flex;gap:8px}
+.car-arrow{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.8);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;-webkit-appearance:none;appearance:none}
+.car-arrow:hover{background:rgba(255,255,255,.1)}
+.car-pips{display:flex;gap:6px;align-items:center}
+.pip{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;transition:background .2s,transform .2s;-webkit-appearance:none;appearance:none}
+.pip.on{background:#b4e05a;transform:scale(1.4)}
+@media(max-width:640px){
+  .hstat{padding:0 14px}
+  .hstat__n{font-size:1.2rem}
+  .proof__card{min-width:120px;padding:22px 12px}
+  .proof__num{font-size:1.75rem}
+  .rcard{padding:24px 20px}
+  .hero__social-proof{padding:8px 12px}
+  .hero__sp-text{font-size:.68rem}
+}
 </style>
 </head>
 <body>
@@ -229,7 +279,7 @@ footer a:hover{color:var(--g2)}
       <div class="live-dot"></div>
       <span><span class="c1">Consulta</span><span class="c2">Já</span><span class="c3">24h</span></span>
     </a>
-    <a href="https://consultaja24h.com.br/triagem.html" class="nav__cta">Iniciar consulta →</a>
+    <a href="https://consultaja24h.com.br/triagem.html" class="nav__cta">Falar com médico →</a>
   </div>
 </nav>
 
@@ -238,8 +288,8 @@ footer a:hover{color:var(--g2)}
     <div class="hero__badge">
       Atendimento médico online
     </div>
-    <h1>Médico online<br><em>em poucos minutos</em></h1>
-    <p class="hero__sub">Médico com CRM ativo realiza sua consulta por chat ou vídeo online. Pague R$&nbsp;49,90 via PIX e comece agora — sem fila e sem deslocamento.</p>
+    <h1>Consulta médica online<br><em>em poucos minutos</em></h1>
+    <p class="hero__sub">Consulta por chat ou vídeo com médico registrado no CRM. Atendimento rápido por R$&nbsp;49,90 via PIX.</p>
     <div class="hero__btns">
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
@@ -247,9 +297,9 @@ footer a:hover{color:var(--g2)}
       </a>
     </div>
     <p style="margin-top:12px;font-size:.78rem;color:rgba(255,255,255,.32);font-weight:300;text-align:center">R$&nbsp;49,90 via PIX · Início em cerca de 3–5 min · Pagamento seguro</p>
-    <div style="display:flex;justify-content:center;margin-top:10px">
-      <div class="hero__urgency" style="background:transparent;border:none;padding:0;font-size:.72rem;color:rgba(255,255,255,.3)">
-        Atendimento médico online · 24 horas por dia
+    <div style="display:flex;justify-content:center;margin-top:8px">
+      <div class="hero__urgency">
+        <span class="dot-green"></span> Médicos online agora
       </div>
     </div>
     <div class="hero__trust reveal-group">
@@ -266,9 +316,42 @@ footer a:hover{color:var(--g2)}
         Conforme CFM 2.314/2022
       </div>
     </div>
+
   </div>
 </section>
 
+
+<!-- reviews + métricas pós-hero -->
+<section class="reveal" style="padding:36px 24px 28px;border-top:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">
+  <div style="max-width:680px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:24px">
+    <!-- reviews -->
+    <div class="hero__social-proof" style="margin:0">
+      <div class="hero__sp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="hero__sp-text">
+        <span class="hero__sp-score">Avalia&#231;&#227;o m&#233;dia 5,0</span>
+        <span class="hero__sp-sep">·</span>
+        <span>200+ avalia&#231;&#245;es de pacientes</span>
+      </div>
+    </div>
+    <!-- métricas -->
+    <div class="hero__stats" style="margin:0">
+      <div class="hstat">
+        <span class="hstat__n" data-target="800">0</span>
+        <span class="hstat__l">atendimentos</span>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat">
+        <span class="hstat__n" data-target="200">0</span>
+        <span class="hstat__l">avalia&#231;&#245;es</span>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat">
+        <span class="hstat__n">5,0 &#9733;</span>
+        <span class="hstat__l">m&#233;dia</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="reveal" style="position:relative;z-index:1;padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)">
   <div style="max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:32px">
@@ -401,7 +484,81 @@ footer a:hover{color:var(--g2)}
   </div>
 </section>
 
-<section class="cta-section" class="cta-section reveal">
+<!-- [NOVO] Depoimentos de pacientes -->
+<section class="depoimentos-section reveal">
+  <div class="section-inner">
+    <div class="section-label">Pacientes</div>
+    <h2 class="section-title">Quem j&#225; foi <em>atendido.</em></h2>
+    <div class="reviews__score">&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp;5,0 m&#233;dia &middot; 200+ avalia&#231;&#245;es</div>
+    <div class="car-outer">
+      <div class="car-vp">
+        <div class="car-tk" id="carTk">
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Israel</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Adiantou a consulta, o que foi muito bom. Muito simp&#225;tico, explicou tudo com clareza e educa&#231;&#227;o, se colocando &#224; disposi&#231;&#227;o para quaisquer d&#250;vidas posteriores. Primeira experi&#234;ncia em telemedicina e adorei.</p>
+          </article>
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Rosimeire</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Excelente atendimento. M&#233;dico atencioso, dedicado, muito educado, f&#225;cil comunica&#231;&#227;o. Ouviu atentamente meus sintomas e solicitou os exames necess&#225;rios. Certamente retornarei.</p>
+          </article>
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Juelito</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Profissional extremamente atencioso. Orientou sobre medica&#231;&#245;es e sobre minha sa&#250;de em geral. Superou e muito as minhas expectativas.</p>
+          </article>
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Mariangela</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Muito atencioso, prestativo e explicou com clareza, demonstrando empatia. Senti-me acolhida e confiante durante a consulta.</p>
+          </article>
+          <article class="rcard">
+            <div class="rcard__top">
+              <strong class="rcard__name">Eduardo</strong>
+              <span class="rcard__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="rcard__quote">Profissional sensacional e humano. J&#225; &#233; a quarta consulta com ele. Nota-se que realmente se importa com a queixa do paciente. Sa&#237; satisfeito e tranquilo.</p>
+          </article>
+        </div>
+      </div>
+      <div class="car-footer">
+        <div class="car-arrows">
+          <button class="car-arrow" id="carPrev" aria-label="Anterior">&#8592;</button>
+          <button class="car-arrow" id="carNext" aria-label="Pr&#243;ximo">&#8594;</button>
+        </div>
+        <div class="car-pips" id="carPips"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+<section class="reveal">
+  <div class="section-inner">
+    <div class="section-label">Indicações</div>
+    <h2 class="section-title">Quando a consulta online<br>pode ajudar</h2>
+    <p class="section-sub">A teleconsulta resolve a maioria dos casos do dia a dia sem sair de casa.</p>
+    <div class="cards">
+      <div class="card"><div class="card__icon">🤧</div><h3>Sintomas gripais e respiratórios</h3><p>Coriza, tosse, congestão nasal, dor no corpo. Avaliação rápida e conduta adequada para o seu caso.</p></div>
+      <div class="card"><div class="card__icon">🔥</div><h3>Dor de garganta ou febre</h3><p>Faringite, amigdalite, febre sem causa aparente. O médico avalia e prescreve quando necessário.</p></div>
+      <div class="card"><div class="card__icon">💊</div><h3>Infecção urinária</h3><p>Ardência, urgência, desconforto. Diagnóstico clínico e receita médica digital na mesma consulta.</p></div>
+      <div class="card"><div class="card__icon">📄</div><h3>Atestado médico</h3><p>Para trabalho, faculdade ou outros fins. Emitido pelo médico após avaliação clínica individual.</p></div>
+      <div class="card"><div class="card__icon">🔄</div><h3>Acompanhamento de condição crônica</h3><p>Hipertensão, diabetes, ansiedade e outras condições. Avaliação clínica e orientação médica individualizada.</p></div>
+      <div class="card"><div class="card__icon">🩺</div><h3>Orientação médica geral</h3><p>Dúvidas sobre sintomas, exames ou medicamentos. Fale com um médico antes de tomar qualquer decisão.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section reveal">
   <div class="section-label" style="text-align:center">Pronto para começar?</div>
   <h2 class="section-title" style="text-align:center;max-width:500px;margin:0 auto 16px">Fale com um médico<br><em style="font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">agora mesmo</em></h2>
   <p class="section-sub" style="text-align:center;margin:0 auto 40px">Consulta online com médico registrado no CRM. Atendimento por chat ou vídeo.</p>
@@ -507,6 +664,59 @@ function enviarWa(){
     observeAll();
   }
 })();
+
+// [NOVO] Counter animation
+function animateCounter(el){
+  var target = parseInt(el.getAttribute('data-target'));
+  var duration = 1400;
+  var start = null;
+  function step(ts){
+    if(!start) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    var ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(ease * target) + '+';
+    if(progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + '+';
+  }
+  requestAnimationFrame(step);
+}
+var countersStarted = false;
+var statsObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting && !countersStarted){
+      countersStarted = true;
+      document.querySelectorAll('.hstat [data-target]').forEach(animateCounter);
+    }
+  });
+}, {threshold: 0.3});
+var statsSection = document.querySelector('.hero__stats');
+if(statsSection) statsObserver.observe(statsSection);
+
+// [NOVO] Carousel
+var tk    = document.getElementById('carTk');
+var pips  = document.getElementById('carPips');
+if(tk && pips){
+  var slides = Array.from(tk.children);
+  var idx = 0;
+  var timer;
+  slides.forEach(function(_,i){
+    var p = document.createElement('button');
+    p.className = 'pip';
+    p.setAttribute('aria-label','Avaliação '+(i+1));
+    p.onclick = function(){ go(i); };
+    pips.appendChild(p);
+  });
+  function go(i){
+    idx = (i + slides.length) % slides.length;
+    tk.style.transform = 'translateX('+ (-idx*100) +'%)';
+    Array.from(pips.children).forEach(function(p,j){ p.classList.toggle('on', j===idx); });
+    clearInterval(timer);
+    timer = setInterval(function(){ go(idx+1); }, 5800);
+  }
+  document.getElementById('carPrev').onclick = function(){ go(idx-1); };
+  document.getElementById('carNext').onclick = function(){ go(idx+1); };
+  go(0);
+}
 </script>
 </body>
 </html>
