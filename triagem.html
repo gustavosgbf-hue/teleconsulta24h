@@ -1109,14 +1109,20 @@ async function finalizarTriagem(){
       var d=await r.json();
       if(!d.ok) throw new Error(d.error||'Erro ao registrar triagem');
     } else {
-      // Sem pré-registro: cria direto com status 'aguardando'
+      // Sem pré-registro: cria o registro via /api/notify (placeholder) e depois chama atualizar-triagem
+      // para garantir que o e-mail seja disparado (atualizar-triagem é o único ponto que envia e-mail)
       var r=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,
-          triagem:anamnesis.summary||'',tipo:tipoConsulta,data_nascimento:pacienteNascimento,email:pacienteEmail||''})});
+          triagem:'triagem em andamento',tipo:tipoConsulta,data_nascimento:pacienteNascimento,email:pacienteEmail||''})});
       var d=await r.json();
       if(!d.ok) throw new Error(d.error||'Erro ao registrar');
       if(d.atendimentoId) atendimentoId=d.atendimentoId;
       if(d.linkRetorno) history.replaceState(null,'',d.linkRetorno);
+      // Agora chama atualizar-triagem com a triagem real — isso muda status para 'aguardando' E dispara o e-mail
+      var r2=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({atendimentoId,agendamentoId:agendamentoId||null,triagem:anamnesis.summary||''})});
+      var d2=await r2.json();
+      if(!d2.ok) throw new Error(d2.error||'Erro ao finalizar triagem');
     }
     salvarSessao();
     // Se for agendamento, mostra confirmação; se for imediato, vai para sala de espera
