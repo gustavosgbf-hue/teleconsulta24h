@@ -726,7 +726,7 @@ function carregarSessao(){
         pacienteNome = a.nome || ''; pacienteTel = a.tel || ''; pacienteCPF = a.cpf || '';
         salvarSessao(); esconderLoading();
         if(a.status === 'encerrado'){ mostrarTelaEncerrado(); }
-        else if(a.status === 'assumido'){ mostrarSalaEspera(); clearInterval(esperaPoller); medicoAssumiu(a); }
+        else if(a.status === 'assumido'){ mostrarTelaEspera(); medicoAssumiu(a); }
         else { mostrarSalaEspera(); }
         return;
       }
@@ -1163,12 +1163,17 @@ function mostrarConfirmacaoAgendamento(){
   clearInterval(esperaPoller);
 }
 
-function mostrarSalaEspera(){
+function mostrarTelaEspera(){
   showScreen('espera'); document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
   var badge=document.getElementById('esperaBadge'); badge.className='espera-badge '+tipoConsulta;
   document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
   document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
-  tentativas=0; verificarStatus(); esperaPoller=setInterval(verificarStatus,5000);
+  tentativas=0;
+  // Nota: NÃO inicia esperaPoller aqui — use mostrarSalaEspera() para iniciar polling
+}
+function mostrarSalaEspera(){
+  mostrarTelaEspera();
+  verificarStatus(); esperaPoller=setInterval(verificarStatus,5000);
 }
 
 async function verificarStatus(){
@@ -1178,7 +1183,7 @@ async function verificarStatus(){
     var data=await res.json(); if(!data.ok)return;
     atualizarContador(); var a=data.atendimento;
     if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
-    if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')){ clearInterval(esperaPoller); medicoAssumiu(a); }
+    if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')&&!encerradoPoller){ clearInterval(esperaPoller); medicoAssumiu(a); }
   }catch(e){}
 }
 
@@ -1198,7 +1203,10 @@ function medicoAssumiu(a){
     try{
       var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
       var data=await res.json();
-      if(data.ok&&data.atendimento.status==='encerrado'){ clearInterval(encerradoPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); }
+      if(!data.ok||!data.atendimento){ clearInterval(encerradoPoller); return; }
+      var at=data.atendimento;
+      if(at.status==='encerrado'){ clearInterval(encerradoPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
+      if(tipoConsulta==='video'&&at.meet_link&&meetPoller){ clearInterval(meetPoller); meetPoller=null; ativarLinkMeet(at.meet_link); }
     }catch(e){}
   },8000);
   if(tipoConsulta==='chat') iniciarChatConsulta(a);
@@ -1296,9 +1304,15 @@ function iniciarVideoConsulta(atendimento){
   document.getElementById('meetWrap').classList.add('ativo');
   if(atendimento.meet_link){ ativarLinkMeet(atendimento.meet_link); }
   else { meetPoller=setInterval(async function(){
-    try{ var res=await fetch(API+'/api/atendimento/status/'+atendimentoId); var data=await res.json();
-      if(data.ok&&data.atendimento.meet_link){clearInterval(meetPoller);ativarLinkMeet(data.atendimento.meet_link);}
-    }catch(e){} },4000); }
+    try{
+      var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+      var data=await res.json();
+      if(!data.ok||!data.atendimento){ clearInterval(meetPoller); meetPoller=null; return; }
+      var at=data.atendimento;
+      if(at.status==='encerrado'){ clearInterval(meetPoller); meetPoller=null; encerrarConsultaPaciente(); return; }
+      if(at.meet_link){ clearInterval(meetPoller); meetPoller=null; ativarLinkMeet(at.meet_link); }
+    }catch(e){}
+  },4000); }
 }
 function ativarLinkMeet(link){
   var btn=document.getElementById('btnMeetLink'); btn.href=link; btn.classList.remove('disabled');
