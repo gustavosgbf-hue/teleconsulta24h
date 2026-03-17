@@ -343,7 +343,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <!-- S1: IDENTIFICAÇÃO -->
 <div id="screen-identify" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Bem-vindo</h1><p>Preencha seus dados para iniciar a consulta. Após o pagamento, um médico com CRM ativo assumirá seu atendimento.</p></div>
+    <div class="box-head"><h1>⚡ Consulta médica imediata</h1><p>Médico disponível agora · atendimento em até 2 minutos</p></div>
     <div class="identify-body">
 
       <!-- Autopreenchimento — opcional, discreto -->
@@ -389,14 +389,14 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
       <!-- Como funciona -->
       <div class="trust-block">
-        <div class="trust-block__title">Como funciona sua consulta</div>
+        <div class="trust-block__title">Como funciona</div>
         <div class="trust-steps">
-          <div class="trust-step"><div class="trust-step__num">1</div><span>Responda algumas perguntas rápidas sobre sua saúde</span></div>
-          <div class="trust-step"><div class="trust-step__num">2</div><span>Nossa assistente organiza as informações para o médico</span></div>
-          <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico registrado no CRM assume sua consulta</span></div>
-          <div class="trust-step"><div class="trust-step__num">4</div><span>Você conversa diretamente com o médico por chat ou vídeo</span></div>
+          <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha seus dados e pague via PIX</span></div>
+          <div class="trust-step"><div class="trust-step__num">2</div><span>Responda perguntas rápidas sobre seu problema</span></div>
+          <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico com CRM assume em até 2 minutos</span></div>
+          <div class="trust-step"><div class="trust-step__num">4</div><span>Consulta por chat ou vídeo — sem sair de casa</span></div>
         </div>
-        <div class="trust-note">⏱ Normalmente um médico assume sua consulta em poucos minutos.</div>
+        <div class="trust-note">⚡ Sem fila · sem agendamento · médico disponível agora</div>
       </div>
 
       <!-- Legitimidade -->
@@ -410,7 +410,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         </ul>
       </div>
 
-      <button class="id-btn" onclick="avancarIdentificacao()">Continuar para pagamento →</button>
+      <button class="id-btn" onclick="avancarIdentificacao()">⚡ Iniciar consulta agora →</button>
     </div>
   </div>
 </div>
@@ -466,10 +466,10 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <p id="disp-sub">Aguarde um instante.</p>
       <div class="dispon-status verde" id="disp-status-badge" style="margin:0 auto 20px"><div class="dispon-dot"></div><span id="disp-status-txt">Verificando...</span></div>
       <p class="dispon-info" id="disp-info"></p>
-      <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Atendimento imediato →</button>
+      <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">⚡ Iniciar consulta agora →</button>
     </div>
 
-    <!-- Agendamento -->
+    <!-- Agendamento (oculto no fluxo imediato) -->
     <div id="agend-section" style="display:none">
       <div style="display:flex;align-items:center;gap:12px;margin:28px 0 24px">
         <div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>
@@ -504,88 +504,102 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <div id="screen-payment" class="screen box-center">
   <div class="box">
     <div class="pay-head">
-      <div class="pay-icon">💳</div>
-      <div class="pay-head-text"><h2>Pagamento seguro</h2><p id="pay-subtitulo">Pix instantâneo</p></div>
+      <div class="pay-icon">⚡</div>
+      <div class="pay-head-text">
+        <h2>Finalize seu atendimento</h2>
+        <p id="pay-subtitulo">Você será atendido em poucos minutos</p>
+      </div>
     </div>
     <div class="pay-body">
+
+      <!-- Selo imediato -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;padding:9px 18px;border-radius:999px;background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);width:fit-content;margin-left:auto;margin-right:auto">
+        <div style="width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0"></div>
+        <span style="font-size:.76rem;font-weight:600;color:var(--g2);letter-spacing:.04em">ONLINE AGORA · Médico disponível</span>
+      </div>
+
+      <!-- Valor -->
       <div class="pay-valor">
-        <div class="pay-valor-left"><div class="label" id="pay-label-tipo">Consulta médica online</div><div class="desc">Médico com CRM ativo · Sigilo garantido</div></div>
+        <div class="pay-valor-left">
+          <div class="label" id="pay-label-tipo">Consulta imediata</div>
+          <div class="desc">Sem agendamento · atendimento em até 2 min</div>
+        </div>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
 
+      <!-- Campos -->
       <div class="pay-label">Seu nome</div>
       <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
       <div class="pay-label">Seu WhatsApp</div>
       <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número" autocomplete="tel" inputmode="numeric"/>
       <div class="pay-label">CPF</div>
       <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:20px;line-height:1.5">Utilizado para emissão de documentos médicos quando necessário.</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:20px;line-height:1.5">Necessário para emissão de documentos médicos.</div>
 
-      <!-- O que está incluído -->
+      <!-- O que inclui -->
       <div class="pay-includes">
-        <div class="pay-includes__title">Sua consulta inclui</div>
+        <div class="pay-includes__title">O que está incluído</div>
         <ul>
-          <li>Atendimento com médico registrado no CRM</li>
-          <li>Consulta por chat ou vídeo</li>
-          <li>Receita médica digital quando indicada</li>
-          <li>Atestado médico quando indicado</li>
+          <li>Médico com CRM ativo · atendimento imediato</li>
+          <li>Chat ou videochamada — você escolhe</li>
+          <li>Receita e atestado quando indicados</li>
           <li>Sigilo médico garantido</li>
         </ul>
-        <div class="pay-time-note">⏱ Tempo médio para um médico assumir: alguns minutos</div>
+        <div class="pay-time-note">⚡ Médico disponível agora · sem fila · sem agendamento</div>
       </div>
 
-      <!-- Botão pagar -->
-      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar consulta — R$&nbsp;49,90</button>
+      <!-- Botão principal -->
+      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Iniciar consulta agora — R$&nbsp;49,90</button>
 
-      <!-- O que acontece depois -->
-      <div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)">
-        <div style="font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:8px">Após a confirmação</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:.78rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.5">
-            <span style="color:var(--g1);font-weight:700;flex-shrink:0">1</span>Seu atendimento é encaminhado para a equipe médica
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:.78rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.5">
-            <span style="color:var(--g1);font-weight:700;flex-shrink:0">2</span>Um médico da equipe assume sua consulta em minutos
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300">
+        🔒 Pagamento via PagBank · Confirmação automática
+      </div>
+
+      <!-- QR Code PagBank — aparece após clicar -->
+      <div class="pay-qr-section" id="pay-qr-section">
+        <div style="text-align:center;margin-bottom:16px">
+          <div style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:4px">Escaneie o QR Code ou use Pix Copia e Cola</div>
+          <div style="font-size:.74rem;color:rgba(255,255,255,.4);font-weight:300">Pague e entre na consulta automaticamente</div>
+        </div>
+
+        <!-- QR Code -->
+        <div style="text-align:center;margin-bottom:18px">
+          <img id="pay-qr-img" alt="QR Code PIX"
+            style="width:220px;height:220px;border-radius:16px;border:2px solid rgba(180,224,90,.3);background:#fff;padding:8px;display:none"/>
+          <div id="pay-qr-fallback" style="display:none;width:220px;height:220px;border-radius:16px;border:2px solid rgba(180,224,90,.15);background:rgba(255,255,255,.03);margin:0 auto;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:.8rem;color:rgba(255,255,255,.45);text-align:center;padding:20px;box-sizing:border-box">
+            <div style="font-size:2rem">📋</div>
+            <div>Use o Pix Copia e Cola abaixo</div>
           </div>
         </div>
-      </div>
 
-      <!-- Reforço de segurança -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300">
-        🔒 Pagamento seguro via PIX · Nenhum dado bancário é armazenado
-      </div>
-
-      <!-- QR fixo do Inter — aparece após clique -->
-      <div class="pay-qr-section" id="pay-qr-section">
-        <div style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:12px">Clique para ver e colar a Chave PIX</div>
-        <img id="pay-qr-img" class="pay-qr-img" src="" alt="QR Code Pix"/>
-        <br/>
-        <!-- Campo Pix copia e cola -->
-        <div style="margin-bottom:14px;width:100%">
-          <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Chave PIX</div>
+        <!-- Copia e Cola -->
+        <div style="margin-bottom:14px">
+          <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Pix Copia e Cola</div>
           <div style="display:flex;align-items:center;gap:8px">
             <input id="pixChaveInput" readonly type="text" value=""
-              style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(180,224,90,.2);border-radius:10px;padding:10px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.8rem;outline:none;-webkit-user-select:all;user-select:all;cursor:pointer"
+              style="flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(180,224,90,.2);border-radius:10px;padding:10px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.75rem;outline:none;-webkit-user-select:all;user-select:all;cursor:pointer"
               onclick="this.select();copiarPix()"/>
             <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()" style="margin-bottom:0;white-space:nowrap;flex-shrink:0">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Copiar
+              Copiar código
             </button>
           </div>
         </div>
-        <div style="font-size:.72rem;color:rgba(255,255,255,.3);margin-top:4px;line-height:1.6">JG FONSECA SERVICOS MEDICOS LTDA · R$ 49,90</div>
-        <div class="pay-polling-status" id="pay-polling-status">⏳ Realize o pagamento e clique no botão abaixo</div>
-        <!-- Botão de confirmação manual -->
-        <button class="pay-btn" id="payConfirmBtn" onclick="confirmarPagamentoManual()" style="margin-top:18px;background:linear-gradient(135deg,#5ee0a0,#b4e05a)">
-          ✅ Já realizei o pagamento
-        </button>
-        <div style="font-size:.7rem;color:rgba(255,255,255,.25);margin-top:10px;line-height:1.5;text-align:center">
-          Após clicar, você será direcionado à triagem.<br>Pagamentos são verificados manualmente.
+
+        <div style="font-size:.7rem;color:rgba(255,255,255,.2);text-align:center;margin-bottom:12px;line-height:1.5">
+          JG FONSECA SERVICOS MEDICOS LTDA · R$ 49,90 · válido por 30 min
+        </div>
+
+        <!-- Status do polling — atualiza automaticamente, sem botão -->
+        <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento...</div>
+
+        <div style="font-size:.7rem;color:rgba(255,255,255,.2);margin-top:10px;line-height:1.5;text-align:center">
+          A confirmação é automática. Você será redirecionado em instantes após o pagamento.<br>Não feche esta página.
         </div>
       </div>
 
       <div class="pay-divider">pagamento via</div>
-      <div class="pay-seguro">🔒 PIX · Banco Inter PJ · Dados criptografados</div>
+      <div class="pay-seguro">🔒 PIX · PagBank · Confirmação automática e segura</div>
     </div>
   </div>
 </div>
@@ -688,7 +702,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 var API = 'https://triagem-api.onrender.com';
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', pacienteEmail = '', tipoConsulta = '';
 var atendimentoId = null, agendamentoId = null, horarioAgendado = null, modoAgendamento = false;
-var paymentId = null, pixCode = '', paymentPoller = null;
+var paymentId = null, pagbankOrderId = null, paymentPoller = null;
 var esperaPoller = null, chatPoller = null, meetPoller = null, encerradoPoller = null;
 var ultimaMsgId = 0, chatAtivo = false, tentativas = 0;
 var dispData = null;
@@ -817,8 +831,8 @@ function renderDisponibilidade(d){
   document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Indisponível';
   // Atendimento imediato disponível: mostra botão prosseguir
   document.getElementById('btnDispCont').style.display = d.disponivel ? 'block' : 'none';
-  // Agendamentos: SEMPRE mostrar, independente de disponibilidade imediata
-  document.getElementById('agend-section').style.display = 'block';
+  // Agendamento: só mostrar quando atendimento imediato indisponível
+  document.getElementById('agend-section').style.display = d.disponivel ? 'none' : 'block';
   renderHorarios(d.horariosAgendamento||[]);
   if(!d.disponivel && d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo atendimento: '+d.horarioRetorno;
 }
@@ -857,127 +871,128 @@ function prosseguirAgendamento(){
 }
 
 function irParaPagamento(agendamento){
-  // Resetar estado do pagamento a cada entrada na tela
-  paymentId = null; pixCode = '';
+  paymentId=null; pagbankOrderId=null;
   clearInterval(paymentPoller);
-  var qrSection = document.getElementById('pay-qr-section');
-  qrSection.classList.remove('ativo');
-  var btn = document.getElementById('payBtn');
-  var btnConfirm = document.getElementById('payConfirmBtn');
-  if(btnConfirm){ btnConfirm.disabled=false; btnConfirm.textContent='✅ Já realizei o pagamento'; }
-  btn.style.display = 'block'; btn.disabled = false; btn.textContent = 'Ver Chave PIX  →';
-  var statusEl = document.getElementById('pay-polling-status');
-  statusEl.textContent = '⏳ Realize o pagamento e clique no botão abaixo';
-  statusEl.className = 'pay-polling-status';
-
+  document.getElementById('pay-qr-section').classList.remove('ativo');
+  document.getElementById('pixChaveInput').value='';
+  var imgEl=document.getElementById('pay-qr-img');
+  if(imgEl){imgEl.src='';imgEl.style.display='none';}
+  var fbEl=document.getElementById('pay-qr-fallback');
+  if(fbEl) fbEl.style.display='none';
+  var btn=document.getElementById('payBtn');
+  btn.style.display='block'; btn.disabled=false; btn.textContent='Iniciar consulta agora — R$ 49,90';
+  var statusEl=document.getElementById('pay-polling-status');
+  statusEl.textContent='⏳ Aguardando confirmação do pagamento...';
+  statusEl.className='pay-polling-status';
   showScreen('payment');
   document.getElementById('nav-step').textContent='PAGAMENTO';
   if(agendamento){
-    var h = new Date(horarioAgendado).toLocaleString('pt-BR',{timeZone:'America/Fortaleza',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    var h=new Date(horarioAgendado).toLocaleString('pt-BR',{timeZone:'America/Fortaleza',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
     document.getElementById('pay-label-tipo').textContent='Agendamento — '+h;
-    document.getElementById('pay-subtitulo').textContent='Pagamento para confirmar agendamento';
+    document.getElementById('pay-subtitulo').textContent='Confirme o horário com o pagamento';
   } else {
-    document.getElementById('pay-label-tipo').textContent='Consulta médica online';
-    document.getElementById('pay-subtitulo').textContent='Pix instantâneo';
+    document.getElementById('pay-label-tipo').textContent='Consulta imediata';
+    document.getElementById('pay-subtitulo').textContent='Médico disponível agora · atendimento em até 2 min';
   }
 }
 
-// ── PAGAMENTO MANUAL PIX INTER ────────────────────────────────────────────────
-// QR Code do Inter — coloque aqui a URL da imagem do QR ou base64
-// Para obter: abra o app Inter → Pix → Cobrar → R$49,90 → salvar imagem do QR
-// Ou use a chave Pix estática (CNPJ/email) sem imagem
-var PIX_QR_IMG = '';
-var PIX_CHAVE  = '55.789.896/0001-21';
-
+// ── PAGAMENTO VIA PAGBANK ─────────────────────────────────────────────────────
 async function gerarPagamento(){
   var nome = document.getElementById('payNome').value.trim();
-  var tel  = document.getElementById('payTel').value.replace(/\D/g,''); if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2); if(tel.length===12&&tel.startsWith('55'))tel=tel.slice(2);
-  var cpf  = document.getElementById('payCPF').value.trim();
+  var tel  = document.getElementById('payTel').value.replace(/\D/g,'');
+  if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2);
+  if(tel.length===12&&tel.startsWith('55'))tel=tel.slice(2);
+  var cpf = document.getElementById('payCPF').value.trim();
   if(!nome){document.getElementById('payNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
   if(!cpf){document.getElementById('payCPF').focus();return;}
   pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf;
 
   var btn = document.getElementById('payBtn');
-  btn.disabled=true; btn.textContent='Carregando...';
+  btn.disabled=true; btn.textContent='Gerando PIX...';
 
   try{
-    // Registra o interesse e obtém a chave Pix do servidor
-    var res = await fetch(API+'/api/payment',{
+    var res = await fetch(API+'/api/pagbank/order',{
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({nome})
+      body: JSON.stringify({nome:pacienteNome, cpf:pacienteCPF, email:pacienteEmail||undefined})
     });
     var data = await res.json();
-    if(!data.ok) throw new Error(data.error||'Erro ao iniciar pagamento');
+    if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
 
-    paymentId = data.payment_id;
-    // Se o servidor retornar chave Pix, usa ela
-    if(data.pix_chave) PIX_CHAVE = data.pix_chave;
+    pagbankOrderId = data.order_id;
+    var pixText = data.qr_code_text;
 
-    // Preenche campo copia e cola visível
-    var inputChave = document.getElementById('pixChaveInput');
-    if(inputChave) inputChave.value = PIX_CHAVE || '';
+    // Exibe QR Code via API pública com o payload EMV
+    var imgEl = document.getElementById('pay-qr-img');
+    var fbEl  = document.getElementById('pay-qr-fallback');
+    imgEl.onload  = function(){ imgEl.style.display='block'; };
+    imgEl.onerror = function(){ imgEl.style.display='none'; fbEl.style.display='flex'; };
+    imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=210x210&data=' + encodeURIComponent(pixText);
 
-    // Exibe a imagem QR se disponível
-    var qrImg = document.getElementById('pay-qr-img');
-    if(PIX_QR_IMG){
-      qrImg.src = PIX_QR_IMG;
-      qrImg.style.display='block';
-    } else {
-      qrImg.style.display='none';
-    }
-
+    // Preenche campo copia e cola
+    document.getElementById('pixChaveInput').value = pixText || '';
     document.getElementById('pay-qr-section').classList.add('ativo');
     btn.style.display='none';
 
-    // Pré-registro na fila (status='triagem' — NÃO aparece na fila do médico ainda)
+    // Pré-registro na fila (status='triagem' — não aparece na fila do médico ainda)
     try{
       var rPre = await fetch(API+'/api/notify',{
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({nome:pacienteNome, tel:pacienteTel, tel_documentos:pacienteTelDoc,
           cpf:pacienteCPF, triagem:'(Aguardando pagamento)', tipo:tipoConsulta,
-          data_nascimento:pacienteNascimento})
+          data_nascimento:pacienteNascimento, email:pacienteEmail||''})
       });
       var dPre = await rPre.json();
       if(dPre.atendimentoId){
-        atendimentoId = dPre.atendimentoId; salvarSessao();
+        atendimentoId=dPre.atendimentoId; salvarSessao();
         if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
       }
     }catch(e){ console.warn('Pre-registro error:',e); }
 
+    // Polling automático — avança SOMENTE quando backend confirmar pagamento
+    iniciarPollingPagamento();
+
   }catch(e){
-    btn.disabled=false; btn.textContent='Ver Chave Pix →';
+    btn.disabled=false; btn.textContent='Iniciar consulta agora — R$ 49,90';
     var statusEl = document.getElementById('pay-polling-status');
-    statusEl.textContent='❌ Erro ao carregar. Tente novamente.';
+    statusEl.textContent='❌ '+(e.message||'Erro ao gerar PIX. Tente novamente.');
     statusEl.className='pay-polling-status err';
-    console.error('Erro payment:',e);
+    console.error('Erro gerarPagamento:',e);
   }
 }
 
-async function confirmarPagamentoManual(){
-  var btn = document.getElementById('payConfirmBtn');
-  btn.disabled=true; btn.textContent='Confirmando...';
-  try{
-    // Notifica o servidor que o paciente confirmou o pagamento
-    await fetch(API+'/api/payment/confirmar-manual',{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({paymentId, atendimentoId})
-    });
-  }catch(e){ console.warn('Confirmar manual error:',e); }
-
-  // Independente da resposta do servidor, avança para triagem
+function iniciarPollingPagamento(){
+  clearInterval(paymentPoller);
+  var tentativas=0, MAX=600; // 600 × 3s = 30 min
   var statusEl = document.getElementById('pay-polling-status');
-  statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
-  statusEl.className='pay-polling-status ok';
-  btn.textContent='✅ Confirmado!';
-
-  await esperar(800);
-  if(modoAgendamento){ await confirmarAgendamento(pacienteNome, pacienteTel, pacienteCPF); }
-  else { continuarParaTriagem(); }
+  statusEl.textContent='⏳ Aguardando confirmação do pagamento...';
+  statusEl.className='pay-polling-status';
+  paymentPoller = setInterval(async function(){
+    tentativas++;
+    if(tentativas>MAX){
+      clearInterval(paymentPoller);
+      statusEl.textContent='⏰ QR Code expirado. Recarregue a página para gerar um novo.';
+      statusEl.className='pay-polling-status err';
+      return;
+    }
+    if(!pagbankOrderId) return;
+    try{
+      var r = await fetch(API+'/api/pagbank/order/'+pagbankOrderId);
+      var d = await r.json();
+      if(d.ok && d.pago){
+        clearInterval(paymentPoller);
+        statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
+        statusEl.className='pay-polling-status ok';
+        await esperar(1000);
+        if(modoAgendamento){ await confirmarAgendamento(pacienteNome, pacienteTel, pacienteCPF); }
+        else { continuarParaTriagem(); }
+      }
+    }catch(e){ /* erro pontual de rede — polling continua */ }
+  }, 3000);
 }
 
 function copiarPix(){
-  var chave = PIX_CHAVE || '';
+  var chave = document.getElementById('pixChaveInput').value || '';
   if(!chave) return;
   function ok(){ 
     var b=document.getElementById('payCopyBtn'); 
@@ -1348,7 +1363,7 @@ function mostrarPagamentoCancelado(){
 }
 function novaConsulta(){
   limparSessao(); atendimentoId=null; tipoConsulta=''; chatAtivo=false; ultimaMsgId=0;
-  paymentId=null; pixCode=''; clearInterval(paymentPoller);
+  paymentId=null; pagbankOrderId=null; clearInterval(paymentPoller);
   history.replaceState(null,'','/triagem.html'); showScreen('identify');
   document.getElementById('nav-step').textContent='IDENTIFICAÇÃO';
 }
