@@ -396,7 +396,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
           <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico registrado no CRM assume sua consulta</span></div>
           <div class="trust-step"><div class="trust-step__num">4</div><span>Você conversa diretamente com o médico por chat ou vídeo</span></div>
         </div>
-        <div class="trust-note">⏱ Normalmente um médico assume sua consulta em poucos minutos.</div>
+        <div class="trust-note">📩 Após o pagamento, a equipe médica é acionada imediatamente.</div>
       </div>
 
       <!-- Legitimidade -->
@@ -460,16 +460,29 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <div id="screen-disponibilidade" class="screen box-center">
   <div class="dispon-wrap">
 
-    <!-- Atendimento imediato -->
+    <!-- Atendimento principal -->
     <div id="imediato-section">
-      <h1 id="disp-titulo">Verificando disponibilidade...</h1>
-      <p id="disp-sub">Aguarde um instante.</p>
-      <div class="dispon-status verde" id="disp-status-badge" style="margin:0 auto 20px"><div class="dispon-dot"></div><span id="disp-status-txt">Verificando...</span></div>
-      <p class="dispon-info" id="disp-info"></p>
-      <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Atendimento imediato →</button>
+      <h1 id="disp-titulo">Médico pronto para receber sua solicitação</h1>
+      <p id="disp-sub"></p>
+      <div class="dispon-status verde" id="disp-status-badge" style="margin:0 auto 20px"><div class="dispon-dot"></div><span id="disp-status-txt">Encaminhamento imediato</span></div>
+      <p class="dispon-info" id="disp-info">Após o pagamento, sua solicitação é enviada imediatamente à equipe médica.</p>
+      <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Solicitar atendimento agora →</button>
+      <div id="trust-bar" style="display:none;justify-content:center;gap:18px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.35);font-weight:300;flex-wrap:wrap">
+        <span>🩺 Médico com CRM ativo</span>
+        <span>🔒 Sigilo médico</span>
+        <span>📩 Equipe acionada imediatamente</span>
+      </div>
     </div>
 
-    <!-- Agendamento -->
+    <!-- Link discreto para expandir agendamento — visível só quando disponível -->
+    <div id="agend-toggle" style="display:none;text-align:center;margin-top:28px">
+      <button onclick="document.getElementById('agend-toggle').style.display='none';document.getElementById('agend-section').style.display='block';"
+        style="background:none;border:none;color:rgba(255,255,255,.28);font-family:'Outfit',sans-serif;font-size:.8rem;cursor:pointer;text-decoration:underline;padding:4px 8px">
+        Prefere agendar para depois?
+      </button>
+    </div>
+
+    <!-- Agendamento — oculto quando disponível, aberto quando indisponível -->
     <div id="agend-section" style="display:none">
       <div style="display:flex;align-items:center;gap:12px;margin:28px 0 24px">
         <div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>
@@ -507,7 +520,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div class="pay-icon">⚡</div>
       <div class="pay-head-text">
         <h2>Finalize seu atendimento</h2>
-        <p id="pay-subtitulo">Você será atendido em poucos minutos</p>
+        <p id="pay-subtitulo">Sua solicitação é encaminhada à equipe médica</p>
       </div>
     </div>
     <div class="pay-body">
@@ -515,14 +528,14 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <!-- Selo online agora -->
       <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;padding:9px 18px;border-radius:999px;background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);width:fit-content;margin-left:auto;margin-right:auto">
         <div style="width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0"></div>
-        <span style="font-size:.76rem;font-weight:600;color:var(--g2);letter-spacing:.04em">ONLINE AGORA · Médico disponível</span>
+        <span style="font-size:.76rem;font-weight:600;color:var(--g2);letter-spacing:.04em">Encaminhamento imediato · Equipe médica acionada</span>
       </div>
 
       <!-- Valor -->
       <div class="pay-valor">
         <div class="pay-valor-left">
-          <div class="label" id="pay-label-tipo">Consulta imediata</div>
-          <div class="desc">Sem agendamento · atendimento em até 2 min</div>
+          <div class="label" id="pay-label-tipo">Atendimento médico online</div>
+          <div class="desc">Encaminhamento imediato à equipe médica</div>
         </div>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
@@ -540,12 +553,12 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div class="pay-includes">
         <div class="pay-includes__title">O que está incluído</div>
         <ul>
-          <li>Médico com CRM ativo · atendimento imediato</li>
+          <li>Médico com CRM ativo registrado no CFM</li>
           <li>Chat ou videochamada — você escolhe</li>
           <li>Receita e atestado quando indicados</li>
           <li>Sigilo médico garantido</li>
         </ul>
-        <div class="pay-time-note">⚡ Médico disponível agora · sem fila · sem agendamento</div>
+        <div class="pay-time-note">📩 Solicitação enviada imediatamente · resposta geralmente em poucos minutos</div>
       </div>
 
       <!-- Botão principal -->
@@ -560,7 +573,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
         <div style="text-align:center;margin-bottom:16px">
           <div style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:4px">Escaneie o QR Code ou use Pix Copia e Cola</div>
-          <div style="font-size:.74rem;color:rgba(255,255,255,.4);font-weight:300">Pague e entre na consulta automaticamente</div>
+          <div style="font-size:.74rem;color:rgba(255,255,255,.4);font-weight:300">Após o pagamento, sua solicitação é encaminhada imediatamente</div>
         </div>
 
         <!-- QR Code -->
@@ -821,19 +834,24 @@ async function verificarDisponibilidade(){
 }
 
 function renderDisponibilidade(d){
-  document.getElementById('disp-titulo').textContent = d.disponivel ? 'Atendimento disponível' : 'Sem disponibilidade agora';
-  document.getElementById('disp-sub').textContent='';
+  document.getElementById('disp-titulo').textContent = d.disponivel
+    ? 'Médico pronto para receber sua solicitação'
+    : 'Sem disponibilidade agora';
+  document.getElementById('disp-sub').textContent = '';
   document.getElementById('disp-info').textContent = d.disponivel
-    ? (d.medicosOnline > 0 ? d.medicosOnline+' médico(s) disponível(is) · Espera: ~'+d.tempoEstimado+' min' : 'Atendimento disponível — aguarde um médico')
+    ? 'Após o pagamento, sua solicitação é enviada imediatamente à equipe médica.'
     : (d.mensagem || 'Indisponível no momento');
   var badge = document.getElementById('disp-status-badge');
   badge.className = 'dispon-status ' + (d.status||'verde');
   badge.querySelector('.dispon-dot').style.background = d.status==='verde'?'var(--g2)':d.status==='amarelo'?'#ffbd2e':'#ff8080';
-  document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Indisponível';
-  // Atendimento imediato disponível: mostra botão prosseguir
+  document.getElementById('disp-status-txt').textContent = d.disponivel ? 'Encaminhamento imediato' : 'Indisponível';
+  // Botão e trust bar: visíveis só quando disponível
   document.getElementById('btnDispCont').style.display = d.disponivel ? 'block' : 'none';
-  // Agendamentos: SEMPRE mostrar, independente de disponibilidade imediata
-  document.getElementById('agend-section').style.display = 'block';
+  var trustBar = document.getElementById('trust-bar');
+  if(trustBar) trustBar.style.display = d.disponivel ? 'flex' : 'none';
+  // Agendamento: link discreto quando disponível, seção aberta quando não
+  document.getElementById('agend-toggle').style.display = d.disponivel ? 'block' : 'none';
+  document.getElementById('agend-section').style.display = d.disponivel ? 'none' : 'block';
   renderHorarios(d.horariosAgendamento||[]);
   if(!d.disponivel && d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo atendimento: '+d.horarioRetorno;
 }
@@ -893,8 +911,8 @@ function irParaPagamento(agendamento){
     document.getElementById('pay-label-tipo').textContent='Agendamento — '+h;
     document.getElementById('pay-subtitulo').textContent='Confirme o horário com o pagamento';
   } else {
-    document.getElementById('pay-label-tipo').textContent='Consulta imediata';
-    document.getElementById('pay-subtitulo').textContent='Médico disponível agora · atendimento em até 2 min';
+    document.getElementById('pay-label-tipo').textContent='Atendimento médico online';
+    document.getElementById('pay-subtitulo').textContent='Sua solicitação será encaminhada à equipe médica';
   }
 }
 
