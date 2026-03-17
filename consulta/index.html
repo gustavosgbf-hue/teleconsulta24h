@@ -267,6 +267,48 @@ footer a:hover{color:var(--g2)}
   .hero__social-proof{padding:8px 12px}
   .hero__sp-text{font-size:.68rem}
 }
+
+/* ── Seção especialistas ── */
+.spec-sec{padding:72px 24px;border-top:1px solid var(--line)}
+.spec-sec .section-inner{max-width:1080px;margin:0 auto}
+.spec-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:40px}
+.spec-card-item{
+  padding:26px 24px;border-radius:18px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  transition:border-color .2s,transform .2s;
+  display:flex;flex-direction:column;gap:10px;
+}
+.spec-card-item:hover{border-color:rgba(180,224,90,.22);transform:translateY(-3px)}
+.spec-card-item__icon{font-size:1.5rem;margin-bottom:4px}
+.spec-card-item__name{font-size:1rem;font-weight:600;color:rgba(255,255,255,.92)}
+.spec-card-item__desc{font-size:.82rem;font-weight:300;color:var(--muted);line-height:1.65;flex:1}
+.spec-card-item__tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:.7rem;font-weight:500;
+  color:var(--g2);
+  border-top:1px solid var(--line);
+  padding-top:10px;margin-top:4px;
+}
+.spec-card-item__tag::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--g2);flex-shrink:0;
+}
+.spec-sec__cta{
+  text-align:center;margin-top:40px;
+}
+.btn-spec{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;
+  padding:13px 28px;border-radius:999px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.85);
+  transition:all .2s;
+}
+.btn-spec:hover{border-color:rgba(180,224,90,.45);color:var(--g1);background:rgba(180,224,90,.06)}
+.btn-spec svg{transition:transform .2s}
+.btn-spec:hover svg{transform:translateX(3px)}
 </style>
 </head>
 <body>
@@ -554,6 +596,43 @@ footer a:hover{color:var(--g2)}
       <div class="card"><div class="card__icon">📄</div><h3>Atestado médico</h3><p>Para trabalho, faculdade ou outros fins. Emitido pelo médico após avaliação clínica individual.</p></div>
       <div class="card"><div class="card__icon">🔄</div><h3>Acompanhamento de condição crônica</h3><p>Hipertensão, diabetes, ansiedade e outras condições. Avaliação clínica e orientação médica individualizada.</p></div>
       <div class="card"><div class="card__icon">🩺</div><h3>Orientação médica geral</h3><p>Dúvidas sobre sintomas, exames ou medicamentos. Fale com um médico antes de tomar qualquer decisão.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- Seção especialistas -->
+<section class="spec-sec reveal">
+  <div class="section-inner">
+    <div class="section-label">Especialistas</div>
+    <h2 class="section-title">Precisa agendar<br>com especialista?</h2>
+    <p class="section-sub" style="max-width:480px">Agende online com especialistas em psiquiatria, dermatologia e endocrinologia. Consulta por vídeo, sem deslocamento.</p>
+    <div class="spec-cards reveal-group">
+      <div class="spec-card-item">
+        <div class="spec-card-item__icon">🧠</div>
+        <div class="spec-card-item__name">Psiquiatria</div>
+        <p class="spec-card-item__desc">Ansiedade, depressão, insônia, TDAH. Avaliação e acompanhamento com psiquiatra especialista.</p>
+        <span class="spec-card-item__tag">Agendamento online</span>
+      </div>
+      <div class="spec-card-item">
+        <div class="spec-card-item__icon">🌿</div>
+        <div class="spec-card-item__name">Dermatologia</div>
+        <p class="spec-card-item__desc">Acne, manchas, dermatite e queda de cabelo. Diagnóstico e orientação por dermatologista.</p>
+        <span class="spec-card-item__tag">Agendamento online</span>
+      </div>
+      <div class="spec-card-item">
+        <div class="spec-card-item__icon">⚗️</div>
+        <div class="spec-card-item__name">Endocrinologia</div>
+        <p class="spec-card-item__desc">Diabetes, tireoide e alterações hormonais. Acompanhamento especializado sem sair de casa.</p>
+        <span class="spec-card-item__tag">Agendamento online</span>
+      </div>
+    </div>
+    <div class="spec-sec__cta">
+      <a href="/especialistas" class="btn-spec">
+        Agendar com especialista
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
     </div>
   </div>
 </section>
