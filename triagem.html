@@ -522,7 +522,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div class="pay-valor">
         <div class="pay-valor-left">
           <div class="label" id="pay-label-tipo">Atendimento médico online</div>
-          <div class="desc">Sem agendamento · atendimento em até 2 min</div>
+          <div class="desc">Encaminhamento imediato à equipe médica</div>
         </div>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
@@ -975,7 +975,6 @@ async function gerarPagamento(){
   }
 }
 
-// Única definição de iniciarPollingPagamento — sem duplicação, sem lógica de agendamento
 function iniciarPollingPagamento(){
   clearInterval(paymentPoller);
   var tentativas = 0;
@@ -1001,7 +1000,11 @@ function iniciarPollingPagamento(){
         statusEl.textContent = '✅ Pagamento confirmado! Redirecionando...';
         statusEl.className = 'pay-polling-status ok';
         await esperar(1000);
-        continuarParaTriagem();
+        if(modoAgendamento){
+          confirmarAgendamento(pacienteNome, pacienteTel, pacienteCPF);
+        } else {
+          continuarParaTriagem();
+        }
       }
     }catch(e){ /* erro pontual de rede — continua */ }
   }, 3000);
@@ -1032,6 +1035,9 @@ function continuarParaTriagem(){
 }
 
 async function confirmarAgendamento(nome,tel,cpf){
+  // atendimentoId já existe — criado em gerarPagamento via /api/notify
+  // pagbankOrderId já existe e já foi vinculado em gerarPagamento
+  // Aqui: só registra o agendamento no backend e vai pra triagem
   try{
     var r1=await fetch(API+'/api/agendamento/criar',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,modalidade:tipoConsulta,horario_agendado:horarioAgendado,email:pacienteEmail})});
@@ -1040,28 +1046,8 @@ async function confirmarAgendamento(nome,tel,cpf){
     agendamentoId=d1.agendamentoId;
     var r2=await fetch(API+'/api/agendamento/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({agendamentoId,paymentId:paymentId||''})});
-    var d2=await r2.json(); var h=d2.horarioFormatado||'';
-    // Cria pré-registro na fila para ter atendimentoId antes da triagem
-    try{
-      var rPre=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,
-          triagem:'(Aguardando triagem de agendamento)',tipo:tipoConsulta,data_nascimento:pacienteNascimento})});
-      var dPre=await rPre.json();
-      if(dPre.atendimentoId){
-        atendimentoId=dPre.atendimentoId; salvarSessao();
-        if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
-        // Vincula order ao atendimento de agendamento
-        if(pagbankOrderId){
-          fetch(API+'/api/atendimento/vincular-order',{
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({atendimentoId: atendimentoId, orderId: pagbankOrderId})
-          })
-          .then(function(r){ return r.json(); })
-          .then(function(d){ if(!d.ok) console.warn('[VINCULAR-AGEND] falhou', d); })
-          .catch(function(e){ console.warn('[VINCULAR-AGEND ERRO]', e); });
-        }
-      }
-    }catch(e){ console.warn('Pre-registro agendamento error:',e); }
+    var d2=await r2.json();
+    var h=d2.horarioFormatado||'';
     continuarParaTriagemAgendamento(h);
   }catch(e){ alert('Erro ao confirmar agendamento.'); }
 }
