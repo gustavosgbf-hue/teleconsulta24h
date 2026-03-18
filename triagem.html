@@ -356,7 +356,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <div class="autofill-status" id="autofill-status"></div>
       </div>
 
-      <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Como você se chama?" autocomplete="name"/></div>
+      <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Nome e sobrenome" autocomplete="name"/></div>
       <div>
         <div class="id-label">WhatsApp (com DDD)</div>
         <input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric" oninput="feedbackTel(this)"/>
@@ -777,6 +777,8 @@ function avancarIdentificacao(){
   var chkSame = document.getElementById('chkSameNumber').checked;
   var telDocRaw = chkSame ? tel : document.getElementById('idTelDoc').value.replace(/\D/g,''); var telDoc = telDocRaw; if(telDoc.length===13&&telDoc.startsWith('55'))telDoc=telDoc.slice(2); if(telDoc.length===12&&telDoc.startsWith('55'))telDoc=telDoc.slice(2);
   if(!nome){document.getElementById('idNome').focus();return;}
+  if(nome.trim().split(/\s+/).length < 2){document.getElementById('idNome').focus();document.getElementById('idNome').style.borderColor='rgba(255,100,100,.6)';alert('Por favor, informe seu nome completo (nome e sobrenome).');return;}
+  document.getElementById('idNome').style.borderColor='';
   if(!tel||tel.length<10){document.getElementById('idTel').focus();return;}
   if(emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)){document.getElementById('idEmail').focus();alert('E-mail inválido. Corrija ou deixe em branco.');return;}
   pacienteNome=nome; pacienteTel=tel; pacienteTelDoc=telDoc||tel; pacienteNascimento=nascimento||''; pacienteEmail=emailVal||'';
@@ -934,13 +936,7 @@ async function gerarPagamento(){
       body: JSON.stringify({nome:pacienteNome, cpf:pacienteCPF, email:pacienteEmail||undefined})
     });
     var data = await res.json();
-    console.log('[PAGBANK] resposta:', JSON.stringify(data));
-    if(!data.ok){
-      var errMsg=data.error||"";
-      if(!errMsg&&Array.isArray(data.error_messages)){errMsg=data.error_messages.map(function(e){return e.description||e.message||JSON.stringify(e);}).join("; ");}
-      if(!errMsg)errMsg="Erro ao gerar PIX (status "+res.status+")";
-      throw new Error(errMsg);
-    }
+    if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
 
     pagbankOrderId = data.order_id;
     var pixText = data.qr_code_text;
