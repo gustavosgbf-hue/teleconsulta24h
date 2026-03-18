@@ -521,7 +521,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <!-- Valor -->
       <div class="pay-valor">
         <div class="pay-valor-left">
-          <div class="label" id="pay-label-tipo">Consulta imediata</div>
+          <div class="label" id="pay-label-tipo">Atendimento médico online</div>
           <div class="desc">Sem agendamento · atendimento em até 2 min</div>
         </div>
         <div class="pay-price">R$&nbsp;49,90</div>
@@ -545,7 +545,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
           <li>Receita e atestado quando indicados</li>
           <li>Sigilo médico garantido</li>
         </ul>
-        <div class="pay-time-note">⚡ Médico disponível agora · sem fila · sem agendamento</div>
+        <div class="pay-time-note">📩 Solicitação enviada imediatamente · resposta geralmente em poucos minutos</div>
       </div>
 
       <!-- Botão principal -->
@@ -893,12 +893,13 @@ function irParaPagamento(agendamento){
     document.getElementById('pay-label-tipo').textContent='Agendamento — '+h;
     document.getElementById('pay-subtitulo').textContent='Confirme o horário com o pagamento';
   } else {
-    document.getElementById('pay-label-tipo').textContent='Consulta imediata';
-    document.getElementById('pay-subtitulo').textContent='Médico disponível agora · atendimento em até 2 min';
+    document.getElementById('pay-label-tipo').textContent='Atendimento médico online';
+    document.getElementById('pay-subtitulo').textContent='Sua solicitação será encaminhada à equipe médica';
   }
 }
 
 // ── PAGAMENTO VIA PAGBANK ─────────────────────────────────────────────────────
+// Ordem correta: notify (pré-registro) → pagbank/order → vincular → mostrar QR → polling
 async function gerarPagamento(){
   var nome = document.getElementById('payNome').value.trim();
   var tel  = document.getElementById('payTel').value.replace(/\D/g,'');
@@ -914,6 +915,20 @@ async function gerarPagamento(){
   btn.disabled=true; btn.textContent='Gerando PIX...';
 
   try{
+    // 1. Pré-registro — cria atendimentoId ANTES de gerar o pagamento
+    var rPre = await fetch(API+'/api/notify',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({nome:pacienteNome, tel:pacienteTel, tel_documentos:pacienteTelDoc,
+        cpf:pacienteCPF, triagem:'(Aguardando pagamento)', tipo:tipoConsulta,
+        data_nascimento:pacienteNascimento, email:pacienteEmail||''})
+    });
+    var dPre = await rPre.json();
+    if(dPre.atendimentoId){
+      atendimentoId=dPre.atendimentoId; salvarSessao();
+      if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
+    }
+
+    // 2. Cria order PagBank
     var res = await fetch(API+'/api/pagbank/order',{
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({nome:pacienteNome, cpf:pacienteCPF, email:pacienteEmail||undefined})
@@ -924,7 +939,18 @@ async function gerarPagamento(){
     pagbankOrderId = data.order_id;
     var pixText = data.qr_code_text;
 
-    // QR Code via API pública com payload EMV; fallback visual se falhar
+    // 3. Vincula order ao atendimento — sem isso o webhook não acha o registro
+    if(atendimentoId && pagbankOrderId){
+      fetch(API+'/api/atendimento/vincular-order',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({atendimentoId: atendimentoId, orderId: pagbankOrderId})
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if(!d.ok) console.warn('[VINCULAR] falhou', d); })
+      .catch(function(e){ console.warn('[VINCULAR ERRO]', e); });
+    }
+
+    // 4. Exibe QR Code
     var imgEl = document.getElementById('pay-qr-img');
     var fbEl  = document.getElementById('pay-qr-fallback');
     if(imgEl){
@@ -932,44 +958,12 @@ async function gerarPagamento(){
       imgEl.onerror = function(){ imgEl.style.display='none'; if(fbEl) fbEl.style.display='flex'; };
       imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=210x210&data=' + encodeURIComponent(pixText);
     }
-
-    // Campo copia e cola
     var inputChave = document.getElementById('pixChaveInput');
     if(inputChave) inputChave.value = pixText || '';
-
     document.getElementById('pay-qr-section').classList.add('ativo');
     btn.style.display='none';
 
-    // Pré-registro na fila (status='triagem' — não aparece para o médico ainda)
-    try{
-      var rPre = await fetch(API+'/api/notify',{
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({nome:pacienteNome, tel:pacienteTel, tel_documentos:pacienteTelDoc,
-          cpf:pacienteCPF, triagem:'(Aguardando pagamento)', tipo:tipoConsulta,
-          data_nascimento:pacienteNascimento, email:pacienteEmail||''})
-      });
-      var dPre = await rPre.json();
-      if(dPre.atendimentoId){
-        atendimentoId=dPre.atendimentoId; salvarSessao();
-        if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
-
-        // Vincula o pagbank_order_id ao atendimento — peça central da consistência:
-        // sem esse vínculo o webhook não acha o atendimento por pagbank_order_id
-        // Não é fire-and-forget: loga falha explicitamente
-        if(atendimentoId && pagbankOrderId){
-          fetch(API+'/api/atendimento/vincular-order',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({atendimentoId: atendimentoId, orderId: pagbankOrderId})
-          })
-          .then(function(r){ return r.json(); })
-          .then(function(d){ if(!d.ok) console.warn('[VINCULAR] falhou', d); })
-          .catch(function(e){ console.warn('[VINCULAR ERRO]', e); });
-        }
-      }
-    }catch(e){ console.warn('Pre-registro error:',e); }
-
-    // Inicia polling — única entrada no fluxo de confirmação
+    // 5. Inicia polling — avança só quando d.ok && d.pago === true
     iniciarPollingPagamento();
 
   }catch(e){
@@ -1056,6 +1050,16 @@ async function confirmarAgendamento(nome,tel,cpf){
       if(dPre.atendimentoId){
         atendimentoId=dPre.atendimentoId; salvarSessao();
         if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
+        // Vincula order ao atendimento de agendamento
+        if(pagbankOrderId){
+          fetch(API+'/api/atendimento/vincular-order',{
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({atendimentoId: atendimentoId, orderId: pagbankOrderId})
+          })
+          .then(function(r){ return r.json(); })
+          .then(function(d){ if(!d.ok) console.warn('[VINCULAR-AGEND] falhou', d); })
+          .catch(function(e){ console.warn('[VINCULAR-AGEND ERRO]', e); });
+        }
       }
     }catch(e){ console.warn('Pre-registro agendamento error:',e); }
     continuarParaTriagemAgendamento(h);
@@ -1139,33 +1143,15 @@ async function sendTriage(text){
 }
 
 async function finalizarTriagem(){
-  // Mostra loading enquanto registra na fila
   addMsg('triageChat','bot','Conectando você ao médico...');
   try{
-    if(atendimentoId){
-      // Atualiza o pré-registro com a triagem real → muda status para 'aguardando' → aparece na fila
-      var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({atendimentoId,agendamentoId:agendamentoId||null,triagem:anamnesis.summary||''})});
-      var d=await r.json();
-      if(!d.ok) throw new Error(d.error||'Erro ao registrar triagem');
-    } else {
-      // Sem pré-registro: cria o registro via /api/notify (placeholder) e depois chama atualizar-triagem
-      // para garantir que o e-mail seja disparado (atualizar-triagem é o único ponto que envia e-mail)
-      var r=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,tel_documentos:pacienteTelDoc,cpf:pacienteCPF,
-          triagem:'triagem em andamento',tipo:tipoConsulta,data_nascimento:pacienteNascimento,email:pacienteEmail||''})});
-      var d=await r.json();
-      if(!d.ok) throw new Error(d.error||'Erro ao registrar');
-      if(d.atendimentoId) atendimentoId=d.atendimentoId;
-      if(d.linkRetorno) history.replaceState(null,'',d.linkRetorno);
-      // Agora chama atualizar-triagem com a triagem real — isso muda status para 'aguardando' E dispara o e-mail
-      var r2=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({atendimentoId,agendamentoId:agendamentoId||null,triagem:anamnesis.summary||''})});
-      var d2=await r2.json();
-      if(!d2.ok) throw new Error(d2.error||'Erro ao finalizar triagem');
-    }
+    // atendimentoId sempre existe — pré-registro feito em gerarPagamento antes do QR
+    if(!atendimentoId) throw new Error('Sessão perdida. Recarregue a página.');
+    var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({atendimentoId,agendamentoId:agendamentoId||null,triagem:anamnesis.summary||''})});
+    var d=await r.json();
+    if(!d.ok) throw new Error(d.error||'Erro ao registrar triagem');
     salvarSessao();
-    // Se for agendamento, mostra confirmação; se for imediato, vai para sala de espera
     if(modoAgendamento && agendamentoId){
       mostrarConfirmacaoAgendamento();
     } else {
