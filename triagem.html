@@ -934,7 +934,13 @@ async function gerarPagamento(){
       body: JSON.stringify({nome:pacienteNome, cpf:pacienteCPF, email:pacienteEmail||undefined})
     });
     var data = await res.json();
-    if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
+    console.log('[PAGBANK] resposta:', JSON.stringify(data));
+    if(!data.ok){
+      var errMsg=data.error||"";
+      if(!errMsg&&Array.isArray(data.error_messages)){errMsg=data.error_messages.map(function(e){return e.description||e.message||JSON.stringify(e);}).join("; ");}
+      if(!errMsg)errMsg="Erro ao gerar PIX (status "+res.status+")";
+      throw new Error(errMsg);
+    }
 
     pagbankOrderId = data.order_id;
     var pixText = data.qr_code_text;
