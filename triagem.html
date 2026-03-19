@@ -478,30 +478,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none">Atendimento imediato →</button>
     </div>
 
-    <!-- Agendamento -->
+    <!-- Agendamento — mostrado como opção secundária via toggle -->
     <div id="agend-section" style="display:none">
-      <div style="display:flex;align-items:center;gap:12px;margin:28px 0 24px">
-        <div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>
-        <span style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25)">ou agende um horário</span>
-        <div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>
-      </div>
-      <div class="box" style="border-radius:18px;text-align:left">
-        <div class="box-head">
-          <h1 style="font-size:1.05rem;font-family:'Outfit',sans-serif;font-weight:600">📅 Agendar consulta</h1>
-          <p style="margin-top:6px">Escolha um horário e confirme com o pagamento. A triagem é feita agora — o médico já chega preparado.</p>
-          <div style="margin-top:10px;padding:10px 14px;background:rgba(255,95,87,.05);border:1px solid rgba(255,95,87,.2);border-radius:10px;font-size:.78rem;color:rgba(255,160,150,.9);line-height:1.55">
-            ⚠️ <strong style="color:rgba(255,190,180,.95)">Sem reagendamento:</strong> o horário escolhido é definitivo. Em caso de desistência o valor não é reembolsado.
-          </div>
+      <!-- Botão toggle: aparece quando há atendimento imediato disponível -->
+      <button id="agend-toggle-btn"
+        onclick="(function(btn){var c=document.getElementById('agend-content');var av=document.getElementById('aviso-sem-reembolso');var aberto=c.style.display!=='none';c.style.display=aberto?'none':'block';if(av)av.style.display=aberto?'none':'block';btn.textContent=aberto?'📅 Prefere agendar? Clique aqui':'▲ Ocultar opção de agendamento';})(this)"
+        style="display:none;width:100%;padding:11px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.5);font-family:'Outfit',sans-serif;font-size:.83rem;cursor:pointer;margin-top:16px;transition:all .2s;text-align:center">
+        📅 Prefere agendar? Clique aqui
+      </button>
+      <div id="agend-content">
+        <div style="display:flex;align-items:center;gap:12px;margin:28px 0 24px">
+          <div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>
+          <span style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25)">ou agende um horário</span>
+          <div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>
         </div>
-        <div style="padding:18px 22px 22px">
-          <div style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px">Horários disponíveis</div>
-          <div class="horarios-grid" id="horarios-grid"></div>
-          <div id="email-agend-wrap" style="margin-top:16px;display:block">
-            <label style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:8px">Seu e-mail <span style="color:rgba(255,255,255,.5);text-transform:none;letter-spacing:0;font-weight:400">(para confirmação e lembrete)</span></label>
-            <input id="inputEmailAgend" type="email" placeholder="seu@email.com" style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-family:Outfit,sans-serif;font-size:.88rem;outline:none;box-sizing:border-box;display:block" oninput="validarEmailAgend()">
-            <div id="emailAgendErro" style="font-size:.72rem;color:#ff8080;margin-top:4px;display:none">E-mail inválido</div>
+        <div class="box" style="border-radius:18px;text-align:left">
+          <div class="box-head">
+            <h1 style="font-size:1.05rem;font-family:'Outfit',sans-serif;font-weight:600">📅 Agendar consulta</h1>
+            <p style="margin-top:6px">Escolha um horário e confirme com o pagamento. A triagem é feita agora — o médico já chega preparado.</p>
+            <div id="aviso-sem-reembolso" style="display:none;margin-top:10px;padding:10px 14px;background:rgba(255,95,87,.05);border:1px solid rgba(255,95,87,.2);border-radius:10px;font-size:.78rem;color:rgba(255,160,150,.9);line-height:1.55">
+              ⚠️ <strong style="color:rgba(255,190,180,.95)">Sem reagendamento:</strong> o horário escolhido é definitivo. Em caso de desistência o valor não é reembolsado.
+            </div>
           </div>
-          <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Confirmar horário →</button>
+          <div style="padding:18px 22px 22px">
+            <div style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px">Horários disponíveis</div>
+            <div class="horarios-grid" id="horarios-grid"></div>
+            <div id="email-agend-wrap" style="margin-top:16px;display:block">
+              <label style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:8px">Seu e-mail <span style="color:rgba(255,255,255,.5);text-transform:none;letter-spacing:0;font-weight:400">(para confirmação e lembrete)</span></label>
+              <input id="inputEmailAgend" type="email" placeholder="seu@email.com" style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-family:Outfit,sans-serif;font-size:.88rem;outline:none;box-sizing:border-box;display:block" oninput="validarEmailAgend()">
+              <div id="emailAgendErro" style="font-size:.72rem;color:#ff8080;margin-top:4px;display:none">E-mail inválido</div>
+            </div>
+            <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Confirmar horário →</button>
+          </div>
         </div>
       </div>
     </div>
@@ -843,8 +851,22 @@ function renderDisponibilidade(d){
   document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Indisponível';
   // Atendimento imediato disponível: mostra botão prosseguir
   document.getElementById('btnDispCont').style.display = d.disponivel ? 'block' : 'none';
-  // Agendamentos: SEMPRE mostrar, independente de disponibilidade imediata
+  // Agendamentos: sempre presentes, mas colapsados quando há atendimento imediato disponível
   document.getElementById('agend-section').style.display = 'block';
+  var agendToggle = document.getElementById('agend-toggle-btn');
+  var agendContent = document.getElementById('agend-content');
+  var avisoSemReembolso = document.getElementById('aviso-sem-reembolso');
+  if (d.disponivel) {
+    // Há médico disponível agora: esconde agendamento, mostra só o toggle
+    if (agendContent) agendContent.style.display = 'none';
+    if (agendToggle) agendToggle.style.display = 'block';
+    if (avisoSemReembolso) avisoSemReembolso.style.display = 'none';
+  } else {
+    // Sem disponibilidade imediata: expande agendamento direto, sem toggle
+    if (agendContent) agendContent.style.display = 'block';
+    if (agendToggle) agendToggle.style.display = 'none';
+    if (avisoSemReembolso) avisoSemReembolso.style.display = 'block';
+  }
   renderHorarios(d.horariosAgendamento||[]);
   if(!d.disponivel && d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo atendimento: '+d.horarioRetorno;
 }
@@ -930,7 +952,7 @@ async function gerarPagamento(){
     var rPre = await fetch(API+'/api/notify',{
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({nome:pacienteNome, tel:pacienteTel, tel_documentos:pacienteTelDoc,
-        cpf:pacienteCPF, triagem:'(Aguardando pagamento)', tipo:tipoConsulta,
+        cpf:pacienteCPF, triagem:'(aguardando pagamento)', tipo:tipoConsulta,
         data_nascimento:pacienteNascimento, email:pacienteEmail||''})
     });
     var dPre = await rPre.json();
