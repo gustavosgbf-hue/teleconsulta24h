@@ -1010,6 +1010,11 @@ function iniciarPollingPagamento(){
         clearInterval(paymentPoller);
         statusEl.textContent = '✅ Pagamento confirmado! Redirecionando...';
         statusEl.className = 'pay-polling-status ok';
+        if(!sessionStorage.getItem('conv')){
+          sessionStorage.setItem('conv','1');
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:atendimentoId||''});
+        }
         await esperar(1000);
         if(modoAgendamento){
           confirmarAgendamento(pacienteNome, pacienteTel, pacienteCPF);
@@ -1472,6 +1477,5 @@ async function buscarCadastro() {
   btn.textContent = 'Buscar'; btn.disabled = false;
 }
 </script>
-<script>gtag('event','conversion',{'send_to':'AW-17964942771/AT3gCPTl0PsbELOLrfZC','value':49.90,'currency':'BRL','transaction_id':''});</script>
 </body>
 </html>
