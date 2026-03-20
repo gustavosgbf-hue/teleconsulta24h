@@ -345,19 +345,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
       </span>
     </a>
-    <span class="nav__step" id="nav-step">IDENTIFICAÇÃO</span>
+    <span class="nav__step" id="nav-step">SEUS DADOS</span>
   </div>
 </nav>
 
 <!-- S1: IDENTIFICAÇÃO -->
 <div id="screen-identify" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Bem-vindo</h1><p>Preencha seus dados para iniciar a consulta. Após o pagamento, um médico com CRM ativo assumirá seu atendimento.</p></div>
+    <div class="box-head"><h1>Fale com um médico agora</h1><p>Preencha os dados abaixo. Em alguns minutos um médico com CRM ativo estará com você.</p></div>
     <div class="identify-body">
 
       <!-- Autopreenchimento — opcional, discreto -->
       <div class="autofill-wrap">
-        <div class="autofill-label">Já consultou conosco antes? Digite seu WhatsApp para preencher seus dados automaticamente.</div>
+        <div class="autofill-label">Já consultou antes? Digite seu WhatsApp e preenchemos tudo pra você.</div>
         <div class="autofill-row">
           <input class="autofill-input" id="autofillTel" type="tel" placeholder="Seu WhatsApp" inputmode="numeric" onkeydown="if(event.key==='Enter')buscarCadastro()"/>
           <button class="autofill-btn" onclick="buscarCadastro()">Preencher</button>
@@ -383,29 +383,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div>
-        <div class="id-label">E-mail <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">para receber receitas e documentos médicos (opcional)</span></div>
+        <div class="id-label">E-mail <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional — para receber o resumo da consulta)</span></div>
         <input class="id-input" id="idEmail" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email"/>
       </div>
       <div>
-        <div class="id-label">Telefone para receber documentos por SMS <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">opcional</span></div>
+        <div class="id-label">WhatsApp para documentos <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional — se diferente do acima)</span></div>
         <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
         <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
           <input type="checkbox" id="chkSameNumber" onchange="toggleSameNumber(this)"/>
           Usar o mesmo número do WhatsApp
         </label>
       </div>
-      <div class="id-note">🔒 Seus dados são registrados com segurança conforme a LGPD.</div>
+      <div class="id-note">🔒 Seus dados ficam protegidos. Sigilo médico garantido.</div>
 
       <!-- Como funciona -->
       <div class="trust-block">
-        <div class="trust-block__title">Como funciona sua consulta</div>
+        <div class="trust-block__title">Em 4 passos simples</div>
         <div class="trust-steps">
-          <div class="trust-step"><div class="trust-step__num">1</div><span>Responda algumas perguntas rápidas sobre sua saúde</span></div>
-          <div class="trust-step"><div class="trust-step__num">2</div><span>Nossa assistente organiza as informações para o médico</span></div>
-          <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico registrado no CRM assume sua consulta</span></div>
-          <div class="trust-step"><div class="trust-step__num">4</div><span>Você conversa diretamente com o médico por chat ou vídeo</span></div>
+          <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha seus dados — leva menos de 1 minuto</span></div>
+          <div class="trust-step"><div class="trust-step__num">2</div><span>Responda algumas perguntas rápidas — a IA organiza tudo para o médico</span></div>
+          <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico com CRM ativo assume — geralmente em minutos</span></div>
+          <div class="trust-step"><div class="trust-step__num">4</div><span>Você fala diretamente com o médico, por chat ou vídeo</span></div>
         </div>
-        <div class="trust-note">⏱ Normalmente um médico assume sua consulta em poucos minutos.</div>
+        <div class="trust-note">⏱ Tempo médio de espera: menos de 5 minutos.</div>
       </div>
 
       <!-- Legitimidade -->
@@ -414,12 +414,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul class="trust-list">
           <li><span class="ti">🩺</span><span>Consultas realizadas por médicos registrados no CRM</span></li>
           <li><span class="ti">🔒</span><span>Atendimento seguro e confidencial — sigilo médico garantido</span></li>
-          <li><span class="ti">📋</span><span>Receita médica digital quando indicada</span></li>
+          <li><span class="ti">📋</span><span>Atendimento completo com documentação quando aplicável</span></li>
           <li><span class="ti">⚖️</span><span>Conforme Resolução CFM nº 2.314/2022</span></li>
         </ul>
       </div>
 
-      <button class="id-btn" onclick="avancarIdentificacao()">Continuar para pagamento →</button>
+      <button class="id-btn" onclick="avancarIdentificacao()">Continuar — quase lá →</button>
     </div>
   </div>
 </div>
@@ -427,18 +427,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- S2: TERMOS -->
 <div id="screen-terms" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Termos de Uso e TCLE</h1><p>Leia os pontos principais antes de prosseguir.</p></div>
+    <div class="box-head"><h1>Antes de começar</h1><p>Pontos importantes sobre o serviço — leitura rápida.</p></div>
     <div class="terms-body">
       <div class="titem"><strong>Serviço</strong>Orientação médica remota por profissional com CRM ativo, conforme Resolução CFM nº 2.314/2022. Não substitui atendimento presencial em urgências.</div>
       <div class="titem"><strong>Triagem automatizada</strong>A coleta de anamnese usa IA para estruturar as informações. Não constitui diagnóstico. Toda informação é revisada pelo médico.</div>
-      <div class="titem"><strong>Transferência de dados</strong>Dados podem ser processados por provedor internacional de IA com garantias contratuais, conforme Arts. 33–36 da LGPD.</div>
-      <div class="titem"><strong>Documentos</strong>Atestados e receitas são emitidos exclusivamente quando há indicação clínica. Não são automáticos.</div>
+      <div class="titem"><strong>Privacidade dos dados</strong>Seus dados são protegidos com garantias contratuais e tratados em conformidade com a LGPD.</div>
+      <div class="titem"><strong>Documentos</strong>Qualquer documentação médica é emitida conforme avaliação do médico responsável.</div>
       <div class="titem"><strong>Privacidade</strong>Dados sensíveis de saúde tratados com sigilo, conforme Lei 13.709/2018 (LGPD).</div>
       <div class="titem"><strong>Emergências</strong>Em caso de dor no peito, falta de ar grave, desmaio ou risco de vida, procure pronto-socorro imediatamente.</div>
     </div>
     <div class="terms-foot">
-      <label class="check-row" for="termsCheck"><input type="checkbox" id="termsCheck"/><span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a>, <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a> e TCLE, incluindo uso de IA para triagem.</span></label>
-      <button class="btn-aceitar" id="btnAceitar">Aceitar e continuar</button>
+      <label class="check-row" for="termsCheck"><input type="checkbox" id="termsCheck"/><span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a> e <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a>.</span></label>
+      <button class="btn-aceitar" id="btnAceitar">Entendido — continuar →</button>
     </div>
   </div>
 </div>
@@ -446,22 +446,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- S3: MODALIDADE -->
 <div id="screen-modalidade" class="screen box-center">
   <div class="modal-wrap">
-    <div class="modal-head"><h1>Como prefere ser atendido?</h1><p>Escolha a modalidade. O médico estará disponível na opção que você selecionar.</p></div>
+    <div class="modal-head"><h1>Chat ou vídeo?</h1><p>Escolha como prefere falar com o médico. Qualquer um funciona bem.</p></div>
     <div class="modal-cards">
       <div class="modal-card chat" onclick="selecionarModalidade('chat',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
         <span class="mc-icon">💬</span><div class="mc-title">Consulta por chat</div>
-        <div class="mc-desc">Mensagens em tempo real com o médico pela plataforma.</div>
+        <div class="mc-desc">Troca de mensagens com o médico em tempo real — discreto e rápido.</div>
         <span class="mc-badge">Texto</span>
       </div>
       <div class="modal-card video" onclick="selecionarModalidade('video',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
         <span class="mc-icon">🎥</span><div class="mc-title">Consulta por vídeo</div>
-        <div class="mc-desc">Consulta ao vivo via Google Meet.</div>
+        <div class="mc-desc">Consulta cara a cara via Google Meet — como se fosse pessoalmente.</div>
         <span class="mc-badge">Videochamada</span>
       </div>
     </div>
-    <button class="btn-modal-cont" id="btnModalCont" disabled>Continuar →</button>
+    <button class="btn-modal-cont" id="btnModalCont" disabled>Confirmar e continuar →</button>
   </div>
 </div>
 
@@ -525,7 +525,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="pay-icon">⚡</div>
       <div class="pay-head-text">
         <h2>Finalize seu atendimento</h2>
-        <p id="pay-subtitulo">Você será atendido em poucos minutos</p>
+        <p id="pay-subtitulo">Médico disponível agora — resposta em minutos</p>
       </div>
     </div>
     <div class="pay-body">
@@ -540,19 +540,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="pay-valor">
         <div class="pay-valor-left">
           <div class="label" id="pay-label-tipo">Atendimento médico online</div>
-          <div class="desc">Encaminhamento imediato à equipe médica</div>
+          <div class="desc">Médico com CRM ativo · início em minutos</div>
         </div>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
 
       <!-- Campos -->
-      <div class="pay-label">Seu nome</div>
+      <div class="pay-label">Nome completo</div>
       <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
       <div class="pay-label">Seu WhatsApp</div>
       <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número" autocomplete="tel" inputmode="numeric"/>
       <div class="pay-label">CPF</div>
       <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:20px;line-height:1.5">Necessário para emissão de documentos médicos.</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:-8px;margin-bottom:20px;line-height:1.5">Usado para confirmar sua identidade com segurança.</div>
 
       <!-- Inclui -->
       <div class="pay-includes">
@@ -560,17 +560,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul>
           <li>Médico com CRM ativo · atendimento imediato</li>
           <li>Chat ou videochamada — você escolhe</li>
-          <li>Receita e atestado quando indicados</li>
+          <li>Atendimento médico completo</li>
           <li>Sigilo médico garantido</li>
         </ul>
-        <div class="pay-time-note">📩 Solicitação enviada imediatamente · resposta geralmente em poucos minutos</div>
+        <div class="pay-time-note">⚡ Após o pagamento, o médico recebe seu caso imediatamente</div>
       </div>
 
       <!-- Botão principal -->
-      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Iniciar consulta agora — R$&nbsp;49,90</button>
+      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Falar com médico agora — R$&nbsp;49,90</button>
 
       <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.3);font-weight:300">
-        🔒 Pagamento via PagBank · Confirmação automática
+        🔒 Pagamento seguro via PagBank · Dados criptografados · Confirmação automática
       </div>
 
       <!-- QR Code PagBank — aparece após clicar -->
@@ -795,7 +795,7 @@ function avancarIdentificacao(){
   var chkSame = document.getElementById('chkSameNumber').checked;
   var telDocRaw = chkSame ? tel : document.getElementById('idTelDoc').value.replace(/\D/g,''); var telDoc = telDocRaw; if(telDoc.length===13&&telDoc.startsWith('55'))telDoc=telDoc.slice(2); if(telDoc.length===12&&telDoc.startsWith('55'))telDoc=telDoc.slice(2);
   if(!nome){document.getElementById('idNome').focus();return;}
-  if(nome.trim().split(/\s+/).length < 2){document.getElementById('idNome').focus();document.getElementById('idNome').style.borderColor='rgba(255,100,100,.6)';alert('Por favor, informe seu nome completo (nome e sobrenome).');return;}
+  if(nome.trim().split(/\s+/).length < 2){document.getElementById('idNome').focus();document.getElementById('idNome').style.borderColor='rgba(255,100,100,.6)';alert('Informe seu nome e sobrenome para continuar.');return;}
   document.getElementById('idNome').style.borderColor='';
   if(!tel||tel.length<10){document.getElementById('idTel').focus();return;}
   if(emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)){document.getElementById('idEmail').focus();alert('E-mail inválido. Corrija ou deixe em branco.');return;}
@@ -915,7 +915,7 @@ function irParaPagamento(agendamento){
   var fbEl = document.getElementById('pay-qr-fallback');
   if(fbEl) fbEl.style.display='none';
   var btn = document.getElementById('payBtn');
-  btn.style.display='block'; btn.disabled=false; btn.textContent='Iniciar consulta agora — R$ 49,90';
+  btn.style.display='block'; btn.disabled=false; btn.textContent='Falar com médico agora — R$ 49,90';
   var statusEl = document.getElementById('pay-polling-status');
   statusEl.textContent='⏳ Aguardando confirmação do pagamento...';
   statusEl.className='pay-polling-status';
@@ -1000,7 +1000,7 @@ async function gerarPagamento(){
     iniciarPollingPagamento();
 
   }catch(e){
-    btn.disabled=false; btn.textContent='Iniciar consulta agora — R$ 49,90';
+    btn.disabled=false; btn.textContent='Falar com médico agora — R$ 49,90';
     var statusEl = document.getElementById('pay-polling-status');
     statusEl.textContent='❌ '+(e.message||'Erro ao gerar PIX. Tente novamente.');
     statusEl.className='pay-polling-status err';
