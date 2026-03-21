@@ -41,7 +41,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
 main{flex:1;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:60px 24px}
 
-.page{max-width:680px;width:100%;text-align:center}
+.page{max-width:760px;width:100%;text-align:center}
 
 .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;border:1px solid rgba(94,224,160,.25);background:rgba(94,224,160,.06);font-size:.75rem;font-weight:500;color:var(--g2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:28px}
 
@@ -50,8 +50,8 @@ main{flex:1;position:relative;z-index:1;display:flex;align-items:center;justify-
 .page__sub{font-size:.95rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:48px}
 
 /* Cards de seleção */
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-@media(max-width:520px){.choices{grid-template-columns:1fr}}
+.choices{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:640px){.choices{grid-template-columns:1fr}}
 
 .choice{position:relative;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.04);padding:36px 28px;text-align:center;cursor:pointer;transition:border-color .2s,transform .2s,background .2s;text-decoration:none;display:block}
 .choice:hover{border-color:rgba(180,224,90,.3);background:rgba(180,224,90,.05);transform:translateY(-3px)}
@@ -64,13 +64,21 @@ main{flex:1;position:relative;z-index:1;display:flex;align-items:center;justify-
 /* Badge "em breve" */
 .soon-badge{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:3px 10px;font-size:.65rem;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase}
 
-/* Opções de profissão (ocultas por padrão) */
-.professions{display:none;margin-top:16px;padding:24px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line);text-align:left}
-.professions h4{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.prof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
-.prof-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:.85rem;color:rgba(255,255,255,.5);cursor:not-allowed}
-.prof-item__icon{font-size:1.1rem;flex-shrink:0}
-.coming-soon-note{margin-top:14px;font-size:.78rem;color:rgba(255,255,255,.3);text-align:center;font-style:italic}
+/* Bloco de confiança */
+.trust-strip{
+  display:flex;align-items:center;justify-content:center;
+  gap:28px;flex-wrap:wrap;
+  margin-top:8px;padding:18px 0;
+  border-top:1px solid var(--line);
+}
+.trust-item{
+  display:flex;align-items:center;gap:7px;
+  font-size:.76rem;font-weight:300;color:rgba(255,255,255,.38);
+}
+.trust-item::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--g2);opacity:.5;flex-shrink:0;
+}
 
 footer{border-top:1px solid var(--line);padding:24px;text-align:center;position:relative;z-index:1}
 footer p{font-size:.72rem;color:rgba(255,255,255,.22);font-weight:300}
@@ -83,6 +91,7 @@ footer a:hover{color:var(--g2)}
 .page h1{animation-delay:.15s}
 .page__sub{animation-delay:.25s}
 .choices{animation-delay:.35s}
+.trust-strip{animation:fadeUp .6s ease both;animation-delay:.45s}
 </style>
 </head>
 <body>
@@ -108,7 +117,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="page">
     <div class="badge">👩‍⚕️ Faça parte da equipe</div>
     <h1>Trabalhe<br><em>conosco</em></h1>
-    <p class="page__sub">Selecione seu perfil profissional para continuar.</p>
+    <p class="page__sub">Entre para a plataforma e receba pacientes sem precisar investir em marketing.</p>
 
     <div class="choices">
 
@@ -116,33 +125,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="https://painel.consultaja24h.com.br/medico-cadastro.html" class="choice">
         <span class="choice__icon">🩺</span>
         <div class="choice__title">Sou Médico</div>
-        <div class="choice__desc">Médico com CRM ativo. Atenda pacientes online por chat ou vídeo, quando e onde quiser.</div>
+        <div class="choice__desc">CRM ativo. Atenda pacientes online por chat ou vídeo, quando e onde quiser.</div>
       </a>
 
-      <!-- OUTROS PROFISSIONAIS — INATIVO -->
+      <!-- PSICÓLOGO — ATIVO -->
+      <a href="/psicologo-cadastro" class="choice">
+        <span class="choice__icon">🧠</span>
+        <div class="choice__title">Sou Psicólogo</div>
+        <div class="choice__desc">CRP ativo. Ofereça psicoterapia online com agendamento, pagamentos integrados e captação de pacientes pela plataforma.</div>
+      </a>
+
+      <!-- OUTROS PROFISSIONAIS — EM BREVE -->
       <div class="choice disabled">
         <span class="soon-badge">Em breve</span>
         <span class="choice__icon">🏥</span>
-        <div class="choice__title">Sou Profissional da Saúde</div>
-        <div class="choice__desc">Psicólogo, enfermeiro, nutricionista e outros. Credenciamento em breve.</div>
+        <div class="choice__title">Outros Profissionais</div>
+        <div class="choice__desc">Enfermeiro, nutricionista, fisioterapeuta e outros. Credenciamento em breve.</div>
       </div>
 
     </div>
 
-    <!-- Área de profissões (desabilitada, reservada para o futuro) -->
-    <div class="professions" id="professions">
-      <h4>Selecione sua profissão</h4>
-      <div class="prof-grid">
-        <div class="prof-item"><span class="prof-item__icon">🧠</span> Psicólogo(a)</div>
-        <div class="prof-item"><span class="prof-item__icon">💉</span> Enfermeiro(a)</div>
-        <div class="prof-item"><span class="prof-item__icon">🥗</span> Nutricionista</div>
-        <div class="prof-item"><span class="prof-item__icon">🦷</span> Dentista</div>
-        <div class="prof-item"><span class="prof-item__icon">💊</span> Farmacêutico(a)</div>
-        <div class="prof-item"><span class="prof-item__icon">🏃</span> Fisioterapeuta</div>
-        <div class="prof-item"><span class="prof-item__icon">🗣️</span> Fonoaudiólogo(a)</div>
-        <div class="prof-item"><span class="prof-item__icon">👁️</span> Outro profissional</div>
-      </div>
-      <p class="coming-soon-note">Credenciamento para profissionais de saúde em breve.</p>
+    <div class="trust-strip">
+      <span class="trust-item">Sem mensalidade</span>
+      <span class="trust-item">Comissão apenas por sessão realizada</span>
+      <span class="trust-item">Plataforma cuida da captação e do fluxo</span>
     </div>
 
   </div>
