@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Agendar sessão · ConsultaJá24h</title>
+<meta name="description" content="Agende sua sessão de psicologia online. Perfil completo do psicólogo, horários disponíveis e pagamento via PIX."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#eeebe5;--white:#fff;
+  --ink:#16120e;--ink-2:#443e38;--ink-3:#8c857d;
+  --line:rgba(22,18,14,.09);--line-mid:rgba(22,18,14,.14);
+  --psi:#e8eef7;--psi-mid:#8aa4c8;--psi-acc:#26508e;--psi-dark:#132b50;--psi-glow:rgba(38,80,142,.12);
+  --font-d:'Cormorant Garamond',Georgia,serif;--font-b:'DM Sans',sans-serif;
+  --ease:.22s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{background-color:var(--cream);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='80'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='rgba(255,255,255,0.22)'/%3E%3Cstop offset='50%25' stop-color='rgba(255,255,255,0.05)'/%3E%3Cstop offset='100%25' stop-color='rgba(0,0,0,0.05)'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='198' height='38' rx='2' fill='url(%23g)' stroke='rgba(22,18,14,0.11)' stroke-width='1'/%3E%3Crect x='101' y='41' width='198' height='38' rx='2' fill='url(%23g)' stroke='rgba(22,18,14,0.11)' stroke-width='1'/%3E%3Crect x='-99' y='41' width='198' height='38' rx='2' fill='url(%23g)' stroke='rgba(22,18,14,0.11)' stroke-width='1'/%3E%3C/svg%3E");color:var(--ink);font-family:var(--font-b);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{text-decoration:none;color:inherit}
+body::before{content:'';position:fixed;inset:0;z-index:0;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);pointer-events:none}
+body>*{position:relative;z-index:1}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(248,246,242,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:0 40px;height:62px;display:flex;align-items:center;gap:14px}
+.nav-logo{font-family:var(--font-d);font-size:1.18rem;font-weight:500;color:var(--ink);letter-spacing:.01em}
+.nav-logo em{color:var(--ink-3);font-weight:300;font-style:normal}
+.nav-back{font-size:.8rem;color:var(--ink-3);display:flex;align-items:center;gap:5px;transition:color var(--ease)}
+.nav-back:hover{color:var(--ink)}
+.nav-sep{color:var(--line-mid);margin:0 4px}
+@media(max-width:600px){nav{padding:0 16px}}
+
+/* LAYOUT */
+.page-wrap{max-width:900px;margin:0 auto;padding:48px 24px 80px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:700px){.page-wrap{grid-template-columns:1fr;padding:24px 16px 60px}}
+
+/* CARD PERFIL */
+.perfil-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(22,18,14,.08);position:sticky;top:80px}
+.perfil-card-header{background:linear-gradient(135deg,#e8eef7,#d0ddef);padding:28px}
+.perfil-foto{width:96px;height:96px;border-radius:16px;background:var(--psi-acc);display:flex;align-items:center;justify-content:center;font-size:2.8rem;overflow:hidden;border:2px solid rgba(38,80,142,.15);margin-bottom:16px}
+.perfil-foto img{width:100%;height:100%;object-fit:cover}
+.perfil-nome{font-family:var(--font-d);font-size:1.5rem;font-weight:500;color:var(--ink);line-height:1.15;margin-bottom:4px}
+.perfil-crp{font-size:.72rem;color:var(--ink-3);font-weight:300;margin-bottom:10px}
+.perfil-abordagem{display:inline-block;background:#fff;color:var(--psi-acc);font-size:.72rem;font-weight:500;padding:4px 12px;border-radius:6px;border:1px solid rgba(38,80,142,.2)}
+.perfil-body{padding:24px}
+.perfil-section{margin-bottom:20px}
+.perfil-section:last-child{margin-bottom:0}
+.perfil-label{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-3);margin-bottom:8px}
+.perfil-texto{font-size:.88rem;font-weight:300;color:var(--ink-2);line-height:1.7}
+.perfil-focos{display:flex;flex-wrap:wrap;gap:5px}
+.psi-foco{font-size:.7rem;padding:3px 9px;border-radius:999px;background:rgba(22,18,14,.05);color:var(--ink-2);font-weight:400;border:1px solid var(--line-mid)}
+.perfil-valor{display:flex;flex-direction:column}
+.perfil-valor small{font-size:.65rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.perfil-valor strong{font-family:var(--font-d);font-size:1.6rem;font-weight:500;color:var(--ink)}
+
+/* PAINEL AGENDAMENTO */
+.agendar-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(22,18,14,.08)}
+.agendar-step{display:none;padding:28px}
+.agendar-step.ativo{display:block}
+.step-title{font-family:var(--font-d);font-size:1.3rem;font-weight:500;color:var(--ink);margin-bottom:4px}
+.step-sub{font-size:.82rem;color:var(--ink-3);font-weight:300;margin-bottom:20px}
+
+/* campos */
+.campo{margin-bottom:13px}
+.campo label{display:block;font-size:.7rem;font-weight:500;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.campo input{width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(22,18,14,.15);background:#faf9f7;font-family:var(--font-b);font-size:.9rem;font-weight:300;color:var(--ink);outline:none;transition:border .2s}
+.campo input:focus{border-color:var(--psi-acc);background:#fff}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* horários */
+.horarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:220px;overflow-y:auto;margin-bottom:20px}
+
+/* botões */
+.psi-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:12px;background:var(--psi-acc);color:#fff;font-family:var(--font-b);font-size:.88rem;font-weight:600;border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 14px rgba(38,80,142,.28);width:100%}
+.psi-cta:hover{background:var(--psi-dark)}
+.psi-cta:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn-aval{background:var(--psi);color:var(--psi-acc);box-shadow:none;border:1px solid rgba(38,80,142,.18)}
+.btn-aval:hover{background:#d6e3f5}
+.btns-agendar{display:flex;flex-direction:column;gap:8px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+
+/* err */
+.step-err{display:none;font-size:.78rem;color:#b91c1c;margin-bottom:10px}
+
+/* pix */
+.pix-qr-wrap{text-align:center;display:none}
+.pix-loading{text-align:center;padding:32px;color:var(--ink-3);font-size:.85rem}
+
+/* skeleton */
+.skel-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 4px 24px rgba(22,18,14,.08)}
+.skel-line{height:14px;border-radius:6px;background:linear-gradient(90deg,rgba(38,80,142,.05) 25%,rgba(38,80,142,.1) 50%,rgba(38,80,142,.05) 75%);background-size:200% 100%;animation:skel 1.4s ease-in-out infinite;margin-bottom:12px}
+.skel-circle{width:96px;height:96px;border-radius:16px;margin-bottom:16px;background:linear-gradient(90deg,rgba(38,80,142,.05) 25%,rgba(38,80,142,.1) 50%,rgba(38,80,142,.05) 75%);background-size:200% 100%;animation:skel 1.4s ease-in-out infinite}
+@keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+footer{text-align:center;padding:24px 20px;font-size:.75rem;color:var(--ink-3);font-weight:300;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/psicologo-online" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    Todos os psicólogos
+  </a>
+  <span class="nav-sep">·</span>
+  <a href="/" class="nav-logo">Consulta<em>Já</em>24h</a>
+</nav>
+
+<main>
+  <div class="page-wrap" id="page-wrap">
+
+    <!-- COL ESQUERDA: perfil -->
+    <div id="col-perfil">
+      <!-- skeleton enquanto carrega -->
+      <div class="skel-card" id="perfil-skel">
+        <div class="skel-circle"></div>
+        <div class="skel-line" style="width:60%"></div>
+        <div class="skel-line" style="width:40%"></div>
+        <div class="skel-line"></div>
+        <div class="skel-line"></div>
+        <div class="skel-line" style="width:70%"></div>
+      </div>
+      <!-- perfil real (oculto até carregar) -->
+      <div class="perfil-card" id="perfil-card" style="display:none">
+        <div class="perfil-card-header">
+          <div class="perfil-foto" id="prf-foto">👤</div>
+          <div class="perfil-nome" id="prf-nome"></div>
+          <div class="perfil-crp"  id="prf-crp"></div>
+          <div class="perfil-abordagem" id="prf-abordagem" style="display:none"></div>
+        </div>
+        <div class="perfil-body">
+          <div class="perfil-section" id="prf-sec-apresentacao" style="display:none">
+            <div class="perfil-label">Sobre</div>
+            <div class="perfil-texto" id="prf-apresentacao"></div>
+          </div>
+          <div class="perfil-section" id="prf-sec-focos" style="display:none">
+            <div class="perfil-label">Focos de atendimento</div>
+            <div class="perfil-focos" id="prf-focos"></div>
+          </div>
+          <div class="perfil-section">
+            <div class="perfil-label">Valor da sessão</div>
+            <div class="perfil-valor">
+              <small>a partir de</small>
+              <strong id="prf-valor"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COL DIREITA: agendamento -->
+    <div id="col-agendar">
+      <div class="agendar-card" id="agendar-card">
+
+        <!-- PASSO 1: botões de ação -->
+        <div class="agendar-step ativo" id="step-inicio">
+          <div class="step-title">Agendar sessão</div>
+          <div class="step-sub" id="step-inicio-sub">Carregando…</div>
+          <div class="btns-agendar">
+            <button class="psi-cta" id="btn-psi" onclick="iniciarAgendamento('psicoterapia')">Agendar Psicoterapia</button>
+            <button class="psi-cta btn-aval" id="btn-aval" style="display:none" onclick="iniciarAgendamento('avaliacao')">Avaliação Psicológica</button>
+          </div>
+        </div>
+
+        <!-- PASSO 2: identificação -->
+        <div class="agendar-step" id="step-login">
+          <div class="step-title">Identificação</div>
+          <div class="step-sub">Para agendar, precisamos de algumas informações.</div>
+          <div class="campo">
+            <label>Nome completo</label>
+            <input id="pac-nome" type="text" placeholder="Seu nome"/>
+          </div>
+          <div class="campo">
+            <label>E-mail</label>
+            <input id="pac-email" type="email" placeholder="seu@email.com"/>
+          </div>
+          <div class="row2">
+            <div class="campo">
+              <label>WhatsApp</label>
+              <input id="pac-tel" type="tel" placeholder="(DDD) 99999-9999"/>
+            </div>
+            <div class="campo">
+              <label>CPF</label>
+              <input id="pac-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric"/>
+            </div>
+          </div>
+          <div class="step-err" id="err-login"></div>
+          <button class="psi-cta" onclick="continuarParaHorario()">Continuar para escolha de horário →</button>
+          <p style="font-size:.72rem;color:var(--ink-3);text-align:center;margin-top:12px;line-height:1.55">Seus dados ficam salvos com segurança para o acompanhamento contínuo.</p>
+        </div>
+
+        <!-- PASSO 3: horários -->
+        <div class="agendar-step" id="step-horario">
+          <div class="step-title">Escolha o horário</div>
+          <div class="step-sub" id="step-horario-sub"></div>
+          <div class="horarios-grid" id="horarios-grid"></div>
+          <div class="step-err" id="err-horario"></div>
+          <button class="psi-cta" id="btn-ir-pagamento" disabled style="opacity:.4;cursor:not-allowed" onclick="irParaPagamento()">Confirmar horário e pagar →</button>
+        </div>
+
+        <!-- PASSO 4: PIX -->
+        <div class="agendar-step" id="step-pagamento">
+          <div class="step-title">Pagamento via PIX</div>
+          <div class="step-sub" id="step-pag-sub"></div>
+          <div class="pix-loading" id="pix-loading">Gerando QR Code PIX…</div>
+          <div class="pix-qr-wrap" id="pix-qr-wrap">
+            <div style="font-size:.78rem;color:var(--ink-3);margin-bottom:10px">Escaneie o QR Code ou copie o código</div>
+            <div id="pix-qr-code" style="display:inline-block;background:#fff;border:1px solid rgba(22,18,14,.12);border-radius:12px;padding:12px"></div>
+            <div style="margin:14px 0 8px;font-size:.75rem;color:var(--ink-3)">ou copie o código Copia e Cola:</div>
+            <div id="pix-code-text" style="font-family:monospace;font-size:.72rem;color:var(--psi-acc);background:var(--psi);padding:10px 14px;border-radius:8px;word-break:break-all;cursor:pointer;user-select:all"></div>
+            <button onclick="copiarPix()" style="margin-top:10px;background:none;border:1px solid rgba(38,80,142,.2);color:var(--psi-acc);font-size:.78rem;padding:7px 16px;border-radius:8px;cursor:pointer">📋 Copiar código PIX</button>
+            <div id="pix-status-msg" style="margin-top:16px;font-size:.82rem;color:var(--ink-3);line-height:1.55">Aguardando confirmação do pagamento…<br><span style="font-size:.72rem">Isso pode levar até 1 minuto após o pagamento.</span></div>
+            <div id="pix-confirmado" style="display:none;margin-top:16px;padding:16px;background:rgba(26,122,98,.07);border:1px solid rgba(26,122,98,.2);border-radius:10px;color:#1a7a62;font-size:.88rem;font-weight:500">✅ Pagamento confirmado! <span id="pix-prox-passo"></span></div>
+          </div>
+        </div>
+
+        <!-- PASSO 5: confirmação -->
+        <div class="agendar-step" id="step-confirmado">
+          <div class="step-title">✅ Agendamento confirmado</div>
+          <div class="step-sub" id="step-conf-sub"></div>
+          <div id="formulario-link-wrap" style="display:none;margin-top:16px">
+            <a id="formulario-link" href="#" target="_blank" class="psi-cta">Preencher formulário do psicólogo →</a>
+          </div>
+          <p style="font-size:.75rem;color:var(--ink-3);margin-top:16px;line-height:1.6">Em caso de dúvidas, entre em contato pelo WhatsApp da plataforma. Você receberá o link da sessão no e-mail cadastrado.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p><strong style="font-weight:500;color:var(--ink-2)">ConsultaJá24h</strong> · Psicologia Online</p>
+  <p style="margin-top:6px"><a href="/termos.html" style="color:var(--ink-3)">Termos de Uso</a> &nbsp;·&nbsp; <a href="/privacy.html" style="color:var(--ink-3)">Política de Privacidade</a></p>
+</footer>
+
+<script src="../api-config.js"></script>
+<script>
+const API = window.API_BASE_URL || 'https://triagem-api.onrender.com';
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmtValor(v){ return 'R$ ' + parseFloat(String(v||'0').replace(',','.')).toFixed(2).replace('.',','); }
+function fmtHorario(iso){ return new Date(iso).toLocaleString('pt-BR',{timeZone:'America/Fortaleza',weekday:'short',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }
+
+let state = {
+  psicologo:    null,
+  tipoConsulta: null,
+  paciente:     null,
+  horario:      null,
+  agendamentoId:null,
+  pixOrderId:   null,
+  pixInterval:  null,
+};
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) {
+    window.location.href = '/psicologo-online';
+    return;
+  }
+  try {
+    const res  = await fetch(API + '/api/psicologo/' + id);
+    const data = await res.json();
+    if (!data.ok) throw new Error('Psicólogo não encontrado');
+    const p = data.psicologo;
+    state.psicologo = p;
+    renderPerfil(p);
+    renderInicio(p);
+  } catch(e) {
+    document.getElementById('perfil-skel').innerHTML = '<p style="color:#b91c1c;font-size:.85rem">Não foi possível carregar o perfil. <a href="/psicologo-online">Voltar</a></p>';
+  }
+}
+
+function renderPerfil(p) {
+  document.getElementById('perfil-skel').style.display = 'none';
+  const card = document.getElementById('perfil-card');
+  card.style.display = 'block';
+
+  // foto
+  const fotoEl = document.getElementById('prf-foto');
+  if (p.foto_url) fotoEl.innerHTML = `<img src="${esc(p.foto_url)}" alt="${esc(p.nome_exibicao)}">`;
+
+  document.getElementById('prf-nome').textContent = p.nome_exibicao || p.nome || '';
+  document.getElementById('prf-crp').textContent  = `CRP ${p.crp}/${p.uf}`;
+
+  if (p.abordagem) {
+    const abEl = document.getElementById('prf-abordagem');
+    abEl.textContent = p.abordagem;
+    abEl.style.display = 'inline-block';
+  }
+  if (p.apresentacao) {
+    document.getElementById('prf-apresentacao').textContent = p.apresentacao;
+    document.getElementById('prf-sec-apresentacao').style.display = 'block';
+  }
+  const focos = (p.focos || '').split(/[,;]+/).map(f=>f.trim()).filter(Boolean);
+  if (focos.length) {
+    document.getElementById('prf-focos').innerHTML = focos.map(f=>`<span class="psi-foco">${esc(f)}</span>`).join('');
+    document.getElementById('prf-sec-focos').style.display = 'block';
+  }
+  document.getElementById('prf-valor').textContent = fmtValor(p.valor_sessao);
+  document.title = `${p.nome_exibicao} · Agendar sessão · ConsultaJá24h`;
+}
+
+function renderInicio(p) {
+  document.getElementById('step-inicio-sub').textContent =
+    `Sessão com ${p.nome_exibicao} · ${fmtValor(p.valor_sessao)}`;
+  if (p.tem_avaliacao) {
+    document.getElementById('btn-aval').style.display = 'flex';
+  }
+}
+
+// ─── STEPS ────────────────────────────────────────────────────────────────────
+function mostrarStep(id) {
+  ['step-inicio','step-login','step-horario','step-pagamento','step-confirmado'].forEach(s => {
+    document.getElementById(s).classList.toggle('ativo', s === id);
+  });
+}
+
+function iniciarAgendamento(tipo) {
+  state.tipoConsulta = tipo;
+  mostrarStep('step-login');
+}
+
+async function continuarParaHorario() {
+  const nome  = document.getElementById('pac-nome').value.trim();
+  const email = document.getElementById('pac-email').value.trim();
+  const tel   = document.getElementById('pac-tel').value.trim();
+  const cpf   = document.getElementById('pac-cpf').value.trim();
+  const err   = document.getElementById('err-login');
+  err.style.display = 'none';
+
+  if (!nome || !email) { err.textContent = 'Nome e e-mail são obrigatórios.'; err.style.display = 'block'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'E-mail inválido.'; err.style.display = 'block'; return; }
+
+  state.paciente = { nome, email, tel, cpf };
+
+  mostrarStep('step-horario');
+  const psi = state.psicologo;
+  document.getElementById('step-horario-sub').textContent =
+    `${psi.nome_exibicao} · ${state.tipoConsulta === 'avaliacao' ? 'Avaliação psicológica' : 'Psicoterapia'}`;
+
+  const grid = document.getElementById('horarios-grid');
+  grid.innerHTML = '<p style="color:var(--ink-3);font-size:.82rem;grid-column:1/-1">Carregando horários…</p>';
+
+  let ocupados = [];
+  try {
+    const resp = await fetch(API + '/api/psicologia/horarios-ocupados/' + psi.id + '?dias=14');
+    const d    = await resp.json();
+    if (d.ok) ocupados = d.ocupados || [];
+  } catch(e) { /* backend valida mesmo assim */ }
+
+  gerarHorarios(ocupados);
+}
+
+function gerarHorarios(ocupados) {
+  const grid = document.getElementById('horarios-grid');
+  grid.innerHTML = '';
+
+  const ocupadosSet = new Set(ocupados.map(iso => {
+    const d = new Date(iso);
+    return d.toLocaleString('sv-SE', { timeZone: 'America/Fortaleza' }).slice(0,16);
+  }));
+
+  const slots = [];
+  const agora = new Date();
+  for (let d = 1; d <= 14 && slots.length < 18; d++) {
+    for (let h = 8; h <= 19 && slots.length < 18; h++) {
+      const slot = new Date(agora);
+      slot.setDate(slot.getDate() + d);
+      slot.setHours(h, 0, 0, 0);
+      slots.push(slot);
+    }
+  }
+
+  if (!slots.length) {
+    grid.innerHTML = '<p style="color:var(--ink-3);font-size:.82rem;grid-column:1/-1">Nenhum horário disponível.</p>';
+    return;
+  }
+
+  slots.forEach(slot => {
+    const iso   = slot.toISOString();
+    const chave = slot.toLocaleString('sv-SE', { timeZone: 'America/Fortaleza' }).slice(0,16);
+    const ocup  = ocupadosSet.has(chave);
+    const label = slot.toLocaleString('pt-BR', { timeZone: 'America/Fortaleza', weekday: 'short', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+    const btn   = document.createElement('button');
+    btn.textContent = label;
+    if (ocup) {
+      btn.disabled = true;
+      btn.title    = 'Horário indisponível';
+      btn.style.cssText = 'padding:8px 6px;border-radius:8px;border:1px solid rgba(0,0,0,.08);background:#e0e0e0;color:#aaa;font-size:.72rem;cursor:not-allowed;font-family:inherit;text-align:center;line-height:1.3;text-decoration:line-through';
+    } else {
+      btn.style.cssText = 'padding:8px 6px;border-radius:8px;border:1px solid rgba(38,80,142,.18);background:#e8eef7;color:#26508e;font-size:.72rem;cursor:pointer;transition:all .18s;font-family:inherit;text-align:center;line-height:1.3';
+      let bloq = false;
+      btn.addEventListener('click', () => {
+        if (bloq) return; bloq = true; setTimeout(()=>{ bloq=false; }, 400);
+        grid.querySelectorAll('button:not(:disabled)').forEach(b => { b.style.background='#e8eef7'; b.style.color='#26508e'; });
+        btn.style.background = '#26508e'; btn.style.color = '#fff';
+        state.horario = iso;
+        const btnIr = document.getElementById('btn-ir-pagamento');
+        btnIr.disabled = false; btnIr.style.opacity = '1'; btnIr.style.cursor = 'pointer';
+      });
+    }
+    grid.appendChild(btn);
+  });
+}
+
+async function irParaPagamento() {
+  if (!state.horario) return;
+  const btn = document.getElementById('btn-ir-pagamento');
+  const err = document.getElementById('err-horario');
+  btn.disabled = true; btn.textContent = 'Criando agendamento…';
+  err.style.display = 'none';
+
+  try {
+    const res = await fetch(API + '/api/psicologia/agendamento/criar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        psicologoId:      state.psicologo.id,
+        horario_agendado: state.horario,
+        tipo_consulta:    state.tipoConsulta,
+        paciente_nome:    state.paciente.nome,
+        paciente_email:   state.paciente.email,
+        paciente_tel:     state.paciente.tel,
+        paciente_cpf:     state.paciente.cpf,
+      })
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      err.textContent = data.error || 'Erro ao criar agendamento.';
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Confirmar horário e pagar →';
+      return;
+    }
+    state.agendamentoId = data.agendamentoId;
+
+    // consent em background
+    fetch(API + '/api/psicologia/consent', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome: state.paciente.nome, email: state.paciente.email, tel: state.paciente.tel, psicologo_nome: state.psicologo.nome_exibicao, agendamento_id: data.agendamentoId, aceite_termos: true })
+    }).catch(()=>{});
+
+    mostrarStep('step-pagamento');
+    document.getElementById('step-pag-sub').textContent =
+      `${state.psicologo.nome_exibicao} · ${fmtHorario(state.horario)} · ${fmtValor(data.valor)}`;
+
+    await gerarPixPagamento(data.agendamentoId);
+  } catch(e) {
+    err.textContent = 'Erro de conexão. Tente novamente.';
+    err.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Confirmar horário e pagar →';
+  }
+}
+
+async function gerarPixPagamento(agendamentoId) {
+  document.getElementById('pix-loading').style.display = 'block';
+  document.getElementById('pix-qr-wrap').style.display = 'none';
+  try {
+    const res = await fetch(API + '/api/psicologia/pagbank/order', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ agendamentoId, nome: state.paciente.nome, email: state.paciente.email, cpf: state.paciente.cpf })
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      document.getElementById('pix-loading').innerHTML = `<span style="color:#b91c1c">${esc(data.error || 'Erro ao gerar PIX.')}</span>`;
+      return;
+    }
+    state.pixOrderId = data.order_id;
+    document.getElementById('pix-loading').style.display = 'none';
+    document.getElementById('pix-qr-wrap').style.display = 'block';
+    const qrUrl = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(data.qr_code_text)}&choe=UTF-8`;
+    document.getElementById('pix-qr-code').innerHTML = `<img src="${qrUrl}" width="200" height="200" alt="QR Code PIX"/>`;
+    document.getElementById('pix-code-text').textContent = data.qr_code_text;
+    iniciarPolling(agendamentoId);
+  } catch(e) {
+    document.getElementById('pix-loading').innerHTML = '<span style="color:#b91c1c">Erro de conexão ao gerar PIX.</span>';
+  }
+}
+
+function copiarPix() {
+  const code = document.getElementById('pix-code-text').textContent;
+  if (!code) return;
+  navigator.clipboard.writeText(code).then(()=>{
+    const btn = document.querySelector('[onclick="copiarPix()"]');
+    btn.textContent = '✅ Copiado!';
+    setTimeout(()=>{ btn.textContent = '📋 Copiar código PIX'; }, 2500);
+  }).catch(()=>{});
+}
+
+function iniciarPolling(agendamentoId) {
+  clearInterval(state.pixInterval);
+  let tentativas = 0;
+  state.pixInterval = setInterval(async () => {
+    tentativas++;
+    if (tentativas > 60) { clearInterval(state.pixInterval); return; }
+    try {
+      const res  = await fetch(API + '/api/psicologia/agendamento/' + agendamentoId + '/status');
+      const data = await res.json();
+      if (data.ok && data.agendamento?.pagamento_status === 'confirmado') {
+        clearInterval(state.pixInterval);
+        mostrarConfirmacao(data.agendamento);
+      }
+    } catch(e) {}
+  }, 10000);
+}
+
+function mostrarConfirmacao(agendamento) {
+  document.getElementById('pix-status-msg').style.display = 'none';
+  const conf = document.getElementById('pix-confirmado');
+  conf.style.display = 'block';
+  if (agendamento.formulario_url) {
+    document.getElementById('pix-prox-passo').innerHTML = ` <a href="${esc(agendamento.formulario_url)}" target="_blank" style="color:#1a7a62;text-decoration:underline">Preencha o formulário →</a>`;
+  } else {
+    document.getElementById('pix-prox-passo').textContent = ' Você receberá o link da sessão por e-mail.';
+  }
+  setTimeout(() => {
+    mostrarStep('step-confirmado');
+    const psi = state.psicologo;
+    document.getElementById('step-conf-sub').textContent =
+      `Seu horário com ${psi ? psi.nome_exibicao : 'o psicólogo'} está confirmado. ` +
+      `${agendamento.formulario_url ? 'Preencha o formulário para preparar sua sessão.' : 'Você receberá o link da sessão no e-mail cadastrado.'}`;
+    if (agendamento.formulario_url) {
+      document.getElementById('formulario-link').href = agendamento.formulario_url;
+      document.getElementById('formulario-link-wrap').style.display = 'block';
+    }
+  }, 2000);
+}
+
+init();
+</script>
+</body>
+</html>
