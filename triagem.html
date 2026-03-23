@@ -15,6 +15,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- SDK Efí: tokenização de cartão no frontend -->
+<script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;min-height:100vh}
@@ -300,6 +302,29 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .autofill-status.show{display:block;opacity:1}
 
 /* ── MOBILE ── */
+
+/* ── Seletor de método de pagamento ─────────────────────────────────────────── */
+.pay-method-wrap{margin:0 0 18px}
+.pay-method-label{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.pay-method-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay-tab{padding:13px 8px;border-radius:13px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .18s;text-align:center;-webkit-appearance:none;line-height:1.4}
+.pay-tab:hover{border-color:rgba(94,224,160,.25);color:#fff}
+.pay-tab.sel-pix{border-color:rgba(94,224,160,.6);background:rgba(94,224,160,.08);color:var(--g2)}
+.pay-tab.sel-card{border-color:rgba(180,224,90,.6);background:rgba(180,224,90,.07);color:#b4e05a}
+/* ── Formulário cartão ───────────────────────────────────────────────────────── */
+#card-form{display:none;margin-top:4px}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cf-field{margin-bottom:12px}
+.cf-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.38);display:block;margin-bottom:5px}
+.cf-input{width:100%;padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-family:'Outfit',sans-serif;font-size:.88rem;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none;box-sizing:border-box}
+.cf-input:focus{border-color:rgba(94,224,160,.4)}
+.cf-input::placeholder{color:rgba(255,255,255,.2)}
+select.cf-input option{background:#0d1a14;color:#fff}
+.card-err-msg{font-size:.76rem;color:#ff8080;margin-top:8px;display:none;line-height:1.5;padding:8px 12px;background:rgba(255,80,80,.06);border-radius:9px;border:1px solid rgba(255,80,80,.2)}
+.btn-pagar-card{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.25);transition:transform .12s;margin-top:6px}
+.btn-pagar-card:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none}
+.btn-pagar-card:not(:disabled):hover{transform:translateY(-1px)}
+.card-processing{display:none;text-align:center;padding:16px 0 8px;font-size:.84rem;color:rgba(255,255,255,.55)}
 @media(max-width:600px){
   .trust-block{padding:12px 14px}
   .trust-step{font-size:.8rem}
@@ -545,7 +570,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="pay-price">R$&nbsp;49,90</div>
       </div>
 
-      <!-- Campos -->
+      <!-- Campos comuns -->
       <div class="pay-label">Nome completo</div>
       <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
       <div class="pay-label">Seu WhatsApp</div>
@@ -566,73 +591,101 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="pay-time-note">⚡ Após o pagamento, o médico recebe seu caso imediatamente</div>
       </div>
 
-      <!-- Aviso pré-emptivo sobre pagamento -->
-      <div style="margin:12px 0 14px;padding:10px 14px;border-radius:12px;background:rgba(255,189,46,.05);border:1px solid rgba(255,189,46,.15);font-size:.72rem;color:rgba(255,189,46,.7);line-height:1.65;display:flex;align-items:flex-start;gap:8px">
-        <span style="flex-shrink:0;margin-top:1px">⚠️</span>
-        <span>Seu banco pode mostrar um alerta de segurança — isso é normal. O pagamento é para <strong style="color:rgba(255,189,46,.9);font-weight:600">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, empresa médica registrada.</span>
+      <!-- Seletor de método de pagamento -->
+      <div class="pay-method-wrap">
+        <div class="pay-method-label">Forma de pagamento</div>
+        <div class="pay-method-tabs">
+          <button class="pay-tab sel-pix" id="tabPix" onclick="selecionarMetodo('pix')">
+            🏦 PIX<br><span style="font-size:.7rem;font-weight:400;opacity:.75">Aprovação imediata</span>
+          </button>
+          <button class="pay-tab" id="tabCard" onclick="selecionarMetodo('cartao')">
+            💳 Cartão de crédito<br><span style="font-size:.7rem;font-weight:400;opacity:.75">Visa · Master · Elo</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Botão principal -->
-      <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Iniciar consulta agora →</button>
-
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;font-size:.73rem;color:rgba(255,255,255,.45);font-weight:400;line-height:1.6;text-align:center;flex-wrap:wrap">
-        🔒 <span>Ambiente seguro · PagBank (PagSeguro UOL) · CNPJ verificado · Dados criptografados</span>
+      <!-- PIX: botão de gerar + área do QR (visível quando método = pix) -->
+      <div id="pix-section">
+        <div style="margin:0 0 14px;padding:10px 14px;border-radius:12px;background:rgba(255,189,46,.05);border:1px solid rgba(255,189,46,.15);font-size:.72rem;color:rgba(255,189,46,.7);line-height:1.65;display:flex;align-items:flex-start;gap:8px">
+          <span style="flex-shrink:0;margin-top:1px">⚠️</span>
+          <span>Seu banco pode mostrar um alerta — isso é normal. O pagamento é para <strong style="color:rgba(255,189,46,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, empresa médica registrada.</span>
+        </div>
+        <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar com PIX →</button>
+        <div class="pay-qr-section" id="pay-qr-section">
+          <div style="text-align:center;margin-bottom:20px">
+            <div style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:5px">Escaneie o QR Code ou use Pix Copia e Cola</div>
+            <div style="font-size:.74rem;color:rgba(255,255,255,.45);font-weight:300">Pague e entre na consulta automaticamente — sem redirecionamento</div>
+          </div>
+          <div style="text-align:center;margin-bottom:18px">
+            <img id="pay-qr-img" alt="QR Code PIX" style="width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.35);background:#fff;padding:10px;display:none;box-shadow:0 0 32px rgba(180,224,90,.12)"/>
+            <div id="pay-qr-fallback" style="display:none;width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.15);background:rgba(255,255,255,.03);margin:0 auto;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:.8rem;color:rgba(255,255,255,.45);text-align:center;padding:20px;box-sizing:border-box"><div style="font-size:2rem">📋</div><div>Use o Pix Copia e Cola abaixo</div></div>
+          </div>
+          <div style="margin-bottom:14px">
+            <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Pix Copia e Cola</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <input id="pixChaveInput" readonly type="text" value="" style="flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(180,224,90,.2);border-radius:10px;padding:10px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.75rem;outline:none;-webkit-user-select:all;user-select:all;cursor:pointer" onclick="this.select();copiarPix()"/>
+              <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()" style="margin-bottom:0;white-space:nowrap;flex-shrink:0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copiar código
+              </button>
+            </div>
+          </div>
+          <div style="font-size:.71rem;color:rgba(255,255,255,.35);text-align:center;margin-bottom:14px;line-height:1.7;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
+            <strong style="color:rgba(255,255,255,.55);font-weight:600">JG FONSECA SERVICOS MEDICOS LTDA</strong><br>
+            Empresa médica registrada · Pagamento único · válido por 30 min
+          </div>
+          <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento… Não feche esta página.</div>
+          <div style="font-size:.7rem;color:rgba(255,255,255,.25);margin-top:10px;line-height:1.6;text-align:center">
+            Confirmação automática e segura via PagSeguro.<br>Você será redirecionado assim que o pagamento for reconhecido.
+          </div>
+        </div>
       </div>
 
-      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:10px;margin-bottom:4px;font-size:.7rem;color:rgba(255,255,255,.38);font-weight:300">
+      <!-- CARTÃO: formulário Efí (visível quando método = cartao) -->
+      <div id="card-form" style="display:none">
+        <div class="cf-field">
+          <label class="cf-label">Número do cartão</label>
+          <input class="cf-input" id="cfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="cfMascaraNumero(this)"/>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Nome no cartão</label>
+          <input class="cf-input" id="cfNome" type="text" placeholder="Como aparece no cartão" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"/>
+        </div>
+        <div class="cf-row">
+          <div class="cf-field">
+            <label class="cf-label">Validade</label>
+            <input class="cf-input" id="cfValidade" type="text" placeholder="MM/AAAA" inputmode="numeric" maxlength="7" oninput="cfMascaraValidade(this)"/>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label">CVV</label>
+            <input class="cf-input" id="cfCvv" type="text" placeholder="123" inputmode="numeric" maxlength="4"/>
+          </div>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Parcelas</label>
+          <select class="cf-input" id="cfParcelas">
+            <option value="1">1x de R$ 49,90 (sem juros)</option>
+          </select>
+        </div>
+        <div class="card-err-msg" id="cardErrMsg"></div>
+        <button class="btn-pagar-card" id="btnPagarCard" onclick="pagarCartao()">Pagar R$ 49,90 →</button>
+        <div class="card-processing" id="cardProcessing">⏳ Processando pagamento...</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:12px;font-size:.7rem;color:rgba(255,255,255,.35)">
+          🔒 Dados tokenizados pelo SDK Efí · nunca trafegam pelo nosso servidor
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.38);font-weight:400;line-height:1.6;text-align:center;flex-wrap:wrap">
+        🔒 <span>Pagamento seguro · CNPJ verificado · Dados criptografados</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px;margin-bottom:4px;font-size:.7rem;color:rgba(255,255,255,.3);font-weight:300">
         <span>★ 5.0 · +800 atendimentos</span>
-        <span style="color:rgba(255,255,255,.12)">·</span>
+        <span style="color:rgba(255,255,255,.1)">·</span>
         <span>Médicos com CRM ativo</span>
       </div>
 
-
-
-      <div class="pay-qr-section" id="pay-qr-section">
-
-        <div style="text-align:center;margin-bottom:20px">
-          <div style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:5px">Escaneie o QR Code ou use Pix Copia e Cola</div>
-          <div style="font-size:.74rem;color:rgba(255,255,255,.45);font-weight:300">Pague e entre na consulta automaticamente — sem redirecionamento</div>
-        </div>
-
-        <!-- QR Code -->
-        <div style="text-align:center;margin-bottom:18px">
-          <img id="pay-qr-img" alt="QR Code PIX"
-            style="width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.35);background:#fff;padding:10px;display:none;box-shadow:0 0 32px rgba(180,224,90,.12)"/>
-          <div id="pay-qr-fallback" style="display:none;width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.15);background:rgba(255,255,255,.03);margin:0 auto;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:.8rem;color:rgba(255,255,255,.45);text-align:center;padding:20px;box-sizing:border-box">
-            <div style="font-size:2rem">📋</div>
-            <div>Use o Pix Copia e Cola abaixo</div>
-          </div>
-        </div>
-
-        <!-- Copia e Cola -->
-        <div style="margin-bottom:14px">
-          <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Pix Copia e Cola</div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <input id="pixChaveInput" readonly type="text" value=""
-              style="flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(180,224,90,.2);border-radius:10px;padding:10px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.75rem;outline:none;-webkit-user-select:all;user-select:all;cursor:pointer"
-              onclick="this.select();copiarPix()"/>
-            <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()" style="margin-bottom:0;white-space:nowrap;flex-shrink:0">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Copiar código
-            </button>
-          </div>
-        </div>
-
-        <div style="font-size:.71rem;color:rgba(255,255,255,.35);text-align:center;margin-bottom:14px;line-height:1.7;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
-          <strong style="color:rgba(255,255,255,.55);font-weight:600">JG FONSECA SERVICOS MEDICOS LTDA</strong><br>
-          Empresa médica registrada · Pagamento único · válido por 30 min
-        </div>
-
-        <!-- Status automático — sem botão manual -->
-        <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento… Não feche esta página.</div>
-
-        <div style="font-size:.7rem;color:rgba(255,255,255,.25);margin-top:10px;line-height:1.6;text-align:center">
-          Confirmação automática e segura via PagSeguro.<br>Você será redirecionado assim que o pagamento for reconhecido.
-        </div>
-      </div>
-
       <div class="pay-divider">pagamento seguro via</div>
-      <div class="pay-seguro">🔒 PIX · PagBank / PagSeguro · Empresa médica registrada · Confirmação automática</div>
+      <div class="pay-seguro">🔒 PIX via PagBank · Cartão via Efí · Empresa médica registrada</div>
     </div>
   </div>
 </div>
@@ -955,6 +1008,174 @@ function irParaPagamento(agendamento){
     document.getElementById('pay-label-tipo').textContent='Atendimento médico online';
     document.getElementById('pay-subtitulo').textContent='Sua solicitação será encaminhada à equipe médica';
   }
+}
+
+// ── PAGAMENTO: seletor de método ─────────────────────────────────────────────
+var metodoPagamento = 'pix'; // 'pix' | 'cartao'
+
+function selecionarMetodo(metodo) {
+  metodoPagamento = metodo;
+  document.getElementById('tabPix').className  = 'pay-tab' + (metodo==='pix'    ? ' sel-pix'  : '');
+  document.getElementById('tabCard').className = 'pay-tab' + (metodo==='cartao' ? ' sel-card' : '');
+  document.getElementById('pix-section').style.display  = metodo==='pix'    ? 'block' : 'none';
+  document.getElementById('card-form').style.display    = metodo==='cartao' ? 'block' : 'none';
+  // limpa erros ao trocar
+  document.getElementById('cardErrMsg').style.display = 'none';
+}
+
+// ── Máscaras cartão ───────────────────────────────────────────────────────────
+function cfMascaraNumero(el) {
+  var v = el.value.replace(/\D/g,'').slice(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function cfMascaraValidade(el) {
+  var v = el.value.replace(/\D/g,'').slice(0,6);
+  if(v.length>2) v = v.slice(0,2)+'/'+v.slice(2);
+  el.value = v;
+}
+
+// ── Pagamento por cartão (Efí) ────────────────────────────────────────────────
+// PAYEE_CODE_AQUI → substitua pelo seu código de identificação Efí (payeeCode)
+var EFI_PAYEE_CODE = 'b241c1c1aa59c7a663f8360ac1d05b52';
+var _cardProcessando = false;
+
+async function pagarCartao() {
+  if (_cardProcessando) return;
+
+  // Valida campos comuns
+  var nome = document.getElementById('payNome').value.trim();
+  var tel  = document.getElementById('payTel').value.replace(/\D/g,'');
+  if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2);
+  if(tel.length===12&&tel.startsWith('55'))tel=tel.slice(2);
+  var cpf  = document.getElementById('payCPF').value.trim();
+  if(!nome){document.getElementById('payNome').focus();return;}
+  if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
+  if(!cpf){document.getElementById('payCPF').focus();return;}
+
+  // Valida campos do cartão
+  var numero   = document.getElementById('cfNumero').value.replace(/\s/g,'');
+  var nomeCF   = document.getElementById('cfNome').value.trim();
+  var validade = document.getElementById('cfValidade').value.trim();
+  var cvv      = document.getElementById('cfCvv').value.trim();
+  var parcelas = parseInt(document.getElementById('cfParcelas').value)||1;
+
+  var errEl = document.getElementById('cardErrMsg');
+  function mostrarErroCard(msg){ errEl.textContent=msg; errEl.style.display='block'; }
+  errEl.style.display='none';
+
+  if(numero.length<13){mostrarErroCard('Número do cartão inválido.');return;}
+  if(!nomeCF){mostrarErroCard('Informe o nome como aparece no cartão.');return;}
+  var partes = validade.split('/');
+  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){mostrarErroCard('Validade inválida. Use MM/AAAA.');return;}
+  if(!cvv||cvv.length<3){mostrarErroCard('CVV inválido.');return;}
+
+  var mes = partes[0];
+  var ano = partes[1];
+
+  // UI: loading
+  _cardProcessando = true;
+  var btnCard = document.getElementById('btnPagarCard');
+  btnCard.disabled = true;
+  btnCard.textContent = 'Processando...';
+  document.getElementById('cardProcessing').style.display = 'block';
+
+  pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf;
+
+  try {
+    // 1. Pré-registro (mesmo fluxo do PIX)
+    if (!atendimentoId) {
+      var rPre = await fetch(API+'/api/notify',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({nome:pacienteNome, tel:pacienteTel, tel_documentos:pacienteTelDoc,
+          cpf:pacienteCPF, triagem:'(aguardando pagamento)', tipo:tipoConsulta,
+          data_nascimento:pacienteNascimento, email:pacienteEmail||''})
+      });
+      var dPre = await rPre.json();
+      if(dPre.atendimentoId){
+        atendimentoId=dPre.atendimentoId; salvarSessao();
+        if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
+      }
+    }
+
+    // 2. Gera payment_token via SDK Efí — API encadeada oficial (formato atual)
+    // Ref: https://github.com/efipay/js-payment-token-efi
+    if(typeof EfiPay === 'undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
+    var efiEnv = (typeof EFI_ENV !== 'undefined' && EFI_ENV === 'producao') ? 'production' : 'sandbox';
+    var tokenResult = await EfiPay.CreditCard
+      .setAccount(EFI_PAYEE_CODE)
+      .setEnvironment(efiEnv)
+      .setCreditCardData({
+        brand:            detectarBandeira(numero),
+        number:           numero,
+        cvv:              cvv,
+        expirationMonth:  mes,
+        expirationYear:   ano,
+        holderName:       nomeCF,
+        holderDocument:   cpf.replace(/\D/g,''),
+        reuse:            false
+      })
+      .getPaymentToken();
+    // SDK retorna { payment_token, card_mask } — só o token vai ao backend
+    if(!tokenResult || !tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão. Verifique os dados.');
+    var paymentToken = tokenResult.payment_token;
+
+    // 3. Envia ao backend — backend valida e processa, nunca vê dados brutos
+    var r = await fetch(API+'/api/efi/cartao/cobrar',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        payment_token: paymentToken,
+        nome:          pacienteNome,
+        cpf:           cpf.replace(/\D/g,''),
+        email:         pacienteEmail||undefined,
+        parcelas:      parcelas,
+        atendimentoId: atendimentoId||undefined
+      })
+    });
+    var d = await r.json();
+
+    // 4. Backend retorna ok:true com status "paid" ou "waiting"
+    // Em ambos os casos o pagamento foi aceito — backend confirma via webhook
+    if(d.ok) {
+      document.getElementById('cardProcessing').textContent = '✅ Pagamento aceito! Iniciando triagem...';
+      // Dispara evento de conversão
+      if(!sessionStorage.getItem('conv')){
+        sessionStorage.setItem('conv','1');
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:atendimentoId||''});
+      }
+      await esperar(1000);
+      if(modoAgendamento){
+        confirmarAgendamento(pacienteNome, pacienteTel, cpf.replace(/\D/g,''));
+      } else {
+        continuarParaTriagem();
+      }
+    } else {
+      // Cartão recusado — mostra motivo e desbloqueia
+      throw new Error(d.error || 'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
+    }
+
+  } catch(e) {
+    var errEl2 = document.getElementById('cardErrMsg');
+    errEl2.textContent = '❌ ' + (e.message||'Erro ao processar. Tente novamente.');
+    errEl2.style.display = 'block';
+    document.getElementById('cardProcessing').style.display = 'none';
+    console.error('[CARTAO]', e);
+  } finally {
+    _cardProcessando = false;
+    btnCard.disabled = false;
+    btnCard.textContent = 'Pagar R$ 49,90 →';
+  }
+}
+
+function detectarBandeira(numero) {
+  var n = numero.replace(/\D/g,'');
+  if(/^4/.test(n))                     return 'visa';
+  if(/^5[1-5]/.test(n))               return 'mastercard';
+  if(/^3[47]/.test(n))                return 'amex';
+  if(/^(636368|438935|504175|451416|636297|5067|4576|4011)/.test(n)) return 'elo';
+  if(/^(6062|3841)/.test(n))          return 'hipercard';
+  if(/^301|^36|^38/.test(n))          return 'diners';
+  return 'visa'; // fallback — Efí aceita e tenta processar
 }
 
 // ── PAGAMENTO VIA PAGBANK ─────────────────────────────────────────────────────
