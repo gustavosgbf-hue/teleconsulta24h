@@ -1039,24 +1039,57 @@ async function continuarParaHorario() {
 function gerarHorariosDisponiveis(disponibilidadeTexto, ocupados = []) {
   const grid = document.getElementById('horarios-grid');
   grid.innerHTML = '';
-  // Normaliza ocupados para comparação rápida (minuto zerado)
+
+  // Normaliza ocupados para comparação rápida
   const ocupadosSet = new Set(ocupados.map(iso => {
     const d = new Date(iso); d.setSeconds(0, 0); return d.toISOString();
   }));
-  // Gera próximos 14 dias com slots de 1h das 8h às 20h
+
+  // Tenta parsear disponibilidade como JSON estruturado { "diaDaSemana": ["HH:MM", ...] }
+  let dispObj = null;
+  try { dispObj = JSON.parse(disponibilidadeTexto || 'null'); } catch(e) { dispObj = null; }
+  const temDisp = dispObj && typeof dispObj === 'object' && Object.keys(dispObj).length > 0;
+
+  // Gera slots para os próximos 28 dias respeitando disponibilidade
   const slots = [];
   const agora = new Date();
-  for (let d = 0; d < 14 && slots.length < 18; d++) {
-    const dia = new Date(agora);
+  // Ajusta para timezone Fortaleza (UTC-3)
+  const agoraFortaleza = new Date(agora.toLocaleString('en-US', { timeZone: 'America/Fortaleza' }));
+
+  for (let d = 0; d < 28 && slots.length < 24; d++) {
+    const dia = new Date(agoraFortaleza);
     dia.setDate(dia.getDate() + d + 1);
-    for (let h = 8; h <= 19; h++) {
-      if (slots.length >= 18) break;
-      const slot = new Date(dia);
-      slot.setHours(h, 0, 0, 0);
-      slots.push(slot);
+    dia.setHours(0, 0, 0, 0);
+    const diaSemana = dia.getDay(); // 0=Dom, 1=Seg...
+
+    if (temDisp) {
+      // Só gera slots nos dias/horários que o psicólogo configurou
+      const horas = dispObj[diaSemana] || dispObj[String(diaSemana)] || [];
+      for (const horaStr of horas.sort()) {
+        if (slots.length >= 24) break;
+        const [hh, mm] = horaStr.split(':').map(Number);
+        const slot = new Date(dia);
+        slot.setHours(hh, mm || 0, 0, 0);
+        // Só adiciona se for no futuro (pelo menos 1h de antecedência)
+        if (slot > new Date(agoraFortaleza.getTime() + 60 * 60 * 1000)) {
+          slots.push(slot);
+        }
+      }
+    } else {
+      // Sem configuração: gera slots de 8h às 19h
+      for (let h = 8; h <= 19; h++) {
+        if (slots.length >= 24) break;
+        const slot = new Date(dia);
+        slot.setHours(h, 0, 0, 0);
+        if (slot > new Date(agoraFortaleza.getTime() + 60 * 60 * 1000)) {
+          slots.push(slot);
+        }
+      }
     }
   }
+
   slots.forEach(slot => {
+    // Converte slot (em hora local Fortaleza) para ISO
     const iso = slot.toISOString();
     const slotNorm = new Date(slot); slotNorm.setSeconds(0, 0);
     const ocupado = ocupadosSet.has(slotNorm.toISOString());
@@ -1079,6 +1112,7 @@ function gerarHorariosDisponiveis(disponibilidadeTexto, ocupados = []) {
     }
     grid.appendChild(btn);
   });
+
   if (!slots.length) {
     grid.innerHTML = '<p style="color:#8c857d;font-size:.82rem;grid-column:1/-1">Nenhum horário disponível no momento.</p>';
   }
