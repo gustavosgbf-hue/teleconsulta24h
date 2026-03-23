@@ -643,6 +643,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- CARTÃO: formulário Efí (visível quando método = cartao) -->
       <div id="card-form" style="display:none">
+        <div id="card-email-aviso" style="display:none;margin-bottom:14px;padding:10px 13px;border-radius:10px;background:rgba(255,95,87,.07);border:1px solid rgba(255,95,87,.25);font-size:.76rem;color:rgba(255,160,150,.95);line-height:1.55">
+          ⚠️ <strong style="color:rgba(255,190,180,.95)">E-mail obrigatório para cartão.</strong>
+          Volte à etapa anterior e informe um e-mail válido para continuar.
+        </div>
         <div class="cf-field">
           <label class="cf-label">Número do cartão</label>
           <input class="cf-input" id="cfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="cfMascaraNumero(this)"/>
@@ -1021,6 +1025,12 @@ function selecionarMetodo(metodo) {
   document.getElementById('card-form').style.display    = metodo==='cartao' ? 'block' : 'none';
   // limpa erros ao trocar
   document.getElementById('cardErrMsg').style.display = 'none';
+  // e-mail obrigatório no cartão
+  if (metodo === 'cartao') {
+    var emailOk = pacienteEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(pacienteEmail);
+    document.getElementById('card-email-aviso').style.display = emailOk ? 'none' : 'block';
+    document.getElementById('btnPagarCard').disabled = !emailOk;
+  }
 }
 
 // ── Máscaras cartão ───────────────────────────────────────────────────────────
@@ -1068,7 +1078,7 @@ async function pagarCartao() {
   var partes = validade.split('/');
   if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){mostrarErroCard('Validade inválida. Use MM/AAAA.');return;}
   if(!cvv||cvv.length<3){mostrarErroCard('CVV inválido.');return;}
-  if(pacienteEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(pacienteEmail)){mostrarErroCard('E-mail inválido. Corrija na etapa de identificação.');return;}
+  if(!pacienteEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(pacienteEmail)){mostrarErroCard('Informe um e-mail válido para pagamento no cartão. Volte à etapa anterior e preencha o campo e-mail.');return;}
 
   var mes = partes[0];
   var ano = partes[1];
@@ -1127,7 +1137,7 @@ async function pagarCartao() {
         payment_token: paymentToken,
         nome:          pacienteNome,
         cpf:           cpf.replace(/\D/g,''),
-        email:         pacienteEmail||undefined,
+        email:         pacienteEmail,
         telefone:      tel,
         parcelas:      parcelas,
         atendimentoId: atendimentoId||undefined
