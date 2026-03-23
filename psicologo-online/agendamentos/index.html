@@ -247,6 +247,20 @@ footer{text-align:center;padding:24px 20px;font-size:.75rem;color:var(--ink-3);f
 <script>
 const API = window.API_BASE_URL || 'https://triagem-api.onrender.com';
 
+// Mapeamento UF → número do conselho regional CRP (CFP oficial)
+function formatarCRP(crp, uf) {
+  var mapa = {
+    AC:21, AL:15, AM:20, AP:21, BA:03, CE:11, DF:01, ES:16,
+    GO:09, MA:22, MG:04, MS:14, MT:10, PA:10, PB:13, PE:02,
+    PI:22, PR:08, RJ:05, RN:12, RO:20, RR:20, RS:07, SC:12,
+    SE:15, SP:06, TO:09
+  };
+  var regional = mapa[String(uf || '').toUpperCase()];
+  var numero   = String(crp || '').replace(/\D/g, '');
+  if (!numero) return '';
+  return regional ? ('CRP ' + regional + '/' + numero) : ('CRP ' + numero + '/' + String(uf || '').toUpperCase());
+}
+
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function fmtValor(v){ return 'R$ ' + parseFloat(String(v||'0').replace(',','.')).toFixed(2).replace('.',','); }
 function fmtHorario(iso){ return new Date(iso).toLocaleString('pt-BR',{timeZone:'America/Fortaleza',weekday:'short',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }
@@ -355,7 +369,7 @@ function renderPerfil(p) {
   if (p.foto_url) fotoEl.innerHTML = `<img src="${esc(p.foto_url)}" alt="${esc(p.nome_exibicao)}">`;
 
   document.getElementById('prf-nome').textContent = p.nome_exibicao || p.nome || '';
-  document.getElementById('prf-crp').textContent  = `CRP ${p.crp}/${p.uf}`;
+  document.getElementById('prf-crp').textContent  = formatarCRP(p.crp, p.uf);
 
   if (p.abordagem) {
     const abEl = document.getElementById('prf-abordagem');
