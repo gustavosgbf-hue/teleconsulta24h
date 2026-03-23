@@ -164,31 +164,37 @@ footer{text-align:center;padding:24px 20px;font-size:.75rem;color:var(--ink-3);f
           </div>
         </div>
 
-        <!-- PASSO 2: identificação -->
+        <!-- PASSO 2: login/cadastro -->
         <div class="agendar-step" id="step-login">
-          <div class="step-title">Identificação</div>
-          <div class="step-sub">Para agendar, precisamos de algumas informações.</div>
-          <div class="campo">
-            <label>Nome completo</label>
-            <input id="pac-nome" type="text" placeholder="Seu nome"/>
+          <div class="step-title">Acesse sua conta</div>
+          <div class="step-sub">Para agendar, é necessário estar logado.</div>
+
+          <!-- abas -->
+          <div style="display:flex;gap:0;margin-bottom:20px;border:1px solid rgba(22,18,14,.12);border-radius:10px;overflow:hidden">
+            <button id="tab-entrar" onclick="mostrarAba('entrar')" style="flex:1;padding:9px;background:#26508e;color:#fff;border:none;font-family:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .18s">Entrar</button>
+            <button id="tab-criar" onclick="mostrarAba('criar')" style="flex:1;padding:9px;background:#fff;color:#26508e;border:none;font-family:inherit;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .18s">Criar conta</button>
           </div>
-          <div class="campo">
-            <label>E-mail</label>
-            <input id="pac-email" type="email" placeholder="seu@email.com"/>
+
+          <!-- login -->
+          <div id="aba-entrar">
+            <div class="campo"><label>E-mail</label><input id="login-email" type="email" placeholder="seu@email.com"/></div>
+            <div class="campo"><label>Senha</label><input id="login-senha" type="password" placeholder="Sua senha"/></div>
+            <div class="step-err" id="err-login"></div>
+            <button class="psi-cta" onclick="fazerLogin()">Entrar →</button>
           </div>
-          <div class="row2">
-            <div class="campo">
-              <label>WhatsApp</label>
-              <input id="pac-tel" type="tel" placeholder="(DDD) 99999-9999"/>
+
+          <!-- cadastro -->
+          <div id="aba-criar" style="display:none">
+            <div class="campo"><label>Nome completo</label><input id="cad-nome" type="text" placeholder="Seu nome"/></div>
+            <div class="campo"><label>E-mail</label><input id="cad-email" type="email" placeholder="seu@email.com"/></div>
+            <div class="campo"><label>Senha (mín. 6 caracteres)</label><input id="cad-senha" type="password" placeholder="Crie uma senha"/></div>
+            <div class="row2">
+              <div class="campo"><label>WhatsApp</label><input id="cad-tel" type="tel" placeholder="(DDD) 99999-9999"/></div>
+              <div class="campo"><label>CPF</label><input id="cad-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric"/></div>
             </div>
-            <div class="campo">
-              <label>CPF</label>
-              <input id="pac-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric"/>
-            </div>
+            <div class="step-err" id="err-cadastro"></div>
+            <button class="psi-cta" onclick="fazerCadastro()">Criar conta e continuar →</button>
           </div>
-          <div class="step-err" id="err-login"></div>
-          <button class="psi-cta" onclick="continuarParaHorario()">Continuar para escolha de horário →</button>
-          <p style="font-size:.72rem;color:var(--ink-3);text-align:center;margin-top:12px;line-height:1.55">Seus dados ficam salvos com segurança para o acompanhamento contínuo.</p>
         </div>
 
         <!-- PASSO 3: horários -->
@@ -248,14 +254,77 @@ function fmtHorario(iso){ return new Date(iso).toLocaleString('pt-BR',{timeZone:
 let state = {
   psicologo:    null,
   tipoConsulta: null,
-  paciente:     null,
+  paciente:     null,   // { id, nome, email, tel, cpf, token }
   horario:      null,
   agendamentoId:null,
   pixOrderId:   null,
   pixInterval:  null,
 };
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
+function getPacienteToken() { return localStorage.getItem('paciente_token'); }
+function getPacienteDados() {
+  try { return JSON.parse(localStorage.getItem('paciente_dados') || 'null'); } catch(_) { return null; }
+}
+
+function iniciarAgendamento(tipo) {
+  state.tipoConsulta = tipo;
+  const token = getPacienteToken();
+  const dados = getPacienteDados();
+  if (token && dados) {
+    // já logado — preenche state e vai direto para horários
+    state.paciente = { ...dados, token };
+    irParaHorario();
+  } else {
+    mostrarStep('step-login');
+  }
+}
+
+function mostrarAba(aba) {
+  document.getElementById('aba-entrar').style.display  = aba === 'entrar' ? 'block' : 'none';
+  document.getElementById('aba-criar').style.display   = aba === 'criar'  ? 'block' : 'none';
+  document.getElementById('tab-entrar').style.background = aba === 'entrar' ? '#26508e' : '#fff';
+  document.getElementById('tab-entrar').style.color      = aba === 'entrar' ? '#fff'    : '#26508e';
+  document.getElementById('tab-criar').style.background  = aba === 'criar'  ? '#26508e' : '#fff';
+  document.getElementById('tab-criar').style.color       = aba === 'criar'  ? '#fff'    : '#26508e';
+}
+
+async function fazerLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const senha = document.getElementById('login-senha').value;
+  const err   = document.getElementById('err-login');
+  err.style.display = 'none';
+  if (!email || !senha) { err.textContent = 'E-mail e senha são obrigatórios.'; err.style.display = 'block'; return; }
+  try {
+    const res  = await fetch(API + '/api/paciente/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, senha }) });
+    const data = await res.json();
+    if (!data.ok) { err.textContent = data.error || 'E-mail ou senha incorretos.'; err.style.display = 'block'; return; }
+    localStorage.setItem('paciente_token', data.token);
+    localStorage.setItem('paciente_dados', JSON.stringify(data.paciente));
+    state.paciente = { ...data.paciente, token: data.token };
+    irParaHorario();
+  } catch(_) { err.textContent = 'Erro de conexão. Tente novamente.'; err.style.display = 'block'; }
+}
+
+async function fazerCadastro() {
+  const nome  = document.getElementById('cad-nome').value.trim();
+  const email = document.getElementById('cad-email').value.trim();
+  const senha = document.getElementById('cad-senha').value;
+  const tel   = document.getElementById('cad-tel').value.trim();
+  const cpf   = document.getElementById('cad-cpf').value.trim();
+  const err   = document.getElementById('err-cadastro');
+  err.style.display = 'none';
+  if (!nome || !email || !senha) { err.textContent = 'Nome, e-mail e senha são obrigatórios.'; err.style.display = 'block'; return; }
+  if (senha.length < 6) { err.textContent = 'Senha deve ter ao menos 6 caracteres.'; err.style.display = 'block'; return; }
+  try {
+    const res  = await fetch(API + '/api/paciente/cadastro', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nome, email, senha, tel, cpf }) });
+    const data = await res.json();
+    if (!data.ok) { err.textContent = data.error || 'Erro ao criar conta.'; err.style.display = 'block'; return; }
+    localStorage.setItem('paciente_token', data.token);
+    localStorage.setItem('paciente_dados', JSON.stringify(data.paciente));
+    state.paciente = { ...data.paciente, token: data.token };
+    irParaHorario();
+  } catch(_) { err.textContent = 'Erro de conexão. Tente novamente.'; err.style.display = 'block'; }
+}
 async function init() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
@@ -321,24 +390,7 @@ function mostrarStep(id) {
   });
 }
 
-function iniciarAgendamento(tipo) {
-  state.tipoConsulta = tipo;
-  mostrarStep('step-login');
-}
-
-async function continuarParaHorario() {
-  const nome  = document.getElementById('pac-nome').value.trim();
-  const email = document.getElementById('pac-email').value.trim();
-  const tel   = document.getElementById('pac-tel').value.trim();
-  const cpf   = document.getElementById('pac-cpf').value.trim();
-  const err   = document.getElementById('err-login');
-  err.style.display = 'none';
-
-  if (!nome || !email) { err.textContent = 'Nome e e-mail são obrigatórios.'; err.style.display = 'block'; return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'E-mail inválido.'; err.style.display = 'block'; return; }
-
-  state.paciente = { nome, email, tel, cpf };
-
+async function irParaHorario() {
   mostrarStep('step-horario');
   const psi = state.psicologo;
   document.getElementById('step-horario-sub').textContent =
@@ -419,15 +471,18 @@ async function irParaPagamento() {
   try {
     const res = await fetch(API + '/api/psicologia/agendamento/criar', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + state.paciente.token,
+      },
       body: JSON.stringify({
         psicologoId:      state.psicologo.id,
         horario_agendado: state.horario,
         tipo_consulta:    state.tipoConsulta,
         paciente_nome:    state.paciente.nome,
         paciente_email:   state.paciente.email,
-        paciente_tel:     state.paciente.tel,
-        paciente_cpf:     state.paciente.cpf,
+        paciente_tel:     state.paciente.tel  || '',
+        paciente_cpf:     state.paciente.cpf  || '',
       })
     });
     const data = await res.json();
