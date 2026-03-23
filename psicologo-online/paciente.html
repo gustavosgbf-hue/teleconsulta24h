@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Minha Conta · ConsultaJá24h Psicologia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f2f0ec;--card:#fff;
+  --ink:#16120e;--ink-2:#443e38;--ink-3:#8c857d;
+  --line:rgba(22,18,14,.1);--line-mid:rgba(22,18,14,.15);
+  --psi:#e8eef7;--psi-mid:#8aa4c8;--psi-acc:#26508e;--psi-dark:#132b50;--psi-glow:rgba(38,80,142,.12);
+  --ok:#1a7a62;--ok-bg:rgba(26,122,98,.07);
+  --err:#c0392b;--err-bg:rgba(192,57,43,.07);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);height:58px;display:flex;align-items:center;padding:0 24px;gap:12px}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;letter-spacing:.01em}
+.nav-logo em{color:var(--ink-3);font-weight:400;font-style:normal}
+.nav-badge{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--psi-acc);opacity:.8}
+.nav-spacer{flex:1}
+.nav-user{font-size:.82rem;color:var(--ink-2);font-weight:300}
+.nav-logout{font-size:.78rem;color:var(--ink-3);background:none;border:1px solid var(--line-mid);border-radius:8px;padding:5px 12px;cursor:pointer;font-family:inherit;transition:all .18s}
+.nav-logout:hover{border-color:rgba(185,28,28,.25);color:#b91c1c}
+
+/* ── TELA LOGIN/CADASTRO ── */
+#screen-auth{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 58px);padding:24px}
+.auth-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px 32px;width:min(440px,100%);box-shadow:0 4px 32px rgba(22,18,14,.09)}
+.auth-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;text-align:center;margin-bottom:24px}
+.auth-logo em{color:var(--ink-3);font-weight:400;font-style:normal}
+.auth-logo-badge{display:block;font-family:'DM Sans',sans-serif;font-size:.65rem;font-weight:400;color:var(--psi-acc);letter-spacing:.12em;text-transform:uppercase;margin-top:4px;opacity:.8}
+.auth-tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:24px}
+.auth-tab{flex:1;padding:10px;text-align:center;font-size:.82rem;font-weight:400;color:var(--ink-3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .18s}
+.auth-tab.active{color:var(--psi-acc);font-weight:600;border-bottom-color:var(--psi-acc)}
+.auth-form{display:none}.auth-form.active{display:block}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.7rem;font-weight:500;color:var(--ink-3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.field input{width:100%;background:#faf9f7;border:1px solid var(--line-mid);border-radius:10px;padding:11px 14px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:300;outline:none;transition:border .2s,box-shadow .2s}
+.field input:focus{border-color:var(--psi-acc);box-shadow:0 0 0 3px var(--psi-glow);background:#fff}
+.field input::placeholder{color:rgba(22,18,14,.28)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-auth{width:100%;padding:13px;border-radius:12px;border:none;background:var(--psi-acc);color:#fff;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(38,80,142,.28);margin-top:4px}
+.btn-auth:hover{background:var(--psi-dark)}
+.btn-auth:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.auth-err{display:none;font-size:.78rem;color:var(--err);text-align:center;margin-bottom:12px;line-height:1.5}
+.auth-hint{font-size:.72rem;color:var(--ink-3);text-align:center;margin-top:14px;font-weight:300}
+.auth-hint a{color:var(--psi-acc)}
+
+/* ── TELA APP ── */
+#screen-app{display:none;min-height:calc(100vh - 58px)}
+.app-main{max-width:860px;margin:0 auto;padding:40px 24px 60px}
+.welcome-block{margin-bottom:32px}
+.welcome-label{font-size:.65rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--psi-acc);opacity:.7;margin-bottom:8px}
+.welcome-h{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;color:var(--ink);line-height:1.2}
+.welcome-h em{font-style:italic;color:var(--psi-acc)}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(22,18,14,.06)}
+.card-label{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--psi-acc);opacity:.7;margin-bottom:6px}
+.card-title{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:16px}
+.card-accent{height:3px;background:linear-gradient(90deg,var(--psi-acc),var(--psi-mid));border-radius:3px 3px 0 0;margin:-24px -24px 20px}
+
+/* ── DADOS DO PACIENTE ── */
+.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+.info-row:last-child{border-bottom:none;padding-bottom:0}
+.info-key{color:var(--ink-3);font-weight:300}
+.info-val{color:var(--ink);font-weight:400}
+
+/* ── AGENDAMENTOS ── */
+.ag-item{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px;display:flex;align-items:flex-start;gap:14px}
+.ag-item:last-child{margin-bottom:0}
+.ag-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.ag-status.confirmado{background:#1a7a62}
+.ag-status.pendente{background:#d97706}
+.ag-status.cancelado{background:#b91c1c}
+.ag-psi{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:3px}
+.ag-meta{font-size:.78rem;color:var(--ink-3);font-weight:300}
+.ag-valor{font-size:.82rem;color:var(--psi-acc);font-weight:500;margin-top:4px}
+.ag-badge{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-top:4px}
+.ag-badge.confirmado{background:rgba(26,122,98,.1);color:#1a7a62}
+.ag-badge.pendente{background:rgba(217,119,6,.1);color:#d97706}
+.ag-badge.cancelado{background:rgba(185,28,28,.1);color:#b91c1c}
+.empty-state{text-align:center;padding:32px 0;color:var(--ink-3);font-size:.85rem;font-weight:300;line-height:1.7}
+
+/* ── BTN VER PSICÓLOGOS ── */
+.btn-ver-psi{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:12px;background:var(--psi-acc);color:#fff;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;border:none;cursor:pointer;transition:background .2s;box-shadow:0 4px 14px rgba(38,80,142,.22)}
+.btn-ver-psi:hover{background:var(--psi-dark)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:#26508e;color:#fff;padding:10px 20px;border-radius:10px;font-size:.82rem;font-weight:500;opacity:0;pointer-events:none;transition:all .25s;z-index:500;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.error{background:#b91c1c}
+.toast.success{background:#1a7a62}
+
+@media(max-width:500px){.auth-card{padding:28px 20px}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/psicologo-online" class="nav-logo">Consulta<em>Já</em>24h</a>
+  <span class="nav-badge">Psicologia</span>
+  <div class="nav-spacer"></div>
+  <span class="nav-user" id="nav-user-name"></span>
+  <button class="nav-logout" id="btn-logout" style="display:none" onclick="fazerLogout()">Sair</button>
+</nav>
+
+<!-- TELA: LOGIN / CADASTRO -->
+<div id="screen-auth">
+  <div class="auth-card">
+    <div class="auth-logo">
+      Consulta<em>Já</em>24h
+      <span class="auth-logo-badge">Psicologia online</span>
+    </div>
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login" onclick="trocarAba('login')">Entrar</div>
+      <div class="auth-tab" id="tab-cadastro" onclick="trocarAba('cadastro')">Criar conta</div>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="auth-form active" id="form-login">
+      <div class="auth-err" id="err-login"></div>
+      <div class="field"><label>E-mail</label><input id="inp-login-email" type="email" placeholder="seu@email.com" autocomplete="email"/></div>
+      <div class="field"><label>Senha</label><input id="inp-login-senha" type="password" placeholder="Sua senha" autocomplete="current-password"/></div>
+      <button class="btn-auth" id="btn-login" onclick="fazerLogin()">Entrar</button>
+      <p class="auth-hint">Ainda não tem conta? <a href="#" onclick="trocarAba('cadastro');return false;">Criar conta grátis</a></p>
+    </div>
+
+    <!-- CADASTRO -->
+    <div class="auth-form" id="form-cadastro">
+      <div class="auth-err" id="err-cadastro"></div>
+      <div class="field"><label>Nome completo</label><input id="inp-cad-nome" type="text" placeholder="Seu nome" autocomplete="name"/></div>
+      <div class="field"><label>E-mail</label><input id="inp-cad-email" type="email" placeholder="seu@email.com" autocomplete="email"/></div>
+      <div class="field"><label>Senha</label><input id="inp-cad-senha" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password"/></div>
+      <div class="row2">
+        <div class="field"><label>CPF</label><input id="inp-cad-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric"/></div>
+        <div class="field"><label>WhatsApp</label><input id="inp-cad-tel" type="tel" placeholder="(DDD) 99999-9999"/></div>
+      </div>
+      <button class="btn-auth" id="btn-cadastro" onclick="fazerCadastro()">Criar conta</button>
+      <p class="auth-hint">Já tem conta? <a href="#" onclick="trocarAba('login');return false;">Entrar</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- TELA: PAINEL -->
+<div id="screen-app">
+  <main class="app-main">
+
+    <div class="welcome-block">
+      <div class="welcome-label">Área do paciente</div>
+      <h1 class="welcome-h">Olá, <em id="nome-display">paciente</em></h1>
+    </div>
+
+    <!-- DADOS -->
+    <div class="card">
+      <div class="card-accent"></div>
+      <div class="card-label">Conta</div>
+      <div class="card-title">Meus dados</div>
+      <div id="dados-rows"></div>
+    </div>
+
+    <!-- AGENDAMENTOS -->
+    <div class="card">
+      <div class="card-accent"></div>
+      <div class="card-label">Psicologia</div>
+      <div class="card-title">Minhas sessões</div>
+      <div id="agendamentos-lista">
+        <div class="empty-state">Carregando…</div>
+      </div>
+    </div>
+
+    <!-- AGENDAR NOVA -->
+    <div style="text-align:center;margin-top:8px">
+      <a href="/psicologo-online" class="btn-ver-psi">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Agendar nova sessão
+      </a>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="./api-config.js"></script>
+<script>
+const API = window.API_BASE_URL || 'https://triagem-api.onrender.com';
+
+// ── helpers ──────────────────────────────────────────────────────────────────
+function getToken() { return localStorage.getItem('pac_token') || ''; }
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function safeJson(res) {
+  try { return await res.json(); } catch(e) { return {}; }
+}
+
+async function apiFetch(path, opts = {}) {
+  const token = getToken();
+  const headers = { ...(opts.headers || {}) };
+  if (token && !headers['Authorization']) headers['Authorization'] = 'Bearer ' + token;
+  if (opts.json) {
+    headers['Content-Type'] = 'application/json';
+    opts.body = JSON.stringify(opts.json);
+    delete opts.json;
+  }
+  const res = await fetch(API + path, { ...opts, headers });
+  if (res.status === 401) {
+    mostrarToast('Sessão expirada. Faça login novamente.', 'error');
+    fazerLogout();
+    return {};
+  }
+  return safeJson(res);
+}
+
+let toastTimer = null;
+function mostrarToast(msg, tipo = 'info') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + tipo + ' show';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function fmtData(iso) {
+  return new Date(iso).toLocaleString('pt-BR', { timeZone: 'America/Fortaleza', weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+function fmtValor(v) { return 'R$ ' + parseFloat(String(v||'0').replace(',','.')).toFixed(2).replace('.',','); }
+
+// ── ABAS LOGIN/CADASTRO ───────────────────────────────────────────────────────
+function trocarAba(aba) {
+  ['login','cadastro'].forEach(a => {
+    document.getElementById('tab-' + a).classList.toggle('active', a === aba);
+    document.getElementById('form-' + a).classList.toggle('active', a === aba);
+  });
+  document.getElementById('err-login').style.display = 'none';
+  document.getElementById('err-cadastro').style.display = 'none';
+}
+
+// ── LOGIN ─────────────────────────────────────────────────────────────────────
+async function fazerLogin() {
+  const email = document.getElementById('inp-login-email').value.trim();
+  const senha = document.getElementById('inp-login-senha').value;
+  const err   = document.getElementById('err-login');
+  const btn   = document.getElementById('btn-login');
+  err.style.display = 'none';
+  if (!email || !senha) { err.textContent = 'Preencha e-mail e senha.'; err.style.display = 'block'; return; }
+  btn.disabled = true; btn.textContent = 'Entrando…';
+  try {
+    const res  = await fetch(API + '/api/paciente/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha })
+    });
+    const data = await safeJson(res);
+    if (!res.ok || !data.ok) {
+      err.textContent = data.error || 'E-mail ou senha incorretos.';
+      err.style.display = 'block';
+      return;
+    }
+    localStorage.setItem('pac_token', data.token);
+    entrarApp(data.paciente);
+  } catch(e) {
+    err.textContent = 'Erro de conexão: ' + e.message;
+    err.style.display = 'block';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Entrar';
+  }
+}
+
+// ── CADASTRO ──────────────────────────────────────────────────────────────────
+async function fazerCadastro() {
+  const nome  = document.getElementById('inp-cad-nome').value.trim();
+  const email = document.getElementById('inp-cad-email').value.trim();
+  const senha = document.getElementById('inp-cad-senha').value;
+  const cpf   = document.getElementById('inp-cad-cpf').value.trim();
+  const tel   = document.getElementById('inp-cad-tel').value.trim();
+  const err   = document.getElementById('err-cadastro');
+  const btn   = document.getElementById('btn-cadastro');
+  err.style.display = 'none';
+  if (!nome || !email || !senha) { err.textContent = 'Nome, e-mail e senha são obrigatórios.'; err.style.display = 'block'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'E-mail inválido.'; err.style.display = 'block'; return; }
+  if (senha.length < 6) { err.textContent = 'Senha deve ter ao menos 6 caracteres.'; err.style.display = 'block'; return; }
+  btn.disabled = true; btn.textContent = 'Criando conta…';
+  try {
+    const res  = await fetch(API + '/api/paciente/cadastro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, senha, cpf, tel })
+    });
+    const data = await safeJson(res);
+    if (!res.ok || !data.ok) {
+      err.textContent = data.error || 'Erro ao criar conta.';
+      err.style.display = 'block';
+      return;
+    }
+    localStorage.setItem('pac_token', data.token);
+    entrarApp(data.paciente);
+    mostrarToast('Conta criada com sucesso!', 'success');
+  } catch(e) {
+    err.textContent = 'Erro de conexão: ' + e.message;
+    err.style.display = 'block';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Criar conta';
+  }
+}
+
+// ── APP ───────────────────────────────────────────────────────────────────────
+function entrarApp(pac) {
+  document.getElementById('screen-auth').style.display = 'none';
+  document.getElementById('screen-app').style.display  = 'block';
+  document.getElementById('btn-logout').style.display  = 'inline-block';
+  renderPainel(pac);
+  carregarAgendamentos();
+}
+
+function fazerLogout() {
+  localStorage.removeItem('pac_token');
+  document.getElementById('screen-auth').style.display = 'flex';
+  document.getElementById('screen-app').style.display  = 'none';
+  document.getElementById('btn-logout').style.display  = 'none';
+  document.getElementById('nav-user-name').textContent = '';
+  document.getElementById('inp-login-email').value = '';
+  document.getElementById('inp-login-senha').value = '';
+}
+
+function renderPainel(p) {
+  if (!p) return;
+  const primeiro = (p.nome || '').split(' ')[0];
+  document.getElementById('nome-display').textContent = primeiro;
+  document.getElementById('nav-user-name').textContent = p.nome || '';
+
+  const rows = [
+    { k: 'Nome',      v: p.nome },
+    { k: 'E-mail',    v: p.email },
+    { k: 'CPF',       v: p.cpf  || '—' },
+    { k: 'WhatsApp',  v: p.tel  || '—' },
+  ];
+  document.getElementById('dados-rows').innerHTML = rows.map(r =>
+    `<div class="info-row"><span class="info-key">${escHtml(r.k)}</span><span class="info-val">${escHtml(r.v)}</span></div>`
+  ).join('');
+}
+
+async function carregarAgendamentos() {
+  const lista = document.getElementById('agendamentos-lista');
+  try {
+    const data = await apiFetch('/api/paciente/agendamentos');
+    if (!data.ok || !data.agendamentos || data.agendamentos.length === 0) {
+      lista.innerHTML = `<div class="empty-state">
+        Nenhuma sessão agendada ainda.<br>
+        <span style="font-size:.78rem;opacity:.7">Quando você agendar uma sessão, ela aparecerá aqui.</span>
+      </div>`;
+      return;
+    }
+    lista.innerHTML = data.agendamentos.map(ag => {
+      const status = ag.pagamento_status === 'confirmado' ? 'confirmado'
+                   : ag.status === 'cancelado'            ? 'cancelado'
+                   : 'pendente';
+      const statusLabel = { confirmado: 'Confirmado', pendente: 'Aguardando pagamento', cancelado: 'Cancelado' }[status];
+      return `<div class="ag-item">
+        <div class="ag-status ${status}"></div>
+        <div style="flex:1">
+          <div class="ag-psi">${escHtml(ag.psicologo_nome)}</div>
+          <div class="ag-meta">${escHtml(ag.tipo_consulta === 'avaliacao' ? 'Avaliação psicológica' : 'Psicoterapia')} · ${fmtData(ag.horario_agendado)}</div>
+          <div class="ag-valor">${fmtValor(ag.valor_cobrado)}</div>
+          <span class="ag-badge ${status}">${statusLabel}</span>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    lista.innerHTML = '<p style="color:#b91c1c;font-size:.82rem">Erro ao carregar sessões.</p>';
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+(function init() {
+  const token = getToken();
+  if (!token) return;
+  apiFetch('/api/paciente/me').then(d => {
+    if (d.ok && d.paciente) entrarApp(d.paciente);
+  }).catch(() => fazerLogout());
+})();
+
+// Enter nas inputs
+document.getElementById('inp-login-senha').addEventListener('keydown', e => { if (e.key === 'Enter') fazerLogin(); });
+document.getElementById('inp-login-email').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-login-senha').focus(); });
+document.getElementById('inp-cad-senha').addEventListener('keydown',   e => { if (e.key === 'Enter') fazerCadastro(); });
+</script>
+</body>
+</html>
