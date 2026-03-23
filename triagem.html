@@ -1100,7 +1100,7 @@ async function pagarCartao() {
     // 2. Gera payment_token via SDK Efí — API encadeada oficial (formato atual)
     // Ref: https://github.com/efipay/js-payment-token-efi
     if(typeof EfiPay === 'undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
-    var efiEnv = (typeof EFI_ENV !== 'undefined' && EFI_ENV === 'producao') ? 'production' : 'sandbox';
+   var efiEnv = 'production';
     var tokenResult = await EfiPay.CreditCard
       .setAccount(EFI_PAYEE_CODE)
       .setEnvironment(efiEnv)
