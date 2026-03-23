@@ -99,6 +99,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.error{background:#b91c1c}
 .toast.success{background:#1a7a62}
+.btn-formulario{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border-radius:8px;background:var(--psi);border:1px solid rgba(38,80,142,.2);color:var(--psi-acc);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:500;text-decoration:none;transition:all .18s}
+.btn-formulario:hover{background:#d6e3f5;border-color:rgba(38,80,142,.35)}
 
 @media(max-width:500px){.auth-card{padding:28px 20px}.row2{grid-template-columns:1fr}}
 </style>
@@ -368,6 +370,12 @@ async function carregarAgendamentos() {
                    : ag.status === 'cancelado'            ? 'cancelado'
                    : 'pendente';
       const statusLabel = { confirmado: 'Confirmado', pendente: 'Aguardando pagamento', cancelado: 'Cancelado' }[status];
+      const formularioBtn = (status === 'confirmado' && ag.formulario_url)
+        ? `<a href="${escHtml(ag.formulario_url)}" target="_blank" rel="noopener" class="btn-formulario">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Preencher formulário do psicólogo
+          </a>`
+        : '';
       return `<div class="ag-item">
         <div class="ag-status ${status}"></div>
         <div style="flex:1">
@@ -375,6 +383,7 @@ async function carregarAgendamentos() {
           <div class="ag-meta">${escHtml(ag.tipo_consulta === 'avaliacao' ? 'Avaliação psicológica' : 'Psicoterapia')} · ${fmtData(ag.horario_agendado)}</div>
           <div class="ag-valor">${fmtValor(ag.valor_cobrado)}</div>
           <span class="ag-badge ${status}">${statusLabel}</span>
+          ${formularioBtn}
         </div>
       </div>`;
     }).join('');
