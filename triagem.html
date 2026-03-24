@@ -1145,15 +1145,20 @@ async function gerarPagamento(){
     pagbankOrderId = data.order_id;
     var pixText = data.qr_code_text;
 
-    // 3. Vincula order ao atendimento — sem isso o webhook não acha o registro
+    // 3. Vincula order ao atendimento — AWAIT garante vínculo antes do QR aparecer
     if(atendimentoId && pagbankOrderId){
-      fetch(API+'/api/atendimento/vincular-order',{
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({atendimentoId: atendimentoId, orderId: pagbankOrderId})
-      })
-      .then(function(r){ return r.json(); })
-      .then(function(d){ if(!d.ok) console.warn('[VINCULAR] falhou', d); })
-      .catch(function(e){ console.warn('[VINCULAR ERRO]', e); });
+      try {
+        var vinculoRes = await fetch(API+'/api/atendimento/vincular-order',{
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({atendimentoId: atendimentoId, orderId: pagbankOrderId})
+        });
+        var vinculoData = await vinculoRes.json();
+        if(!vinculoData.ok) throw new Error(vinculoData.error || 'Falha ao vincular order');
+        console.log('[VINCULAR] OK', vinculoData);
+      } catch(e) {
+        console.error('[VINCULAR ERRO]', e);
+        throw new Error('Não foi possível associar o pagamento. Tente novamente.');
+      }
     }
 
     // 4. Exibe QR Code
