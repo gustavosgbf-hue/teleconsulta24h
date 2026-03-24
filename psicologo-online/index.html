@@ -504,6 +504,82 @@ footer a:hover{color:var(--ink)}
   .psi-card-footer{flex-direction:column;align-items:stretch}
   .psi-cta{justify-content:center}
 }
+/* ─── PiP AUTH OVERLAY (dentro do modal) ─── */
+#pip-auth-overlay{
+  position:absolute;inset:0;z-index:10;
+  background:rgba(238,235,229,.97);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  border-radius:inherit;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:28px;
+  animation:fadeUp .22s ease;
+}
+.pip-title{
+  font-family:var(--font-d);
+  font-size:1.3rem;font-weight:500;
+  color:var(--ink);margin-bottom:4px;
+}
+.pip-sub{
+  font-size:.82rem;color:var(--ink-3);
+  font-weight:300;margin-bottom:18px;line-height:1.55;
+}
+.pip-tabs{
+  display:flex;
+  border:1px solid rgba(22,18,14,.12);
+  border-radius:10px;overflow:hidden;
+  margin-bottom:18px;
+}
+.pip-tab{
+  flex:1;padding:9px;
+  font-family:var(--font-b);font-size:.82rem;font-weight:600;
+  border:none;cursor:pointer;
+  transition:background .18s,color .18s;
+}
+.pip-tab.ativo{background:var(--psi-acc);color:#fff}
+.pip-tab.inativo{background:#fff;color:var(--psi-acc)}
+.pip-campo{margin-bottom:11px}
+.pip-campo label{
+  display:block;font-size:.68rem;font-weight:500;
+  color:var(--ink-3);text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:4px;
+}
+.pip-campo input{
+  width:100%;padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(22,18,14,.15);
+  background:#faf9f7;
+  font-family:var(--font-b);font-size:.88rem;
+  font-weight:300;color:var(--ink);outline:none;
+  transition:border .18s;
+}
+.pip-campo input:focus{border-color:var(--psi-acc);background:#fff}
+.pip-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pip-err{
+  display:none;font-size:.76rem;
+  color:#b91c1c;margin-bottom:10px;
+}
+.pip-btn{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  width:100%;padding:12px;border-radius:12px;
+  background:var(--psi-acc);color:#fff;
+  font-family:var(--font-b);font-size:.88rem;font-weight:600;
+  border:none;cursor:pointer;
+  transition:all var(--ease);
+  box-shadow:0 4px 14px rgba(38,80,142,.28);
+  margin-bottom:10px;
+}
+.pip-btn:hover{background:var(--psi-dark)}
+.pip-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.pip-btn-fechar{
+  position:absolute;top:14px;right:16px;
+  background:none;border:none;font-size:1.1rem;
+  cursor:pointer;color:var(--ink-3);padding:4px;line-height:1;
+}
+.pip-btn-fechar:hover{color:var(--ink)}
+.pip-nota{
+  font-size:.7rem;color:var(--ink-3);
+  text-align:center;line-height:1.5;margin-top:6px;
+}
 /* ─── HERO SCROLL GUIDE ─── */
 .hero-scroll-guide{
   display:inline-flex;align-items:center;gap:6px;
@@ -720,31 +796,41 @@ footer a:hover{color:var(--ink)}
       </div>
     </div>
 
-    <!-- PASSO 2: Login / Cadastro do paciente (obrigatório para psicólogos) -->
-    <div id="modal-login" style="display:none;padding:28px">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:#16120e;margin-bottom:4px">Identificação</div>
-      <div style="font-size:.82rem;color:#8c857d;font-weight:300;margin-bottom:20px">Para agendar com um psicólogo, precisamos de algumas informações para manter seu histórico.</div>
-      <div style="margin-bottom:13px">
-        <label style="display:block;font-size:.7rem;font-weight:500;color:#8c857d;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Nome completo</label>
-        <input id="pac-nome" type="text" placeholder="Seu nome" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(22,18,14,.15);background:#faf9f7;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none"/>
+    <!-- PiP AUTH OVERLAY — aparece sobre qualquer passo quando login é necessário -->
+    <div id="pip-auth-overlay" style="display:none">
+      <button class="pip-btn-fechar" onclick="fecharPipAuth()" title="Fechar">✕</button>
+
+      <div class="pip-title">Entre ou crie sua conta</div>
+      <div class="pip-sub" id="pip-sub-txt">Para confirmar o agendamento, você precisa estar logado. <strong>Seu horário está reservado.</strong></div>
+
+      <!-- Abas -->
+      <div class="pip-tabs">
+        <button id="pip-tab-entrar" class="pip-tab ativo" onclick="pipMostrarAba('entrar')">Entrar</button>
+        <button id="pip-tab-criar"  class="pip-tab inativo" onclick="pipMostrarAba('criar')">Criar conta</button>
       </div>
-      <div style="margin-bottom:13px">
-        <label style="display:block;font-size:.7rem;font-weight:500;color:#8c857d;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">E-mail</label>
-        <input id="pac-email" type="email" placeholder="seu@email.com" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(22,18,14,.15);background:#faf9f7;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none"/>
+
+      <!-- ABA: Entrar -->
+      <div id="pip-aba-entrar">
+        <div class="pip-campo"><label>E-mail</label><input id="pip-login-email" type="email" placeholder="seu@email.com" autocomplete="email"/></div>
+        <div class="pip-campo"><label>Senha</label><input id="pip-login-senha" type="password" placeholder="Sua senha" autocomplete="current-password"/></div>
+        <div class="pip-err" id="pip-err-login"></div>
+        <button class="pip-btn" id="pip-btn-entrar" onclick="pipFazerLogin()">Entrar e confirmar horário →</button>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px">
-        <div>
-          <label style="display:block;font-size:.7rem;font-weight:500;color:#8c857d;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">WhatsApp</label>
-          <input id="pac-tel" type="tel" placeholder="(DDD) 99999-9999" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(22,18,14,.15);background:#faf9f7;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none"/>
+
+      <!-- ABA: Criar conta -->
+      <div id="pip-aba-criar" style="display:none">
+        <div class="pip-campo"><label>Nome completo</label><input id="pip-cad-nome" type="text" placeholder="Seu nome" autocomplete="name"/></div>
+        <div class="pip-campo"><label>E-mail</label><input id="pip-cad-email" type="email" placeholder="seu@email.com" autocomplete="email"/></div>
+        <div class="pip-campo"><label>Senha (mín. 6 caracteres)</label><input id="pip-cad-senha" type="password" placeholder="Crie uma senha" autocomplete="new-password"/></div>
+        <div class="pip-row2">
+          <div class="pip-campo"><label>WhatsApp</label><input id="pip-cad-tel" type="tel" placeholder="(DDD) 99999-9999"/></div>
+          <div class="pip-campo"><label>CPF</label><input id="pip-cad-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric"/></div>
         </div>
-        <div>
-          <label style="display:block;font-size:.7rem;font-weight:500;color:#8c857d;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">CPF</label>
-          <input id="pac-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(22,18,14,.15);background:#faf9f7;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none"/>
-        </div>
+        <div class="pip-err" id="pip-err-cadastro"></div>
+        <button class="pip-btn" id="pip-btn-criar" onclick="pipFazerCadastro()">Criar conta e confirmar →</button>
       </div>
-      <div id="modal-login-err" style="display:none;font-size:.78rem;color:#b91c1c;margin-bottom:10px"></div>
-      <button id="btn-continuar-login" class="psi-cta" style="width:100%;justify-content:center;padding:13px" onclick="continuarParaHorario()">Continuar para escolha de horário →</button>
-      <p style="font-size:.72rem;color:#8c857d;font-weight:300;text-align:center;margin-top:12px;line-height:1.55">Seus dados ficam salvos com segurança para facilitar o acompanhamento contínuo com seu psicólogo.</p>
+
+      <p class="pip-nota">Seus dados ficam seguros e facilitam o acompanhamento contínuo com seu psicólogo.</p>
     </div>
 
     <!-- PASSO 3: Escolha de horário -->
@@ -978,44 +1064,47 @@ function fecharModal(evt) {
 function resetarModal() {
   clearInterval(modalState.pixInterval);
   modalState = { psicologo: null, tipoConsulta: null, paciente: null, horario: null, agendamentoId: null, pixOrderId: null, pixInterval: null };
-  ['modal-perfil','modal-login','modal-horario','modal-pagamento','modal-formulario'].forEach(id=>{
+  ['modal-perfil','modal-horario','modal-pagamento','modal-formulario'].forEach(id=>{
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
   });
+  document.getElementById('pip-auth-overlay').style.display = 'none';
 }
 
 function mostrarPasso(id) {
-  ['modal-perfil','modal-login','modal-horario','modal-pagamento','modal-formulario'].forEach(p=>{
+  ['modal-perfil','modal-horario','modal-pagamento','modal-formulario'].forEach(p=>{
     document.getElementById(p).style.display = p === id ? 'block' : 'none';
   });
+  document.getElementById('pip-auth-overlay').style.display = 'none';
 }
 
-// ─── PASSO 2: INICIAR AGENDAMENTO (click em Agendar dentro do modal) ─────────
+// ─── HELPERS: sessão do paciente ─────────────────────────────────────────────
+function getPacToken()  { return localStorage.getItem('pac_token'); }
+function getPacDados()  { try { return JSON.parse(localStorage.getItem('pac_dados') || 'null'); } catch(_) { return null; } }
+function salvarSessao(token, paciente) {
+  localStorage.setItem('pac_token', token);
+  localStorage.setItem('pac_dados', JSON.stringify(paciente));
+  modalState.paciente = { ...paciente, token };
+}
+
+// ─── PASSO 2: INICIAR AGENDAMENTO → vai direto para horários ─────────────────
 function iniciarAgendamento(tipo) {
   modalState.tipoConsulta = tipo;
-  // Atualiza valor exibido para o tipo selecionado
   const p = modalState.psicologo;
   if (!p) return;
   const v = tipo === 'avaliacao' && p.tem_avaliacao ? p.valor_avaliacao : p.valor_sessao;
   document.getElementById('modal-valor').textContent = fmtValor(v);
-  mostrarPasso('modal-login');
+
+  // Aproveita sessão existente sem bloquear o fluxo
+  const token = getPacToken();
+  const dados = getPacDados();
+  if (token && dados) { modalState.paciente = { ...dados, token }; }
+
+  irParaHorarioLanding();
 }
 
-// ─── PASSO 3: CONTINUAR APÓS IDENTIFICAÇÃO ───────────────────────────────────
-async function continuarParaHorario() {
-  const nome  = document.getElementById('pac-nome').value.trim();
-  const email = document.getElementById('pac-email').value.trim();
-  const tel   = document.getElementById('pac-tel').value.trim();
-  const cpf   = document.getElementById('pac-cpf').value.trim();
-  const err   = document.getElementById('modal-login-err');
-
-  err.style.display = 'none';
-  if (!nome || !email) { err.textContent = 'Nome e e-mail são obrigatórios.'; err.style.display = 'block'; return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'E-mail inválido.'; err.style.display = 'block'; return; }
-
-  modalState.paciente = { nome, email, tel, cpf };
-
-  // Busca horários ocupados no backend antes de renderizar o grid
+// ─── IR PARA HORÁRIOS (sem exigir login ainda) ────────────────────────────────
+async function irParaHorarioLanding() {
   mostrarPasso('modal-horario');
   const psi = modalState.psicologo;
   document.getElementById('modal-horario-sub').textContent =
@@ -1029,11 +1118,106 @@ async function continuarParaHorario() {
     const resp = await fetch(API + '/api/psicologia/horarios-ocupados/' + psi.id + '?dias=14');
     const dadosOcup = await resp.json();
     if (dadosOcup.ok) ocupados = dadosOcup.ocupados || [];
-  } catch(e) {
-    // Falha silenciosa — exibe todos os slots sem bloqueio (backend ainda valida)
-  }
+  } catch(e) { /* silencioso */ }
 
   gerarHorariosDisponiveis(psi.disponibilidade, ocupados);
+}
+
+// ─── PiP AUTH: abrir / fechar / trocar aba ───────────────────────────────────
+function abrirPipAuth(motivo) {
+  const pip = document.getElementById('pip-auth-overlay');
+  if (motivo === 'expirada') {
+    document.getElementById('pip-sub-txt').innerHTML =
+      'Sua sessão expirou. Entre novamente — <strong>seu horário não foi perdido.</strong>';
+  } else {
+    document.getElementById('pip-sub-txt').innerHTML =
+      'Para confirmar o agendamento, você precisa estar logado. <strong>Seu horário está reservado.</strong>';
+  }
+  ['pip-err-login','pip-err-cadastro'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.display = 'none'; el.textContent = '';
+  });
+  ['pip-btn-entrar','pip-btn-criar'].forEach(id => {
+    const btn = document.getElementById(id);
+    btn.disabled = false;
+    btn.textContent = id === 'pip-btn-entrar' ? 'Entrar e confirmar horário →' : 'Criar conta e confirmar →';
+  });
+  pip.style.display = 'flex';
+}
+
+function fecharPipAuth() {
+  document.getElementById('pip-auth-overlay').style.display = 'none';
+}
+
+function pipMostrarAba(aba) {
+  document.getElementById('pip-aba-entrar').style.display  = aba === 'entrar' ? 'block' : 'none';
+  document.getElementById('pip-aba-criar').style.display   = aba === 'criar'  ? 'block' : 'none';
+  document.getElementById('pip-tab-entrar').className = 'pip-tab ' + (aba === 'entrar' ? 'ativo' : 'inativo');
+  document.getElementById('pip-tab-criar').className  = 'pip-tab ' + (aba === 'criar'  ? 'ativo' : 'inativo');
+}
+
+async function pipFazerLogin() {
+  const email = document.getElementById('pip-login-email').value.trim();
+  const senha = document.getElementById('pip-login-senha').value;
+  const err   = document.getElementById('pip-err-login');
+  const btn   = document.getElementById('pip-btn-entrar');
+  err.style.display = 'none';
+  if (!email || !senha) { err.textContent = 'E-mail e senha são obrigatórios.'; err.style.display = 'block'; return; }
+  btn.disabled = true; btn.textContent = 'Entrando…';
+  try {
+    const res  = await fetch(API + '/api/paciente/login', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha })
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      err.textContent = data.error || 'E-mail ou senha incorretos.';
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Entrar e confirmar horário →';
+      return;
+    }
+    salvarSessao(data.token, data.paciente);
+    fecharPipAuth();
+    irParaPagamento();
+  } catch(_) {
+    err.textContent = 'Erro de conexão. Tente novamente.';
+    err.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Entrar e confirmar horário →';
+  }
+}
+
+async function pipFazerCadastro() {
+  const nome  = document.getElementById('pip-cad-nome').value.trim();
+  const email = document.getElementById('pip-cad-email').value.trim();
+  const senha = document.getElementById('pip-cad-senha').value;
+  const tel   = document.getElementById('pip-cad-tel').value.trim();
+  const cpf   = document.getElementById('pip-cad-cpf').value.trim();
+  const err   = document.getElementById('pip-err-cadastro');
+  const btn   = document.getElementById('pip-btn-criar');
+  err.style.display = 'none';
+  if (!nome || !email || !senha) { err.textContent = 'Nome, e-mail e senha são obrigatórios.'; err.style.display = 'block'; return; }
+  if (senha.length < 6) { err.textContent = 'Senha deve ter ao menos 6 caracteres.'; err.style.display = 'block'; return; }
+  btn.disabled = true; btn.textContent = 'Criando conta…';
+  try {
+    const res  = await fetch(API + '/api/paciente/cadastro', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, senha, tel, cpf })
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      err.textContent = data.error || 'Erro ao criar conta.';
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Criar conta e confirmar →';
+      return;
+    }
+    salvarSessao(data.token, data.paciente);
+    fecharPipAuth();
+    irParaPagamento();
+  } catch(_) {
+    err.textContent = 'Erro de conexão. Tente novamente.';
+    err.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Criar conta e confirmar →';
+  }
 }
 
 function gerarHorariosDisponiveis(disponibilidadeTexto, ocupados = []) {
@@ -1118,55 +1302,91 @@ function gerarHorariosDisponiveis(disponibilidadeTexto, ocupados = []) {
   }
 }
 
-// ─── PASSO 4: CRIAR AGENDAMENTO NO BACKEND E INICIAR PAGAMENTO ───────────────
+// ─── PASSO 3: CRIAR AGENDAMENTO NO BACKEND E INICIAR PAGAMENTO ───────────────
+// Chamada quando: (a) usuário já logado clica "Confirmar e pagar",
+//                 (b) PiP de login conclui com sucesso e chama esta função
 async function irParaPagamento() {
   if (!modalState.horario) return;
-  const btn = document.getElementById('btn-ir-pagamento');
-  btn.disabled = true; btn.textContent = 'Criando agendamento…';
 
+  // ── Verificação de sessão ANTES de chamar o backend ──────────────────────
+  // Usa sessão do state (já preenchida em iniciarAgendamento ou pelo PiP)
+  let token = modalState.paciente?.token || getPacToken();
+  let dados  = modalState.paciente || getPacDados();
+
+  if (!token || !dados) {
+    // Ainda não logado → abre PiP sem perder horário/psicólogo
+    abrirPipAuth('novo');
+    return;
+  }
+
+  // Garante state.paciente atualizado
+  if (!modalState.paciente) { modalState.paciente = { ...dados, token }; }
+
+  const btn = document.getElementById('btn-ir-pagamento');
   const err = document.getElementById('modal-horario-err');
+  btn.disabled = true; btn.textContent = 'Criando agendamento…';
   err.style.display = 'none';
 
   try {
     const res = await fetch(API + '/api/psicologia/agendamento/criar', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token   // ← token real do paciente
+      },
       body: JSON.stringify({
-        psicologoId:   modalState.psicologo.id,
+        psicologoId:      modalState.psicologo.id,
         horario_agendado: modalState.horario,
-        tipo_consulta: modalState.tipoConsulta,
-        paciente_nome:  modalState.paciente.nome,
-        paciente_email: modalState.paciente.email,
-        paciente_tel:   modalState.paciente.tel,
-        paciente_cpf:   modalState.paciente.cpf
+        tipo_consulta:    modalState.tipoConsulta,
+        paciente_nome:    modalState.paciente.nome,
+        paciente_email:   modalState.paciente.email,
+        paciente_tel:     modalState.paciente.tel  || '',
+        paciente_cpf:     modalState.paciente.cpf  || ''
       })
     });
     const data = await res.json();
-    if (!data.ok) { err.textContent = data.error || 'Erro ao criar agendamento.'; err.style.display = 'block'; btn.disabled=false; btn.textContent='Confirmar horário e pagar →'; return; }
+
+    // ── Sessão expirada? Reabre PiP sem resetar estado ─────────────────────
+    if (!data.ok && (data.error === 'AUTH_REQUIRED' || res.status === 401)) {
+      localStorage.removeItem('pac_token');
+      localStorage.removeItem('pac_dados');
+      modalState.paciente = null;
+      btn.disabled = false; btn.textContent = 'Confirmar horário e pagar →';
+      abrirPipAuth('expirada');
+      return;
+    }
+
+    if (!data.ok) {
+      err.textContent = data.error || 'Erro ao criar agendamento.';
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Confirmar horário e pagar →';
+      return;
+    }
 
     modalState.agendamentoId = data.agendamentoId;
 
-    // Salva no Sheets/consent em background (não bloqueia o fluxo)
+    // Consent em background (não bloqueia)
     fetch(API + '/api/psicologia/consent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         nome: modalState.paciente.nome, email: modalState.paciente.email,
-        tel: modalState.paciente.tel, psicologo_nome: modalState.psicologo.nome_exibicao,
+        tel:  modalState.paciente.tel,  psicologo_nome: modalState.psicologo.nome_exibicao,
         agendamento_id: data.agendamentoId, aceite_termos: true
       })
     }).catch(()=>{});
 
     mostrarPasso('modal-pagamento');
     const psi = modalState.psicologo;
-    const v = data.valor || (modalState.tipoConsulta==='avaliacao' ? psi.valor_avaliacao : psi.valor_sessao);
+    const v = data.valor || (modalState.tipoConsulta === 'avaliacao' ? psi.valor_avaliacao : psi.valor_sessao);
     document.getElementById('modal-pag-sub').textContent =
       `${psi.nome_exibicao} · ${fmtHorario(modalState.horario)} · ${fmtValor(v)}`;
 
     await gerarPixPagamento(data.agendamentoId);
   } catch(e) {
-    err.textContent = 'Erro de conexão. Tente novamente.'; err.style.display = 'block';
-    btn.disabled=false; btn.textContent='Confirmar horário e pagar →';
+    err.textContent = 'Erro de conexão. Tente novamente.';
+    err.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Confirmar horário e pagar →';
   }
 }
 
