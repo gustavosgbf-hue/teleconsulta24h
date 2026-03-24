@@ -581,6 +581,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span>Seu banco pode mostrar um alerta — isso é normal. O pagamento é para <strong style="color:rgba(255,189,46,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, empresa médica registrada.</span>
         </div>
         <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar com PIX →</button>
+        <div id="aviso-horario" style="display:none;margin-top:14px;padding:11px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:11px;font-size:13px;color:rgba(255,255,255,.52);line-height:1.6;text-align:center;font-weight:300">Neste horário, pode haver uma leve redução na disponibilidade de profissionais, mas os atendimentos continuam normalmente.</div>
         <div class="pay-qr-section" id="pay-qr-section">
           <div style="text-align:center;margin-bottom:20px">
             <div style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:5px">Escaneie o QR Code ou use Pix Copia e Cola</div>
@@ -1592,6 +1593,8 @@ function esperar(ms){return new Promise(function(r){setTimeout(r,ms);});}
   ta.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendTriage(this.value.trim());}});
   document.getElementById('triageSend').addEventListener('click',function(){sendTriage(ta.value.trim());});
 })();
+
+(function(){var h=new Date().getHours();if(h>=23||h<6){var el=document.getElementById('aviso-horario');if(el)el.style.display='block';}})();
 
 function mascaraData(el){
   var v=el.value.replace(/\D/g,'');
