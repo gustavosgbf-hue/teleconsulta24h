@@ -505,39 +505,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </button>
     </div>
 
-    <!-- Link discreto de agendamento — só texto, sem caixas -->
-    <div id="agend-section" style="display:none;margin-top:28px">
-      <button id="agend-toggle-btn"
-        onclick="(function(btn){var c=document.getElementById('agend-content');var aberto=c.style.display!=='none';c.style.display=aberto?'none':'block';btn.innerHTML=aberto?'Prefere agendar para outro horário? <span style=&quot;color:rgba(255,255,255,.35)&quot;>↓</span>':'<span style=&quot;color:rgba(255,255,255,.35)&quot;>▲ Ocultar agendamento</span>';document.getElementById('aviso-sem-reembolso').style.display=aberto?'none':'block';})(this)"
-        style="display:none;background:none;border:none;color:rgba(255,255,255,.3);font-family:'Outfit',sans-serif;font-size:.78rem;cursor:pointer;padding:6px 0;text-align:center;width:100%;letter-spacing:.01em">
-        Prefere agendar para outro horário? <span style="color:rgba(255,255,255,.2)">↓</span>
-      </button>
-      <div id="agend-content" style="display:none">
-        <div style="display:flex;align-items:center;gap:12px;margin:20px 0 20px">
-          <div style="flex:1;height:1px;background:rgba(255,255,255,.07)"></div>
-          <span style="font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2)">agendamento</span>
-          <div style="flex:1;height:1px;background:rgba(255,255,255,.07)"></div>
-        </div>
-        <div class="box" style="border-radius:18px;text-align:left">
-          <div class="box-head">
-            <h1 style="font-size:1rem;font-family:'Outfit',sans-serif;font-weight:600">Agendar consulta</h1>
-            <p style="margin-top:4px;font-size:.8rem">Escolha um horário. A triagem é feita agora — o médico já chega preparado.</p>
-            <div id="aviso-sem-reembolso" style="display:none;margin-top:10px;padding:9px 13px;background:rgba(255,95,87,.05);border:1px solid rgba(255,95,87,.2);border-radius:9px;font-size:.76rem;color:rgba(255,160,150,.9);line-height:1.55">
-              ⚠️ <strong style="color:rgba(255,190,180,.95)">Sem reagendamento:</strong> o horário escolhido é definitivo. Em caso de desistência o valor não é reembolsado.
-            </div>
-          </div>
-          <div style="padding:16px 20px 20px">
-            <div style="font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px">Horários disponíveis</div>
-            <div class="horarios-grid" id="horarios-grid"></div>
-            <div id="email-agend-wrap" style="margin-top:14px;display:block">
-              <label style="font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);display:block;margin-bottom:7px">Seu e-mail <span style="color:rgba(255,255,255,.4);text-transform:none;letter-spacing:0;font-weight:400">(para confirmação e lembrete)</span></label>
-              <input id="inputEmailAgend" type="email" placeholder="seu@email.com" style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font-family:Outfit,sans-serif;font-size:.88rem;outline:none;box-sizing:border-box;display:block" oninput="validarEmailAgend()">
-              <div id="emailAgendErro" style="font-size:.72rem;color:#ff8080;margin-top:4px;display:none">E-mail inválido</div>
-            </div>
-            <button class="btn-agendar" id="btnAgendar" disabled onclick="prosseguirAgendamento()">Confirmar horário →</button>
-          </div>
-        </div>
-      </div>
+    <!-- Aviso período noturno (23h–7h) -->
+    <div id="aviso-noturno" style="display:none;margin-top:20px;padding:12px 16px;background:rgba(255,189,46,.06);border:1px solid rgba(255,189,46,.2);border-radius:12px;font-size:.8rem;color:rgba(255,210,120,.85);line-height:1.55;text-align:center">
+      🌙 <strong style="color:rgba(255,220,140,.95)">Atendimento noturno:</strong> entre 23h e 7h a demanda costuma ser menor — pode haver uma espera maior até o médico assumir.
     </div>
 
   </div>
@@ -803,7 +773,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 var API = 'https://triagem-api.onrender.com';
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', pacienteEmail = '', tipoConsulta = '';
-var atendimentoId = null, agendamentoId = null, horarioAgendado = null, modoAgendamento = false;
+var atendimentoId = null;
 var paymentId = null, pagbankOrderId = null, paymentPoller = null;
 var esperaPoller = null, chatPoller = null, meetPoller = null, encerradoPoller = null;
 var ultimaMsgId = 0, chatAtivo = false, tentativas = 0;
@@ -917,14 +887,12 @@ async function verificarDisponibilidade(){
   document.getElementById('disp-titulo').textContent='Verificando disponibilidade...';
   document.getElementById('disp-sub').textContent='Aguarde um instante.';
   document.getElementById('btnDispCont').style.display='none';
-  document.getElementById('agend-section').style.display='none';
   try{ var res = await fetch(API+'/api/disponibilidade'); dispData = await res.json(); }
-  catch(e){ dispData = {ok:true,disponivel:true,status:'verde',mensagem:'Atendimento disponível',tempoEstimado:5,medicosOnline:0,horariosAgendamento:[]}; }
+  catch(e){ dispData = {ok:true,disponivel:true,status:'verde',mensagem:'Atendimento disponível',tempoEstimado:5,medicosOnline:0,avisoHorario:false}; }
   renderDisponibilidade(dispData);
 }
 
 function renderDisponibilidade(d){
-  // Título e subtítulo focados em imediato
   document.getElementById('disp-titulo').textContent = d.disponivel ? 'Fale com um médico agora' : 'Sem médico disponível agora';
   document.getElementById('disp-sub').textContent = d.disponivel ? 'Atendimento em poucos minutos' : '';
   document.getElementById('disp-info').textContent = d.disponivel
@@ -935,59 +903,15 @@ function renderDisponibilidade(d){
   badge.querySelector('.dispon-dot').style.background = d.status==='verde'?'var(--g2)':d.status==='amarelo'?'#ffbd2e':'#ff8080';
   document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Indisponível';
   document.getElementById('btnDispCont').style.display = d.disponivel ? 'block' : 'none';
-  document.getElementById('agend-section').style.display = 'block';
-  var agendToggle = document.getElementById('agend-toggle-btn');
-  var agendContent = document.getElementById('agend-content');
-  var avisoSemReembolso = document.getElementById('aviso-sem-reembolso');
-  if (d.disponivel) {
-    // Médico disponível: foco total no imediato — agendamento só via link discreto
-    if (agendContent) agendContent.style.display = 'none';
-    if (agendToggle) { agendToggle.style.display = 'block'; agendToggle.innerHTML = 'Prefere agendar para outro horário? <span style="color:rgba(255,255,255,.2)">↓</span>'; }
-    if (avisoSemReembolso) avisoSemReembolso.style.display = 'none';
-  } else {
-    // Sem disponibilidade imediata: expande agendamento direto
-    if (agendContent) agendContent.style.display = 'block';
-    if (agendToggle) agendToggle.style.display = 'none';
-    if (avisoSemReembolso) avisoSemReembolso.style.display = 'block';
-  }
-  renderHorarios(d.horariosAgendamento||[]);
+  // Aviso noturno
+  var avisoNoturno = document.getElementById('aviso-noturno');
+  if (avisoNoturno) avisoNoturno.style.display = d.avisoHorario ? 'block' : 'none';
   if(!d.disponivel && d.horarioRetorno) document.getElementById('disp-info').textContent=(d.mensagem||'Indisponível')+' · Próximo atendimento: '+d.horarioRetorno;
 }
 
-function renderHorarios(horarios){
-  var grid = document.getElementById('horarios-grid'); horarioAgendado = null;
-  document.getElementById('btnAgendar').disabled=true; document.getElementById('btnAgendar').classList.remove('on');
-  if(!horarios.length){ grid.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:.82rem">Nenhum horário disponível.</p>'; return; }
-  grid.innerHTML = horarios.map(function(h){ return '<button class="horario-btn" onclick="selecionarHorario(this,\''+h.iso+'\')">'+h.label+'</button>'; }).join('');
-}
+function continuar_apos_disponibilidade(){ irParaPagamento(); }
 
-function validarEmailAgend(){
-  var v = (document.getElementById('inputEmailAgend')||{}).value||'';
-  var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
-  var erroEl = document.getElementById('emailAgendErro');
-  if(erroEl) erroEl.style.display = v&&!ok?'block':'none';
-  var btn=document.getElementById('btnAgendar');
-  if(horarioAgendado && ok){ btn.disabled=false; btn.classList.add('on'); }
-  else{ btn.disabled=true; btn.classList.remove('on'); }
-}
-
-function selecionarHorario(el, iso){
-  document.querySelectorAll('.horario-btn').forEach(function(b){b.classList.remove('selected');});
-  el.classList.add('selected'); horarioAgendado = iso;
-  validarEmailAgend();
-}
-
-function continuar_apos_disponibilidade(){ modoAgendamento=false; irParaPagamento(false); }
-function prosseguirAgendamento(){
-  if(!horarioAgendado){ alert('Selecione um horário.'); return; }
-  var emailEl = document.getElementById('inputEmailAgend');
-  var email = emailEl ? emailEl.value.trim() : '';
-  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ alert('Informe um e-mail válido para receber a confirmação.'); return; }
-  pacienteEmail = email;
-  modoAgendamento=true; irParaPagamento(true);
-}
-
-function irParaPagamento(agendamento){
+function irParaPagamento(){
   paymentId=null; pagbankOrderId=null;
   clearInterval(paymentPoller);
   document.getElementById('pay-qr-section').classList.remove('ativo');
@@ -1004,14 +928,8 @@ function irParaPagamento(agendamento){
   statusEl.className='pay-polling-status';
   showScreen('payment');
   document.getElementById('nav-step').textContent='PAGAMENTO';
-  if(agendamento){
-    var h = new Date(horarioAgendado).toLocaleString('pt-BR',{timeZone:'America/Fortaleza',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
-    document.getElementById('pay-label-tipo').textContent='Agendamento — '+h;
-    document.getElementById('pay-subtitulo').textContent='Confirme o horário com o pagamento';
-  } else {
-    document.getElementById('pay-label-tipo').textContent='Atendimento médico online';
-    document.getElementById('pay-subtitulo').textContent='Sua solicitação será encaminhada à equipe médica';
-  }
+  document.getElementById('pay-label-tipo').textContent='Atendimento médico online';
+  document.getElementById('pay-subtitulo').textContent='Sua solicitação será encaminhada à equipe médica';
 }
 
 // ── PAGAMENTO: seletor de método ─────────────────────────────────────────────
@@ -1156,11 +1074,7 @@ async function pagarCartao() {
         window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:atendimentoId||''});
       }
       await esperar(1000);
-      if(modoAgendamento){
-        confirmarAgendamento(pacienteNome, pacienteTel, cpf.replace(/\D/g,''));
-      } else {
-        continuarParaTriagem();
-      }
+      continuarParaTriagem();
     } else {
       // Cartão recusado — mostra motivo e desbloqueia
       throw new Error(d.error || 'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
@@ -1297,11 +1211,7 @@ function iniciarPollingPagamento(){
           window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:atendimentoId||''});
         }
         await esperar(1000);
-        if(modoAgendamento){
-          confirmarAgendamento(pacienteNome, pacienteTel, pacienteCPF);
-        } else {
-          continuarParaTriagem();
-        }
+        continuarParaTriagem();
       }
     }catch(e){ /* erro pontual de rede — continua */ }
   }, 3000);
@@ -1329,38 +1239,6 @@ function fallbackCopy(text){
 
 function continuarParaTriagem(){
   showScreen('triage'); document.getElementById('nav-step').textContent='TRIAGEM MÉDICA'; startTriage();
-}
-
-async function confirmarAgendamento(nome,tel,cpf){
-  // atendimentoId já existe — criado em gerarPagamento via /api/notify
-  // pagbankOrderId já existe e já foi vinculado em gerarPagamento
-  // Aqui: só registra o agendamento no backend e vai pra triagem
-  try{
-    var r1=await fetch(API+'/api/agendamento/criar',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc,cpf,modalidade:tipoConsulta,horario_agendado:horarioAgendado,email:pacienteEmail})});
-    var d1=await r1.json();
-    if(!d1.ok){ alert('Erro: '+(d1.error||'tente novamente')); return; }
-    agendamentoId=d1.agendamentoId;
-    var r2=await fetch(API+'/api/agendamento/confirmar',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({agendamentoId,paymentId:paymentId||''})});
-    var d2=await r2.json();
-    var h=d2.horarioFormatado||'';
-    continuarParaTriagemAgendamento(h);
-  }catch(e){ alert('Erro ao confirmar agendamento.'); }
-}
-
-function continuarParaTriagemAgendamento(horarioFormatado){
-  // Guarda o horário para mostrar no final da triagem
-  window._horarioAgendado = horarioFormatado;
-  showScreen('triage');
-  document.getElementById('nav-step').textContent='TRIAGEM MÉDICA';
-  startTriageAgendamento();
-}
-
-function startTriageAgendamento(){
-  triageHistory=[]; anamnesis={}; step=0;
-  addMsg('triageChat','bot','Ótimo, '+(pacienteNome.split(' ')[0])+'! Agendamento confirmado para '+(window._horarioAgendado||'o horário escolhido')+'.\n\nEnquanto isso, me conta: qual é o problema que está sentindo? Assim o médico já chega preparado para te atender.');
-  step=1; updateProgress(1);
 }
 
 // ── TRIAGEM ────────────────────────────────────────────────────────────────────
@@ -1431,15 +1309,11 @@ async function finalizarTriagem(){
     // atendimentoId sempre existe — pré-registro feito em gerarPagamento antes do QR
     if(!atendimentoId) throw new Error('Sessão perdida. Recarregue a página.');
     var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({atendimentoId,agendamentoId:agendamentoId||null,triagem:anamnesis.summary||''})});
+      body:JSON.stringify({atendimentoId,triagem:anamnesis.summary||''})});
     var d=await r.json();
     if(!d.ok) throw new Error(d.error||'Erro ao registrar triagem');
     salvarSessao();
-    if(modoAgendamento && agendamentoId){
-      mostrarConfirmacaoAgendamento();
-    } else {
-      mostrarSalaEspera();
-    }
+    mostrarSalaEspera();
   }catch(e){
     console.error('finalizarTriagem error:',e);
     // Remove mensagem de "registrando..."
@@ -1456,21 +1330,6 @@ async function finalizarTriagem(){
 
 // ── SALA DE ESPERA ─────────────────────────────────────────────────────────────
 
-function mostrarConfirmacaoAgendamento(){
-  showScreen('espera');
-  document.getElementById('nav-step').textContent='AGENDAMENTO CONFIRMADO';
-  document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(66,133,244,.2),rgba(52,168,83,.15))';
-  document.getElementById('esperaIcon').textContent='📅';
-  document.getElementById('esperaTitulo').textContent='Tudo pronto!';
-  var h = window._horarioAgendado || '';
-  document.getElementById('esperaSub').textContent='Seu agendamento está confirmado'+(h?' para '+h:'')+'. O médico já terá sua triagem em mãos.';
-  document.getElementById('esperaBadge').className='espera-badge video';
-  document.getElementById('esperaBadgeIcon').textContent='📅';
-  document.getElementById('esperaBadgeText').textContent='Agendado';
-  document.getElementById('esperaStatusTxt').textContent='Você receberá contato no horário marcado.';
-  // Para o polling — não precisa verificar status para agendamento
-  clearInterval(esperaPoller);
-}
 
 function mostrarTelaEspera(){
   showScreen('espera'); document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
