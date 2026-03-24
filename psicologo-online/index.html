@@ -925,8 +925,19 @@ async function carregarPsicologos() {
 
 // ─── ABRIR MODAL COM DADOS DO PSICÓLOGO ──────────────────────────────────────
 async function abrirModal(psicologoId, tipo) {
-  window.location.href = '/psicologo-online/agendamentos?id=' + psicologoId;
-}
+  resetarModal();
+  modalState.tipoConsulta = tipo;
+  const backdrop = document.getElementById('modal-backdrop');
+  backdrop.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+
+  try {
+    const res  = await fetch(API + '/api/psicologo/' + psicologoId);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Psicólogo não encontrado');
+    const p = data.psicologo;
+    modalState.psicologo = p;
+
     // Preenche header do modal
     if (p.foto_url) {
       document.getElementById('modal-avatar').innerHTML = `<img src="${esc(p.foto_url)}" alt="${esc(p.nome_exibicao)}" style="width:72px;height:72px;object-fit:cover">`;
