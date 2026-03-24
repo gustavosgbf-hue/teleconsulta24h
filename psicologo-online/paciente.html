@@ -271,8 +271,9 @@ async function fazerLogin() {
       err.style.display = 'block';
       return;
     }
-    localStorage.setItem('pac_token', data.token);
-    entrarApp(data.paciente);
+   localStorage.setItem('pac_token', data.token);
+localStorage.setItem('pac_dados', JSON.stringify(data.paciente));
+entrarApp(data.paciente);
   } catch(e) {
     err.textContent = 'Erro de conexão: ' + e.message;
     err.style.display = 'block';
@@ -308,8 +309,9 @@ async function fazerCadastro() {
       return;
     }
     localStorage.setItem('pac_token', data.token);
-    entrarApp(data.paciente);
-    mostrarToast('Conta criada com sucesso!', 'success');
+localStorage.setItem('pac_dados', JSON.stringify(data.paciente));
+entrarApp(data.paciente);
+mostrarToast('Conta criada com sucesso!', 'success');
   } catch(e) {
     err.textContent = 'Erro de conexão: ' + e.message;
     err.style.display = 'block';
@@ -329,6 +331,7 @@ function entrarApp(pac) {
 
 function fazerLogout() {
   localStorage.removeItem('pac_token');
+localStorage.removeItem('pac_dados');
   document.getElementById('screen-auth').style.display = 'flex';
   document.getElementById('screen-app').style.display  = 'none';
   document.getElementById('btn-logout').style.display  = 'none';
