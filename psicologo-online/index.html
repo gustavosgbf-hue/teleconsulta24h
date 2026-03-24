@@ -924,10 +924,9 @@ async function carregarPsicologos() {
 }
 
 // ─── ABRIR MODAL COM DADOS DO PSICÓLOGO ──────────────────────────────────────
-function abrirModal(psicologoId, tipo) {
+async function abrirModal(psicologoId, tipo) {
   window.location.href = '/psicologo-online/agendamentos?id=' + psicologoId;
 }
-
     // Preenche header do modal
     if (p.foto_url) {
       document.getElementById('modal-avatar').innerHTML = `<img src="${esc(p.foto_url)}" alt="${esc(p.nome_exibicao)}" style="width:72px;height:72px;object-fit:cover">`;
