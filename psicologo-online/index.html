@@ -510,8 +510,9 @@ footer a:hover{color:var(--ink)}
   background:rgba(238,235,229,.97);
   backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
   border-radius:inherit;
-  display:flex;flex-direction:column;justify-content:center;
+  display:flex;flex-direction:column;justify-content:flex-start;
   padding:28px;
+  overflow-y:auto;
   animation:fadeUp .22s ease;
 }
 .pip-title{
@@ -1069,6 +1070,7 @@ function resetarModal() {
     if (el) el.style.display = 'none';
   });
   document.getElementById('pip-auth-overlay').style.display = 'none';
+  document.getElementById('modal-box').style.minHeight = '';
 }
 
 function mostrarPasso(id) {
@@ -1142,11 +1144,15 @@ function abrirPipAuth(motivo) {
     btn.disabled = false;
     btn.textContent = id === 'pip-btn-entrar' ? 'Entrar e confirmar horário →' : 'Criar conta e confirmar →';
   });
+  // Garante que o modal-box tenha altura mínima para o PiP caber
+  const box = document.getElementById('modal-box');
+  box.style.minHeight = '520px';
   pip.style.display = 'flex';
 }
 
 function fecharPipAuth() {
   document.getElementById('pip-auth-overlay').style.display = 'none';
+  document.getElementById('modal-box').style.minHeight = '';
 }
 
 function pipMostrarAba(aba) {
