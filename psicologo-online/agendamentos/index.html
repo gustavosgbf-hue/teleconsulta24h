@@ -275,22 +275,38 @@ let state = {
   pixInterval:  null,
 };
 
-function getPacienteToken() { return localStorage.getItem('paciente_token'); }
+function getPacienteToken() { return localStorage.getItem('pac_token'); }
 function getPacienteDados() {
-  try { return JSON.parse(localStorage.getItem('paciente_dados') || 'null'); } catch(_) { return null; }
+  try { return JSON.parse(localStorage.getItem('pac_dados') || 'null'); } catch(_) { return null; }
 }
 
-function iniciarAgendamento(tipo) {
+async function iniciarAgendamento(tipo) {
   state.tipoConsulta = tipo;
   const token = getPacienteToken();
   const dados = getPacienteDados();
+
   if (token && dados) {
-    // já logado — preenche state e vai direto para horários
     state.paciente = { ...dados, token };
     irParaHorario();
-  } else {
-    mostrarStep('step-login');
+    return;
   }
+
+  if (token && !dados) {
+    try {
+      const res = await fetch(API + '/api/paciente/me', {
+        headers: { Authorization: 'Bearer ' + token }
+      });
+      const data = await res.json();
+      if (data.ok && data.paciente) {
+        localStorage.setItem('pac_dados', JSON.stringify(data.paciente));
+        state.paciente = { ...data.paciente, token };
+        irParaHorario();
+        return;
+      }
+    } catch (_) {}
+  }
+
+  mostrarStep('step-login');
 }
 
 function mostrarAba(aba) {
@@ -312,8 +328,8 @@ async function fazerLogin() {
     const res  = await fetch(API + '/api/paciente/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, senha }) });
     const data = await res.json();
     if (!data.ok) { err.textContent = data.error || 'E-mail ou senha incorretos.'; err.style.display = 'block'; return; }
-    localStorage.setItem('paciente_token', data.token);
-    localStorage.setItem('paciente_dados', JSON.stringify(data.paciente));
+    localStorage.setItem('pac_token', data.token);
+localStorage.setItem('pac_dados', JSON.stringify(data.paciente));
     state.paciente = { ...data.paciente, token: data.token };
     irParaHorario();
   } catch(_) { err.textContent = 'Erro de conexão. Tente novamente.'; err.style.display = 'block'; }
@@ -333,8 +349,8 @@ async function fazerCadastro() {
     const res  = await fetch(API + '/api/paciente/cadastro', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nome, email, senha, tel, cpf }) });
     const data = await res.json();
     if (!data.ok) { err.textContent = data.error || 'Erro ao criar conta.'; err.style.display = 'block'; return; }
-    localStorage.setItem('paciente_token', data.token);
-    localStorage.setItem('paciente_dados', JSON.stringify(data.paciente));
+    localStorage.setItem('pac_token', data.token);
+localStorage.setItem('pac_dados', JSON.stringify(data.paciente));
     state.paciente = { ...data.paciente, token: data.token };
     irParaHorario();
   } catch(_) { err.textContent = 'Erro de conexão. Tente novamente.'; err.style.display = 'block'; }
