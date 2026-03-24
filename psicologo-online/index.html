@@ -843,7 +843,60 @@ footer a:hover{color:var(--ink)}
       <button id="btn-ir-pagamento" class="psi-cta" style="width:100%;justify-content:center;padding:13px;opacity:.4;cursor:not-allowed" disabled onclick="irParaPagamento()">Confirmar horário e pagar →</button>
     </div>
 
-    <!-- PASSO 4: Pagamento PIX -->
+    <!-- PASSO 4a: Escolha de método de pagamento -->
+    <div id="modal-escolha-pagamento" style="display:none;padding:28px">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:#16120e;margin-bottom:4px">Como prefere pagar?</div>
+      <div id="modal-escolha-sub" style="font-size:.82rem;color:#8c857d;font-weight:300;margin-bottom:24px"></div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <button onclick="escolherPagamento('pix')" style="display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:14px;border:1.5px solid rgba(38,80,142,.2);background:#f4f7fc;cursor:pointer;transition:all .18s;text-align:left" onmouseover="this.style.borderColor='#26508e';this.style.background='#e8eef7'" onmouseout="this.style.borderColor='rgba(38,80,142,.2)';this.style.background='#f4f7fc'">
+          <span style="font-size:1.8rem;flex-shrink:0">⚡</span>
+          <div>
+            <div style="font-size:.92rem;font-weight:600;color:#16120e;margin-bottom:2px">PIX — aprovação imediata</div>
+            <div style="font-size:.76rem;color:#8c857d;font-weight:300">Pague via QR Code ou Copia e Cola. Confirmação em segundos.</div>
+          </div>
+        </button>
+        <button onclick="escolherPagamento('cartao')" style="display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:14px;border:1.5px solid rgba(22,18,14,.1);background:#faf9f7;cursor:pointer;transition:all .18s;text-align:left" onmouseover="this.style.borderColor='#26508e';this.style.background='#e8eef7'" onmouseout="this.style.borderColor='rgba(22,18,14,.1)';this.style.background='#faf9f7'">
+          <span style="font-size:1.8rem;flex-shrink:0">💳</span>
+          <div>
+            <div style="font-size:.92rem;font-weight:600;color:#16120e;margin-bottom:2px">Cartão de crédito</div>
+            <div style="font-size:.76rem;color:#8c857d;font-weight:300">Visa, Mastercard, Elo e outros. Processado pela EFI Bank.</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- PASSO 4b: Cartão de crédito (EFI) -->
+    <div id="modal-cartao" style="display:none;padding:28px">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:#16120e;margin-bottom:4px">Cartão de crédito</div>
+      <div id="modal-cartao-sub" style="font-size:.82rem;color:#8c857d;font-weight:300;margin-bottom:20px"></div>
+      <div class="pip-campo"><label>Número do cartão</label><input id="cc-numero" type="text" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric"/></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="pip-campo"><label>Validade</label><input id="cc-validade" type="text" placeholder="MM/AA" maxlength="5"/></div>
+        <div class="pip-campo"><label>CVV</label><input id="cc-cvv" type="text" placeholder="123" maxlength="4" inputmode="numeric"/></div>
+      </div>
+      <div class="pip-campo"><label>Nome no cartão</label><input id="cc-nome" type="text" placeholder="Como está no cartão"/></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="pip-campo"><label>CPF do titular</label><input id="cc-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric"/></div>
+        <div class="pip-campo"><label>Data de nascimento</label><input id="cc-nasc" type="text" placeholder="DD/MM/AAAA" maxlength="10"/></div>
+      </div>
+      <div class="pip-campo"><label>Telefone com DDD</label><input id="cc-tel" type="tel" placeholder="(85) 99999-9999"/></div>
+      <div class="pip-campo">
+        <label>Parcelas</label>
+        <select id="cc-parcelas" style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(22,18,14,.15);background:#faf9f7;font-family:'DM Sans',sans-serif;font-size:.88rem;color:#16120e;outline:none">
+          <option value="1">1× sem juros</option>
+          <option value="2">2× sem juros</option>
+          <option value="3">3× sem juros</option>
+        </select>
+      </div>
+      <div id="cartao-err" style="display:none;font-size:.78rem;color:#b91c1c;margin-bottom:10px"></div>
+      <button id="btn-pagar-cartao" onclick="pagarCartao()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:12px;background:#26508e;color:#fff;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(38,80,142,.28)">
+        Pagar com cartão →
+      </button>
+      <p style="font-size:.7rem;color:#8c857d;text-align:center;margin-top:10px;line-height:1.5">🔒 Pagamento seguro via EFI Bank. Seus dados de cartão são tokenizados e nunca passam pelo nosso servidor.</p>
+      <button onclick="mostrarPasso('modal-escolha-pagamento')" style="display:block;width:100%;margin-top:8px;background:none;border:none;font-size:.78rem;color:#8c857d;cursor:pointer;padding:4px">← Voltar</button>
+    </div>
+
+    <!-- PASSO 4c: Pagamento PIX -->
     <div id="modal-pagamento" style="display:none;padding:28px">
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:#16120e;margin-bottom:4px">Pagamento via PIX</div>
       <div id="modal-pag-sub" style="font-size:.82rem;color:#8c857d;font-weight:300;margin-bottom:20px"></div>
@@ -1065,7 +1118,7 @@ function fecharModal(evt) {
 function resetarModal() {
   clearInterval(modalState.pixInterval);
   modalState = { psicologo: null, tipoConsulta: null, paciente: null, horario: null, agendamentoId: null, pixOrderId: null, pixInterval: null };
-  ['modal-perfil','modal-horario','modal-pagamento','modal-formulario'].forEach(id=>{
+  ['modal-perfil','modal-escolha-pagamento','modal-cartao','modal-pagamento','modal-formulario'].forEach(id=>{
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
   });
@@ -1074,7 +1127,7 @@ function resetarModal() {
 }
 
 function mostrarPasso(id) {
-  ['modal-perfil','modal-horario','modal-pagamento','modal-formulario'].forEach(p=>{
+  ['modal-perfil','modal-horario','modal-escolha-pagamento','modal-cartao','modal-pagamento','modal-formulario'].forEach(p=>{
     document.getElementById(p).style.display = p === id ? 'block' : 'none';
   });
   document.getElementById('pip-auth-overlay').style.display = 'none';
@@ -1308,7 +1361,175 @@ function gerarHorariosDisponiveis(disponibilidadeTexto, ocupados = []) {
   }
 }
 
-// ─── PASSO 3: CRIAR AGENDAMENTO NO BACKEND E INICIAR PAGAMENTO ───────────────
+// ─── ESCOLHA DE MÉTODO DE PAGAMENTO ──────────────────────────────────────────
+async function escolherPagamento(metodo) {
+  const psi = modalState.psicologo;
+  const sub = `${psi.nome_exibicao} · ${fmtHorario(modalState.horario)} · ${fmtValor(modalState.valorExibir)}`;
+
+  if (metodo === 'pix') {
+    mostrarPasso('modal-pagamento');
+    document.getElementById('modal-pag-sub').textContent = sub;
+    await gerarPixPagamento(modalState.agendamentoId);
+  } else {
+    mostrarPasso('modal-cartao');
+    document.getElementById('modal-cartao-sub').textContent = sub;
+    // Pré-preenche campos disponíveis
+    const pac = modalState.paciente;
+    if (pac?.nome)  document.getElementById('cc-nome').value = pac.nome;
+    if (pac?.cpf)   document.getElementById('cc-cpf').value  = pac.cpf;
+    if (pac?.tel)   document.getElementById('cc-tel').value  = pac.tel;
+    if (pac?.email) document.getElementById('cc-email-hidden') && (document.getElementById('cc-email-hidden').value = pac.email);
+    iniciarMascarasCartao();
+  }
+}
+
+// ─── MÁSCARAS DE CARTÃO ───────────────────────────────────────────────────────
+function iniciarMascarasCartao() {
+  const num = document.getElementById('cc-numero');
+  if (num._mascarado) return;
+  num._mascarado = true;
+
+  num.addEventListener('input', () => {
+    let v = num.value.replace(/\D/g,'').slice(0,16);
+    num.value = v.replace(/(.{4})/g,'$1 ').trim();
+  });
+  document.getElementById('cc-validade').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g,'').slice(0,4);
+    if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+    e.target.value = v;
+  });
+  document.getElementById('cc-cpf').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g,'').slice(0,11);
+    v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+    e.target.value = v;
+  });
+  document.getElementById('cc-nasc').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g,'').slice(0,8);
+    v = v.replace(/(\d{2})(\d)/,'$1/$2').replace(/(\d{2})(\d)/,'$1/$2');
+    e.target.value = v;
+  });
+}
+
+// ─── PAGAMENTO VIA CARTÃO (EFI) ───────────────────────────────────────────────
+async function pagarCartao() {
+  const btn = document.getElementById('btn-pagar-cartao');
+  const err = document.getElementById('cartao-err');
+  err.style.display = 'none';
+
+  const numero   = document.getElementById('cc-numero').value.replace(/\s/g,'');
+  const validade = document.getElementById('cc-validade').value;
+  const cvv      = document.getElementById('cc-cvv').value.trim();
+  const nome     = document.getElementById('cc-nome').value.trim();
+  const cpf      = document.getElementById('cc-cpf').value.replace(/\D/g,'');
+  const nasc     = document.getElementById('cc-nasc').value;
+  const tel      = document.getElementById('cc-tel').value.replace(/\D/g,'');
+  const parcelas = parseInt(document.getElementById('cc-parcelas').value) || 1;
+
+  if (numero.length < 13) { err.textContent = 'Número do cartão inválido.'; err.style.display='block'; return; }
+  if (!validade.includes('/')) { err.textContent = 'Validade inválida.'; err.style.display='block'; return; }
+  if (cvv.length < 3) { err.textContent = 'CVV inválido.'; err.style.display='block'; return; }
+  if (!nome) { err.textContent = 'Nome do titular obrigatório.'; err.style.display='block'; return; }
+  if (cpf.length !== 11) { err.textContent = 'CPF inválido.'; err.style.display='block'; return; }
+  if (tel.length < 10) { err.textContent = 'Telefone com DDD obrigatório.'; err.style.display='block'; return; }
+
+  btn.disabled = true; btn.textContent = 'Processando…';
+
+  try {
+    // Tokenização via SDK EFI (carregado assincronamente)
+    const [mes, ano] = validade.split('/');
+    const payment_token = await tokenizarCartaoEfi({ numero, mes, ano: '20'+ano, cvv, nome });
+
+    // Data de nascimento: DD/MM/AAAA → AAAA-MM-DD
+    let nascimento = '';
+    if (nasc && nasc.length === 10) {
+      const [d, m, y] = nasc.split('/');
+      nascimento = `${y}-${m}-${d}`;
+    }
+
+    const res = await fetch(API + '/api/psicologia/efi/cartao/cobrar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + modalState.paciente.token
+      },
+      body: JSON.stringify({
+        agendamentoId: modalState.agendamentoId,
+        payment_token,
+        nome,
+        cpf,
+        email:     modalState.paciente.email,
+        telefone:  tel,
+        nascimento,
+        parcelas
+      })
+    });
+    const data = await res.json();
+
+    if (!data.ok) {
+      err.textContent = data.error || 'Pagamento não aprovado. Verifique os dados e tente novamente.';
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Pagar com cartão →';
+      return;
+    }
+
+    // Cartão aprovado imediatamente (status paid/approved) ou aguardando (waiting)
+    if (data.status === 'paid' || data.status === 'approved') {
+      mostrarConfirmacaoCartao();
+    } else {
+      // waiting — polling igual ao PIX
+      mostrarPasso('modal-pagamento');
+      document.getElementById('modal-pag-sub').textContent = document.getElementById('modal-cartao-sub').textContent;
+      document.getElementById('pix-loading').style.display = 'none';
+      document.getElementById('pix-qr-wrap').style.display = 'none';
+      document.getElementById('pix-status-msg').textContent = 'Aguardando confirmação do pagamento via cartão…';
+      iniciarPollingPix(modalState.agendamentoId);
+    }
+  } catch(e) {
+    err.textContent = e.message || 'Erro ao processar pagamento. Tente novamente.';
+    err.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Pagar com cartão →';
+  }
+}
+
+function mostrarConfirmacaoCartao() {
+  mostrarPasso('modal-formulario');
+  const psi = modalState.psicologo;
+  document.getElementById('formulario-intro').textContent =
+    `Pagamento confirmado! Seu horário com ${psi ? psi.nome_exibicao : 'o psicólogo'} está agendado. Você receberá o link da sessão no e-mail cadastrado.`;
+}
+
+// ─── TOKENIZAÇÃO EFI (SDK) ────────────────────────────────────────────────────
+function tokenizarCartaoEfi({ numero, mes, ano, cvv, nome }) {
+  return new Promise((resolve, reject) => {
+    // Garante que o SDK EFI está carregado
+    if (typeof $gn === 'undefined') {
+      reject(new Error('SDK EFI não carregado. Verifique sua conexão e tente novamente.'));
+      return;
+    }
+    $gn.checkout.getPaymentToken({
+      brand:            detectarBandeira(numero),
+      number:           numero,
+      cvv:              cvv,
+      expiration_month: mes,
+      expiration_year:  ano,
+      reuse:            false
+    }, (err, response) => {
+      if (err) { reject(new Error(err.error_description || 'Erro ao tokenizar cartão')); return; }
+      resolve(response.data.payment_token);
+    });
+  });
+}
+
+function detectarBandeira(numero) {
+  const n = numero.replace(/\D/g,'');
+  if (/^4/.test(n)) return 'visa';
+  if (/^5[1-5]/.test(n) || /^2(2[2-9]|[3-6]|7[01])/.test(n)) return 'mastercard';
+  if (/^(36|38|301|305|3095|3[89])/.test(n)) return 'diners';
+  if (/^(34|37)/.test(n)) return 'amex';
+  if (/^(606282|3841|637095|637568|637599|637609|637612)/.test(n)) return 'hipercard';
+  if (/^((401178|401179|431274|438935|451416|457393|457631|457632|504175|627780|636297|636368|636369|(506699|5067[0-6]\d|50677[0-8])|(50900\d|50901\d|509[1-9])|65003[1-3]|(65003[5-9]|65004\d|65005\d)|(65040[5-9]|6504[1-3]\d)|(65048[5-9]|65049\d|6505[0-2]\d|65053[0-8])|(65054[1-9]|6505[5-8]\d|65059\d|6506\d|65070\d|65071[0-8])|(65072[0-7])|(65090[1-9]|65091\d|650920)|(65165[2-9]|6516[6-9]\d)|(65500\d|65501\d)|(65502[1-9]|6550[3-4]\d|65505[0-8])|650485))/.test(n)) return 'elo';
+  return 'visa'; // fallback
+}
 // Chamada quando: (a) usuário já logado clica "Confirmar e pagar",
 //                 (b) PiP de login conclui com sucesso e chama esta função
 async function irParaPagamento() {
@@ -1382,13 +1603,12 @@ async function irParaPagamento() {
       })
     }).catch(()=>{});
 
-    mostrarPasso('modal-pagamento');
+    mostrarPasso('modal-escolha-pagamento');
     const psi = modalState.psicologo;
     const v = data.valor || (modalState.tipoConsulta === 'avaliacao' ? psi.valor_avaliacao : psi.valor_sessao);
-    document.getElementById('modal-pag-sub').textContent =
-      `${psi.nome_exibicao} · ${fmtHorario(modalState.horario)} · ${fmtValor(v)}`;
-
-    await gerarPixPagamento(data.agendamentoId);
+    const subTxt = `${psi.nome_exibicao} · ${fmtHorario(modalState.horario)} · ${fmtValor(v)}`;
+    document.getElementById('modal-escolha-sub').textContent = subTxt;
+    modalState.valorExibir = v; // guarda para usar nos sub-títulos dos passos seguintes
   } catch(e) {
     err.textContent = 'Erro de conexão. Tente novamente.';
     err.style.display = 'block';
@@ -1489,5 +1709,7 @@ function mostrarConfirmacaoPagamento(agendamento) {
 }
 </script>
 </body>
+<!-- SDK EFI Bank para tokenização de cartão -->
+<script src="https://sandbox.gerencianet.com.br/v1/cdn/b4f7a07e7a9b2f8ca6d4d96f3fc45208/b4f7a07e7a9b2f8ca6d4d96f3fc45208.js" type="text/javascript"></script>
 <script>carregarPsicologos();</script>
 </html>
