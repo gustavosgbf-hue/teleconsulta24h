@@ -115,6 +115,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-
 .btn-cancelar-ag:disabled{opacity:.5;cursor:not-allowed}
 
 @media(max-width:500px){.auth-card{padding:28px 20px}.row2{grid-template-columns:1fr}}
+.btn-meet-pac{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;background:rgba(38,80,142,.1);border:1px solid rgba(38,80,142,.2);color:#26508e;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;text-decoration:none;margin-top:8px;transition:background .2s}
+.btn-meet-pac:hover{background:rgba(38,80,142,.18)}
 </style>
 </head>
 <body>
@@ -385,6 +387,12 @@ async function carregarAgendamentos() {
                    : ag.status === 'cancelado'            ? 'cancelado'
                    : 'pendente';
       const statusLabel = { confirmado: 'Confirmado', pendente: 'Aguardando pagamento', cancelado: 'Cancelado' }[status];
+      const meetBtn = (status === 'confirmado' && ag.sala_meet)
+        ? `<a href="${escHtml(ag.sala_meet)}" target="_blank" rel="noopener" class="btn-meet-pac">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            Entrar na sessão
+          </a>`
+        : (status === 'confirmado' ? '<span style="font-size:.75rem;color:var(--ink-3);margin-top:6px;display:block">🔗 Link da sala será disponibilizado pela psicóloga</span>' : '');
       const formularioBtn = (status === 'confirmado' && ag.formulario_url)
         ? `<a href="${escHtml(ag.formulario_url)}" target="_blank" rel="noopener" class="btn-formulario">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -402,6 +410,7 @@ async function carregarAgendamentos() {
           <div class="ag-meta">${escHtml(ag.tipo_consulta === 'avaliacao' ? 'Avaliação psicológica' : 'Psicoterapia')} · ${fmtData(ag.horario_agendado)}</div>
           <div class="ag-valor">${fmtValor(ag.valor_cobrado)}</div>
           <span class="ag-badge ${status}">${statusLabel}</span>
+          ${meetBtn}
           ${formularioBtn}
           ${cancelBtn}
         </div>
