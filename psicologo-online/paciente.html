@@ -110,6 +110,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-
 .toast.success{background:#1a7a62}
 .btn-formulario{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border-radius:8px;background:var(--psi);border:1px solid rgba(38,80,142,.2);color:var(--psi-acc);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:500;text-decoration:none;transition:all .18s}
 .btn-formulario:hover{background:#d6e3f5;border-color:rgba(38,80,142,.35)}
+.btn-cancelar-ag{display:inline-flex;align-items:center;gap:5px;margin-top:8px;margin-left:4px;padding:6px 13px;border-radius:8px;background:transparent;border:1px solid rgba(185,28,28,.25);color:#b91c1c;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:500;cursor:pointer;transition:all .18s}
+.btn-cancelar-ag:hover{background:rgba(185,28,28,.07);border-color:rgba(185,28,28,.45)}
+.btn-cancelar-ag:disabled{opacity:.5;cursor:not-allowed}
 
 @media(max-width:500px){.auth-card{padding:28px 20px}.row2{grid-template-columns:1fr}}
 </style>
@@ -388,7 +391,11 @@ async function carregarAgendamentos() {
             Preencher formulário do psicólogo
           </a>`
         : '';
-      return `<div class="ag-item">
+      const podeCancelar = status !== 'cancelado' && ag.pagamento_status !== 'confirmado';
+      const cancelBtn = podeCancelar
+        ? `<button onclick="cancelarAgendamento(${ag.id}, this)" class="btn-cancelar-ag" title="Cancelar agendamento">Cancelar</button>`
+        : '';
+      return `<div class="ag-item" id="ag-item-${ag.id}">
         <div class="ag-status ${status}"></div>
         <div style="flex:1">
           <div class="ag-psi">${escHtml(ag.psicologo_nome)}</div>
@@ -396,11 +403,39 @@ async function carregarAgendamentos() {
           <div class="ag-valor">${fmtValor(ag.valor_cobrado)}</div>
           <span class="ag-badge ${status}">${statusLabel}</span>
           ${formularioBtn}
+          ${cancelBtn}
         </div>
       </div>`;
     }).join('');
   } catch(e) {
     lista.innerHTML = '<p style="color:#b91c1c;font-size:.82rem">Erro ao carregar sessões.</p>';
+  }
+}
+
+async function cancelarAgendamento(id, btn) {
+  if (!confirm('Tem certeza que deseja cancelar este agendamento? O horário será liberado imediatamente.')) return;
+  btn.disabled = true;
+  btn.textContent = 'Cancelando…';
+  try {
+    const data = await apiFetch(`/api/paciente/agendamento/${id}`, { method: 'DELETE' });
+    if (data.ok) {
+      const item = document.getElementById(`ag-item-${id}`);
+      if (item) {
+        // Atualiza visualmente: badge vira cancelado, remove botão
+        item.querySelector('.ag-badge').className = 'ag-badge cancelado';
+        item.querySelector('.ag-badge').textContent = 'Cancelado';
+        item.querySelector('.ag-status').className = 'ag-status cancelado';
+        btn.remove();
+      }
+    } else {
+      alert(data.error || 'Erro ao cancelar. Tente novamente.');
+      btn.disabled = false;
+      btn.textContent = 'Cancelar';
+    }
+  } catch(e) {
+    alert('Erro de conexão. Tente novamente.');
+    btn.disabled = false;
+    btn.textContent = 'Cancelar';
   }
 }
 
