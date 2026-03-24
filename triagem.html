@@ -781,7 +781,7 @@ var dispData = null;
 
 function salvarSessao(){
   if(!atendimentoId) return;
-  localStorage.setItem('cj_sessao', JSON.stringify({atendimentoId, tipoConsulta, pacienteNome, pacienteTel, pacienteCPF, pacienteEmail, ts: Date.now()}));
+  localStorage.setItem('cj_sessao', JSON.stringify({atendimentoId, tipoConsulta, pacienteNome, pacienteTel, pacienteCPF, pacienteEmail, pagbankOrderId: pagbankOrderId||null, ts: Date.now()}));
 }
 function limparSessao(){ localStorage.removeItem('cj_sessao'); }
 function carregarSessao(){
@@ -803,14 +803,56 @@ function carregarSessao(){
       var data = await res.json();
       if(data.ok && data.atendimento){
         var a = data.atendimento;
-        // Se status for triagem (pré-registro abandonado/pagamento não concluído),
-        // limpa sessão e deixa o paciente recomeçar do zero
-        if(a.status === 'triagem' || a.status === 'expirado' || a.status === 'arquivado'){
+
+        // Abandono definitivo — sem recuperação possível
+        if(a.status === 'expirado' || a.status === 'arquivado'){
           limparSessao(); esconderLoading(); showScreen('identify'); return;
         }
         if(a.status === 'cancelado'){
           limparSessao(); esconderLoading(); mostrarPagamentoCancelado(); return;
         }
+
+        // Pagamento pendente ou triagem em andamento — pode ser retorno após pagamento PIX
+        if(a.status === 'triagem' || a.status === 'pagamento_pendente'){
+          var orderIdSalvo = (sessao && sessao.pagbankOrderId) || null;
+
+          // Sem vínculo na sessão → abandono real, recomeça do zero
+          if(!orderIdSalvo){
+            limparSessao(); esconderLoading(); showScreen('identify'); return;
+          }
+
+          // Tem orderId salvo — tenta confirmar o pagamento direto antes de qualquer ação
+          var jaConfirmado = false;
+          try{
+            var pbRes = await fetch(API+'/api/pagbank/order/'+orderIdSalvo);
+            var pbData = await pbRes.json();
+            jaConfirmado = !!(pbData.ok && pbData.pago);
+          }catch(e){ /* rede falhou — continua com polling */ }
+
+          // Restaura estado mínimo necessário para retomar o fluxo
+          atendimentoId  = a.id;
+          tipoConsulta   = a.tipo || 'chat';
+          pacienteNome   = a.nome   || (sessao && sessao.pacienteNome)  || '';
+          pacienteTel    = a.tel    || (sessao && sessao.pacienteTel)   || '';
+          pacienteCPF    = a.cpf    || (sessao && sessao.pacienteCPF)   || '';
+          pacienteEmail  = a.email  || (sessao && sessao.pacienteEmail) || '';
+          pagbankOrderId = orderIdSalvo;
+          salvarSessao();
+
+          if(jaConfirmado){
+            // Pagamento já confirmado no PagBank → vai direto para triagem, sem mostrar QR
+            esconderLoading(); continuarParaTriagem();
+          } else {
+            // Ainda não confirmado → retoma tela de pagamento + polling (sem gerar novo PIX)
+            esconderLoading(); irParaPagamento();
+            var statusEl = document.getElementById('pay-polling-status');
+            if(statusEl){ statusEl.textContent = '⏳ Verificando seu pagamento...'; statusEl.className = 'pay-polling-status'; }
+            iniciarPollingPagamento();
+          }
+          return;
+        }
+
+        // Fluxo normal — atendimento ativo em qualquer outro status
         atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
         pacienteNome = a.nome || ''; pacienteTel = a.tel || ''; pacienteCPF = a.cpf || '';
         salvarSessao(); esconderLoading();
@@ -1155,6 +1197,8 @@ async function gerarPagamento(){
         var vinculoData = await vinculoRes.json();
         if(!vinculoData.ok) throw new Error(vinculoData.error || 'Falha ao vincular order');
         console.log('[VINCULAR] OK', vinculoData);
+        // Persiste orderId na sessão — garante recuperação se paciente fechar a aba após pagar
+        salvarSessao();
       } catch(e) {
         console.error('[VINCULAR ERRO]', e);
         throw new Error('Não foi possível associar o pagamento. Tente novamente.');
