@@ -548,12 +548,35 @@ footer a:hover{color:var(--ink)}
       <div style="display:flex;gap:8px">
         <button onclick="voltarParaHorario()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
         <button id="modalCta" onclick="confirmarAgendamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc,#1a7a4a);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
-          Confirmar e pagar →
+          Confirmar →
         </button>
       </div>
     </div>
 
-    <!-- PASSO 3: PIX -->
+    <!-- PASSO 3: Escolha de pagamento -->
+    <div id="passo-pagamento" style="display:none">
+      <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;margin-bottom:16px">Forma de pagamento</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+        <div class="metodo-opcao selected" id="op-pix" onclick="selecionarMetodo('pix')" style="padding:20px;border:2px solid var(--line-mid);border-radius:12px;text-align:center;cursor:pointer">
+          <div style="font-size:1.8rem;margin-bottom:6px">📱</div>
+          <div style="font-weight:600;font-size:.9rem">PIX</div>
+          <div style="font-size:.72rem;color:#888">Instantâneo</div>
+        </div>
+        <div class="metodo-opcao disabled" style="padding:20px;border:2px solid var(--line);border-radius:12px;text-align:center;opacity:0.5;cursor:not-allowed">
+          <div style="font-size:1.8rem;margin-bottom:6px">💳</div>
+          <div style="font-weight:600;font-size:.9rem">Cartão</div>
+          <div style="font-size:.72rem;color:#888">Em breve</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="voltarParaDados()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
+        <button onclick="processarPagamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc,#1a7a4a);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+          Pagar →
+        </button>
+      </div>
+    </div>
+
+    <!-- PASSO 4: PIX -->
     <div id="passo-pix" style="display:none;text-align:center">
       <div id="pix-loading" style="padding:24px 0;color:#666;font-size:.88rem">⏳ Gerando PIX...</div>
       <div id="pix-qr-wrap" style="display:none">
@@ -642,10 +665,51 @@ function voltarParaHorario() {
   mostrarPasso('passo-horario');
 }
 
-function mostrarPasso(id) {
-  ['passo-horario','passo-dados','passo-pix'].forEach(function(p){
-    document.getElementById(p).style.display = p === id ? 'block' : 'none';
-  });
+function voltarParaDados() {
+  mostrarPasso('passo-dados');
+}
+
+function processarPagamento() {
+  // Cartão temporariamente desabilitado
+  mostrarPasso('passo-pix');
+  document.getElementById('pix-loading').style.display = 'block';
+  document.getElementById('pix-qr-wrap').style.display = 'none';
+  gerarPix();
+}
+
+async function gerarPix() {
+  var nome = document.getElementById('inp-nome').value.trim();
+  var email = document.getElementById('inp-email').value.trim();
+  var cpf = document.getElementById('inp-cpf').value.trim().replace(/\D/g,'');
+
+  try {
+    var resPix = await fetch(API + '/api/especialistas/pagbank/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        agendamentoId: espState.agendamentoId,
+        nome: nome, email: email, cpf: cpf
+      })
+    });
+    var dadosPix = await resPix.json();
+    if (!dadosPix.ok) {
+      document.getElementById('pix-loading').innerHTML = '<span style="color:#b91c1c">' + (dadosPix.error || 'Erro ao gerar PIX.') + '</span>';
+      return;
+    }
+    espState.pixOrderId = dadosPix.order_id;
+
+    document.getElementById('pix-loading').style.display = 'none';
+    document.getElementById('pix-qr-wrap').style.display = 'block';
+    document.getElementById('pix-resumo').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
+    document.getElementById('pix-valor').textContent = 'R$ ' + parseFloat(dadosPix.valor).toFixed(2).replace('.', ',');
+    var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(dadosPix.qr_code_text);
+    document.getElementById('pix-qr-img').src = qrUrl;
+    document.getElementById('pix-codigo').value = dadosPix.qr_code_text;
+
+    iniciarPollingEsp(espState.agendamentoId);
+  } catch(e) {
+    document.getElementById('pix-loading').textContent = 'Erro de conexão.';
+  }
 }
 
 function fecharModal() {
@@ -708,44 +772,16 @@ async function confirmarAgendamento() {
     if (!dadosAg.ok) {
       errEl.textContent = dadosAg.error || 'Erro ao criar agendamento.';
       errEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Confirmar e pagar →';
+      btn.disabled = false; btn.textContent = 'Confirmar →';
       return;
     }
     espState.agendamentoId = dadosAg.agendamentoId;
 
-    mostrarPasso('passo-pix');
-    document.getElementById('pix-loading').style.display = 'block';
-    document.getElementById('pix-qr-wrap').style.display = 'none';
-
-    var resPix = await fetch(API + '/api/especialistas/pagbank/order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        agendamentoId: espState.agendamentoId,
-        nome: nome, email: email, cpf: cpf
-      })
-    });
-    var dadosPix = await resPix.json();
-    if (!dadosPix.ok) {
-      document.getElementById('pix-loading').innerHTML = '<span style="color:#b91c1c">' + (dadosPix.error || 'Erro ao gerar PIX.') + '</span>';
-      return;
-    }
-    espState.pixOrderId = dadosPix.order_id;
-
-    document.getElementById('pix-loading').style.display = 'none';
-    document.getElementById('pix-qr-wrap').style.display = 'block';
-    document.getElementById('pix-resumo').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
-    document.getElementById('pix-valor').textContent = 'R$ ' + parseFloat(dadosPix.valor).toFixed(2).replace('.', ',');
-    var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(dadosPix.qr_code_text);
-    document.getElementById('pix-qr-img').src = qrUrl;
-    document.getElementById('pix-codigo').value = dadosPix.qr_code_text;
-
-    iniciarPollingEsp(espState.agendamentoId);
-
+    mostrarPasso('passo-pagamento');
   } catch(e) {
     errEl.textContent = 'Erro de conexão. Tente novamente.';
     errEl.style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Confirmar e pagar →';
+    btn.disabled = false; btn.textContent = 'Confirmar →';
     mostrarPasso('passo-dados');
   }
 }
