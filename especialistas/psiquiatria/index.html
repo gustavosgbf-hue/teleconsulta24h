@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -441,66 +442,22 @@ footer a:hover{color:var(--ink)}
 
   <div class="doctors-grid">
 
-    <div class="doctor-card fade-up">
-      <div class="doctor-card__photo">
-        <!-- Substituir por <img src="foto-medico.jpg" alt="Dra. Ana Figueiredo"/> -->
-        <div class="doctor-card__photo-placeholder">👩‍⚕️</div>
-      </div>
-      <div class="doctor-card__body">
-        <div class="doctor-card__name">Dra. Ana Figueiredo</div>
-        <div class="doctor-card__crm">CRM 12345 · MA</div>
-        <span class="doctor-card__spec">Psiquiatria</span>
-        <p class="doctor-card__bio">Especialista em ansiedade, depressão e transtornos do sono. Atendimento humanizado com foco na qualidade de vida do paciente.</p>
-        <div class="doctor-card__footer">
-          <div>
-            <span class="doctor-card__price-label">Consulta online</span>
-            <span class="doctor-card__price">R$ 220</span>
-          </div>
-          <button class="doctor-card__btn" onclick="abrirHorarios({id:1,nome:'Dra. Ana Figueiredo',valor:220})">
-            Ver horários
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <!-- ATENÇÃO: ID deve corresponder ao registro na tabela `especialistas` do banco -->
     <div class="doctor-card fade-up">
       <div class="doctor-card__photo">
         <div class="doctor-card__photo-placeholder">👨‍⚕️</div>
       </div>
       <div class="doctor-card__body">
-        <div class="doctor-card__name">Dr. Marcos Leal</div>
-        <div class="doctor-card__crm">CRM 54321 · MA</div>
+        <div class="doctor-card__name">Dr. Paulo Almeida</div>
+        <div class="doctor-card__crm">CRM 52126585-7 · RJ</div>
         <span class="doctor-card__spec">Psiquiatria</span>
-        <p class="doctor-card__bio">Psiquiatra com ênfase em TDAH, burnout e transtornos de ansiedade. Abordagem integrativa com acompanhamento contínuo.</p>
+        <p class="doctor-card__bio">Médico psiquiatra com experiência em transtornos de ansiedade, depressão e saúde mental.</p>
         <div class="doctor-card__footer">
           <div>
             <span class="doctor-card__price-label">Consulta online</span>
-            <span class="doctor-card__price">R$ 200</span>
+            <span class="doctor-card__price">R$ 350</span>
           </div>
-          <button class="doctor-card__btn" onclick="abrirHorarios({id:2,nome:'Dr. Marcos Leal',valor:200})">
-            Ver horários
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="doctor-card fade-up">
-      <div class="doctor-card__photo">
-        <div class="doctor-card__photo-placeholder">👩‍⚕️</div>
-      </div>
-      <div class="doctor-card__body">
-        <div class="doctor-card__name">Dra. Carla Mendes</div>
-        <div class="doctor-card__crm">CRM 67890 · MA</div>
-        <span class="doctor-card__spec">Psiquiatria</span>
-        <p class="doctor-card__bio">Especialista em depressão, transtorno bipolar e saúde mental feminina. Consultas com escuta ativa e tratamento individualizado.</p>
-        <div class="doctor-card__footer">
-          <div>
-            <span class="doctor-card__price-label">Consulta online</span>
-            <span class="doctor-card__price">R$ 180</span>
-          </div>
-          <button class="doctor-card__btn" onclick="abrirHorarios({id:3,nome:'Dra. Carla Mendes',valor:180})">
+          <button class="doctor-card__btn" onclick="abrirHorarios({id:2,nome:'Dr. Paulo Almeida',valor:350})">
             Ver horários
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
           </button>
