@@ -629,26 +629,26 @@ footer a:hover{color:var(--ink)}
 <section class="hero" aria-label="Apresentação">
   <div class="hero-badge reveal">
     <span class="badge-dot"></span>
-    Psicologia online · CRP ativo · Agendamento rápido
+    Atendimento online · CRP verificado · Sem burocracia
   </div>
 
   <h1 class="hero-h1 reveal reveal-delay-1">
-    Agende aqui com seu psicólogo<br><em>sem sair de casa</em>
+    Às vezes, tudo que você precisa é<br><em>de alguém para conversar</em>
     <span style="display:none">— Consulta de psicologia online</span>
   </h1>
 
   <p class="hero-sub reveal reveal-delay-2">
-    Encontre um psicólogo que se encaixa no seu momento.<br>
-    <strong>Agende sua primeira conversa em poucos minutos.</strong>
+    Psicólogos com CRP ativo, atendimento online por vídeo, sigilo garantido.<br>
+    <strong>Você escolhe o profissional e começa quando quiser.</strong>
   </p>
 
   <div class="hero-cta-group reveal reveal-delay-3">
     <a href="#profissionais" class="btn-primary">
-      Quero conversar com um psicólogo
+      Ver profissionais disponíveis
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
     </a>
     <a href="#profissionais" class="btn-ghost">
-      Ver profissionais disponíveis →
+      Como funciona →
     </a>
   </div>
 
@@ -663,13 +663,13 @@ footer a:hover{color:var(--ink)}
     </span>
     <span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Você decide se quer continuar após a primeira sessão
+      Sem compromisso após a primeira sessão
     </span>
   </div>
 
   <a href="#profissionais" class="hero-scroll-guide reveal reveal-delay-3" aria-label="Ver profissionais">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-    Ver profissionais disponíveis
+    Ver os profissionais
   </a>
 </section>
 
@@ -728,8 +728,8 @@ footer a:hover{color:var(--ink)}
   <div class="context-block reveal">
     <div class="context-icon">💬</div>
     <div class="context-text">
-      <p><strong>Psicologia funciona diferente:</strong> não é atendimento de urgência. É acompanhamento contínuo, com o profissional certo, no ritmo que faz sentido pra você.</p>
-      <p>Aqui você escolhe o psicólogo pelo perfil, abordagem e disponibilidade, e começa seu acompanhamento com o profissional certo.</p>
+      <p><strong>Psicologia não é urgência — é cuidado contínuo.</strong> Você não precisa estar em crise para começar. Às vezes é só o cansaço, a ansiedade ou a sensação de que algo poderia ser diferente.</p>
+      <p>Aqui você escolhe o profissional pelo perfil, abordagem e disponibilidade. Você decide o ritmo. Sem pressa, sem pressão.</p>
     </div>
   </div>
 </section>
@@ -763,8 +763,8 @@ footer a:hover{color:var(--ink)}
 <!-- LISTAGEM DE PSICÓLOGOS -->
 <section class="section" id="profissionais" aria-label="Profissionais de psicologia online">
   <div class="sec-label reveal">Profissionais disponíveis</div>
-  <h2 class="sec-title reveal reveal-delay-1">Psicólogos para<br><em>agendar sua primeira conversa</em></h2>
-  <p class="sec-sub reveal reveal-delay-2">Escolha o profissional e clique para ver os horários disponíveis na agenda.</p>
+  <h2 class="sec-title reveal reveal-delay-1">Conheça os psicólogos<br><em>e escolha com calma</em></h2>
+  <p class="sec-sub reveal reveal-delay-2">Todos são qualificados e com CRP verificado. Não existe escolha errada — você pode começar por qualquer um e ajustar no seu tempo.</p>
 
   <!-- Cards injetados pelo JS via /api/psicologos -->
   <div class="psi-grid" id="psi-grid">
@@ -794,7 +794,7 @@ footer a:hover{color:var(--ink)}
         <div id="modal-focos-wrap" style="margin-bottom:20px"></div>
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid rgba(22,18,14,.08)">
           <div>
-            <div style="font-size:.65rem;color:#8c857d;font-weight:400;margin-bottom:4px">Valor da sessão</div>
+            <div style="font-size:.65rem;color:#8c857d;font-weight:400;margin-bottom:4px">Sessão individual · 50 min · psicólogo com CRP</div>
             <div id="modal-valor" style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;color:#16120e"></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:7px;align-items:flex-end">
@@ -839,7 +839,7 @@ footer a:hover{color:var(--ink)}
         <button class="pip-btn" id="pip-btn-criar" onclick="pipFazerCadastro()">Criar conta e confirmar →</button>
       </div>
 
-      <p class="pip-nota">Seus dados ficam seguros e facilitam o acompanhamento contínuo com seu psicólogo.</p>
+      <p class="pip-nota">Seus dados ficam seguros. Sem compromisso após a primeira sessão — você decide se quer continuar.</p>
     </div>
 
     <!-- PASSO 3: Escolha de horário -->
@@ -925,7 +925,7 @@ footer a:hover{color:var(--ink)}
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:#16120e;margin-bottom:4px">✅ Agendamento confirmado</div>
       <div style="font-size:.85rem;color:#443e38;font-weight:300;line-height:1.65;margin-bottom:20px" id="formulario-intro"></div>
       <div id="formulario-link-wrap" style="display:none;margin-bottom:16px">
-        <a id="formulario-link" href="#" target="_blank" class="psi-cta" style="display:inline-flex;justify-content:center;width:100%;padding:13px">Preencher formulário do psicólogo →</a>
+        <a id="formulario-link" href="#" target="_blank" class="psi-cta" style="display:inline-flex;justify-content:center;width:100%;padding:13px">Preencher formulário do profissional →</a>
       </div>
       <p style="font-size:.75rem;color:#8c857d;font-weight:300;line-height:1.6">Em caso de dúvidas, entre em contato pelo WhatsApp da plataforma. Você receberá o link da sessão no e-mail cadastrado.</p>
     </div>
@@ -944,7 +944,7 @@ footer a:hover{color:var(--ink)}
     <div class="dif-item">
       <div class="dif-icon">🔒</div>
       <div class="dif-title">Sigilo e confidencialidade</div>
-      <p class="dif-desc">Todas as sessões seguem o Código de Ética do CFP. O que você compartilha fica entre você e seu psicólogo.</p>
+      <p class="dif-desc">Todas as sessões seguem o Código de Ética do CFP. O que você compartilha fica entre você e seu profissional.</p>
     </div>
     <div class="dif-item">
       <div class="dif-icon">🎯</div>
@@ -954,7 +954,7 @@ footer a:hover{color:var(--ink)}
     <div class="dif-item">
       <div class="dif-icon">🔄</div>
       <div class="dif-title">Acompanhamento contínuo</div>
-      <p class="dif-desc">Você agenda com o mesmo profissional ao longo do tempo. A relação terapêutica se constrói a cada sessão.</p>
+      <p class="dif-desc">Você agenda com o mesmo profissional ao longo do tempo. A relação terapêutica se constrói a cada sessão — no seu ritmo.</p>
     </div>
   </div>
 </section>
@@ -962,16 +962,16 @@ footer a:hover{color:var(--ink)}
 <!-- CTA FINAL -->
 <section class="cta-bottom">
   <h2 class="cta-bottom-h reveal">
-    Pronto para começar<br><em>seu acompanhamento?</em>
+    Quando quiser dar esse passo,<br><em>estamos aqui.</em>
   </h2>
   <p class="cta-bottom-sub reveal reveal-delay-1">
-    Escolha o profissional, agende o horário e realize sua primeira sessão.<br>
-    <strong>Agende em poucos minutos, sem burocracia.</strong>
+    Escolha o profissional, agende o horário e faça sua primeira sessão online.<br>
+    <strong>Sem compromisso. Você decide se quer continuar.</strong>
   </p>
   <a href="#profissionais" class="btn-light reveal reveal-delay-2">
-    Escolher psicólogo e ver horários →
+    Ver profissionais disponíveis →
   </a>
-  <p class="cta-reassurance">Psicólogos com CRP ativo · Sigilo garantido · Código de Ética CFP</p>
+  <p class="cta-reassurance">Psicólogos com CRP ativo · Sigilo garantido · Sem compromisso após a primeira sessão</p>
 </section>
 
 </main>
@@ -1053,7 +1053,7 @@ async function carregarPsicologos() {
           <div class="psi-avail"><span class="avail-dot"></span> Agenda disponível · sessões de 50 min</div>
         </div>
         <div class="psi-card-footer">
-          <div class="psi-price"><small>sessão a partir de</small>${fmtValor(p.valor_sessao)}</div>
+          <div class="psi-price"><small>sessão individual · 50 min</small>${fmtValor(p.valor_sessao)}</div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
             <button class="psi-cta" onclick="abrirModal(${p.id},'psicoterapia')">Agendar</button>
             ${btnAvaliacaoHtml}
