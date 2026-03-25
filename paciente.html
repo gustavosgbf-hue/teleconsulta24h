@@ -78,6 +78,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-
 .card-title{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:16px}
 .card-accent{height:3px;background:linear-gradient(90deg,var(--psi-acc),var(--psi-mid));border-radius:3px 3px 0 0;margin:-24px -24px 20px}
 
+@keyframes pipSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
 /* ── DADOS DO PACIENTE ── */
 .info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:.88rem}
 .info-row:last-child{border-bottom:none;padding-bottom:0}
@@ -197,13 +199,42 @@ nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-
 
     <!-- AGENDAR NOVA -->
     <div style="text-align:center;margin-top:8px">
-      <a href="/psicologo-online" class="btn-ver-psi">
+      <button onclick="abrirNovoAgendamento()" class="btn-ver-psi">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Novo agendamento
-      </a>
+      </button>
     </div>
 
   </main>
+</div>
+
+<!-- PiP: Escolher especialidade -->
+<div id="pip-especialidade-overlay" style="display:none;position:fixed;inset:0;background:rgba(22,18,14,.6);backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:20px;width:100%;max-width:480px;padding:28px;animation:pipSlide .3s ease">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--ink)">Agendar nova consulta</div>
+      <div style="font-size:.82rem;color:var(--ink-3);margin-top:4px">Escolha a especialidade</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button onclick="irParaEspecialidade('psicologia')" style="padding:16px 20px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:14px">
+        <span style="font-size:1.4rem">🧠</span>
+        <div><div style="font-weight:600;font-size:.95rem;color:var(--ink)">Psicologia</div><div style="font-size:.78rem;color:var(--ink-3)">Psicoterapia e avaliação</div></div>
+      </button>
+      <button onclick="irParaEspecialidade('psiquiatria')" style="padding:16px 20px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:14px">
+        <span style="font-size:1.4rem">🩺</span>
+        <div><div style="font-weight:600;font-size:.95rem;color:var(--ink)">Psiquiatria</div><div style="font-size:.78rem;color:var(--ink-3)">Saúde mental e medicação</div></div>
+      </button>
+      <button onclick="irParaEspecialidade('endocrinologia')" style="padding:16px 20px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:14px">
+        <span style="font-size:1.4rem">⚕️</span>
+        <div><div style="font-weight:600;font-size:.95rem;color:var(--ink)">Endocrinologia</div><div style="font-size:.78rem;color:var(--ink-3)">Hormônios e metabolismo</div></div>
+      </button>
+      <div style="padding:16px 20px;border:1px solid var(--line);border-radius:12px;background:#faf9f7;text-align:left;opacity:0.6;display:flex;align-items:center;gap:14px">
+        <span style="font-size:1.4rem">🩷</span>
+        <div><div style="font-weight:600;font-size:.95rem;color:var(--ink-2)">Dermatologia</div><div style="font-size:.78rem;color:var(--ink-3)">Em breve</div></div>
+      </div>
+    </div>
+    <button onclick="document.getElementById('pip-especialidade-overlay').style.display='none'" style="margin-top:20px;width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem;color:var(--ink-3)">Cancelar</button>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -486,6 +517,22 @@ async function cancelarAgendamento(id, btn, endpoint) {
 document.getElementById('inp-login-senha').addEventListener('keydown', e => { if (e.key === 'Enter') fazerLogin(); });
 document.getElementById('inp-login-email').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-login-senha').focus(); });
 document.getElementById('inp-cad-senha').addEventListener('keydown',   e => { if (e.key === 'Enter') fazerCadastro(); });
+
+// ── PiP: Novo agendamento ────────────────────────────────────────────────
+function abrirNovoAgendamento() {
+  document.getElementById('pip-especialidade-overlay').style.display = 'flex';
+}
+
+function irParaEspecialidade(tipo) {
+  document.getElementById('pip-especialidade-overlay').style.display = 'none';
+  if (tipo === 'psicologia') {
+    window.location.href = '/psicologo-online';
+  } else if (tipo === 'psiquiatria') {
+    window.location.href = '/index (95).html';
+  } else if (tipo === 'endocrinologia') {
+    window.location.href = '/index (96) endocrinologia.html';
+  }
+}
 </script>
 </body>
 </html>
