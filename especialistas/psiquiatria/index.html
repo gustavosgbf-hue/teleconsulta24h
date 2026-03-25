@@ -456,7 +456,7 @@ footer a:hover{color:var(--ink)}
             <span class="doctor-card__price-label">Consulta online</span>
             <span class="doctor-card__price">R$ 220</span>
           </div>
-          <button class="doctor-card__btn" onclick="abrirHorarios('Dra. Ana Figueiredo')">
+          <button class="doctor-card__btn" onclick="abrirHorarios({id:1,nome:'Dra. Ana Figueiredo',valor:220})">
             Ver horários
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
           </button>
@@ -478,7 +478,7 @@ footer a:hover{color:var(--ink)}
             <span class="doctor-card__price-label">Consulta online</span>
             <span class="doctor-card__price">R$ 200</span>
           </div>
-          <button class="doctor-card__btn" onclick="abrirHorarios('Dr. Marcos Leal')">
+          <button class="doctor-card__btn" onclick="abrirHorarios({id:2,nome:'Dr. Marcos Leal',valor:200})">
             Ver horários
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
           </button>
@@ -500,7 +500,7 @@ footer a:hover{color:var(--ink)}
             <span class="doctor-card__price-label">Consulta online</span>
             <span class="doctor-card__price">R$ 180</span>
           </div>
-          <button class="doctor-card__btn" onclick="abrirHorarios('Dra. Carla Mendes')">
+          <button class="doctor-card__btn" onclick="abrirHorarios({id:3,nome:'Dra. Carla Mendes',valor:180})">
             Ver horários
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
           </button>
@@ -547,91 +547,287 @@ footer a:hover{color:var(--ink)}
   <p style="margin-top:10px;font-size:.68rem;color:#b0a89f">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
 </footer>
 
-<!-- MODAL DE HORÁRIOS -->
+<!-- MODAL DE HORÁRIOS + DADOS DO PACIENTE -->
 <div class="modal-overlay" id="modalOverlay" onclick="fecharModalOverlay(event)">
   <div class="modal" id="modal">
     <div class="modal__header">
-      <div class="modal__title">Escolha um horário</div>
+      <div class="modal__title">Agendar consulta</div>
       <button class="modal__close" onclick="fecharModal()">✕</button>
     </div>
     <div class="modal__doctor" id="modalDoctor">—</div>
 
-    <div class="modal__slots-label">Horários disponíveis</div>
-    <div class="slots-grid" id="slotsGrid"></div>
+    <!-- PASSO 1: escolha de horário -->
+    <div id="passo-horario">
+      <div class="modal__slots-label">Horários disponíveis</div>
+      <div class="slots-grid" id="slotsGrid"></div>
+      <button class="modal__cta" id="btnProximo" onclick="irParaDados()" disabled>
+        Continuar →
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
 
-    <button class="modal__cta" id="modalCta" onclick="confirmarAgendamento()" disabled>
-      Confirmar agendamento
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    </button>
-    <p class="modal__note">Após confirmar, você receberá o link de pagamento via PIX.</p>
+    <!-- PASSO 2: dados do paciente -->
+    <div id="passo-dados" style="display:none">
+      <div style="margin-bottom:16px;font-size:.82rem;color:#888">Horário: <strong id="horarioEscolhido"></strong></div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+        <div>
+          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">Nome completo *</label>
+          <input id="inp-nome" type="text" placeholder="Seu nome completo" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        </div>
+        <div>
+          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">E-mail *</label>
+          <input id="inp-email" type="email" placeholder="seu@email.com" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        </div>
+        <div>
+          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">WhatsApp (com DDD)</label>
+          <input id="inp-tel" type="tel" placeholder="98999990000" inputmode="numeric" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        </div>
+        <div>
+          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">CPF (para emissão de documentos)</label>
+          <input id="inp-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        </div>
+      </div>
+      <div id="esp-err" style="display:none;color:#b91c1c;font-size:.8rem;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-radius:8px;border:1px solid #fca5a5"></div>
+      <div style="display:flex;gap:8px">
+        <button onclick="voltarParaHorario()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
+        <button id="modalCta" onclick="confirmarAgendamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc,#1a7a4a);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+          Confirmar e pagar →
+        </button>
+      </div>
+    </div>
+
+    <!-- PASSO 3: PIX -->
+    <div id="passo-pix" style="display:none;text-align:center">
+      <div id="pix-loading" style="padding:24px 0;color:#666;font-size:.88rem">⏳ Gerando PIX...</div>
+      <div id="pix-qr-wrap" style="display:none">
+        <div style="font-size:.88rem;font-weight:600;margin-bottom:4px" id="pix-resumo"></div>
+        <div style="font-size:1.4rem;font-weight:700;color:var(--acc,#1a7a4a);margin-bottom:16px" id="pix-valor"></div>
+        <img id="pix-qr-img" src="" alt="QR Code PIX" style="width:200px;height:200px;border-radius:12px;border:2px solid #e5e7eb;display:block;margin:0 auto 12px"/>
+        <div style="font-size:.72rem;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Pix Copia e Cola</div>
+        <div style="display:flex;gap:6px;margin-bottom:16px">
+          <input id="pix-codigo" readonly style="flex:1;padding:8px 10px;border:1px solid #ddd;border-radius:8px;font-size:.72rem;background:#f9f9f9;min-width:0" onclick="this.select()"/>
+          <button id="btn-copiar-pix" onclick="copiarPixEsp()" style="padding:8px 12px;border:1px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;font-size:.78rem;white-space:nowrap">📋 Copiar</button>
+        </div>
+        <div id="pix-status" style="font-size:.78rem;color:#888;padding:8px;background:#f9f9f9;border-radius:8px">⏳ Aguardando confirmação do pagamento...</div>
+        <div id="pix-confirmado" style="display:none;margin-top:12px;padding:16px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px">
+          <div style="font-size:1.3rem;margin-bottom:6px">✅</div>
+          <div style="font-weight:700;color:#15803d;margin-bottom:4px">Pagamento confirmado!</div>
+          <div style="font-size:.82rem;color:#166534" id="pix-confirmado-detalhe"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-var slotSelecionado = null;
-var medicoSelecionado = null;
+var API = 'https://triagem-api.onrender.com';
+var ESPECIALIDADE = 'psiquiatria';
 
+var medicoSelecionado = null; // { id, nome, valor }
+var slotSelecionado   = null; // { dia, hora, iso }
+var espState = { agendamentoId: null, pixOrderId: null, pixInterval: null };
+
+// IDs dos médicos devem bater com os registros na tabela `especialistas`
+// Após inserir via admin, atualiza os IDs nos botões onclick do HTML
 var slots = [
-  {dia:'Hoje',hora:'14:00'},
-  {dia:'Hoje',hora:'16:30'},
-  {dia:'Amanhã',hora:'09:00'},
-  {dia:'Amanhã',hora:'11:30'},
-  {dia:'Amanhã',hora:'15:00'},
-  {dia:'Sex',hora:'10:00'},
+  {dia:'Hoje',   hora:'14:00', iso: gerarIso(0,14,0)},
+  {dia:'Hoje',   hora:'16:30', iso: gerarIso(0,16,30)},
+  {dia:'Amanhã', hora:'09:00', iso: gerarIso(1,9,0)},
+  {dia:'Amanhã', hora:'11:30', iso: gerarIso(1,11,30)},
+  {dia:'Amanhã', hora:'15:00', iso: gerarIso(1,15,0)},
+  {dia:'Sex',    hora:'10:00', iso: gerarIso(5,10,0)},
 ];
 
-function abrirHorarios(medico){
-  medicoSelecionado = medico;
+function gerarIso(diasOffset, h, m) {
+  var d = new Date();
+  d.setDate(d.getDate() + diasOffset);
+  d.setHours(h, m, 0, 0);
+  return d.toISOString();
+}
+
+function abrirHorarios(medico) {
+  medicoSelecionado = medico; // { id, nome, valor }
   slotSelecionado = null;
-  document.getElementById('modalDoctor').textContent = medico + ' · Psiquiatria';
-  document.getElementById('modalCta').disabled = true;
+  document.getElementById('modalDoctor').textContent = medico.nome + ' · Psiquiatria · R$ ' + medico.valor;
+  document.getElementById('btnProximo').disabled = true;
+  mostrarPasso('passo-horario');
   renderSlots();
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function renderSlots(){
+function renderSlots() {
   var grid = document.getElementById('slotsGrid');
   grid.innerHTML = '';
-  slots.forEach(function(s, i){
+  slots.forEach(function(s) {
     var el = document.createElement('div');
     el.className = 'slot';
     el.innerHTML = '<div class="slot__day">'+s.dia+'</div><div class="slot__time">'+s.hora+'</div>';
-    el.onclick = function(){
+    el.onclick = function() {
       document.querySelectorAll('.slot').forEach(function(x){ x.classList.remove('selected'); });
       el.classList.add('selected');
       slotSelecionado = s;
-      document.getElementById('modalCta').disabled = false;
+      document.getElementById('btnProximo').disabled = false;
     };
     grid.appendChild(el);
   });
 }
 
-function fecharModal(){
+function irParaDados() {
+  if (!slotSelecionado) return;
+  document.getElementById('horarioEscolhido').textContent = slotSelecionado.dia + ' às ' + slotSelecionado.hora;
+  mostrarPasso('passo-dados');
+  document.getElementById('esp-err').style.display = 'none';
+}
+
+function voltarParaHorario() {
+  mostrarPasso('passo-horario');
+}
+
+function mostrarPasso(id) {
+  ['passo-horario','passo-dados','passo-pix'].forEach(function(p){
+    document.getElementById(p).style.display = p === id ? 'block' : 'none';
+  });
+}
+
+function fecharModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
+  clearInterval(espState.pixInterval);
 }
 
-function fecharModalOverlay(e){
-  if(e.target === document.getElementById('modalOverlay')) fecharModal();
+function fecharModalOverlay(e) {
+  if (e.target === document.getElementById('modalOverlay')) fecharModal();
 }
 
-function confirmarAgendamento(){
-  if(!slotSelecionado) return;
+async function confirmarAgendamento() {
+  var nome  = (document.getElementById('inp-nome').value || '').trim();
+  var email = (document.getElementById('inp-email').value || '').trim();
+  var tel   = (document.getElementById('inp-tel').value || '').trim().replace(/\D/g,'');
+  var cpf   = (document.getElementById('inp-cpf').value || '').trim().replace(/\D/g,'');
+
+  var errEl = document.getElementById('esp-err');
+  if (!nome) { errEl.textContent = 'Informe seu nome.'; errEl.style.display='block'; return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Informe um e-mail válido.'; errEl.style.display='block'; return; }
+  errEl.style.display = 'none';
+
   var btn = document.getElementById('modalCta');
-  btn.textContent = 'Redirecionando para pagamento...';
   btn.disabled = true;
-  // Aqui: redirecionar para fluxo de pagamento com parâmetros do agendamento
-  // window.location.href = '/pagamento?medico='+encodeURIComponent(medicoSelecionado)+'&horario='+encodeURIComponent(slotSelecionado.dia+' '+slotSelecionado.hora);
-  setTimeout(function(){
-    alert('🚧 Integração de pagamento em breve.\n\nMédico: '+medicoSelecionado+'\nHorário: '+slotSelecionado.dia+' às '+slotSelecionado.hora);
-    btn.textContent = 'Confirmar agendamento';
-    btn.disabled = false;
-    fecharModal();
-  }, 800);
+  btn.textContent = 'Criando agendamento...';
+
+  // 1. Registra lead (não bloqueia)
+  fetch(API + '/api/lead/registrar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      nome: nome, email: email, tel: tel,
+      especialidade: ESPECIALIDADE,
+      profissional: medicoSelecionado.nome,
+      horario: slotSelecionado.dia + ' ' + slotSelecionado.hora,
+      modulo: 'especialistas'
+    })
+  }).catch(function(){});
+
+  try {
+    // 2. Cria agendamento
+    var resAg = await fetch(API + '/api/especialistas/agendamento/criar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        especialistaId:   medicoSelecionado.id,
+        horario_agendado: slotSelecionado.iso,
+        paciente_nome:    nome,
+        paciente_email:   email,
+        paciente_tel:     tel,
+        paciente_cpf:     cpf
+      })
+    });
+    var dadosAg = await resAg.json();
+    if (!dadosAg.ok) {
+      errEl.textContent = dadosAg.error || 'Erro ao criar agendamento.';
+      errEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Confirmar e pagar →';
+      return;
+    }
+    espState.agendamentoId = dadosAg.agendamentoId;
+
+    // 3. Vai para tela de PIX
+    mostrarPasso('passo-pix');
+    document.getElementById('pix-loading').style.display = 'block';
+    document.getElementById('pix-qr-wrap').style.display = 'none';
+
+    // 4. Gera PIX
+    var resPix = await fetch(API + '/api/especialistas/pagbank/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        agendamentoId: espState.agendamentoId,
+        nome: nome, email: email, cpf: cpf
+      })
+    });
+    var dadosPix = await resPix.json();
+    if (!dadosPix.ok) {
+      document.getElementById('pix-loading').innerHTML = '<span style="color:#b91c1c">' + (dadosPix.error || 'Erro ao gerar PIX.') + '</span>';
+      return;
+    }
+    espState.pixOrderId = dadosPix.order_id;
+
+    // 5. Exibe QR
+    document.getElementById('pix-loading').style.display = 'none';
+    document.getElementById('pix-qr-wrap').style.display = 'block';
+    document.getElementById('pix-resumo').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
+    document.getElementById('pix-valor').textContent = 'R$ ' + parseFloat(dadosPix.valor).toFixed(2).replace('.', ',');
+    var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(dadosPix.qr_code_text);
+    document.getElementById('pix-qr-img').src = qrUrl;
+    document.getElementById('pix-codigo').value = dadosPix.qr_code_text;
+
+    // 6. Polling
+    iniciarPollingEsp(espState.agendamentoId);
+
+  } catch(e) {
+    errEl.textContent = 'Erro de conexão. Tente novamente.';
+    errEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Confirmar e pagar →';
+    mostrarPasso('passo-dados');
+  }
 }
 
-// Fechar com ESC
+function copiarPixEsp() {
+  var code = document.getElementById('pix-codigo').value;
+  if (!code) return;
+  navigator.clipboard.writeText(code).then(function() {
+    var btn = document.getElementById('btn-copiar-pix');
+    btn.textContent = '✅ Copiado!';
+    setTimeout(function(){ btn.textContent = '📋 Copiar'; }, 2500);
+  }).catch(function(){
+    document.getElementById('pix-codigo').select();
+  });
+}
+
+function iniciarPollingEsp(agendamentoId) {
+  clearInterval(espState.pixInterval);
+  var tentativas = 0;
+  espState.pixInterval = setInterval(async function() {
+    tentativas++;
+    if (tentativas > 60) { clearInterval(espState.pixInterval); return; }
+    try {
+      var res  = await fetch(API + '/api/especialistas/agendamento/' + agendamentoId + '/status');
+      var data = await res.json();
+      if (data.ok && data.agendamento && data.agendamento.pagamento_status === 'confirmado') {
+        clearInterval(espState.pixInterval);
+        var ag = data.agendamento;
+        var horFmt = new Date(ag.horario_agendado).toLocaleString('pt-BR', {
+          timeZone: 'America/Fortaleza', weekday: 'long', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit'
+        });
+        document.getElementById('pix-status').style.display = 'none';
+        document.getElementById('pix-confirmado').style.display = 'block';
+        document.getElementById('pix-confirmado-detalhe').textContent = ag.especialista_nome + ' · ' + horFmt;
+      }
+    } catch(e) {}
+  }, 10000);
+}
+
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
 </script>
 </body>
