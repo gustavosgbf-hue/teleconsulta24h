@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -599,6 +600,51 @@ footer{
   </div>
 </div>
 
+<!-- PiP: Login / Cadastro do paciente -->
+<div id="pip-overlay" style="display:none;position:fixed;inset:0;background:rgba(26,22,18,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:20px">
+  <div id="pip-modal" style="background:#fff;border-radius:20px;width:100%;max-width:400px;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:pipSlide .3s ease">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-family:var(--font-display,Georgia);font-size:1.4rem;font-weight:500;color:var(--ink)">Entre ou crie sua conta</div>
+      <div style="font-size:.85rem;color:var(--ink-3);margin-top:4px">Para continuar seu agendamento</div>
+    </div>
+    <div id="pip-modo-login">
+      <div style="margin-bottom:16px">
+        <input id="pip-email" type="email" placeholder="Seu e-mail" style="width:100%;padding:14px;border:1px solid var(--line-mid);border-radius:10px;font-size:.95rem;box-sizing:border-box"/>
+      </div>
+      <div style="margin-bottom:16px">
+        <input id="pip-senha" type="password" placeholder="Sua senha" style="width:100%;padding:14px;border:1px solid var(--line-mid);border-radius:10px;font-size:.95rem;box-sizing:border-box"/>
+      </div>
+      <button id="pip-btn-login" onclick="pipLogin()" style="width:100%;padding:14px;background:var(--acc-deep);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer">Entrar</button>
+      <div style="text-align:center;margin-top:16px;font-size:.85rem;color:var(--ink-3)">
+        Não tem conta? <a href="#" onclick="pipTrocarModo('cadastro');return false" style="color:var(--acc-deep);text-decoration:none;font-weight:500">Criar agora</a>
+      </div>
+    </div>
+    <div id="pip-modo-cadastro" style="display:none">
+      <div style="margin-bottom:12px">
+        <input id="pip-cad-nome" type="text" placeholder="Seu nome completo" style="width:100%;padding:14px;border:1px solid var(--line-mid);border-radius:10px;font-size:.95rem;box-sizing:border-box"/>
+      </div>
+      <div style="margin-bottom:12px">
+        <input id="pip-cad-email" type="email" placeholder="Seu e-mail" style="width:100%;padding:14px;border:1px solid var(--line-mid);border-radius:10px;font-size:.95rem;box-sizing:border-box"/>
+      </div>
+      <div style="margin-bottom:12px">
+        <input id="pip-cad-tel" type="tel" placeholder="WhatsApp (com DDD)" style="width:100%;padding:14px;border:1px solid var(--line-mid);border-radius:10px;font-size:.95rem;box-sizing:border-box"/>
+      </div>
+      <div style="margin-bottom:16px">
+        <input id="pip-cad-senha" type="password" placeholder="Crie uma senha" style="width:100%;padding:14px;border:1px solid var(--line-mid);border-radius:10px;font-size:.95rem;box-sizing:border-box"/>
+      </div>
+      <button id="pip-btn-cadastro" onclick="pipCadastrar()" style="width:100%;padding:14px;background:var(--acc-deep);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer">Criar conta</button>
+      <div style="text-align:center;margin-top:16px;font-size:.85rem;color:var(--ink-3)">
+        Já tem conta? <a href="#" onclick="pipTrocarModo('login');return false" style="color:var(--acc-deep);text-decoration:none;font-weight:500">Entrar</a>
+      </div>
+    </div>
+    <div id="pip-erro" style="display:none;margin-top:16px;padding:12px;background:#fef2f2;border-radius:8px;font-size:.85rem;color:#b91c1c;text-align:center"></div>
+  </div>
+</div>
+
+<style>
+@keyframes pipSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
 <script>
 var API = 'https://triagem-api.onrender.com';
 var ESPECIALIDADE = 'endocrinologia';
@@ -896,6 +942,103 @@ async function processarCartao() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// --- PiP: Login / Cadastro do paciente ---
+function pipAbrir() {
+  var overlay = document.getElementById('pip-overlay');
+  var err = document.getElementById('pip-erro');
+  err.style.display = 'none';
+  var emailDigitado = document.getElementById('inp-email').value.trim();
+  if (emailDigitado) document.getElementById('pip-email').value = emailDigitado;
+  overlay.style.display = 'flex';
+}
+
+function pipFechar() {
+  document.getElementById('pip-overlay').style.display = 'none';
+}
+
+function pipTrocarModo(modo) {
+  document.getElementById('pip-modo-login').style.display = modo === 'login' ? 'block' : 'none';
+  document.getElementById('pip-modo-cadastro').style.display = modo === 'cadastro' ? 'block' : 'none';
+  document.getElementById('pip-erro').style.display = 'none';
+}
+
+function pipErro(msg) {
+  var err = document.getElementById('pip-erro');
+  err.textContent = msg;
+  err.style.display = 'block';
+}
+
+async function pipLogin() {
+  var email = document.getElementById('pip-email').value.trim();
+  var senha = document.getElementById('pip-senha').value;
+  if (!email || !senha) { pipErro('Preencha e-mail e senha'); return; }
+  
+  var btn = document.getElementById('pip-btn-login');
+  btn.disabled = true; btn.textContent = 'Entrando...';
+  
+  try {
+    var res = await fetch(API + '/api/paciente/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, senha: senha })
+    });
+    var data = await res.json();
+    if (!data.ok) { pipErro(data.error || 'Erro ao entrar'); btn.disabled = false; btn.textContent = 'Entrar'; return; }
+    
+    localStorage.setItem('pac_token', data.token);
+    pipFechar();
+    document.getElementById('inp-nome').value = data.paciente?.nome || '';
+    document.getElementById('inp-email').value = data.paciente?.email || email;
+    document.getElementById('inp-tel').value = data.paciente?.tel || '';
+    confirmarAgendamento();
+  } catch(e) {
+    pipErro('Erro de conexão');
+    btn.disabled = false; btn.textContent = 'Entrar';
+  }
+}
+
+async function pipCadastrar() {
+  var nome = document.getElementById('pip-cad-nome').value.trim();
+  var email = document.getElementById('pip-cad-email').value.trim();
+  var tel = document.getElementById('pip-cad-tel').value.trim();
+  var senha = document.getElementById('pip-cad-senha').value;
+  if (!nome || !email || !senha) { pipErro('Preencha nome, e-mail e senha'); return; }
+  
+  var btn = document.getElementById('pip-btn-cadastro');
+  btn.disabled = true; btn.textContent = 'Criando conta...';
+  
+  try {
+    var res = await fetch(API + '/api/paciente/cadastrar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome: nome, email: email, tel: tel, senha: senha })
+    });
+    var data = await res.json();
+    if (!data.ok) { pipErro(data.error || 'Erro ao criar conta'); btn.disabled = false; btn.textContent = 'Criar conta'; return; }
+    
+    localStorage.setItem('pac_token', data.token);
+    pipFechar();
+    document.getElementById('inp-nome').value = nome;
+    document.getElementById('inp-email').value = email;
+    document.getElementById('inp-tel').value = tel;
+    confirmarAgendamento();
+  } catch(e) {
+    pipErro('Erro de conexão');
+    btn.disabled = false; btn.textContent = 'Criar conta';
+  }
+}
+
+var irParaDadosOriginal = irParaDados;
+irParaDados = function() {
+  if (!medicoSelecionado || !slotSelecionado) return;
+  var pacToken = localStorage.getItem('pac_token');
+  if (!pacToken) {
+    pipAbrir();
+    return;
+  }
+  irParaDadosOriginal();
+};
 </script>
 </body>
 </html>
