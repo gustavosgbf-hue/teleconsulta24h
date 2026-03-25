@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="pt-BR">
 <head>
   <!-- Google Tag Manager -->
@@ -241,112 +242,102 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 /* ── ENCERRADO ── */
 .encerrado-box{width:min(480px,100%);text-align:center;padding:32px 20px}
 .encerrado-icon{font-size:3rem;margin-bottom:20px}
-.encerrado-titulo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;margin-bottom:10px;color:var(--g2)}
+.encerrado-titulo{font-family:‘Playfair Display’,serif;font-size:1.45rem;font-weight:500;margin-bottom:10px;color:var(–g2)}
 .encerrado-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:28px}
-.encerrado-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;-webkit-appearance:none;transition:background .2s}
+.encerrado-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:13px;border:1px solid var(–line);background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-family:‘Outfit’,sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;-webkit-appearance:none;transition:background .2s}
 .encerrado-btn:hover{background:rgba(255,255,255,.1)}
 .loading-overlay{position:fixed;inset:0;z-index:999;background:#060d0b;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .loading-overlay.hide{display:none}
-.loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.08);border-top-color:var(--g2);border-radius:50%;animation:spin .8s linear infinite}
+.loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.08);border-top-color:var(–g2);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-txt{font-size:.85rem;color:rgba(255,255,255,.4);font-weight:300}
 /* ── FIELD FEEDBACK ── */
 .field-feedback{
-  display:flex;align-items:center;gap:6px;
-  font-size:.72rem;font-weight:400;
-  color:rgba(94,224,160,.85);
-  margin-top:5px;
-  opacity:0;transform:translateY(-4px);
-  transition:opacity .2s ease,transform .2s ease;
-  line-height:1;
-  pointer-events:none;
+display:flex;align-items:center;gap:6px;
+font-size:.72rem;font-weight:400;
+color:rgba(94,224,160,.85);
+margin-top:5px;
+opacity:0;transform:translateY(-4px);
+transition:opacity .2s ease,transform .2s ease;
+line-height:1;
+pointer-events:none;
 }
 .field-feedback.show{opacity:1;transform:translateY(0)}
 .field-feedback svg{flex-shrink:0}
 
 /* ── AUTOPREENCHIMENTO ── */
-/* bloco sutil, sem borda chamativa — parece opcional de relance */
 .autofill-wrap{
-  padding:10px 14px;border-radius:10px;
-  background:transparent;border:1px solid rgba(255,255,255,.06);
-  display:flex;flex-direction:column;gap:7px;
+padding:10px 14px;border-radius:10px;
+background:transparent;border:1px solid rgba(255,255,255,.06);
+display:flex;flex-direction:column;gap:7px;
 }
 .autofill-label{
-  /* fonte normal, sem uppercase — menos "sistema" */
-  font-size:.78rem;font-weight:300;
-  color:rgba(255,255,255,.38);line-height:1.5;
+font-size:.78rem;font-weight:300;
+color:rgba(255,255,255,.38);line-height:1.5;
 }
 .autofill-row{display:flex;gap:8px;align-items:center}
 .autofill-input{
-  flex:1;padding:9px 12px;border-radius:9px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:300;
-  outline:none;transition:border-color .2s;-webkit-appearance:none;
+flex:1;padding:9px 12px;border-radius:9px;
+background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+color:#fff;font-family:‘Outfit’,sans-serif;font-size:.88rem;font-weight:300;
+outline:none;transition:border-color .2s;-webkit-appearance:none;
 }
 .autofill-input:focus{border-color:rgba(94,224,160,.3)}
 .autofill-input::placeholder{color:rgba(255,255,255,.2)}
-/* botão discreto — ghost, não verde sólido */
 .autofill-btn{
-  padding:9px 13px;border-radius:9px;
-  background:transparent;border:1px solid rgba(255,255,255,.12);
-  color:rgba(255,255,255,.45);font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;
-  cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap;-webkit-appearance:none;
+padding:9px 13px;border-radius:9px;
+background:transparent;border:1px solid rgba(255,255,255,.12);
+color:rgba(255,255,255,.45);font-family:‘Outfit’,sans-serif;font-size:.78rem;font-weight:500;
+cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap;-webkit-appearance:none;
 }
-.autofill-btn:hover{border-color:rgba(94,224,160,.3);color:var(--g2)}
-/* status: aparece com fade, sem piscar */
+.autofill-btn:hover{border-color:rgba(94,224,160,.3);color:var(–g2)}
 .autofill-status{
-  font-size:.73rem;font-weight:300;line-height:1.5;color:rgba(255,255,255,.45);
-  display:none;
-  opacity:0;transition:opacity .25s ease;
+font-size:.73rem;font-weight:300;line-height:1.5;color:rgba(255,255,255,.45);
+display:none;
+opacity:0;transition:opacity .25s ease;
 }
 .autofill-status.show{display:block;opacity:1}
-
-/* ── MOBILE ── */
 
 /* ── Seletor de método de pagamento ─────────────────────────────────────────── */
 .pay-method-wrap{margin:0 0 18px}
 .pay-method-label{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
 .pay-method-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pay-tab{padding:13px 8px;border-radius:13px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .18s;text-align:center;-webkit-appearance:none;line-height:1.4}
+.pay-tab{padding:13px 8px;border-radius:13px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.6);font-family:‘Outfit’,sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .18s;text-align:center;-webkit-appearance:none;line-height:1.4}
 .pay-tab:hover{border-color:rgba(94,224,160,.25);color:#fff}
-.pay-tab.sel-pix{border-color:rgba(94,224,160,.6);background:rgba(94,224,160,.08);color:var(--g2)}
+.pay-tab.sel-pix{border-color:rgba(94,224,160,.6);background:rgba(94,224,160,.08);color:var(–g2)}
 .pay-tab.sel-card{border-color:rgba(180,224,90,.6);background:rgba(180,224,90,.07);color:#b4e05a}
 /* ── Formulário cartão ───────────────────────────────────────────────────────── */
 #card-form{display:none;margin-top:4px}
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cf-field{margin-bottom:12px}
 .cf-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.38);display:block;margin-bottom:5px}
-.cf-input{width:100%;padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-family:'Outfit',sans-serif;font-size:.88rem;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none;box-sizing:border-box}
+.cf-input{width:100%;padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-family:‘Outfit’,sans-serif;font-size:.88rem;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none;box-sizing:border-box}
 .cf-input:focus{border-color:rgba(94,224,160,.4)}
 .cf-input::placeholder{color:rgba(255,255,255,.2)}
 select.cf-input option{background:#0d1a14;color:#fff}
 .card-err-msg{font-size:.76rem;color:#ff8080;margin-top:8px;display:none;line-height:1.5;padding:8px 12px;background:rgba(255,80,80,.06);border-radius:9px;border:1px solid rgba(255,80,80,.2)}
-.btn-pagar-card{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.25);transition:transform .12s;margin-top:6px}
+.btn-pagar-card{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:‘Outfit’,sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.25);transition:transform .12s;margin-top:6px}
 .btn-pagar-card:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none}
 .btn-pagar-card:not(:disabled):hover{transform:translateY(-1px)}
 .card-processing{display:none;text-align:center;padding:16px 0 8px;font-size:.84rem;color:rgba(255,255,255,.55)}
 @media(max-width:600px){
-  .trust-block{padding:12px 14px}
-  .trust-step{font-size:.8rem}
-  .trust-list li{font-size:.8rem}
-  .pay-includes li{font-size:.8rem}
-  .trust-note{font-size:.72rem}
-  /* Identificação: campos maiores para toque */
-  .id-input{padding:13px 14px;font-size:max(.9rem,16px)}
-  .id-btn{padding:15px;font-size:1rem}
-  /* Chat de triagem: área de input confortável */
-  .input-bar textarea{font-size:max(.875rem,16px);padding:11px 14px}
-  .input-bar{padding:10px 14px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
-  /* Tela espera: mais compacta */
-  .espera-titulo{font-size:1.2rem}
-  .espera-sub{font-size:.83rem}
-  /* Pagamento: mais folgado */
-  .pay-{padding:18px 16px}
-  .pay-includes{padding:12px 14px}
-  /* Chat consulta: altura maior */
-  .chat-msgs{min-height:220px;max-height:calc(100dvh - 320px)}
+.trust-block{padding:12px 14px}
+.trust-step{font-size:.8rem}
+.trust-list li{font-size:.8rem}
+.pay-includes li{font-size:.8rem}
+.trust-note{font-size:.72rem}
+.id-input{padding:13px 14px;font-size:max(.9rem,16px)}
+.id-btn{padding:15px;font-size:1rem}
+.input-bar textarea{font-size:max(.875rem,16px);padding:11px 14px}
+.input-bar{padding:10px 14px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.espera-titulo{font-size:1.2rem}
+.espera-sub{font-size:.83rem}
+.pay-{padding:18px 16px}
+.pay-includes{padding:12px 14px}
+.chat-msgs{min-height:220px;max-height:calc(100dvh - 320px)}
 }
 </style>
+
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -375,81 +366,86 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
 <!-- S1: IDENTIFICAÇÃO -->
+
 <div id="screen-identify" class="screen box-center">
   <div class="box">
     <div class="box-head"><h1>Fale com um médico agora</h1><p>Preencha os dados abaixo. Em alguns minutos um médico com CRM ativo estará com você.</p></div>
     <div class="identify-body">
 
-      <!-- Autopreenchimento — opcional, discreto -->
-      <div class="autofill-wrap">
-        <div class="autofill-label">Já consultou antes? Digite seu WhatsApp e preenchemos tudo pra você.</div>
-        <div class="autofill-row">
-          <input class="autofill-input" id="autofillTel" type="tel" placeholder="Seu WhatsApp" inputmode="numeric" onkeydown="if(event.key==='Enter')buscarCadastro()"/>
-          <button class="autofill-btn" onclick="buscarCadastro()">Preencher</button>
-        </div>
-        <div class="autofill-status" id="autofill-status"></div>
-      </div>
-
-      <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Nome e sobrenome" autocomplete="name"/></div>
-      <div>
-        <div class="id-label">WhatsApp (com DDD)</div>
-        <input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric" oninput="feedbackTel(this)"/>
-        <div class="field-feedback" id="fb-tel">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          WhatsApp válido
-        </div>
-      </div>
-      <div>
-        <div class="id-label">Data de nascimento</div>
-        <input class="id-input" id="idNascimento" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraData(this);feedbackData(this)"/>
-        <div class="field-feedback" id="fb-nasc">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          Data válida
-        </div>
-      </div>
-      <div>
-        <div class="id-label">E-mail <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional — para receber o resumo da consulta)</span></div>
-        <input class="id-input" id="idEmail" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email"/>
-      </div>
-      <div>
-        <div class="id-label">WhatsApp para documentos <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional — se diferente do acima)</span></div>
-        <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
-        <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
-          <input type="checkbox" id="chkSameNumber" onchange="toggleSameNumber(this)"/>
-          Usar o mesmo número do WhatsApp
-        </label>
-      </div>
-      <div class="id-note">🔒 Seus dados ficam protegidos. Sigilo médico garantido.</div>
-
-      <!-- Como funciona -->
-      <div class="trust-block">
-        <div class="trust-block__title">Em 4 passos simples</div>
-        <div class="trust-steps">
-          <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha seus dados — leva menos de 1 minuto</span></div>
-          <div class="trust-step"><div class="trust-step__num">2</div><span>Responda algumas perguntas rápidas — a IA organiza tudo para o médico</span></div>
-          <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico com CRM ativo assume — geralmente em minutos</span></div>
-          <div class="trust-step"><div class="trust-step__num">4</div><span>Você fala diretamente com o médico, por chat ou vídeo</span></div>
-        </div>
-        <div class="trust-note">⏱ Tempo médio de espera: menos de 5 minutos.</div>
-      </div>
-
-      <!-- Legitimidade -->
-      <div class="trust-block trust-block--green">
-        <div class="trust-block__title">Atendimento médico online</div>
-        <ul class="trust-list">
-          <li><span class="ti">🩺</span><span>Consultas realizadas por médicos registrados no CRM</span></li>
-          <li><span class="ti">🔒</span><span>Atendimento seguro e confidencial — sigilo médico garantido</span></li>
-          <li><span class="ti">📋</span><span>Atendimento completo com documentação quando aplicável</span></li>
-          <li><span class="ti">⚖️</span><span>Conforme Resolução CFM nº 2.314/2022</span></li>
-        </ul>
-      </div>
-
-      <button class="id-btn" onclick="avancarIdentificacao()">Continuar — quase lá →</button>
+```
+  <!-- Autopreenchimento — opcional, discreto -->
+  <div class="autofill-wrap">
+    <div class="autofill-label">Já consultou antes? Digite seu WhatsApp e preenchemos tudo pra você.</div>
+    <div class="autofill-row">
+      <input class="autofill-input" id="autofillTel" type="tel" placeholder="Seu WhatsApp" inputmode="numeric" onkeydown="if(event.key==='Enter')buscarCadastro()"/>
+      <button class="autofill-btn" onclick="buscarCadastro()">Preencher</button>
     </div>
+    <div class="autofill-status" id="autofill-status"></div>
+  </div>
+
+  <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Nome e sobrenome" autocomplete="name"/></div>
+  <div>
+    <div class="id-label">WhatsApp (com DDD)</div>
+    <input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric" oninput="feedbackTel(this)"/>
+    <div class="field-feedback" id="fb-tel">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      WhatsApp válido
+    </div>
+  </div>
+  <div>
+    <div class="id-label">Data de nascimento</div>
+    <input class="id-input" id="idNascimento" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraData(this);feedbackData(this)"/>
+    <div class="field-feedback" id="fb-nasc">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      Data válida
+    </div>
+  </div>
+  <div>
+    <div class="id-label">E-mail <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional — para receber o resumo da consulta)</span></div>
+    <input class="id-input" id="idEmail" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email"/>
+  </div>
+  <div>
+    <div class="id-label">WhatsApp para documentos <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional — se diferente do acima)</span></div>
+    <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
+    <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
+      <input type="checkbox" id="chkSameNumber" onchange="toggleSameNumber(this)"/>
+      Usar o mesmo número do WhatsApp
+    </label>
+  </div>
+  <div class="id-note">🔒 Seus dados ficam protegidos. Sigilo médico garantido.</div>
+
+  <!-- Como funciona -->
+  <div class="trust-block">
+    <div class="trust-block__title">Em 4 passos simples</div>
+    <div class="trust-steps">
+      <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha seus dados — leva menos de 1 minuto</span></div>
+      <div class="trust-step"><div class="trust-step__num">2</div><span>Responda algumas perguntas rápidas — a IA organiza tudo para o médico</span></div>
+      <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico com CRM ativo assume — geralmente em minutos</span></div>
+      <div class="trust-step"><div class="trust-step__num">4</div><span>Você fala diretamente com o médico, por chat ou vídeo</span></div>
+    </div>
+    <div class="trust-note">⏱ Tempo médio de espera: menos de 5 minutos.</div>
+  </div>
+
+  <!-- Legitimidade -->
+  <div class="trust-block trust-block--green">
+    <div class="trust-block__title">Atendimento médico online</div>
+    <ul class="trust-list">
+      <li><span class="ti">🩺</span><span>Consultas realizadas por médicos registrados no CRM</span></li>
+      <li><span class="ti">🔒</span><span>Atendimento seguro e confidencial — sigilo médico garantido</span></li>
+      <li><span class="ti">📋</span><span>Atendimento completo com documentação quando aplicável</span></li>
+      <li><span class="ti">⚖️</span><span>Conforme Resolução CFM nº 2.314/2022</span></li>
+    </ul>
+  </div>
+
+  <button class="id-btn" onclick="avancarIdentificacao()">Continuar — quase lá →</button>
+</div>
+```
+
   </div>
 </div>
 
 <!-- S2: TERMOS -->
+
 <div id="screen-terms" class="screen box-center">
   <div class="box">
     <div class="box-head"><h1>Antes de começar</h1><p>Pontos importantes sobre o serviço — leitura rápida.</p></div>
@@ -469,6 +465,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- S3: MODALIDADE -->
+
 <div id="screen-modalidade" class="screen box-center">
   <div class="modal-wrap">
     <div class="modal-head"><h1>Chat ou vídeo?</h1><p>Escolha como prefere falar com o médico. Qualquer um funciona bem.</p></div>
@@ -491,29 +488,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- S4: DISPONIBILIDADE -->
+
 <div id="screen-disponibilidade" class="screen box-center">
   <div class="dispon-wrap" style="text-align:center">
 
-    <!-- Atendimento imediato — foco total -->
-    <div id="imediato-section" style="padding:12px 0 8px">
-      <h1 id="disp-titulo" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;margin-bottom:10px">Fale com um médico agora</h1>
-      <p id="disp-sub" style="font-size:.85rem;color:var(--muted);margin-bottom:18px"></p>
-      <div class="dispon-status verde" id="disp-status-badge" style="margin:0 auto 16px;display:inline-flex"><div class="dispon-dot"></div><span id="disp-status-txt">Verificando...</span></div>
-      <p class="dispon-info" id="disp-info" style="margin-bottom:24px"></p>
-      <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none;font-size:1.05rem;padding:16px">
-        Iniciar consulta agora →
-      </button>
-    </div>
+```
+<!-- Atendimento imediato — foco total -->
+<div id="imediato-section" style="padding:12px 0 8px">
+  <h1 id="disp-titulo" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;margin-bottom:10px">Fale com um médico agora</h1>
+  <p id="disp-sub" style="font-size:.85rem;color:var(--muted);margin-bottom:18px"></p>
+  <div class="dispon-status verde" id="disp-status-badge" style="margin:0 auto 16px;display:inline-flex"><div class="dispon-dot"></div><span id="disp-status-txt">Verificando...</span></div>
+  <p class="dispon-info" id="disp-info" style="margin-bottom:24px"></p>
+  <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none;font-size:1.05rem;padding:16px">
+    Iniciar consulta agora →
+  </button>
+</div>
 
-    <!-- Aviso período noturno (23h–7h) -->
-    <div id="aviso-noturno" style="display:none;margin-top:20px;padding:12px 16px;background:rgba(255,189,46,.06);border:1px solid rgba(255,189,46,.2);border-radius:12px;font-size:.8rem;color:rgba(255,210,120,.85);line-height:1.55;text-align:center">
-      🌙 <strong style="color:rgba(255,220,140,.95)">Atendimento noturno:</strong> entre 23h e 7h a demanda costuma ser menor — pode haver uma espera maior até o médico assumir.
-    </div>
+<!-- Aviso período noturno (23h–7h) -->
+<div id="aviso-noturno" style="display:none;margin-top:20px;padding:12px 16px;background:rgba(255,189,46,.06);border:1px solid rgba(255,189,46,.2);border-radius:12px;font-size:.8rem;color:rgba(255,210,120,.85);line-height:1.55;text-align:center">
+  🌙 <strong style="color:rgba(255,220,140,.95)">Atendimento noturno:</strong> entre 23h e 7h a demanda costuma ser menor — pode haver uma espera maior até o médico assumir.
+</div>
+```
 
   </div>
 </div>
 
 <!-- S5: PAGAMENTO -->
+
 <div id="screen-payment" class="screen box-center">
   <div class="box">
     <div class="pay-head">
@@ -525,147 +526,151 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="pay-body">
 
-      <!-- Selo online agora -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;padding:9px 18px;border-radius:999px;background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);width:fit-content;margin-left:auto;margin-right:auto">
-        <div style="width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0"></div>
-        <span style="font-size:.76rem;font-weight:600;color:var(--g2);letter-spacing:.04em">ONLINE AGORA · Médico disponível</span>
-      </div>
+```
+  <!-- Selo online agora -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;padding:9px 18px;border-radius:999px;background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);width:fit-content;margin-left:auto;margin-right:auto">
+    <div style="width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0"></div>
+    <span style="font-size:.76rem;font-weight:600;color:var(--g2);letter-spacing:.04em">ONLINE AGORA · Médico disponível</span>
+  </div>
 
-      <!-- Valor -->
-      <div class="pay-valor">
-        <div class="pay-valor-left">
-          <div class="label" id="pay-label-tipo">Atendimento médico online</div>
-          <div class="desc">Médico com CRM ativo · início em minutos</div>
-        </div>
-        <div class="pay-price">R$&nbsp;49,90</div>
-      </div>
-
-      <!-- Campos comuns -->
-      <div class="pay-label">Nome completo</div>
-      <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
-      <div class="pay-label">Seu WhatsApp</div>
-      <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número" autocomplete="tel" inputmode="numeric"/>
-      <div class="pay-label">CPF</div>
-      <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:-8px;margin-bottom:20px;line-height:1.6;display:flex;align-items:flex-start;gap:6px"><span style="flex-shrink:0;margin-top:1px">🏥</span><span>Obrigatório para emissão de receita, atestado e prontuário médico. Seus dados ficam protegidos pelo sigilo médico.</span></div>
-
-      <!-- Inclui -->
-      <div class="pay-includes">
-        <div class="pay-includes__title">O que está incluído</div>
-        <ul>
-          <li>Médico com CRM ativo · atendimento imediato</li>
-          <li>Chat ou videochamada — você escolhe</li>
-          <li>Atendimento médico completo</li>
-          <li>Sigilo médico garantido</li>
-        </ul>
-        <div class="pay-time-note">⚡ Após o pagamento, o médico recebe seu caso imediatamente</div>
-      </div>
-
-      <!-- Seletor de método de pagamento -->
-      <div class="pay-method-wrap">
-        <div class="pay-method-label">Forma de pagamento</div>
-        <div class="pay-method-tabs">
-          <button class="pay-tab sel-pix" id="tabPix" onclick="selecionarMetodo('pix')">
-            🏦 PIX<br><span style="font-size:.7rem;font-weight:400;opacity:.75">Aprovação imediata</span>
-          </button>
-          <button class="pay-tab" id="tabCard" onclick="selecionarMetodo('cartao')">
-            💳 Cartão de crédito<br><span style="font-size:.7rem;font-weight:400;opacity:.75">Visa · Master · Elo</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- PIX: botão de gerar + área do QR (visível quando método = pix) -->
-      <div id="pix-section">
-        <div style="margin:0 0 14px;padding:10px 14px;border-radius:12px;background:rgba(255,189,46,.05);border:1px solid rgba(255,189,46,.15);font-size:.72rem;color:rgba(255,189,46,.7);line-height:1.65;display:flex;align-items:flex-start;gap:8px">
-          <span style="flex-shrink:0;margin-top:1px">⚠️</span>
-          <span>Seu banco pode mostrar um alerta — isso é normal. O pagamento é para <strong style="color:rgba(255,189,46,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, empresa médica registrada.</span>
-        </div>
-        <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar com PIX →</button>
-        <div id="aviso-horario" style="display:none;margin-top:14px;padding:11px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:11px;font-size:13px;color:rgba(255,255,255,.52);line-height:1.6;text-align:center;font-weight:300">Neste horário, pode haver uma leve redução na disponibilidade de profissionais, mas os atendimentos continuam normalmente.</div>
-        <div class="pay-qr-section" id="pay-qr-section">
-          <div style="text-align:center;margin-bottom:20px">
-            <div style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:5px">Escaneie o QR Code ou use Pix Copia e Cola</div>
-            <div style="font-size:.74rem;color:rgba(255,255,255,.45);font-weight:300">Pague e entre na consulta automaticamente — sem redirecionamento</div>
-          </div>
-          <div style="text-align:center;margin-bottom:18px">
-            <img id="pay-qr-img" alt="QR Code PIX" style="width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.35);background:#fff;padding:10px;display:none;box-shadow:0 0 32px rgba(180,224,90,.12)"/>
-            <div id="pay-qr-fallback" style="display:none;width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.15);background:rgba(255,255,255,.03);margin:0 auto;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:.8rem;color:rgba(255,255,255,.45);text-align:center;padding:20px;box-sizing:border-box"><div style="font-size:2rem">📋</div><div>Use o Pix Copia e Cola abaixo</div></div>
-          </div>
-          <div style="margin-bottom:14px">
-            <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Pix Copia e Cola</div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <input id="pixChaveInput" readonly type="text" value="" style="flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(180,224,90,.2);border-radius:10px;padding:10px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.75rem;outline:none;-webkit-user-select:all;user-select:all;cursor:pointer" onclick="this.select();copiarPix()"/>
-              <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()" style="margin-bottom:0;white-space:nowrap;flex-shrink:0">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                Copiar código
-              </button>
-            </div>
-          </div>
-          <div style="font-size:.71rem;color:rgba(255,255,255,.35);text-align:center;margin-bottom:14px;line-height:1.7;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
-            <strong style="color:rgba(255,255,255,.55);font-weight:600">JG FONSECA SERVICOS MEDICOS LTDA</strong><br>
-            Empresa médica registrada · Pagamento único · válido por 30 min
-          </div>
-          <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento… Não feche esta página.</div>
-          <div style="font-size:.7rem;color:rgba(255,255,255,.25);margin-top:10px;line-height:1.6;text-align:center">
-            Confirmação automática e segura via PagSeguro.<br>Você será redirecionado assim que o pagamento for reconhecido.
-          </div>
-        </div>
-      </div>
-
-      <!-- CARTÃO: formulário Efí (visível quando método = cartao) -->
-      <div id="card-form" style="display:none">
-        <div id="card-email-aviso" style="display:none;margin-bottom:14px;padding:10px 13px;border-radius:10px;background:rgba(255,95,87,.07);border:1px solid rgba(255,95,87,.25);font-size:.76rem;color:rgba(255,160,150,.95);line-height:1.55">
-          ⚠️ <strong style="color:rgba(255,190,180,.95)">E-mail obrigatório para cartão.</strong>
-          Volte à etapa anterior e informe um e-mail válido para continuar.
-        </div>
-        <div class="cf-field">
-          <label class="cf-label">Número do cartão</label>
-          <input class="cf-input" id="cfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="cfMascaraNumero(this)"/>
-        </div>
-        <div class="cf-field">
-          <label class="cf-label">Nome no cartão</label>
-          <input class="cf-input" id="cfNome" type="text" placeholder="Como aparece no cartão" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"/>
-        </div>
-        <div class="cf-row">
-          <div class="cf-field">
-            <label class="cf-label">Validade</label>
-            <input class="cf-input" id="cfValidade" type="text" placeholder="MM/AAAA" inputmode="numeric" maxlength="7" oninput="cfMascaraValidade(this)"/>
-          </div>
-          <div class="cf-field">
-            <label class="cf-label">CVV</label>
-            <input class="cf-input" id="cfCvv" type="text" placeholder="123" inputmode="numeric" maxlength="4"/>
-          </div>
-        </div>
-        <div class="cf-field">
-          <label class="cf-label">Parcelas</label>
-          <select class="cf-input" id="cfParcelas">
-            <option value="1">1x de R$ 49,90 (sem juros)</option>
-          </select>
-        </div>
-        <div class="card-err-msg" id="cardErrMsg"></div>
-        <button class="btn-pagar-card" id="btnPagarCard" onclick="pagarCartao()">Pagar R$ 49,90 →</button>
-        <div class="card-processing" id="cardProcessing">⏳ Processando pagamento...</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:12px;font-size:.7rem;color:rgba(255,255,255,.35)">
-          🔒 Dados tokenizados pelo SDK Efí · nunca trafegam pelo nosso servidor
-        </div>
-      </div>
-
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.38);font-weight:400;line-height:1.6;text-align:center;flex-wrap:wrap">
-        🔒 <span>Pagamento seguro · CNPJ verificado · Dados criptografados</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px;margin-bottom:4px;font-size:.7rem;color:rgba(255,255,255,.3);font-weight:300">
-        <span>★ 5.0 · +800 atendimentos</span>
-        <span style="color:rgba(255,255,255,.1)">·</span>
-        <span>Médicos com CRM ativo</span>
-      </div>
-
-      <div class="pay-divider">pagamento seguro via</div>
-      <div class="pay-seguro">🔒 PIX via PagBank · Cartão via Efí · Empresa médica registrada</div>
+  <!-- Valor -->
+  <div class="pay-valor">
+    <div class="pay-valor-left">
+      <div class="label" id="pay-label-tipo">Atendimento médico online</div>
+      <div class="desc">Médico com CRM ativo · início em minutos</div>
     </div>
+    <div class="pay-price">R$&nbsp;49,90</div>
+  </div>
+
+  <!-- Campos comuns -->
+  <div class="pay-label">Nome completo</div>
+  <input class="pay-input" id="payNome" type="text" placeholder="Nome completo" autocomplete="name"/>
+  <div class="pay-label">Seu WhatsApp</div>
+  <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número" autocomplete="tel" inputmode="numeric"/>
+  <div class="pay-label">CPF</div>
+  <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
+  <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:-8px;margin-bottom:20px;line-height:1.6;display:flex;align-items:flex-start;gap:6px"><span style="flex-shrink:0;margin-top:1px">🏥</span><span>Obrigatório para emissão de receita, atestado e prontuário médico. Seus dados ficam protegidos pelo sigilo médico.</span></div>
+
+  <!-- Inclui -->
+  <div class="pay-includes">
+    <div class="pay-includes__title">O que está incluído</div>
+    <ul>
+      <li>Médico com CRM ativo · atendimento imediato</li>
+      <li>Chat ou videochamada — você escolhe</li>
+      <li>Atendimento médico completo</li>
+      <li>Sigilo médico garantido</li>
+    </ul>
+    <div class="pay-time-note">⚡ Após o pagamento, o médico recebe seu caso imediatamente</div>
+  </div>
+
+  <!-- Seletor de método de pagamento -->
+  <div class="pay-method-wrap">
+    <div class="pay-method-label">Forma de pagamento</div>
+    <div class="pay-method-tabs">
+      <button class="pay-tab sel-pix" id="tabPix" onclick="selecionarMetodo('pix')">
+        🏦 PIX<br><span style="font-size:.7rem;font-weight:400;opacity:.75">Aprovação imediata</span>
+      </button>
+      <button class="pay-tab" id="tabCard" onclick="selecionarMetodo('cartao')">
+        💳 Cartão de crédito<br><span style="font-size:.7rem;font-weight:400;opacity:.75">Visa · Master · Elo</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- PIX: botão de gerar + área do QR -->
+  <div id="pix-section">
+    <div style="margin:0 0 14px;padding:10px 14px;border-radius:12px;background:rgba(255,189,46,.05);border:1px solid rgba(255,189,46,.15);font-size:.72rem;color:rgba(255,189,46,.7);line-height:1.65;display:flex;align-items:flex-start;gap:8px">
+      <span style="flex-shrink:0;margin-top:1px">⚠️</span>
+      <span>Seu banco pode mostrar um alerta — isso é normal. O pagamento é para <strong style="color:rgba(255,189,46,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, empresa médica registrada.</span>
+    </div>
+    <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar com PIX →</button>
+    <div id="aviso-horario" style="display:none;margin-top:14px;padding:11px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:11px;font-size:13px;color:rgba(255,255,255,.52);line-height:1.6;text-align:center;font-weight:300">Neste horário, pode haver uma leve redução na disponibilidade de profissionais, mas os atendimentos continuam normalmente.</div>
+    <div class="pay-qr-section" id="pay-qr-section">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:5px">Escaneie o QR Code ou use Pix Copia e Cola</div>
+        <div style="font-size:.74rem;color:rgba(255,255,255,.45);font-weight:300">Pague e entre na consulta automaticamente — sem redirecionamento</div>
+      </div>
+      <div style="text-align:center;margin-bottom:18px">
+        <img id="pay-qr-img" alt="QR Code PIX" style="width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.35);background:#fff;padding:10px;display:none;box-shadow:0 0 32px rgba(180,224,90,.12)"/>
+        <div id="pay-qr-fallback" style="display:none;width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.15);background:rgba(255,255,255,.03);margin:0 auto;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:.8rem;color:rgba(255,255,255,.45);text-align:center;padding:20px;box-sizing:border-box"><div style="font-size:2rem">📋</div><div>Use o Pix Copia e Cola abaixo</div></div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Pix Copia e Cola</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input id="pixChaveInput" readonly type="text" value="" style="flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(180,224,90,.2);border-radius:10px;padding:10px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.75rem;outline:none;-webkit-user-select:all;user-select:all;cursor:pointer" onclick="this.select();copiarPix()"/>
+          <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()" style="margin-bottom:0;white-space:nowrap;flex-shrink:0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar código
+          </button>
+        </div>
+      </div>
+      <div style="font-size:.71rem;color:rgba(255,255,255,.35);text-align:center;margin-bottom:14px;line-height:1.7;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
+        <strong style="color:rgba(255,255,255,.55);font-weight:600">JG FONSECA SERVICOS MEDICOS LTDA</strong><br>
+        Empresa médica registrada · Pagamento único · válido por 30 min
+      </div>
+      <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento… Não feche esta página.</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.25);margin-top:10px;line-height:1.6;text-align:center">
+        Confirmação automática e segura via PagSeguro.<br>Você será redirecionado assim que o pagamento for reconhecido.
+      </div>
+    </div>
+  </div>
+
+  <!-- CARTÃO: formulário Efí -->
+  <div id="card-form" style="display:none">
+    <div id="card-email-aviso" style="display:none;margin-bottom:14px;padding:10px 13px;border-radius:10px;background:rgba(255,95,87,.07);border:1px solid rgba(255,95,87,.25);font-size:.76rem;color:rgba(255,160,150,.95);line-height:1.55">
+      ⚠️ <strong style="color:rgba(255,190,180,.95)">E-mail obrigatório para cartão.</strong>
+      Volte à etapa anterior e informe um e-mail válido para continuar.
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Número do cartão</label>
+      <input class="cf-input" id="cfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="cfMascaraNumero(this)"/>
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Nome no cartão</label>
+      <input class="cf-input" id="cfNome" type="text" placeholder="Como aparece no cartão" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"/>
+    </div>
+    <div class="cf-row">
+      <div class="cf-field">
+        <label class="cf-label">Validade</label>
+        <input class="cf-input" id="cfValidade" type="text" placeholder="MM/AAAA" inputmode="numeric" maxlength="7" oninput="cfMascaraValidade(this)"/>
+      </div>
+      <div class="cf-field">
+        <label class="cf-label">CVV</label>
+        <input class="cf-input" id="cfCvv" type="text" placeholder="123" inputmode="numeric" maxlength="4"/>
+      </div>
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Parcelas</label>
+      <select class="cf-input" id="cfParcelas">
+        <option value="1">1x de R$ 49,90 (sem juros)</option>
+      </select>
+    </div>
+    <div class="card-err-msg" id="cardErrMsg"></div>
+    <button class="btn-pagar-card" id="btnPagarCard" onclick="pagarCartao()">Pagar R$ 49,90 →</button>
+    <div class="card-processing" id="cardProcessing">⏳ Processando pagamento...</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:12px;font-size:.7rem;color:rgba(255,255,255,.35)">
+      🔒 Dados tokenizados pelo SDK Efí · nunca trafegam pelo nosso servidor
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.38);font-weight:400;line-height:1.6;text-align:center;flex-wrap:wrap">
+    🔒 <span>Pagamento seguro · CNPJ verificado · Dados criptografados</span>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px;margin-bottom:4px;font-size:.7rem;color:rgba(255,255,255,.3);font-weight:300">
+    <span>★ 5.0 · +800 atendimentos</span>
+    <span style="color:rgba(255,255,255,.1)">·</span>
+    <span>Médicos com CRM ativo</span>
+  </div>
+
+  <div class="pay-divider">pagamento seguro via</div>
+  <div class="pay-seguro">🔒 PIX via PagBank · Cartão via Efí · Empresa médica registrada</div>
+</div>
+```
+
   </div>
 </div>
 
 <!-- S6: TRIAGEM -->
+
 <div id="screen-triage" class="screen">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="ia-banner">
@@ -686,6 +691,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- S7: ESPERA / CONSULTA -->
+
 <div id="screen-espera" class="screen box-center">
   <div class="espera-box">
     <div class="espera-anim" id="esperaAnim"><span style="font-size:2rem" id="esperaIcon">⏳</span></div>
@@ -747,27 +753,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- S8: ENCERRADO -->
+
 <div id="screen-encerrado" class="screen box-center">
   <div class="encerrado-box">
     <div class="encerrado-icon">⭐</div>
     <h2 class="encerrado-titulo">Como foi sua consulta?</h2>
     <p class="encerrado-sub">Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.8rem;color:rgba(255,255,255,.35)">Leva menos de 1 minuto.</span></p>
 
-    <a href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
-      style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;text-decoration:none;box-shadow:0 6px 24px rgba(180,224,90,.28);margin-bottom:16px">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Avaliar no Google
-    </a>
+```
+<a href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
+  style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;text-decoration:none;box-shadow:0 6px 24px rgba(180,224,90,.28);margin-bottom:16px">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+  Avaliar no Google
+</a>
 
-    <div style="margin-bottom:20px">
-      <button class="encerrado-btn" onclick="novaConsulta()" style="border:none;background:none;color:rgba(255,255,255,.3);font-size:.78rem;font-family:'Outfit',sans-serif;cursor:pointer;padding:4px 0">
-        Pular e iniciar nova consulta
-      </button>
-    </div>
+<div style="margin-bottom:20px">
+  <button class="encerrado-btn" onclick="novaConsulta()" style="border:none;background:none;color:rgba(255,255,255,.3);font-size:.78rem;font-family:'Outfit',sans-serif;cursor:pointer;padding:4px 0">
+    Pular e iniciar nova consulta
+  </button>
+</div>
 
-    <div style="font-size:.7rem;color:rgba(255,255,255,.2);line-height:1.6">
-      ConsultaJá24h · Atendimento médico online 24h
-    </div>
+<div style="font-size:.7rem;color:rgba(255,255,255,.2);line-height:1.6">
+  ConsultaJá24h · Atendimento médico online 24h
+</div>
+```
+
   </div>
 </div>
 
@@ -805,7 +815,6 @@ function carregarSessao(){
       if(data.ok && data.atendimento){
         var a = data.atendimento;
 
-        // Abandono definitivo — sem recuperação possível
         if(a.status === 'expirado' || a.status === 'arquivado'){
           limparSessao(); esconderLoading(); showScreen('identify'); return;
         }
@@ -813,24 +822,20 @@ function carregarSessao(){
           limparSessao(); esconderLoading(); mostrarPagamentoCancelado(); return;
         }
 
-        // Pagamento pendente ou triagem em andamento — pode ser retorno após pagamento PIX
         if(a.status === 'triagem' || a.status === 'pagamento_pendente'){
           var orderIdSalvo = (sessao && sessao.pagbankOrderId) || null;
 
-          // Sem vínculo na sessão → abandono real, recomeça do zero
           if(!orderIdSalvo){
             limparSessao(); esconderLoading(); showScreen('identify'); return;
           }
 
-          // Tem orderId salvo — tenta confirmar o pagamento direto antes de qualquer ação
           var jaConfirmado = false;
           try{
             var pbRes = await fetch(API+'/api/pagbank/order/'+orderIdSalvo);
             var pbData = await pbRes.json();
             jaConfirmado = !!(pbData.ok && pbData.pago);
-          }catch(e){ /* rede falhou — continua com polling */ }
+          }catch(e){}
 
-          // Restaura estado mínimo necessário para retomar o fluxo
           atendimentoId  = a.id;
           tipoConsulta   = a.tipo || 'chat';
           pacienteNome   = a.nome   || (sessao && sessao.pacienteNome)  || '';
@@ -841,10 +846,8 @@ function carregarSessao(){
           salvarSessao();
 
           if(jaConfirmado){
-            // Pagamento já confirmado no PagBank → vai direto para triagem, sem mostrar QR
             esconderLoading(); continuarParaTriagem();
           } else {
-            // Ainda não confirmado → retoma tela de pagamento + polling (sem gerar novo PIX)
             esconderLoading(); irParaPagamento();
             var statusEl = document.getElementById('pay-polling-status');
             if(statusEl){ statusEl.textContent = '⏳ Verificando seu pagamento...'; statusEl.className = 'pay-polling-status'; }
@@ -853,7 +856,6 @@ function carregarSessao(){
           return;
         }
 
-        // Fluxo normal — atendimento ativo em qualquer outro status
         atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
         pacienteNome = a.nome || ''; pacienteTel = a.tel || ''; pacienteCPF = a.cpf || '';
         salvarSessao(); esconderLoading();
@@ -936,16 +938,20 @@ async function verificarDisponibilidade(){
 }
 
 function renderDisponibilidade(d){
-  document.getElementById('disp-titulo').textContent = d.disponivel ? 'Fale com um médico agora' : 'Sem médico disponível agora';
-  document.getElementById('disp-sub').textContent = d.disponivel ? 'Atendimento em poucos minutos' : '';
+  document.getElementById('disp-titulo').textContent = d.disponivel ? 'Fale com um médico agora' : 'Fale com um médico agora';
+  document.getElementById('disp-sub').textContent = d.disponivel ? 'Atendimento em poucos minutos' : 'O atendimento será iniciado assim que um médico estiver disponível.';
   document.getElementById('disp-info').textContent = d.disponivel
     ? (d.medicosOnline > 0 ? d.medicosOnline+' médico(s) disponível(is) · Espera: ~'+d.tempoEstimado+' min' : 'Aguardando médico disponível')
-    : (d.mensagem || 'Indisponível no momento');
+    : (d.mensagem || 'Pode haver espera maior que o habitual');
   var badge = document.getElementById('disp-status-badge');
   badge.className = 'dispon-status ' + (d.status||'verde');
   badge.querySelector('.dispon-dot').style.background = d.status==='verde'?'var(--g2)':d.status==='amarelo'?'#ffbd2e':'#ff8080';
-  document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Indisponível';
-  document.getElementById('btnDispCont').style.display = d.disponivel ? 'block' : 'none';
+  document.getElementById('disp-status-txt').textContent = d.disponivel ? (d.status==='amarelo'?'Alta demanda':'Disponível agora') : 'Baixa disponibilidade';
+  // Botão sempre visível — paciente decide se quer continuar
+  document.getElementById('btnDispCont').style.display = 'block';
+  if (!d.disponivel) {
+    document.getElementById('btnDispCont').textContent = 'Continuar mesmo assim →';
+  }
   // Aviso noturno
   var avisoNoturno = document.getElementById('aviso-noturno');
   if (avisoNoturno) avisoNoturno.style.display = d.avisoHorario ? 'block' : 'none';
@@ -976,7 +982,7 @@ function irParaPagamento(){
 }
 
 // ── PAGAMENTO: seletor de método ─────────────────────────────────────────────
-var metodoPagamento = 'pix'; // 'pix' | 'cartao'
+var metodoPagamento = 'pix';
 
 function selecionarMetodo(metodo) {
   metodoPagamento = metodo;
@@ -984,9 +990,7 @@ function selecionarMetodo(metodo) {
   document.getElementById('tabCard').className = 'pay-tab' + (metodo==='cartao' ? ' sel-card' : '');
   document.getElementById('pix-section').style.display  = metodo==='pix'    ? 'block' : 'none';
   document.getElementById('card-form').style.display    = metodo==='cartao' ? 'block' : 'none';
-  // limpa erros ao trocar
   document.getElementById('cardErrMsg').style.display = 'none';
-  // e-mail obrigatório no cartão
   if (metodo === 'cartao') {
     var emailOk = pacienteEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(pacienteEmail);
     document.getElementById('card-email-aviso').style.display = emailOk ? 'none' : 'block';
@@ -994,7 +998,6 @@ function selecionarMetodo(metodo) {
   }
 }
 
-// ── Máscaras cartão ───────────────────────────────────────────────────────────
 function cfMascaraNumero(el) {
   var v = el.value.replace(/\D/g,'').slice(0,16);
   el.value = v.replace(/(.{4})/g,'$1 ').trim();
@@ -1005,15 +1008,12 @@ function cfMascaraValidade(el) {
   el.value = v;
 }
 
-// ── Pagamento por cartão (Efí) ────────────────────────────────────────────────
-// PAYEE_CODE_AQUI → substitua pelo seu código de identificação Efí (payeeCode)
 var EFI_PAYEE_CODE = 'b241c1c1aa59c7a663f8360ac1d05b52';
 var _cardProcessando = false;
 
 async function pagarCartao() {
   if (_cardProcessando) return;
 
-  // Valida campos comuns
   var nome = document.getElementById('payNome').value.trim();
   var tel  = document.getElementById('payTel').value.replace(/\D/g,'');
   if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2);
@@ -1023,7 +1023,6 @@ async function pagarCartao() {
   if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
   if(!cpf){document.getElementById('payCPF').focus();return;}
 
-  // Valida campos do cartão
   var numero   = document.getElementById('cfNumero').value.replace(/\s/g,'');
   var nomeCF   = document.getElementById('cfNome').value.trim();
   var validade = document.getElementById('cfValidade').value.trim();
@@ -1044,7 +1043,6 @@ async function pagarCartao() {
   var mes = partes[0];
   var ano = partes[1];
 
-  // UI: loading
   _cardProcessando = true;
   var btnCard = document.getElementById('btnPagarCard');
   btnCard.disabled = true;
@@ -1054,7 +1052,6 @@ async function pagarCartao() {
   pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf;
 
   try {
-    // 1. Pré-registro (mesmo fluxo do PIX)
     if (!atendimentoId) {
       var rPre = await fetch(API+'/api/notify',{
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -1069,10 +1066,8 @@ async function pagarCartao() {
       }
     }
 
-    // 2. Gera payment_token via SDK Efí — API encadeada oficial (formato atual)
-    // Ref: https://github.com/efipay/js-payment-token-efi
     if(typeof EfiPay === 'undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
-   var efiEnv = 'production';
+    var efiEnv = 'production';
     var tokenResult = await EfiPay.CreditCard
       .setAccount(EFI_PAYEE_CODE)
       .setEnvironment(efiEnv)
@@ -1087,11 +1082,9 @@ async function pagarCartao() {
         reuse:            false
       })
       .getPaymentToken();
-    // SDK retorna { payment_token, card_mask } — só o token vai ao backend
     if(!tokenResult || !tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão. Verifique os dados.');
     var paymentToken = tokenResult.payment_token;
 
-    // 3. Envia ao backend — backend valida e processa, nunca vê dados brutos
     var r = await fetch(API+'/api/efi/cartao/cobrar',{
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
@@ -1106,11 +1099,8 @@ async function pagarCartao() {
     });
     var d = await r.json();
 
-    // 4. Backend retorna ok:true com status "paid" ou "waiting"
-    // Em ambos os casos o pagamento foi aceito — backend confirma via webhook
     if(d.ok) {
       document.getElementById('cardProcessing').textContent = '✅ Pagamento aceito! Iniciando triagem...';
-      // Dispara evento de conversão
       if(!sessionStorage.getItem('conv')){
         sessionStorage.setItem('conv','1');
         window.dataLayer = window.dataLayer || [];
@@ -1119,7 +1109,6 @@ async function pagarCartao() {
       await esperar(1000);
       continuarParaTriagem();
     } else {
-      // Cartão recusado — mostra motivo e desbloqueia
       throw new Error(d.error || 'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
     }
 
@@ -1144,11 +1133,9 @@ function detectarBandeira(numero) {
   if(/^(636368|438935|504175|451416|636297|5067|4576|4011)/.test(n)) return 'elo';
   if(/^(6062|3841)/.test(n))          return 'hipercard';
   if(/^301|^36|^38/.test(n))          return 'diners';
-  return 'visa'; // fallback — Efí aceita e tenta processar
+  return 'visa';
 }
 
-// ── PAGAMENTO VIA PAGBANK ─────────────────────────────────────────────────────
-// Ordem correta: notify (pré-registro) → pagbank/order → vincular → mostrar QR → polling
 async function gerarPagamento(){
   var nome = document.getElementById('payNome').value.trim();
   var tel  = document.getElementById('payTel').value.replace(/\D/g,'');
@@ -1164,7 +1151,6 @@ async function gerarPagamento(){
   btn.disabled=true; btn.textContent='Gerando PIX...';
 
   try{
-    // 1. Pré-registro — cria atendimentoId ANTES de gerar o pagamento
     var rPre = await fetch(API+'/api/notify',{
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({nome:pacienteNome, tel:pacienteTel, tel_documentos:pacienteTelDoc,
@@ -1177,7 +1163,6 @@ async function gerarPagamento(){
       if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
     }
 
-    // 2. Cria order PagBank
     var res = await fetch(API+'/api/pagbank/order',{
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({nome:pacienteNome, cpf:pacienteCPF, email:pacienteEmail||undefined})
@@ -1188,7 +1173,6 @@ async function gerarPagamento(){
     pagbankOrderId = data.order_id;
     var pixText = data.qr_code_text;
 
-    // 3. Vincula order ao atendimento — AWAIT garante vínculo antes do QR aparecer
     if(atendimentoId && pagbankOrderId){
       try {
         var vinculoRes = await fetch(API+'/api/atendimento/vincular-order',{
@@ -1197,16 +1181,12 @@ async function gerarPagamento(){
         });
         var vinculoData = await vinculoRes.json();
         if(!vinculoData.ok) throw new Error(vinculoData.error || 'Falha ao vincular order');
-        console.log('[VINCULAR] OK', vinculoData);
-        // Persiste orderId na sessão — garante recuperação se paciente fechar a aba após pagar
         salvarSessao();
       } catch(e) {
-        console.error('[VINCULAR ERRO]', e);
         throw new Error('Não foi possível associar o pagamento. Tente novamente.');
       }
     }
 
-    // 4. Exibe QR Code
     var imgEl = document.getElementById('pay-qr-img');
     var fbEl  = document.getElementById('pay-qr-fallback');
     if(imgEl){
@@ -1219,7 +1199,6 @@ async function gerarPagamento(){
     document.getElementById('pay-qr-section').classList.add('ativo');
     btn.style.display='none';
 
-    // 5. Inicia polling — avança só quando d.ok && d.pago === true
     iniciarPollingPagamento();
 
   }catch(e){
@@ -1234,7 +1213,7 @@ async function gerarPagamento(){
 function iniciarPollingPagamento(){
   clearInterval(paymentPoller);
   var tentativas = 0;
-  var MAX = 600; // 600 × 3s = 30 min
+  var MAX = 600;
   var statusEl = document.getElementById('pay-polling-status');
   statusEl.textContent = '⏳ Aguardando confirmação do pagamento...';
   statusEl.className = 'pay-polling-status';
@@ -1263,7 +1242,7 @@ function iniciarPollingPagamento(){
         await esperar(1000);
         continuarParaTriagem();
       }
-    }catch(e){ /* erro pontual de rede — continua */ }
+    }catch(e){}
   }, 3000);
 }
 
@@ -1279,8 +1258,6 @@ function copiarPix(){
   if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(chave).then(ok).catch(function(){fallbackCopy(chave);ok();}); }
   else{ fallbackCopy(chave); ok(); }
 }
-
-
 
 function fallbackCopy(text){
   var el=document.createElement('textarea'); el.value=text; el.style.position='fixed'; el.style.opacity='0';
@@ -1356,7 +1333,6 @@ async function sendTriage(text){
 async function finalizarTriagem(){
   addMsg('triageChat','bot','Conectando você ao médico...');
   try{
-    // atendimentoId sempre existe — pré-registro feito em gerarPagamento antes do QR
     if(!atendimentoId) throw new Error('Sessão perdida. Recarregue a página.');
     var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({atendimentoId,triagem:anamnesis.summary||''})});
@@ -1366,10 +1342,8 @@ async function finalizarTriagem(){
     mostrarSalaEspera();
   }catch(e){
     console.error('finalizarTriagem error:',e);
-    // Remove mensagem de "registrando..."
     var chat=document.getElementById('triageChat');
     var last=chat.lastElementChild; if(last) last.remove();
-    // Mostra erro e botão para tentar de novo
     addMsg('triageChat','bot','❌ Não conseguimos registrar seu atendimento. Verifique sua conexão e tente novamente.');
     var chat=document.getElementById('triageChat');
     var div=document.createElement('div'); div.style='padding:0 16px 16px';
@@ -1378,16 +1352,12 @@ async function finalizarTriagem(){
   }
 }
 
-// ── SALA DE ESPERA ─────────────────────────────────────────────────────────────
-
-
 function mostrarTelaEspera(){
   showScreen('espera'); document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
   var badge=document.getElementById('esperaBadge'); badge.className='espera-badge '+tipoConsulta;
   document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
   document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
   tentativas=0;
-  // Nota: NÃO inicia esperaPoller aqui — use mostrarSalaEspera() para iniciar polling
 }
 function mostrarSalaEspera(){
   mostrarTelaEspera();
@@ -1402,7 +1372,7 @@ async function verificarStatus(){
     atualizarContador(); var a=data.atendimento;
     if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
     if(a.status==='cancelado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); mostrarPagamentoCancelado(); return; }
-    if(a.status==='aguardando_aprovacao'){ return; } // aguardando admin — continua polling normalmente
+    if(a.status==='aguardando_aprovacao'){ return; }
     if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')&&!encerradoPoller){ clearInterval(esperaPoller); medicoAssumiu(a); }
   }catch(e){}
 }
@@ -1485,7 +1455,6 @@ function renderMsgChat(autor, texto, timestamp, arquivoUrl, arquivoTipo){
   msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
 }
 
-// ── UPLOAD NA TRIAGEM ─────────────────────────────────────
 var arquivoTriagem = null;
 function onArquivoTriagemSelecionado(input){
   var file=input.files[0]; if(!file)return;
@@ -1548,9 +1517,7 @@ function encerrarConsultaPaciente(){
 }
 function mostrarTelaEncerrado(){ showScreen('encerrado'); document.getElementById('nav-step').textContent='CONSULTA ENCERRADA'; }
 function mostrarPagamentoCancelado(){
-  // Para todos os pollers
   clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
-  // Vai para tela de encerrado mas com mensagem de pagamento
   showScreen('encerrado');
   document.getElementById('nav-step').textContent='PAGAMENTO';
   var icon  = document.getElementById('encerrado-icon');
@@ -1567,8 +1534,6 @@ function novaConsulta(){
   history.replaceState(null,'','/triagem.html'); showScreen('identify');
   document.getElementById('nav-step').textContent='IDENTIFICAÇÃO';
 }
-
-// ── UTILS ──────────────────────────────────────────────────────────────────────
 
 async function callAPI(endpoint,system,history,userMsg){
   history.push({role:'user',content:userMsg});
@@ -1604,13 +1569,10 @@ function mascaraData(el){
   el.value=v;
 }
 
-// ── MICROINTERAÇÕES NOS CAMPOS ──────────────────────────────
 function feedbackTel(el) {
   var fb = document.getElementById('fb-tel');
   var digits = el.value.replace(/\D/g,'');
-  // remove 55 do DDI se presente
   if(digits.length>11 && digits.startsWith('55')) digits = digits.slice(2);
-  // celular BR válido: 10 ou 11 dígitos
   var ok = digits.length >= 10 && digits.length <= 11;
   fb.classList.toggle('show', ok);
 }
@@ -1618,7 +1580,6 @@ function feedbackTel(el) {
 function feedbackData(el) {
   var fb = document.getElementById('fb-nasc');
   var v = el.value;
-  // DD/MM/AAAA preenchido
   if(v.length !== 10) { fb.classList.remove('show'); return; }
   var parts = v.split('/');
   var d=parseInt(parts[0]), m=parseInt(parts[1]), y=parseInt(parts[2]);
@@ -1627,8 +1588,6 @@ function feedbackData(el) {
   fb.classList.toggle('show', ok);
 }
 
-// ── AUTOPREENCHIMENTO ────────────────────────────────────────
-// Busca cadastro pelo WhatsApp — só preenche campos, não faz login
 async function buscarCadastro() {
   var input = document.getElementById('autofillTel');
   var status = document.getElementById('autofill-status');
@@ -1669,5 +1628,6 @@ async function buscarCadastro() {
   btn.textContent = 'Buscar'; btn.disabled = false;
 }
 </script>
+
 </body>
 </html>
