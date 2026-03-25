@@ -434,12 +434,20 @@ async function carregarAgendamentos() {
         ? `<span style="font-size:.65rem;font-weight:600;background:#ede9fe;color:#7c3aed;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle">Especialista</span>`
         : '';
 
-      const meetBtn = (status === 'confirmado' && ag.link_sessao)
+      // Verificar se está no horário da sessão (15min antes até 2h depois)
+      const agora = new Date();
+      const horarioAg = new Date(ag.horario_agendado);
+      const diffMin = (horarioAg - agora) / 1000 / 60;
+      const noHorario = diffMin >= -15 && diffMin <= 120;
+      
+      const meetBtn = (status === 'confirmado' && ag.link_sessao && noHorario)
         ? `<a href="${escHtml(ag.link_sessao)}" target="_blank" rel="noopener" class="btn-meet-pac">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
             Entrar na sessão
           </a>`
-        : (status === 'confirmado' && !isEsp ? '<span style="font-size:.75rem;color:var(--ink-3);margin-top:6px;display:block">🔗 O link da sessão ainda será disponibilizado pelo profissional.</span>' : '');
+        : (status === 'confirmado' && ag.link_sessao && !noHorario
+          ? `<span style="font-size:.75rem;color:var(--ink-3);margin-top:6px;display:block">🕐 O link será disponibilizado no horário da consulta.</span>`
+          : (status === 'confirmado' && !isEsp ? '<span style="font-size:.75rem;color:var(--ink-3);margin-top:6px;display:block">🔗 O link da sessão ainda será disponibilizado pelo profissional.</span>' : ''));
 
       const formularioBtn = (status === 'confirmado' && ag.formulario_url)
         ? `<a href="${escHtml(ag.formulario_url)}" target="_blank" rel="noopener" class="btn-formulario">
