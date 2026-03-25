@@ -805,67 +805,155 @@ function carregarSessao(){
 }
 
 (async function init(){
-  var urlId = new URLSearchParams(location.search).get('consulta');
-  var sessao = carregarSessao();
-  var idParaRestaurar = urlId ? parseInt(urlId) : (sessao ? sessao.atendimentoId : null);
+  var urlIdRaw = new URLSearchParams(location.search).get('consulta');
+  var urlIdN   = urlIdRaw ? parseInt(urlIdRaw) : null;
+  var sessao   = carregarSessao();
+  var sessaoId = sessao ? sessao.atendimentoId : null;
+
+  // ── REGRA 1: sessão local tem sempre prioridade sobre a URL ──────────────
+  // A URL pode ser um link antigo, de reenvio de e-mail, ou de outro usuário.
+  // O localStorage desta aba é a identidade atual do paciente.
+  var idParaRestaurar = null;
+  var origemId        = null;
+
+  if(sessaoId){
+    idParaRestaurar = sessaoId;
+    origemId        = 'sessao';
+    // Se a URL aponta para ID diferente da sessão, limpa a URL silenciosamente
+    if(urlIdN && urlIdN !== sessaoId){
+      console.log('[INIT] URL ?consulta='+urlIdN+' ignorada — sessão local usa id='+sessaoId);
+      history.replaceState(null, '', location.pathname);
+    }
+  } else if(urlIdN){
+    idParaRestaurar = urlIdN;
+    origemId        = 'url';
+  }
+
+  console.log('[INIT] origemId='+origemId+' | idParaRestaurar='+idParaRestaurar);
+
   if(idParaRestaurar){
     try{
-      var res = await fetch(API+'/api/atendimento/status/'+idParaRestaurar);
+      var res  = await fetch(API+'/api/atendimento/status/'+idParaRestaurar);
       var data = await res.json();
-      if(data.ok && data.atendimento){
-        var a = data.atendimento;
 
-        if(a.status === 'expirado' || a.status === 'arquivado'){
-          limparSessao(); esconderLoading(); showScreen('identify'); return;
+      console.log('[INIT] backend status:', data.ok ? data.atendimento.status : 'erro/404',
+                  '| pagamento_status:', data.ok ? data.atendimento.pagamento_status : '-');
+
+      if(!data.ok || !data.atendimento){
+        // ID não existe no backend — limpa e recomeça
+        console.log('[INIT] ID '+idParaRestaurar+' não encontrado. Reiniciando fluxo.');
+        limparSessao(); esconderLoading(); showScreen('identify'); return;
+      }
+
+      var a = data.atendimento;
+
+      // ── Status que sempre reiniciam sem mostrar tela de avaliação ─────────
+      if(a.status === 'expirado' || a.status === 'arquivado'){
+        console.log('[INIT] Atendimento expirado/arquivado. Reiniciando.');
+        limparSessao(); esconderLoading(); showScreen('identify'); return;
+      }
+      if(a.status === 'cancelado'){
+        console.log('[INIT] Atendimento cancelado.');
+        limparSessao(); esconderLoading(); mostrarPagamentoCancelado(); return;
+      }
+
+      // ── REGRA 2: encerrado via URL sem sessão correspondente = BLOQUEADO ──
+      // Impede que qualquer link antigo (email, histórico) jogue o usuário
+      // direto para a tela de avaliação sem ele ter feito a consulta agora.
+      if(a.status === 'encerrado'){
+        if(origemId === 'url'){
+          console.log('[INIT] BLOQUEADO: encerrado via URL sem sessão ativa. Reiniciando.');
+          history.replaceState(null, '', location.pathname);
+          esconderLoading(); showScreen('identify'); return;
         }
-        if(a.status === 'cancelado'){
-          limparSessao(); esconderLoading(); mostrarPagamentoCancelado(); return;
-        }
+        // Só chega aqui se era sessão própria do usuário → mostra avaliação
+        console.log('[INIT] Consulta encerrada (sessão própria). Mostrando avaliação.');
+        atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+        pacienteNome  = a.nome || ''; pacienteTel = a.tel || ''; pacienteCPF = a.cpf || '';
+        limparSessao(); esconderLoading(); mostrarTelaEncerrado(); return;
+      }
 
-        if(a.status === 'triagem' || a.status === 'pagamento_pendente'){
-          var orderIdSalvo = (sessao && sessao.pagbankOrderId) || null;
+      // ── Pagamento pendente / triagem incompleta ───────────────────────────
+      if(a.status === 'triagem' || a.status === 'pagamento_pendente'){
+        // REGRA 3: backend é a fonte de verdade do pagamento.
+        // pagamento_status já vem do endpoint (incluindo fallback PagBank feito no servidor).
+        var pagConfirmadoBackend = (a.pagamento_status === 'confirmado');
 
-          if(!orderIdSalvo){
-            limparSessao(); esconderLoading(); showScreen('identify'); return;
-          }
+        // Fallback local: se o backend ainda não atualizou mas temos o orderId
+        var orderIdLocal  = (sessao && sessao.pagbankOrderId) || null;
+        var jaConfirmado  = pagConfirmadoBackend;
 
-          var jaConfirmado = false;
+        if(!jaConfirmado && orderIdLocal){
+          console.log('[INIT] Backend pendente, consultando PagBank diretamente: '+orderIdLocal);
           try{
-            var pbRes = await fetch(API+'/api/pagbank/order/'+orderIdSalvo);
+            var pbRes  = await fetch(API+'/api/pagbank/order/'+orderIdLocal);
             var pbData = await pbRes.json();
             jaConfirmado = !!(pbData.ok && pbData.pago);
-          }catch(e){}
-
-          atendimentoId  = a.id;
-          tipoConsulta   = a.tipo || 'chat';
-          pacienteNome   = a.nome   || (sessao && sessao.pacienteNome)  || '';
-          pacienteTel    = a.tel    || (sessao && sessao.pacienteTel)   || '';
-          pacienteCPF    = a.cpf    || (sessao && sessao.pacienteCPF)   || '';
-          pacienteEmail  = a.email  || (sessao && sessao.pacienteEmail) || '';
-          pagbankOrderId = orderIdSalvo;
-          salvarSessao();
-
-          if(jaConfirmado){
-            esconderLoading(); continuarParaTriagem();
-          } else {
-            esconderLoading(); irParaPagamento();
-            var statusEl = document.getElementById('pay-polling-status');
-            if(statusEl){ statusEl.textContent = '⏳ Verificando seu pagamento...'; statusEl.className = 'pay-polling-status'; }
-            iniciarPollingPagamento();
-          }
-          return;
+            console.log('[INIT] Polling PagBank local: pago='+jaConfirmado);
+          }catch(e){ console.warn('[INIT] Falha ao consultar PagBank local:', e); }
         }
 
-        atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
-        pacienteNome = a.nome || ''; pacienteTel = a.tel || ''; pacienteCPF = a.cpf || '';
-        salvarSessao(); esconderLoading();
-        if(a.status === 'encerrado'){ mostrarTelaEncerrado(); }
-        else if(a.status === 'assumido'){ mostrarTelaEspera(); medicoAssumiu(a); }
-        else { mostrarSalaEspera(); }
+        // Se não há nenhum indício de pagamento (nem backend nem local), e veio da URL → reinicia
+        if(!jaConfirmado && !orderIdLocal && origemId === 'url'){
+          console.log('[INIT] Sem pagamento e sem sessão. Reiniciando fluxo.');
+          limparSessao(); esconderLoading(); showScreen('identify'); return;
+        }
+
+        // Restaura variáveis globais
+        atendimentoId  = a.id;
+        tipoConsulta   = a.tipo || 'chat';
+        pacienteNome   = a.nome   || (sessao && sessao.pacienteNome)  || '';
+        pacienteTel    = a.tel    || (sessao && sessao.pacienteTel)   || '';
+        pacienteCPF    = a.cpf    || (sessao && sessao.pacienteCPF)   || '';
+        pacienteEmail  = a.email  || (sessao && sessao.pacienteEmail) || '';
+        pagbankOrderId = a.pagbank_order_id || orderIdLocal || null;
+        salvarSessao();
+
+        if(jaConfirmado){
+          console.log('[INIT] Pagamento confirmado. Continuando para triagem.');
+          esconderLoading(); continuarParaTriagem();
+        } else {
+          console.log('[INIT] Pagamento pendente. Voltando à tela de pagamento e iniciando polling.');
+          esconderLoading(); irParaPagamento();
+          var statusEl = document.getElementById('pay-polling-status');
+          if(statusEl){ statusEl.textContent = '⏳ Verificando seu pagamento...'; statusEl.className = 'pay-polling-status'; }
+          iniciarPollingPagamento();
+        }
         return;
       }
-    } catch(e){}
+
+      // ── Demais status: aguardando, assumido ───────────────────────────────
+      atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+      pacienteNome  = a.nome  || (sessao && sessao.pacienteNome) || '';
+      pacienteTel   = a.tel   || (sessao && sessao.pacienteTel)  || '';
+      pacienteCPF   = a.cpf   || (sessao && sessao.pacienteCPF)  || '';
+      pacienteEmail = a.email || (sessao && sessao.pacienteEmail) || '';
+      salvarSessao(); esconderLoading();
+      console.log('[INIT] Status ativo: '+a.status+'. Restaurando fluxo.');
+      if(a.status === 'assumido'){ mostrarTelaEspera(); medicoAssumiu(a); }
+      else { mostrarSalaEspera(); }
+      return;
+
+    } catch(e){
+      // ── REGRA 4: falha de rede não destrói sessão válida ─────────────────
+      // Se há sessão local, vai para sala de espera e deixa o poller recuperar.
+      // Só reinicia o fluxo se não há nenhuma sessão.
+      console.warn('[INIT] Erro ao buscar status do backend:', e);
+      if(sessaoId){
+        console.log('[INIT] Rede falhou mas sessão local existe (id='+sessaoId+'). Aguardando polling.');
+        atendimentoId  = sessao.atendimentoId;
+        tipoConsulta   = sessao.tipoConsulta  || 'chat';
+        pacienteNome   = sessao.pacienteNome  || '';
+        pacienteTel    = sessao.pacienteTel   || '';
+        pacienteCPF    = sessao.pacienteCPF   || '';
+        pacienteEmail  = sessao.pacienteEmail || '';
+        pagbankOrderId = sessao.pagbankOrderId || null;
+        esconderLoading(); mostrarSalaEspera(); return;
+      }
+    }
   }
+
+  console.log('[INIT] Sem sessão válida. Exibindo identificação.');
   limparSessao(); esconderLoading(); showScreen('identify');
 })();
 
