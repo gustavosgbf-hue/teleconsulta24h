@@ -716,7 +716,7 @@ async function confirmarAgendamento() {
   btn.disabled = true;
   btn.textContent = 'Criando agendamento...';
 
-  // 1. Registra lead (não bloqueia)
+  // Lead (não bloqueia)
   fetch(API + '/api/lead/registrar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -730,10 +730,14 @@ async function confirmarAgendamento() {
   }).catch(function(){});
 
   try {
-    // 2. Cria agendamento
+    // Passa token se paciente já está logado — vincula conta universal
+    var reqHeaders = { 'Content-Type': 'application/json' };
+    var pacToken = localStorage.getItem('pac_token');
+    if (pacToken) reqHeaders['Authorization'] = 'Bearer ' + pacToken;
+
     var resAg = await fetch(API + '/api/especialistas/agendamento/criar', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: reqHeaders,
       body: JSON.stringify({
         especialistaId:   medicoSelecionado.id,
         horario_agendado: slotSelecionado.iso,
@@ -752,12 +756,10 @@ async function confirmarAgendamento() {
     }
     espState.agendamentoId = dadosAg.agendamentoId;
 
-    // 3. Vai para tela de PIX
     mostrarPasso('passo-pix');
     document.getElementById('pix-loading').style.display = 'block';
     document.getElementById('pix-qr-wrap').style.display = 'none';
 
-    // 4. Gera PIX
     var resPix = await fetch(API + '/api/especialistas/pagbank/order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -773,7 +775,6 @@ async function confirmarAgendamento() {
     }
     espState.pixOrderId = dadosPix.order_id;
 
-    // 5. Exibe QR
     document.getElementById('pix-loading').style.display = 'none';
     document.getElementById('pix-qr-wrap').style.display = 'block';
     document.getElementById('pix-resumo').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
@@ -782,7 +783,6 @@ async function confirmarAgendamento() {
     document.getElementById('pix-qr-img').src = qrUrl;
     document.getElementById('pix-codigo').value = dadosPix.qr_code_text;
 
-    // 6. Polling
     iniciarPollingEsp(espState.agendamentoId);
 
   } catch(e) {
