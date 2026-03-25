@@ -118,8 +118,15 @@ nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-
 .btn-cancelar-ag:disabled{opacity:.5;cursor:not-allowed}
 
 @media(max-width:500px){.auth-card{padding:28px 20px}.row2{grid-template-columns:1fr}}
-.btn-meet-pac{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;background:rgba(38,80,142,.1);border:1px solid rgba(38,80,142,.2);color:#26508e;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;text-decoration:none;margin-top:8px;transition:background .2s}
-.btn-meet-pac:hover{background:rgba(38,80,142,.18)}
+.btn-meet-pac{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9px;background:var(--psi-acc);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;margin-top:8px;transition:all .2s}
+.btn-meet-pac:hover{background:var(--psi-dark)}
+
+#consulta-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;padding:20px}
+#consulta-overlay.open{display:flex}
+#consulta-modal{background:var(--card);border-radius:16px;width:100%;max-width:500px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+#consulta-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
+#consulta-header button{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink-3)}
+#consulta-conteudo{flex:1;display:flex;flex-direction:column;overflow:hidden}
 </style>
 </head>
 <body>
@@ -234,6 +241,17 @@ nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-
       </div>
     </div>
     <button onclick="document.getElementById('pip-especialidade-overlay').style.display='none'" style="margin-top:20px;width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem;color:var(--ink-3)">Cancelar</button>
+  </div>
+</div>
+
+<!-- Modal: Consulta -->
+<div id="consulta-overlay">
+  <div id="consulta-modal">
+    <div id="consulta-header">
+      <span style="font-weight:600">Consulta</span>
+      <button onclick="fecharConsulta()">✕</button>
+    </div>
+    <div id="consulta-conteudo"></div>
   </div>
 </div>
 
@@ -439,12 +457,13 @@ async function carregarAgendamentos() {
       const horarioAg = new Date(ag.horario_agendado);
       const diffMin = (horarioAg - agora) / 1000 / 60;
       const noHorario = diffMin >= -15 && diffMin <= 120;
+      const podeEntrar = status === 'confirmado' && noHorario;
       
       const meetBtn = (status === 'confirmado' && ag.link_sessao && noHorario)
-        ? `<a href="${escHtml(ag.link_sessao)}" target="_blank" rel="noopener" class="btn-meet-pac">
+        ? `<button onclick="abrirConsulta(${ag.id})" class="btn-meet-pac">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-            Entrar na sessão
-          </a>`
+            Entrar na consulta
+          </button>`
         : (status === 'confirmado' && ag.link_sessao && !noHorario
           ? `<span style="font-size:.75rem;color:var(--ink-3);margin-top:6px;display:block">🕐 O link será disponibilizado no horário da consulta.</span>`
           : (status === 'confirmado' && !isEsp ? '<span style="font-size:.75rem;color:var(--ink-3);margin-top:6px;display:block">🔗 O link da sessão ainda será disponibilizado pelo profissional.</span>' : ''));
@@ -540,6 +559,98 @@ function irParaEspecialidade(tipo) {
   } else if (tipo === 'endocrinologia') {
     window.location.href = '/index (96) endocrinologia.html';
   }
+}
+
+// ── CONSULTA ─────────────────────────────────────────────────────────────────
+var consultaAtual = null;
+
+async function abrirConsulta(agendamentoId) {
+  consultaAtual = agendamentoId;
+  document.getElementById('consulta-overlay').style.display = 'flex';
+  document.getElementById('consulta-conteudo').innerHTML = '<div style="text-align:center;padding:40px;color:var(--ink-3)">Carregando...</div>';
+  
+  try {
+    const data = await apiFetch('/api/consulta/' + agendamentoId);
+    if (!data.ok) throw new Error(data.error || 'Erro ao carregar');
+    renderizarConsulta(data);
+  } catch(e) {
+    document.getElementById('consulta-conteudo').innerHTML = '<div style="text-align:center;padding:40px;color:var(--err)">Erro: ' + e.message + '</div>';
+  }
+}
+
+function renderizarConsulta(c) {
+  const ag = c.agendamento;
+  const msgs = c.mensagens || [];
+  
+  document.getElementById('consulta-conteudo').innerHTML = `
+    <div style="padding:20px;border-bottom:1px solid var(--line)">
+      <div style="font-weight:600;font-size:1rem">${escHtml(ag.profissional_nome)}</div>
+      <div style="font-size:.82rem;color:var(--ink-3)">${ag.tipo_consulta || 'Especialidade'} · ${fmtData(ag.horario_agendado)}</div>
+    </div>
+    <div style="padding:20px;border-bottom:1px solid var(--line)">
+      ${ag.link_sessao 
+        ? `<a href="${escHtml(ag.link_sessao)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--psi-acc);color:#fff;border-radius:10px;font-weight:600;text-decoration:none">
+             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+             Abrir videochamada
+           </a>`
+        : '<div style="color:var(--ink-3);font-size:.88rem">⏳ Aguardando o médico iniciar a consulta...</div>'}
+    </div>
+    <div id="chat-mensagens" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:10px;min-height:200px">
+      ${msgs.length ? msgs.map(m => `
+        <div style="padding:10px 14px;border-radius:12px;max-width:80%;${m.autor === 'paciente' ? 'background:var(--psi-acc);color:#fff;align-self:flex-end' : 'background:#f5f5f5;color:var(--ink);align-self:flex-start'}">
+          <div style="font-size:.78rem;opacity:0.7;margin-bottom:4px">${m.autor === 'paciente' ? 'Você' : 'Profissional'}</div>
+          ${escHtml(m.texto)}
+          ${m.arquivo_url ? `<div style="margin-top:8px"><a href="${escHtml(m.arquivo_url)}" target="_blank" style="color:inherit;underline">📎 Arquivo</a></div>` : ''}
+        </div>
+      `).join('') : '<div style="text-align:center;color:var(--ink-3);font-size:.85rem">Nenhuma mensagem ainda</div>'}
+    </div>
+    <div style="padding:16px;border-top:1px solid var(--line);display:flex;gap:8px">
+      <input id="msg-texto" type="text" placeholder="Digite sua mensagem..." style="flex:1;padding:12px;border:1px solid var(--line-mid);border-radius:10px;font-size:.9rem">
+      <label for="msg-arquivo" style="padding:12px;border:1px solid var(--line-mid);border-radius:10px;cursor:pointer;font-size:1.2rem">📎</label>
+      <input id="msg-arquivo" type="file" accept="image/*,.pdf" style="display:none" onchange="enviarMensagem(event)">
+      <button onclick="enviarMensagem()" style="padding:12px 20px;background:var(--psi-acc);color:#fff;border:none;border-radius:10px;font-weight:600">Enviar</button>
+    </div>
+  `;
+}
+
+async function enviarMensagem(e) {
+  const texto = document.getElementById('msg-texto').value.trim();
+  const arquivo = document.getElementById('msg-arquivo').files[0];
+  
+  if (!texto && !arquivo) return;
+  
+  const btn = document.querySelector('#consulta-conteudo button:last-child');
+  btn.disabled = true; btn.textContent = 'Enviando...';
+  
+  try {
+    if (arquivo) {
+      const formData = new FormData();
+      formData.append('arquivo', arquivo);
+      formData.append('texto', texto);
+      const res = await fetch(API + '/api/consulta/' + consultaAtual + '/upload', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + getToken() },
+        body: formData
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error);
+    } else {
+      const res = await apiFetch('/api/consulta/' + consultaAtual + '/mensagem', { json: { texto } });
+      if (!res.ok) throw new Error(res.error);
+    }
+    document.getElementById('msg-texto').value = '';
+    document.getElementById('msg-arquivo').value = '';
+    abrirConsulta(consultaAtual);
+  } catch(e) {
+    alert('Erro: ' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Enviar';
+  }
+}
+
+function fecharConsulta() {
+  document.getElementById('consulta-overlay').style.display = 'none';
+  consultaAtual = null;
 }
 </script>
 </body>
