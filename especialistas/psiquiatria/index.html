@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -440,31 +441,8 @@ footer a:hover{color:var(--ink)}
   <div class="section-label">Profissionais disponíveis</div>
   <h2 class="section-title">Escolha seu <em>médico</em></h2>
 
-  <div class="doctors-grid">
-
-    <!-- ATENÇÃO: ID deve corresponder ao registro na tabela `especialistas` do banco -->
-    <div class="doctor-card fade-up">
-      <div class="doctor-card__photo">
-        <div class="doctor-card__photo-placeholder">👨‍⚕️</div>
-      </div>
-      <div class="doctor-card__body">
-        <div class="doctor-card__name">Dr. Paulo Almeida</div>
-        <div class="doctor-card__crm">CRM 52126585-7 · RJ</div>
-        <span class="doctor-card__spec">Psiquiatria</span>
-        <p class="doctor-card__bio">Médico psiquiatra com experiência em transtornos de ansiedade, depressão e saúde mental.</p>
-        <div class="doctor-card__footer">
-          <div>
-            <span class="doctor-card__price-label">Consulta online</span>
-            <span class="doctor-card__price">R$ 350</span>
-          </div>
-          <button class="doctor-card__btn" onclick="abrirHorarios({id:2,nome:'Dr. Paulo Almeida',valor:350})">
-            Ver horários
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+  <div class="doctors-grid" id="doctorsGrid">
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Carregando médicos...</div>
   </div>
 </section>
 
@@ -652,40 +630,85 @@ var ESPECIALIDADE = 'psiquiatria';
 var medicoSelecionado = null; // { id, nome, valor }
 var slotSelecionado   = null; // { dia, hora, iso }
 var espState = { agendamentoId: null, pixOrderId: null, pixInterval: null };
+var especialistasData = [];
 
-// IDs dos médicos devem bater com os registros na tabela `especialistas`
-// Após inserir via admin, atualiza os IDs nos botões onclick do HTML
-var slots = [
-  {dia:'Hoje',   hora:'14:00', iso: gerarIso(0,14,0)},
-  {dia:'Hoje',   hora:'16:30', iso: gerarIso(0,16,30)},
-  {dia:'Amanhã', hora:'09:00', iso: gerarIso(1,9,0)},
-  {dia:'Amanhã', hora:'11:30', iso: gerarIso(1,11,30)},
-  {dia:'Amanhã', hora:'15:00', iso: gerarIso(1,15,0)},
-  {dia:'Sex',    hora:'10:00', iso: gerarIso(5,10,0)},
-];
+async function carregarEspecialistas() {
+  try {
+    var res = await fetch(API + '/api/especialistas/' + ESPECIALIDADE);
+    var data = await res.json();
+    if (!data.ok) {
+      document.getElementById('doctorsGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Erro ao carregar médicos. Tente novamente.</div>';
+      return;
+    }
+    especialistasData = data.especialistas || [];
+    renderEspecialistas();
+  } catch(e) {
+    document.getElementById('doctorsGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Erro de conexão. Tente novamente.</div>';
+  }
+}
 
-function gerarIso(diasOffset, h, m) {
-  var d = new Date();
-  d.setDate(d.getDate() + diasOffset);
-  d.setHours(h, m, 0, 0);
-  return d.toISOString();
+function renderEspecialistas() {
+  var grid = document.getElementById('doctorsGrid');
+  if (especialistasData.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Nenhum médico disponível no momento.</div>';
+    return;
+  }
+  grid.innerHTML = '';
+  especialistasData.forEach(function(espec, idx) {
+    var card = document.createElement('div');
+    card.className = 'doctor-card fade-up';
+    card.style.animationDelay = (idx * 0.1) + 's';
+    var fotoHtml = espec.foto_url 
+      ? '<img src="' + espec.foto_url + '" alt="' + espec.nome_exibicao + '"/>'
+      : '<div class="doctor-card__photo-placeholder">👨‍⚕️</div>';
+    card.innerHTML = 
+      '<div class="doctor-card__photo">' + fotoHtml + '</div>' +
+      '<div class="doctor-card__body">' +
+        '<div class="doctor-card__name">' + espec.nome_exibicao + '</div>' +
+        '<div class="doctor-card__crm">CRM ' + espec.crm + ' · ' + espec.uf + '</div>' +
+        '<span class="doctor-card__spec">Psiquiatria</span>' +
+        '<p class="doctor-card__bio">' + (espec.bio || '') + '</p>' +
+        '<div class="doctor-card__footer">' +
+          '<div>' +
+            '<span class="doctor-card__price-label">Consulta online</span>' +
+            '<span class="doctor-card__price">R$ ' + parseFloat(espec.valor_consulta).toFixed(2).replace('.', ',') + '</span>' +
+          '</div>' +
+          '<button class="doctor-card__btn" onclick="abrirHorarios({' +
+            'id:' + espec.id + ',' +
+            'nome:"' + espec.nome_exibicao.replace(/"/g, '\\"') + '",' +
+            'valor:' + espec.valor_consulta + ',' +
+            'disponibilidade:' + JSON.stringify(espec.disponibilidade || []).replace(/"/g, '\\"') +
+          '})">' +
+            'Ver horários' +
+            '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    grid.appendChild(card);
+  });
 }
 
 function abrirHorarios(medico) {
-  medicoSelecionado = medico; // { id, nome, valor }
+  medicoSelecionado = medico; // { id, nome, valor, disponibilidade }
   slotSelecionado = null;
-  document.getElementById('modalDoctor').textContent = medico.nome + ' · Psiquiatria · R$ ' + medico.valor;
+  document.getElementById('modalDoctor').textContent = medico.nome + ' · Psiquiatria · R$ ' + parseFloat(medico.valor).toFixed(2).replace('.', ',');
   document.getElementById('btnProximo').disabled = true;
   mostrarPasso('passo-horario');
-  renderSlots();
+  renderSlots(medico.disponibilidade || []);
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function renderSlots() {
+function renderSlots(disponibilidade) {
   var grid = document.getElementById('slotsGrid');
   grid.innerHTML = '';
-  slots.forEach(function(s) {
+  
+  if (!disponibilidade || disponibilidade.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--ink-3)">Nenhum horário disponível.</div>';
+    return;
+  }
+  
+  disponibilidade.forEach(function(s) {
     var el = document.createElement('div');
     el.className = 'slot';
     el.innerHTML = '<div class="slot__day">'+s.dia+'</div><div class="slot__time">'+s.hora+'</div>';
@@ -976,6 +999,9 @@ irParaDados = function() {
   }
   irParaDadosOriginal();
 };
+
+// Carregar especialistas ao iniciar
+carregarEspecialistas();
 </script>
 </body>
 </html>
