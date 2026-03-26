@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -167,20 +165,28 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 }
 .doctor-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .doctor-card__photo{
-  width:100%;height:180px;
+  width:100%;
+  aspect-ratio:4/3;
   background:var(--acc);
   display:flex;align-items:center;justify-content:center;
   position:relative;
   overflow:hidden;
+  flex-shrink:0;
 }
 .doctor-card__photo img{
-  width:100%;height:100%;object-fit:cover;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center top;
   transition:transform var(--transition);
+  display:block;
+  flex-shrink:0;
 }
 .doctor-card:hover .doctor-card__photo img{transform:scale(1.03)}
 .doctor-card__photo-placeholder{
   font-size:3.5rem;
   opacity:.35;
+  pointer-events:none;
+  user-select:none;
 }
 .doctor-card__body{padding:24px}
 .doctor-card__name{
@@ -670,7 +676,7 @@ function renderEspecialistas() {
     card.className = 'doctor-card fade-up';
     card.style.animationDelay = (idx * 0.1) + 's';
     var fotoHtml = espec.foto_url
-      ? '<img src="' + escHtml(espec.foto_url) + '" alt="' + nome + '"/>'
+      ? '<img src="' + escHtml(espec.foto_url) + '" alt="' + nome + '" onerror="this.outerHTML=\'<div class=\'doctor-card__photo-placeholder\'>👨\u200d⚕️</div>\'" />'
       : '<div class="doctor-card__photo-placeholder">👨‍⚕️</div>';
     card.innerHTML = 
       '<div class="doctor-card__photo">' + fotoHtml + '</div>' +
