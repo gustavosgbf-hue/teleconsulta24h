@@ -673,12 +673,12 @@ function renderEspecialistas() {
             '<span class="doctor-card__price-label">Consulta online</span>' +
             '<span class="doctor-card__price">R$ ' + parseFloat(espec.valor_consulta).toFixed(2).replace('.', ',') + '</span>' +
           '</div>' +
-          '<button class="doctor-card__btn" onclick="abrirHorarios({' +
-            'id:' + espec.id + ',' +
-            'nome:"' + espec.nome_exibicao.replace(/"/g, '\\"') + '",' +
-            'valor:' + espec.valor_consulta + ',' +
-            'disponibilidade:' + JSON.stringify(espec.disponibilidade || []).replace(/"/g, '\\"') +
-          '})">' +
+          '<button class="doctor-card__btn"' +
+            ' data-id="' + espec.id + '"' +
+            ' data-nome="' + espec.nome_exibicao.replace(/"/g, '&quot;') + '"' +
+            ' data-valor="' + espec.valor_consulta + '"' +
+            " data-disponibilidade='" + JSON.stringify(espec.disponibilidade || []).replace(/'/g, '&#39;') + "'" +
+          '>' +
             'Ver horários' +
             '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>' +
           '</button>' +
@@ -898,6 +898,26 @@ function iniciarPollingEsp(agendamentoId) {
 }
 
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.doctor-card__btn');
+  if (!btn) return;
+
+  var disponibilidade = [];
+  try {
+    disponibilidade = JSON.parse(btn.dataset.disponibilidade || '[]');
+  } catch (err) {
+    disponibilidade = [];
+  }
+
+  var medico = {
+    id: parseInt(btn.dataset.id, 10),
+    nome: btn.dataset.nome || '',
+    valor: parseFloat(btn.dataset.valor || '0'),
+    disponibilidade: disponibilidade
+  };
+
+  abrirHorarios(medico);
+});
 
 // --- PiP: Login / Cadastro do paciente ---
 function pipAbrir() {
