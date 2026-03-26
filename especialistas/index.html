@@ -1,878 +1,380 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Especialistas Online · ConsultaJá24h</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --cream:#eeebe5;
-  --white:#ffffff;
-  --ink:#16120e;
-  --ink-2:#443e38;
-  --ink-3:#8c857d;
-  --line:rgba(22,18,14,.09);
-  --line-mid:rgba(22,18,14,.14);
 
-  --psiq:#d6e8f8;
-  --psiq-mid:#8bbde0;
-  --psiq-acc:#1f6fba;
-  --psiq-dark:#0d3f6e;
+Plantão Online 24h
+Como funciona
+Agendar consulta
+Preços
+Perguntas Frequentes
+Consultar agora / Agendar
+Plantão Médico 24h
+Consulta médica online com profissionais certificados.
+Atendimento clínico por videochamada, chat ou voz, com emissão de atestado médico e pedido de exames quando necessário — documentação válida em todo o Brasil.
 
-  --derm:#f5e8e0;
-  --derm-mid:#d9a88a;
-  --derm-acc:#b56b3f;
-  --derm-dark:#6b3520;
+Consultar agora / Agendar
+Tirar dúvida no WhatsApp
+Médicos certificados
+Dados protegidos (LGPD)
+Médico de plantão realizando teleconsulta
+Status
 
-  --endo:#ddf0e2;
-  --endo-mid:#7ec697;
-  --endo-acc:#257a40;
-  --endo-dark:#0f4422;
-  --clin:#e8f4f0;
-  --clin-mid:#7dbfae;
-  --clin-acc:#1a7a62;
-  --clin-dark:#0d4035;
+Plantão médico ativo em todo Brasil
 
-  --font-d:'Cormorant Garamond',Georgia,serif;
-  --font-b:'DM Sans',sans-serif;
-  --r:14px;
-  --r-sm:8px;
-  --r-lg:20px;
-  --ease:.22s cubic-bezier(.4,0,.2,1);
-  --sh:0 2px 16px rgba(22,18,14,.08);
-  --sh-md:0 8px 32px rgba(22,18,14,.13);
-  --sh-lg:0 16px 56px rgba(22,18,14,.16);
-}
+Dr. André Luís - CRM/SP 199324 - Responsável Técnico
 
-html{scroll-behavior:smooth}
-body{
-  background-color:var(--cream);
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='80'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='rgba(255,255,255,0.22)'/%3E%3Cstop offset='50%25' stop-color='rgba(255,255,255,0.05)'/%3E%3Cstop offset='100%25' stop-color='rgba(0,0,0,0.05)'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='198' height='38' rx='2' fill='url(%23g)' stroke='rgba(22,18,14,0.11)' stroke-width='1'/%3E%3Crect x='101' y='41' width='198' height='38' rx='2' fill='url(%23g)' stroke='rgba(22,18,14,0.11)' stroke-width='1'/%3E%3Crect x='-99' y='41' width='198' height='38' rx='2' fill='url(%23g)' stroke='rgba(22,18,14,0.11)' stroke-width='1'/%3E%3C/svg%3E");
-  color:var(--ink);
-  font-family:var(--font-b);
-  font-size:16px;
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
-a{text-decoration:none;color:inherit}
-body::before{
-  content:'';
-  position:fixed;inset:0;z-index:0;
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
-  pointer-events:none;
-}
-body > *{position:relative;z-index:1}
+Como funciona?
+Simples, rápido e sem burocracia. Do agendamento à consulta em poucos cliques.
 
-/* ─── NAV ─── */
-nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(248,246,242,.94);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-  padding:0 40px;
-  height:62px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-logo{
-  font-family:var(--font-d);font-size:1.18rem;font-weight:500;
-  color:var(--ink);letter-spacing:.01em;
-}
-.nav-logo em{color:var(--ink-3);font-weight:300;font-style:normal}
-.nav-links{display:flex;align-items:center;gap:24px}
-.nav-link{font-size:.82rem;color:var(--ink-2);transition:color var(--ease)}
-.nav-link:hover{color:var(--ink)}
-.nav-btn{
-  font-size:.8rem;font-weight:500;
-  padding:8px 20px;border-radius:999px;
-  background:var(--ink);color:var(--white);
-  transition:all var(--ease);
-  box-shadow:0 2px 8px rgba(22,18,14,.2);
-}
-.nav-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(22,18,14,.25)}
+1. Escolha o horário
+Selecione o melhor momento ou opte pelo atendimento imediato.
 
-/* ─── HERO ─── */
-.hero{
-  padding:88px 40px 80px;
-  max-width:820px;margin:0 auto;
-  text-align:center;
-  position:relative;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  background:var(--white);
-  border:1px solid var(--line-mid);
-  border-radius:999px;
-  padding:5px 14px 5px 10px;
-  font-size:.73rem;font-weight:500;
-  color:var(--ink-2);
-  margin-bottom:28px;
-  box-shadow:var(--sh);
-}
-.badge-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:#22c55e;
-  box-shadow:0 0 0 3px rgba(34,197,94,.18);
-  animation:pulse 2s ease-in-out infinite;
-  flex-shrink:0;
-}
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.18)}
-  50%{box-shadow:0 0 0 6px rgba(34,197,94,.08)}
-}
-.hero-h1{
-  font-family:var(--font-d);
-  font-size:clamp(2.6rem,5.5vw,4.2rem);
-  font-weight:400;line-height:1.1;
-  letter-spacing:-.02em;
-  color:var(--ink);
-  margin-bottom:22px;
-}
-.hero-h1 em{font-style:italic;font-weight:300}
-.hero-sub{
-  font-size:1.05rem;font-weight:300;
-  color:var(--ink-2);line-height:1.7;
-  max-width:480px;margin:0 auto 36px;
-}
-.hero-sub strong{font-weight:500;color:var(--ink)}
-.hero-cta-group{
-  display:flex;align-items:center;justify-content:center;
-  gap:12px;flex-wrap:wrap;
-}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--font-b);font-size:.9rem;font-weight:600;
-  padding:15px 32px;border-radius:999px;
-  background:var(--ink);color:var(--white);
-  transition:all var(--ease);
-  box-shadow:0 4px 20px rgba(22,18,14,.22);
-  position:relative;overflow:hidden;
-}
-.btn-primary::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);
-  pointer-events:none;
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(22,18,14,.3)}
-.btn-primary:active{transform:translateY(0)}
-.btn-ghost{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:.84rem;font-weight:400;
-  color:var(--ink-2);
-  padding:14px 20px;
-  border-radius:999px;
-  transition:color var(--ease);
-}
-.btn-ghost:hover{color:var(--ink)}
-.hero-note{
-  margin-top:20px;font-size:.73rem;color:var(--ink-3);
-  display:flex;align-items:center;justify-content:center;gap:16px;
-  flex-wrap:wrap;
-}
-.hero-note span{display:flex;align-items:center;gap:5px}
-.hero-note svg{opacity:.5}
+2. Seus dados
+Informe seu nome e WhatsApp para receber o acesso.
 
-/* ─── PROVA SOCIAL ─── */
-/* ── Ticker de prova social ── */
-.proof{
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background:var(--white);
-  padding:0;
-  overflow:hidden;
-}
-.proof-ticker{
-  display:flex;
-  width:max-content;
-  animation:ticker-scroll 28s linear infinite;
-}
-.proof-ticker:hover{animation-play-state:paused}
-.proof-track{
-  display:flex;
-  align-items:center;
-}
-.proof-item{
-  display:flex;align-items:center;gap:8px;
-  padding:18px 28px;
-  border-right:1px solid var(--line);
-  flex-shrink:0;
-  white-space:nowrap;
-}
-.proof-icon{font-size:1.1rem;flex-shrink:0}
-.proof-text{display:flex;align-items:center;gap:5px}
-.proof-text strong{font-size:.84rem;font-weight:600;color:var(--ink)}
-.proof-text span{font-size:.84rem;color:var(--ink-3);font-weight:300}
-.proof-stars{color:#f59e0b;letter-spacing:2px;font-size:.76rem}
-@keyframes ticker-scroll{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
-}
+3. Pagamento Seguro
+Pagamento rápido via PIX ou Cartão para confirmar sua consulta.
 
-/* ─── SECTION COMMONS ─── */
-.section{padding:72px 40px;max-width:1080px;margin:0 auto}
-.sec-label{
-  font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--ink-3);margin-bottom:10px;
-}
-.sec-title{
-  font-family:var(--font-d);
-  font-size:clamp(1.8rem,3.5vw,2.6rem);
-  font-weight:400;line-height:1.15;
-  margin-bottom:12px;color:var(--ink);
-}
-.sec-title em{font-style:italic}
-.sec-sub{
-  font-size:.9rem;font-weight:300;color:var(--ink-2);
-  margin-bottom:48px;line-height:1.65;
-}
-hr.div{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 auto}
+4. Link via WhatsApp
+Após o pagamento, você será atendido por chat ou videochamada conforme sua preferência. O link será enviado diretamente no seu WhatsApp.
 
-/* ─── URGENCY STRIP ─── */
-.urgency-strip{
-  background:var(--ink);
-  color:rgba(255,255,255,.85);
-  padding:11px 40px;
-  text-align:center;
-  font-size:.78rem;font-weight:400;
-  display:flex;align-items:center;justify-content:center;
-  gap:20px;flex-wrap:wrap;
-}
-.urgency-strip b{color:#fff;font-weight:600}
-.urgency-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:#22c55e;display:inline-block;
-  animation:pulse 2s ease-in-out infinite;
-  margin-right:4px;vertical-align:middle;
-}
+Médicos Online
+Selecione um profissional para iniciar seu atendimento via Telemedicina.
 
-/* ─── SPEC CARDS ─── */
-.specs-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
-  gap:20px;
-}
-.spec-card{
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:var(--r-lg);
-  overflow:hidden;
-  box-shadow:var(--sh);
-  transition:all var(--ease);
-  display:flex;flex-direction:column;
-  position:relative;
-}
-.spec-card:hover{
-  transform:translateY(-4px);
-  box-shadow:var(--sh-lg);
-  border-color:transparent;
-}
-.spec-card-top{
-  padding:28px 28px 20px;
-  display:flex;flex-direction:column;gap:14px;
-  flex:1;
-}
-.spec-card-accent{
-  height:4px;
-  border-radius:var(--r-lg) var(--r-lg) 0 0;
-  margin-bottom:-1px;
-}
-.spec-card--clin .spec-card-accent{background:var(--clin-acc)}
-.spec-card--psiq .spec-card-accent{background:var(--psiq-acc)}
-.spec-card--derm .spec-card-accent{background:var(--derm-acc)}
-.spec-card--endo .spec-card-accent{background:var(--endo-acc)}
-.spec-card-head{display:flex;align-items:flex-start;gap:14px}
-.spec-card-icon{
-  width:46px;height:46px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.35rem;flex-shrink:0;
-}
-.spec-card--clin .spec-card-icon{background:var(--clin)}
-.spec-card--psiq .spec-card-icon{background:var(--psiq)}
-.spec-card--derm .spec-card-icon{background:var(--derm)}
-.spec-card--endo .spec-card-icon{background:var(--endo)}
-.spec-card-name{
-  font-family:var(--font-d);
-  font-size:1.4rem;font-weight:500;
-  color:var(--ink);letter-spacing:-.01em;
-  margin-bottom:3px;
-}
-.spec-card-crm{
-  font-size:.71rem;color:var(--ink-3);font-weight:300;
-}
-.spec-card-desc{
-  font-size:.84rem;font-weight:300;color:var(--ink-2);
-  line-height:1.65;flex:1;
-}
-.spec-card-avail{
-  display:flex;align-items:center;gap:7px;
-  font-size:.75rem;font-weight:500;
-  margin-top:4px;
-}
-.spec-card--clin .spec-card-avail{color:var(--clin-acc)}
-.spec-card--psiq .spec-card-avail{color:var(--psiq-acc)}
-.spec-card--derm .spec-card-avail{color:var(--derm-acc)}
-.spec-card--endo .spec-card-avail{color:var(--endo-acc)}
-.avail-dot{
-  width:6px;height:6px;border-radius:50%;flex-shrink:0;
-  animation:pulse 2s ease-in-out infinite;
-}
-.spec-card--clin .avail-dot{background:var(--clin-acc);box-shadow:0 0 0 3px rgba(26,122,98,.15)}
-.spec-card--psiq .avail-dot{background:var(--psiq-acc);box-shadow:0 0 0 3px rgba(31,111,186,.15)}
-.spec-card--derm .avail-dot{background:var(--derm-acc);box-shadow:0 0 0 3px rgba(181,107,63,.15)}
-.spec-card--endo .avail-dot{background:var(--endo-acc);box-shadow:0 0 0 3px rgba(37,122,64,.15)}
-.spec-card-footer{
-  padding:16px 28px;
-  border-top:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;
-}
-.spec-card-price{
-  font-family:var(--font-d);
-  font-size:1.25rem;font-weight:500;color:var(--ink);
-  line-height:1;
-}
-.spec-card-price small{
-  display:block;font-size:.68rem;color:var(--ink-3);
-  font-family:var(--font-b);font-weight:300;margin-bottom:2px;
-}
-.spec-cta{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:.8rem;font-weight:600;
-  padding:10px 20px;border-radius:999px;
-  border:none;cursor:pointer;
-  transition:all var(--ease);
-  white-space:nowrap;
-  box-shadow:0 2px 10px rgba(0,0,0,.12);
-}
-.spec-card--clin .spec-cta{background:var(--clin-acc);color:#fff}
-.spec-card--psiq .spec-cta{background:var(--psiq-acc);color:#fff}
-.spec-card--derm .spec-cta{background:var(--derm-acc);color:#fff}
-.spec-card--endo .spec-cta{background:var(--endo-acc);color:#fff}
-.spec-cta:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.18)}
-.spec-cta:active{transform:translateY(0)}
+Dra. Bianca Ferreira Maion
+Dra. Bianca Ferreira Maion
+Clínico Geral
 
-/* ─── HOW ─── */
-.how-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:var(--r-lg);
-  overflow:hidden;
-}
-.how-step{background:var(--white);padding:36px 28px}
-.how-n{
-  font-family:var(--font-d);
-  font-size:3rem;font-weight:300;
-  color:var(--line-mid);line-height:1;margin-bottom:20px;
-}
-.how-title{font-size:.92rem;font-weight:600;margin-bottom:8px;color:var(--ink)}
-.how-desc{font-size:.82rem;font-weight:300;color:var(--ink-2);line-height:1.65}
+279810
 
-/* ─── CTA BOTTOM ─── */
-.cta-bottom{
-  background:var(--ink);
-  padding:80px 40px;text-align:center;
-}
-.cta-bottom-h{
-  font-family:var(--font-d);
-  font-size:clamp(1.8rem,4vw,3rem);
-  font-weight:300;line-height:1.15;
-  color:var(--white);margin-bottom:14px;
-}
-.cta-bottom-h em{font-style:italic}
-.cta-bottom-sub{
-  font-size:.9rem;font-weight:300;
-  color:rgba(255,255,255,.45);
-  margin-bottom:36px;line-height:1.7;
-}
-.cta-bottom-sub strong{color:rgba(255,255,255,.75);font-weight:500}
-.btn-light{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:.9rem;font-weight:600;
-  padding:15px 32px;border-radius:999px;
-  background:var(--white);color:var(--ink);
-  transition:all var(--ease);
-  box-shadow:0 4px 20px rgba(0,0,0,.3);
-}
-.btn-light:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.cta-urgency{
-  margin-top:16px;font-size:.73rem;
-  color:rgba(255,255,255,.3);
-}
+Atestado Válido Nacional
+Pedido de Exames
+R$ 69,90
+Atendimento 10-15 min
+Exclusivo Chat
+Selecione o horário da consulta!
 
-/* ─── FOOTER ─── */
-footer{
-  border-top:1px solid var(--line);
-  padding:28px 40px;
-  text-align:center;
-  font-size:.75rem;color:var(--ink-3);
-  background:var(--cream);
-}
-footer a{color:var(--ink-2);transition:color var(--ease)}
-footer a:hover{color:var(--ink)}
+Consulta exclusiva por chat com sigilo garantido.
 
-/* ─── ANIMATIONS ─── */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(16px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.fade-up{opacity:0;animation:fadeUp .55s ease forwards}
-.fade-up:nth-child(1){animation-delay:.04s}
-.fade-up:nth-child(2){animation-delay:.13s}
-.fade-up:nth-child(3){animation-delay:.22s}
-
-/* ─── RESPONSIVE ─── */
-@media(max-width:900px){
-  .how-grid{grid-template-columns:1fr}
-
-}
-@media(max-width:768px){
-  nav{padding:0 20px}
-  .nav-links{display:none}
-  .hero{padding:60px 20px 56px}
-  .proof{padding:20px}
-  .section{padding:52px 20px}
-  .urgency-strip{padding:10px 20px;gap:12px}
-  .specs-grid{grid-template-columns:1fr}
-  .cta-bottom{padding:60px 20px}
-  footer{padding:24px 20px}
-}
-@media(max-width:480px){
-  .hero-h1{font-size:2.3rem}
-  .hero-note{gap:10px}
-  .spec-card-footer{flex-direction:column;align-items:stretch}
-  .spec-cta{justify-content:center}
-}
-
-/* ── SCROLL FADE (Apple-style) ── */
-.reveal{
-  opacity:0;
-  transform:translateY(28px);
-  transition:opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
-}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:.1s}
-.reveal-delay-2{transition-delay:.2s}
-.reveal-delay-3{transition-delay:.3s}
-
-/* Cards em breve — desabilitados sutilmente */
-.spec-card--disabled{
-  opacity:.55;
-  cursor:default;
-  pointer-events:none;
-}
-.spec-card--disabled:hover{
-  transform:none;
-  box-shadow:none;
-  border-color:var(--line);
-}
-.spec-cta--disabled{
-  opacity:.5;
-  cursor:not-allowed;
-  filter:none;
-  background:rgba(255,255,255,.1) !important;
-  color:rgba(255,255,255,.45) !important;
-  box-shadow:none;
-}
-.spec-cta--disabled:hover{
-  filter:none;
-  transform:none;
-  box-shadow:none;
-}
-.avail-dot--inativo{
-  background:rgba(255,255,255,.25) !important;
-  box-shadow:none !important;
-  animation:none !important;
-}
-</style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <a href="/" class="nav-logo">Consulta<em>Já</em>24h</a>
-  <div class="nav-links">
-    <a href="/especialistas" class="nav-link" style="font-weight:500;color:var(--ink)">Especialistas</a>
-    <a href="/triagem.html" class="nav-link">Consulta imediata</a>
-  </div>
-  <a href="/triagem.html" class="nav-btn">Consulta imediata →</a>
-</nav>
-
-<!-- URGENCY STRIP -->
-<div class="urgency-strip reveal">
-  <span><span class="urgency-dot"></span><b>Horários disponíveis agora</b> · Agenda atualizada em tempo real</span>
-  <span style="color:rgba(255,255,255,.35)">|</span>
-  <span>Agendamento em menos de 2 minutos · sem burocracia</span>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-badge reveal">
-    <span class="badge-dot"></span>
-    Especialistas online · CRM ativo · Agendamento imediato
-  </div>
-
-  <h1 class="hero-h1 reveal reveal-delay-1">
-    Agende com especialista<br><em>online hoje</em>
-  </h1>
-
-  <p class="hero-sub reveal reveal-delay-2">
-    Escolha o especialista, agende o horário e resolva<br>sua consulta <strong>ainda hoje</strong>.
-  </p>
-
-  <div class="hero-cta-group reveal reveal-delay-3">
-    <a href="#especialidades" class="btn-primary">
-      Escolher especialista agora
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-    </a>
-    <a href="/triagem.html" class="btn-ghost">
-      Consulta imediata →
-    </a>
-  </div>
-
-  <div class="hero-note reveal reveal-delay-3">
-    <span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Confirmação imediata
-    </span>
-    <span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Sigilo médico garantido
-    </span>
-    <span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Médicos com CRM ativo
-    </span>
-  </div>
-</section>
-
-<!-- PROVA SOCIAL -->
-<div class="proof reveal">
-  <div class="proof-ticker" aria-hidden="true">
-    <div class="proof-track">
-      <div class="proof-item">
-        <div class="proof-icon">🩺</div>
-        <div class="proof-text"><strong>+800 atendimentos</strong><span>com segurança</span></div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-text"><strong><span class="proof-stars">★★★★★</span> 5,0</strong><span>por pacientes reais</span></div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-icon">✅</div>
-        <div class="proof-text"><strong>CRM verificado</strong><span>todos os médicos</span></div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-icon">⚡</div>
-        <div class="proof-text"><strong>Confirmação</strong><span>imediata</span></div>
-      </div>
-    </div>
-    <!-- Duplicado para loop contínuo -->
-    <div class="proof-track" aria-hidden="true">
-      <div class="proof-item">
-        <div class="proof-icon">🩺</div>
-        <div class="proof-text"><strong>+800 atendimentos</strong><span>com segurança</span></div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-text"><strong><span class="proof-stars">★★★★★</span> 5,0</strong><span>por pacientes reais</span></div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-icon">✅</div>
-        <div class="proof-text"><strong>CRM verificado</strong><span>todos os médicos</span></div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-icon">⚡</div>
-        <div class="proof-text"><strong>Confirmação</strong><span>imediata</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ESPECIALIDADES -->
-<section class="section" id="especialidades">
-  <div class="sec-label reveal">Especialidades disponíveis</div>
-  <h2 class="sec-title reveal reveal-delay-1">Seu especialista está<br><em>disponível hoje</em></h2>
-  <p class="sec-sub reveal reveal-delay-2">Confira os horários disponíveis e escolha o melhor para você.</p>
-
-  <div class="specs-grid">
-
-    <!-- PSIQUIATRIA -->
-    <!-- PSIQUIATRIA -->
-    <a href="/especialistas/psiquiatria" class="spec-card spec-card--psiq fade-up reveal reveal-delay-2" style="cursor:pointer">
-      <div class="spec-card-accent"></div>
-      <div class="spec-card-top">
-        <div class="spec-card-head">
-          <div class="spec-card-icon">🧠</div>
-          <div>
-            <div class="spec-card-name">Psiquiatria</div>
-            <div class="spec-card-crm">Médicos com CRM ativo · Consulta por vídeo</div>
-          </div>
-        </div>
-        <p class="spec-card-desc">Ansiedade, depressão, insônia, TDAH. Avaliação completa e acompanhamento com psiquiatra.</p>
-        <div class="spec-card-avail">
-          <span class="avail-dot"></span>
-          Ver horários disponíveis
-        </div>
-      </div>
-      <div class="spec-card-footer">
-        <span class="spec-cta">
-          Agendar agora
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-      </div>
-    </a>
-
-    <!-- DERMATOLOGIA -->
-    <div class="spec-card spec-card--derm spec-card--disabled fade-up reveal reveal-delay-3">
-      <div class="spec-card-accent"></div>
-      <div class="spec-card-top">
-        <div class="spec-card-head">
-          <div class="spec-card-icon">🌿</div>
-          <div>
-            <div class="spec-card-name">Dermatologia</div>
-            <div class="spec-card-crm">Médicos com CRM ativo · Consulta por vídeo</div>
-          </div>
-        </div>
-        <p class="spec-card-desc">Acne, manchas, dermatite, queda de cabelo. Diagnóstico e orientação com dermatologista especialista.</p>
-        <div class="spec-card-avail">
-          <span class="avail-dot avail-dot--inativo"></span>
-          Disponível em breve
-        </div>
-      </div>
-      <div class="spec-card-footer">
-        <button class="spec-cta spec-cta--disabled" disabled>
-          Em breve
-        </button>
-      </div>
-    </div>
-
-    <!-- ENDOCRINOLOGIA -->
-    <a href="/especialistas/endocrinologia" class="spec-card spec-card--endo fade-up reveal reveal-delay-4" style="cursor:pointer">
-      <div class="spec-card-accent"></div>
-      <div class="spec-card-top">
-        <div class="spec-card-head">
-          <div class="spec-card-icon">⚗️</div>
-          <div>
-            <div class="spec-card-name">Endocrinologia</div>
-            <div class="spec-card-crm">Médicos com CRM ativo · Consulta por vídeo</div>
-          </div>
-        </div>
-        <p class="spec-card-desc">Diabetes, tireoide, obesidade e alterações hormonais. Acompanhamento completo para o seu caso.</p>
-        <div class="spec-card-avail">
-          <span class="avail-dot"></span>
-          Ver horários disponíveis
-        </div>
-      </div>
-      <div class="spec-card-footer">
-        <span class="spec-cta">
-          Agendar agora
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<hr class="div"/>
-
-<!-- COMO FUNCIONA -->
-<section class="section">
-  <div class="sec-label reveal">Simples assim</div>
-  <h2 class="sec-title reveal reveal-delay-1">Do clique à consulta<br><em>em minutos</em></h2>
-
-  <div class="how-grid reveal reveal-delay-2">
-    <div class="how-step">
-      <div class="how-n">01</div>
-      <div class="how-title">Escolha e agende</div>
-      <p class="how-desc">Veja os especialistas disponíveis e escolha o horário. Leva menos de 1 minuto.</p>
-    </div>
-    <div class="how-step">
-      <div class="how-n">02</div>
-      <div class="how-title">Pague por PIX</div>
-      <p class="how-desc">Confirmação imediata após o pagamento. Sem cadastro, sem burocracia.</p>
-    </div>
-    <div class="how-step">
-      <div class="how-n">03</div>
-      <div class="how-title">Consulta por vídeo</div>
-      <p class="how-desc">No horário marcado, o médico já chega preparado pelo link enviado. Direto do celular.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="cta-bottom">
-  <h2 class="cta-bottom-h reveal">
-    Quer falar com médico<br><em>agora?</em>
-  </h2>
-  <p class="cta-bottom-sub reveal reveal-delay-1">
-    Prefere atendimento imediato? Fale com clínico geral agora.<br>
-    <strong>Sem espera. R$ 49,90 via PIX — começa em minutos.</strong>
-  </p>
-  <a href="/triagem.html" class="btn-light reveal reveal-delay-2">
-    Falar com médico agora →
-  </a>
-  <p class="cta-urgency">Resposta em 3–5 minutos · Médico com CRM ativo · Sigilo garantido</p>
-</section>
-
-<footer>
-  <p style="margin-bottom:6px">
-    <strong style="color:var(--ink-2);font-weight:500">ConsultaJá24h</strong> — JG Fonseca Serviços Médicos LTDA
-  </p>
-  <p>
-    <a href="/termos.html">Termos de Uso</a> &nbsp;·&nbsp;
-    <a href="/privacy.html">Política de Privacidade</a>
-  </p>
-  <p style="margin-top:10px;font-size:.68rem;color:#b0a89f">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
-</footer>
+Escolha o Horário
+Brasília
+Faltando menos de 30 min, não é permitido cancelamento após o pagamento devido à reserva imediata da vaga.
 
 
-<script>
-(function(){
-  var els = document.querySelectorAll('.reveal');
-  if(!els.length) return;
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
-    });
-  },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
-  els.forEach(function(el){ io.observe(el); });
-})();
-</script>
+qui.
+26
+
+sex.
+27
+
+sáb.
+28
+
+dom.
+29
+
+seg.
+30
+
+ter.
+31
+
+qua.
+1
+
+qui.
+2
+
+sex.
+3
+
+sáb.
+4
+
+dom.
+5
+
+seg.
+6
+
+ter.
+7
+
+qua.
+8
+
+qui.
+9
+
+sex.
+10
+
+sáb.
+11
+
+dom.
+12
+
+seg.
+13
+
+ter.
+14
+
+qua.
+15
+
+qui.
+16
+
+sex.
+17
+
+sáb.
+18
+
+dom.
+19
+
+seg.
+20
+
+ter.
+21
+
+qua.
+22
+
+qui.
+23
+
+sex.
+24
+19:30
+19:40
+19:50
+20:00
+20:10
+20:20
+20:30
+20:40
+20:50
+21:00
+André Luís Ferreira
+André Luís Ferreira
+Clinico Geral
+
+CRM/SP 199324
+
+Atestado Válido Nacional
+Pedido de Exames
+R$ 69,90
+Atendimento 10-15 min
+Chat ou Videochamada
+Selecione o horário da consulta!
+
+Consulta via vídeo ou chat com sigilo garantido.
+
+Escolha o Horário
+Brasília
+Faltando menos de 30 min, não é permitido cancelamento após o pagamento devido à reserva imediata da vaga.
 
 
-<!-- ═══ WIDGET WHATSAPP PiP ═══════════════════════════════ -->
-<style>
-#wa-pip-btn{
-  position:fixed;bottom:24px;right:24px;z-index:9998;
-  width:56px;height:56px;border-radius:50%;
-  background:#25d366;color:#fff;border:none;
-  box-shadow:0 4px 20px rgba(37,211,102,.5);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:transform .18s,box-shadow .18s;
-}
-#wa-pip-btn:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.6)}
-#wa-pip-btn svg{pointer-events:none}
+qui.
+26
 
-#wa-pip{
-  position:fixed;bottom:92px;right:24px;z-index:9999;
-  width:320px;border-radius:18px;overflow:hidden;
-  box-shadow:0 8px 40px rgba(0,0,0,.22);
-  font-family:'Outfit',sans-serif;
-  display:none;
-  animation:wa-in .22s cubic-bezier(.4,0,.2,1);
-}
-#wa-pip.open{display:block}
-@keyframes wa-in{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+sex.
+27
 
-#wa-pip-head{
-  background:#25d366;
-  padding:14px 16px;
-  display:flex;align-items:center;gap:12px;
-}
-#wa-pip-head-icon{
-  width:40px;height:40px;border-radius:50%;
-  background:rgba(255,255,255,.2);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-#wa-pip-head-info{flex:1}
-#wa-pip-head-title{font-size:.92rem;font-weight:700;color:#fff;line-height:1.2}
-#wa-pip-head-sub{font-size:.72rem;color:rgba(255,255,255,.85);margin-top:1px}
-#wa-pip-close{
-  background:none;border:none;color:rgba(255,255,255,.8);
-  font-size:1.1rem;cursor:pointer;padding:4px;line-height:1;
-  transition:color .15s;flex-shrink:0;
-}
-#wa-pip-close:hover{color:#fff}
+sáb.
+28
 
-#wa-pip-body{
-  background:#1a1a1a;
-  padding:16px;display:flex;flex-direction:column;gap:10px;
-}
-#wa-pip-bubble{
-  background:#262626;
-  border-radius:12px 12px 12px 4px;
-  padding:12px 14px;
-  font-size:.84rem;color:rgba(255,255,255,.85);
-  line-height:1.55;font-weight:300;
-}
-#wa-pip-nome,#wa-pip-queixa{
-  width:100%;padding:11px 14px;border-radius:12px;
-  background:#262626;border:1px solid rgba(255,255,255,.08);
-  color:#fff;font-family:inherit;font-size:.85rem;
-  outline:none;transition:border-color .18s;resize:none;
-}
-#wa-pip-nome::placeholder,#wa-pip-queixa::placeholder{color:rgba(255,255,255,.3)}
-#wa-pip-nome:focus,#wa-pip-queixa:focus{border-color:rgba(37,211,102,.5)}
-#wa-pip-queixa{min-height:72px;line-height:1.5}
-#wa-pip-send{
-  width:100%;padding:13px;border-radius:12px;border:none;
-  background:#25d366;color:#fff;
-  font-family:inherit;font-size:.88rem;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:filter .15s,transform .1s;
-  box-shadow:0 3px 12px rgba(37,211,102,.3);
-}
-#wa-pip-send:hover{filter:brightness(1.08);transform:translateY(-1px)}
-#wa-pip-send:active{transform:translateY(0)}
+dom.
+29
 
-@media(max-width:380px){
-  #wa-pip{width:calc(100vw - 32px);right:16px;bottom:84px}
-  #wa-pip-btn{right:16px;bottom:20px}
-}
-</style>
+seg.
+30
 
-<!-- Botão flutuante -->
-<button id="wa-pip-btn" aria-label="Falar conosco" onclick="waPipToggle()">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</button>
+ter.
+31
 
-<!-- PiP widget -->
-<div id="wa-pip">
-  <div id="wa-pip-head">
-    <div id="wa-pip-head-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </div>
-    <div id="wa-pip-head-info">
-      <div id="wa-pip-head-title">ConsultaJá24h</div>
-      <div id="wa-pip-head-sub">Online agora · Resposta em minutos</div>
-    </div>
-    <button id="wa-pip-close" onclick="waPipToggle()" aria-label="Fechar">✕</button>
-  </div>
-  <div id="wa-pip-body">
-    <div id="wa-pip-bubble">Olá! Me conta o que está sentindo e te respondo em minutos.</div>
-    <input id="wa-pip-nome" type="text" placeholder="Seu nome" autocomplete="given-name"/>
-    <textarea id="wa-pip-queixa" placeholder="Dor de barriga, febre, ansiedade…"></textarea>
-    <button id="wa-pip-send" onclick="waPipEnviar()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Falar no WhatsApp
-    </button>
-  </div>
-</div>
+qua.
+1
 
-<script>
-function waPipToggle(){
-  var pip=document.getElementById('wa-pip');
-  pip.classList.toggle('open');
-  if(pip.classList.contains('open'))document.getElementById('wa-pip-nome').focus();
-}
-function waPipEnviar(){
-  var nome=(document.getElementById('wa-pip-nome').value||'').trim();
-  var queixa=(document.getElementById('wa-pip-queixa').value||'').trim();
-  var msg='Olá! Gostaria de agendar uma consulta.';
-  if(nome)msg+=' Me chamo '+nome+'.';
-  if(queixa)msg+=' Estou com: '+queixa+'.';
-  window.open('https://wa.me/5598989272727?text='+encodeURIComponent(msg),'_blank');
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('wa-pip').classList.remove('open');});
-</script>
-<!-- ═══ FIM WIDGET WHATSAPP PiP ══════════════════════════════ -->
+qui.
+2
 
-</body>
-</html>
+sex.
+3
+
+sáb.
+4
+
+dom.
+5
+
+seg.
+6
+
+ter.
+7
+
+qua.
+8
+
+qui.
+9
+
+sex.
+10
+
+sáb.
+11
+
+dom.
+12
+
+seg.
+13
+
+ter.
+14
+
+qua.
+15
+
+qui.
+16
+
+sex.
+17
+
+sáb.
+18
+
+dom.
+19
+
+seg.
+20
+
+ter.
+21
+
+qua.
+22
+
+qui.
+23
+
+sex.
+24
+20:40
+20:50
+21:00
+21:10
+21:20
+21:30
+21:40
+21:50
+22:00
+22:10
+22:20
+22:30
+22:40
+22:50
+23:00
+23:10
+23:20
+23:30
+23:40
+23:50
+Investimento em sua saúde
+Valor único e transparente. Sem mensalidades ou taxas escondidas.
+
+Preço Único Promocional
+Consulta Médica Online
+R$ 69,90
+Pagamento único por consulta
+
+Atendimento médico completo
+Atestado Médico
+Pedido de Exames
+Pagamento seguro via PIX ou Cartão de Crédito
+Agendar agora
+CRM Verificado
+
+Documentação Médica Digital Válida
+
+Conformidade CFM
+
+Proteção de Dados (LGPD)
+
+Google
+Avaliações
+4.9
+(636 avaliações)
+
+Ana Souza
+Ana Souza
+
+há 1 semanas
+
+Excelente! Fui atendida em 10 minutos e recebi meu atestado no WhatsApp.
+
+Carlos Mendes
+Carlos Mendes
+
+há 2 semanas
+
+Muito prático para quem não tem tempo de ir ao hospital. Recomendo demais.
+
+Fernanda Lima
+Fernanda Lima
+
+há 4 semanas
+
+A plataforma é super simples e o médico foi muito atencioso. Nota 10.
+
+
+
+Dúvidas Frequentes
+Perguntas Comuns
+Tudo o que você precisa saber sobre seu atendimento digital.
+
+
+O atestado médico é aceito na minha empresa?
+
+O médico pode pedir exames?
+
+Quanto tempo demora o atendimento?
+
+É seguro fazer consulta online?
+Ainda tem dúvidas?
+
+Fale com nosso suporte humano agora.
+
+Suporte via WhatsApp
+Plantão Online 24h
+Atendimento médico completo via telemedicina para todo o território nacional. Conectando você a profissionais qualificados com agilidade e segurança.
+
+CRM Verificado 24h
+Contato e Suporte
+(67) 99178-9345
+plantaoonline24h@gmail.com
+Atendimento ao Cliente
+Gerenciar minha consulta
+Termos de Uso
+Política de Privacidade
+Política de Cookies
+Consentimento (TCLE)
+Acesso Profissional
+Área do Médico
+Área do Admin
+Área do Parceiro
+ANDRE LUIS FERREIRA SERVIÇOS MEDICOS
+
+CNPJ: 32.493.698/0001-10
+
+Responsável Técnico: André Luís Ferreira CRM/SP 199324 - CRM/MS 11031
+
+📍 São Manuel / SP - Rua Angelo Bertozzo nº 7, Tancredo Neves, CEP 18654-516
+
+© 2024 Plantão Online 24h. Todos os direitos reservados.
