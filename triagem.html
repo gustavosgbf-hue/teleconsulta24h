@@ -372,7 +372,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="box-head"><h1>Fale com um médico agora</h1><p>Preencha os dados abaixo. Em alguns minutos um médico com CRM ativo estará com você.</p></div>
     <div class="identify-body">
 
-```
   <!-- Autopreenchimento — opcional, discreto -->
   <div class="autofill-wrap">
     <div class="autofill-label">Já consultou antes? Digite seu WhatsApp e preenchemos tudo pra você.</div>
@@ -439,7 +438,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <button class="id-btn" onclick="avancarIdentificacao()">Continuar — quase lá →</button>
 </div>
-```
 
   </div>
 </div>
@@ -492,7 +490,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="screen-disponibilidade" class="screen box-center">
   <div class="dispon-wrap" style="text-align:center">
 
-```
 <!-- Atendimento imediato — foco total -->
 <div id="imediato-section" style="padding:12px 0 8px">
   <h1 id="disp-titulo" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;margin-bottom:10px">Fale com um médico agora</h1>
@@ -508,7 +505,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="aviso-noturno" style="display:none;margin-top:20px;padding:12px 16px;background:rgba(255,189,46,.06);border:1px solid rgba(255,189,46,.2);border-radius:12px;font-size:.8rem;color:rgba(255,210,120,.85);line-height:1.55;text-align:center">
   🌙 <strong style="color:rgba(255,220,140,.95)">Atendimento noturno:</strong> entre 23h e 7h o atendimento continua, mas pode haver espera maior até o médico assumir.
 </div>
-```
 
   </div>
 </div>
@@ -526,7 +522,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="pay-body">
 
-```
   <!-- Selo online agora -->
   <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;padding:9px 18px;border-radius:999px;background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);width:fit-content;margin-left:auto;margin-right:auto">
     <div style="width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0"></div>
@@ -664,7 +659,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="pay-divider">pagamento seguro via</div>
   <div class="pay-seguro">🔒 PIX via PagBank · Cartão via Efí · Empresa médica registrada</div>
 </div>
-```
 
   </div>
 </div>
@@ -760,7 +754,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="encerrado-titulo">Como foi sua consulta?</h2>
     <p class="encerrado-sub">Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.8rem;color:rgba(255,255,255,.35)">Leva menos de 1 minuto.</span></p>
 
-```
 <a href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
   style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;text-decoration:none;box-shadow:0 6px 24px rgba(180,224,90,.28);margin-bottom:16px">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -776,7 +769,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div style="font-size:.7rem;color:rgba(255,255,255,.2);line-height:1.6">
   ConsultaJá24h · Atendimento médico online 24h
 </div>
-```
 
   </div>
 </div>
@@ -1407,7 +1399,10 @@ async function sendTriage(text){
   var reply=await callAPI('/api/triage',SYSTEM_TRIAGE,triageHistory,text);
   removeTyping('triageChat');
   try{
-    var clean=String(reply).replace(/```json|```/g,'').trim();
+    var clean=String(reply)
+      .replace(/```[a-zA-Z0-9_-]*\n?/g,'')
+      .replace(/```/g,'')
+      .trim();
     var parsed=null;
     try{ parsed=JSON.parse(clean); }catch(e){}
     if(!parsed){
