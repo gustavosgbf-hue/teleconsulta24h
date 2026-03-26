@@ -372,7 +372,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="box-head"><h1>Fale com um médico agora</h1><p>Preencha os dados abaixo. Em alguns minutos um médico com CRM ativo estará com você.</p></div>
     <div class="identify-body">
 
-```
   <!-- Autopreenchimento — opcional, discreto -->
   <div class="autofill-wrap">
     <div class="autofill-label">Já consultou antes? Digite seu WhatsApp e preenchemos tudo pra você.</div>
@@ -439,7 +438,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <button class="id-btn" onclick="avancarIdentificacao()">Continuar — quase lá →</button>
 </div>
-```
 
   </div>
 </div>
@@ -492,7 +490,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="screen-disponibilidade" class="screen box-center">
   <div class="dispon-wrap" style="text-align:center">
 
-```
 <!-- Atendimento imediato — foco total -->
 <div id="imediato-section" style="padding:12px 0 8px">
   <h1 id="disp-titulo" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;margin-bottom:10px">Fale com um médico agora</h1>
@@ -508,7 +505,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="aviso-noturno" style="display:none;margin-top:20px;padding:12px 16px;background:rgba(255,189,46,.06);border:1px solid rgba(255,189,46,.2);border-radius:12px;font-size:.8rem;color:rgba(255,210,120,.85);line-height:1.55;text-align:center">
   🌙 <strong style="color:rgba(255,220,140,.95)">Atendimento noturno:</strong> entre 23h e 7h o atendimento continua, mas pode haver espera maior até o médico assumir.
 </div>
-```
 
   </div>
 </div>
@@ -526,7 +522,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="pay-body">
 
-```
   <!-- Selo online agora -->
   <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;padding:9px 18px;border-radius:999px;background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.25);width:fit-content;margin-left:auto;margin-right:auto">
     <div style="width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0"></div>
@@ -664,7 +659,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="pay-divider">pagamento seguro via</div>
   <div class="pay-seguro">🔒 PIX via PagBank · Cartão via Efí · Empresa médica registrada</div>
 </div>
-```
 
   </div>
 </div>
@@ -760,7 +754,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="encerrado-titulo">Como foi sua consulta?</h2>
     <p class="encerrado-sub">Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.8rem;color:rgba(255,255,255,.35)">Leva menos de 1 minuto.</span></p>
 
-```
 <a href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
   style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;text-decoration:none;box-shadow:0 6px 24px rgba(180,224,90,.28);margin-bottom:16px">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -776,7 +769,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div style="font-size:.7rem;color:rgba(255,255,255,.2);line-height:1.6">
   ConsultaJá24h · Atendimento médico online 24h
 </div>
-```
 
   </div>
 </div>
@@ -1107,9 +1099,9 @@ async function pagarCartao() {
   if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2);
   if(tel.length===12&&tel.startsWith('55'))tel=tel.slice(2);
   var cpf  = document.getElementById('payCPF').value.trim();
+  var cpfNumerico = cpf.replace(/\D/g,'');
   if(!nome){document.getElementById('payNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
-  if(!cpf){document.getElementById('payCPF').focus();return;}
 
   var numero   = document.getElementById('cfNumero').value.replace(/\s/g,'');
   var nomeCF   = document.getElementById('cfNome').value.trim();
@@ -1120,6 +1112,7 @@ async function pagarCartao() {
   var errEl = document.getElementById('cardErrMsg');
   function mostrarErroCard(msg){ errEl.textContent=msg; errEl.style.display='block'; }
   errEl.style.display='none';
+  if(!cpfNumerico || cpfNumerico.length !== 11){document.getElementById('payCPF').focus();mostrarErroCard('CPF inválido.');return;}
 
   if(numero.length<13){mostrarErroCard('Número do cartão inválido.');return;}
   if(!nomeCF){mostrarErroCard('Informe o nome como aparece no cartão.');return;}
@@ -1137,7 +1130,7 @@ async function pagarCartao() {
   btnCard.textContent = 'Processando...';
   document.getElementById('cardProcessing').style.display = 'block';
 
-  pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf;
+  pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpfNumerico;
 
   try {
     if (!atendimentoId) {
@@ -1148,10 +1141,9 @@ async function pagarCartao() {
           data_nascimento:pacienteNascimento, email:pacienteEmail||''})
       });
       var dPre = await rPre.json();
-      if(dPre.atendimentoId){
-        atendimentoId=dPre.atendimentoId; salvarSessao();
-        if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
-      }
+      if(!dPre || !dPre.atendimentoId) throw new Error(dPre && dPre.error ? dPre.error : 'Não foi possível iniciar o atendimento.');
+      atendimentoId=dPre.atendimentoId; salvarSessao();
+      if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
     }
 
     if(typeof EfiPay === 'undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
@@ -1166,7 +1158,7 @@ async function pagarCartao() {
         expirationMonth:  mes,
         expirationYear:   ano,
         holderName:       nomeCF,
-        holderDocument:   cpf.replace(/\D/g,''),
+        holderDocument:   cpfNumerico,
         reuse:            false
       })
       .getPaymentToken();
@@ -1178,7 +1170,7 @@ async function pagarCartao() {
       body: JSON.stringify({
         payment_token: paymentToken,
         nome:          pacienteNome,
-        cpf:           cpf.replace(/\D/g,''),
+        cpf:           cpfNumerico,
         email:         pacienteEmail,
         telefone:      tel,
         parcelas:      parcelas,
@@ -1187,7 +1179,8 @@ async function pagarCartao() {
     });
     var d = await r.json();
 
-    if(d.ok) {
+    var cardOk = !!(d && (d.ok === true || d.status === 'approved' || d.status === 'paid' || d.status === 'succeeded' || d.transaction_id || d.transactionId));
+    if(cardOk) {
       document.getElementById('cardProcessing').textContent = '✅ Pagamento aceito! Iniciando triagem...';
       if(!sessionStorage.getItem('conv')){
         sessionStorage.setItem('conv','1');
@@ -1230,10 +1223,11 @@ async function gerarPagamento(){
   if(tel.length===13&&tel.startsWith('55'))tel=tel.slice(2);
   if(tel.length===12&&tel.startsWith('55'))tel=tel.slice(2);
   var cpf = document.getElementById('payCPF').value.trim();
+  var cpfNumerico = cpf.replace(/\D/g,'');
   if(!nome){document.getElementById('payNome').focus();return;}
   if(!tel||tel.length<10){document.getElementById('payTel').focus();return;}
-  if(!cpf){document.getElementById('payCPF').focus();return;}
-  pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpf;
+  if(!cpfNumerico || cpfNumerico.length !== 11){document.getElementById('payCPF').focus();return;}
+  pacienteNome=nome; pacienteTel=tel; pacienteCPF=cpfNumerico;
 
   var btn = document.getElementById('payBtn');
   btn.disabled=true; btn.textContent='Gerando PIX...';
@@ -1246,10 +1240,9 @@ async function gerarPagamento(){
         data_nascimento:pacienteNascimento, email:pacienteEmail||''})
     });
     var dPre = await rPre.json();
-    if(dPre.atendimentoId){
-      atendimentoId=dPre.atendimentoId; salvarSessao();
-      if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
-    }
+    if(!dPre || !dPre.atendimentoId) throw new Error(dPre && dPre.error ? dPre.error : 'Não foi possível iniciar o atendimento.');
+    atendimentoId=dPre.atendimentoId; salvarSessao();
+    if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
 
     var res = await fetch(API+'/api/pagbank/order',{
       method:'POST', headers:{'Content-Type':'application/json'},
@@ -1259,7 +1252,8 @@ async function gerarPagamento(){
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
 
     pagbankOrderId = data.order_id;
-    var pixText = data.qr_code_text;
+    var pixText = data.qr_code_text || data.qr_code || '';
+    var qrBase64 = data.qr_code_base64 || '';
 
     if(atendimentoId && pagbankOrderId){
       try {
@@ -1280,7 +1274,16 @@ async function gerarPagamento(){
     if(imgEl){
       imgEl.onload  = function(){ imgEl.style.display='block'; };
       imgEl.onerror = function(){ imgEl.style.display='none'; if(fbEl) fbEl.style.display='flex'; };
-      imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=210x210&data=' + encodeURIComponent(pixText);
+      if(qrBase64){
+        imgEl.src = qrBase64.startsWith('data:image') ? qrBase64 : ('data:image/png;base64,' + qrBase64);
+      }else if(data.qr_code_url){
+        imgEl.src = data.qr_code_url;
+      }else if(pixText){
+        imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=210x210&data=' + encodeURIComponent(pixText);
+      }else{
+        imgEl.style.display='none';
+        if(fbEl) fbEl.style.display='flex';
+      }
     }
     var inputChave = document.getElementById('pixChaveInput');
     if(inputChave) inputChave.value = pixText || '';
@@ -1396,7 +1399,10 @@ async function sendTriage(text){
   var reply=await callAPI('/api/triage',SYSTEM_TRIAGE,triageHistory,text);
   removeTyping('triageChat');
   try{
-    var clean=String(reply).replace(/```json|```/g,'').trim();
+    var clean=String(reply)
+      .replace(/```[a-zA-Z0-9_-]*\n?/g,'')
+      .replace(/```/g,'')
+      .trim();
     var parsed=null;
     try{ parsed=JSON.parse(clean); }catch(e){}
     if(!parsed){
