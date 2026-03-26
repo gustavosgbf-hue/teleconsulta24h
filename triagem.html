@@ -361,7 +361,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
       </span>
     </a>
-    <span class="nav__step" id="nav-step">SEUS DADOS</span>
+    <span class="nav__step" id="nav-step">ACESSO RÁPIDO</span>
   </div>
 </nav>
 
@@ -369,12 +369,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="screen-identify" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Fale com um médico agora</h1><p>Preencha os dados abaixo. Em alguns minutos um médico com CRM ativo estará com você.</p></div>
+    <div class="box-head"><h1>Você está a 1 minuto de falar com um médico</h1><p>Só preciso de algumas informações rápidas para te conectar agora.</p></div>
     <div class="identify-body">
 
   <!-- Autopreenchimento — opcional, discreto -->
   <div class="autofill-wrap">
-    <div class="autofill-label">Já consultou antes? Digite seu WhatsApp e preenchemos tudo pra você.</div>
+    <div class="autofill-label">Já veio antes? Digite seu WhatsApp e pulamos tudo.</div>
     <div class="autofill-row">
       <input class="autofill-input" id="autofillTel" type="tel" placeholder="Seu WhatsApp" inputmode="numeric" onkeydown="if(event.key==='Enter')buscarCadastro()"/>
       <button class="autofill-btn" onclick="buscarCadastro()">Preencher</button>
@@ -384,7 +384,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div><div class="id-label">Nome completo</div><input class="id-input" id="idNome" type="text" placeholder="Nome e sobrenome" autocomplete="name"/></div>
   <div>
-    <div class="id-label">WhatsApp (com DDD)</div>
+    <div class="id-label">WhatsApp</div>
     <input class="id-input" id="idTel" type="tel" placeholder="Ex: 98999990000" autocomplete="tel" inputmode="numeric" oninput="feedbackTel(this)"/>
     <div class="field-feedback" id="fb-tel">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
@@ -392,7 +392,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
   <div>
-    <div class="id-label">Data de nascimento</div>
+    <div class="id-label">Data de nascimento <span style="color:rgba(255,255,255,.28);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(para o médico)</span></div>
     <input class="id-input" id="idNascimento" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraData(this);feedbackData(this)"/>
     <div class="field-feedback" id="fb-nasc">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
@@ -404,39 +404,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <input class="id-input" id="idEmail" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email"/>
   </div>
   <div>
-    <div class="id-label">WhatsApp para documentos <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional, se diferente do acima)</span></div>
+    <div class="id-label">WhatsApp para documentos <span style="color:rgba(255,255,255,.28);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional — para receitas e atestados)</span></div>
     <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
     <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
       <input type="checkbox" id="chkSameNumber" onchange="toggleSameNumber(this)"/>
       Usar o mesmo número do WhatsApp
     </label>
   </div>
-  <div class="id-note">🔒 Seus dados ficam protegidos. Sigilo médico garantido.</div>
+  <div class="id-note">🔒 Sigilo médico garantido. Seus dados são confidenciais.</div>
 
   <!-- Como funciona -->
   <div class="trust-block">
-    <div class="trust-block__title">Em 4 passos simples</div>
+    <div class="trust-block__title">⏱ Médico disponível em menos de 5 minutos</div>
     <div class="trust-steps">
-      <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha seus dados, leva menos de 1 minuto</span></div>
-      <div class="trust-step"><div class="trust-step__num">2</div><span>Responda algumas perguntas rápidas, a IA organiza tudo para o médico</span></div>
-      <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico com CRM ativo assume, geralmente em minutos</span></div>
-      <div class="trust-step"><div class="trust-step__num">4</div><span>Você fala diretamente com o médico, por chat ou vídeo</span></div>
+      <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha em menos de 1 minuto — está quase pronto</span></div>
+      <div class="trust-step"><div class="trust-step__num">2</div><span>Duas ou três perguntas sobre seu caso</span></div>
+      <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico assume e entra em contato</span></div>
+      <div class="trust-step"><div class="trust-step__num">4</div><span>Consulta por chat ou vídeo, na hora</span></div>
     </div>
-    <div class="trust-note">⏱ Tempo médio de espera: menos de 5 minutos.</div>
   </div>
 
   <!-- Legitimidade -->
   <div class="trust-block trust-block--green">
-    <div class="trust-block__title">Atendimento médico online</div>
+    <div class="trust-block__title">Consulta de verdade, não um chatbot</div>
     <ul class="trust-list">
-      <li><span class="ti">🩺</span><span>Consultas realizadas por médicos registrados no CRM</span></li>
-      <li><span class="ti">🔒</span><span>Atendimento seguro e confidencial, sigilo médico garantido</span></li>
-      <li><span class="ti">📋</span><span>Atendimento completo com documentação quando aplicável</span></li>
-      <li><span class="ti">⚖️</span><span>Conforme Resolução CFM nº 2.314/2022</span></li>
+      <li><span class="ti">🩺</span><span>Médico com CRM ativo — formado, registrado, responsável</span></li>
+      <li><span class="ti">🔒</span><span>Tudo confidencial, sigilo médico protegido por lei</span></li>
+      <li><span class="ti">📋</span><span>Receita, atestado e pedido de exames quando necessário</span></li>
+      <li><span class="ti">⚖️</span><span>Telemedicina regulamentada pelo CFM nº 2.314/2022</span></li>
     </ul>
   </div>
 
-  <button class="id-btn" onclick="avancarIdentificacao()">Continuar — quase lá →</button>
+  <button class="id-btn" onclick="avancarIdentificacao()">Falar com médico agora →</button>
 </div>
 
   </div>
