@@ -409,7 +409,7 @@ footer a:hover{color:var(--ink)}
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
     Especialidades
   </a>
-  <a href="triagem.html" class="nav__cta-pill">Consulta imediata →</a>
+  <a href="/triagem.html" class="nav__cta-pill">Consulta imediata →</a>
 </nav>
 
 <!-- HERO ESPECIALIDADE -->
@@ -470,7 +470,7 @@ footer a:hover{color:var(--ink)}
 <section class="cta-bottom">
   <h2 class="cta-bottom__h">Precisa de atendimento<br><em>imediato?</em></h2>
   <p class="cta-bottom__sub">Consulta com clínico geral disponível agora, sem agendamento. R$ 49,90 via PIX.</p>
-  <a href="triagem.html" class="cta-bottom__btn">Consulta imediata →</a>
+  <a href="/triagem.html" class="cta-bottom__btn">Consulta imediata →</a>
 </section>
 
 <footer>
@@ -631,53 +631,64 @@ var medicoSelecionado = null; // { id, nome, valor }
 var slotSelecionado   = null; // { dia, hora, iso }
 var espState = { agendamentoId: null, pixOrderId: null, pixInterval: null };
 var especialistasData = [];
+var LOADING_HTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Carregando médicos...</div>';
+var EMPTY_HTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Nenhum médico disponível no momento.</div>';
+var ERROR_HTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Erro ao carregar médicos. <button type="button" onclick="carregarEspecialistas()" style="color:var(--acc-deep);background:none;border:none;cursor:pointer;text-decoration:underline">Tentar novamente</button></div>';
 
 async function carregarEspecialistas() {
+  var grid = document.getElementById('doctorsGrid');
+  grid.innerHTML = LOADING_HTML;
   try {
     var res = await fetch(API + '/api/especialistas/' + ESPECIALIDADE);
+    if (!res.ok) throw new Error('Falha na API');
     var data = await res.json();
-    if (!data.ok) {
-      document.getElementById('doctorsGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Erro ao carregar médicos. Tente novamente.</div>';
-      return;
-    }
+    if (!data.ok) throw new Error(data.error || 'Erro ao carregar médicos');
     especialistasData = data.especialistas || [];
     renderEspecialistas();
   } catch(e) {
-    document.getElementById('doctorsGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Erro de conexão. Tente novamente.</div>';
+    especialistasData = [];
+    grid.innerHTML = ERROR_HTML;
   }
 }
 
 function renderEspecialistas() {
   var grid = document.getElementById('doctorsGrid');
   if (especialistasData.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Nenhum médico disponível no momento.</div>';
+    grid.innerHTML = EMPTY_HTML;
     return;
   }
   grid.innerHTML = '';
   especialistasData.forEach(function(espec, idx) {
+    var disponibilidade = normalizarDisponibilidade(espec.disponibilidade);
+    var nome = escHtml(espec.nome_exibicao || 'Especialista');
+    var crm = escHtml(espec.crm || 'CRM não informado');
+    var uf = escHtml(espec.uf || '--');
+    var bio = escHtml(espec.bio || '');
+    var valorConsulta = Number(espec.valor_consulta);
+    var valorFormatado = Number.isFinite(valorConsulta) ? valorConsulta.toFixed(2).replace('.', ',') : '—';
     var card = document.createElement('div');
     card.className = 'doctor-card fade-up';
     card.style.animationDelay = (idx * 0.1) + 's';
-    var fotoHtml = espec.foto_url 
-      ? '<img src="' + espec.foto_url + '" alt="' + espec.nome_exibicao + '"/>'
+    var fotoHtml = espec.foto_url
+      ? '<img src="' + escHtml(espec.foto_url) + '" alt="' + nome + '"/>'
       : '<div class="doctor-card__photo-placeholder">👨‍⚕️</div>';
     card.innerHTML = 
       '<div class="doctor-card__photo">' + fotoHtml + '</div>' +
       '<div class="doctor-card__body">' +
-        '<div class="doctor-card__name">' + espec.nome_exibicao + '</div>' +
-        '<div class="doctor-card__crm">CRM ' + espec.crm + ' · ' + espec.uf + '</div>' +
+        '<div class="doctor-card__name">' + nome + '</div>' +
+        '<div class="doctor-card__crm">CRM ' + crm + ' · ' + uf + '</div>' +
         '<span class="doctor-card__spec">Psiquiatria</span>' +
-        '<p class="doctor-card__bio">' + (espec.bio || '') + '</p>' +
+        '<p class="doctor-card__bio">' + bio + '</p>' +
         '<div class="doctor-card__footer">' +
           '<div>' +
             '<span class="doctor-card__price-label">Consulta online</span>' +
-            '<span class="doctor-card__price">R$ ' + parseFloat(espec.valor_consulta).toFixed(2).replace('.', ',') + '</span>' +
+            '<span class="doctor-card__price">R$ ' + valorFormatado + '</span>' +
           '</div>' +
           '<button class="doctor-card__btn"' +
-            ' data-id="' + espec.id + '"' +
-            ' data-nome="' + espec.nome_exibicao.replace(/"/g, '&quot;') + '"' +
-            ' data-valor="' + espec.valor_consulta + '"' +
-            " data-disponibilidade='" + JSON.stringify(espec.disponibilidade || []).replace(/'/g, '&#39;') + "'" +
+            ' data-id="' + (espec.id || '') + '"' +
+            ' data-nome="' + nome + '"' +
+            ' data-valor="' + (Number.isFinite(valorConsulta) ? valorConsulta : 0) + '"' +
+            " data-disponibilidade='" + JSON.stringify(disponibilidade).replace(/'/g, '&#39;') + "'" +
           '>' +
             'Ver horários' +
             '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>' +
@@ -688,13 +699,23 @@ function renderEspecialistas() {
   });
 }
 
+function escHtml(s) {
+  if (s === null || s === undefined) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function abrirHorarios(medico) {
   medicoSelecionado = medico; // { id, nome, valor, disponibilidade }
   slotSelecionado = null;
   document.getElementById('modalDoctor').textContent = medico.nome + ' · Psiquiatria · R$ ' + parseFloat(medico.valor).toFixed(2).replace('.', ',');
   document.getElementById('btnProximo').disabled = true;
   mostrarPasso('passo-horario');
-  renderSlots(medico.disponibilidade || []);
+  renderSlots(normalizarDisponibilidade(medico.disponibilidade));
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -720,6 +741,20 @@ function renderSlots(disponibilidade) {
     };
     grid.appendChild(el);
   });
+}
+
+function normalizarDisponibilidade(disponibilidade) {
+  if (!disponibilidade) return [];
+  if (Array.isArray(disponibilidade)) return disponibilidade.filter(function(item){ return item && item.iso && item.hora; });
+  if (typeof disponibilidade === 'string') {
+    return disponibilidade.split(',').map(function(h) {
+      var hora = (h || '').trim();
+      if (!hora) return null;
+      var hoje = new Date();
+      return { dia: 'Disponível', hora: hora, iso: hoje.toISOString() };
+    }).filter(Boolean);
+  }
+  return [];
 }
 
 function irParaDados() {
@@ -913,7 +948,7 @@ document.addEventListener('click', function(e) {
     id: parseInt(btn.dataset.id, 10),
     nome: btn.dataset.nome || '',
     valor: parseFloat(btn.dataset.valor || '0'),
-    disponibilidade: disponibilidade
+    disponibilidade: normalizarDisponibilidade(disponibilidade)
   };
 
   abrirHorarios(medico);

@@ -407,7 +407,7 @@ footer{
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
     Especialidades
   </a>
-  <a href="triagem.html" class="nav__cta-pill">Consulta imediata →</a>
+  <a href="/triagem.html" class="nav__cta-pill">Consulta imediata →</a>
 </nav>
 
 <div class="spec-hero">
@@ -461,7 +461,7 @@ footer{
 <section class="cta-bottom">
   <h2 class="cta-bottom__h">Precisa de atendimento<br><em>imediato?</em></h2>
   <p class="cta-bottom__sub">Consulta com clínico geral disponível agora, sem agendamento. R$ 49,90 via PIX.</p>
-  <a href="triagem.html" class="cta-bottom__btn">Consulta imediata →</a>
+  <a href="/triagem.html" class="cta-bottom__btn">Consulta imediata →</a>
 </section>
 
 <footer>
@@ -653,6 +653,10 @@ var medicoSelecionado = null;
 var slotSelecionado = null;
 var metodoPagamento = 'pix';
 var espState = { agendamentoId: null, pixOrderId: null, pixInterval: null };
+var especialistasData = [];
+var LOADING_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Carregando profissionais...</div>';
+var EMPTY_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Nenhum profissional disponível no momento.</div>';
+var ERROR_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Não foi possível carregar os profissionais. <button type="button" onclick="carregarEspecialistas()" style="color:var(--acc-deep);border:none;background:none;cursor:pointer;text-decoration:underline">Tentar novamente</button></div>';
 
 function init() {
   observeReveal();
@@ -670,26 +674,37 @@ function observeReveal() {
 
 async function carregarEspecialistas() {
   var grid = document.getElementById('doctorsGrid');
+  grid.innerHTML = LOADING_HTML;
   try {
     var res = await fetch(API + '/api/especialistas/' + ESPECIALIDADE);
+    if (!res.ok) throw new Error('Falha na API');
     var data = await res.json();
-    if (!data.ok || !data.especialistas.length) {
-      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3)">Nenhum profissional disponível no momento.</div>';
+    if (!data.ok) throw new Error(data.error || 'Erro ao carregar especialistas');
+    especialistasData = data.especialistas || [];
+    if (!especialistasData.length) {
+      grid.innerHTML = EMPTY_HTML;
       return;
     }
-    grid.innerHTML = data.especialistas.map(function(esp) {
+    grid.innerHTML = especialistasData.map(function(esp) {
+      var disponibilidade = normalizarDisponibilidade(esp.disponibilidade);
+      var nome = escHtml(esp.nome_exibicao || 'Especialista');
+      var crm = escHtml(esp.crm || 'CRM não informado');
+      var uf = escHtml(esp.uf || '--');
+      var bio = escHtml(esp.bio || 'Atendimento especializado em endocrinologia.');
+      var valorConsulta = Number(esp.valor_consulta);
+      var valorFormatado = Number.isFinite(valorConsulta) ? valorConsulta.toFixed(0) : '—';
       return '<div class="doctor-card">'+
         '<div class="doctor-card__photo">'+
-          (esp.foto_url ? '<img src="'+escHtml(esp.foto_url)+'" alt="'+escHtml(esp.nome_exibicao)+'"/>' : '<div class="doctor-card__photo-placeholder">👩‍⚕️</div>')+
+          (esp.foto_url ? '<img src="'+escHtml(esp.foto_url)+'" alt="'+nome+'"/>' : '<div class="doctor-card__photo-placeholder">👩‍⚕️</div>')+
         '</div>'+
         '<div class="doctor-card__body">'+
-          '<div class="doctor-card__name">'+escHtml(esp.nome_exibicao)+'</div>'+
-          '<div class="doctor-card__crm">CRM '+escHtml(esp.crm)+' · '+escHtml(esp.uf)+'</div>'+
+          '<div class="doctor-card__name">'+nome+'</div>'+
+          '<div class="doctor-card__crm">CRM '+crm+' · '+uf+'</div>'+
           '<span class="doctor-card__spec">'+ESPECIALIDADE+'</span>'+
-          '<p class="doctor-card__bio">'+(esp.bio||'Atendimento especializado em endocrinologia.')+'</p>'+
+          '<p class="doctor-card__bio">'+bio+'</p>'+
           '<div class="doctor-card__footer">'+
-            '<div><span class="doctor-card__price-label">Consulta online</span><span class="doctor-card__price">R$ '+parseFloat(esp.valor_consulta).toFixed(0)+'</span></div>'+
-            '<button class="doctor-card__btn" onclick="abrirHorarios({id:'+esp.id+',nome:\''+escHtml(esp.nome_exibicao).replace(/'/g,"\\'")+'\',valor:'+parseFloat(esp.valor_consulta)+',disponibilidade:'+(esp.disponibilidade ? "'"+escHtml(esp.disponibilidade).replace(/'/g,"\\'")+"'" : 'null')+'})">'+
+            '<div><span class="doctor-card__price-label">Consulta online</span><span class="doctor-card__price">R$ '+valorFormatado+'</span></div>'+
+            '<button class="doctor-card__btn" data-id="'+(esp.id || '')+'" data-nome="'+nome+'" data-valor="'+(Number.isFinite(valorConsulta) ? valorConsulta : 0)+'" data-disponibilidade=\''+JSON.stringify(disponibilidade).replace(/'/g, '&#39;')+'\'>'+
               'Ver horários'+
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>'+
             '</button>'+
@@ -698,13 +713,37 @@ async function carregarEspecialistas() {
       '</div>';
     }).join('');
   } catch(e) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3)">Erro ao carregar. <button onclick="carregarEspecialistas()" style="color:var(--acc-deep);border:none;background:none;cursor:pointer;text-decoration:underline">Tentar novamente</button></div>';
+    especialistasData = [];
+    grid.innerHTML = ERROR_HTML;
   }
 }
 
 function escHtml(s) {
-  if (!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  if (s === null || s === undefined) return '';
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function normalizarDisponibilidade(disponibilidade) {
+  if (!disponibilidade) return [];
+  if (Array.isArray(disponibilidade)) {
+    return disponibilidade.filter(function(item) { return item && item.iso && item.hora; });
+  }
+  if (typeof disponibilidade === 'string') {
+    return disponibilidade
+      .split(',')
+      .map(function(item) {
+        var hora = (item || '').trim();
+        if (!hora) return null;
+        return { dia: 'Disponível', hora: hora, iso: new Date().toISOString() };
+      })
+      .filter(Boolean);
+  }
+  return [];
 }
 
 function abrirHorarios(medico) {
@@ -713,15 +752,12 @@ function abrirHorarios(medico) {
   document.getElementById('modalDoctor').innerHTML = 'Dr(a). '+escHtml(medico.nome)+' — R$ '+medico.valor.toFixed(2).replace('.',',');
   
   var grid = document.getElementById('slotsGrid');
-  if (medico.disponibilidade) {
-    var disp = medico.disponibilidade.split(',').map(function(h) { return h.trim(); });
-    grid.innerHTML = disp.map(function(h) {
-      return '<div class="slot-btn" onclick="selecionarSlot(this,\''+h+'\')"><div style="font-weight:600">'+h+'</div></div>';
-    }).join('');
+  var disponibilidade = normalizarDisponibilidade(medico.disponibilidade);
+  if (!disponibilidade.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--ink-3)">Nenhum horário disponível no momento.</div>';
   } else {
-    var slots = gerarSlotsPadrao();
-    grid.innerHTML = slots.map(function(s) {
-      return '<div class="slot-btn" onclick="selecionarSlot(this,\''+s.iso+'\')"><div style="font-weight:600">'+s.dia+'</div><div style="font-size:.8rem;color:var(--ink-3)">'+s.hora+'</div></div>';
+    grid.innerHTML = disponibilidade.map(function(s) {
+      return '<div class="slot-btn" onclick="selecionarSlot(this,\''+s.iso+'\')"><div style="font-weight:600">'+escHtml(s.dia || 'Disponível')+'</div><div style="font-size:.8rem;color:var(--ink-3)">'+escHtml(s.hora || '')+'</div></div>';
     }).join('');
   }
   
@@ -732,22 +768,6 @@ function abrirHorarios(medico) {
   document.getElementById('pagto-pix').style.display = 'none';
   document.getElementById('pagto-cartao').style.display = 'none';
   document.getElementById('modalOverlay').classList.add('open');
-}
-
-function gerarSlotsPadrao() {
-  var slots = [];
-  var dias = ['Hoje','Amanhã','Amanhã'];
-  var horas = ['09:00','11:00','14:00','16:00'];
-  for (var i = 0; i < 3; i++) {
-    for (var j = 0; j < 4; j++) {
-      var d = new Date();
-      d.setDate(d.getDate() + i);
-      var parts = horas[j].split(':');
-      d.setHours(parseInt(parts[0]), parseInt(parts[1]), 0, 0);
-      slots.push({dia: dias[i], hora: horas[j], iso: d.toISOString()});
-    }
-  }
-  return slots;
 }
 
 function selecionarSlot(el, iso) {
@@ -828,7 +848,8 @@ async function confirmarAgendamento() {
     var data = await res.json();
     if (!data.ok) throw new Error(data.error || 'Erro ao criar agendamento');
     
-    espState.agendamentoId = data.agendamento_id;
+    espState.agendamentoId = data.agendamentoId || data.agendamento_id || null;
+    if (!espState.agendamentoId) throw new Error('Agendamento criado sem identificador');
     document.getElementById('passo-dados').style.display = 'none';
     document.getElementById('passo-pagamento').style.display = 'block';
   } catch(e) {
@@ -942,6 +963,24 @@ async function processarCartao() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.doctor-card__btn');
+  if (!btn) return;
+
+  var disponibilidade = [];
+  try {
+    disponibilidade = JSON.parse(btn.dataset.disponibilidade || '[]');
+  } catch (err) {
+    disponibilidade = [];
+  }
+
+  abrirHorarios({
+    id: parseInt(btn.dataset.id, 10),
+    nome: btn.dataset.nome || '',
+    valor: parseFloat(btn.dataset.valor || '0'),
+    disponibilidade: normalizarDisponibilidade(disponibilidade)
+  });
+});
 
 // --- PiP: Login / Cadastro do paciente ---
 function pipAbrir() {
