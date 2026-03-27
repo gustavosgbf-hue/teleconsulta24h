@@ -50,325 +50,134 @@ gtag('config','AW-17964942771');
   --sh-lg:0 16px 56px rgba(22,18,14,.16);
 }
 html{scroll-behavior:smooth}
-body{
-  background-color:var(--cream);
-  color:var(--ink);
-  font-family:var(--font-b);
-  font-size:16px;
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
+body{background-color:var(--cream);color:var(--ink);font-family:var(--font-b);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
 a{text-decoration:none;color:inherit}
 
 /* NAV */
-nav{
-  position:sticky;top:0;z-index:200;
-  background:rgba(248,246,242,.96);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-  padding:0 40px;height:60px;
-  display:flex;align-items:center;justify-content:space-between;
-}
+nav{position:sticky;top:0;z-index:200;background:rgba(248,246,242,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{font-family:var(--font-d);font-size:1.15rem;font-weight:500;color:var(--ink);letter-spacing:.01em}
 .nav-logo em{color:var(--ink-3);font-weight:300;font-style:normal}
 .nav-actions{display:flex;align-items:center;gap:16px}
 .nav-phone{font-size:.78rem;color:var(--ink-3);font-weight:300}
-.nav-btn{
-  font-size:.78rem;font-weight:600;
-  padding:8px 20px;border-radius:999px;
-  background:var(--psi-acc);color:var(--white);
-  transition:all var(--ease);
-  box-shadow:0 2px 10px rgba(38,80,142,.28);
-}
+.nav-btn{font-size:.78rem;font-weight:600;padding:8px 20px;border-radius:999px;background:var(--psi-acc);color:var(--white);transition:all var(--ease);box-shadow:0 2px 10px rgba(38,80,142,.28);}
 .nav-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(38,80,142,.36)}
 
 /* URGENCY BAR */
-.urgency-bar{
-  background:var(--psi-dark);
-  color:rgba(255,255,255,.85);
-  padding:9px 20px;
-  text-align:center;font-size:.77rem;font-weight:300;
-  display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;
-}
+.urgency-bar{background:var(--psi-dark);color:rgba(255,255,255,.85);padding:9px 20px;text-align:center;font-size:.77rem;font-weight:300;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
 .urgency-bar strong{color:#fff;font-weight:500}
-.u-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:#93c5fd;display:inline-block;
-  animation:pulse 2.4s ease-in-out infinite;
-  margin-right:4px;vertical-align:middle;
-}
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 3px rgba(147,197,253,.2)}
-  50%{box-shadow:0 0 0 7px rgba(147,197,253,.04)}
-}
+.u-dot{width:6px;height:6px;border-radius:50%;background:#93c5fd;display:inline-block;animation:pulse 2.4s ease-in-out infinite;margin-right:4px;vertical-align:middle;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(147,197,253,.2)}50%{box-shadow:0 0 0 7px rgba(147,197,253,.04)}}
 
 /* HERO */
-.hero{
-  padding:80px 40px 72px;
-  max-width:820px;margin:0 auto;
-  text-align:center;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  background:var(--white);
-  border:1px solid var(--line-mid);
-  border-radius:999px;
-  padding:5px 14px 5px 10px;
-  font-size:.72rem;font-weight:500;
-  color:var(--ink-2);
-  margin-bottom:28px;
-  box-shadow:var(--sh);
-}
-.badge-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:#22c55e;
-  box-shadow:0 0 0 3px rgba(34,197,94,.2);
-  animation:pulse 2.4s ease-in-out infinite;
-  flex-shrink:0;
-}
-.hero-h1{
-  font-family:var(--font-d);
-  font-size:clamp(2.5rem,5.5vw,4.2rem);
-  font-weight:400;line-height:1.08;
-  letter-spacing:-.02em;
-  color:var(--ink);margin-bottom:22px;
-}
+.hero{padding:80px 40px 72px;max-width:820px;margin:0 auto;text-align:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1px solid var(--line-mid);border-radius:999px;padding:5px 14px 5px 10px;font-size:.72rem;font-weight:500;color:var(--ink-2);margin-bottom:28px;box-shadow:var(--sh);}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.2);animation:pulse 2.4s ease-in-out infinite;flex-shrink:0;}
+.hero-h1{font-family:var(--font-d);font-size:clamp(2.5rem,5.5vw,4.2rem);font-weight:400;line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin-bottom:22px;}
 .hero-h1 em{font-style:italic;font-weight:300;color:var(--psi-acc)}
-.hero-sub{
-  font-size:1.05rem;font-weight:300;
-  color:var(--ink-2);line-height:1.7;
-  max-width:480px;margin:0 auto 16px;
-}
-.hero-price{
-  font-size:.85rem;font-weight:500;color:var(--ink-3);
-  margin-bottom:36px;
-}
+.hero-sub{font-size:1.05rem;font-weight:300;color:var(--ink-2);line-height:1.7;max-width:480px;margin:0 auto 16px;}
+.hero-price{font-size:.85rem;font-weight:500;color:var(--ink-3);margin-bottom:36px;}
 .hero-price strong{color:var(--ink);font-weight:600}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--font-b);font-size:.95rem;font-weight:600;
-  padding:17px 36px;border-radius:999px;
-  background:linear-gradient(135deg,#26508e,#1a3d72);
-  color:var(--white);
-  border:none;cursor:pointer;
-  transition:all var(--ease);
-  box-shadow:0 4px 24px rgba(38,80,142,.38),0 0 0 0 rgba(38,80,142,.3);
-  position:relative;overflow:hidden;
-}
-.btn-primary::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);
-  pointer-events:none;
-}
-.btn-primary:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 36px rgba(38,80,142,.46),0 0 0 6px rgba(38,80,142,.08);
-}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-b);font-size:.95rem;font-weight:600;padding:17px 36px;border-radius:999px;background:linear-gradient(135deg,#26508e,#1a3d72);color:var(--white);border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 24px rgba(38,80,142,.38),0 0 0 0 rgba(38,80,142,.3);position:relative;overflow:hidden;}
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);pointer-events:none;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(38,80,142,.46),0 0 0 6px rgba(38,80,142,.08);}
 .btn-primary:active{transform:translateY(0)}
-.hero-micro{
-  margin-top:14px;font-size:.72rem;color:var(--ink-3);
-  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
-}
+.hero-micro{margin-top:14px;font-size:.72rem;color:var(--ink-3);display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
 .hero-micro span{display:flex;align-items:center;gap:4px}
 
 /* PROOF TICKER */
-.proof-wrap{
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background:var(--white);overflow:hidden;
-}
+.proof-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);overflow:hidden;}
 .proof-ticker{display:flex;width:max-content;animation:ticker 30s linear infinite}
 .proof-ticker:hover{animation-play-state:paused}
 .proof-track{display:flex;align-items:center}
-.proof-item{
-  display:flex;align-items:center;gap:8px;
-  padding:16px 26px;border-right:1px solid var(--line);
-  flex-shrink:0;white-space:nowrap;
-}
+.proof-item{display:flex;align-items:center;gap:8px;padding:16px 26px;border-right:1px solid var(--line);flex-shrink:0;white-space:nowrap;}
 .proof-text strong{font-size:.83rem;font-weight:600;color:var(--ink)}
 .proof-text span{font-size:.83rem;color:var(--ink-3);font-weight:300}
 .proof-stars{color:#f59e0b;font-size:.75rem;letter-spacing:2px}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* QUIZ SECTION */
-.quiz-wrap{
-  max-width:600px;margin:0 auto;
-  padding:64px 40px;
-}
-.quiz-card{
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:24px;
-  box-shadow:var(--sh-md);
-  overflow:hidden;
-}
-.quiz-header{
-  background:var(--psi-dark);
-  padding:22px 28px 18px;
-}
-.quiz-header-label{
-  font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(147,197,253,.7);margin-bottom:6px;
-}
-.quiz-header-title{
-  font-family:var(--font-d);
-  font-size:1.4rem;font-weight:400;
-  color:#fff;line-height:1.25;
-}
-.quiz-progress-wrap{
-  padding:20px 28px 0;
-}
-.quiz-progress-bar{
-  height:3px;background:var(--psi);border-radius:999px;overflow:hidden;
-}
-.quiz-progress-fill{
-  height:100%;background:var(--psi-acc);border-radius:999px;
-  transition:width .4s cubic-bezier(.4,0,.2,1);
-}
-.quiz-progress-steps{
-  display:flex;justify-content:space-between;
-  margin-top:8px;font-size:.67rem;color:var(--ink-3);font-weight:300;
-}
+.quiz-wrap{max-width:600px;margin:0 auto;padding:64px 40px;}
+.quiz-card{background:var(--white);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh-md);overflow:hidden;}
+.quiz-header{background:var(--psi-dark);padding:22px 28px 18px;}
+.quiz-header-label{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(147,197,253,.7);margin-bottom:6px;}
+.quiz-header-title{font-family:var(--font-d);font-size:1.4rem;font-weight:400;color:#fff;line-height:1.25;}
+.quiz-progress-wrap{padding:20px 28px 0;}
+.quiz-progress-bar{height:3px;background:var(--psi);border-radius:999px;overflow:hidden;}
+.quiz-progress-fill{height:100%;background:var(--psi-acc);border-radius:999px;transition:width .4s cubic-bezier(.4,0,.2,1);}
+.quiz-progress-steps{display:flex;justify-content:space-between;margin-top:8px;font-size:.67rem;color:var(--ink-3);font-weight:300;}
 .quiz-body{padding:28px 28px 24px}
 .quiz-step{display:none}
 .quiz-step.active{display:block;animation:fadeUp .28s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.quiz-q{
-  font-family:var(--font-d);
-  font-size:1.45rem;font-weight:400;
-  color:var(--ink);margin-bottom:8px;line-height:1.25;
-}
+.quiz-q{font-family:var(--font-d);font-size:1.45rem;font-weight:400;color:var(--ink);margin-bottom:8px;line-height:1.25;}
 .quiz-q-sub{font-size:.82rem;font-weight:300;color:var(--ink-3);margin-bottom:22px}
 .quiz-options{display:flex;flex-direction:column;gap:10px}
-.quiz-opt{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 16px;border-radius:12px;
-  border:1.5px solid var(--line-mid);
-  background:#fafaf9;cursor:pointer;
-  transition:all .2s;font-size:.9rem;color:var(--ink-2);
-  font-weight:400;text-align:left;width:100%;
-}
+.quiz-opt{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line-mid);background:#fafaf9;cursor:pointer;transition:all .2s;font-size:.9rem;color:var(--ink-2);font-weight:400;text-align:left;width:100%;}
 .quiz-opt:hover{border-color:var(--psi-acc);background:var(--psi);color:var(--ink)}
-.quiz-opt.selected{
-  border-color:var(--psi-acc);background:var(--psi);color:var(--psi-dark);font-weight:500;
-  box-shadow:0 0 0 3px var(--psi-glow);
-}
+.quiz-opt.selected{border-color:var(--psi-acc);background:var(--psi);color:var(--psi-dark);font-weight:500;box-shadow:0 0 0 3px var(--psi-glow);}
 .quiz-opt-emoji{font-size:1.3rem;width:28px;text-align:center;flex-shrink:0}
-.quiz-nav{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px 24px;gap:12px;
-}
-.btn-back{
-  font-size:.82rem;font-weight:400;color:var(--ink-3);
-  background:none;border:none;cursor:pointer;
-  padding:10px 0;transition:color .18s;
-  display:flex;align-items:center;gap:5px;
-}
+.quiz-nav{display:flex;align-items:center;justify-content:space-between;padding:0 28px 24px;gap:12px;}
+.btn-back{font-size:.82rem;font-weight:400;color:var(--ink-3);background:none;border:none;cursor:pointer;padding:10px 0;transition:color .18s;display:flex;align-items:center;gap:5px;}
 .btn-back:hover{color:var(--ink)}
-.btn-next{
-  flex:1;max-width:260px;
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  font-family:var(--font-b);font-size:.88rem;font-weight:600;
-  padding:13px 24px;border-radius:999px;
-  background:var(--psi-acc);color:#fff;border:none;cursor:pointer;
-  transition:all var(--ease);
-  box-shadow:0 4px 16px rgba(38,80,142,.28);
-}
+.btn-next{flex:1;max-width:260px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font-b);font-size:.88rem;font-weight:600;padding:13px 24px;border-radius:999px;background:var(--psi-acc);color:#fff;border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 16px rgba(38,80,142,.28);}
 .btn-next:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(38,80,142,.36)}
 .btn-next:disabled{opacity:.4;pointer-events:none}
+
+/* LOADING */
+.quiz-loading{display:none;padding:40px 28px;text-align:center;}
+.quiz-loading.active{display:block;animation:fadeUp .28s ease}
+.spinner{width:36px;height:36px;border-radius:50%;border:3px solid var(--psi);border-top-color:var(--psi-acc);animation:spin .8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.quiz-loading p{font-size:.9rem;font-weight:300;color:var(--ink-3)}
 
 /* RESULT STEP */
 .result-step{display:none;padding:28px}
 .result-step.active{display:block;animation:fadeUp .35s ease}
-.result-label{
-  font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--psi-acc);margin-bottom:18px;
-  display:flex;align-items:center;gap:7px;
-}
+.result-label{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--psi-acc);margin-bottom:18px;display:flex;align-items:center;gap:7px;}
 .result-label::before{content:'✓';background:var(--psi);width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--psi-acc);flex-shrink:0}
-.result-card{
-  background:var(--cream);
-  border:1px solid var(--line-mid);
-  border-radius:16px;
-  padding:20px;
-  display:flex;align-items:flex-start;gap:14px;
-  margin-bottom:20px;
-}
-.result-avatar{
-  width:56px;height:56px;border-radius:14px;
-  background:linear-gradient(135deg,var(--psi-mid),var(--psi-acc));
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.6rem;flex-shrink:0;
-}
-.result-info{}
-.result-name{
-  font-family:var(--font-d);font-size:1.25rem;font-weight:500;
-  color:var(--ink);margin-bottom:2px;
-}
+.result-card{background:var(--cream);border:1px solid var(--line-mid);border-radius:16px;padding:20px;display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;}
+.result-avatar{width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,var(--psi-mid),var(--psi-acc));display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;overflow:hidden;}
+.result-avatar img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;}
+.result-name{font-family:var(--font-d);font-size:1.25rem;font-weight:500;color:var(--ink);margin-bottom:2px;}
 .result-crp{font-size:.68rem;color:var(--ink-3);font-weight:300;margin-bottom:6px}
-.result-esp{
-  display:inline-block;
-  background:var(--white);
-  border:1px solid rgba(38,80,142,.15);
-  color:var(--psi-acc);
-  font-size:.7rem;font-weight:500;
-  padding:3px 10px;border-radius:6px;
-  margin-bottom:8px;
-}
-.result-avail{
-  display:flex;align-items:center;gap:6px;
-  font-size:.78rem;font-weight:500;color:#22c55e;
-}
-.avail-dot{
-  width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;
-  box-shadow:0 0 0 3px rgba(34,197,94,.18);
-  animation:pulse 2.4s ease-in-out infinite;
-}
-.result-bio{
-  font-size:.82rem;font-weight:300;color:var(--ink-2);
-  line-height:1.6;margin-top:10px;
-}
-.result-price-row{
-  display:flex;align-items:center;gap:10px;
-  margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
-}
-.result-price{
-  font-family:var(--font-d);font-size:1.3rem;font-weight:500;color:var(--ink);
-  flex:1;
-}
-.result-price small{
-  display:block;font-size:.65rem;color:var(--ink-3);font-family:var(--font-b);font-weight:300;margin-bottom:2px;
-}
-.result-price .per-day{
-  font-size:.7rem;color:var(--ink-3);font-family:var(--font-b);font-weight:300;margin-top:2px;
-}
-.btn-result{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--font-b);font-size:.85rem;font-weight:600;
-  padding:12px 20px;border-radius:999px;
-  background:linear-gradient(135deg,#26508e,#1a3d72);
-  color:#fff;border:none;cursor:pointer;
-  transition:all var(--ease);
-  box-shadow:0 4px 14px rgba(38,80,142,.32);
-  white-space:nowrap;
-}
+.result-esp{display:inline-block;background:var(--white);border:1px solid rgba(38,80,142,.15);color:var(--psi-acc);font-size:.7rem;font-weight:500;padding:3px 10px;border-radius:6px;margin-bottom:8px;}
+.result-avail{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:500;color:#22c55e;}
+.avail-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;box-shadow:0 0 0 3px rgba(34,197,94,.18);animation:pulse 2.4s ease-in-out infinite;}
+.result-bio{font-size:.82rem;font-weight:300;color:var(--ink-2);line-height:1.6;margin-top:10px;}
+.result-price-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+.result-price{font-family:var(--font-d);font-size:1.3rem;font-weight:500;color:var(--ink);flex:1;}
+.result-price small{display:block;font-size:.65rem;color:var(--ink-3);font-family:var(--font-b);font-weight:300;margin-bottom:2px;}
+.result-price .per-day{font-size:.7rem;color:var(--ink-3);font-family:var(--font-b);font-weight:300;margin-top:2px;}
+.btn-result{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-b);font-size:.85rem;font-weight:600;padding:12px 20px;border-radius:999px;background:linear-gradient(135deg,#26508e,#1a3d72);color:#fff;border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 14px rgba(38,80,142,.32);white-space:nowrap;}
 .btn-result:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(38,80,142,.42)}
-.result-guarantee{
-  display:flex;align-items:center;gap:8px;
-  padding:12px 14px;
-  background:rgba(34,197,94,.07);
-  border:1px solid rgba(34,197,94,.18);
-  border-radius:10px;
-  font-size:.77rem;color:var(--ink-2);line-height:1.4;
-}
+.result-guarantee{display:flex;align-items:center;gap:8px;padding:12px 14px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);border-radius:10px;font-size:.77rem;color:var(--ink-2);line-height:1.4;}
 .result-guarantee strong{color:var(--ink);font-weight:500}
-.result-other-link{
-  text-align:center;margin-top:14px;
-  font-size:.75rem;color:var(--ink-3);
-}
+.result-other-link{text-align:center;margin-top:14px;font-size:.75rem;color:var(--ink-3);}
 .result-other-link a{color:var(--psi-acc);font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 
-/* HOW IT WORKS */
+/* ALL PROFESSIONALS PANEL */
+.all-psi-panel{display:none;padding:0 28px 28px;animation:fadeUp .3s ease;}
+.all-psi-panel.active{display:block}
+.all-psi-title{font-family:var(--font-d);font-size:1.15rem;font-weight:400;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+.all-psi-title button{font-size:.72rem;font-weight:500;color:var(--psi-acc);background:none;border:none;cursor:pointer;text-decoration:underline;}
+.psi-list{display:flex;flex-direction:column;gap:12px}
+.psi-list-card{background:var(--cream);border:1px solid var(--line-mid);border-radius:14px;padding:16px;display:flex;align-items:flex-start;gap:12px;transition:border-color var(--ease);}
+.psi-list-card:hover{border-color:rgba(38,80,142,.25)}
+.psi-list-avatar{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--psi-mid),var(--psi-acc));flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+.psi-list-avatar img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;}
+.psi-list-info{flex:1;min-width:0}
+.psi-list-name{font-family:var(--font-d);font-size:1.05rem;font-weight:500;color:var(--ink)}
+.psi-list-crp{font-size:.66rem;color:var(--ink-3);font-weight:300;margin-bottom:4px}
+.psi-list-esp{display:inline-block;background:var(--white);border:1px solid rgba(38,80,142,.12);color:var(--psi-acc);font-size:.67rem;font-weight:500;padding:2px 8px;border-radius:5px;margin-bottom:6px;}
+.psi-list-avail{font-size:.73rem;font-weight:500;color:#22c55e;display:flex;align-items:center;gap:5px}
+.psi-list-avail-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.psi-list-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
+.psi-list-price{font-family:var(--font-d);font-size:1.1rem;font-weight:500;color:var(--ink)}
+.psi-list-price small{display:block;font-size:.62rem;color:var(--ink-3);font-family:var(--font-b);font-weight:300}
+.btn-list-agendar{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-b);font-size:.78rem;font-weight:600;padding:9px 16px;border-radius:999px;background:var(--psi-acc);color:#fff;border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 2px 8px rgba(38,80,142,.24);white-space:nowrap;}
+.btn-list-agendar:hover{filter:brightness(1.1);transform:translateY(-1px)}
+
+/* SECTIONS */
 .how-section{padding:72px 40px;max-width:1000px;margin:0 auto}
 .sec-label{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--psi-acc);opacity:.75;margin-bottom:10px}
 .sec-title{font-family:var(--font-d);font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:400;line-height:1.15;margin-bottom:12px;color:var(--ink)}
@@ -381,142 +190,47 @@ nav{
 .how-n{font-family:var(--font-d);font-size:2.8rem;font-weight:300;color:var(--psi-mid);opacity:.4;line-height:1;margin-bottom:18px}
 .how-title{font-size:.9rem;font-weight:600;margin-bottom:7px;color:var(--ink)}
 .how-desc{font-size:.81rem;font-weight:300;color:var(--ink-2);line-height:1.65}
-
-/* TRUST BLOCK */
 .trust-section{padding:56px 40px;max-width:1000px;margin:0 auto}
 .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
 .trust-item{background:var(--white);padding:28px 24px;display:flex;flex-direction:column;gap:8px}
 .trust-icon{font-size:1.4rem;width:42px;height:42px;background:var(--psi);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
 .trust-title{font-size:.9rem;font-weight:600;color:var(--ink)}
 .trust-desc{font-size:.8rem;font-weight:300;color:var(--ink-2);line-height:1.6}
-
-/* TESTIMONIALS */
 .testimonials{padding:72px 40px;max-width:1000px;margin:0 auto}
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.testi-card{
-  background:var(--white);border:1px solid var(--line);
-  border-radius:var(--r-lg);padding:24px;
-  display:flex;flex-direction:column;gap:10px;
-  box-shadow:var(--sh);
-}
+.testi-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh);}
 .testi-stars{color:#f59e0b;font-size:.75rem;letter-spacing:2px}
 .testi-text{font-size:.85rem;font-weight:300;color:var(--ink-2);line-height:1.65;font-style:italic}
 .testi-author{display:flex;align-items:center;gap:9px;margin-top:4px}
 .testi-avatar{width:34px;height:34px;border-radius:50%;background:var(--psi);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
 .testi-name{font-size:.78rem;font-weight:500;color:var(--ink)}
 .testi-city{font-size:.7rem;font-weight:300;color:var(--ink-3)}
-
-/* RECOGNITION BLOCKER */
-.recognition{
-  background:linear-gradient(135deg,var(--psi) 0%,rgba(232,238,247,.4) 100%);
-  border-top:1px solid rgba(38,80,142,.1);
-  border-bottom:1px solid rgba(38,80,142,.1);
-  padding:64px 40px;
-}
+.recognition{background:linear-gradient(135deg,var(--psi) 0%,rgba(232,238,247,.4) 100%);border-top:1px solid rgba(38,80,142,.1);border-bottom:1px solid rgba(38,80,142,.1);padding:64px 40px;}
 .recognition-inner{max-width:680px;margin:0 auto;text-align:center}
-.recognition-title{
-  font-family:var(--font-d);font-size:clamp(1.6rem,3vw,2.2rem);
-  font-weight:400;color:var(--ink);margin-bottom:24px;line-height:1.2;
-}
+.recognition-title{font-family:var(--font-d);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;color:var(--ink);margin-bottom:24px;line-height:1.2;}
 .recognition-title em{font-style:italic;color:var(--psi-acc)}
 .recognition-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;text-align:left}
-.recognition-item{
-  display:flex;align-items:flex-start;gap:9px;
-  background:var(--white);border:1px solid var(--line);
-  border-radius:10px;padding:12px 14px;
-  font-size:.82rem;color:var(--ink-2);line-height:1.4;
-}
+.recognition-item{display:flex;align-items:flex-start;gap:9px;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.82rem;color:var(--ink-2);line-height:1.4;}
 .ri-emoji{font-size:1rem;flex-shrink:0;margin-top:1px}
 .recognition-note{font-size:.88rem;font-weight:300;color:var(--ink-2);margin-bottom:24px;line-height:1.65}
-
-/* CTA BOTTOM */
-.cta-bottom{
-  background:var(--psi-dark);
-  padding:80px 40px;text-align:center;
-  position:relative;overflow:hidden;
-}
-.cta-bottom::before{
-  content:'';position:absolute;
-  width:500px;height:500px;border-radius:50%;
-  background:radial-gradient(circle,rgba(38,80,142,.4),transparent 70%);
-  top:-180px;left:50%;transform:translateX(-50%);
-  pointer-events:none;
-}
-.cta-bottom-h{
-  font-family:var(--font-d);
-  font-size:clamp(1.9rem,4vw,3rem);
-  font-weight:300;line-height:1.12;
-  color:var(--white);margin-bottom:14px;
-  position:relative;
-}
+.cta-bottom{background:var(--psi-dark);padding:80px 40px;text-align:center;position:relative;overflow:hidden;}
+.cta-bottom::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(38,80,142,.4),transparent 70%);top:-180px;left:50%;transform:translateX(-50%);pointer-events:none;}
+.cta-bottom-h{font-family:var(--font-d);font-size:clamp(1.9rem,4vw,3rem);font-weight:300;line-height:1.12;color:var(--white);margin-bottom:14px;position:relative;}
 .cta-bottom-h em{font-style:italic;color:rgba(147,197,253,.9)}
-.cta-bottom-sub{
-  font-size:.9rem;font-weight:300;
-  color:rgba(255,255,255,.45);
-  margin-bottom:36px;line-height:1.75;position:relative;
-}
+.cta-bottom-sub{font-size:.9rem;font-weight:300;color:rgba(255,255,255,.45);margin-bottom:36px;line-height:1.75;position:relative;}
 .cta-bottom-sub strong{color:rgba(255,255,255,.75);font-weight:500}
-.btn-light{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:.92rem;font-weight:600;
-  padding:16px 34px;border-radius:999px;
-  background:var(--white);color:var(--psi-dark);
-  border:none;cursor:pointer;
-  transition:all var(--ease);
-  box-shadow:0 4px 20px rgba(0,0,0,.3);
-  position:relative;
-}
+.btn-light{display:inline-flex;align-items:center;gap:8px;font-size:.92rem;font-weight:600;padding:16px 34px;border-radius:999px;background:var(--white);color:var(--psi-dark);border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 20px rgba(0,0,0,.3);position:relative;}
 .btn-light:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
 .cta-reassurance{margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.3);position:relative}
-
-/* FOOTER */
-footer{
-  border-top:1px solid var(--line);
-  padding:24px 40px;text-align:center;
-  font-size:.75rem;color:var(--ink-3);
-  background:var(--cream);
-}
+footer{border-top:1px solid var(--line);padding:24px 40px;text-align:center;font-size:.75rem;color:var(--ink-3);background:var(--cream);}
 footer a{color:var(--ink-2)}
-
-/* STICKY CTA MOBILE */
-.sticky-cta{
-  display:none;
-  position:fixed;bottom:0;left:0;right:0;z-index:150;
-  background:var(--white);
-  border-top:1px solid var(--line);
-  padding:12px 20px 16px;
-  box-shadow:0 -8px 32px rgba(22,18,14,.12);
-}
-.sticky-cta-btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;
-  font-family:var(--font-b);font-size:.92rem;font-weight:600;
-  padding:15px;border-radius:14px;
-  background:linear-gradient(135deg,#26508e,#1a3d72);
-  color:#fff;border:none;cursor:pointer;
-  box-shadow:0 4px 18px rgba(38,80,142,.36);
-}
+.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:150;background:var(--white);border-top:1px solid var(--line);padding:12px 20px 16px;box-shadow:0 -8px 32px rgba(22,18,14,.12);}
+.sticky-cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font-family:var(--font-b);font-size:.92rem;font-weight:600;padding:15px;border-radius:14px;background:linear-gradient(135deg,#26508e,#1a3d72);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(38,80,142,.36);}
 .sticky-cta-note{text-align:center;font-size:.68rem;color:var(--ink-3);margin-top:6px}
-
-/* WHATSAPP BUTTON */
-.wa-btn{
-  position:fixed;bottom:90px;right:20px;z-index:160;
-  width:52px;height:52px;border-radius:50%;
-  background:#25d366;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 18px rgba(37,211,102,.4);
-  animation:wa-pulse 2.8s ease-in-out infinite;
-  cursor:pointer;
-  transition:transform .2s;
-}
+.wa-btn{position:fixed;bottom:90px;right:20px;z-index:160;width:52px;height:52px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.4);animation:wa-pulse 2.8s ease-in-out infinite;cursor:pointer;transition:transform .2s;}
 .wa-btn:hover{transform:scale(1.1)}
-@keyframes wa-pulse{
-  0%,100%{box-shadow:0 4px 18px rgba(37,211,102,.4)}
-  50%{box-shadow:0 4px 28px rgba(37,211,102,.65)}
-}
+@keyframes wa-pulse{0%,100%{box-shadow:0 4px 18px rgba(37,211,102,.4)}50%{box-shadow:0 4px 28px rgba(37,211,102,.65)}}
 .wa-btn svg{width:26px;height:26px;fill:#fff}
-
-/* ANIMATIONS */
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .fade-up{opacity:0;animation:fadeUp .55s ease forwards}
 .fade-up:nth-child(1){animation-delay:.04s}
@@ -525,72 +239,40 @@ footer a{color:var(--ink-2)}
 .fade-up:nth-child(4){animation-delay:.31s}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:.1s}
-.reveal-delay-2{transition-delay:.2s}
-.reveal-delay-3{transition-delay:.3s}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .how-grid{grid-template-columns:1fr}
-  .trust-grid{grid-template-columns:1fr}
-  .testi-grid{grid-template-columns:1fr}
-}
-@media(max-width:768px){
-  nav{padding:0 20px}
-  .nav-phone{display:none}
-  .hero{padding:52px 20px 48px}
-  .quiz-wrap{padding:40px 20px}
-  .how-section,.trust-section,.testimonials,.recognition{padding:48px 20px}
-  .cta-bottom{padding:60px 20px}
-  footer{padding:20px}
-  .recognition-list{grid-template-columns:1fr}
-  .sticky-cta{display:block}
-  .wa-btn{bottom:84px}
-}
-@media(max-width:480px){
-  .hero-h1{font-size:2.3rem}
-  .quiz-body,.quiz-nav,.result-step{padding:20px}
-  .result-card{flex-direction:column}
-}
+@media(max-width:900px){.how-grid{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr}}
+@media(max-width:768px){nav{padding:0 20px}.nav-phone{display:none}.hero{padding:52px 20px 48px}.quiz-wrap{padding:40px 20px}.how-section,.trust-section,.testimonials,.recognition{padding:48px 20px}.cta-bottom{padding:60px 20px}footer{padding:20px}.recognition-list{grid-template-columns:1fr}.sticky-cta{display:block}.wa-btn{bottom:84px}}
+@media(max-width:480px){.hero-h1{font-size:2.3rem}.quiz-body,.quiz-nav,.result-step,.all-psi-panel{padding:20px}.result-card{flex-direction:column}.psi-list-footer{flex-direction:column;align-items:stretch}.btn-list-agendar{justify-content:center}}
 </style>
 </head>
 <body>
 
-<!-- URGENCY BAR -->
 <div class="urgency-bar">
   <span><span class="u-dot"></span> <strong>Psicólogos disponíveis agora</strong></span>
   <span>Atendimento imediato · Sem burocracia</span>
   <span>Sigilo garantido · 100% online</span>
 </div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">ConsultaJá<em>24h</em></div>
   <div class="nav-actions">
-    <a class="nav-phone" href="https://wa.me/5598989272727?text=Tenho%20d%C3%BAvidas" target="_blank" rel="noopener">Dúvidas? WhatsApp</a>
+    <a class="nav-phone" href="https://wa.me/5598989272727?text=Tenho%20d%C3%BAvidas%20sobre%20o%20atendimento" target="_blank" rel="noopener">Dúvidas? WhatsApp</a>
     <a class="nav-btn" href="#quiz-section">Começar agora</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="fade-up">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      Psicólogos com CRP ativo verificados
-    </div>
+    <div class="hero-badge"><span class="badge-dot"></span>Psicólogos com CRP ativo verificados</div>
   </div>
   <div class="fade-up">
     <h1 class="hero-h1">Você não precisa lidar com<br><em>a ansiedade sozinho</em></h1>
   </div>
   <div class="fade-up">
     <p class="hero-sub">Conectamos você a um psicólogo verificado em minutos.<br>Sem listas de espera. Sem deslocamento. Sem julgamento.</p>
-    <p class="hero-price">A partir de <strong>R$149</strong> · ≈ R$5 por dia</p>
+    <p class="hero-price" id="hero-price-line">A partir de <strong>R$149</strong> · ≈ R$5 por dia</p>
   </div>
   <div class="fade-up">
-    <button class="btn-primary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">
-      👉 Começar atendimento agora
-    </button>
+    <button class="btn-primary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">👉 Começar atendimento agora</button>
     <div class="hero-micro">
       <span>⚡ Atendimento imediato</span>
       <span>🔒 Sigilo total</span>
@@ -599,7 +281,6 @@ footer a{color:var(--ink-2)}
   </div>
 </section>
 
-<!-- PROOF TICKER -->
 <div class="proof-wrap">
   <div class="proof-ticker">
     <div class="proof-track">
@@ -623,26 +304,19 @@ footer a{color:var(--ink-2)}
   </div>
 </div>
 
-<!-- QUIZ SECTION -->
 <div id="quiz-section" class="quiz-wrap">
   <div class="quiz-card">
     <div class="quiz-header">
       <div class="quiz-header-label">Encontre seu psicólogo</div>
       <div class="quiz-header-title" id="quiz-header-title">Vamos encontrar o profissional certo para você</div>
     </div>
-
-    <!-- PROGRESS -->
     <div class="quiz-progress-wrap">
-      <div class="quiz-progress-bar">
-        <div class="quiz-progress-fill" id="quiz-progress" style="width:33%"></div>
-      </div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:33%"></div></div>
       <div class="quiz-progress-steps">
         <span id="step-label">Passo 1 de 3</span>
         <span id="step-pct">33%</span>
       </div>
     </div>
-
-    <!-- STEP 1 -->
     <div class="quiz-body">
       <div class="quiz-step active" id="step-1">
         <div class="quiz-q">Como você está se sentindo?</div>
@@ -655,8 +329,6 @@ footer a{color:var(--ink-2)}
           <button class="quiz-opt" data-val="autoconhecimento" onclick="selectOpt(this,1)"><span class="quiz-opt-emoji">🔍</span>Quero me conhecer melhor</button>
         </div>
       </div>
-
-      <!-- STEP 2 -->
       <div class="quiz-step" id="step-2">
         <div class="quiz-q">Quando você quer começar?</div>
         <div class="quiz-q-sub">Sem compromisso — você escolhe o ritmo</div>
@@ -666,8 +338,6 @@ footer a{color:var(--ink-2)}
           <button class="quiz-opt" data-val="semana" onclick="selectOpt(this,2)"><span class="quiz-opt-emoji">🗓️</span>Essa semana, com calma</button>
         </div>
       </div>
-
-      <!-- STEP 3 -->
       <div class="quiz-step" id="step-3">
         <div class="quiz-q">Preferência de profissional?</div>
         <div class="quiz-q-sub">Não tem certo ou errado — é o que te deixa mais confortável</div>
@@ -678,19 +348,17 @@ footer a{color:var(--ink-2)}
         </div>
       </div>
     </div>
-
-    <!-- QUIZ NAV -->
     <div class="quiz-nav" id="quiz-nav">
       <button class="btn-back" id="btn-back" onclick="quizBack()" style="visibility:hidden">← Voltar</button>
       <button class="btn-next" id="btn-next" onclick="quizNext()" disabled>Continuar →</button>
     </div>
-
-    <!-- RESULT -->
+    <div class="quiz-loading" id="quiz-loading">
+      <div class="spinner"></div>
+      <p>Buscando o melhor profissional para você…</p>
+    </div>
     <div class="result-step" id="result-step">
       <div class="result-label">Encontramos o profissional ideal para você</div>
-      <div class="result-card" id="result-card">
-        <!-- JS preenchido -->
-      </div>
+      <div class="result-card" id="result-card"></div>
       <div class="result-guarantee">
         <span>🛡️</span>
         <span><strong>Atendimento de qualidade garantido.</strong> Profissionais verificados, sigilo total e suporte em todas as etapas do seu cuidado.</span>
@@ -699,35 +367,28 @@ footer a{color:var(--ink-2)}
         Prefere ver outros profissionais? <a onclick="verTodosPsi()">Ver todos os disponíveis</a>
       </div>
     </div>
+    <div class="all-psi-panel" id="all-psi-panel">
+      <div class="all-psi-title">
+        <span>Todos os profissionais disponíveis</span>
+        <button onclick="voltarParaResultado()">← Voltar</button>
+      </div>
+      <div class="psi-list" id="psi-list"></div>
+    </div>
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
 <hr style="border:none;border-top:1px solid var(--line);max-width:1000px;margin:0 auto"/>
 <section class="how-section reveal">
   <div class="sec-label">Como funciona</div>
   <h2 class="sec-title">Da decisão à <em>sessão em minutos</em></h2>
   <p class="sec-sub">Sem formulários intermináveis. Sem espera. Você foca em cuidar de você.</p>
   <div class="how-grid">
-    <div class="how-step">
-      <div class="how-n">01</div>
-      <div class="how-title">Responda 3 perguntas rápidas</div>
-      <div class="how-desc">Nosso quiz identifica o profissional com o perfil certo para o que você está sentindo agora.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-n">02</div>
-      <div class="how-title">Escolha horário e confirme</div>
-      <div class="how-desc">Veja os horários disponíveis, pague com segurança (PIX ou cartão) e receba a confirmação.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-n">03</div>
-      <div class="how-title">Sua sessão começa</div>
-      <div class="how-desc">Acesse a videochamada pelo link enviado. Sem instalar nada. Do celular, tablet ou computador.</div>
-    </div>
+    <div class="how-step"><div class="how-n">01</div><div class="how-title">Responda 3 perguntas rápidas</div><div class="how-desc">Nosso quiz identifica o profissional com o perfil certo para o que você está sentindo agora.</div></div>
+    <div class="how-step"><div class="how-n">02</div><div class="how-title">Escolha horário e confirme</div><div class="how-desc">Veja os horários disponíveis, pague com segurança (PIX ou cartão) e receba a confirmação.</div></div>
+    <div class="how-step"><div class="how-n">03</div><div class="how-title">Sua sessão começa</div><div class="how-desc">Acesse a videochamada pelo link enviado. Sem instalar nada. Do celular, tablet ou computador.</div></div>
   </div>
 </section>
 
-<!-- RECOGNITION BLOCKER -->
 <div class="recognition reveal">
   <div class="recognition-inner">
     <h2 class="recognition-title">Se você se reconhece em <em>algum desses</em>…</h2>
@@ -740,37 +401,21 @@ footer a{color:var(--ink-2)}
       <div class="recognition-item"><span class="ri-emoji">🔁</span>Resolve uma coisa, mas a angústia logo volta</div>
     </div>
     <p class="recognition-note">Você não está sozinho — e isso tem tratamento. A psicoterapia funciona, e começar é mais simples do que parece.</p>
-    <button class="btn-primary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">
-      Quero minha primeira sessão →
-    </button>
+    <button class="btn-primary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">Quero minha primeira sessão →</button>
   </div>
 </div>
 
-<!-- TRUST -->
 <section class="trust-section reveal">
   <div class="sec-label">Por que a ConsultaJá24h</div>
   <h2 class="sec-title">Cuidado de verdade, sem <em>complicar</em></h2>
   <p class="sec-sub">Cada detalhe foi pensado para deixar você confortável desde o primeiro clique.</p>
   <div class="trust-grid">
-    <div class="trust-item">
-      <div class="trust-icon">🎓</div>
-      <div class="trust-title">Profissionais verificados</div>
-      <div class="trust-desc">Todos os psicólogos têm CRP ativo e formação comprovada. Você está em boas mãos.</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon">🔒</div>
-      <div class="trust-title">Sigilo garantido por lei</div>
-      <div class="trust-desc">Suas sessões são protegidas pelo Código de Ética do CFP. Nenhuma informação é compartilhada.</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon">⚡</div>
-      <div class="trust-title">Atendimento sem espera</div>
-      <div class="trust-desc">+800 sessões realizadas. Profissionais disponíveis hoje, sem lista de espera ou triagem burocrática.</div>
-    </div>
+    <div class="trust-item"><div class="trust-icon">🎓</div><div class="trust-title">Profissionais verificados</div><div class="trust-desc">Todos os psicólogos têm CRP ativo e formação comprovada. Você está em boas mãos.</div></div>
+    <div class="trust-item"><div class="trust-icon">🔒</div><div class="trust-title">Sigilo garantido por lei</div><div class="trust-desc">Suas sessões são protegidas pelo Código de Ética do CFP. Nenhuma informação é compartilhada.</div></div>
+    <div class="trust-item"><div class="trust-icon">⚡</div><div class="trust-title">Atendimento sem espera</div><div class="trust-desc">+800 sessões realizadas. Profissionais disponíveis hoje, sem lista de espera ou triagem burocrática.</div></div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="testimonials reveal">
   <div class="sec-label">Depoimentos</div>
   <h2 class="sec-title">O que dizem <em>quem já começou</em></h2>
@@ -779,228 +424,497 @@ footer a{color:var(--ink-2)}
     <div class="testi-card">
       <div class="testi-stars">★★★★★</div>
       <div class="testi-text">"Eu adiava há anos por medo do julgamento. Aqui foi diferente desde a primeira mensagem. A psicóloga me deixou completamente à vontade."</div>
-      <div class="testi-author">
-        <div class="testi-avatar">👩</div>
-        <div>
-          <div class="testi-name">Camila R.</div>
-          <div class="testi-city">São Paulo, SP · Ansiedade</div>
-        </div>
-      </div>
+      <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Camila R.</div><div class="testi-city">São Paulo, SP · Ansiedade</div></div></div>
     </div>
     <div class="testi-card">
       <div class="testi-stars">★★★★★</div>
       <div class="testi-text">"Marquei na segunda-feira, fiz a sessão na quinta. Sem burocracia, sem espera. O profissional foi excelente e já agendei mais 5 sessões."</div>
-      <div class="testi-author">
-        <div class="testi-avatar">👨</div>
-        <div>
-          <div class="testi-name">Rafael M.</div>
-          <div class="testi-city">Belo Horizonte, MG · Estresse</div>
-        </div>
-      </div>
+      <div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Rafael M.</div><div class="testi-city">Belo Horizonte, MG · Estresse</div></div></div>
     </div>
     <div class="testi-card">
       <div class="testi-stars">★★★★★</div>
       <div class="testi-text">"Estava em crise às 22h e consegui agendar para o dia seguinte de manhã. Isso fez toda a diferença no momento mais difícil que já passei."</div>
-      <div class="testi-author">
-        <div class="testi-avatar">👩</div>
-        <div>
-          <div class="testi-name">Juliana F.</div>
-          <div class="testi-city">Rio de Janeiro, RJ · Crise emocional</div>
-        </div>
-      </div>
+      <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Juliana F.</div><div class="testi-city">Rio de Janeiro, RJ · Crise emocional</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- CTA BOTTOM -->
 <div class="cta-bottom reveal">
   <h2 class="cta-bottom-h">Dê o primeiro passo.<br><em>Você merece se sentir bem.</em></h2>
   <p class="cta-bottom-sub">Milhares de pessoas já escolheram cuidar de sua saúde mental.<br><strong>Hoje pode ser o seu dia.</strong></p>
-  <button class="btn-light" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">
-    👉 Começar atendimento agora
-  </button>
+  <button class="btn-light" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">👉 Começar atendimento agora</button>
   <div class="cta-reassurance">Sem compromisso · Cancele quando quiser · Atendimento de qualidade garantido</div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2025 ConsultaJá24h · <a href="https://consultaja24h.com.br/privacidade">Política de Privacidade</a> · <a href="https://consultaja24h.com.br/termos">Termos de Uso</a> · <a href="https://wa.me/5598989272727?text=Contato" target="_blank" rel="noopener">Contato</a></p>
   <p style="margin-top:6px">Todos os psicólogos possuem CRP ativo. Atendimento exclusivamente online. Este serviço não substitui atendimento de emergência.</p>
 </footer>
 
-<!-- STICKY CTA MOBILE -->
 <div class="sticky-cta">
-  <button class="sticky-cta-btn" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">
-    ⚡ Começar atendimento agora
-  </button>
+  <button class="sticky-cta-btn" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">⚡ Começar atendimento agora</button>
   <div class="sticky-cta-note">Atendimento imediato · A partir de R$149 · Sigilo total</div>
 </div>
 
-<!-- WHATSAPP BTN -->
 <a class="wa-btn" href="https://wa.me/5598989272727?text=Quero%20consulta%20agora" target="_blank" rel="noopener" title="WhatsApp — Quero consulta agora">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
 <script>
-const API='https://api.consultaja24h.com.br';
-const quizData={step1:null,step2:null,step3:null};
-let currentStep=1;
+/*
+ * ================================================================
+ *  DATA LAYER — ConsultaJá24h
+ * ================================================================
+ *  SOURCE PRIORITY (first match wins):
+ *
+ *  1. window.CONSULTAJA_PROFESSIONALS
+ *     Inject real data from your backend/CMS before this script:
+ *     <script>window.CONSULTAJA_PROFESSIONALS = [ ...your data... ];<\/script>
+ *
+ *  2. API fetch — set CONFIG.apiUrl to your endpoint.
+ *     Expected response: { data: [ ...professionals... ] }
+ *     See normalizeApiProfessional() for field mapping.
+ *
+ *  3. LOCAL_PROFESSIONALS — realistic fallback data.
+ *     Replace with real CRP numbers and photo URLs before go-live.
+ *
+ *  PROFESSIONAL OBJECT CONTRACT:
+ *  {
+ *    id              : string       — unique identifier
+ *    nome            : string       — full name with title (e.g. "Dra. Isabela Vasconcelos")
+ *    crp             : string       — e.g. "CRP 06/138291"
+ *    especialidade   : string       — primary modality
+ *    focos           : string[]     — lowercase slug list e.g. ["ansiedade","tcc"]
+ *    bio             : string       — first-person, 1–2 sentences
+ *    valor_sessao    : number       — price in BRL (integer)
+ *    disponibilidade : string       — human-readable next slot label
+ *    disponivel_agora: boolean      — drives urgency sort / copy
+ *    genero          : "M" | "F"   — for quiz gender filter
+ *    foto_url        : string|null  — absolute HTTPS photo URL or null
+ *  }
+ * ================================================================
+ */
 
-const professionals=[
+const CONFIG = {
+  /* ▼ Set to your API base URL to enable live fetch, or leave '' */
+  apiUrl: '',
+  /* ▼ WhatsApp number — digits only, with country code */
+  wa: '5598989272727',
+  /* ▼ Booking page URL. Set to '' to fall back to WhatsApp. */
+  bookingUrl: 'https://consultaja24h.com.br/agendar'
+};
+
+/* ----------------------------------------------------------------
+   LOCAL PROFESSIONALS — realistic Brazilian fallback
+   Replace foto_url values with your real hosted images.
+   Replace crp values with verified real numbers before go-live.
+   ---------------------------------------------------------------- */
+const LOCAL_PROFESSIONALS = [
   {
-    emoji:'👩',name:'Dra. Ana Beatriz',crp:'CRP 06/138291',
-    esp:'Terapia Cognitivo-Comportamental',
-    focos:['Ansiedade','Depressão','Autoestima'],
-    avail:'Atende em 15 minutos',
-    bio:'Sou especialista em ansiedade e transtornos do humor. Meu objetivo é criar um espaço seguro onde você possa se expressar sem julgamento.',
-    valor:170,gender:'mulher'
+    id: 'psi-001',
+    nome: 'Dra. Isabela Vasconcelos',
+    crp: 'CRP 06/138291',
+    especialidade: 'Terapia Cognitivo-Comportamental (TCC)',
+    focos: ['ansiedade', 'depressao', 'autoestima', 'tristeza', 'tcc', 'cognitivo'],
+    bio: 'Atuo com TCC há 8 anos, com foco em ansiedade e depressão. Crio um espaço seguro para você se expressar sem julgamento.',
+    valor_sessao: 170,
+    disponibilidade: 'Horário disponível hoje',
+    disponivel_agora: true,
+    genero: 'F',
+    foto_url: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=128&h=128&fit=crop&crop=face'
   },
   {
-    emoji:'👨',name:'Dr. Carlos Eduardo',crp:'CRP 05/87432',
-    esp:'Psicanálise Contemporânea',
-    focos:['Estresse','Relacionamentos','Autoconhecimento'],
-    avail:'Atende em 30 minutos',
-    bio:'Trabalho com adultos que buscam compreender padrões emocionais e construir relações mais saudáveis consigo e com o mundo.',
-    valor:149,gender:'homem'
+    id: 'psi-002',
+    nome: 'Dr. Rodrigo Almeida',
+    crp: 'CRP 05/87432',
+    especialidade: 'Psicanálise',
+    focos: ['estresse', 'relacionamentos', 'autoconhecimento', 'ansiedade', 'psicanalise'],
+    bio: 'Trabalho com adultos em busca de autoconhecimento e equilíbrio emocional. Abordagem acolhedora, sem julgamentos.',
+    valor_sessao: 149,
+    disponibilidade: 'Horários disponíveis hoje',
+    disponivel_agora: true,
+    genero: 'M',
+    foto_url: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=128&h=128&fit=crop&crop=face'
   },
   {
-    emoji:'👩',name:'Dra. Fernanda Lima',crp:'CRP 08/24871',
-    esp:'Terapia Focada em Compaixão',
-    focos:['Burnout','Ansiedade','Autoconhecimento'],
-    avail:'Atende hoje às 18h',
-    bio:'Especialista em burnout e esgotamento emocional. Ajudo pessoas a reconectar com o que realmente importa, com gentileza e sem pressão.',
-    valor:159,gender:'mulher'
+    id: 'psi-003',
+    nome: 'Dra. Camila Ferreira',
+    crp: 'CRP 08/24871',
+    especialidade: 'Terapia Focada em Compaixão (CFT)',
+    focos: ['estresse', 'ansiedade', 'autoconhecimento', 'burnout', 'compaixao', 'cft'],
+    bio: 'Especialista em burnout e esgotamento emocional. Ajudo você a reconectar com o que realmente importa, com gentileza.',
+    valor_sessao: 159,
+    disponibilidade: 'Horários disponíveis hoje',
+    disponivel_agora: true,
+    genero: 'F',
+    foto_url: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=128&h=128&fit=crop&crop=face'
   },
   {
-    emoji:'👨',name:'Dr. Marcos Vinicius',crp:'CRP 04/61204',
-    esp:'Terapia Comportamental Dialética',
-    focos:['Regulação Emocional','Relacionamentos','Crise'],
-    avail:'Atende amanhã às 9h',
-    bio:'Especializado em regulação emocional intensa e crises. Ofereço suporte prático e empático para os momentos mais difíceis.',
-    valor:165,gender:'homem'
+    id: 'psi-004',
+    nome: 'Dr. Felipe Nunes',
+    crp: 'CRP 04/61204',
+    especialidade: 'Terapia Comportamental Dialética (DBT)',
+    focos: ['ansiedade', 'relacionamentos', 'tristeza', 'regulacao-emocional', 'dbt'],
+    bio: 'Especializado em regulação emocional e crises relacionais. Ofereço suporte prático e empático para os momentos mais difíceis.',
+    valor_sessao: 165,
+    disponibilidade: 'Horários disponíveis amanhã',
+    disponivel_agora: false,
+    genero: 'M',
+    foto_url: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=128&h=128&fit=crop&crop=face'
+  },
+  {
+    id: 'psi-005',
+    nome: 'Dra. Letícia Moraes',
+    crp: 'CRP 06/201847',
+    especialidade: 'Terapia de Aceitação e Compromisso (ACT)',
+    focos: ['autoconhecimento', 'ansiedade', 'relacionamentos', 'estresse', 'act', 'integrativa'],
+    bio: 'Utilizo a ACT para ajudar pessoas a viver com mais presença e flexibilidade psicológica, mesmo diante de pensamentos difíceis.',
+    valor_sessao: 155,
+    disponibilidade: 'Horários disponíveis hoje',
+    disponivel_agora: true,
+    genero: 'F',
+    foto_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=128&h=128&fit=crop&crop=face'
+  },
+  {
+    id: 'psi-006',
+    nome: 'Dr. André Costa',
+    crp: 'CRP 07/45312',
+    especialidade: 'Psicoterapia Integrativa',
+    focos: ['estresse', 'autoconhecimento', 'relacionamentos', 'tristeza', 'integrativa'],
+    bio: 'Com abordagem integrativa, adapto as técnicas ao seu perfil único. Foco em ajudar você a entender seus padrões e construir mudanças reais.',
+    valor_sessao: 160,
+    disponibilidade: 'Horários disponíveis hoje',
+    disponivel_agora: true,
+    genero: 'M',
+    foto_url: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=128&h=128&fit=crop&crop=face'
   }
 ];
 
-function selectOpt(el,step){
-  document.querySelectorAll(`#opts-${step} .quiz-opt`).forEach(o=>o.classList.remove('selected'));
+/* ----------------------------------------------------------------
+   STATE
+   ---------------------------------------------------------------- */
+const quizData = { step1: null, step2: null, step3: null };
+let currentStep = 1;
+let allProfessionals = [];
+let chosenProfessional = null;
+
+/* ----------------------------------------------------------------
+   BOOT — load professionals
+   ---------------------------------------------------------------- */
+async function loadProfessionals() {
+  /* Priority 1: backend injection */
+  if (window.CONSULTAJA_PROFESSIONALS && Array.isArray(window.CONSULTAJA_PROFESSIONALS) && window.CONSULTAJA_PROFESSIONALS.length) {
+    allProfessionals = window.CONSULTAJA_PROFESSIONALS;
+    syncHeroPrice();
+    return;
+  }
+  /* Priority 2: API */
+  if (CONFIG.apiUrl) {
+    try {
+      const ctrl = new AbortController();
+      const timeout = setTimeout(() => ctrl.abort(), 5000);
+      const res = await fetch(CONFIG.apiUrl + '/api/psicologia/psicologos?ativo=true', {
+        headers: { 'Accept': 'application/json' },
+        signal: ctrl.signal
+      });
+      clearTimeout(timeout);
+      if (res.ok) {
+        const json = await res.json();
+        const list = json.data || json.results || json;
+        if (Array.isArray(list) && list.length) {
+          allProfessionals = list.map(normalizeApiProfessional);
+          syncHeroPrice();
+          return;
+        }
+      }
+    } catch (_) { /* fall through */ }
+  }
+  /* Priority 3: local fallback */
+  allProfessionals = LOCAL_PROFESSIONALS;
+  syncHeroPrice();
+}
+
+function normalizeApiProfessional(p) {
+  return {
+    id:              p.id || p._id || String(Math.random()),
+    nome:            p.nome_exibicao || p.nome || 'Profissional',
+    crp:             p.crp || '',
+    especialidade:   p.abordagem || p.especialidade || '',
+    focos:           Array.isArray(p.focos) ? p.focos.map(f => String(f).toLowerCase().replace(/ /g,'-')) : [],
+    bio:             p.bio || p.descricao || '',
+    valor_sessao:    Number(p.valor_sessao || p.valor || 0),
+    disponibilidade: p.proximo_horario_label || (p.disponivel_agora ? 'Horário disponível agora' : 'Horários disponíveis hoje'),
+    disponivel_agora:!!p.disponivel_agora,
+    genero:          p.genero || (String(p.sexo).toLowerCase().startsWith('f') ? 'F' : 'M'),
+    foto_url:        p.foto_url || p.avatar_url || null
+  };
+}
+
+function syncHeroPrice() {
+  if (!allProfessionals.length) return;
+  const valores = allProfessionals.map(p => p.valor_sessao).filter(v => v > 0);
+  if (!valores.length) return;
+  const min = Math.min(...valores);
+  const pd  = Math.round(min / 30);
+  const el  = document.getElementById('hero-price-line');
+  if (el) el.innerHTML = `A partir de <strong>R$${min}</strong> · ≈ R$${pd} por dia`;
+}
+
+/* ----------------------------------------------------------------
+   QUIZ MATCHING
+   keyword → focos tags that signal a good match
+   ---------------------------------------------------------------- */
+const FOCO_MAP = {
+  ansiedade:        ['ansiedade','tcc','cognitivo','act','compaixao'],
+  tristeza:         ['tristeza','depressao','psicanalise','dbt'],
+  estresse:         ['estresse','burnout','compaixao','cft','integrativa'],
+  relacionamentos:  ['relacionamentos','casal','familia','dbt','psicanalise'],
+  autoconhecimento: ['autoconhecimento','act','integrativa','psicanalise']
+};
+
+function scoreMatch(psi, feeling) {
+  if (!feeling) return 0;
+  const tags    = FOCO_MAP[feeling] || [];
+  const haystack = (psi.focos.join(' ') + ' ' + psi.especialidade).toLowerCase();
+  return tags.reduce((acc, t) => acc + (haystack.includes(t) ? 1 : 0), 0);
+}
+
+/* ----------------------------------------------------------------
+   QUIZ UI
+   ---------------------------------------------------------------- */
+function selectOpt(el, step) {
+  document.querySelectorAll(`#opts-${step} .quiz-opt`).forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
-  quizData[`step${step}`]=el.dataset.val;
-  document.getElementById('btn-next').disabled=false;
+  quizData[`step${step}`] = el.dataset.val;
+  document.getElementById('btn-next').disabled = false;
 }
 
-function updateProgress(step){
-  const pct=Math.round((step/3)*100);
-  document.getElementById('quiz-progress').style.width=pct+'%';
-  document.getElementById('step-label').textContent=`Passo ${step} de 3`;
-  document.getElementById('step-pct').textContent=pct+'%';
-  const titles=['Vamos encontrar o profissional certo para você','Ótimo! Só mais duas perguntas','Quase lá — última pergunta'];
-  document.getElementById('quiz-header-title').textContent=titles[step-1];
+function updateProgress(step) {
+  const pct = Math.round((step / 3) * 100);
+  document.getElementById('quiz-progress').style.width = pct + '%';
+  document.getElementById('step-label').textContent = `Passo ${step} de 3`;
+  document.getElementById('step-pct').textContent = pct + '%';
+  const titles = [
+    'Vamos encontrar o profissional certo para você',
+    'Ótimo! Só mais duas perguntas',
+    'Quase lá — última pergunta'
+  ];
+  document.getElementById('quiz-header-title').textContent = titles[step - 1];
 }
 
-function quizNext(){
-  if(currentStep<3){
+function quizNext() {
+  if (currentStep < 3) {
     document.getElementById(`step-${currentStep}`).classList.remove('active');
     currentStep++;
     document.getElementById(`step-${currentStep}`).classList.add('active');
-    document.getElementById('btn-next').disabled=!quizData[`step${currentStep}`];
-    document.getElementById('btn-back').style.visibility='visible';
+    document.getElementById('btn-next').disabled = !quizData[`step${currentStep}`];
+    document.getElementById('btn-back').style.visibility = 'visible';
     updateProgress(currentStep);
-    if(currentStep===3){
-      document.getElementById('btn-next').textContent='Ver meu psicólogo →';
-    }
+    if (currentStep === 3) document.getElementById('btn-next').textContent = 'Ver meu psicólogo →';
   } else {
     showResult();
   }
 }
 
-function quizBack(){
-  if(currentStep>1){
+function quizBack() {
+  if (currentStep > 1) {
     document.getElementById(`step-${currentStep}`).classList.remove('active');
     currentStep--;
     document.getElementById(`step-${currentStep}`).classList.add('active');
-    document.getElementById('btn-next').disabled=false;
-    document.getElementById('btn-next').textContent='Continuar →';
+    document.getElementById('btn-next').disabled = false;
+    document.getElementById('btn-next').textContent = 'Continuar →';
     updateProgress(currentStep);
-    if(currentStep===1) document.getElementById('btn-back').style.visibility='hidden';
+    if (currentStep === 1) document.getElementById('btn-back').style.visibility = 'hidden';
   }
 }
 
-function showResult(){
-  let candidates=[...professionals];
-  const g=quizData.step3;
-  if(g==='mulher') candidates=candidates.filter(p=>p.gender==='mulher');
-  else if(g==='homem') candidates=candidates.filter(p=>p.gender==='homem');
-  if(!candidates.length) candidates=[...professionals];
+async function showResult() {
+  /* Transition UI to loading state */
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('quiz-nav').style.display    = 'none';
+  document.getElementById('quiz-loading').classList.add('active');
+  document.getElementById('quiz-progress').style.width = '100%';
+  document.getElementById('step-label').textContent    = 'Concluído!';
+  document.getElementById('step-pct').textContent      = '100%';
+  document.getElementById('quiz-header-title').textContent = 'Procurando o melhor match para você…';
 
-  const feeling=quizData.step1;
-  const urgency=quizData.step2;
-  let chosen;
-  if(urgency==='agora') chosen=candidates[0];
-  else if(feeling==='relacionamentos'||feeling==='autoconhecimento') chosen=candidates.find(p=>p.focos.includes('Relacionamentos')||p.focos.includes('Autoconhecimento'))||candidates[0];
-  else chosen=candidates[0];
+  if (!allProfessionals.length) await loadProfessionals();
 
-  const perDay=(chosen.valor/30).toFixed(2).replace('.',',');
-  document.getElementById('result-card').innerHTML=`
-    <div class="result-avatar">${chosen.emoji}</div>
+  /* Gender filter */
+  const genderPref = quizData.step3;
+  let pool = [...allProfessionals];
+  if (genderPref === 'mulher') pool = pool.filter(p => p.genero === 'F');
+  else if (genderPref === 'homem') pool = pool.filter(p => p.genero === 'M');
+  if (!pool.length) pool = [...allProfessionals];
+
+  /* Sort: urgency + specialty match + availability */
+  const feeling = quizData.step1;
+  const urgency = quizData.step2;
+  pool.sort((a, b) => {
+    if (urgency === 'agora') {
+      if (a.disponivel_agora && !b.disponivel_agora) return -1;
+      if (!a.disponivel_agora && b.disponivel_agora) return 1;
+    }
+    const diff = scoreMatch(b, feeling) - scoreMatch(a, feeling);
+    if (diff !== 0) return diff;
+    if (a.disponivel_agora && !b.disponivel_agora) return -1;
+    if (!a.disponivel_agora && b.disponivel_agora) return 1;
+    return 0;
+  });
+
+  chosenProfessional = pool[0];
+
+  /* Minimum 700ms loading feel — avoids jarring instant switch */
+  await new Promise(r => setTimeout(r, 700));
+
+  document.getElementById('quiz-loading').classList.remove('active');
+  document.getElementById('quiz-header-title').textContent = 'Seu psicólogo foi encontrado 🎉';
+  renderResultCard(chosenProfessional);
+  document.getElementById('result-step').classList.add('active');
+
+  gtag('event', 'quiz_completed', {
+    event_category:   'quiz',
+    step1:            quizData.step1,
+    step2:            quizData.step2,
+    step3:            quizData.step3,
+    professional_id:  chosenProfessional.id
+  });
+}
+
+function renderResultCard(psi) {
+  const perDay    = Math.round(psi.valor_sessao / 30);
+  const avatarHtml = psi.foto_url
+    ? `<img src="${esc(psi.foto_url)}" alt="Foto de ${esc(psi.nome)}" loading="lazy" onerror="this.parentElement.innerHTML='👤'">`
+    : '<span style="font-size:1.8rem">👤</span>';
+
+  document.getElementById('result-card').innerHTML = `
+    <div class="result-avatar">${avatarHtml}</div>
     <div class="result-info" style="flex:1">
-      <div class="result-name">${chosen.name}</div>
-      <div class="result-crp">${chosen.crp}</div>
-      <div class="result-esp">${chosen.esp}</div>
-      <div class="result-avail"><span class="avail-dot"></span>${chosen.avail}</div>
-      <div class="result-bio">${chosen.bio}</div>
+      <div class="result-name">${esc(psi.nome)}</div>
+      <div class="result-crp">${esc(psi.crp)}</div>
+      <div class="result-esp">${esc(psi.especialidade)}</div>
+      <div class="result-avail"><span class="avail-dot"></span>${esc(psi.disponibilidade)}</div>
+      <div class="result-bio">${esc(psi.bio)}</div>
       <div class="result-price-row">
         <div class="result-price">
           <small>Por sessão de 50 min</small>
-          R$${chosen.valor}
+          R$${psi.valor_sessao}
           <div class="per-day">≈ R$${perDay} por dia</div>
         </div>
-        <button class="btn-result" onclick="agendarComPsi('${chosen.name}')">
+        <button class="btn-result" onclick="agendarComPsi(${JSON.stringify(psi.id)},${JSON.stringify(psi.nome)})">
           Começar consulta →
         </button>
       </div>
-    </div>
-  `;
+    </div>`;
+}
 
-  document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
-  document.getElementById('quiz-nav').style.display='none';
-  document.getElementById('quiz-progress').style.width='100%';
-  document.getElementById('step-label').textContent='Concluído!';
-  document.getElementById('step-pct').textContent='100%';
-  document.getElementById('quiz-header-title').textContent='Seu psicólogo foi encontrado 🎉';
+/* ----------------------------------------------------------------
+   ALL PROFESSIONALS LIST
+   ---------------------------------------------------------------- */
+function verTodosPsi() {
+  document.getElementById('result-step').classList.remove('active');
+  document.getElementById('all-psi-panel').classList.add('active');
+  renderAllPsiList();
+}
+
+function voltarParaResultado() {
+  document.getElementById('all-psi-panel').classList.remove('active');
   document.getElementById('result-step').classList.add('active');
-
-  gtag('event','quiz_completed',{event_category:'quiz',step1:quizData.step1,step2:quizData.step2,step3:quizData.step3});
 }
 
-function agendarComPsi(nome){
-  gtag('event','cta_click',{event_category:'conversion',professional:nome});
-  window.location.href='https://wa.me/5598989272727?text=Quero%20agendar%20uma%20consulta%20com%20'+encodeURIComponent(nome);
+function renderAllPsiList() {
+  const container = document.getElementById('psi-list');
+  container.innerHTML = '';
+
+  const sorted = [...allProfessionals].sort((a, b) => {
+    if (a.disponivel_agora && !b.disponivel_agora) return -1;
+    if (!a.disponivel_agora && b.disponivel_agora) return 1;
+    return a.valor_sessao - b.valor_sessao;
+  });
+
+  sorted.forEach(psi => {
+    const perDay     = Math.round(psi.valor_sessao / 30);
+    const avatarHtml = psi.foto_url
+      ? `<img src="${esc(psi.foto_url)}" alt="Foto de ${esc(psi.nome)}" loading="lazy" onerror="this.parentElement.innerHTML='👤'">`
+      : '<span style="font-size:1.3rem">👤</span>';
+
+    const card = document.createElement('div');
+    card.className = 'psi-list-card';
+    card.innerHTML = `
+      <div class="psi-list-avatar">${avatarHtml}</div>
+      <div class="psi-list-info">
+        <div class="psi-list-name">${esc(psi.nome)}</div>
+        <div class="psi-list-crp">${esc(psi.crp)}</div>
+        <div class="psi-list-esp">${esc(psi.especialidade)}</div>
+        <div class="psi-list-avail"><span class="psi-list-avail-dot"></span>${esc(psi.disponibilidade)}</div>
+        <div class="psi-list-footer">
+          <div class="psi-list-price"><small>Por sessão · ≈ R$${perDay}/dia</small>R$${psi.valor_sessao}</div>
+          <button class="btn-list-agendar" onclick="agendarComPsi(${JSON.stringify(psi.id)},${JSON.stringify(psi.nome)})">Agendar →</button>
+        </div>
+      </div>`;
+    container.appendChild(card);
+  });
 }
 
-function verTodosPsi(){
-  window.location.href='https://wa.me/5598989272727?text=Quero%20ver%20todos%20os%20psic%C3%B3logos%20dispon%C3%ADveis';
+/* ----------------------------------------------------------------
+   BOOKING CTA
+   Builds contextual WhatsApp message or redirects to booking page
+   ---------------------------------------------------------------- */
+function agendarComPsi(id, nome) {
+  gtag('event', 'cta_click', {
+    event_category:  'conversion',
+    professional_id: id,
+    professional_name: nome
+  });
+
+  const feelingLabels = {
+    ansiedade:        'ansiedade',
+    tristeza:         'tristeza e humor baixo',
+    estresse:         'estresse e esgotamento',
+    relacionamentos:  'dificuldades em relacionamentos',
+    autoconhecimento: 'autoconhecimento'
+  };
+  const feeling = feelingLabels[quizData.step1] || 'saúde mental';
+  const urgency = quizData.step2 === 'agora' ? ' com urgência' : '';
+  const msg = `Olá! Gostaria de agendar uma consulta${urgency} com ${nome}. Encontrei pelo site e estou buscando suporte para ${feeling}.`;
+
+  if (CONFIG.bookingUrl) {
+    window.location.href = `${CONFIG.bookingUrl}?psi=${encodeURIComponent(id)}&ref=quiz`;
+  } else {
+    window.open(`https://wa.me/${CONFIG.wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+  }
 }
 
-// REVEAL ON SCROLL
-const revealEls=document.querySelectorAll('.reveal');
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
-},{threshold:.12});
-revealEls.forEach(el=>io.observe(el));
-
-// HIDE STICKY CTA WHEN QUIZ VISIBLE
-const quizEl=document.getElementById('quiz-section');
-const stickyEl=document.querySelector('.sticky-cta');
-if(stickyEl){
-  const quizObs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      stickyEl.style.display=e.isIntersecting?'none':'';
-    });
-  },{threshold:.3});
-  quizObs.observe(quizEl);
+/* ----------------------------------------------------------------
+   UTILITY
+   ---------------------------------------------------------------- */
+function esc(s) {
+  if (typeof s !== 'string') return String(s);
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
+
+/* ----------------------------------------------------------------
+   SCROLL REVEAL
+   ---------------------------------------------------------------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ----------------------------------------------------------------
+   HIDE STICKY CTA WHEN QUIZ IN VIEW
+   ---------------------------------------------------------------- */
+const stickyEl = document.querySelector('.sticky-cta');
+if (stickyEl) {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => { stickyEl.style.display = e.isIntersecting ? 'none' : ''; });
+  }, { threshold: .3 }).observe(document.getElementById('quiz-section'));
+}
+
+/* ----------------------------------------------------------------
+   INIT
+   ---------------------------------------------------------------- */
+loadProfessionals();
 </script>
 </body>
 </html>
