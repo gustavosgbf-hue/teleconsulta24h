@@ -10,7 +10,7 @@ gtag('config','AW-17964942771');
 </script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Psicólogo Online · Agendar sessão | ConsultaJá24h</title>
+<title>Psicólogo Online · Sem Espera | ConsultaJá24h</title>
 <meta name="description" content="Você não precisa lidar com a ansiedade sozinho. Consulta com psicólogo online em minutos. Profissionais com CRP ativo, sigilo garantido. A partir de R$149."/>
 <link rel="canonical" href="https://consultaja24h.com.br/psicologo-online"/>
 <meta property="og:type" content="website"/>
@@ -257,7 +257,7 @@ footer a{color:var(--ink-2)}
   <div class="nav-logo">ConsultaJá<em>24h</em></div>
   <div class="nav-actions">
     <a class="nav-phone" href="https://wa.me/5598989272727?text=Tenho%20d%C3%BAvidas%20sobre%20o%20atendimento" target="_blank" rel="noopener">Dúvidas? WhatsApp</a>
-    <a class="nav-btn" href="#quiz-section">Começar agora</a>
+    <a class="nav-btn" href="#quiz-section">Começar sessão ainda hoje</a>
   </div>
 </nav>
 
@@ -273,9 +273,9 @@ footer a{color:var(--ink-2)}
     <p class="hero-price" id="hero-price-line">A partir de <strong>R$149</strong> · ≈ R$5 por dia</p>
   </div>
   <div class="fade-up">
-    <button class="btn-primary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">👉 Começar atendimento agora</button>
+    <button class="btn-primary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">👉 Começar atendimento</button>
     <div class="hero-micro">
-      <span>⚡ Atendimento ainda hoje</span>
+      <span>⚡ Primeira sessão ainda hoje</span>
       <span>🔒 Sigilo total</span>
       <span>✅ Sem burocracia</span>
     </div>
@@ -447,7 +447,7 @@ footer a{color:var(--ink-2)}
 <div class="cta-bottom reveal">
   <h2 class="cta-bottom-h">Dê o primeiro passo.<br><em>Você merece se sentir bem.</em></h2>
   <p class="cta-bottom-sub">Milhares de pessoas já escolheram cuidar de sua saúde mental.<br><strong>Hoje pode ser o seu dia.</strong></p>
-  <button class="btn-light" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">👉 Começar atendimento agora</button>
+  <button class="btn-light" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">👉 Começar atendimento</button>
   <div class="cta-reassurance">Sem compromisso · Cancele quando quiser · Atendimento de qualidade garantido</div>
 </div>
 
@@ -457,7 +457,7 @@ footer a{color:var(--ink-2)}
 </footer>
 
 <div class="sticky-cta">
-  <button class="sticky-cta-btn" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">⚡ Começar atendimento agora</button>
+  <button class="sticky-cta-btn" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">⚡ Começar atendimento</button>
   <div class="sticky-cta-note">Primeira sessão ainda hoje · A partir de R$149 · Sigilo total</div>
 </div>
 
@@ -561,18 +561,51 @@ function normalizeApiProfessional(p) {
   const focos = Array.isArray(p.focos)
     ? p.focos.map(f => String(f).toLowerCase().replace(/ /g,'-'))
     : String(p.focos || '').split(',').map(f => f.trim().toLowerCase()).filter(Boolean);
+
+  /* valor_sessao is stored as TEXT e.g. "160", "160,00", "R$160" */
+  const valorRaw = String(p.valor_sessao || '').replace(/[^\d,.]/g, '').replace(',', '.');
+  const valor = Math.round(parseFloat(valorRaw)) || 0;
+
+  /* disponibilidade can be plain text OR a JSON object/string — normalize to readable text */
+  let disp = p.disponibilidade;
+  if (disp && typeof disp === 'object') {
+    /* JSONB object like {1: ["10:00","15:00"], 3: [...]} — convert to human label */
+    const dayNames = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+    const days = Object.keys(disp).map(k => dayNames[Number(k)] || k).join(', ');
+    disp = days ? 'Disponível: ' + days : 'Consultar disponibilidade';
+  } else if (typeof disp === 'string') {
+    /* Try to parse if it looks like JSON */
+    const trimmed = disp.trim();
+    if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          const dayNames = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+          const days = Object.keys(parsed).map(k => dayNames[Number(k)] || k).join(', ');
+          disp = days ? 'Disponível: ' + days : 'Consultar disponibilidade';
+        } else {
+          disp = 'Consultar disponibilidade';
+        }
+      } catch(_) { /* keep as-is */ }
+    }
+  }
+  disp = disp || 'Consultar disponibilidade';
+
+  const crpRaw = String(p.crp || '').trim();
+  const crpLabel = crpRaw
+    ? (crpRaw.toUpperCase().startsWith('CRP') ? crpRaw : 'CRP ' + crpRaw)
+    : '';
+
   return {
     id:              p.id || String(Math.random()),
     nome:            p.nome_exibicao || p.nome || 'Profissional',
-    crp:             p.crp ? 'CRP ' + p.crp : '',
+    crp:             crpLabel,
     especialidade:   p.abordagem || p.especialidade || '',
     focos:           focos,
     bio:             p.apresentacao || p.bio || p.descricao || '',
-    valor_sessao:    Number(p.valor_sessao || 0),
-    disponibilidade: p.disponibilidade || 'Horários disponíveis',
-    disponivel_agora: p.disponibilidade
-      ? /agora|hoje|imediato/i.test(p.disponibilidade)
-      : false,
+    valor_sessao:    valor,
+    disponibilidade: disp,
+    disponivel_agora: /agora|hoje|imediato/i.test(disp),
     genero:          p.genero || (String(p.sexo || '').toLowerCase().startsWith('f') ? 'F' : 'M'),
     foto_url:        p.foto_url || p.avatar_url || null
   };
@@ -746,8 +779,8 @@ function renderResultCard(psi) {
       <div class="result-price-row">
         <div class="result-price">
           <small>Por sessão de 50 min</small>
-          R$${psi.valor_sessao}
-          <div class="per-day">≈ R$${perDay} por dia</div>
+          ${psi.valor_sessao > 0 ? 'R$' + psi.valor_sessao : 'Consultar valor'}
+          ${psi.valor_sessao > 0 ? `<div class="per-day">≈ R$${perDay} por dia</div>` : ''}
         </div>
         <button class="btn-result" onclick="agendarComPsi(${JSON.stringify(psi.id)},${JSON.stringify(psi.nome)})">
           Começar consulta →
@@ -816,7 +849,7 @@ function renderRealProfessionalsGrid() {
       <div class="real-pro-esp">${esc(psi.especialidade)}</div>
       <div class="real-pro-bio">${esc(psi.bio)}</div>
       <div class="real-pro-meta">
-        <div class="real-pro-price"><small>Sessão de 50 min</small>R$${psi.valor_sessao}</div>
+        <div class="real-pro-price"><small>Sessão de 50 min</small>${psi.valor_sessao > 0 ? 'R$' + psi.valor_sessao : 'Consultar valor'}</div>
         <div class="real-pro-avail"><span class="real-pro-avail-dot"></span>${esc(psi.disponibilidade)}</div>
       </div>
       <button class="real-pro-cta" onclick="agendarComPsi(${JSON.stringify(psi.id)},${JSON.stringify(psi.nome)})">Agendar com ${esc(firstName)} →</button>`;
