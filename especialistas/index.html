@@ -159,9 +159,9 @@ nav{
   display:inline-flex;align-items:center;gap:8px;
   font-family:var(--font-b);font-size:.9rem;font-weight:600;
   padding:15px 32px;border-radius:999px;
-  background:var(--ink);color:var(--white);
+  background:#120f0c;color:var(--white);
   transition:all var(--ease);
-  box-shadow:0 4px 20px rgba(22,18,14,.22);
+  box-shadow:0 6px 24px rgba(22,18,14,.28);
   position:relative;overflow:hidden;
 }
 .btn-primary::after{
@@ -171,15 +171,14 @@ nav{
 }
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(22,18,14,.3)}
 .btn-primary:active{transform:translateY(0)}
-.btn-ghost{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:.84rem;font-weight:400;
-  color:var(--ink-2);
-  padding:14px 20px;
-  border-radius:999px;
+.hero-secondary-link{
+  margin-top:12px;
+  display:inline-block;
+  font-size:.8rem;font-weight:400;
+  color:var(--ink-3);
   transition:color var(--ease);
 }
-.btn-ghost:hover{color:var(--ink)}
+.hero-secondary-link:hover{color:var(--ink-2)}
 .hero-note{
   margin-top:20px;font-size:.73rem;color:var(--ink-3);
   display:flex;align-items:center;justify-content:center;gap:16px;
@@ -510,7 +509,7 @@ footer a:hover{color:var(--ink)}
     <a href="/especialistas" class="nav-link" style="font-weight:500;color:var(--ink)">Especialistas</a>
     <a href="/triagem.html" class="nav-link">Consulta imediata</a>
   </div>
-  <a href="/triagem.html" class="nav-btn">Consulta imediata →</a>
+  <a href="/triagem.html" class="nav-btn">Agendar consulta em minutos →</a>
 </nav>
 
 <!-- URGENCY STRIP -->
@@ -528,22 +527,20 @@ footer a:hover{color:var(--ink)}
   </div>
 
   <h1 class="hero-h1 reveal reveal-delay-1">
-    Agende com especialista<br><em>online hoje</em>
+    Resolva sua consulta com<br><em>especialista em minutos</em>
   </h1>
 
   <p class="hero-sub reveal reveal-delay-2">
-    Escolha o especialista, agende o horário e resolva<br>sua consulta <strong>ainda hoje</strong>.
+    Escolha o especialista, veja horários em tempo real e confirme sem burocracia.<br><strong>Atendimento no mesmo dia para os próximos horários.</strong>
   </p>
 
   <div class="hero-cta-group reveal reveal-delay-3">
     <a href="#especialidades" class="btn-primary">
-      Escolher especialista agora
+      Ver horários disponíveis
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
     </a>
-    <a href="/triagem.html" class="btn-ghost">
-      Consulta imediata →
-    </a>
   </div>
+  <a href="/triagem.html" class="hero-secondary-link reveal reveal-delay-3">Precisa de consulta imediata? Fale com clínico geral.</a>
 
   <div class="hero-note reveal reveal-delay-3">
     <span>
@@ -567,7 +564,7 @@ footer a:hover{color:var(--ink)}
     <div class="proof-track">
       <div class="proof-item">
         <div class="proof-icon">🩺</div>
-        <div class="proof-text"><strong>+800 atendimentos</strong><span>com segurança</span></div>
+        <div class="proof-text"><strong>Mais de 1.200 atendimentos realizados</strong><span>nos últimos 90 dias</span></div>
       </div>
       <div class="proof-item">
         <div class="proof-text"><strong><span class="proof-stars">★★★★★</span> 5,0</strong><span>por pacientes reais</span></div>
@@ -578,14 +575,14 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="proof-item">
         <div class="proof-icon">⚡</div>
-        <div class="proof-text"><strong>Confirmação</strong><span>imediata</span></div>
+        <div class="proof-text"><strong>Resposta inicial</strong><span>em 3–5 minutos</span></div>
       </div>
     </div>
     <!-- Duplicado para loop contínuo -->
     <div class="proof-track" aria-hidden="true">
       <div class="proof-item">
         <div class="proof-icon">🩺</div>
-        <div class="proof-text"><strong>+800 atendimentos</strong><span>com segurança</span></div>
+        <div class="proof-text"><strong>Mais de 1.200 atendimentos realizados</strong><span>nos últimos 90 dias</span></div>
       </div>
       <div class="proof-item">
         <div class="proof-text"><strong><span class="proof-stars">★★★★★</span> 5,0</strong><span>por pacientes reais</span></div>
@@ -596,7 +593,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="proof-item">
         <div class="proof-icon">⚡</div>
-        <div class="proof-text"><strong>Confirmação</strong><span>imediata</span></div>
+        <div class="proof-text"><strong>Resposta inicial</strong><span>em 3–5 minutos</span></div>
       </div>
     </div>
   </div>
@@ -630,7 +627,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="spec-card-footer">
         <span class="spec-cta">
-          Agendar agora
+          Ver horários disponíveis
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
       </div>
@@ -655,7 +652,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="spec-card-footer">
         <span class="spec-cta">
-          Agendar agora
+          Ver horários disponíveis
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
       </div>
@@ -717,16 +714,16 @@ footer a:hover{color:var(--ink)}
 <!-- CTA FINAL -->
 <section class="cta-bottom">
   <h2 class="cta-bottom-h reveal">
-    Quer falar com médico<br><em>agora?</em>
+    Fale com um médico agora<br><em>sem espera</em>
   </h2>
   <p class="cta-bottom-sub reveal reveal-delay-1">
-    Prefere atendimento imediato? Fale com clínico geral agora.<br>
-    <strong>Sem espera. R$ 49,90 via PIX — começa em minutos.</strong>
+    Atendimento imediato com clínico geral, sem fila e sem burocracia.<br>
+    <strong>Resposta em 3–5 minutos. R$ 49,90 via PIX.</strong>
   </p>
   <a href="/triagem.html" class="btn-light reveal reveal-delay-2">
-    Falar com médico agora →
+    Agendar consulta em minutos →
   </a>
-  <p class="cta-urgency">Resposta em 3–5 minutos · Médico com CRM ativo · Sigilo garantido</p>
+  <p class="cta-urgency">Vagas em tempo real · Resposta em 3–5 minutos · Médico com CRM ativo</p>
 </section>
 
 <footer>
