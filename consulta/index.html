@@ -50,6 +50,18 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,5.2vw,3.8rem);font-weight:700;line-height:1.12;margin-bottom:14px;letter-spacing:-.02em}
 .hero h1 em{font-style:italic;background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero__sub{font-size:clamp(.95rem,2vw,1.08rem);font-weight:400;color:rgba(255,255,255,.72);line-height:1.55;max-width:620px;margin:0 auto 18px}
+.hero__price{font-size:clamp(1.16rem,3vw,1.62rem);font-weight:900;color:#041008;background:linear-gradient(135deg,#d8ff4e,#4df39b);padding:11px 20px;border-radius:999px;display:inline-block;margin-bottom:6px;box-shadow:0 14px 34px rgba(94,224,160,.3)}
+.hero__price small{display:block;font-size:.72rem;font-weight:700;color:rgba(5,18,12,.76);margin-top:2px}
+.hero__cta-focus{position:relative;display:inline-flex;flex-direction:column;align-items:center;padding:14px 16px;border-radius:18px}
+.hero__cta-focus::before{content:'';position:absolute;inset:-22px -32px;background:radial-gradient(circle,rgba(77,243,155,.2) 0%,rgba(77,243,155,0) 72%);z-index:-1;pointer-events:none}
+.hero__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+.btn-primary{padding:19px 48px;border-radius:14px;border:none;background:linear-gradient(135deg,#d0ff33,#1eea7d);color:#051208;font-family:'Outfit',sans-serif;font-weight:900;font-size:1.06rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 0 1px rgba(205,255,75,.4),0 14px 34px rgba(66,226,131,.45),0 0 36px rgba(66,226,131,.25);transition:transform .25s,box-shadow .25s,filter .25s}
+.btn-primary:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 0 1px rgba(205,255,75,.55),0 20px 46px rgba(66,226,131,.56),0 0 44px rgba(66,226,131,.35);filter:brightness(1.06) saturate(1.15)}
+.btn-primary:active{transform:translateY(1px) scale(.985)}
+.btn-primary.clicked{animation:ctaClick .24s ease}
+@keyframes ctaClick{0%{transform:scale(1)}50%{transform:scale(.96)}100%{transform:scale(1)}}
+.hero__availability{margin-top:10px;font-size:.82rem;color:rgba(255,255,255,.85);font-weight:600}
+.hero__microcopy{margin-top:8px;font-size:.76rem;color:rgba(255,255,255,.62);font-weight:500;line-height:1.4}
 .hero__price{font-size:clamp(1.1rem,2.8vw,1.45rem);font-weight:800;color:#07120b;background:linear-gradient(135deg,#c8ef4f,#5ee0a0);padding:10px 18px;border-radius:999px;display:inline-block;margin-bottom:16px;box-shadow:0 10px 28px rgba(94,224,160,.24)}
 .hero__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
 .btn-primary{padding:18px 42px;border-radius:14px;border:none;background:linear-gradient(135deg,#b7ef3d,#27d67a);color:#051208;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.02rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 10px 30px rgba(66,226,131,.35);transition:transform .2s,box-shadow .25s,filter .2s}
@@ -66,6 +78,8 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .hero__meta-item{font-size:.7rem;font-weight:400;color:rgba(255,255,255,.28);display:flex;align-items:center;gap:5px}
 .hero__meta-item svg{opacity:.5;flex-shrink:0}
 .hero__meta-sep{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0}
+.hero__trust{display:grid;grid-template-columns:repeat(3,minmax(170px,1fr));gap:8px;margin-top:16px;max-width:860px}
+.hero__trust-item{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;color:rgba(255,255,255,.76);font-weight:600;padding:9px 10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px}
 .hero__trust{display:grid;grid-template-columns:repeat(3,minmax(170px,1fr));gap:10px;margin-top:22px;max-width:860px}
 .hero__trust-item{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.8rem;color:rgba(255,255,255,.72);font-weight:500;padding:10px 12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px}
 .hero__trust-item svg{flex-shrink:0;opacity:.7}
@@ -73,6 +87,11 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .pain-grid{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin-top:22px}
 .pain-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;text-align:center;font-size:.86rem;font-weight:500;color:rgba(255,255,255,.86)}
 .pain-item span{display:block;font-size:1.1rem;margin-bottom:6px}
+.mid-cta{margin-top:24px;text-align:center}
+.btn-secondary-cta{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:12px;background:linear-gradient(135deg,#b7ef3d,#31d983);color:#06210f;font-weight:800;font-size:.95rem;text-decoration:none;box-shadow:0 8px 20px rgba(66,226,131,.22);transition:transform .2s,filter .2s}
+.btn-secondary-cta:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.btn-secondary-cta:active{transform:translateY(1px)}
+.mid-cta__micro{margin-top:8px;font-size:.78rem;color:rgba(255,255,255,.58);font-weight:500}
 
 section{position:relative;z-index:1;padding:80px 24px}
 .section-inner{max-width:1080px;margin:0 auto}
@@ -140,6 +159,7 @@ footer a:hover{color:var(--g2)}
 .divider{border:none;border-top:1px solid var(--line);margin:0}
 
 @media(max-width:760px){
+  .hero{min-height:auto;padding:54px 18px 30px}
   .hero{min-height:auto;padding:58px 20px 40px}
   .hero__trust{grid-template-columns:1fr}
   .pain-grid{grid-template-columns:repeat(2,minmax(140px,1fr))}
@@ -183,7 +203,7 @@ footer a:hover{color:var(--g2)}
 .reveal {
   opacity: 0;
   transform: translateY(32px);
-  transition: opacity 0.7s cubic-bezier(.22,.68,0,1.2), transform 0.7s cubic-bezier(.22,.68,0,1.2);
+  transition: opacity .34s ease, transform .34s ease;
   will-change: opacity, transform;
 }
 .reveal.visible {
@@ -194,15 +214,15 @@ footer a:hover{color:var(--g2)}
 .reveal-group > * {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(.22,.68,0,1.2), transform 0.6s cubic-bezier(.22,.68,0,1.2);
+  transition: opacity .3s ease, transform .3s ease;
   will-change: opacity, transform;
 }
 .reveal-group.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0s }
-.reveal-group.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: .1s }
-.reveal-group.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: .2s }
-.reveal-group.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: .3s }
-.reveal-group.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: .4s }
-.reveal-group.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: .5s }
+.reveal-group.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: .04s }
+.reveal-group.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: .08s }
+.reveal-group.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: .12s }
+.reveal-group.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: .16s }
+.reveal-group.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: .2s }
 
 /* ── [NOVO] Hero stats ── */
 .hero__stats{display:flex;align-items:center;margin-top:32px;flex-wrap:wrap;gap:0}
@@ -321,10 +341,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <h1>Precisa de médico agora?<br><em>Atendimento online em minutos</em></h1>
     <p class="hero__sub">Consulta por vídeo ou chat em até 5 minutos, sem fila e sem burocracia.</p>
+    <p class="hero__price">Consulta a partir de R$49,90 <small>Menos que uma consulta presencial</small></p>
+    <div class="hero__cta-focus">
     <p class="hero__price">Consulta a partir de R$49,90</p>
     <div class="hero__btns">
-      <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">
+      <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary js-hero-cta" data-alt-label="Começar consulta agora">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
+        <span class="js-cta-label">Falar com médico agora</span>
+      </a>
+    </div>
+    <p class="hero__availability">Disponível 24h • Atendimento imediato</p>
+    <p class="hero__microcopy">Sem cadastro complicado • Atendimento imediato após pagamento</p>
         Falar com médico agora
       </a>
     </div>
@@ -333,6 +360,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="hero__urgency" id="heroUrgency">
         <span class="dot-green"></span> 3 médicos online agora • Atendimento em até 5 minutos
       </div>
+    </div>
     </div>
     <div class="hero__trust reveal-group">
       <div class="hero__trust-item">
@@ -362,6 +390,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="pain-item"><span>🤢</span>Mal-estar</div>
       <div class="pain-item"><span>📄</span>Precisa de atestado</div>
     </div>
+    <div class="mid-cta">
+      <a href="https://consultaja24h.com.br/triagem.html" class="btn-secondary-cta">Falar com médico agora</a>
+      <p class="mid-cta__micro">Atendimento imediato • Sem fila</p>
+    </div>
   </div>
 </section>
 
@@ -381,8 +413,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- métricas -->
     <div class="hero__stats" style="margin:0">
       <div class="hstat">
-        <span class="hstat__n" data-target="800">0</span>
-        <span class="hstat__l">atendimentos</span>
+        <span class="hstat__n" style="font-size:1.1rem;line-height:1.2">Centenas</span>
+        <span class="hstat__l">de atendimentos realizados</span>
       </div>
       <div class="hstat-sep"></div>
       <div class="hstat">
@@ -427,10 +459,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="display:flex;align-items:center;gap:10px">
       <span style="font-size:1.5rem">🔒</span>
       <div>
-        <div style="font-size:1.1rem;font-weight:700;color:var(--g1);font-family:'Playfair Display',serif">Sigilo total</div>
-        <div style="font-size:.72rem;color:rgba(255,255,255,.4);font-weight:300">LGPD + Ética médica</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--g1);font-family:'Playfair Display',serif">100% sigiloso e seguro (LGPD)</div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.4);font-weight:300">Proteção de dados e ética médica</div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="reveal" style="padding:24px 24px 42px">
+  <div class="section-inner" style="text-align:center">
+    <a href="https://consultaja24h.com.br/triagem.html" class="btn-secondary-cta">Falar com médico agora</a>
+    <p class="mid-cta__micro">Atendimento imediato • Sem fila</p>
   </div>
 </section>
 
@@ -672,6 +711,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <div class="mobile-sticky-cta">
+  <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">Começar consulta agora</a>
   <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">Falar com médico agora</a>
 </div>
 
@@ -710,6 +750,17 @@ function toggleFaq(btn){
       var pick = urgencyPhrases[Math.floor(Math.random() * urgencyPhrases.length)];
       urgencyEl.innerHTML = '<span class="dot-green"></span> ' + pick;
     }, 6500);
+  }
+
+  var heroCta = document.querySelector('.js-hero-cta');
+  if(heroCta){
+    var labelEl = heroCta.querySelector('.js-cta-label');
+    var labels = ['Falar com médico agora', heroCta.getAttribute('data-alt-label') || 'Começar consulta agora'];
+    var pos = 0;
+    setInterval(function(){
+      pos = (pos + 1) % labels.length;
+      if(labelEl) labelEl.textContent = labels[pos];
+    }, 9000);
   }
 
   const io = new IntersectionObserver(function(entries) {
