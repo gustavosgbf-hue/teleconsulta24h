@@ -445,21 +445,44 @@ footer a:hover{color:var(--ink)}
 .fade-up:nth-child(1){animation-delay:.05s}
 .fade-up:nth-child(2){animation-delay:.15s}
 .fade-up:nth-child(3){animation-delay:.25s}
-.floating-whatsapp{
+.whatsapp-widget{
   position:fixed;
   right:18px;
   bottom:18px;
   z-index:160;
-  display:inline-flex;align-items:center;gap:8px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:10px;
+}
+.whatsapp-widget__toggle{
+  width:56px;height:56px;
+  border:none;border-radius:50%;
+  display:grid;place-items:center;
   background:#1fa855;color:#fff;
-  border-radius:999px;
-  padding:12px 16px;
-  font-size:.8rem;font-weight:700;
-  box-shadow:0 14px 26px rgba(31,168,85,.3);
-  transition:all var(--transition);
+  cursor:pointer;
+  box-shadow:0 14px 24px rgba(31,168,85,.3);
+  transition:transform var(--transition),box-shadow var(--transition);
   animation:whatsIn .5s ease .4s both;
 }
-.floating-whatsapp:hover{transform:translateY(-2px);box-shadow:0 18px 30px rgba(31,168,85,.36)}
+.whatsapp-widget__toggle:hover{transform:translateY(-2px);box-shadow:0 18px 30px rgba(31,168,85,.36)}
+.whatsapp-widget__panel{
+  width:min(280px,calc(100vw - 28px));
+  background:#fff;
+  border:1px solid var(--line-mid);
+  border-radius:14px;
+  padding:14px;
+  box-shadow:0 18px 30px rgba(26,22,18,.14);
+  display:none;
+}
+.whatsapp-widget.open .whatsapp-widget__panel{display:block;animation:whatsIn .2s ease both}
+.whatsapp-widget__title{font-size:.83rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.whatsapp-widget__text{font-size:.78rem;line-height:1.45;color:var(--ink-2);margin-bottom:12px}
+.whatsapp-widget__action{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:100%;padding:10px 12px;border-radius:10px;
+  background:#1fa855;color:#fff;font-size:.8rem;font-weight:700;
+}
 @keyframes whatsIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── RESPONSIVE ── */
@@ -477,8 +500,9 @@ footer a:hover{color:var(--ink)}
   footer{padding:24px 20px}
   .modal{padding:24px 20px}
   .slots-grid{grid-template-columns:repeat(2,1fr)}
-  .floating-whatsapp{right:12px;bottom:12px;padding:11px 13px}
-  .floating-whatsapp span{display:none}
+  .whatsapp-widget{right:12px;bottom:12px}
+  .whatsapp-widget__toggle{width:52px;height:52px}
+  .whatsapp-widget__panel{width:min(250px,calc(100vw - 24px))}
 }
 @media(max-width:400px){
   .conditions-grid{grid-template-columns:1fr}
@@ -576,10 +600,16 @@ footer a:hover{color:var(--ink)}
   <p style="margin-top:10px;font-size:.68rem;color:#b0a89f">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
 </footer>
 
-<a class="floating-whatsapp" href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
-  <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C8.84 3 3 8.73 3 15.78c0 2.49.72 4.88 2.08 6.93L3 29l6.57-2.03a13.14 13.14 0 0 0 6.43 1.67c7.16 0 13-5.73 13-12.86C29 8.73 23.16 3 16 3zm0 23.5c-2.02 0-4-.56-5.73-1.62l-.41-.25-3.9 1.2 1.27-3.76-.27-.4A10.66 10.66 0 0 1 5.1 15.8c0-5.87 4.88-10.64 10.9-10.64s10.9 4.77 10.9 10.64c0 5.87-4.88 10.64-10.9 10.64zm5.98-7.99c-.33-.16-1.96-.95-2.26-1.06-.3-.11-.52-.16-.74.16s-.86 1.06-1.05 1.28c-.19.21-.38.24-.71.08-.33-.16-1.38-.5-2.63-1.59-.98-.85-1.64-1.9-1.83-2.22-.19-.32-.02-.5.14-.66.15-.15.33-.4.5-.6.17-.2.22-.34.33-.56.11-.21.06-.4-.03-.56-.08-.16-.74-1.77-1.01-2.43-.26-.63-.53-.55-.74-.56h-.63c-.22 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.68s1.15 3.1 1.31 3.32c.16.21 2.26 3.59 5.47 5.03.76.33 1.36.53 1.82.67.76.24 1.45.21 2 .13.61-.09 1.96-.79 2.24-1.56.28-.77.28-1.43.2-1.56-.08-.13-.3-.21-.63-.37z"/></svg>
-  <span>WhatsApp</span>
-</a>
+<div class="whatsapp-widget" id="whatsappWidget">
+  <button type="button" class="whatsapp-widget__toggle" aria-label="Abrir atendimento no WhatsApp" onclick="toggleWhatsAppWidget()">
+    <svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C8.84 3 3 8.73 3 15.78c0 2.49.72 4.88 2.08 6.93L3 29l6.57-2.03a13.14 13.14 0 0 0 6.43 1.67c7.16 0 13-5.73 13-12.86C29 8.73 23.16 3 16 3zm0 23.5c-2.02 0-4-.56-5.73-1.62l-.41-.25-3.9 1.2 1.27-3.76-.27-.4A10.66 10.66 0 0 1 5.1 15.8c0-5.87 4.88-10.64 10.9-10.64s10.9 4.77 10.9 10.64c0 5.87-4.88 10.64-10.9 10.64zm5.98-7.99c-.33-.16-1.96-.95-2.26-1.06-.3-.11-.52-.16-.74.16s-.86 1.06-1.05 1.28c-.19.21-.38.24-.71.08-.33-.16-1.38-.5-2.63-1.59-.98-.85-1.64-1.9-1.83-2.22-.19-.32-.02-.5.14-.66.15-.15.33-.4.5-.6.17-.2.22-.34.33-.56.11-.21.06-.4-.03-.56-.08-.16-.74-1.77-1.01-2.43-.26-.63-.53-.55-.74-.56h-.63c-.22 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.68s1.15 3.1 1.31 3.32c.16.21 2.26 3.59 5.47 5.03.76.33 1.36.53 1.82.67.76.24 1.45.21 2 .13.61-.09 1.96-.79 2.24-1.56.28-.77.28-1.43.2-1.56-.08-.13-.3-.21-.63-.37z"/></svg>
+  </button>
+  <div class="whatsapp-widget__panel" id="whatsappWidgetPanel">
+    <div class="whatsapp-widget__title">Atendimento via WhatsApp</div>
+    <div class="whatsapp-widget__text">Fale com nossa equipe para tirar dúvidas e concluir seu agendamento.</div>
+    <a class="whatsapp-widget__action" href="https://wa.me/559898272727" target="_blank" rel="noopener noreferrer">Abrir conversa</a>
+  </div>
+</div>
 
 <!-- MODAL DE HORÁRIOS + DADOS DO PACIENTE -->
 <div class="modal-overlay" id="modalOverlay" onclick="fecharModalOverlay(event)">
@@ -725,6 +755,24 @@ footer a:hover{color:var(--ink)}
 <script>
 var API = 'https://triagem-api.onrender.com';
 var ESPECIALIDADE = 'psiquiatria';
+var WHATSAPP_NUMBER = '559898272727';
+
+function toggleWhatsAppWidget() {
+  var widget = document.getElementById('whatsappWidget');
+  if (!widget) return;
+  widget.classList.toggle('open');
+}
+
+function initWhatsAppWidget() {
+  var widget = document.getElementById('whatsappWidget');
+  if (!widget) return;
+  var action = widget.querySelector('.whatsapp-widget__action');
+  if (action) action.href = 'https://wa.me/' + WHATSAPP_NUMBER;
+  document.addEventListener('click', function(ev) {
+    if (!widget.contains(ev.target)) widget.classList.remove('open');
+  });
+}
+
 
 var medicoSelecionado = null; // { id, nome, valor }
 var slotSelecionado   = null; // { dia, hora, iso }
@@ -858,17 +906,55 @@ function renderSlots(disponibilidade) {
 
 function normalizarDisponibilidade(disponibilidade) {
   if (!disponibilidade) return [];
-  if (Array.isArray(disponibilidade)) return disponibilidade.filter(function(item){ return item && item.iso && item.hora; });
-  if (typeof disponibilidade === 'string') {
-    return disponibilidade.split(',').map(function(h) {
-      var hora = (h || '').trim();
-      if (!hora) return null;
-      var hoje = new Date();
-      return { dia: 'Disponível', hora: hora, iso: hoje.toISOString() };
-    }).filter(Boolean);
+
+  function formatarSlot(item) {
+    if (!item) return null;
+
+    if (typeof item === 'string') {
+      var texto = item.trim();
+      if (!texto) return null;
+      var dataTexto = new Date(texto);
+      if (!isNaN(dataTexto.getTime())) {
+        return {
+          dia: dataTexto.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' }),
+          hora: dataTexto.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }),
+          iso: dataTexto.toISOString()
+        };
+      }
+      return { dia: 'Disponível', hora: texto, iso: new Date().toISOString() };
+    }
+
+    if (typeof item !== 'object') return null;
+
+    var iso = item.iso || item.datetime || item.data_hora || item.horario_agendado || item.inicio || item.start || '';
+    var dia = item.dia || item.data || item.dia_semana || '';
+    var hora = item.hora || item.time || item.horario_texto || '';
+
+    if (iso) {
+      var dataIso = new Date(iso);
+      if (!isNaN(dataIso.getTime())) {
+        if (!dia) dia = dataIso.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' });
+        if (!hora) hora = dataIso.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+        iso = dataIso.toISOString();
+      }
+    }
+
+    if (!hora && !dia) return null;
+
+    return {
+      dia: dia || 'Disponível',
+      hora: hora || 'Horário a combinar',
+      iso: iso || new Date().toISOString()
+    };
   }
-  return [];
+
+  var lista = Array.isArray(disponibilidade)
+    ? disponibilidade
+    : String(disponibilidade).split(',');
+
+  return lista.map(formatarSlot).filter(Boolean);
 }
+
 
 function irParaDados() {
   if (!slotSelecionado) return;
@@ -1170,6 +1256,7 @@ irParaDados = function() {
 
 // Carregar especialistas ao iniciar
 observeReveal();
+initWhatsAppWidget();
 carregarEspecialistas();
 </script>
 </body>
