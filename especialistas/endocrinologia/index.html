@@ -889,6 +889,17 @@ function escHtml(s) {
 
 function normalizarDisponibilidade(disponibilidade) {
   if (!disponibilidade) return [];
+  var agoraIso = new Date().toISOString();
+
+  function gerarDiaHoraPorIso(iso) {
+    var dataIso = new Date(iso);
+    if (isNaN(dataIso.getTime())) return null;
+    return {
+      dia: dataIso.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' }),
+      hora: dataIso.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }),
+      iso: dataIso.toISOString()
+    };
+  }
 
   function formatarSlot(item) {
     if (!item) return null;
@@ -896,15 +907,9 @@ function normalizarDisponibilidade(disponibilidade) {
     if (typeof item === 'string') {
       var texto = item.trim();
       if (!texto) return null;
-      var dataTexto = new Date(texto);
-      if (!isNaN(dataTexto.getTime())) {
-        return {
-          dia: dataTexto.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' }),
-          hora: dataTexto.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }),
-          iso: dataTexto.toISOString()
-        };
-      }
-      return { dia: 'Disponível', hora: texto, iso: new Date().toISOString() };
+      var slotDeData = gerarDiaHoraPorIso(texto);
+      if (slotDeData) return slotDeData;
+      return { dia: 'Disponível', hora: texto, iso: agoraIso };
     }
 
     if (typeof item !== 'object') return null;
@@ -914,11 +919,11 @@ function normalizarDisponibilidade(disponibilidade) {
     var hora = item.hora || item.time || item.horario_texto || '';
 
     if (iso) {
-      var dataIso = new Date(iso);
-      if (!isNaN(dataIso.getTime())) {
-        if (!dia) dia = dataIso.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' });
-        if (!hora) hora = dataIso.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
-        iso = dataIso.toISOString();
+      var slotDeIso = gerarDiaHoraPorIso(iso);
+      if (slotDeIso) {
+        if (!dia) dia = slotDeIso.dia;
+        if (!hora) hora = slotDeIso.hora;
+        iso = slotDeIso.iso;
       }
     }
 
@@ -927,15 +932,30 @@ function normalizarDisponibilidade(disponibilidade) {
     return {
       dia: dia || 'Disponível',
       hora: hora || 'Horário a combinar',
-      iso: iso || new Date().toISOString()
+      iso: iso || agoraIso
     };
   }
 
-  var lista = Array.isArray(disponibilidade)
-    ? disponibilidade
-    : String(disponibilidade).split(',');
+  var lista = disponibilidade;
+  if (typeof lista === 'string') {
+    var texto = lista.trim();
+    if (!texto) return [];
+    if (texto[0] === '[' || texto[0] === '{') {
+      try { lista = JSON.parse(texto); }
+      catch(e) { lista = texto.split(','); }
+    } else {
+      lista = texto.split(',');
+    }
+  }
 
-  return lista.map(formatarSlot).filter(Boolean);
+  if (!Array.isArray(lista)) {
+    if (lista && typeof lista === 'object') lista = [lista];
+    else return [];
+  }
+
+  return lista.map(formatarSlot).filter(Boolean).sort(function(a,b){
+    return new Date(a.iso) - new Date(b.iso);
+  });
 }
 
 
