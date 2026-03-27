@@ -155,27 +155,28 @@ nav{position:sticky;top:0;z-index:200;background:rgba(248,246,242,.96);backdrop-
 .result-other-link{text-align:center;margin-top:14px;font-size:.75rem;color:var(--ink-3);}
 .result-other-link a{color:var(--psi-acc);font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 
-/* ALL PROFESSIONALS PANEL */
-.all-psi-panel{display:none;padding:0 28px 28px;animation:fadeUp .3s ease;}
-.all-psi-panel.active{display:block}
-.all-psi-title{font-family:var(--font-d);font-size:1.15rem;font-weight:400;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
-.all-psi-title button{font-size:.72rem;font-weight:500;color:var(--psi-acc);background:none;border:none;cursor:pointer;text-decoration:underline;}
-.psi-list{display:flex;flex-direction:column;gap:12px}
-.psi-list-card{background:var(--cream);border:1px solid var(--line-mid);border-radius:14px;padding:16px;display:flex;align-items:flex-start;gap:12px;transition:border-color var(--ease);}
-.psi-list-card:hover{border-color:rgba(38,80,142,.25)}
-.psi-list-avatar{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--psi-mid),var(--psi-acc));flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
-.psi-list-avatar img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;}
-.psi-list-info{flex:1;min-width:0}
-.psi-list-name{font-family:var(--font-d);font-size:1.05rem;font-weight:500;color:var(--ink)}
-.psi-list-crp{font-size:.66rem;color:var(--ink-3);font-weight:300;margin-bottom:4px}
-.psi-list-esp{display:inline-block;background:var(--white);border:1px solid rgba(38,80,142,.12);color:var(--psi-acc);font-size:.67rem;font-weight:500;padding:2px 8px;border-radius:5px;margin-bottom:6px;}
-.psi-list-avail{font-size:.73rem;font-weight:500;color:#22c55e;display:flex;align-items:center;gap:5px}
-.psi-list-avail-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0}
-.psi-list-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
-.psi-list-price{font-family:var(--font-d);font-size:1.1rem;font-weight:500;color:var(--ink)}
-.psi-list-price small{display:block;font-size:.62rem;color:var(--ink-3);font-family:var(--font-b);font-weight:300}
-.btn-list-agendar{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-b);font-size:.78rem;font-weight:600;padding:9px 16px;border-radius:999px;background:var(--psi-acc);color:#fff;border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 2px 8px rgba(38,80,142,.24);white-space:nowrap;}
-.btn-list-agendar:hover{filter:brightness(1.1);transform:translateY(-1px)}
+/* REAL PROFESSIONALS SECTION */
+.real-pros{padding:0 40px 72px;max-width:1000px;margin:0 auto}
+.real-pros-header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.real-pros-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.real-pro-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--sh);transition:transform var(--ease),box-shadow var(--ease),border-color var(--ease)}
+.real-pro-card:hover{transform:translateY(-2px);box-shadow:var(--sh-md);border-color:rgba(38,80,142,.25)}
+.real-pro-top{display:flex;align-items:flex-start;gap:12px}
+.real-pro-avatar{width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,var(--psi-mid),var(--psi-acc));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;font-size:1.4rem}
+.real-pro-avatar img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block}
+.real-pro-name{font-family:var(--font-d);font-size:1.2rem;font-weight:500;color:var(--ink);line-height:1.15}
+.real-pro-crp{font-size:.68rem;color:var(--ink-3);font-weight:300;margin-top:3px}
+.real-pro-esp{display:inline-flex;align-items:center;width:fit-content;background:var(--psi);border:1px solid rgba(38,80,142,.16);color:var(--psi-dark);font-size:.69rem;font-weight:500;padding:4px 10px;border-radius:999px}
+.real-pro-bio{font-size:.8rem;font-weight:300;color:var(--ink-2);line-height:1.6}
+.real-pro-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid var(--line)}
+.real-pro-price{font-family:var(--font-d);font-size:1.2rem;font-weight:500;color:var(--ink)}
+.real-pro-price small{display:block;font-size:.63rem;color:var(--ink-3);font-family:var(--font-b);font-weight:300}
+.real-pro-avail{font-size:.74rem;font-weight:500;color:#22c55e;display:flex;align-items:center;gap:6px}
+.real-pro-avail-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.14);flex-shrink:0}
+.real-pro-cta{display:inline-flex;align-items:center;justify-content:center;gap:5px;font-family:var(--font-b);font-size:.82rem;font-weight:600;padding:11px 16px;border-radius:999px;background:var(--psi-acc);color:#fff;border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 12px rgba(38,80,142,.25);margin-top:auto}
+.real-pro-cta:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(38,80,142,.36)}
+.real-pros.is-highlighted .real-pros-grid{animation:flashBorder 1.1s ease}
+@keyframes flashBorder{0%{box-shadow:0 0 0 0 rgba(38,80,142,.0)}30%{box-shadow:0 0 0 8px rgba(38,80,142,.14)}100%{box-shadow:0 0 0 0 rgba(38,80,142,0)}}
 
 /* SECTIONS */
 .how-section{padding:72px 40px;max-width:1000px;margin:0 auto}
@@ -239,9 +240,9 @@ footer a{color:var(--ink-2)}
 .fade-up:nth-child(4){animation-delay:.31s}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
-@media(max-width:900px){.how-grid{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr}}
-@media(max-width:768px){nav{padding:0 20px}.nav-phone{display:none}.hero{padding:52px 20px 48px}.quiz-wrap{padding:40px 20px}.how-section,.trust-section,.testimonials,.recognition{padding:48px 20px}.cta-bottom{padding:60px 20px}footer{padding:20px}.recognition-list{grid-template-columns:1fr}.sticky-cta{display:block}.wa-btn{bottom:84px}}
-@media(max-width:480px){.hero-h1{font-size:2.3rem}.quiz-body,.quiz-nav,.result-step,.all-psi-panel{padding:20px}.result-card{flex-direction:column}.psi-list-footer{flex-direction:column;align-items:stretch}.btn-list-agendar{justify-content:center}}
+@media(max-width:900px){.how-grid{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr}.real-pros-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:768px){nav{padding:0 20px}.nav-phone{display:none}.hero{padding:52px 20px 48px}.quiz-wrap{padding:40px 20px}.real-pros,.how-section,.trust-section,.testimonials,.recognition{padding:48px 20px}.cta-bottom{padding:60px 20px}footer{padding:20px}.recognition-list{grid-template-columns:1fr}.sticky-cta{display:block}.wa-btn{bottom:84px}}
+@media(max-width:480px){.hero-h1{font-size:2.3rem}.quiz-body,.quiz-nav,.result-step{padding:20px}.result-card{flex-direction:column}.real-pros-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -367,15 +368,19 @@ footer a{color:var(--ink-2)}
         Prefere ver outros profissionais? <a onclick="verTodosPsi()">Ver todos os disponíveis</a>
       </div>
     </div>
-    <div class="all-psi-panel" id="all-psi-panel">
-      <div class="all-psi-title">
-        <span>Todos os profissionais disponíveis</span>
-        <button onclick="voltarParaResultado()">← Voltar</button>
-      </div>
-      <div class="psi-list" id="psi-list"></div>
-    </div>
   </div>
 </div>
+
+<section class="real-pros reveal" id="real-professionals-section">
+  <div class="real-pros-header">
+    <div>
+      <div class="sec-label">Profissionais reais disponíveis</div>
+      <h2 class="sec-title">Escolha entre psicólogos <em>verificados na plataforma</em></h2>
+      <p class="sec-sub" style="margin-bottom:0;max-width:680px">O quiz recomenda o melhor match para você, mas você também pode comparar outros perfis reais com CRP ativo, valor por sessão e disponibilidade atual.</p>
+    </div>
+  </div>
+  <div class="real-pros-grid" id="real-pros-grid"></div>
+</section>
 
 <hr style="border:none;border-top:1px solid var(--line);max-width:1000px;margin:0 auto"/>
 <section class="how-section reveal">
@@ -606,6 +611,7 @@ async function loadProfessionals() {
   if (window.CONSULTAJA_PROFESSIONALS && Array.isArray(window.CONSULTAJA_PROFESSIONALS) && window.CONSULTAJA_PROFESSIONALS.length) {
     allProfessionals = window.CONSULTAJA_PROFESSIONALS;
     syncHeroPrice();
+    renderRealProfessionalsGrid();
     return;
   }
   /* Priority 2: API */
@@ -624,6 +630,7 @@ async function loadProfessionals() {
         if (Array.isArray(list) && list.length) {
           allProfessionals = list.map(normalizeApiProfessional);
           syncHeroPrice();
+          renderRealProfessionalsGrid();
           return;
         }
       }
@@ -632,6 +639,7 @@ async function loadProfessionals() {
   /* Priority 3: local fallback */
   allProfessionals = LOCAL_PROFESSIONALS;
   syncHeroPrice();
+  renderRealProfessionalsGrid();
 }
 
 function normalizeApiProfessional(p) {
@@ -809,21 +817,24 @@ function renderResultCard(psi) {
 }
 
 /* ----------------------------------------------------------------
-   ALL PROFESSIONALS LIST
+   REAL PROFESSIONALS GRID
    ---------------------------------------------------------------- */
 function verTodosPsi() {
-  document.getElementById('result-step').classList.remove('active');
-  document.getElementById('all-psi-panel').classList.add('active');
-  renderAllPsiList();
+  const section = document.getElementById('real-professionals-section');
+  if (!section) return;
+  section.classList.add('is-highlighted');
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => section.classList.remove('is-highlighted'), 1400);
+
+  gtag('event', 'view_all_professionals_click', {
+    event_category: 'engagement',
+    source: 'quiz_result'
+  });
 }
 
-function voltarParaResultado() {
-  document.getElementById('all-psi-panel').classList.remove('active');
-  document.getElementById('result-step').classList.add('active');
-}
-
-function renderAllPsiList() {
-  const container = document.getElementById('psi-list');
+function renderRealProfessionalsGrid() {
+  const container = document.getElementById('real-pros-grid');
+  if (!container) return;
   container.innerHTML = '';
 
   const sorted = [...allProfessionals].sort((a, b) => {
@@ -833,25 +844,29 @@ function renderAllPsiList() {
   });
 
   sorted.forEach(psi => {
-    const perDay     = Math.round(psi.valor_sessao / 30);
+    const firstName  = (psi.nome || '').replace(/^(Dra?\.\s*)/i, '').split(' ')[0] || 'profissional';
     const avatarHtml = psi.foto_url
       ? `<img src="${esc(psi.foto_url)}" alt="Foto de ${esc(psi.nome)}" loading="lazy" onerror="this.parentElement.innerHTML='👤'">`
-      : '<span style="font-size:1.3rem">👤</span>';
+      : '<span>👤</span>';
 
-    const card = document.createElement('div');
-    card.className = 'psi-list-card';
+    const card = document.createElement('article');
+    card.className = 'real-pro-card';
     card.innerHTML = `
-      <div class="psi-list-avatar">${avatarHtml}</div>
-      <div class="psi-list-info">
-        <div class="psi-list-name">${esc(psi.nome)}</div>
-        <div class="psi-list-crp">${esc(psi.crp)}</div>
-        <div class="psi-list-esp">${esc(psi.especialidade)}</div>
-        <div class="psi-list-avail"><span class="psi-list-avail-dot"></span>${esc(psi.disponibilidade)}</div>
-        <div class="psi-list-footer">
-          <div class="psi-list-price"><small>Por sessão · ≈ R$${perDay}/dia</small>R$${psi.valor_sessao}</div>
-          <button class="btn-list-agendar" onclick="agendarComPsi(${JSON.stringify(psi.id)},${JSON.stringify(psi.nome)})">Agendar →</button>
+      <div class="real-pro-top">
+        <div class="real-pro-avatar">${avatarHtml}</div>
+        <div>
+          <div class="real-pro-name">${esc(psi.nome)}</div>
+          <div class="real-pro-crp">${esc(psi.crp)}</div>
         </div>
-      </div>`;
+      </div>
+      <div class="real-pro-esp">${esc(psi.especialidade)}</div>
+      <div class="real-pro-bio">${esc(psi.bio)}</div>
+      <div class="real-pro-meta">
+        <div class="real-pro-price"><small>Sessão de 50 min</small>R$${psi.valor_sessao}</div>
+        <div class="real-pro-avail"><span class="real-pro-avail-dot"></span>${esc(psi.disponibilidade)}</div>
+      </div>
+      <button class="real-pro-cta" onclick="agendarComPsi(${JSON.stringify(psi.id)},${JSON.stringify(psi.nome)})">Agendar com ${esc(firstName)} →</button>`;
+
     container.appendChild(card);
   });
 }
