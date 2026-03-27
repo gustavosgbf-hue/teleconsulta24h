@@ -136,6 +136,47 @@ nav{
   display:flex;flex-wrap:wrap;gap:10px;
   margin-top:32px;
 }
+.spec-hero__actions{
+  display:flex;flex-wrap:wrap;gap:12px;
+  margin-top:28px;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 24px;
+  border-radius:999px;
+  border:1px solid transparent;
+  font-size:.9rem;font-weight:700;
+  transition:all var(--transition);
+}
+.hero-cta--primary{
+  background:var(--acc-dark);
+  color:#fff;
+  box-shadow:0 10px 22px rgba(27,94,32,.25);
+}
+.hero-cta--primary:hover{transform:translateY(-2px);box-shadow:0 14px 26px rgba(27,94,32,.3)}
+.hero-cta--ghost{
+  background:rgba(255,255,255,.75);
+  border-color:rgba(27,94,32,.18);
+  color:var(--acc-dark);
+}
+.hero-cta--ghost:hover{background:#fff;transform:translateY(-2px)}
+.trust-strip{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.trust-item{
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(255,255,255,.62);
+  border:1px solid rgba(27,94,32,.12);
+  border-radius:12px;
+  padding:10px;
+  font-size:.76rem;
+  line-height:1.45;
+  color:var(--acc-dark);
+}
+.trust-item__icon{font-size:.95rem;line-height:1}
 .spec-hero__pill{
   background:rgba(255,255,255,.7);
   border:1px solid rgba(56,142,60,.15);
@@ -183,9 +224,10 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
   overflow:hidden;
 }
 .doctor-card__photo img{
-  width:100%;height:100%;object-fit:cover;object-position:center 15%;
+  width:100%;height:100%;object-fit:contain;object-position:center top;
   transition:transform var(--transition);
   display:block;
+  padding:8px 8px 0;
 }
 .doctor-card:hover .doctor-card__photo img{transform:scale(1.05)}
 .doctor-card__photo-placeholder{
@@ -214,8 +256,23 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 }
 .doctor-card__bio{
   font-size:.9rem;color:var(--ink-2);
-  line-height:1.75;margin-bottom:24px;
+  line-height:1.75;margin-bottom:14px;
   min-height:3.5em;
+}
+.doctor-card__meta{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:20px;
+}
+.doctor-card__meta-chip{
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--acc-dark);
+  background:rgba(56,142,60,.11);
+  border:1px solid rgba(56,142,60,.18);
+  border-radius:999px;
+  padding:4px 10px;
 }
 .doctor-card__footer{
   display:flex;align-items:center;justify-content:space-between;
@@ -225,19 +282,20 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
   display:block;font-size:.68rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
 .doctor-card__price{
   font-family:var(--font-display);
-  font-size:1.5rem;font-weight:600;color:var(--ink);
+  font-size:1.85rem;font-weight:700;color:var(--acc-dark);
 }
 .doctor-card__btn{
   display:inline-flex;align-items:center;gap:8px;
-  padding:12px 24px;
-  background:var(--acc-deep);
+  padding:13px 24px;
+  background:var(--acc-dark);
   color:#fff;
   border:none;border-radius:var(--radius-sm);
-  font-size:.88rem;font-weight:600;
+  font-size:.88rem;font-weight:700;
   cursor:pointer;
   transition:all var(--transition);
+  box-shadow:0 8px 18px rgba(27,94,32,.2);
 }
-.doctor-card__btn:hover{background:var(--acc-dark);transform:translateY(-2px)}
+.doctor-card__btn:hover{background:#14521c;transform:translateY(-2px);box-shadow:0 12px 22px rgba(27,94,32,.28)}
 .doctor-card__btn svg{transition:transform var(--transition)}
 .doctor-card__btn:hover svg{transform:translateX(4px)}
 
@@ -401,12 +459,38 @@ footer{
 .cartao-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .btn-pagar{width:100%;padding:16px;background:var(--acc-deep);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px}
 .btn-pagar:hover{background:var(--acc-dark)}
+.floating-whatsapp{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:160;
+  display:inline-flex;align-items:center;gap:8px;
+  background:#1fa855;
+  color:#fff;
+  border-radius:999px;
+  padding:12px 16px;
+  font-size:.82rem;font-weight:700;
+  box-shadow:0 14px 24px rgba(31,168,85,.3);
+  transition:transform var(--transition),box-shadow var(--transition);
+  animation:whatsIn .5s ease .4s both;
+}
+.floating-whatsapp:hover{transform:translateY(-2px);box-shadow:0 18px 30px rgba(31,168,85,.36)}
+@keyframes whatsIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
 @media(max-width:600px){
   .spec-hero{padding:60px 20px 48px}
   .section{padding:60px 20px}
   .doctors-grid{grid-template-columns:1fr}
   .metodo-pagto{grid-template-columns:1fr}
+  .trust-strip{grid-template-columns:1fr}
+  .hero-cta{width:100%;justify-content:center}
+  .doctor-card__footer{flex-direction:column;align-items:flex-start;gap:14px}
+  .doctor-card__btn{width:100%;justify-content:center}
+  .floating-whatsapp{right:12px;bottom:12px;padding:11px 13px}
+  .floating-whatsapp span{display:none}
 }
 </style>
 </head>
@@ -432,14 +516,23 @@ footer{
       <span class="spec-hero__tag-dot"></span>
       Especialidade disponível
     </div>
-    <h1 class="spec-hero__h1 reveal">Endocrinologia <em>online</em></h1>
-    <p class="spec-hero__desc reveal">Consultas com endocrinologista para avaliação, diagnóstico e acompanhamento de doenças hormonais e metabólicas. Atendimento por videochamada com privacidade e cuidado.</p>
+    <h1 class="spec-hero__h1 reveal">Endocrinologista online para emagrecimento, tireoide e diabetes</h1>
+    <p class="spec-hero__desc reveal">Atendimento médico especializado por vídeo, com prescrição quando indicada e plano personalizado. Cuidado seguro, rápido e 100% privado para você começar hoje.</p>
     <div class="spec-hero__pills reveal">
       <span class="spec-hero__pill">Diabetes</span>
       <span class="spec-hero__pill">Obesidade</span>
       <span class="spec-hero__pill">Tireoide</span>
       <span class="spec-hero__pill">Hormônios</span>
       <span class="spec-hero__pill">Metabolismo</span>
+    </div>
+    <div class="spec-hero__actions reveal">
+      <a class="hero-cta hero-cta--primary" href="#doctorsGrid">Agendar consulta agora</a>
+      <a class="hero-cta hero-cta--ghost" href="/triagem.html">Iniciar consulta agora</a>
+    </div>
+    <div class="trust-strip reveal">
+      <div class="trust-item"><span class="trust-item__icon">🔒</span><span>Cuidado 100% online e privado</span></div>
+      <div class="trust-item"><span class="trust-item__icon">👩‍⚕️</span><span>Profissionais médicos qualificados</span></div>
+      <div class="trust-item"><span class="trust-item__icon">⚡</span><span>Atendimento rápido, sem espera</span></div>
     </div>
   </div>
 </div>
@@ -483,6 +576,11 @@ footer{
   </p>
   <p style="margin-top:12px;font-size:.7rem;color:#b0a89f">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
 </footer>
+
+<a class="floating-whatsapp" href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
+  <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C8.84 3 3 8.73 3 15.78c0 2.49.72 4.88 2.08 6.93L3 29l6.57-2.03a13.14 13.14 0 0 0 6.43 1.67c7.16 0 13-5.73 13-12.86C29 8.73 23.16 3 16 3zm0 23.5c-2.02 0-4-.56-5.73-1.62l-.41-.25-3.9 1.2 1.27-3.76-.27-.4A10.66 10.66 0 0 1 5.1 15.8c0-5.87 4.88-10.64 10.9-10.64s10.9 4.77 10.9 10.64c0 5.87-4.88 10.64-10.9 10.64zm5.98-7.99c-.33-.16-1.96-.95-2.26-1.06-.3-.11-.52-.16-.74.16s-.86 1.06-1.05 1.28c-.19.21-.38.24-.71.08-.33-.16-1.38-.5-2.63-1.59-.98-.85-1.64-1.9-1.83-2.22-.19-.32-.02-.5.14-.66.15-.15.33-.4.5-.6.17-.2.22-.34.33-.56.11-.21.06-.4-.03-.56-.08-.16-.74-1.77-1.01-2.43-.26-.63-.53-.55-.74-.56h-.63c-.22 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.68s1.15 3.1 1.31 3.32c.16.21 2.26 3.59 5.47 5.03.76.33 1.36.53 1.82.67.76.24 1.45.21 2 .13.61-.09 1.96-.79 2.24-1.56.28-.77.28-1.43.2-1.56-.08-.13-.3-.21-.63-.37z"/></svg>
+  <span>WhatsApp</span>
+</a>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="fecharModalOverlay(event)">
@@ -713,10 +811,15 @@ async function carregarEspecialistas() {
           '<div class="doctor-card__crm">CRM '+crm+' · '+uf+'</div>'+
           '<span class="doctor-card__spec">'+ESPECIALIDADE+'</span>'+
           '<p class="doctor-card__bio">'+bio+'</p>'+
+          '<div class="doctor-card__meta">'+
+            '<span class="doctor-card__meta-chip">Atendimento online</span>'+
+            '<span class="doctor-card__meta-chip">Plano personalizado</span>'+
+            '<span class="doctor-card__meta-chip">Retorno contínuo</span>'+
+          '</div>'+
           '<div class="doctor-card__footer">'+
             '<div><span class="doctor-card__price-label">Consulta online</span><span class="doctor-card__price">R$ '+valorFormatado+'</span></div>'+
             '<button class="doctor-card__btn" data-id="'+(esp.id || '')+'" data-nome="'+nome+'" data-valor="'+(Number.isFinite(valorConsulta) ? valorConsulta : 0)+'" data-disponibilidade=\''+JSON.stringify(disponibilidade).replace(/'/g, '&#39;')+'\'>'+
-              'Ver horários'+
+              'Agendar consulta agora'+
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>'+
             '</button>'+
           '</div>'+
