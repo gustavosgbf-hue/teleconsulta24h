@@ -480,13 +480,13 @@ footer a{color:var(--ink-2)}
  *     Expected response: { data: [ ...professionals... ] }
  *     See normalizeApiProfessional() for field mapping.
  *
- *  3. LOCAL_PROFESSIONALS — realistic fallback data.
- *     Replace with real CRP numbers and photo URLs before go-live.
+ *  3. If no real data is found, a clean empty state is shown.
+ *     No fake/invented professionals are ever used.
  *
  *  PROFESSIONAL OBJECT CONTRACT:
  *  {
  *    id              : string       — unique identifier
- *    nome            : string       — full name with title (e.g. "Dra. Isabela Vasconcelos")
+ *    nome            : string       — full name with title (e.g. "Dra. Nome Real")
  *    crp             : string       — e.g. "CRP 06/138291"
  *    especialidade   : string       — primary modality
  *    focos           : string[]     — lowercase slug list e.g. ["ansiedade","tcc"]
@@ -509,91 +509,7 @@ const CONFIG = {
   bookingUrl: 'https://consultaja24h.com.br/agendar'
 };
 
-/* ----------------------------------------------------------------
-   LOCAL PROFESSIONALS — realistic Brazilian fallback
-   Replace foto_url values with your real hosted images.
-   Replace crp values with verified real numbers before go-live.
-   ---------------------------------------------------------------- */
-const LOCAL_PROFESSIONALS = [
-  {
-    id: 'psi-001',
-    nome: 'Dra. Isabela Vasconcelos',
-    crp: 'CRP 06/138291',
-    especialidade: 'Terapia Cognitivo-Comportamental (TCC)',
-    focos: ['ansiedade', 'depressao', 'autoestima', 'tristeza', 'tcc', 'cognitivo'],
-    bio: 'Atuo com TCC há 8 anos, com foco em ansiedade e depressão. Crio um espaço seguro para você se expressar sem julgamento.',
-    valor_sessao: 170,
-    disponibilidade: 'Horário disponível hoje',
-    disponivel_agora: true,
-    genero: 'F',
-    foto_url: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=128&h=128&fit=crop&crop=face'
-  },
-  {
-    id: 'psi-002',
-    nome: 'Dr. Rodrigo Almeida',
-    crp: 'CRP 05/87432',
-    especialidade: 'Psicanálise',
-    focos: ['estresse', 'relacionamentos', 'autoconhecimento', 'ansiedade', 'psicanalise'],
-    bio: 'Trabalho com adultos em busca de autoconhecimento e equilíbrio emocional. Abordagem acolhedora, sem julgamentos.',
-    valor_sessao: 149,
-    disponibilidade: 'Horários disponíveis hoje',
-    disponivel_agora: true,
-    genero: 'M',
-    foto_url: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=128&h=128&fit=crop&crop=face'
-  },
-  {
-    id: 'psi-003',
-    nome: 'Dra. Camila Ferreira',
-    crp: 'CRP 08/24871',
-    especialidade: 'Terapia Focada em Compaixão (CFT)',
-    focos: ['estresse', 'ansiedade', 'autoconhecimento', 'burnout', 'compaixao', 'cft'],
-    bio: 'Especialista em burnout e esgotamento emocional. Ajudo você a reconectar com o que realmente importa, com gentileza.',
-    valor_sessao: 159,
-    disponibilidade: 'Horários disponíveis hoje',
-    disponivel_agora: true,
-    genero: 'F',
-    foto_url: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=128&h=128&fit=crop&crop=face'
-  },
-  {
-    id: 'psi-004',
-    nome: 'Dr. Felipe Nunes',
-    crp: 'CRP 04/61204',
-    especialidade: 'Terapia Comportamental Dialética (DBT)',
-    focos: ['ansiedade', 'relacionamentos', 'tristeza', 'regulacao-emocional', 'dbt'],
-    bio: 'Especializado em regulação emocional e crises relacionais. Ofereço suporte prático e empático para os momentos mais difíceis.',
-    valor_sessao: 165,
-    disponibilidade: 'Horários disponíveis amanhã',
-    disponivel_agora: false,
-    genero: 'M',
-    foto_url: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=128&h=128&fit=crop&crop=face'
-  },
-  {
-    id: 'psi-005',
-    nome: 'Dra. Letícia Moraes',
-    crp: 'CRP 06/201847',
-    especialidade: 'Terapia de Aceitação e Compromisso (ACT)',
-    focos: ['autoconhecimento', 'ansiedade', 'relacionamentos', 'estresse', 'act', 'integrativa'],
-    bio: 'Utilizo a ACT para ajudar pessoas a viver com mais presença e flexibilidade psicológica, mesmo diante de pensamentos difíceis.',
-    valor_sessao: 155,
-    disponibilidade: 'Horários disponíveis hoje',
-    disponivel_agora: true,
-    genero: 'F',
-    foto_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=128&h=128&fit=crop&crop=face'
-  },
-  {
-    id: 'psi-006',
-    nome: 'Dr. André Costa',
-    crp: 'CRP 07/45312',
-    especialidade: 'Psicoterapia Integrativa',
-    focos: ['estresse', 'autoconhecimento', 'relacionamentos', 'tristeza', 'integrativa'],
-    bio: 'Com abordagem integrativa, adapto as técnicas ao seu perfil único. Foco em ajudar você a entender seus padrões e construir mudanças reais.',
-    valor_sessao: 160,
-    disponibilidade: 'Horários disponíveis hoje',
-    disponivel_agora: true,
-    genero: 'M',
-    foto_url: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=128&h=128&fit=crop&crop=face'
-  }
-];
+/* LOCAL_PROFESSIONALS removed — fake/invented data is not acceptable on this healthcare platform. */
 
 /* ----------------------------------------------------------------
    STATE
@@ -607,14 +523,14 @@ let chosenProfessional = null;
    BOOT — load professionals
    ---------------------------------------------------------------- */
 async function loadProfessionals() {
-  /* Priority 1: backend injection */
+  /* Priority 1: backend injection via window.CONSULTAJA_PROFESSIONALS */
   if (window.CONSULTAJA_PROFESSIONALS && Array.isArray(window.CONSULTAJA_PROFESSIONALS) && window.CONSULTAJA_PROFESSIONALS.length) {
     allProfessionals = window.CONSULTAJA_PROFESSIONALS;
     syncHeroPrice();
     renderRealProfessionalsGrid();
     return;
   }
-  /* Priority 2: API */
+  /* Priority 2: API fetch */
   if (CONFIG.apiUrl) {
     try {
       const ctrl = new AbortController();
@@ -636,9 +552,8 @@ async function loadProfessionals() {
       }
     } catch (_) { /* fall through */ }
   }
-  /* Priority 3: local fallback */
-  allProfessionals = LOCAL_PROFESSIONALS;
-  syncHeroPrice();
+  /* No real data available — show empty state. Do NOT use fake/invented data. */
+  allProfessionals = [];
   renderRealProfessionalsGrid();
 }
 
@@ -748,6 +663,26 @@ async function showResult() {
 
   if (!allProfessionals.length) await loadProfessionals();
 
+  /* If still no real professionals, show safe empty state */
+  if (!allProfessionals.length) {
+    await new Promise(r => setTimeout(r, 700));
+    document.getElementById('quiz-loading').classList.remove('active');
+    document.getElementById('quiz-header-title').textContent = 'Profissionais sendo atualizados';
+    document.getElementById('result-step').classList.add('active');
+    document.getElementById('result-card').innerHTML = `
+      <div style="padding:16px 0;text-align:center;width:100%">
+        <div style="font-size:2rem;margin-bottom:12px">🔄</div>
+        <div style="font-family:var(--font-d);font-size:1.15rem;font-weight:500;color:var(--ink);margin-bottom:8px">Profissionais sendo atualizados</div>
+        <div style="font-size:.85rem;font-weight:300;color:var(--ink-2);line-height:1.65;margin-bottom:16px">No momento, os profissionais disponíveis estão sendo atualizados.<br>Fale com nossa equipe para consultar horários disponíveis.</div>
+        <a href="https://wa.me/${CONFIG.wa}?text=Olá%2C%20gostaria%20de%20consultar%20horários%20disponíveis%20com%20um%20psicólogo." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;background:#25d366;color:#fff;font-weight:600;font-size:.88rem;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,.35)">
+          💬 Falar com nossa equipe no WhatsApp
+        </a>
+      </div>`;
+    document.querySelector('.result-other-link').style.display = 'none';
+    gtag('event', 'quiz_completed_no_professionals', { event_category: 'quiz' });
+    return;
+  }
+
   /* Gender filter */
   const genderPref = quizData.step3;
   let pool = [...allProfessionals];
@@ -836,6 +771,20 @@ function renderRealProfessionalsGrid() {
   const container = document.getElementById('real-pros-grid');
   if (!container) return;
   container.innerHTML = '';
+
+  /* Empty state — no real professionals available */
+  if (!allProfessionals.length) {
+    container.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:48px 20px;border:1px dashed var(--line-mid);border-radius:16px;background:var(--white)">
+        <div style="font-size:2.5rem;margin-bottom:14px">🔄</div>
+        <div style="font-family:var(--font-d);font-size:1.4rem;font-weight:400;color:var(--ink);margin-bottom:10px">Profissionais sendo atualizados</div>
+        <p style="font-size:.88rem;font-weight:300;color:var(--ink-2);line-height:1.7;max-width:460px;margin:0 auto 20px">No momento, os profissionais disponíveis estão sendo atualizados.<br>Fale com nossa equipe para consultar horários disponíveis.</p>
+        <a href="https://wa.me/${CONFIG.wa}?text=Olá%2C%20gostaria%20de%20consultar%20horários%20disponíveis%20com%20um%20psicólogo." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;background:#25d366;color:#fff;font-weight:600;font-size:.9rem;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.38)">
+          💬 Falar com nossa equipe no WhatsApp
+        </a>
+      </div>`;
+    return;
+  }
 
   const sorted = [...allProfessionals].sort((a, b) => {
     if (a.disponivel_agora && !b.disponivel_agora) return -1;
