@@ -10,12 +10,12 @@ gtag('config','AW-17964942771');
 </script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Psicólogo Online Agora · Sem Espera | ConsultaJá24h</title>
+<title>Psicólogo Online · Agendar sessão | ConsultaJá24h</title>
 <meta name="description" content="Você não precisa lidar com a ansiedade sozinho. Consulta com psicólogo online em minutos. Profissionais com CRP ativo, sigilo garantido. A partir de R$149."/>
 <link rel="canonical" href="https://consultaja24h.com.br/psicologo-online"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://consultaja24h.com.br/psicologo-online"/>
-<meta property="og:title" content="Psicólogo Online Agora · ConsultaJá24h"/>
+<meta property="og:title" content="Psicólogo Online · ConsultaJá24h"/>
 <meta property="og:description" content="Você não precisa lidar com isso sozinho. Atendimento com psicólogo online em minutos. CRP verificado, sigilo total, sem burocracia."/>
 <meta property="og:locale" content="pt_BR"/>
 <script type="application/ld+json">
@@ -248,8 +248,8 @@ footer a{color:var(--ink-2)}
 <body>
 
 <div class="urgency-bar">
-  <span><span class="u-dot"></span> <strong>Psicólogos disponíveis agora</strong></span>
-  <span>Atendimento imediato · Sem burocracia</span>
+  <span><span class="u-dot"></span> <strong>Psicólogos disponíveis ainda hoje</strong></span>
+  <span>Primeira sessão ainda hoje · Sem burocracia</span>
   <span>Sigilo garantido · 100% online</span>
 </div>
 
@@ -275,7 +275,7 @@ footer a{color:var(--ink-2)}
   <div class="fade-up">
     <button class="btn-primary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">👉 Começar atendimento agora</button>
     <div class="hero-micro">
-      <span>⚡ Atendimento imediato</span>
+      <span>⚡ Atendimento ainda hoje</span>
       <span>🔒 Sigilo total</span>
       <span>✅ Sem burocracia</span>
     </div>
@@ -458,7 +458,7 @@ footer a{color:var(--ink-2)}
 
 <div class="sticky-cta">
   <button class="sticky-cta-btn" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">⚡ Começar atendimento agora</button>
-  <div class="sticky-cta-note">Atendimento imediato · A partir de R$149 · Sigilo total</div>
+  <div class="sticky-cta-note">Primeira sessão ainda hoje · A partir de R$149 · Sigilo total</div>
 </div>
 
 <a class="wa-btn" href="https://wa.me/5598989272727?text=Quero%20consulta%20agora" target="_blank" rel="noopener" title="WhatsApp — Quero consulta agora">
@@ -501,8 +501,8 @@ footer a{color:var(--ink-2)}
  */
 
 const CONFIG = {
-  /* ▼ Set to your API base URL to enable live fetch, or leave '' */
-  apiUrl: '',
+  /* API base URL — real backend */
+  apiUrl: 'https://triagem-api.onrender.com',
   /* ▼ WhatsApp number — digits only, with country code */
   wa: '5598989272727',
   /* ▼ Booking page URL. Set to '' to fall back to WhatsApp. */
@@ -535,14 +535,14 @@ async function loadProfessionals() {
     try {
       const ctrl = new AbortController();
       const timeout = setTimeout(() => ctrl.abort(), 5000);
-      const res = await fetch(CONFIG.apiUrl + '/api/psicologia/psicologos?ativo=true', {
+      const res = await fetch(CONFIG.apiUrl + '/api/psicologos', {
         headers: { 'Accept': 'application/json' },
         signal: ctrl.signal
       });
       clearTimeout(timeout);
       if (res.ok) {
         const json = await res.json();
-        const list = json.data || json.results || json;
+        const list = json.psicologos || json.data || json.results || (Array.isArray(json) ? json : null);
         if (Array.isArray(list) && list.length) {
           allProfessionals = list.map(normalizeApiProfessional);
           syncHeroPrice();
@@ -558,17 +558,22 @@ async function loadProfessionals() {
 }
 
 function normalizeApiProfessional(p) {
+  const focos = Array.isArray(p.focos)
+    ? p.focos.map(f => String(f).toLowerCase().replace(/ /g,'-'))
+    : String(p.focos || '').split(',').map(f => f.trim().toLowerCase()).filter(Boolean);
   return {
-    id:              p.id || p._id || String(Math.random()),
+    id:              p.id || String(Math.random()),
     nome:            p.nome_exibicao || p.nome || 'Profissional',
-    crp:             p.crp || '',
+    crp:             p.crp ? 'CRP ' + p.crp : '',
     especialidade:   p.abordagem || p.especialidade || '',
-    focos:           Array.isArray(p.focos) ? p.focos.map(f => String(f).toLowerCase().replace(/ /g,'-')) : [],
-    bio:             p.bio || p.descricao || '',
-    valor_sessao:    Number(p.valor_sessao || p.valor || 0),
-    disponibilidade: p.proximo_horario_label || (p.disponivel_agora ? 'Horário disponível agora' : 'Horários disponíveis hoje'),
-    disponivel_agora:!!p.disponivel_agora,
-    genero:          p.genero || (String(p.sexo).toLowerCase().startsWith('f') ? 'F' : 'M'),
+    focos:           focos,
+    bio:             p.apresentacao || p.bio || p.descricao || '',
+    valor_sessao:    Number(p.valor_sessao || 0),
+    disponibilidade: p.disponibilidade || 'Horários disponíveis',
+    disponivel_agora: p.disponibilidade
+      ? /agora|hoje|imediato/i.test(p.disponibilidade)
+      : false,
+    genero:          p.genero || (String(p.sexo || '').toLowerCase().startsWith('f') ? 'F' : 'M'),
     foto_url:        p.foto_url || p.avatar_url || null
   };
 }
