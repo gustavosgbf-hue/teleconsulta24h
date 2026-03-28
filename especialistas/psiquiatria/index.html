@@ -924,6 +924,12 @@ function abrirHorarios(medico) {
   slotSelecionado = null;
   document.getElementById('modalDoctor').textContent = medico.nome + ' · Psiquiatria · R$ ' + parseFloat(medico.valor).toFixed(2).replace('.', ',');
   document.getElementById('btnProximo').disabled = true;
+  var btnConfirmar = document.getElementById('modalCta');
+  if (btnConfirmar) {
+    btnConfirmar.disabled = true;
+    btnConfirmar.style.opacity = '.55';
+    btnConfirmar.style.cursor = 'not-allowed';
+  }
   mostrarPasso('passo-horario');
   renderSlots(normalizarDisponibilidade(medico.disponibilidade));
   document.getElementById('modalOverlay').classList.add('open');
@@ -1030,6 +1036,7 @@ function irParaDados() {
   document.getElementById('horarioEscolhido').textContent = slotSelecionado.dia + ' às ' + slotSelecionado.hora;
   mostrarPasso('passo-dados');
   document.getElementById('esp-err').style.display = 'none';
+  atualizarBotaoConfirmacaoDados();
 }
 
 function voltarParaHorario() {
@@ -1038,6 +1045,7 @@ function voltarParaHorario() {
 
 function voltarParaDados() {
   mostrarPasso('passo-dados');
+  atualizarBotaoConfirmacaoDados();
 }
 
 function mostrarPasso(id) {
@@ -1138,6 +1146,33 @@ function resetPixUI() {
   if (confirmado) confirmado.style.display = 'none';
   if (qrImg) qrImg.src = '';
   if (codigo) codigo.value = '';
+}
+
+function dadosPacienteValidos() {
+  var nome = (document.getElementById('inp-nome').value || '').trim();
+  var email = (document.getElementById('inp-email').value || '').trim();
+  var cpf = (document.getElementById('inp-cpf').value || '').replace(/\D/g,'');
+  var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return nome.length > 1 && emailOk && cpf.length === 11;
+}
+
+function atualizarBotaoConfirmacaoDados() {
+  var btn = document.getElementById('modalCta');
+  if (!btn) return;
+  var habilitado = dadosPacienteValidos();
+  btn.disabled = !habilitado;
+  btn.style.opacity = habilitado ? '1' : '.55';
+  btn.style.cursor = habilitado ? 'pointer' : 'not-allowed';
+}
+
+function bindDadosListeners() {
+  ['inp-nome','inp-email','inp-cpf'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el || el._bindDados) return;
+    el._bindDados = true;
+    el.addEventListener('input', atualizarBotaoConfirmacaoDados);
+    el.addEventListener('blur', atualizarBotaoConfirmacaoDados);
+  });
 }
 
 function selecionarMetodo(m) {
@@ -1372,6 +1407,7 @@ async function confirmarAgendamento() {
   var errEl = document.getElementById('esp-err');
   if (!nome) { errEl.textContent = 'Informe seu nome.'; errEl.style.display='block'; return; }
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Informe um e-mail válido.'; errEl.style.display='block'; return; }
+  if (!cpf || cpf.length !== 11) { errEl.textContent = 'Informe um CPF válido.'; errEl.style.display='block'; return; }
   errEl.style.display = 'none';
 
   var btn = document.getElementById('modalCta');
@@ -1415,6 +1451,7 @@ async function confirmarAgendamento() {
       errEl.textContent = extractErrorMessage(dadosAg, 'Erro ao criar agendamento.');
       errEl.style.display = 'block';
       btn.disabled = false; btn.textContent = 'Confirmar →';
+      atualizarBotaoConfirmacaoDados();
       return;
     }
     espState.agendamentoId = dadosAg.agendamentoId;
@@ -1424,6 +1461,7 @@ async function confirmarAgendamento() {
     errEl.textContent = 'Erro de conexão. Tente novamente.';
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Confirmar →';
+    atualizarBotaoConfirmacaoDados();
     mostrarPasso('passo-dados');
   }
 }
@@ -1591,6 +1629,8 @@ irParaDados = function() {
 observeReveal();
 initWhatsAppWidget();
 carregarEspecialistas();
+bindDadosListeners();
+atualizarBotaoConfirmacaoDados();
 </script>
 </body>
 </html>

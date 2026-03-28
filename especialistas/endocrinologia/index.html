@@ -838,6 +838,8 @@ function init() {
   observeReveal();
   initWhatsAppWidget();
   carregarEspecialistas();
+  bindDadosListeners();
+  atualizarBotaoConfirmacaoDados();
 }
 
 function observeReveal() {
@@ -998,6 +1000,12 @@ function abrirHorarios(medico) {
   }
   
   document.getElementById('btnProximo').disabled = true;
+  var btnConfirmar = document.getElementById('modalCta');
+  if (btnConfirmar) {
+    btnConfirmar.disabled = true;
+    btnConfirmar.style.opacity = '.55';
+    btnConfirmar.style.cursor = 'not-allowed';
+  }
   document.getElementById('passo-horario').style.display = 'block';
   document.getElementById('passo-dados').style.display = 'none';
   document.getElementById('passo-pagamento').style.display = 'none';
@@ -1024,6 +1032,7 @@ function irParaDados() {
   document.getElementById('passo-horario').style.display = 'none';
   document.getElementById('passo-dados').style.display = 'block';
   document.getElementById('horarioEscolhido').innerText = slotSelecionado.dia + (slotSelecionado.hora ? ' às ' + slotSelecionado.hora : '');
+  atualizarBotaoConfirmacaoDados();
 }
 
 function voltarParaHorario() {
@@ -1120,6 +1129,33 @@ function resetPixUI() {
   if (codigo) codigo.value = '';
 }
 
+function dadosPacienteValidos() {
+  var nome = (document.getElementById('inp-nome').value || '').trim();
+  var email = (document.getElementById('inp-email').value || '').trim();
+  var cpf = (document.getElementById('inp-cpf').value || '').replace(/\D/g,'');
+  var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return nome.length > 1 && emailOk && cpf.length === 11;
+}
+
+function atualizarBotaoConfirmacaoDados() {
+  var btn = document.getElementById('modalCta');
+  if (!btn) return;
+  var habilitado = dadosPacienteValidos();
+  btn.disabled = !habilitado;
+  btn.style.opacity = habilitado ? '1' : '.55';
+  btn.style.cursor = habilitado ? 'pointer' : 'not-allowed';
+}
+
+function bindDadosListeners() {
+  ['inp-nome','inp-email','inp-cpf'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el || el._bindDados) return;
+    el._bindDados = true;
+    el.addEventListener('input', atualizarBotaoConfirmacaoDados);
+    el.addEventListener('blur', atualizarBotaoConfirmacaoDados);
+  });
+}
+
 function selecionarMetodo(m) {
   metodoPagamento = m;
   document.getElementById('op-pix').classList.toggle('selected', m === 'pix');
@@ -1155,6 +1191,9 @@ async function confirmarAgendamento() {
   if (!nome || !email) {
     err.style.display = 'block'; err.textContent = 'Nome e e-mail são obrigatórios'; return;
   }
+  if (!cpf || cpf.replace(/\D/g,'').length !== 11) {
+    err.style.display = 'block'; err.textContent = 'Informe um CPF válido'; return;
+  }
   err.style.display = 'none';
   
   var btn = document.getElementById('modalCta');
@@ -1182,8 +1221,9 @@ async function confirmarAgendamento() {
     document.getElementById('passo-dados').style.display = 'none';
     document.getElementById('passo-pagamento').style.display = 'block';
   } catch(e) {
-    err.style.display = 'block'; err.textContent = e.message;
+    err.style.display = 'block'; err.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao criar agendamento');
     btn.disabled = false; btn.textContent = 'Confirmar →';
+    atualizarBotaoConfirmacaoDados();
   }
 }
 
@@ -1194,6 +1234,7 @@ function voltarParaDados() {
   document.getElementById('pagto-pix').style.display = 'none';
   document.getElementById('pagto-cartao').style.display = 'none';
   resetPixUI();
+  atualizarBotaoConfirmacaoDados();
 }
 
 function processarPagamento() {
