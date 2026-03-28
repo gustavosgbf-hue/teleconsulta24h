@@ -259,28 +259,29 @@ footer a:hover{color:var(--g2)}
   display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
   max-width:680px;margin:20px auto 4px;
   padding:16px 22px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(94,224,160,.26);
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(94,224,160,.34);
   border-radius:16px;
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  box-shadow:0 0 0 1px rgba(94,224,160,.07),0 8px 28px rgba(0,0,0,.22);
-  transition:border-color .25s,transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s;
+  box-shadow:0 0 0 1px rgba(94,224,160,.1),0 10px 30px rgba(0,0,0,.24),0 0 20px rgba(94,224,160,.06);
+  transition:border-color .24s,transform .24s cubic-bezier(.4,0,.2,1),box-shadow .24s,background .24s;
   cursor:default;
 }
 .hero__crosssell:hover{
-  border-color:rgba(94,224,160,.42);
+  border-color:rgba(94,224,160,.5);
   transform:translateY(-2px);
-  box-shadow:0 0 0 1px rgba(94,224,160,.12),0 16px 36px rgba(0,0,0,.26),0 0 32px rgba(94,224,160,.07);
+  background:rgba(255,255,255,.11);
+  box-shadow:0 0 0 1px rgba(94,224,160,.14),0 16px 36px rgba(0,0,0,.27),0 0 34px rgba(94,224,160,.09);
 }
 .hero__crosssell-text{flex:1;min-width:180px;text-align:left}
 .hero__crosssell-title{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:4px}
-.hero__crosssell-sub{font-size:.75rem;font-weight:300;color:rgba(255,255,255,.62);line-height:1.5}
+.hero__crosssell-sub{font-size:.75rem;font-weight:300;color:rgba(255,255,255,.74);line-height:1.5}
 .hero__crosssell-btns{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;align-items:flex-start}
 .hero__crosssell-btn{
   position:relative;
   display:inline-flex;flex-direction:column;align-items:center;gap:2px;
-  padding:10px 18px;
+  padding:11px 20px;
   min-height:44px;
   border-radius:10px;
   border:1px solid rgba(94,224,160,.32);
@@ -296,13 +297,13 @@ footer a:hover{color:var(--g2)}
   border-color:rgba(94,224,160,.62);
   background:rgba(94,224,160,.16);
   color:#fff;
-  transform:scale(1.03);
-  filter:brightness(1.09);
-  box-shadow:0 4px 16px rgba(94,224,160,.18);
+  transform:scale(1.04);
+  filter:brightness(1.12);
+  box-shadow:0 4px 16px rgba(94,224,160,.22);
 }
 .hero__crosssell-btn:active{
   transform:scale(.97);
-  filter:brightness(.94);
+  filter:brightness(.95);
   box-shadow:none;
 }
 .hero__crosssell-label{display:flex;align-items:center;gap:3px}
@@ -320,14 +321,14 @@ footer a:hover{color:var(--g2)}
   width:100%;text-align:center;
   margin-top:10px;
   font-size:.7rem;font-weight:300;
-  color:rgba(255,255,255,.42);
+  color:rgba(255,255,255,.56);
   letter-spacing:.02em;
 }
 @media(max-width:560px){
   .hero__crosssell{flex-direction:column;gap:14px;padding:16px;text-align:center}
   .hero__crosssell-text{text-align:center}
   .hero__crosssell-btns{width:100%;justify-content:center}
-  .hero__crosssell-btn{flex:1;justify-content:center;min-height:48px}
+  .hero__crosssell-btn{flex:1;justify-content:center;min-height:50px;padding:12px 18px}
   .hero__crosssell-price{margin-top:6px}
 }
 
@@ -415,8 +416,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- cross-sell: psicólogos e especialistas -->
     <div class="hero__crosssell">
       <div class="hero__crosssell-text">
-        <p class="hero__crosssell-title">Não precisa de atendimento imediato?</p>
-        <p class="hero__crosssell-sub">Ideal para terapia, acompanhamento ou avaliação com especialista.</p>
+        <p class="hero__crosssell-title">Quer agendar com psicólogo ou especialista?</p>
+        <p class="hero__crosssell-sub">Atendimento com horário marcado para terapia, ansiedade, acompanhamento ou diagnóstico.</p>
       </div>
       <div class="hero__crosssell-btns">
         <a href="https://consultaja24h.com.br/psicologo-online" class="hero__crosssell-btn">
@@ -428,7 +429,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="hero__crosssell-tag">Agendamento</span>
         </a>
       </div>
-      <p class="hero__crosssell-price">Consultas a partir de R$150</p>
+      <p class="hero__crosssell-price">Consultas a partir de R$150 • escolha seu horário</p>
     </div>
 
     <div class="hero__trust reveal-group">
