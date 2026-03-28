@@ -174,7 +174,12 @@ footer a:hover{color:var(--g2)}
 }
 .mobile-sticky-cta{display:none}
 @media(max-width:760px){
-  .mobile-sticky-cta{position:fixed;left:12px;right:12px;bottom:94px;display:block;z-index:1000}
+  .mobile-sticky-cta{
+    position:fixed;left:12px;right:12px;bottom:94px;display:block;z-index:1000;
+    opacity:0;transform:translateY(14px);pointer-events:none;
+    transition:opacity .24s ease,transform .24s ease;
+  }
+  .mobile-sticky-cta.is-visible{opacity:1;transform:translateY(0);pointer-events:auto}
   .mobile-sticky-cta .btn-primary{width:100%;justify-content:center;padding:15px 18px;font-size:1rem}
 }
 
@@ -884,6 +889,43 @@ if(tk && pips){
   document.getElementById('carNext').onclick = function(){ go(idx+1); };
   go(0);
 }
+
+// [NOVO] Sticky CTA mobile visibility
+(function(){
+  var sticky = document.querySelector('.mobile-sticky-cta');
+  var hero = document.querySelector('.hero');
+  if(!sticky || !hero) return;
+
+  var mq = window.matchMedia('(max-width: 760px)');
+  var observer;
+
+  function setStickyVisible(visible){
+    sticky.classList.toggle('is-visible', visible);
+  }
+
+  function setup(){
+    if(observer){
+      observer.disconnect();
+      observer = null;
+    }
+
+    if(!mq.matches){
+      setStickyVisible(false);
+      return;
+    }
+
+    observer = new IntersectionObserver(function(entries){
+      var heroVisible = entries[0] && entries[0].isIntersecting;
+      setStickyVisible(!heroVisible);
+    }, { threshold: 0.12 });
+
+    observer.observe(hero);
+  }
+
+  setup();
+  if(typeof mq.addEventListener === 'function') mq.addEventListener('change', setup);
+  else if(typeof mq.addListener === 'function') mq.addListener(setup);
+})();
 </script>
 </body>
 </html>
