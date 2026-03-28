@@ -567,8 +567,8 @@ async function loadProfessionals() {
 
 function normalizeApiProfessional(p) {
   const focos = Array.isArray(p.focos)
-    ? p.focos.map(f => String(f).toLowerCase().replace(/ /g,'-'))
-    : String(p.focos || '').split(',').map(f => f.trim().toLowerCase()).filter(Boolean);
+    ? p.focos.map(f => String(f).trim().toLowerCase().replace(/ /g,'-'))
+    : String(p.focos || '').replace(/^\{|\}$/g, '').split(',').map(f => f.trim().replace(/^"|"$/g,'').toLowerCase()).filter(Boolean);
 
   /* valor_sessao is stored as TEXT e.g. "160", "160,00", "R$160" */
   const valorRaw = String(p.valor_sessao || '').replace(/[^\d,.]/g, '').replace(',', '.');
