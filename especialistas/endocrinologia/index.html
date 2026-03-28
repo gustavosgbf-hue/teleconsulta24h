@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.gerencianet.com.br/javascript/build/toCreditCard.bundle.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -400,7 +401,8 @@ footer{
   font-size:1rem;font-weight:700;cursor:pointer;transition:all var(--transition)
 }
 .modal__cta:hover{background:var(--acc-dark)}
-.modal__cta:disabled{opacity:.5;cursor:not-allowed}
+.modal__cta:disabled{opacity:.35;cursor:not-allowed;filter:grayscale(.4)}
+.modal__cta:not(:disabled){opacity:1;box-shadow:0 6px 18px rgba(27,94,32,.3)}
 .modal__cta svg{vertical-align:middle;margin-left:8px}
 
 .passo-titulo{
@@ -667,10 +669,10 @@ footer{
           <div class="metodo-opcao-label">PIX</div>
           <div class="metodo-opcao-desc">Instantâneo</div>
         </div>
-        <div class="metodo-opcao disabled" id="op-cartao" onclick="selecionarMetodo('cartao')" style="opacity:0.5;cursor:not-allowed">
+        <div class="metodo-opcao" id="op-cartao" onclick="selecionarMetodo('cartao')">
           <div class="metodo-opcao-icon">💳</div>
           <div class="metodo-opcao-label">Cartão</div>
-          <div class="metodo-opcao-desc">Em breve</div>
+          <div class="metodo-opcao-desc">Crédito/Débito</div>
         </div>
       </div>
       <div style="display:flex;gap:10px">
@@ -682,7 +684,7 @@ footer{
     </div>
 
     <!-- PAGAMENTO PIX -->
-    <div id="pagto-pix" class="pagto-pix">
+    <div id="pagto-pix" class="pagto-pix" style="display:none">
       <div class="pix-loading" id="pix-loading">⏳ Gerando pagamento...</div>
       <div class="pix-qr-wrap" id="pix-qr-wrap">
         <div class="pix-resumo" id="pix-resumo"></div>
@@ -703,7 +705,7 @@ footer{
     </div>
 
     <!-- PAGAMENTO CARTÃO -->
-    <div id="pagto-cartao" class="pagto-cartao">
+    <div id="pagto-cartao" class="pagto-cartao" style="display:none;text-align:left">
       <div class="passo-titulo">Dados do cartão</div>
       <div class="cartao-form" id="cartao-form">
         <div class="cartao-field">
@@ -728,8 +730,28 @@ footer{
           <label>CPF do titular</label>
           <input id="cartao-cpf" type="text" placeholder="000.000.000-00" maxlength="14"/>
         </div>
-        <button class="btn-pagar" onclick="processarCartao()">Pagar agora</button>
+        <div class="cartao-field">
+          <label>E-mail *</label>
+          <input id="cartao-email" type="email" placeholder="seu@email.com"/>
+        </div>
+        <div class="cartao-field">
+          <label>Telefone (com DDD) *</label>
+          <input id="cartao-tel" type="tel" placeholder="11999990000" inputmode="numeric"/>
+        </div>
+        <div class="cartao-field">
+          <label>Data de nascimento *</label>
+          <input id="cartao-nascimento" type="text" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric"/>
+        </div>
+        <div id="cartao-err" style="display:none;color:#b91c1c;font-size:.82rem;margin-bottom:8px;padding:12px 16px;background:#fef2f2;border-radius:10px;border:1px solid #fecaca"></div>
+        <button class="btn-pagar" id="btnPagarCartao" onclick="processarCartao()">Pagar agora</button>
       </div>
+    </div>
+
+    <!-- CARTÃO CONFIRMADO -->
+    <div id="passo-cartao-confirmado" style="display:none;text-align:center;padding:24px 0">
+      <div style="font-size:2.5rem;margin-bottom:12px">✅</div>
+      <div style="font-weight:700;font-size:1.1rem;color:#15803d;margin-bottom:8px">Pagamento confirmado!</div>
+      <div style="font-size:.85rem;color:#166534" id="cartao-confirmado-detalhe"></div>
     </div>
 
   </div>
@@ -1013,8 +1035,6 @@ function selecionarMetodo(m) {
   document.getElementById('op-pix').classList.toggle('selected', m === 'pix');
   document.getElementById('op-cartao').classList.toggle('selected', m === 'cartao');
 }
-
-function voltarParaDados() {
   document.getElementById('passo-pagamento').style.display = 'none';
   document.getElementById('passo-dados').style.display = 'block';
   document.getElementById('pagto-pix').classList.remove('active');
@@ -1071,11 +1091,149 @@ async function confirmarAgendamento() {
   }
 }
 
-function processarPagamento() {
-  // Cartão temporariamente desabilitado - precisa de payment_token real da EFI
+function voltarParaDados() {
   document.getElementById('passo-pagamento').style.display = 'none';
-  document.getElementById('pagto-pix').classList.add('active');
+  document.getElementById('passo-dados').style.display = 'block';
+  document.getElementById('pagto-pix').style.display = 'none';
+  document.getElementById('pagto-cartao').style.display = 'none';
+}
+
+function processarPagamento() {
+  if (metodoPagamento === 'cartao') {
+    document.getElementById('passo-pagamento').style.display = 'none';
+    document.getElementById('pagto-cartao').style.display = 'block';
+    // Mascarar campos
+    var numInput = document.getElementById('cartao-numero');
+    if (numInput && !numInput._mascarado) {
+      numInput._mascarado = true;
+      numInput.addEventListener('input', function() {
+        var v = this.value.replace(/\D/g,'').substring(0,16);
+        this.value = v.replace(/(.{4})/g,'$1 ').trim();
+      });
+    }
+    var valInput = document.getElementById('cartao-validade');
+    if (valInput && !valInput._mascarado) {
+      valInput._mascarado = true;
+      valInput.addEventListener('input', function() {
+        var v = this.value.replace(/\D/g,'').substring(0,4);
+        if (v.length > 2) v = v.substring(0,2)+'/'+v.substring(2);
+        this.value = v;
+      });
+    }
+    var cpfInput = document.getElementById('cartao-cpf');
+    if (cpfInput && !cpfInput._mascarado) {
+      cpfInput._mascarado = true;
+      cpfInput.addEventListener('input', function() {
+        var v = this.value.replace(/\D/g,'').substring(0,11);
+        v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+        this.value = v;
+      });
+    }
+    var nascInput = document.getElementById('cartao-nascimento');
+    if (nascInput && !nascInput._mascarado) {
+      nascInput._mascarado = true;
+      nascInput.addEventListener('input', function() {
+        var v = this.value.replace(/\D/g,'').substring(0,8);
+        v = v.replace(/(\d{2})(\d)/,'$1/$2').replace(/(\d{2})(\d)/,'$1/$2');
+        this.value = v;
+      });
+    }
+    return;
+  }
+  document.getElementById('passo-pagamento').style.display = 'none';
+  document.getElementById('pagto-pix').style.display = 'block';
   gerarPix();
+}
+
+async function processarCartao() {
+  var nome = (document.getElementById('cartao-nome').value || '').trim();
+  var numero = (document.getElementById('cartao-numero').value || '').replace(/\s/g,'');
+  var validade = (document.getElementById('cartao-validade').value || '').trim();
+  var cvv = (document.getElementById('cartao-cvv').value || '').trim();
+  var cpf = (document.getElementById('cartao-cpf').value || '').replace(/\D/g,'');
+  var email = (document.getElementById('cartao-email').value || '').trim();
+  var tel = (document.getElementById('cartao-tel').value || '').replace(/\D/g,'');
+  var nascimento = (document.getElementById('cartao-nascimento').value || '').trim();
+
+  var errEl = document.getElementById('cartao-err');
+  errEl.style.display = 'none';
+
+  if (!nome) { errEl.textContent = 'Informe o nome no cartão.'; errEl.style.display='block'; return; }
+  if (!numero || numero.length < 13) { errEl.textContent = 'Número do cartão inválido.'; errEl.style.display='block'; return; }
+  if (!validade || validade.length < 5) { errEl.textContent = 'Informe a validade (MM/AA).'; errEl.style.display='block'; return; }
+  if (!cvv || cvv.length < 3) { errEl.textContent = 'CVV inválido.'; errEl.style.display='block'; return; }
+  if (!cpf || cpf.length < 11) { errEl.textContent = 'Informe o CPF do titular.'; errEl.style.display='block'; return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Informe um e-mail válido.'; errEl.style.display='block'; return; }
+  if (!tel) { errEl.textContent = 'Informe o telefone.'; errEl.style.display='block'; return; }
+  if (!nascimento || nascimento.length < 10) { errEl.textContent = 'Informe a data de nascimento (DD/MM/AAAA).'; errEl.style.display='block'; return; }
+
+  var btn = document.getElementById('btnPagarCartao');
+  btn.disabled = true; btn.textContent = 'Processando...';
+
+  try {
+    var partes = validade.split('/');
+    var mesStr = partes[0] || '';
+    var anoStr = (partes[1] || '').length === 2 ? '20' + partes[1] : (partes[1] || '');
+
+    var tokenData = await new Promise(function(resolve, reject) {
+      if (typeof window.$efi === 'undefined' || typeof window.$efi.generateToken !== 'function') {
+        reject(new Error('SDK Efí não carregado. Tente novamente.'));
+        return;
+      }
+      window.$efi.generateToken({
+        brand: detectarBandeira(numero),
+        number: numero,
+        cvv: cvv,
+        expirationMonth: mesStr,
+        expirationYear: anoStr,
+        reuse: false
+      }, function(error, obj) {
+        if (error) { reject(new Error(error.message || 'Erro ao tokenizar cartão.')); return; }
+        resolve(obj);
+      });
+    });
+
+    var nascParts = nascimento.split('/');
+    var nascIso = (nascParts[2]||'') + '-' + (nascParts[1]||'') + '-' + (nascParts[0]||'');
+
+    var res = await fetch(API + '/api/especialistas/efi/cartao/cobrar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        payment_token: tokenData.payment_token,
+        nome: nome,
+        cpf: cpf,
+        email: email,
+        telefone: tel,
+        nascimento: nascIso,
+        parcelas: 1,
+        agendamentoId: espState.agendamentoId
+      })
+    });
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Erro no pagamento com cartão.');
+
+    document.getElementById('pagto-cartao').style.display = 'none';
+    document.getElementById('passo-cartao-confirmado').style.display = 'block';
+    document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
+  } catch(e) {
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Pagar agora';
+  }
+}
+
+function detectarBandeira(numero) {
+  var n = numero.replace(/\D/g,'');
+  if (/^4/.test(n)) return 'visa';
+  if (/^5[1-5]/.test(n)) return 'mastercard';
+  if (/^3[47]/.test(n)) return 'amex';
+  if (/^6(?:011|5)/.test(n)) return 'discover';
+  if (/^(?:2131|1800|35)/.test(n)) return 'jcb';
+  if (/^3(?:0[0-5]|[68])/.test(n)) return 'dinersclub';
+  if (/^(606282|3841)/.test(n)) return 'hipercard';
+  if (/^(38|60)/.test(n)) return 'elo';
+  return 'visa';
 }
 
 async function gerarPix() {
@@ -1132,47 +1290,6 @@ function copiarPix() {
   var btn = document.querySelector('.pix-copia-btn');
   btn.textContent = '✅ Copiado!';
   setTimeout(function() { btn.textContent = '📋 Copiar'; }, 2000);
-}
-
-async function processarCartao() {
-  var nome = document.getElementById('cartao-nome').value.trim();
-  var numero = document.getElementById('cartao-numero').value.replace(/\s/g, '');
-  var validade = document.getElementById('cartao-validade').value;
-  var cvv = document.getElementById('cartao-cvv').value;
-  var cpf = document.getElementById('cartao-cpf').value.replace(/\D/g, '');
-  
-  if (!nome || !numero || !validade || !cvv || !cpf) {
-    alert('Preencha todos os campos do cartão');
-    return;
-  }
-  
-  var btn = document.querySelector('.btn-pagar');
-  btn.disabled = true; btn.textContent = 'Processando...';
-  
-  try {
-    var res = await fetch(API + '/api/especialistas/efi/cartao/cobrar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        payment_token: 'tok_' + Math.random().toString(36).substr(2),
-        nome: nome,
-        cpf: cpf,
-        email: document.getElementById('inp-email').value,
-        telefone: document.getElementById('inp-tel').value,
-        nascimento: '01/01/1990',
-        parcelas: 1,
-        agendamentoId: espState.agendamentoId
-      })
-    });
-    var data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Erro no pagamento');
-    alert('Pagamento confirmado! Consulta agendada.');
-    fecharModal();
-  } catch(e) {
-    alert('Erro: ' + e.message);
-  } finally {
-    btn.disabled = false; btn.textContent = 'Pagar agora';
-  }
 }
 
 document.addEventListener('DOMContentLoaded', init);
