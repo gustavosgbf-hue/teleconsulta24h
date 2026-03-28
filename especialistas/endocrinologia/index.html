@@ -828,6 +828,7 @@ var medicoSelecionado = null;
 var slotSelecionado = null;
 var metodoPagamento = 'pix';
 var espState = { agendamentoId: null, pixOrderId: null, pixInterval: null };
+var PIX_CONFIRMED_STATES = ['confirmado', 'pago', 'paid', 'approved'];
 var especialistasData = [];
 var LOADING_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Carregando profissionais...</div>';
 var EMPTY_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Nenhum profissional disponível no momento.</div>';
@@ -1030,20 +1031,114 @@ function voltarParaHorario() {
   document.getElementById('passo-horario').style.display = 'block';
 }
 
+async function safeJsonFromResponse(res) {
+  var status = res && typeof res.status === 'number' ? res.status : 0;
+  var rawText = '';
+  try { rawText = await res.text(); } catch(e) {}
+  if (!rawText || !rawText.trim()) return { ok: !!(res && res.ok), status: status, payload: null, rawText: rawText, isJson: false };
+  try {
+    return { ok: !!(res && res.ok), status: status, payload: JSON.parse(rawText), rawText: rawText, isJson: true };
+  } catch(e) {
+    return { ok: !!(res && res.ok), status: status, payload: null, rawText: rawText, isJson: false };
+  }
+}
+
+function extractErrorMessage(payload, fallback) {
+  var fb = fallback || 'Não foi possível concluir sua solicitação.';
+  function inner(value) {
+    if (value === null || value === undefined) return '';
+    if (typeof value === 'string') return value.trim();
+    if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+    if (Array.isArray(value)) return value.map(inner).filter(Boolean).join(' | ');
+    if (typeof value === 'object') {
+      var preferred = [value.message, value.error_description, value.error, value.detail, value.details, value.msg, value.title];
+      for (var i = 0; i < preferred.length; i++) {
+        var msg = inner(preferred[i]);
+        if (msg) return msg;
+      }
+      var keys = Object.keys(value);
+      for (var j = 0; j < keys.length; j++) {
+        var nested = inner(value[keys[j]]);
+        if (nested) return nested;
+      }
+      try { return JSON.stringify(value); } catch(e) { return ''; }
+    }
+    return '';
+  }
+  return inner(payload) || fb;
+}
+
+function extractPixPayload(payload) {
+  var src = payload && typeof payload === 'object' ? payload : {};
+  var pix = src.pix && typeof src.pix === 'object' ? src.pix : {};
+  var qrObj = src.qr_code && typeof src.qr_code === 'object' ? src.qr_code : {};
+  var qrText = src.qr_code_text || qrObj.text || pix.qr_code_text || pix.text || src.pix_copia_cola || '';
+  var qrImage = src.qr_code_image || qrObj.image || pix.qr_code_image || pix.image || '';
+  var amount = src.valor || src.amount || src.total || pix.valor || pix.amount || pix.total || null;
+  var orderId = src.order_id || src.id || pix.order_id || pix.id || null;
+  return { qrText: qrText, qrImage: qrImage, amount: amount, orderId: orderId };
+}
+
+function getPixAmount(amount, fallback) {
+  var value = parseFloat(amount);
+  if (!Number.isFinite(value)) value = parseFloat(fallback);
+  if (!Number.isFinite(value)) value = 0;
+  return value;
+}
+
+function isPaymentConfirmed(payload) {
+  var data = payload && typeof payload === 'object' ? payload : {};
+  var ag = data.agendamento && typeof data.agendamento === 'object' ? data.agendamento : {};
+  var candidates = [
+    data.status, data.payment_status, data.pagamento_status,
+    ag.status, ag.payment_status, ag.pagamento_status
+  ];
+  return candidates.some(function(status) {
+    return PIX_CONFIRMED_STATES.indexOf(String(status || '').toLowerCase()) !== -1;
+  });
+}
+
+function clearPixPolling() {
+  if (espState.pixInterval) {
+    clearInterval(espState.pixInterval);
+    espState.pixInterval = null;
+  }
+}
+
+function resetPixUI() {
+  var loading = document.getElementById('pix-loading');
+  var qrWrap = document.getElementById('pix-qr-wrap');
+  var status = document.getElementById('pix-status');
+  var confirmado = document.getElementById('pix-confirmado');
+  var qrImg = document.getElementById('pix-qr-img');
+  var codigo = document.getElementById('pix-codigo');
+  if (loading) { loading.style.display = 'block'; loading.textContent = '⏳ Gerando pagamento...'; loading.style.color = ''; }
+  if (qrWrap) qrWrap.classList.remove('active');
+  if (status) { status.style.display = 'block'; status.textContent = '⏳ Aguardando confirmação do pagamento...'; }
+  if (confirmado) confirmado.classList.remove('active');
+  if (qrImg) qrImg.src = '';
+  if (codigo) codigo.value = '';
+}
+
 function selecionarMetodo(m) {
   metodoPagamento = m;
   document.getElementById('op-pix').classList.toggle('selected', m === 'pix');
   document.getElementById('op-cartao').classList.toggle('selected', m === 'cartao');
 }
-  document.getElementById('passo-pagamento').style.display = 'none';
-  document.getElementById('passo-dados').style.display = 'block';
-  document.getElementById('pagto-pix').classList.remove('active');
-  document.getElementById('pagto-cartao').classList.remove('active');
+
+function voltarParaPagamento() {
+  clearPixPolling();
+  document.getElementById('passo-pagamento').style.display = 'block';
+  document.getElementById('passo-dados').style.display = 'none';
+  document.getElementById('pagto-pix').style.display = 'none';
+  document.getElementById('pagto-cartao').style.display = 'none';
+  resetPixUI();
 }
 
 function fecharModal() {
   document.getElementById('modalOverlay').classList.remove('open');
-  if (espState.pixInterval) { clearInterval(espState.pixInterval); espState.pixInterval = null; }
+  clearPixPolling();
+  resetPixUI();
 }
 
 function fecharModalOverlay(e) {
@@ -1078,8 +1173,9 @@ async function confirmarAgendamento() {
         paciente_cpf: cpf
       })
     });
-    var data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Erro ao criar agendamento');
+    var parsed = await safeJsonFromResponse(res);
+    var data = parsed.payload || {};
+    if (!res.ok || !parsed.isJson || !data.ok) throw new Error(extractErrorMessage(data, 'Erro ao criar agendamento'));
     
     espState.agendamentoId = data.agendamentoId || data.agendamento_id || null;
     if (!espState.agendamentoId) throw new Error('Agendamento criado sem identificador');
@@ -1092,13 +1188,16 @@ async function confirmarAgendamento() {
 }
 
 function voltarParaDados() {
+  clearPixPolling();
   document.getElementById('passo-pagamento').style.display = 'none';
   document.getElementById('passo-dados').style.display = 'block';
   document.getElementById('pagto-pix').style.display = 'none';
   document.getElementById('pagto-cartao').style.display = 'none';
+  resetPixUI();
 }
 
 function processarPagamento() {
+  clearPixPolling();
   if (metodoPagamento === 'cartao') {
     document.getElementById('passo-pagamento').style.display = 'none';
     document.getElementById('pagto-cartao').style.display = 'block';
@@ -1142,6 +1241,7 @@ function processarPagamento() {
   }
   document.getElementById('passo-pagamento').style.display = 'none';
   document.getElementById('pagto-pix').style.display = 'block';
+  resetPixUI();
   gerarPix();
 }
 
@@ -1210,14 +1310,17 @@ async function processarCartao() {
         agendamentoId: espState.agendamentoId
       })
     });
-    var data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Erro no pagamento com cartão.');
+    var parsed = await safeJsonFromResponse(res);
+    var data = parsed.payload || {};
+    if (!res.ok || !parsed.isJson || !data.ok) {
+      throw new Error(extractErrorMessage(data, 'Não foi possível processar o pagamento com cartão.'));
+    }
 
     document.getElementById('pagto-cartao').style.display = 'none';
     document.getElementById('passo-cartao-confirmado').style.display = 'block';
     document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
   } catch(e) {
-    errEl.textContent = e.message;
+    errEl.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao processar pagamento com cartão.');
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Pagar agora';
   }
@@ -1239,46 +1342,67 @@ function detectarBandeira(numero) {
 async function gerarPix() {
   var loading = document.getElementById('pix-loading');
   var qrWrap = document.getElementById('pix-qr-wrap');
-  loading.style.display = 'block'; qrWrap.classList.remove('active');
+  var nome = (document.getElementById('inp-nome').value || '').trim();
+  var email = (document.getElementById('inp-email').value || '').trim();
+  var cpf = (document.getElementById('inp-cpf').value || '').trim().replace(/\D/g,'');
+  resetPixUI();
+  clearPixPolling();
   
   try {
+    var pixPayload = {
+      agendamentoId: espState.agendamentoId,
+      agendamento_id: espState.agendamentoId
+    };
+    if (nome) pixPayload.nome = nome;
+    if (email) pixPayload.email = email;
+    if (cpf) pixPayload.cpf = cpf;
+
     var res = await fetch(API + '/api/especialistas/pagbank/order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        agendamento_id: espState.agendamentoId,
-        valor: medicoSelecionado.valor
-      })
+      body: JSON.stringify(pixPayload)
     });
-    var data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Erro ao gerar PIX');
+    var parsed = await safeJsonFromResponse(res);
+    var data = parsed.payload || {};
+    if (!res.ok || !parsed.isJson || !data || data.ok === false) {
+      throw new Error(extractErrorMessage(data, 'Não foi possível gerar o PIX. Tente novamente.'));
+    }
+    var pixData = extractPixPayload(data);
+    if (!pixData.qrText && !pixData.qrImage) throw new Error('PIX gerado sem QR Code válido. Tente novamente em instantes.');
     
-    espState.pixOrderId = data.order_id;
+    espState.pixOrderId = pixData.orderId;
     document.getElementById('pix-resumo').textContent = 'Dr(a). ' + medicoSelecionado.nome;
-    document.getElementById('pix-valor').textContent = 'R$ ' + medicoSelecionado.valor.toFixed(2).replace('.', ',');
-    document.getElementById('pix-qr-img').src = data.qr_code.image;
-    document.getElementById('pix-codigo').value = data.qr_code.text;
+    var valorPix = getPixAmount(pixData.amount, medicoSelecionado.valor);
+    document.getElementById('pix-valor').textContent = 'R$ ' + valorPix.toFixed(2).replace('.', ',');
+    document.getElementById('pix-qr-img').src = pixData.qrImage || (pixData.qrText ? 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(pixData.qrText) : '');
+    document.getElementById('pix-codigo').value = pixData.qrText || '';
     
     loading.style.display = 'none'; qrWrap.classList.add('active');
     
-    espState.pixInterval = setInterval(verificarPagamento, 3000);
+    espState.pixInterval = setInterval(verificarPagamento, 10000);
   } catch(e) {
-    loading.textContent = 'Erro: ' + e.message;
+    loading.style.display = 'block';
+    loading.style.color = '#b91c1c';
+    loading.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao gerar PIX. Verifique sua conexão e tente novamente.');
+    qrWrap.classList.remove('active');
   }
 }
 
 async function verificarPagamento() {
-  if (!espState.pixOrderId) return;
+  if (!espState.agendamentoId) return;
   try {
     var res = await fetch(API + '/api/especialistas/agendamento/' + espState.agendamentoId + '/status');
-    var data = await res.json();
-    if (data.ok && data.status === 'pago') {
-      clearInterval(espState.pixInterval);
-      espState.pixInterval = null;
+    var parsed = await safeJsonFromResponse(res);
+    var data = parsed.payload || {};
+    if (res.ok && parsed.isJson && isPaymentConfirmed(data)) {
+      clearPixPolling();
       document.getElementById('pix-status').style.display = 'none';
       var confirmado = document.getElementById('pix-confirmado');
       confirmado.classList.add('active');
-      document.getElementById('pix-confirmado-detalhe').textContent = 'Consulta agendada para ' + slotSelecionado.dia + (slotSelecionado.hora ? ' às ' + slotSelecionado.hora : '');
+      var ag = data.agendamento || {};
+      var detalhe = ag.especialista_nome ? ag.especialista_nome : 'Consulta agendada';
+      detalhe += ' · ' + slotSelecionado.dia + (slotSelecionado.hora ? ' às ' + slotSelecionado.hora : '');
+      document.getElementById('pix-confirmado-detalhe').textContent = detalhe;
     }
   } catch(e) {}
 }

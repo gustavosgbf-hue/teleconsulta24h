@@ -1049,6 +1049,96 @@ function mostrarPasso(id) {
 }
 
 var metodoPagamento27 = 'pix';
+var PIX_CONFIRMED_STATES = ['confirmado', 'pago', 'paid', 'approved'];
+
+async function safeJsonFromResponse(res) {
+  var status = res && typeof res.status === 'number' ? res.status : 0;
+  var rawText = '';
+  try { rawText = await res.text(); } catch(e) {}
+  if (!rawText || !rawText.trim()) return { ok: !!(res && res.ok), status: status, payload: null, rawText: rawText, isJson: false };
+  try {
+    return { ok: !!(res && res.ok), status: status, payload: JSON.parse(rawText), rawText: rawText, isJson: true };
+  } catch(e) {
+    return { ok: !!(res && res.ok), status: status, payload: null, rawText: rawText, isJson: false };
+  }
+}
+
+function extractErrorMessage(payload, fallback) {
+  var fb = fallback || 'Não foi possível concluir sua solicitação.';
+  function inner(value) {
+    if (value === null || value === undefined) return '';
+    if (typeof value === 'string') return value.trim();
+    if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+    if (Array.isArray(value)) return value.map(inner).filter(Boolean).join(' | ');
+    if (typeof value === 'object') {
+      var preferred = [value.message, value.error_description, value.error, value.detail, value.details, value.msg, value.title];
+      for (var i = 0; i < preferred.length; i++) {
+        var msg = inner(preferred[i]);
+        if (msg) return msg;
+      }
+      var keys = Object.keys(value);
+      for (var j = 0; j < keys.length; j++) {
+        var nested = inner(value[keys[j]]);
+        if (nested) return nested;
+      }
+      try { return JSON.stringify(value); } catch(e) { return ''; }
+    }
+    return '';
+  }
+  return inner(payload) || fb;
+}
+
+function extractPixPayload(payload) {
+  var src = payload && typeof payload === 'object' ? payload : {};
+  var pix = src.pix && typeof src.pix === 'object' ? src.pix : {};
+  var qrObj = src.qr_code && typeof src.qr_code === 'object' ? src.qr_code : {};
+  var qrText = src.qr_code_text || qrObj.text || pix.qr_code_text || pix.text || src.pix_copia_cola || '';
+  var qrImage = src.qr_code_image || qrObj.image || pix.qr_code_image || pix.image || '';
+  var amount = src.valor || src.amount || src.total || pix.valor || pix.amount || pix.total || null;
+  var orderId = src.order_id || src.id || pix.order_id || pix.id || null;
+  return { qrText: qrText, qrImage: qrImage, amount: amount, orderId: orderId };
+}
+
+function getPixAmount(amount, fallback) {
+  var value = parseFloat(amount);
+  if (!Number.isFinite(value)) value = parseFloat(fallback);
+  if (!Number.isFinite(value)) value = 0;
+  return value;
+}
+
+function isPaymentConfirmed(payload) {
+  var data = payload && typeof payload === 'object' ? payload : {};
+  var ag = data.agendamento && typeof data.agendamento === 'object' ? data.agendamento : {};
+  var candidates = [
+    data.status, data.payment_status, data.pagamento_status,
+    ag.status, ag.payment_status, ag.pagamento_status
+  ];
+  return candidates.some(function(status) {
+    return PIX_CONFIRMED_STATES.indexOf(String(status || '').toLowerCase()) !== -1;
+  });
+}
+
+function clearPixPolling() {
+  if (espState.pixInterval) {
+    clearInterval(espState.pixInterval);
+    espState.pixInterval = null;
+  }
+}
+
+function resetPixUI() {
+  var loading = document.getElementById('pix-loading');
+  var qrWrap = document.getElementById('pix-qr-wrap');
+  var status = document.getElementById('pix-status');
+  var confirmado = document.getElementById('pix-confirmado');
+  var qrImg = document.getElementById('pix-qr-img');
+  var codigo = document.getElementById('pix-codigo');
+  if (loading) { loading.style.display = 'block'; loading.textContent = '⏳ Gerando PIX...'; loading.style.color = ''; }
+  if (qrWrap) qrWrap.style.display = 'none';
+  if (status) { status.style.display = 'block'; status.textContent = '⏳ Aguardando confirmação do pagamento...'; }
+  if (confirmado) confirmado.style.display = 'none';
+  if (qrImg) qrImg.src = '';
+  if (codigo) codigo.value = '';
+}
 
 function selecionarMetodo(m) {
   metodoPagamento27 = m;
@@ -1065,10 +1155,12 @@ function selecionarMetodo(m) {
 }
 
 function voltarParaPagamento() {
+  clearPixPolling();
   mostrarPasso('passo-pagamento');
 }
 
 function processarPagamento() {
+  clearPixPolling();
   if (metodoPagamento27 === 'cartao') {
     mostrarPasso('passo-cartao');
     // formatar campos do cartão
@@ -1110,8 +1202,7 @@ function processarPagamento() {
     return;
   }
   mostrarPasso('passo-pix');
-  document.getElementById('pix-loading').style.display = 'block';
-  document.getElementById('pix-qr-wrap').style.display = 'none';
+  resetPixUI();
   gerarPix();
 }
 
@@ -1180,14 +1271,17 @@ async function processarCartao() {
         agendamentoId: espState.agendamentoId
       })
     });
-    var data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Erro no pagamento com cartão.');
+    var parsed = await safeJsonFromResponse(res);
+    var data = parsed.payload || {};
+    if (!res.ok || !parsed.isJson || !data.ok) {
+      throw new Error(extractErrorMessage(data, 'Não foi possível processar o pagamento com cartão.'));
+    }
 
     var horFmt = slotSelecionado.dia + ' às ' + slotSelecionado.hora;
     document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + horFmt;
     mostrarPasso('passo-cartao-confirmado');
   } catch(e) {
-    errEl.textContent = e.message;
+    errEl.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao processar pagamento com cartão.');
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Pagar com Cartão →';
   }
@@ -1207,46 +1301,62 @@ function detectarBandeira(numero) {
 }
 
 async function gerarPix() {
-  var nome = document.getElementById('inp-nome').value.trim();
-  var email = document.getElementById('inp-email').value.trim();
-  var cpf = document.getElementById('inp-cpf').value.trim().replace(/\D/g,'');
+  var nome = (document.getElementById('inp-nome').value || '').trim();
+  var email = (document.getElementById('inp-email').value || '').trim();
+  var cpf = (document.getElementById('inp-cpf').value || '').trim().replace(/\D/g,'');
+  var loading = document.getElementById('pix-loading');
+  var qrWrap = document.getElementById('pix-qr-wrap');
+
+  resetPixUI();
+  clearPixPolling();
 
   try {
+    var pixPayload = {
+      agendamentoId: espState.agendamentoId,
+      agendamento_id: espState.agendamentoId
+    };
+    if (nome) pixPayload.nome = nome;
+    if (email) pixPayload.email = email;
+    if (cpf) pixPayload.cpf = cpf;
+
     var resPix = await fetch(API + '/api/especialistas/pagbank/order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        agendamentoId: espState.agendamentoId,
-        nome: nome, email: email, cpf: cpf
-      })
+      body: JSON.stringify(pixPayload)
     });
-    var dadosPix = await resPix.json();
-    if (!dadosPix.ok) {
-      document.getElementById('pix-loading').innerHTML = '<span style="color:#b91c1c">' + (dadosPix.error || 'Erro ao gerar PIX.') + '</span>';
-      return;
+    var parsed = await safeJsonFromResponse(resPix);
+    var dadosPix = parsed.payload || {};
+    if (!resPix.ok || !parsed.isJson || !dadosPix || dadosPix.ok === false) {
+      throw new Error(extractErrorMessage(dadosPix, 'Não foi possível gerar o PIX. Tente novamente.'));
     }
-    espState.pixOrderId = dadosPix.order_id;
+    var pixData = extractPixPayload(dadosPix);
+    if (!pixData.qrText && !pixData.qrImage) throw new Error('PIX gerado sem QR Code válido. Tente novamente em instantes.');
 
-    document.getElementById('pix-loading').style.display = 'none';
-    document.getElementById('pix-qr-wrap').style.display = 'block';
+    espState.pixOrderId = pixData.orderId;
+
+    loading.style.display = 'none';
+    qrWrap.style.display = 'block';
     document.getElementById('pix-resumo').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
-    var valorPix = dadosPix.valor || dadosPix.amount || medicoSelecionado.valor;
-    document.getElementById('pix-valor').textContent = 'R$ ' + parseFloat(valorPix).toFixed(2).replace('.', ',');
-    var qrText = dadosPix.qr_code_text || (dadosPix.qr_code && dadosPix.qr_code.text) || '';
-    var qrImg  = dadosPix.qr_code_image || (dadosPix.qr_code && dadosPix.qr_code.image) || '';
-    document.getElementById('pix-qr-img').src = qrImg || ('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(qrText));
-    document.getElementById('pix-codigo').value = qrText;
+    var valorPix = getPixAmount(pixData.amount, medicoSelecionado.valor);
+    document.getElementById('pix-valor').textContent = 'R$ ' + valorPix.toFixed(2).replace('.', ',');
+    document.getElementById('pix-qr-img').src = pixData.qrImage || (pixData.qrText ? 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(pixData.qrText) : '');
+    document.getElementById('pix-codigo').value = pixData.qrText || '';
 
     iniciarPollingEsp(espState.agendamentoId);
   } catch(e) {
-    document.getElementById('pix-loading').textContent = 'Erro de conexão.';
+    if (loading) {
+      loading.style.display = 'block';
+      loading.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao gerar PIX. Verifique sua conexão e tente novamente.');
+      loading.style.color = '#b91c1c';
+    }
+    if (qrWrap) qrWrap.style.display = 'none';
   }
 }
 
 function fecharModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  clearInterval(espState.pixInterval);
+  clearPixPolling();
 }
 
 function fecharModalOverlay(e) {
@@ -1299,9 +1409,10 @@ async function confirmarAgendamento() {
         paciente_cpf:     cpf
       })
     });
-    var dadosAg = await resAg.json();
-    if (!dadosAg.ok) {
-      errEl.textContent = dadosAg.error || 'Erro ao criar agendamento.';
+    var parsedAg = await safeJsonFromResponse(resAg);
+    var dadosAg = parsedAg.payload || {};
+    if (!resAg.ok || !parsedAg.isJson || !dadosAg.ok) {
+      errEl.textContent = extractErrorMessage(dadosAg, 'Erro ao criar agendamento.');
       errEl.style.display = 'block';
       btn.disabled = false; btn.textContent = 'Confirmar →';
       return;
@@ -1330,17 +1441,18 @@ function copiarPixEsp() {
 }
 
 function iniciarPollingEsp(agendamentoId) {
-  clearInterval(espState.pixInterval);
+  clearPixPolling();
   var tentativas = 0;
   espState.pixInterval = setInterval(async function() {
     tentativas++;
-    if (tentativas > 60) { clearInterval(espState.pixInterval); return; }
+    if (tentativas > 60) { clearPixPolling(); return; }
     try {
       var res  = await fetch(API + '/api/especialistas/agendamento/' + agendamentoId + '/status');
-      var data = await res.json();
-      if (data.ok && data.agendamento && data.agendamento.pagamento_status === 'confirmado') {
-        clearInterval(espState.pixInterval);
-        var ag = data.agendamento;
+      var parsed = await safeJsonFromResponse(res);
+      var data = parsed.payload || {};
+      if (res.ok && parsed.isJson && isPaymentConfirmed(data)) {
+        clearPixPolling();
+        var ag = data.agendamento || {};
         var horFmt = new Date(ag.horario_agendado).toLocaleString('pt-BR', {
           timeZone: 'America/Fortaleza', weekday: 'long', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit'
         });
