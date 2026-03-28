@@ -929,13 +929,11 @@ function abrirHorarios(medico) {
   slotSelecionado = null;
   document.getElementById('modalDoctor').textContent = medico.nome + ' · Psiquiatria · R$ ' + parseFloat(medico.valor).toFixed(2).replace('.', ',');
   document.getElementById('btnProximo').disabled = true;
-  document.getElementById('btnProximo').classList.remove('is-ready');
   var btnConfirmar = document.getElementById('modalCta');
   if (btnConfirmar) {
     btnConfirmar.disabled = true;
-    btnConfirmar.classList.remove('cta-enabled');
-    btnConfirmar.style.opacity = '';
-    btnConfirmar.style.cursor = '';
+    btnConfirmar.style.opacity = '.55';
+    btnConfirmar.style.cursor = 'not-allowed';
   }
   mostrarPasso('passo-horario');
   renderSlots(normalizarDisponibilidade(medico.disponibilidade));
@@ -1123,14 +1121,6 @@ function getPixAmount(amount, fallback) {
   return value;
 }
 
-function friendlyPixErrorMessage(msg) {
-  var text = String(msg || '');
-  if (text.indexOf('40002') !== -1) {
-    return 'Não foi possível gerar o PIX agora. Revise nome, e-mail e CPF e tente novamente em instantes.';
-  }
-  return text;
-}
-
 function isPaymentConfirmed(payload) {
   var data = payload && typeof payload === 'object' ? payload : {};
   var ag = data.agendamento && typeof data.agendamento === 'object' ? data.agendamento : {};
@@ -1178,9 +1168,8 @@ function atualizarBotaoConfirmacaoDados() {
   if (!btn) return;
   var habilitado = dadosPacienteValidos();
   btn.disabled = !habilitado;
-  btn.classList.toggle('cta-enabled', habilitado);
-  btn.style.opacity = '';
-  btn.style.cursor = '';
+  btn.style.opacity = habilitado ? '1' : '.55';
+  btn.style.cursor = habilitado ? 'pointer' : 'not-allowed';
 }
 
 function bindDadosListeners() {
@@ -1399,7 +1388,7 @@ async function gerarPix() {
   } catch(e) {
     if (loading) {
       loading.style.display = 'block';
-      loading.textContent = friendlyPixErrorMessage(extractErrorMessage(e && e.message ? e.message : e, 'Erro ao gerar PIX. Verifique sua conexão e tente novamente.'));
+      loading.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao gerar PIX. Verifique sua conexão e tente novamente.');
       loading.style.color = '#b91c1c';
     }
     if (qrWrap) qrWrap.style.display = 'none';
