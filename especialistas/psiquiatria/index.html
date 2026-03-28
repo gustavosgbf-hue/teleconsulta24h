@@ -371,8 +371,8 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
   display:flex;align-items:center;justify-content:center;gap:8px;
 }
 .modal__cta:hover{background:var(--acc-dark);transform:translateY(-1px)}
-.modal__cta:disabled{opacity:.35;cursor:not-allowed;transform:none;filter:grayscale(.4)}
-.modal__cta:not(:disabled){opacity:1;background:var(--acc-dark);box-shadow:0 6px 18px rgba(22,53,88,.28)}
+.modal__cta:disabled{opacity:1;cursor:not-allowed;transform:none;background:#c8c8c8;color:#888;box-shadow:none}
+.modal__cta:not(:disabled){background:var(--acc-dark);box-shadow:0 6px 18px rgba(22,53,88,.32)}
 .modal__note{
   font-size:.72rem;color:var(--ink-3);
   text-align:center;margin-top:12px;line-height:1.5;
@@ -1230,10 +1230,12 @@ async function gerarPix() {
     document.getElementById('pix-loading').style.display = 'none';
     document.getElementById('pix-qr-wrap').style.display = 'block';
     document.getElementById('pix-resumo').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
-    document.getElementById('pix-valor').textContent = 'R$ ' + parseFloat(dadosPix.valor).toFixed(2).replace('.', ',');
-    var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(dadosPix.qr_code_text);
-    document.getElementById('pix-qr-img').src = qrUrl;
-    document.getElementById('pix-codigo').value = dadosPix.qr_code_text;
+    var valorPix = dadosPix.valor || dadosPix.amount || medicoSelecionado.valor;
+    document.getElementById('pix-valor').textContent = 'R$ ' + parseFloat(valorPix).toFixed(2).replace('.', ',');
+    var qrText = dadosPix.qr_code_text || (dadosPix.qr_code && dadosPix.qr_code.text) || '';
+    var qrImg  = dadosPix.qr_code_image || (dadosPix.qr_code && dadosPix.qr_code.image) || '';
+    document.getElementById('pix-qr-img').src = qrImg || ('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(qrText));
+    document.getElementById('pix-codigo').value = qrText;
 
     iniciarPollingEsp(espState.agendamentoId);
   } catch(e) {
