@@ -505,9 +505,54 @@ const CONFIG = {
   apiUrl: 'https://triagem-api.onrender.com',
   /* ▼ WhatsApp number — digits only, with country code */
   wa: '5598989272727',
-  /* ▼ Booking page URL. Set to '' to fall back to WhatsApp. */
-  bookingUrl: 'https://consultaja24h.com.br/agendar'
+  /* ▼ Booking page URL. Empty string = always use WhatsApp fallback. */
+  bookingUrl: ''
 };
+
+/* ----------------------------------------------------------------
+   BOOKING HELPERS
+   ---------------------------------------------------------------- */
+function isValidBookingUrl(url) {
+  if (!url || typeof url !== 'string') return false;
+  const trimmed = url.trim();
+  if (!trimmed) return false;
+  const broken = ['/agendar', 'consultaja24h.com.br/agendar'];
+  if (broken.some(b => trimmed.includes(b))) return false;
+  try { new URL(trimmed); return true; } catch(_) { return false; }
+}
+
+function buildWhatsAppMsg(nome, quizCtx) {
+  const feelingLabels = {
+    ansiedade:        'ansiedade',
+    tristeza:         'tristeza e humor baixo',
+    estresse:         'estresse e esgotamento',
+    relacionamentos:  'dificuldades em relacionamentos',
+    autoconhecimento: 'autoconhecimento'
+  };
+  const feeling = feelingLabels[quizCtx && quizCtx.step1] || 'saude mental';
+  const urgency = quizCtx && quizCtx.step2 === 'agora' ? ' com urgencia' : '';
+  const nomeStr = nome ? ('com ' + nome) : 'com um psicologo';
+  return 'Ola! Gostaria de agendar uma sessao' + urgency + ' ' + nomeStr + '. Encontrei pelo site e estou buscando suporte para ' + feeling + '. Poderia ver os horarios disponiveis?';
+}
+
+function buildWhatsAppMsgUTF(nome, quizCtx) {
+  const feelingLabels = {
+    ansiedade:        'ansiedade',
+    tristeza:         'tristeza e humor baixo',
+    estresse:         'estresse e esgotamento',
+    relacionamentos:  'dificuldades em relacionamentos',
+    autoconhecimento: 'autoconhecimento'
+  };
+  const feeling = feelingLabels[quizCtx && quizCtx.step1] || 'saúde mental';
+  const urgency = quizCtx && quizCtx.step2 === 'agora' ? ' com urgência' : '';
+  const nomeStr = nome ? ('com ' + nome) : 'com um psicólogo';
+  return 'Olá! Gostaria de agendar uma sessão' + urgency + ' ' + nomeStr + '. Encontrei pelo site e estou buscando suporte para ' + feeling + '. Poderia ver os horários disponíveis?';
+}
+
+function openWhatsAppBooking(nome, quizCtx) {
+  const msg = buildWhatsAppMsgUTF(nome, quizCtx);
+  window.open('https://wa.me/' + CONFIG.wa + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+}
 
 /* LOCAL_PROFESSIONALS removed — fake/invented data is not acceptable on this healthcare platform. */
 
@@ -712,7 +757,7 @@ async function showResult() {
         <div style="font-size:2rem;margin-bottom:12px">🔄</div>
         <div style="font-family:var(--font-d);font-size:1.15rem;font-weight:500;color:var(--ink);margin-bottom:8px">Profissionais sendo atualizados</div>
         <div style="font-size:.85rem;font-weight:300;color:var(--ink-2);line-height:1.65;margin-bottom:16px">No momento, os profissionais disponíveis estão sendo atualizados.<br>Fale com nossa equipe para consultar horários disponíveis.</div>
-        <a href="https://wa.me/${CONFIG.wa}?text=Olá%2C%20gostaria%20de%20consultar%20horários%20disponíveis%20com%20um%20psicólogo." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;background:#25d366;color:#fff;font-weight:600;font-size:.88rem;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,.35)">
+        <a href="https://wa.me/5598989272727?text=Ol%C3%A1%21%20Gostaria%20de%20consultar%20hor%C3%A1rios%20dispon%C3%ADveis%20com%20um%20psic%C3%B3logo." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;background:#25d366;color:#fff;font-weight:600;font-size:.88rem;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,.35)">
           💬 Falar com nossa equipe no WhatsApp
         </a>
       </div>`;
@@ -817,7 +862,7 @@ function renderRealProfessionalsGrid() {
         <div style="font-size:2.5rem;margin-bottom:14px">🔄</div>
         <div style="font-family:var(--font-d);font-size:1.4rem;font-weight:400;color:var(--ink);margin-bottom:10px">Profissionais sendo atualizados</div>
         <p style="font-size:.88rem;font-weight:300;color:var(--ink-2);line-height:1.7;max-width:460px;margin:0 auto 20px">No momento, os profissionais disponíveis estão sendo atualizados.<br>Fale com nossa equipe para consultar horários disponíveis.</p>
-        <a href="https://wa.me/${CONFIG.wa}?text=Olá%2C%20gostaria%20de%20consultar%20horários%20disponíveis%20com%20um%20psicólogo." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;background:#25d366;color:#fff;font-weight:600;font-size:.9rem;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.38)">
+        <a href="https://wa.me/5598989272727?text=Ol%C3%A1%21%20Gostaria%20de%20consultar%20hor%C3%A1rios%20dispon%C3%ADveis%20com%20um%20psic%C3%B3logo." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;background:#25d366;color:#fff;font-weight:600;font-size:.9rem;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.38)">
           💬 Falar com nossa equipe no WhatsApp
         </a>
       </div>`;
@@ -864,27 +909,12 @@ function renderRealProfessionalsGrid() {
    ---------------------------------------------------------------- */
 function agendarComPsi(id, nome) {
   gtag('event', 'cta_click', {
-    event_category:  'conversion',
-    professional_id: id,
+    event_category:   'conversion',
+    professional_id:  id,
     professional_name: nome
   });
-
-  const feelingLabels = {
-    ansiedade:        'ansiedade',
-    tristeza:         'tristeza e humor baixo',
-    estresse:         'estresse e esgotamento',
-    relacionamentos:  'dificuldades em relacionamentos',
-    autoconhecimento: 'autoconhecimento'
-  };
-  const feeling = feelingLabels[quizData.step1] || 'saúde mental';
-  const urgency = quizData.step2 === 'agora' ? ' com urgência' : '';
-  const msg = `Olá! Gostaria de agendar uma consulta${urgency} com ${nome}. Encontrei pelo site e estou buscando suporte para ${feeling}.`;
-
-  if (CONFIG.bookingUrl) {
-    window.location.href = `${CONFIG.bookingUrl}?psi=${encodeURIComponent(id)}&ref=quiz`;
-  } else {
-    window.open(`https://wa.me/${CONFIG.wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
-  }
+  /* Always use WhatsApp — /agendar route is not live */
+  openWhatsAppBooking(nome, quizData);
 }
 
 /* ----------------------------------------------------------------
