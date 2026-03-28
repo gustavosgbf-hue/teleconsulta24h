@@ -183,11 +183,10 @@ footer a:hover{color:var(--g2)}
   .mobile-sticky-cta .btn-primary{width:100%;justify-content:center;padding:15px 18px;font-size:1rem}
   .wa-float{
     width:56px;height:56px;right:14px;bottom:122px;
-    transition:transform .2s,box-shadow .2s,opacity .24s ease,translate .24s ease;
+    transition:transform .2s,box-shadow .2s,opacity .24s ease;
   }
   .wa-float.is-hidden-mobile{
     opacity:0;
-    translate:0 10px;
     pointer-events:none;
   }
   .hero__crosssell{margin-top:28px}
@@ -968,7 +967,7 @@ if(tk && pips){
     observer = new IntersectionObserver(function(entries){
       var shouldHide = entries.some(function(entry){ return entry.isIntersecting; });
       setHidden(shouldHide);
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0, rootMargin: '120px 0px 120px 0px' });
 
     targets.forEach(function(el){
       observer.observe(el);
