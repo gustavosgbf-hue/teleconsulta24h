@@ -373,6 +373,11 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 .modal__cta:hover{background:var(--acc-dark);transform:translateY(-1px)}
 .modal__cta:disabled{opacity:1;cursor:not-allowed;transform:none;background:#c8c8c8;color:#888;box-shadow:none}
 .modal__cta:not(:disabled){background:var(--acc-dark);box-shadow:0 6px 18px rgba(22,53,88,.32)}
+.modal__cta.is-ready:not(:disabled){background:#163558;box-shadow:0 10px 26px rgba(22,53,88,.45)}
+.cta-confirmar{transition:all var(--transition)}
+.cta-confirmar.cta-enabled{background:#163558 !important;color:#fff !important;box-shadow:0 10px 26px rgba(22,53,88,.4) !important}
+.cta-confirmar:not(.cta-enabled){background:#c9ced6 !important;color:#6b7280 !important;box-shadow:none !important}
+.cta-confirmar.cta-enabled:hover{transform:translateY(-1px);filter:brightness(.98)}
 .modal__note{
   font-size:.72rem;color:var(--ink-3);
   text-align:center;margin-top:12px;line-height:1.5;
@@ -656,7 +661,7 @@ footer a:hover{color:var(--ink)}
       <div id="esp-err" style="display:none;color:#b91c1c;font-size:.8rem;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-radius:8px;border:1px solid #fca5a5"></div>
       <div style="display:flex;gap:8px">
         <button onclick="voltarParaHorario()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
-        <button id="modalCta" onclick="confirmarAgendamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc,#1a7a4a);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+        <button id="modalCta" class="cta-confirmar" onclick="confirmarAgendamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc,#1a7a4a);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
           Confirmar →
         </button>
       </div>
@@ -953,7 +958,9 @@ function renderSlots(disponibilidade) {
       document.querySelectorAll('.slot').forEach(function(x){ x.classList.remove('selected'); });
       el.classList.add('selected');
       slotSelecionado = s;
-      document.getElementById('btnProximo').disabled = false;
+      var btnProximo = document.getElementById('btnProximo');
+      btnProximo.disabled = false;
+      btnProximo.classList.add('is-ready');
     };
     grid.appendChild(el);
   });

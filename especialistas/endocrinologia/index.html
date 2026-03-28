@@ -403,6 +403,11 @@ footer{
 .modal__cta:hover{background:var(--acc-dark)}
 .modal__cta:disabled{opacity:.35;cursor:not-allowed;filter:grayscale(.4)}
 .modal__cta:not(:disabled){opacity:1;box-shadow:0 6px 18px rgba(27,94,32,.3)}
+.modal__cta.is-ready:not(:disabled){background:#1b5e20;box-shadow:0 10px 26px rgba(27,94,32,.4)}
+.cta-confirmar{transition:all var(--transition)}
+.cta-confirmar.cta-enabled{background:#1b5e20 !important;color:#fff !important;box-shadow:0 10px 26px rgba(27,94,32,.4) !important}
+.cta-confirmar:not(.cta-enabled){background:#c9ced6 !important;color:#6b7280 !important;box-shadow:none !important}
+.cta-confirmar.cta-enabled:hover{transform:translateY(-1px);filter:brightness(.98)}
 .modal__cta svg{vertical-align:middle;margin-left:8px}
 
 .passo-titulo{
@@ -654,7 +659,7 @@ footer{
       <div id="esp-err" class="erro-box"></div>
       <div style="display:flex;gap:10px">
         <button onclick="voltarParaHorario()" style="flex:1;padding:14px;border:1px solid var(--line-mid);border-radius:12px;background:#fff;cursor:pointer;font-size:.9rem;font-weight:500">← Voltar</button>
-        <button id="modalCta" onclick="confirmarAgendamento()" style="flex:2;padding:14px;border:none;border-radius:12px;background:var(--acc-deep);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+        <button id="modalCta" class="cta-confirmar" onclick="confirmarAgendamento()" style="flex:2;padding:14px;border:none;border-radius:12px;background:var(--acc-deep);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
           Confirmar →
         </button>
       </div>
@@ -1024,7 +1029,9 @@ function selecionarSlot(el, iso) {
     hora: horaEl ? horaEl.innerText : iso, 
     iso: iso 
   };
-  document.getElementById('btnProximo').disabled = false;
+  var btnProximo = document.getElementById('btnProximo');
+  btnProximo.disabled = false;
+  btnProximo.classList.add('is-ready');
 }
 
 function irParaDados() {
