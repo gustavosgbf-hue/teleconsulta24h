@@ -181,6 +181,16 @@ footer a:hover{color:var(--g2)}
   }
   .mobile-sticky-cta.is-visible{opacity:1;transform:translateY(0);pointer-events:auto}
   .mobile-sticky-cta .btn-primary{width:100%;justify-content:center;padding:15px 18px;font-size:1rem}
+  .wa-float{
+    width:56px;height:56px;right:14px;bottom:122px;
+    transition:transform .2s,box-shadow .2s,opacity .24s ease,translate .24s ease;
+  }
+  .wa-float.is-hidden-mobile{
+    opacity:0;
+    translate:0 10px;
+    pointer-events:none;
+  }
+  .hero__crosssell{margin-top:28px}
 }
 
 
@@ -920,6 +930,50 @@ if(tk && pips){
     }, { threshold: 0.12 });
 
     observer.observe(hero);
+  }
+
+  setup();
+  if(typeof mq.addEventListener === 'function') mq.addEventListener('change', setup);
+  else if(typeof mq.addListener === 'function') mq.addListener(setup);
+})();
+
+// [NOVO] WhatsApp floating safety on mobile CTA zones
+(function(){
+  var wa = document.querySelector('.wa-float');
+  if(!wa) return;
+
+  var mq = window.matchMedia('(max-width: 760px)');
+  var observer;
+  var observed = [];
+
+  function setHidden(hidden){
+    wa.classList.toggle('is-hidden-mobile', hidden);
+  }
+
+  function setup(){
+    if(observer){
+      observer.disconnect();
+      observer = null;
+      observed = [];
+    }
+
+    if(!mq.matches){
+      setHidden(false);
+      return;
+    }
+
+    var targets = Array.from(document.querySelectorAll('.hero__crosssell, .spec-sec'));
+    if(!targets.length) return;
+
+    observer = new IntersectionObserver(function(entries){
+      var shouldHide = entries.some(function(entry){ return entry.isIntersecting; });
+      setHidden(shouldHide);
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    targets.forEach(function(el){
+      observer.observe(el);
+      observed.push(el);
+    });
   }
 
   setup();
