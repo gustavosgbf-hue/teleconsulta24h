@@ -827,7 +827,7 @@ function renderResultCard(psi) {
           ${psi.valor_sessao > 0 ? 'R$' + psi.valor_sessao : 'Consultar valor'}
           ${psi.valor_sessao > 0 ? `<div class="per-day">≈ R$${perDay} por dia</div>` : ''}
         </div>
-        <button class="btn-result" onclick="agendarComPsi(${JSON.stringify(psi.id)},${JSON.stringify(psi.nome)})">
+        <button class="btn-result" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">
           Começar consulta →
         </button>
       </div>
@@ -897,7 +897,7 @@ function renderRealProfessionalsGrid() {
         <div class="real-pro-price"><small>Sessão de 50 min</small>${psi.valor_sessao > 0 ? 'R$' + psi.valor_sessao : 'Consultar valor'}</div>
         <div class="real-pro-avail"><span class="real-pro-avail-dot"></span>${esc(psi.disponibilidade)}</div>
       </div>
-      <button class="real-pro-cta" onclick="agendarComPsi(${JSON.stringify(psi.id)},${JSON.stringify(psi.nome)})">Agendar com ${esc(firstName)} →</button>`;
+      <button class="real-pro-cta" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">Agendar com ${esc(firstName)} →</button>`;
 
     container.appendChild(card);
   });
@@ -915,6 +915,13 @@ function agendarComPsi(id, nome) {
   });
   /* Always use WhatsApp — /agendar route is not live */
   openWhatsAppBooking(nome, quizData);
+}
+
+/* Safe wrapper: reads id/nome from data-* attributes to avoid JSON injection */
+function agendarComPsiEl(btn) {
+  var id   = btn.getAttribute('data-psi-id')   || '';
+  var nome = btn.getAttribute('data-psi-nome') || '';
+  agendarComPsi(id, nome);
 }
 
 /* ----------------------------------------------------------------
