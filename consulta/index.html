@@ -185,8 +185,9 @@ footer a:hover{color:var(--g2)}
     width:56px;height:56px;right:14px;bottom:122px;
     transition:transform .2s,box-shadow .2s,opacity .24s ease;
   }
-  .wa-float.is-hidden-mobile{
+  .wa-float.wa-hidden{
     opacity:0;
+    transform:scale(.94);
     pointer-events:none;
   }
   .hero__crosssell{margin-top:28px}
@@ -943,17 +944,15 @@ if(tk && pips){
 
   var mq = window.matchMedia('(max-width: 760px)');
   var observer;
-  var observed = [];
 
   function setHidden(hidden){
-    wa.classList.toggle('is-hidden-mobile', hidden);
+    wa.classList.toggle('wa-hidden', hidden);
   }
 
   function setup(){
     if(observer){
       observer.disconnect();
       observer = null;
-      observed = [];
     }
 
     if(!mq.matches){
@@ -961,18 +960,15 @@ if(tk && pips){
       return;
     }
 
-    var targets = Array.from(document.querySelectorAll('.hero__crosssell, .spec-sec'));
-    if(!targets.length) return;
+    var target = document.querySelector('.hero__crosssell');
+    if(!target) return;
 
     observer = new IntersectionObserver(function(entries){
-      var shouldHide = entries.some(function(entry){ return entry.isIntersecting; });
+      var shouldHide = !!(entries[0] && entries[0].isIntersecting);
       setHidden(shouldHide);
-    }, { threshold: 0, rootMargin: '120px 0px 120px 0px' });
+    }, { threshold: 0.15 });
 
-    targets.forEach(function(el){
-      observer.observe(el);
-      observed.push(el);
-    });
+    observer.observe(target);
   }
 
   setup();
