@@ -23,7 +23,7 @@ gtag('config','AW-17964942771');
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalBusiness","name":"ConsultaJá24h — Psicologia Online","url":"https://consultaja24h.com.br/psicologo-online","description":"Plataforma de psicologia online com profissionais de CRP ativo.","medicalSpecialty":"Psychology","availableService":{"@type":"MedicalTherapy","name":"Psicoterapia Online","description":"Sessões de psicoterapia individual por vídeo com psicólogos verificados."},"areaServed":{"@type":"Country","name":"Brasil"}}
 </script>
-<script src="https://cdn.efipay.com.br/javascript/v2/payment-token.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
@@ -538,7 +538,8 @@ footer a{color:var(--ink-2)}
       <div id="bk-auth-cadastro" style="display:none">
         <input class="bk-input" id="bk-cad-nome" type="text" placeholder="Seu nome completo">
         <input class="bk-input" id="bk-cad-email" type="email" placeholder="Seu e-mail">
-        <input class="bk-input" id="bk-cad-senha" type="password" placeholder="Crie uma senha">
+        <input class="bk-input" id="bk-cad-senha" type="password" placeholder="Crie uma senha (mín. 6 caracteres)">
+        <input class="bk-input" id="bk-cad-cpf" type="tel" placeholder="CPF (obrigatório para pagamento)" oninput="bkFmtCpf(this)" maxlength="14">
         <div class="bk-err" id="bk-cad-err"></div>
         <button class="bk-btn" onclick="bkCadastro()">Cadastrar e confirmar →</button>
       </div>
@@ -581,9 +582,8 @@ footer a{color:var(--ink-2)}
     <div id="bk-step-cartao" class="bk-inner" style="display:none">
       <div class="bk-title">Dados do cartão</div>
       <input class="bk-input" id="bk-cc-numero" type="tel" placeholder="Número do cartão" oninput="bkFmtCC(this)" maxlength="19">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-        <input class="bk-input" id="bk-cc-mes" type="tel" placeholder="MM" maxlength="2" style="margin-bottom:0">
-        <input class="bk-input" id="bk-cc-ano" type="tel" placeholder="AAAA" maxlength="4" style="margin-bottom:0">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <input class="bk-input" id="bk-cc-validade" type="tel" placeholder="Validade MM/AAAA" oninput="bkFmtValidade(this)" maxlength="7" style="margin-bottom:0">
         <input class="bk-input" id="bk-cc-cvv" type="tel" placeholder="CVV" maxlength="4" style="margin-bottom:0">
       </div>
       <div style="margin-top:10px"></div>
@@ -1157,7 +1157,10 @@ function bkConfirmarHorario() {
   if (!bk.selSlot) return;
   const token = localStorage.getItem('pac_token');
   if (!token) { bkShowStep('bk-step-auth'); return; }
-  bk.paciente = { token };
+  // Recuperar dados do paciente salvos no login anterior
+  if (!bk.paciente) {
+    try { bk.paciente = JSON.parse(localStorage.getItem('pac_info') || 'null'); } catch(_) {}
+  }
   bkCriarAgendamento();
 }
 
@@ -1176,9 +1179,10 @@ async function bkLogin() {
   try {
     const r = await fetch(API + '/api/paciente/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email,senha}) });
     const d = await r.json();
-    if (!d.ok || !d.token) throw new Error(d.mensagem || 'Credenciais inválidas');
+    if (!d.ok || !d.token) throw new Error(d.mensagem || d.error || 'Credenciais inválidas');
     localStorage.setItem('pac_token', d.token);
-    bk.paciente = { token: d.token };
+    localStorage.setItem('pac_info', JSON.stringify(d.paciente));
+    bk.paciente = d.paciente;
     bkCriarAgendamento();
   } catch(e) { err.textContent = e.message; }
 }
@@ -1187,15 +1191,18 @@ async function bkCadastro() {
   const nome  = document.getElementById('bk-cad-nome').value.trim();
   const email = document.getElementById('bk-cad-email').value.trim();
   const senha = document.getElementById('bk-cad-senha').value;
+  const cpf   = document.getElementById('bk-cad-cpf').value.replace(/\D/g,'');
   const err   = document.getElementById('bk-cad-err');
   err.textContent = '';
   if (!nome || !email || !senha) { err.textContent = 'Preencha todos os campos.'; return; }
+  if (cpf.length !== 11) { err.textContent = 'CPF inválido — obrigatório para pagamento.'; return; }
   try {
-    const r = await fetch(API + '/api/paciente/cadastro', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({nome,email,senha}) });
+    const r = await fetch(API + '/api/paciente/cadastro', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({nome, email, senha, cpf}) });
     const d = await r.json();
-    if (!d.ok || !d.token) throw new Error(d.mensagem || 'Erro no cadastro');
+    if (!d.ok || !d.token) throw new Error(d.mensagem || d.error || 'Erro no cadastro');
     localStorage.setItem('pac_token', d.token);
-    bk.paciente = { token: d.token };
+    localStorage.setItem('pac_info', JSON.stringify(d.paciente));
+    bk.paciente = d.paciente;
     bkCriarAgendamento();
   } catch(e) { err.textContent = e.message; }
 }
@@ -1224,15 +1231,35 @@ async function bkCriarAgendamento() {
 
 async function bkGerarPix(valor) {
   const token = localStorage.getItem('pac_token');
+  const pac = bk.paciente || {};
+  const nome = pac.nome || '';
+  const cpf  = String(pac.cpf || '').replace(/\D/g,'');
+
+  if (!cpf || cpf.length !== 11) {
+    // CPF não cadastrado — pedir antes de gerar PIX
+    const cpfInput = prompt('Para gerar o PIX precisamos do seu CPF (só números):');
+    if (!cpfInput || cpfInput.replace(/\D/g,'').length !== 11) {
+      alert('CPF inválido. Tente novamente.');
+      return;
+    }
+    pac.cpf = cpfInput.replace(/\D/g,'');
+    bk.paciente = pac;
+  }
+
   bkShowStep('bk-loading');
   try {
     const r = await fetch(API + '/api/psicologia/pagbank/order', {
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body: JSON.stringify({ agendamento_id: bk.agendamentoId, valor })
+      body: JSON.stringify({
+        agendamentoId: bk.agendamentoId,
+        nome: nome || 'Paciente',
+        cpf:  String(pac.cpf || '').replace(/\D/g,''),
+        email: pac.email || ''
+      })
     });
     const d = await r.json();
-    if (!d.ok || !d.qr_code_text) throw new Error(d.mensagem || 'Erro ao gerar PIX');
+    if (!d.ok || !d.qr_code_text) throw new Error(d.error || d.mensagem || 'Erro ao gerar PIX');
     bk.orderId = d.order_id;
     document.getElementById('bk-pix-valor').textContent = 'R$' + (d.valor || valor);
     document.getElementById('bk-pix-code').value = d.qr_code_text;
@@ -1246,55 +1273,59 @@ async function bkGerarPix(valor) {
 
 async function bkPagarCartao() {
   const nome      = document.getElementById('bk-cc-nome').value.trim();
-  const cpf       = document.getElementById('bk-cc-cpf').value.trim();
+  const cpf       = document.getElementById('bk-cc-cpf').value.replace(/\D/g,'');
   const email     = document.getElementById('bk-cc-email').value.trim();
   const telefone  = document.getElementById('bk-cc-tel').value.replace(/\D/g,'');
-  const nascimento= document.getElementById('bk-cc-nasc').value; // YYYY-MM-DD
-  const numero    = document.getElementById('bk-cc-numero').value.replace(/\s/g,'');
-  const mes       = document.getElementById('bk-cc-mes').value.trim();
-  const ano       = document.getElementById('bk-cc-ano').value.trim();
+  const nascimento= document.getElementById('bk-cc-nasc').value;
+  const numero    = document.getElementById('bk-cc-numero').value.replace(/\D/g,'');
+  const validade  = document.getElementById('bk-cc-validade').value.trim(); // MM/AAAA
   const cvv       = document.getElementById('bk-cc-cvv').value.trim();
   const err       = document.getElementById('bk-cc-err');
   err.textContent = '';
 
-  if (!nome||!cpf||!email||!telefone||!numero||!mes||!ano||!cvv||!nascimento) {
-    err.textContent = 'Preencha todos os campos do cartão.'; return;
-  }
-  if (telefone.length < 10 || telefone.length > 11) {
-    err.textContent = 'Telefone inválido — informe DDD + número.'; return;
-  }
+  if (!nome)                        { err.textContent = 'Informe o nome do titular.'; return; }
+  if (cpf.length !== 11)            { err.textContent = 'CPF inválido.'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'E-mail inválido.'; return; }
+  if (telefone.length < 10 || telefone.length > 11) { err.textContent = 'Telefone inválido — informe DDD + número.'; return; }
+  if (!nascimento)                  { err.textContent = 'Informe a data de nascimento.'; return; }
+  if (numero.length < 13)           { err.textContent = 'Número do cartão inválido.'; return; }
+  const partes = validade.split('/');
+  if (partes.length !== 2 || partes[0].length !== 2 || partes[1].length !== 4) { err.textContent = 'Validade inválida — use MM/AAAA.'; return; }
+  if (!cvv || cvv.length < 3)       { err.textContent = 'CVV inválido.'; return; }
 
-  const accountCode = CONFIG.efiAccountCode;
-  if (!accountCode) {
-    err.textContent = 'Configuração do gateway de cartão ausente. Use PIX.'; return;
-  }
+  const mes = partes[0];
+  const ano = partes[1];
 
   const btnPagar = document.getElementById('bk-cc-btn');
   btnPagar.disabled = true;
-  btnPagar.textContent = 'Gerando token seguro…';
+  btnPagar.textContent = 'Processando…';
 
   try {
-    // Gerar payment_token via SDK Efí
-    const tokenData = await new Promise((resolve, reject) => {
-      window.$efi.generateToken({
-        account_code: accountCode,
-        card: {
-          number: numero, brand: bkDetectBrand(numero),
-          cvv, expiration_month: mes.padStart(2,'0'), expiration_year: ano.length===2?'20'+ano:ano
-        }
-      }, (err, obj) => {
-        if (err || !obj?.data?.payment_token) reject(new Error(obj?.error_description || 'Erro ao tokenizar cartão'));
-        else resolve(obj.data);
-      });
-    });
+    if (typeof EfiPay === 'undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
 
-    btnPagar.textContent = 'Processando pagamento…';
+    const tokenResult = await EfiPay.CreditCard
+      .setAccount('b241c1c1aa59c7a663f8360ac1d05b52')
+      .setEnvironment('production')
+      .setCreditCardData({
+        brand:           bkDetectBrand(numero),
+        number:          numero,
+        cvv:             cvv,
+        expirationMonth: mes,
+        expirationYear:  ano,
+        holderName:      nome,
+        holderDocument:  cpf,
+        reuse:           false
+      })
+      .getPaymentToken();
+
+    if (!tokenResult || !tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão. Verifique os dados.');
+
     const token = localStorage.getItem('pac_token');
     const r = await fetch(API + '/api/psicologia/efi/cartao/cobrar', {
       method: 'POST',
       headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
       body: JSON.stringify({
-        payment_token: tokenData.payment_token,
+        payment_token: tokenResult.payment_token,
         nome, cpf, email,
         telefone,
         nascimento,
@@ -1303,15 +1334,10 @@ async function bkPagarCartao() {
       })
     });
     const d = await r.json();
-    if (!d.ok) throw new Error(d.error || 'Pagamento não aprovado');
-    // status paid/approved → confirmar direto; waiting → polling
-    if (d.status === 'paid' || d.status === 'approved') {
-      bkShowStep('bk-step-ok');
-    } else {
-      bkShowStep('bk-step-ok'); // waiting — webhook confirma depois
-    }
+    if (!d.ok) throw new Error(d.error || 'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
+    bkShowStep('bk-step-ok');
   } catch(e) {
-    err.textContent = e.message;
+    err.textContent = '❌ ' + (e.message || 'Erro ao processar. Tente novamente.');
     btnPagar.disabled = false;
     btnPagar.textContent = 'Pagar com cartão →';
   }
@@ -1320,11 +1346,18 @@ async function bkPagarCartao() {
 function bkDetectBrand(num) {
   const n = num.replace(/\D/g,'');
   if (/^4/.test(n)) return 'visa';
-  if (/^5[1-5]/.test(n)||/^2[2-7]/.test(n)) return 'mastercard';
+  if (/^5[1-5]/.test(n)) return 'mastercard';
   if (/^3[47]/.test(n)) return 'amex';
-  if (/^6(?:011|5)/.test(n)) return 'discover';
-  if (/^(?:636368|438935|504175|451416|636297)/.test(n)) return 'elo';
+  if (/^(636368|438935|504175|451416|636297|5067|4576|4011)/.test(n)) return 'elo';
+  if (/^(6062|3841)/.test(n)) return 'hipercard';
+  if (/^301|^36|^38/.test(n)) return 'diners';
   return 'visa';
+}
+
+function bkFmtValidade(el) {
+  let v = el.value.replace(/\D/g,'').slice(0,6);
+  if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+  el.value = v;
 }
 
 function bkFmtCpf(el) {
