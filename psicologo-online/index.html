@@ -1210,15 +1210,24 @@ async function bkCadastro() {
 async function bkCriarAgendamento() {
   bkShowStep('bk-loading');
   const token = localStorage.getItem('pac_token');
+  const pac = bk.paciente || {};
   try {
     const r = await fetch(API + '/api/psicologia/agendamento/criar', {
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body: JSON.stringify({ psicologo_id: bk.psi.id, data_hora: bk.selSlot.iso })
+      body: JSON.stringify({
+        psicologoId:      bk.psi.id,
+        horario_agendado: bk.selSlot.iso,
+        paciente_nome:    pac.nome  || '',
+        paciente_email:   pac.email || '',
+        paciente_tel:     pac.tel   || '',
+        paciente_cpf:     String(pac.cpf || '').replace(/\D/g,''),
+        tipo_consulta:    'psicoterapia'
+      })
     });
     const d = await r.json();
     if (d.code === 'AUTH_REQUIRED') { localStorage.removeItem('pac_token'); bkShowStep('bk-step-auth'); return; }
-    if (!d.ok) throw new Error(d.mensagem || 'Erro ao criar agendamento');
+    if (!d.ok) throw new Error(d.error || d.mensagem || 'Erro ao criar agendamento');
     bk.agendamentoId = d.agendamentoId;
     bk.valorSessao = d.valor || bk.psi.valor_sessao;
     document.getElementById('bk-pay-valor').textContent = 'R$' + bk.valorSessao;
