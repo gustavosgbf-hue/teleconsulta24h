@@ -1153,14 +1153,40 @@ function bkRenderPerfil() {
   document.getElementById('bk-btn-confirmar').disabled = true;
 }
 
-function bkConfirmarHorario() {
+async function bkConfirmarHorario() {
   if (!bk.selSlot) return;
   const token = localStorage.getItem('pac_token');
   if (!token) { bkShowStep('bk-step-auth'); return; }
-  // Recuperar dados do paciente salvos no login anterior
+
+  // Tentar recuperar dados do cache local
   if (!bk.paciente) {
     try { bk.paciente = JSON.parse(localStorage.getItem('pac_info') || 'null'); } catch(_) {}
   }
+
+  // Se ainda não tem nome/email, buscar da API
+  if (!bk.paciente || !bk.paciente.nome || !bk.paciente.email) {
+    bkShowStep('bk-loading');
+    try {
+      const r = await fetch(API + '/api/paciente/me', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const d = await r.json();
+      if (d.ok && d.paciente) {
+        bk.paciente = d.paciente;
+        localStorage.setItem('pac_info', JSON.stringify(d.paciente));
+      } else {
+        // Token inválido ou expirado
+        localStorage.removeItem('pac_token');
+        localStorage.removeItem('pac_info');
+        bkShowStep('bk-step-auth');
+        return;
+      }
+    } catch(_) {
+      bkShowStep('bk-step-auth');
+      return;
+    }
+  }
+
   bkCriarAgendamento();
 }
 
