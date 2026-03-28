@@ -175,16 +175,15 @@ footer a:hover{color:var(--g2)}
 }
 .mobile-sticky-cta{display:none}
 @media(max-width:760px){
-  .nav__cta{display:none}
   .mobile-sticky-cta{
-    position:fixed;left:12px;right:12px;bottom:88px;display:block;z-index:1000;
+    position:fixed;left:12px;right:12px;bottom:94px;display:block;z-index:1000;
     opacity:0;transform:translateY(14px);pointer-events:none;
     transition:opacity .24s ease,transform .24s ease;
   }
   .mobile-sticky-cta.is-visible{opacity:1;transform:translateY(0);pointer-events:auto}
   .mobile-sticky-cta .btn-primary{width:100%;justify-content:center;padding:15px 18px;font-size:1rem}
   .wa-float{
-    width:52px;height:52px;right:14px;bottom:118px;
+    width:56px;height:56px;right:14px;bottom:122px;
     transition:transform .2s,box-shadow .2s,opacity .24s ease;
   }
   .wa-float.wa-hidden{
@@ -192,14 +191,7 @@ footer a:hover{color:var(--g2)}
     transform:scale(.94);
     pointer-events:none;
   }
-  .hero{padding:52px 20px 40px}
-  .hero__urgency{display:none}
   .hero__crosssell{margin-top:28px}
-  .hero__crosssell-btns{width:100%;display:grid;grid-template-columns:1fr;gap:6px}
-  .hero__crosssell-btn{width:100%;justify-content:center;padding:10px 14px;background:transparent}
-  .hero__crosssell-tag{display:none}
-  .hero__trust{margin-top:14px}
-  .hero__trust-item:nth-child(n+2){display:none}
 }
 
 
@@ -283,20 +275,20 @@ footer a:hover{color:var(--g2)}
   display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
   max-width:680px;margin:20px auto 4px;
   padding:16px 22px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(94,224,160,.34);
   border-radius:16px;
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  box-shadow:0 6px 22px rgba(0,0,0,.2);
+  box-shadow:0 0 0 1px rgba(94,224,160,.1),0 10px 30px rgba(0,0,0,.24),0 0 20px rgba(94,224,160,.06);
   transition:border-color .24s,transform .24s cubic-bezier(.4,0,.2,1),box-shadow .24s,background .24s;
   cursor:default;
 }
 .hero__crosssell:hover{
-  border-color:rgba(255,255,255,.22);
-  transform:translateY(-1px);
-  background:rgba(255,255,255,.05);
-  box-shadow:0 10px 24px rgba(0,0,0,.24);
+  border-color:rgba(94,224,160,.5);
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.11);
+  box-shadow:0 0 0 1px rgba(94,224,160,.14),0 16px 36px rgba(0,0,0,.27),0 0 34px rgba(94,224,160,.09);
 }
 .hero__crosssell-text{flex:1;min-width:180px;text-align:left}
 .hero__crosssell-title{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:4px}
@@ -321,13 +313,13 @@ footer a:hover{color:var(--g2)}
   border-color:rgba(255,255,255,.32);
   background:rgba(255,255,255,.06);
   color:#fff;
-  transform:scale(1.01);
-  filter:none;
-  box-shadow:none;
+  transform:scale(1.04);
+  filter:brightness(1.12);
+  box-shadow:0 4px 16px rgba(94,224,160,.22);
 }
 .hero__crosssell-btn:active{
-  transform:scale(.99);
-  filter:none;
+  transform:scale(.97);
+  filter:brightness(.95);
   box-shadow:none;
 }
 .hero__crosssell-label{display:flex;align-items:center;gap:3px}
@@ -345,7 +337,7 @@ footer a:hover{color:var(--g2)}
   width:100%;text-align:center;
   margin-top:10px;
   font-size:.7rem;font-weight:300;
-  color:rgba(255,255,255,.48);
+  color:rgba(255,255,255,.56);
   letter-spacing:.02em;
 }
 @media(max-width:560px){
