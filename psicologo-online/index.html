@@ -112,16 +112,19 @@
           </div>
         </div>
 
-        <!-- cartão fields (hidden by default) -->
+        <!-- cartão fields — tokenizados pelo SDK Efí (hidden by default) -->
         <div id="bk-cartao-fields" style="display:none">
+          <div id="bk-efi-sdk-loading" style="font-size:.78rem;color:var(--ink-3);padding:8px 0;display:none">Carregando SDK do cartão…</div>
           <div class="bk-form">
             <div class="bk-field"><label>Número do cartão</label><input type="text" id="bk-card-num" placeholder="0000 0000 0000 0000" maxlength="19" oninput="bkMaskCard(this)"/></div>
             <div style="display:flex;gap:10px">
-              <div class="bk-field" style="flex:1"><label>Validade</label><input type="text" id="bk-card-exp" placeholder="MM/AA" maxlength="5" oninput="bkMaskExp(this)"/></div>
+              <div class="bk-field" style="flex:1"><label>Validade (MM/AA)</label><input type="text" id="bk-card-exp" placeholder="MM/AA" maxlength="5" oninput="bkMaskExp(this)"/></div>
               <div class="bk-field" style="flex:1"><label>CVV</label><input type="text" id="bk-card-cvv" placeholder="123" maxlength="4"/></div>
             </div>
             <div class="bk-field"><label>Nome no cartão</label><input type="text" id="bk-card-nome" placeholder="Nome como no cartão"/></div>
+            <div class="bk-field"><label>Data de nascimento</label><input type="text" id="bk-card-nasc" placeholder="DD/MM/AAAA" maxlength="10" oninput="bkMaskDate(this)"/></div>
           </div>
+          <div style="font-size:.68rem;color:var(--ink-3);margin-top:-4px;line-height:1.5;padding:0 2px">🔒 Dados tokenizados com segurança pelo SDK Efí · Nunca armazenamos número do cartão</div>
         </div>
 
         <div id="bk-err-pagamento" class="bk-err"></div>
@@ -745,10 +748,14 @@ footer a{color:var(--ink-2)}
 const CONFIG = {
   /* API base URL — real backend */
   apiUrl: 'https://triagem-api.onrender.com',
-  /* ▼ WhatsApp number — digits only, with country code */
+  /* WhatsApp number — digits only, with country code */
   wa: '5598989272727',
-  /* ▼ Booking page URL. Empty string = always use WhatsApp fallback. */
-  bookingUrl: ''
+  /* Booking page — unused, modal handles booking */
+  bookingUrl: '',
+  /* Efí Bank public account_code for card tokenization.
+     Find in: Efí Panel → API → Credenciais → account_code (código identificador)
+     This is NOT a secret — it is safe to expose in frontend JS. */
+  efiAccountCode: window.EFI_ACCOUNT_CODE || ''
 };
 
 /* LOCAL_PROFESSIONALS removed — no fake/invented data. */
@@ -1392,12 +1399,7 @@ function bkSelectTipo(el) {
   }
 }
 
-function bkSelectPay(el) {
-  document.querySelectorAll('.bk-pay-opt').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  BK.payMethod = el.dataset.pay;
-  document.getElementById('bk-cartao-fields').style.display = BK.payMethod === 'cartao' ? 'block' : 'none';
-}
+/* bkSelectPay defined in EFI card section above */
 
 /* ── Auth ───────────────────────────────────────────────────────── */
 function bkShowTab(tab) {
@@ -1572,6 +1574,8 @@ async function bkPagarPIX(valor, cpf) {
   bkGoStep('pix');
   document.getElementById('bk-pix-code').textContent = 'Gerando código PIX…';
   document.getElementById('bk-pix-status-txt').textContent = 'Aguardando pagamento…';
+  // QR image not returned by PagBank — keep hidden
+  document.getElementById('bk-qr').style.display = 'none';
 
   try {
     const res  = await fetch(CONFIG.apiUrl + '/api/psicologia/pagbank/order', {
@@ -1587,22 +1591,26 @@ async function bkPagarPIX(valor, cpf) {
     const json = await res.json();
     if (!json.ok) {
       bkGoStep('dados');
-      bkShowErr('pagamento', json.error || 'Erro ao gerar PIX.');
+      /* json.error can be an array from PagBank — normalize to string */
+      const errMsg = Array.isArray(json.error)
+        ? json.error.map(e => e.description || e.message || JSON.stringify(e)).join(' · ')
+        : (json.error || 'Erro ao gerar PIX.');
+      bkShowErr('pagamento', errMsg);
       return;
     }
-    const pixCode = json.pix_code || json.qr_code || '';
-    const qrImg   = json.qr_code_image || json.qr_image || '';
-    document.getElementById('bk-pix-code').textContent = pixCode || '(código não disponível)';
-    if (qrImg) {
-      const qrEl = document.getElementById('bk-qr');
-      qrEl.src = qrImg.startsWith('data:') ? qrImg : 'data:image/png;base64,' + qrImg;
-      qrEl.style.display = 'block';
+    /* PagBank returns qr_code_text — the copia-e-cola PIX string */
+    const pixCode = json.qr_code_text || '';
+    if (!pixCode) {
+      bkGoStep('dados');
+      bkShowErr('pagamento', 'PagBank não retornou o código PIX. Tente novamente.');
+      return;
     }
-    /* Poll for payment confirmation */
+    document.getElementById('bk-pix-code').textContent = pixCode;
+    /* Poll for payment confirmation every 5s */
     bkPollPix();
   } catch(e) {
     bkGoStep('dados');
-    bkShowErr('pagamento', 'Erro ao gerar PIX. Tente novamente.');
+    bkShowErr('pagamento', 'Erro de conexão ao gerar PIX. Tente novamente.');
   }
 }
 
@@ -1628,7 +1636,7 @@ function bkPollPix() {
       const res  = await fetch(CONFIG.apiUrl + '/api/psicologia/agendamento/' + BK.agendamentoId + '/status');
       const json = await res.json();
       const status = (json.agendamento || {}).pagamento_status || json.pagamento_status;
-      if (status === 'pago' || status === 'aprovado' || status === 'confirmado') {
+      if (status === 'confirmado' || status === 'pago' || status === 'aprovado') {
         clearInterval(BK.pixPollTimer);
         bkSuccess();
       }
@@ -1636,30 +1644,137 @@ function bkPollPix() {
   }, 5000);
 }
 
-async function bkPagarCartao(valor, cpf) {
-  const num  = document.getElementById('bk-card-num').value.replace(/\s/g,'');
-  const exp  = document.getElementById('bk-card-exp').value;
-  const cvv  = document.getElementById('bk-card-cvv').value.trim();
-  const nome = document.getElementById('bk-card-nome').value.trim();
-  if (!num || !exp || !cvv || !nome) { bkShowErr('pagamento','Preencha todos os dados do cartão.'); return; }
-  const [mes, ano] = exp.split('/');
+/* ── EFI CARD TOKENIZATION ──────────────────────────────────────
+   The Efí API requires a payment_token generated by their JS SDK.
+   We load the SDK lazily when the user selects "cartão".
+   SDK docs: https://dev.efipay.com.br/docs/API-cobrancas/cartao
+   The account_code is the public Efí identifier (não é segredo).
+   Set window.EFI_ACCOUNT_CODE before this script or in CONFIG.
+   ---------------------------------------------------------------- */
+const EFI_SDK_URL = 'https://cdn.efipay.com.br/javascript/v2/payment-token.min.js';
+let _efiSdkLoaded = false;
+let _efiSdkLoading = false;
 
+function bkLoadEfiSdk() {
+  return new Promise((resolve, reject) => {
+    if (_efiSdkLoaded && window.$efi) { resolve(); return; }
+    if (_efiSdkLoading) {
+      const poll = setInterval(() => {
+        if (window.$efi) { clearInterval(poll); _efiSdkLoaded = true; resolve(); }
+      }, 100);
+      setTimeout(() => { clearInterval(poll); reject(new Error('SDK timeout')); }, 10000);
+      return;
+    }
+    _efiSdkLoading = true;
+    const s = document.createElement('script');
+    s.src = EFI_SDK_URL;
+    s.onload = () => { _efiSdkLoaded = true; resolve(); };
+    s.onerror = () => reject(new Error('Falha ao carregar SDK do cartão.'));
+    document.head.appendChild(s);
+  });
+}
+
+/* Load SDK as soon as user picks "cartão" */
+function bkSelectPay(el) {
+  document.querySelectorAll('.bk-pay-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  BK.payMethod = el.dataset.pay;
+  const cartaoFields = document.getElementById('bk-cartao-fields');
+  cartaoFields.style.display = BK.payMethod === 'cartao' ? 'block' : 'none';
+  if (BK.payMethod === 'cartao') {
+    const loadingEl = document.getElementById('bk-efi-sdk-loading');
+    if (!_efiSdkLoaded) {
+      if (loadingEl) loadingEl.style.display = 'block';
+      bkLoadEfiSdk()
+        .then(() => { if (loadingEl) loadingEl.style.display = 'none'; })
+        .catch(() => { if (loadingEl) loadingEl.textContent = 'Erro ao carregar SDK. Recarregue a página.'; });
+    }
+  }
+}
+
+function bkMaskDate(el) {
+  let v = el.value.replace(/\D/g,'').slice(0,8);
+  if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+  if (v.length > 5) v = v.slice(0,5) + '/' + v.slice(5);
+  el.value = v;
+}
+
+async function bkPagarCartao(valor, cpf) {
+  const num   = document.getElementById('bk-card-num').value.replace(/\s/g,'');
+  const exp   = document.getElementById('bk-card-exp').value;   /* MM/AA */
+  const cvv   = document.getElementById('bk-card-cvv').value.trim();
+  const nome  = document.getElementById('bk-card-nome').value.trim();
+  const nasc  = document.getElementById('bk-card-nasc').value.trim(); /* DD/MM/AAAA */
+  const tel   = document.getElementById('bk-tel').value.replace(/\D/g,'');
+
+  if (!num || !exp || !cvv || !nome) {
+    bkShowErr('pagamento','Preencha todos os dados do cartão.'); return;
+  }
+  if (tel.length < 10) {
+    bkShowErr('pagamento','Informe o telefone com DDD para pagamento no cartão.'); return;
+  }
+
+  /* Parse expiry */
+  const expParts = exp.split('/');
+  if (expParts.length !== 2 || expParts[0].length !== 2 || expParts[1].length !== 2) {
+    bkShowErr('pagamento','Validade inválida. Use o formato MM/AA.'); return;
+  }
+  const [expMes, expAno] = expParts;
+
+  /* Parse nascimento → YYYY-MM-DD for Efí */
+  let nascISO = '';
+  if (nasc) {
+    const nascParts = nasc.split('/');
+    if (nascParts.length === 3 && nascParts[2].length === 4) {
+      nascISO = nascParts[2] + '-' + nascParts[1] + '-' + nascParts[0];
+    }
+  }
+
+  /* Load Efí SDK */
+  try { await bkLoadEfiSdk(); }
+  catch(e) { bkShowErr('pagamento', 'SDK do cartão não carregado. Verifique sua conexão e tente novamente.'); return; }
+
+  /* Get account_code — must be set as CONFIG.efiAccountCode or window.EFI_ACCOUNT_CODE */
+  const accountCode = CONFIG.efiAccountCode || window.EFI_ACCOUNT_CODE || '';
+  if (!accountCode) {
+    bkShowErr('pagamento', 'Configuração de pagamento incompleta. Contate o suporte.'); return;
+  }
+
+  /* Tokenize card via Efí SDK */
+  let payment_token = '';
+  try {
+    payment_token = await new Promise((resolve, reject) => {
+      window.$efi.setAccountCode(accountCode);
+      window.$efi.generateToken({
+        brand:         bkDetectBrand(num),
+        number:        num,
+        cvv:           cvv,
+        expiration_month: expMes,
+        expiration_year:  '20' + expAno,
+        reuse:         false
+      }, (error, response) => {
+        if (error) reject(new Error(error.description || 'Erro ao tokenizar cartão'));
+        else resolve(response.payment_token);
+      });
+    });
+  } catch(e) {
+    bkShowErr('pagamento', e.message || 'Erro ao processar dados do cartão.'); return;
+  }
+
+  /* Send payment_token to backend */
   try {
     const res = await fetch(CONFIG.apiUrl + '/api/psicologia/efi/cartao/cobrar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         agendamentoId: BK.agendamentoId,
-        nome: BK.pacienteNome,
-        email: BK.pacienteEmail,
-        cpf: cpf,
-        cartao: {
-          numero: num,
-          mes: mes,
-          ano: '20' + ano,
-          cvv: cvv,
-          nome_portador: nome
-        }
+        payment_token,
+        nome:       BK.pacienteNome,
+        email:      BK.pacienteEmail,
+        cpf:        cpf,
+        telefone:   tel,
+        nascimento: nascISO || undefined,
+        parcelas:   1
       })
     });
     const json = await res.json();
@@ -1671,6 +1786,17 @@ async function bkPagarCartao(valor, cpf) {
   } catch(e) {
     bkShowErr('pagamento', 'Erro de conexão. Tente novamente.');
   }
+}
+
+function bkDetectBrand(num) {
+  const n = num.replace(/\s/g,'');
+  if (/^4/.test(n))                         return 'visa';
+  if (/^5[1-5]/.test(n))                    return 'mastercard';
+  if (/^3[47]/.test(n))                     return 'amex';
+  if (/^6(?:011|5)/.test(n))                return 'discover';
+  if (/^(?:636368|438935|504175|451416|636297)/.test(n)) return 'elo';
+  if (/^(?:6062|3841)/.test(n))             return 'hipercard';
+  return 'visa'; /* fallback */
 }
 
 function bkSuccess() {
