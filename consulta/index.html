@@ -174,8 +174,22 @@ footer a:hover{color:var(--g2)}
 }
 .mobile-sticky-cta{display:none}
 @media(max-width:760px){
-  .mobile-sticky-cta{position:fixed;left:12px;right:12px;bottom:94px;display:block;z-index:1000}
+  .mobile-sticky-cta{
+    position:fixed;left:12px;right:12px;bottom:94px;display:block;z-index:1000;
+    opacity:0;transform:translateY(14px);pointer-events:none;
+    transition:opacity .24s ease,transform .24s ease;
+  }
+  .mobile-sticky-cta.is-visible{opacity:1;transform:translateY(0);pointer-events:auto}
   .mobile-sticky-cta .btn-primary{width:100%;justify-content:center;padding:15px 18px;font-size:1rem}
+  .wa-float{
+    width:56px;height:56px;right:14px;bottom:122px;
+    transition:transform .2s,box-shadow .2s,opacity .24s ease;
+  }
+  .wa-float.is-hidden-mobile{
+    opacity:0;
+    pointer-events:none;
+  }
+  .hero__crosssell{margin-top:28px}
 }
 
 
@@ -259,28 +273,29 @@ footer a:hover{color:var(--g2)}
   display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
   max-width:680px;margin:20px auto 4px;
   padding:16px 22px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(94,224,160,.26);
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(94,224,160,.34);
   border-radius:16px;
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  box-shadow:0 0 0 1px rgba(94,224,160,.07),0 8px 28px rgba(0,0,0,.22);
-  transition:border-color .25s,transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s;
+  box-shadow:0 0 0 1px rgba(94,224,160,.1),0 10px 30px rgba(0,0,0,.24),0 0 20px rgba(94,224,160,.06);
+  transition:border-color .24s,transform .24s cubic-bezier(.4,0,.2,1),box-shadow .24s,background .24s;
   cursor:default;
 }
 .hero__crosssell:hover{
-  border-color:rgba(94,224,160,.42);
+  border-color:rgba(94,224,160,.5);
   transform:translateY(-2px);
-  box-shadow:0 0 0 1px rgba(94,224,160,.12),0 16px 36px rgba(0,0,0,.26),0 0 32px rgba(94,224,160,.07);
+  background:rgba(255,255,255,.11);
+  box-shadow:0 0 0 1px rgba(94,224,160,.14),0 16px 36px rgba(0,0,0,.27),0 0 34px rgba(94,224,160,.09);
 }
 .hero__crosssell-text{flex:1;min-width:180px;text-align:left}
 .hero__crosssell-title{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:4px}
-.hero__crosssell-sub{font-size:.75rem;font-weight:300;color:rgba(255,255,255,.62);line-height:1.5}
+.hero__crosssell-sub{font-size:.75rem;font-weight:300;color:rgba(255,255,255,.74);line-height:1.5}
 .hero__crosssell-btns{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;align-items:flex-start}
 .hero__crosssell-btn{
   position:relative;
   display:inline-flex;flex-direction:column;align-items:center;gap:2px;
-  padding:10px 18px;
+  padding:11px 20px;
   min-height:44px;
   border-radius:10px;
   border:1px solid rgba(94,224,160,.32);
@@ -296,13 +311,13 @@ footer a:hover{color:var(--g2)}
   border-color:rgba(94,224,160,.62);
   background:rgba(94,224,160,.16);
   color:#fff;
-  transform:scale(1.03);
-  filter:brightness(1.09);
-  box-shadow:0 4px 16px rgba(94,224,160,.18);
+  transform:scale(1.04);
+  filter:brightness(1.12);
+  box-shadow:0 4px 16px rgba(94,224,160,.22);
 }
 .hero__crosssell-btn:active{
   transform:scale(.97);
-  filter:brightness(.94);
+  filter:brightness(.95);
   box-shadow:none;
 }
 .hero__crosssell-label{display:flex;align-items:center;gap:3px}
@@ -320,14 +335,14 @@ footer a:hover{color:var(--g2)}
   width:100%;text-align:center;
   margin-top:10px;
   font-size:.7rem;font-weight:300;
-  color:rgba(255,255,255,.42);
+  color:rgba(255,255,255,.56);
   letter-spacing:.02em;
 }
 @media(max-width:560px){
   .hero__crosssell{flex-direction:column;gap:14px;padding:16px;text-align:center}
   .hero__crosssell-text{text-align:center}
   .hero__crosssell-btns{width:100%;justify-content:center}
-  .hero__crosssell-btn{flex:1;justify-content:center;min-height:48px}
+  .hero__crosssell-btn{flex:1;justify-content:center;min-height:50px;padding:12px 18px}
   .hero__crosssell-price{margin-top:6px}
 }
 
@@ -415,8 +430,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- cross-sell: psicólogos e especialistas -->
     <div class="hero__crosssell">
       <div class="hero__crosssell-text">
-        <p class="hero__crosssell-title">Não precisa de atendimento imediato?</p>
-        <p class="hero__crosssell-sub">Ideal para terapia, acompanhamento ou avaliação com especialista.</p>
+        <p class="hero__crosssell-title">Quer agendar com psicólogo ou especialista?</p>
+        <p class="hero__crosssell-sub">Atendimento com horário marcado para terapia, ansiedade, acompanhamento ou diagnóstico.</p>
       </div>
       <div class="hero__crosssell-btns">
         <a href="https://consultaja24h.com.br/psicologo-online" class="hero__crosssell-btn">
@@ -428,7 +443,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="hero__crosssell-tag">Agendamento</span>
         </a>
       </div>
-      <p class="hero__crosssell-price">Consultas a partir de R$150</p>
+      <p class="hero__crosssell-price">Consultas a partir de R$150 • escolha seu horário</p>
     </div>
 
     <div class="hero__trust reveal-group">
@@ -883,6 +898,87 @@ if(tk && pips){
   document.getElementById('carNext').onclick = function(){ go(idx+1); };
   go(0);
 }
+
+// [NOVO] Sticky CTA mobile visibility
+(function(){
+  var sticky = document.querySelector('.mobile-sticky-cta');
+  var hero = document.querySelector('.hero');
+  if(!sticky || !hero) return;
+
+  var mq = window.matchMedia('(max-width: 760px)');
+  var observer;
+
+  function setStickyVisible(visible){
+    sticky.classList.toggle('is-visible', visible);
+  }
+
+  function setup(){
+    if(observer){
+      observer.disconnect();
+      observer = null;
+    }
+
+    if(!mq.matches){
+      setStickyVisible(false);
+      return;
+    }
+
+    observer = new IntersectionObserver(function(entries){
+      var heroVisible = entries[0] && entries[0].isIntersecting;
+      setStickyVisible(!heroVisible);
+    }, { threshold: 0.12 });
+
+    observer.observe(hero);
+  }
+
+  setup();
+  if(typeof mq.addEventListener === 'function') mq.addEventListener('change', setup);
+  else if(typeof mq.addListener === 'function') mq.addListener(setup);
+})();
+
+// [NOVO] WhatsApp floating safety on mobile CTA zones
+(function(){
+  var wa = document.querySelector('.wa-float');
+  if(!wa) return;
+
+  var mq = window.matchMedia('(max-width: 760px)');
+  var observer;
+  var observed = [];
+
+  function setHidden(hidden){
+    wa.classList.toggle('is-hidden-mobile', hidden);
+  }
+
+  function setup(){
+    if(observer){
+      observer.disconnect();
+      observer = null;
+      observed = [];
+    }
+
+    if(!mq.matches){
+      setHidden(false);
+      return;
+    }
+
+    var targets = Array.from(document.querySelectorAll('.hero__crosssell, .spec-sec'));
+    if(!targets.length) return;
+
+    observer = new IntersectionObserver(function(entries){
+      var shouldHide = entries.some(function(entry){ return entry.isIntersecting; });
+      setHidden(shouldHide);
+    }, { threshold: 0, rootMargin: '120px 0px 120px 0px' });
+
+    targets.forEach(function(el){
+      observer.observe(el);
+      observed.push(el);
+    });
+  }
+
+  setup();
+  if(typeof mq.addEventListener === 'function') mq.addEventListener('change', setup);
+  else if(typeof mq.addListener === 'function') mq.addListener(setup);
+})();
 </script>
 </body>
 </html>
