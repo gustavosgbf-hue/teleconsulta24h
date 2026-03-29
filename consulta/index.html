@@ -57,7 +57,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-primary:active{transform:translateY(1px) scale(.985)}
 .btn-primary.clicked{animation:ctaClick .24s ease}
 @keyframes ctaClick{0%{transform:scale(1)}50%{transform:scale(.96)}100%{transform:scale(1)}}
-.hero__availability{margin-top:10px;font-size:.82rem;color:rgba(255,255,255,.75);font-weight:500}
+.hero__availability{margin-top:10px;font-size:.82rem;color:rgba(255,255,255,.55);font-weight:400}
 .btn-outline{padding:16px 28px;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.8);font-family:'Outfit',sans-serif;font-weight:500;font-size:.95rem;cursor:pointer;text-decoration:none;transition:border-color .2s,background .2s}
 .btn-outline:hover{border-color:rgba(94,224,160,.35);background:rgba(94,224,160,.05)}
 .hero__urgency{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);font-size:.76rem;font-weight:500;color:rgba(255,255,255,.72)}
@@ -404,32 +404,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="live-dot"></div>
       <span><span class="c1">Consulta</span><span class="c2">Já</span><span class="c3">24h</span></span>
     </a>
-    <a href="https://consultaja24h.com.br/triagem.html" class="nav__cta">Falar com médico agora</a>
+    <a href="https://consultaja24h.com.br/triagem.html" class="nav__cta">Falar com médico agora →</a>
   </div>
 </nav>
 
 <section class="hero">
   <div>
     <div class="hero__badge">
-      <span class="dot-green"></span> Plantão médico ativo · todo o Brasil
+      <span class="dot-green"></span> Plantão ativo agora · todo o Brasil · 24h
     </div>
-    <h1>Precisa de médico agora?<br><em>Atendimento online em minutos</em></h1>
-    <p class="hero__sub">Consulta por vídeo ou chat em até 5 minutos, sem fila e sem burocracia.</p>
-    <p class="hero__price">Consulta a partir de R$49,90</p>
+    <h1>Mal-estar, febre, dor?<br><em>Fale com médico em 5 minutos</em></h1>
+    <p class="hero__sub">Consulta real, médico com CRM, por chat ou vídeo, de onde você estiver. Sem sair de casa, sem fila, sem espera.</p>
     <div class="hero__btns">
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
-        Falar com médico agora
+        Quero falar com médico agora
       </a>
     </div>
-    <p class="hero__availability">Disponível 24h • Atendimento imediato</p>
+    <p class="hero__availability">R$&nbsp;49,90 · PIX ou cartão · confirmação na hora</p>
     <div style="display:flex;justify-content:center;margin-top:10px">
       <div class="hero__urgency" id="heroUrgency">
-        <span class="dot-green"></span> 3 médicos online agora • Atendimento em até 5 minutos
+        <span class="dot-green"></span> 3 médicos online agora • Início em até 5 minutos
       </div>
     </div>
 
-    <!-- cross-sell: psicólogos e especialistas -->
+    <div class="hero__trust reveal-group">
+      <div class="hero__trust-item">
+        <span style="color:#f5c518;letter-spacing:1px">★★★★★</span>
+        2.000+ atendimentos • Nota média 5,0
+      </div>
+      <div class="hero__trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Médico de verdade, com CRM ativo
+      </div>
+      <div class="hero__trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Sigilo total • LGPD • CFM 2.314/2022
+      </div>
+    </div>
+
+    <!-- cross-sell: psicólogos e especialistas — movido para depois do trust -->
     <div class="hero__crosssell">
       <div class="hero__crosssell-text">
         <p class="hero__crosssell-title">Quer agendar com psicólogo ou especialista?</p>
@@ -448,33 +462,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="hero__crosssell-price">Consultas a partir de R$150 • escolha seu horário</p>
     </div>
 
-    <div class="hero__trust reveal-group">
-      <div class="hero__trust-item">
-        <span style="color:#f5c518;letter-spacing:1px">★★★★★</span>
-        Mais de 2.000 atendimentos realizados
-      </div>
-      <div class="hero__trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        Médicos com CRM ativo
-      </div>
-      <div class="hero__trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        Atendimento 100% online e seguro
-      </div>
-    </div>
-
   </div>
 </section>
 
 <section class="pain-section reveal">
   <div class="section-inner" style="max-width:900px">
-    <h2 class="section-title" style="text-align:center;margin-bottom:8px">Podemos te ajudar agora com:</h2>
+    <h2 class="section-title" style="text-align:center;margin-bottom:4px">Com o que podemos te ajudar <em style="font-family:'Playfair Display',serif;font-style:italic;font-size:inherit">agora?</em></h2>
+    <p style="text-align:center;font-size:.82rem;color:rgba(255,255,255,.4);font-weight:300;margin-bottom:20px">Sem precisar sair de casa, médico real, atendimento completo</p>
     <div class="pain-grid reveal-group">
-      <div class="pain-item"><span>🌡️</span>Febre</div>
-      <div class="pain-item"><span>💢</span>Dor</div>
-      <div class="pain-item"><span>🧠</span>Ansiedade</div>
-      <div class="pain-item"><span>🤢</span>Mal-estar</div>
-      <div class="pain-item"><span>📄</span>Precisa de atestado</div>
+      <div class="pain-item"><span>🌡️</span>Febre e gripe</div>
+      <div class="pain-item"><span>💢</span>Dor (cabeça, garganta, costas)</div>
+      <div class="pain-item"><span>🧠</span>Ansiedade e estresse</div>
+      <div class="pain-item"><span>🤢</span>Mal-estar e enjoo</div>
+      <div class="pain-item"><span>📄</span>Atestado médico</div>
     </div>
   </div>
 </section>
@@ -526,7 +526,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span style="font-size:1.5rem">⚡</span>
       <div>
         <div style="font-size:1.1rem;font-weight:700;color:var(--g1);font-family:'Playfair Display',serif">Atendimento rápido</div>
-        <div style="font-size:.72rem;color:rgba(255,255,255,.4);font-weight:300">Início em cerca de 3–5 minutos</div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.4);font-weight:300">Início em cerca de 3 a 5 minutos</div>
       </div>
     </div>
     <div style="width:1px;height:36px;background:rgba(255,255,255,.08);flex-shrink:0"></div>
@@ -590,12 +590,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="como-funciona">
   <div class="section-inner">
     <div class="section-label">Passo a passo</div>
-    <h2 class="section-title">Como funciona</h2>
-    <p class="section-sub">Três passos simples para falar com um médico de onde você estiver.</p>
+    <h2 class="section-title">Como funciona, é rápido</h2>
+    <p class="section-sub">Do clique ao médico em menos de 5 minutos. Sem aplicativo, sem cadastro complicado.</p>
     <div class="steps reveal-group">
-      <div class="step"><div class="step__num">1</div><h3>Inicie o atendimento</h3><p>Clique no botão e preencha seus dados básicos. Todo o processo é seguro e protegido.</p></div>
-      <div class="step"><div class="step__num">2</div><h3>Confirme e pague</h3><p>Responda algumas perguntas rápidas. Após o pagamento via PIX ou cartão · confirmação imediata.</p></div>
-      <div class="step"><div class="step__num">3</div><h3>Fale com o médico</h3><p>Um médico com CRM ativo entra em contato por chat na plataforma ou por vídeo (Google Meet), pronto para te atender.</p></div>
+      <div class="step"><div class="step__num">1</div><h3>Preencha seus dados</h3><p>Nome, WhatsApp e data de nascimento, menos de 1 minuto. Seus dados ficam protegidos por sigilo médico.</p></div>
+      <div class="step"><div class="step__num">2</div><h3>Conte o que está sentindo</h3><p>Responda algumas perguntas rápidas sobre seu caso. Não precisa ser detalhado, o médico vai perguntar o resto.</p></div>
+      <div class="step"><div class="step__num">3</div><h3>Médico entra em contato</h3><p>Um médico com CRM ativo assume seu caso e inicia o atendimento por chat ou vídeo, na hora.</p></div>
     </div>
   </div>
 </section>
@@ -605,19 +605,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="reveal">
   <div class="section-inner">
     <div class="section-label">Investimento</div>
-    <h2 class="section-title">Consulta médica online</h2>
+    <h2 class="section-title">Consulta médica completa</h2>
     <div class="price-box">
-      <div class="price-box__label">Valor da consulta</div>
+      <div class="price-box__label">Tudo incluso na consulta</div>
       <div class="price-box__price"><sup>R$</sup>49<span style="font-size:2rem">,90</span></div>
-      <p class="price-box__desc">Atendimento médico por chat ou vídeo com médico registrado no CRM<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Valor acessível, sem deslocamento, de qualquer lugar do Brasil</span></p>
-      <p style="font-size:.82rem;font-weight:600;color:var(--g2);margin-bottom:24px;margin-top:-16px">Atendimento imediato · Sem fila · Sem sair de casa</p>
+      <p class="price-box__desc">Atendimento com médico registrado no CRM<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Sem taxa de adesão, sem mensalidade, sem letra miúda</span></p>
+      <p style="font-size:.82rem;font-weight:600;color:var(--g2);margin-bottom:24px;margin-top:-16px">Início imediato · Sem fila · Sem sair de casa</p>
       <div class="price-box__features reveal-group">
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Consulta por chat ou vídeo</div>
-        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Atendimento individual</div>
-        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Médico com CRM ativo</div>
-        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Atendimento conforme avaliação do médico</div>
-        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Atendimento médico por teleconsulta</div>
-        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Pagamento via PIX ou cartão · confirmação imediata</div>
+        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Médico com CRM ativo, de verdade</div>
+        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Receita, atestado e pedido de exames se necessário</div>
+        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Sigilo médico garantido por lei</div>
+        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>PIX ou cartão · confirmação na hora</div>
+        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Disponível 24h · todo o Brasil</div>
       </div>
 
       
@@ -756,27 +756,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <section class="cta-section reveal">
-  <div class="section-label" style="text-align:center">Pronto para começar?</div>
-  <h2 class="section-title" style="text-align:center;max-width:500px;margin:0 auto 16px">Fale com um médico<br><em style="font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">agora mesmo</em></h2>
-  <p class="section-sub" style="text-align:center;margin:0 auto 40px">Atendimento médico online com médico registrado no CRM. Rápido, seguro e disponível em todo o Brasil.</p>
+  <div class="section-label" style="text-align:center">Está com algum sintoma agora?</div>
+  <h2 class="section-title" style="text-align:center;max-width:520px;margin:0 auto 16px">Não espere piorar.<br><em style="font-family:'Playfair Display',serif;font-style:italic;background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Médico online agora.</em></h2>
+  <p class="section-sub" style="text-align:center;margin:0 auto 40px">Menos de 5 minutos para ser atendido. Médico com CRM, sigilo total, direto no seu celular.</p>
   <div style="text-align:center">
-    <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="font-size:1.05rem;padding:18px 48px">Falar com médico agora →</a>
-    <p style="margin-top:12px;font-size:.78rem;color:rgba(255,255,255,.32);font-weight:300">R$&nbsp;49,90 · PIX ou cartão · confirmação imediata</p>
-    <p style="margin-top:8px;font-size:.75rem;color:rgba(255,255,255,.22);font-weight:300">🔒 Ambiente seguro · Médicos com CRM ativo · LGPD</p>
+    <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="font-size:1.05rem;padding:18px 48px">Quero falar com médico agora →</a>
+    <p style="margin-top:12px;font-size:.78rem;color:rgba(255,255,255,.32);font-weight:300">R$&nbsp;49,90 · PIX ou cartão · sem cadastro prévio</p>
+    <p style="margin-top:8px;font-size:.75rem;color:rgba(255,255,255,.22);font-weight:300">🔒 Sigilo médico garantido · CRM ativo · LGPD</p>
     <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.28);font-weight:300;text-align:center">Não comercializamos medicamentos. Prescrições são realizadas apenas durante consulta médica.</p>
   </div>
 </section>
 
 <footer>
   <div style="max-width:700px;margin:0 auto">
-    <p style="margin-bottom:8px;font-size:.8rem;color:rgba(255,255,255,.4)"><strong style="color:rgba(255,255,255,.6)">ConsultaJá24h</strong> — JG Fonseca Serviços Médicos LTDA</p>
+    <p style="margin-bottom:8px;font-size:.8rem;color:rgba(255,255,255,.4)"><strong style="color:rgba(255,255,255,.6)">ConsultaJá24h</strong>, JG Fonseca Serviços Médicos LTDA</p>
     <p>
       <a href="https://consultaja24h.com.br/termos.html">Termos de Uso</a> &nbsp;·&nbsp;
       <a href="https://consultaja24h.com.br/privacy.html">Política de Privacidade</a> &nbsp;·&nbsp;
       <a href="https://consultaja24h.com.br/trabalhe-conosco.html" style="color:rgba(255,255,255,.45)">Trabalhe Conosco</a>
     </p>
     <p style="margin-top:12px">Serviço regulamentado conforme Resolução CFM nº 2.314/2022.</p>
-    <p style="margin-top:6px">Responsável técnico: Dr. Gustavo Fonseca — CRM-MA 14325</p>
+    <p style="margin-top:6px">Responsável técnico: Dr. Gustavo Fonseca, CRM-MA 14325</p>
     <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.2)">Não comercializamos medicamentos. Prescrições são realizadas apenas durante consulta médica.</p>
   </div>
 </footer>
@@ -786,7 +786,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <div class="mobile-sticky-cta">
-  <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">Falar com médico agora</a>
+  <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">Quero falar com médico agora →</a>
 </div>
 
 <a class="wa-float" href="https://wa.me/5598989272727?text=Quero%20consulta%20agora" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
