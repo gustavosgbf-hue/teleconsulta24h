@@ -251,7 +251,24 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.08);border-top-color:var(–g2);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-txt{font-size:.85rem;color:rgba(255,255,255,.4);font-weight:300}
-/* ── FIELD FEEDBACK ── */
+/* ── PROGRESS STEPS ── */
+.progress-steps{display:flex;align-items:center;justify-content:center;gap:0;padding:14px 20px 0;flex-shrink:0}
+.ps-step{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:70px}
+.ps-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;transition:all .3s}
+.ps-dot--done{background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208}
+.ps-dot--active{background:rgba(180,224,90,.15);border:2px solid rgba(180,224,90,.6);color:#b4e05a}
+.ps-dot--next{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3)}
+.ps-label{font-size:.6rem;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.3)}
+.ps-label--active{color:#b4e05a}
+.ps-line{flex:1;height:1px;background:rgba(255,255,255,.08);margin:0 4px;margin-bottom:16px;min-width:24px}
+/* ── REASSURANCE BOX topo do formulário ── */
+.id-reassurance{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(94,224,160,.06);border:1px solid rgba(94,224,160,.18);border-radius:12px;margin-bottom:4px}
+.id-reassurance__icon{font-size:1.2rem;flex-shrink:0}
+.id-reassurance__text{font-size:.78rem;font-weight:400;color:rgba(255,255,255,.75);line-height:1.5}
+.id-reassurance__text strong{color:rgba(255,255,255,.92);font-weight:600}
+/* ── MICROCOPY dos campos ── */
+.field-hint{font-size:.71rem;color:rgba(255,255,255,.35);font-weight:300;line-height:1.5;margin-top:4px;padding-left:2px}
+
 .field-feedback{
 display:flex;align-items:center;gap:6px;
 font-size:.72rem;font-weight:400;
@@ -361,7 +378,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
       </span>
     </a>
-    <span class="nav__step" id="nav-step">ACESSO RÁPIDO</span>
+    <span class="nav__step" id="nav-step">Etapa 1 de 3 · Seus dados</span>
   </div>
 </nav>
 
@@ -404,7 +421,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <input class="id-input" id="idEmail" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email"/>
   </div>
   <div>
-    <div class="id-label">WhatsApp para documentos <span style="color:rgba(255,255,255,.28);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional — para receitas e atestados)</span></div>
+    <div class="id-label">WhatsApp para documentos <span style="color:rgba(255,255,255,.28);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional, para receitas e atestados)</span></div>
     <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
     <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
       <input type="checkbox" id="chkSameNumber" onchange="toggleSameNumber(this)"/>
@@ -417,7 +434,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="trust-block">
     <div class="trust-block__title">⏱ Médico disponível em menos de 5 minutos</div>
     <div class="trust-steps">
-      <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha em menos de 1 minuto — está quase pronto</span></div>
+      <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha em menos de 1 minuto, está quase pronto</span></div>
       <div class="trust-step"><div class="trust-step__num">2</div><span>Duas ou três perguntas sobre seu caso</span></div>
       <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico assume e entra em contato</span></div>
       <div class="trust-step"><div class="trust-step__num">4</div><span>Consulta por chat ou vídeo, na hora</span></div>
@@ -428,7 +445,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="trust-block trust-block--green">
     <div class="trust-block__title">Consulta de verdade, não um chatbot</div>
     <ul class="trust-list">
-      <li><span class="ti">🩺</span><span>Médico com CRM ativo — formado, registrado, responsável</span></li>
+      <li><span class="ti">🩺</span><span>Médico com CRM ativo, formado, registrado, responsável</span></li>
       <li><span class="ti">🔒</span><span>Tudo confidencial, sigilo médico protegido por lei</span></li>
       <li><span class="ti">📋</span><span>Receita, atestado e pedido de exames quando necessário</span></li>
       <li><span class="ti">⚖️</span><span>Telemedicina regulamentada pelo CFM nº 2.314/2022</span></li>
@@ -456,7 +473,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="terms-foot">
       <label class="check-row" for="termsCheck"><input type="checkbox" id="termsCheck"/><span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a> e <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a>.</span></label>
-      <button class="btn-aceitar" id="btnAceitar">Entendido — continuar →</button>
+      <button class="btn-aceitar" id="btnAceitar">Entendido, continuar →</button>
     </div>
   </div>
 </div>
@@ -500,7 +517,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </button>
 </div>
 
-<!-- Aviso período noturno (23h–7h) -->
+<!-- Aviso período noturno (23h às 7h) -->
 <div id="aviso-noturno" style="display:none;margin-top:20px;padding:12px 16px;background:rgba(255,189,46,.06);border:1px solid rgba(255,189,46,.2);border-radius:12px;font-size:.8rem;color:rgba(255,210,120,.85);line-height:1.55;text-align:center">
   🌙 <strong style="color:rgba(255,220,140,.95)">Atendimento noturno:</strong> entre 23h e 7h o atendimento continua, mas pode haver espera maior até o médico assumir.
 </div>
@@ -516,7 +533,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="pay-icon">⚡</div>
       <div class="pay-head-text">
         <h2>Finalize seu atendimento</h2>
-        <p id="pay-subtitulo">Médico disponível agora — resposta em minutos</p>
+        <p id="pay-subtitulo">Médico disponível agora, resposta em minutos</p>
       </div>
     </div>
     <div class="pay-body">
@@ -550,7 +567,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="pay-includes__title">O que está incluído</div>
     <ul>
       <li>Médico com CRM ativo · atendimento imediato</li>
-      <li>Chat ou videochamada — você escolhe</li>
+      <li>Chat ou videochamada, você escolhe</li>
       <li>Atendimento médico completo</li>
       <li>Sigilo médico garantido</li>
     </ul>
@@ -574,14 +591,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div id="pix-section">
     <div style="margin:0 0 14px;padding:10px 14px;border-radius:12px;background:rgba(255,189,46,.05);border:1px solid rgba(255,189,46,.15);font-size:.72rem;color:rgba(255,189,46,.7);line-height:1.65;display:flex;align-items:flex-start;gap:8px">
       <span style="flex-shrink:0;margin-top:1px">⚠️</span>
-      <span>Seu banco pode mostrar um alerta — isso é normal. O pagamento é para <strong style="color:rgba(255,189,46,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, empresa médica registrada.</span>
+      <span>Seu banco pode mostrar um alerta, isso é normal, o pagamento é para <strong style="color:rgba(255,189,46,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, empresa médica registrada.</span>
     </div>
     <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar com PIX →</button>
     <div id="aviso-horario" style="display:none;margin-top:14px;padding:11px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:11px;font-size:13px;color:rgba(255,255,255,.52);line-height:1.6;text-align:center;font-weight:300">Neste horário, pode haver uma leve redução na disponibilidade de profissionais, mas os atendimentos continuam normalmente.</div>
     <div class="pay-qr-section" id="pay-qr-section">
       <div style="text-align:center;margin-bottom:20px">
         <div style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:5px">Escaneie o QR Code ou use Pix Copia e Cola</div>
-        <div style="font-size:.74rem;color:rgba(255,255,255,.45);font-weight:300">Pague e entre na consulta automaticamente — sem redirecionamento</div>
+        <div style="font-size:.74rem;color:rgba(255,255,255,.45);font-weight:300">Pague e entre na consulta automaticamente, sem redirecionamento</div>
       </div>
       <div style="text-align:center;margin-bottom:18px">
         <img id="pay-qr-img" alt="QR Code PIX" style="width:240px;height:240px;border-radius:18px;border:2px solid rgba(180,224,90,.35);background:#fff;padding:10px;display:none;box-shadow:0 0 32px rgba(180,224,90,.12)"/>
@@ -721,7 +738,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="chat-header-box">
         <h3><div class="online-dot"></div> Consulta iniciada</h3>
-        <p id="chatMedicoLabel">Médico disponível — pode enviar sua mensagem</p>
+        <p id="chatMedicoLabel">Médico disponível, pode enviar sua mensagem</p>
       </div>
       <div class="chat-msgs" id="chatMsgs"></div>
       <div class="chat-preview-wrap" id="chat-preview-wrap">
@@ -1508,7 +1525,7 @@ function medicoAssumiu(a){
 
 function iniciarChatConsulta(atendimento){
   if(atendimento.medico_nome){
-    document.getElementById('chatMedicoLabel').textContent=atendimento.medico_nome+' — pode enviar sua mensagem';
+    document.getElementById('chatMedicoLabel').textContent=atendimento.medico_nome+', pode enviar sua mensagem';
     document.getElementById('medicoNomeBanner').textContent=atendimento.medico_nome;
     document.getElementById('medicoEntrou').style.display='flex';
   }
