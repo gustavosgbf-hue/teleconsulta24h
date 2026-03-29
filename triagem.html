@@ -105,7 +105,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .agend-note{font-size:.72rem;color:rgba(255,255,255,.28);font-weight:300;line-height:1.6;padding:10px 14px;background:rgba(66,133,244,.04);border-radius:10px;border:1px solid rgba(66,133,244,.1);margin-bottom:16px;text-align:left}
 /* ── PAGAMENTO ── */
 #screen-payment .box{width:min(500px,100%)}
-.pay-head{padding:24px 28px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px}
+.pay-head{padding:24px 28px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;position:relative}
 .pay-icon{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.2),rgba(94,224,160,.14));border:1px solid rgba(180,224,90,.3);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
 .pay-head-text h2{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:500;margin-bottom:4px}
 .pay-head-text p{font-size:.78rem;color:var(--muted);font-weight:300}
@@ -242,13 +242,13 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 /* ── ENCERRADO ── */
 .encerrado-box{width:min(480px,100%);text-align:center;padding:32px 20px}
 .encerrado-icon{font-size:3rem;margin-bottom:20px}
-.encerrado-titulo{font-family:‘Playfair Display’,serif;font-size:1.45rem;font-weight:500;margin-bottom:10px;color:var(–g2)}
+.encerrado-titulo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;margin-bottom:10px;color:var(--g2)}
 .encerrado-sub{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:28px}
-.encerrado-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:13px;border:1px solid var(–line);background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-family:‘Outfit’,sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;-webkit-appearance:none;transition:background .2s}
+.encerrado-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;-webkit-appearance:none;transition:background .2s}
 .encerrado-btn:hover{background:rgba(255,255,255,.1)}
 .loading-overlay{position:fixed;inset:0;z-index:999;background:#060d0b;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .loading-overlay.hide{display:none}
-.loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.08);border-top-color:var(–g2);border-radius:50%;animation:spin .8s linear infinite}
+.loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.08);border-top-color:var(--g2);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-txt{font-size:.85rem;color:rgba(255,255,255,.4);font-weight:300}
 /* ── PROGRESS STEPS ── */
@@ -296,7 +296,7 @@ color:rgba(255,255,255,.38);line-height:1.5;
 .autofill-input{
 flex:1;padding:9px 12px;border-radius:9px;
 background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-color:#fff;font-family:‘Outfit’,sans-serif;font-size:.88rem;font-weight:300;
+color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:300;
 outline:none;transition:border-color .2s;-webkit-appearance:none;
 }
 .autofill-input:focus{border-color:rgba(94,224,160,.3)}
@@ -304,10 +304,10 @@ outline:none;transition:border-color .2s;-webkit-appearance:none;
 .autofill-btn{
 padding:9px 13px;border-radius:9px;
 background:transparent;border:1px solid rgba(255,255,255,.12);
-color:rgba(255,255,255,.45);font-family:‘Outfit’,sans-serif;font-size:.78rem;font-weight:500;
+color:rgba(255,255,255,.45);font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;
 cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap;-webkit-appearance:none;
 }
-.autofill-btn:hover{border-color:rgba(94,224,160,.3);color:var(–g2)}
+.autofill-btn:hover{border-color:rgba(94,224,160,.3);color:var(--g2)}
 .autofill-status{
 font-size:.73rem;font-weight:300;line-height:1.5;color:rgba(255,255,255,.45);
 display:none;
@@ -319,21 +319,21 @@ opacity:0;transition:opacity .25s ease;
 .pay-method-wrap{margin:0 0 18px}
 .pay-method-label{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
 .pay-method-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pay-tab{padding:13px 8px;border-radius:13px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.6);font-family:‘Outfit’,sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .18s;text-align:center;-webkit-appearance:none;line-height:1.4}
+.pay-tab{padding:13px 8px;border-radius:13px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .18s;text-align:center;-webkit-appearance:none;line-height:1.4}
 .pay-tab:hover{border-color:rgba(94,224,160,.25);color:#fff}
-.pay-tab.sel-pix{border-color:rgba(94,224,160,.6);background:rgba(94,224,160,.08);color:var(–g2)}
+.pay-tab.sel-pix{border-color:rgba(94,224,160,.6);background:rgba(94,224,160,.08);color:var(--g2)}
 .pay-tab.sel-card{border-color:rgba(180,224,90,.6);background:rgba(180,224,90,.07);color:#b4e05a}
 /* ── Formulário cartão ───────────────────────────────────────────────────────── */
 #card-form{display:none;margin-top:4px}
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cf-field{margin-bottom:12px}
 .cf-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.38);display:block;margin-bottom:5px}
-.cf-input{width:100%;padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-family:‘Outfit’,sans-serif;font-size:.88rem;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none;box-sizing:border-box}
+.cf-input{width:100%;padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-family:'Outfit',sans-serif;font-size:.88rem;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none;box-sizing:border-box}
 .cf-input:focus{border-color:rgba(94,224,160,.4)}
 .cf-input::placeholder{color:rgba(255,255,255,.2)}
 select.cf-input option{background:#0d1a14;color:#fff}
 .card-err-msg{font-size:.76rem;color:#ff8080;margin-top:8px;display:none;line-height:1.5;padding:8px 12px;background:rgba(255,80,80,.06);border-radius:9px;border:1px solid rgba(255,80,80,.2)}
-.btn-pagar-card{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:‘Outfit’,sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.25);transition:transform .12s;margin-top:6px}
+.btn-pagar-card{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;box-shadow:0 6px 24px rgba(180,224,90,.25);transition:transform .12s;margin-top:6px}
 .btn-pagar-card:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none}
 .btn-pagar-card:not(:disabled):hover{transform:translateY(-1px)}
 .card-processing{display:none;text-align:center;padding:16px 0 8px;font-size:.84rem;color:rgba(255,255,255,.55)}
@@ -382,7 +382,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </nav>
 
-<!-- S1: IDENTIFICAÇÃO -->
+<!-- BARRA DE PROGRESSO -->
+<div id="progress-bar-wrap" style="display:none;position:sticky;top:52px;z-index:99;background:rgba(6,13,11,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.07);padding:9px 20px 10px">
+  <div style="max-width:480px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+      <span style="font-size:.7rem;font-weight:400;color:rgba(255,255,255,.45)">Você está a poucos passos de iniciar sua consulta</span>
+      <span id="progress-label" style="font-size:.68rem;font-weight:600;color:rgba(180,224,90,.7);letter-spacing:.04em;white-space:nowrap;margin-left:10px">Etapa 1 de 4</span>
+    </div>
+    <div style="height:4px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden">
+      <div id="progress-fill-top" style="height:100%;border-radius:999px;background:linear-gradient(90deg,#b4e05a,#5ee0a0);width:25%;transition:width .3s ease"></div>
+    </div>
+  </div>
+</div>
 
 <div id="screen-identify" class="screen box-center">
   <!-- HERO: promessa imediata -->
@@ -481,7 +492,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="screen-terms" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Leitura rápida</h1><p>Pontos essenciais — menos de 1 minuto.</p></div>
+    <div class="box-head">
+      <button onclick="showScreen('identify');document.getElementById('nav-step').textContent='Seus dados · Etapa 1'" style="background:none;border:none;color:rgba(255,255,255,.35);font-family:'Outfit',sans-serif;font-size:.78rem;cursor:pointer;padding:0 0 10px;display:flex;align-items:center;gap:5px;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">← Voltar</button>
+      <h1>Leitura rápida</h1><p>Pontos essenciais — menos de 1 minuto.</p></div>
     <div class="terms-body">
       <div class="titem"><strong>Serviço</strong>Orientação médica remota por profissional com CRM ativo, conforme Resolução CFM nº 2.314/2022. Não substitui atendimento presencial em urgências.</div>
       <div class="titem"><strong>Triagem automatizada</strong>A coleta de anamnese usa IA para estruturar as informações. Não constitui diagnóstico. Toda informação é revisada pelo médico.</div>
@@ -501,7 +514,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="screen-modalidade" class="screen box-center">
   <div class="modal-wrap">
-    <div class="modal-head"><h1>Como prefere o atendimento?</h1><p>Escolha agora — pode mudar depois. Qualquer opção funciona bem.</p></div>
+    <div class="modal-head">
+      <button onclick="showScreen('terms');document.getElementById('nav-step').textContent='TERMOS DE USO'" style="background:none;border:none;color:rgba(255,255,255,.35);font-family:'Outfit',sans-serif;font-size:.78rem;cursor:pointer;padding:0 0 10px;display:flex;align-items:center;gap:5px;margin:0 auto 0 0;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">← Voltar</button>
+      <h1>Como prefere o atendimento?</h1><p>Escolha agora — pode mudar depois. Qualquer opção funciona bem.</p></div>
     <div class="modal-cards">
       <div class="modal-card chat selected" id="cardChat" onclick="selecionarModalidade('chat',this)">
         <div class="mc-check" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -549,6 +564,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="screen-payment" class="screen box-center">
   <div class="box">
     <div class="pay-head">
+      <div style="position:absolute;top:12px;left:12px">
+        <button onclick="showScreen('disponibilidade');document.getElementById('nav-step').textContent='DISPONIBILIDADE'" style="background:none;border:none;color:rgba(255,255,255,.3);font-family:'Outfit',sans-serif;font-size:.75rem;cursor:pointer;padding:4px 6px;display:flex;align-items:center;gap:4px;transition:color .15s;border-radius:6px" onmouseover="this.style.color='rgba(255,255,255,.65)'" onmouseout="this.style.color='rgba(255,255,255,.3)'">← Voltar</button>
+      </div>
       <div class="pay-icon">⚡</div>
       <div class="pay-head-text">
         <h2>Pagar e iniciar atendimento</h2>
@@ -661,9 +679,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- CARTÃO: formulário Efí -->
   <div id="card-form" style="display:none">
-    <div id="card-email-aviso" style="display:none;margin-bottom:14px;padding:10px 13px;border-radius:10px;background:rgba(255,95,87,.07);border:1px solid rgba(255,95,87,.25);font-size:.76rem;color:rgba(255,160,150,.95);line-height:1.55">
-      ⚠️ <strong style="color:rgba(255,190,180,.95)">E-mail obrigatório para cartão.</strong>
-      Volte à etapa anterior e informe um e-mail válido para continuar.
+    <!-- E-mail inline para cartão — só aparece quando necessário -->
+    <div id="card-email-aviso" style="display:none;margin-bottom:14px">
+      <label class="cf-label">E-mail <span style="font-weight:300;text-transform:none;letter-spacing:0;color:rgba(255,255,255,.45)">(obrigatório para cartão)</span></label>
+      <input class="cf-input" id="cardEmailInput" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email" oninput="onCardEmailInput(this)"/>
+      <div style="font-size:.7rem;color:rgba(255,160,150,.85);margin-top:5px;line-height:1.5" id="card-email-hint">Informe um e-mail válido para prosseguir com cartão.</div>
     </div>
     <div class="cf-field">
       <label class="cf-label">Número do cartão</label>
@@ -830,7 +850,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script>
 var API = 'https://triagem-api.onrender.com';
-var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', pacienteEmail = '', tipoConsulta = '';
+var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '', pacienteNascimento = '', pacienteEmail = '', tipoConsulta = 'chat';
 var atendimentoId = null;
 var paymentId = null, pagbankOrderId = null, paymentPoller = null;
 var esperaPoller = null, chatPoller = null, meetPoller = null, encerradoPoller = null;
@@ -1001,10 +1021,21 @@ function carregarSessao(){
   }
 
   console.log('[INIT] Sem sessão válida. Exibindo identificação.');
-  limparSessao(); esconderLoading(); showScreen('identify');
+  limparSessao(); esconderLoading(); showScreen('identify'); setProgresso(25, 1);
 })();
 
 function esconderLoading(){ document.getElementById('loading-overlay').classList.add('hide'); }
+
+function setProgresso(pct, etapa) {
+  var wrap = document.getElementById('progress-bar-wrap');
+  var fill = document.getElementById('progress-fill-top');
+  var lbl  = document.getElementById('progress-label');
+  if (!wrap) return;
+  if (pct === 0) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  fill.style.width   = pct + '%';
+  lbl.textContent    = 'Etapa ' + etapa + ' de 4';
+}
 
 function showScreen(n){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
@@ -1038,6 +1069,7 @@ function avancarIdentificacao(){
   document.getElementById('payTel').value=tel;
   showScreen('terms');
   document.getElementById('nav-step').textContent='TERMOS DE USO';
+  setProgresso(50, 2);
 }
 
 (function(){
@@ -1049,6 +1081,7 @@ function avancarIdentificacao(){
     fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel:pacienteTel,versao:'termos-v1.0'})}).catch(function(){});
     showScreen('modalidade');
     document.getElementById('nav-step').textContent='MODALIDADE';
+    setProgresso(75, 3);
   });
 })();
 
@@ -1059,7 +1092,9 @@ function selecionarModalidade(tipo,el){
   btn.disabled=false; btn.classList.add('on');
   btn.textContent=tipo==='chat'?'💬 Continuar com chat →':'🎥 Continuar com vídeo →';
 }
-document.getElementById('btnModalCont').addEventListener('click',function(){ if(!tipoConsulta)return; verificarDisponibilidade(); });
+document.getElementById('btnModalCont').addEventListener('click',function(){ verificarDisponibilidade(); });
+// Texto padrão do botão já alinhado com seleção inicial (chat)
+(function(){ var b=document.getElementById('btnModalCont'); b.textContent='💬 Continuar com chat →'; })();
 
 async function verificarDisponibilidade(){
   showScreen('disponibilidade');
@@ -1106,14 +1141,15 @@ function irParaPagamento(){
   var fbEl = document.getElementById('pay-qr-fallback');
   if(fbEl) fbEl.style.display='none';
   var btn = document.getElementById('payBtn');
-  btn.style.display='block'; btn.disabled=false; btn.textContent='Iniciar consulta agora →';
+  btn.style.display='block'; btn.disabled=false; btn.textContent='Pagar e iniciar atendimento →';
   var statusEl = document.getElementById('pay-polling-status');
   statusEl.textContent='⏳ Aguardando confirmação do pagamento...';
   statusEl.className='pay-polling-status';
   showScreen('payment');
   document.getElementById('nav-step').textContent='PAGAMENTO';
+  setProgresso(100, 4);
   document.getElementById('pay-label-tipo').textContent='Atendimento médico online';
-  document.getElementById('pay-subtitulo').textContent='Sua solicitação será encaminhada à equipe médica';
+  document.getElementById('pay-subtitulo').textContent='Pagamento único · R$ 49,90 · Sem mensalidade';
 }
 
 // ── PAGAMENTO: seletor de método ─────────────────────────────────────────────
@@ -1128,9 +1164,24 @@ function selecionarMetodo(metodo) {
   document.getElementById('cardErrMsg').style.display = 'none';
   if (metodo === 'cartao') {
     var emailOk = pacienteEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(pacienteEmail);
-    document.getElementById('card-email-aviso').style.display = emailOk ? 'none' : 'block';
-    document.getElementById('btnPagarCard').disabled = !emailOk;
+    var aviso = document.getElementById('card-email-aviso');
+    if (!emailOk) {
+      aviso.style.display = 'block';
+      document.getElementById('card-email-hint').style.display = 'block';
+      document.getElementById('btnPagarCard').disabled = true;
+    } else {
+      aviso.style.display = 'none';
+      document.getElementById('btnPagarCard').disabled = false;
+    }
   }
+}
+
+function onCardEmailInput(el) {
+  var val = el.value.trim();
+  var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  document.getElementById('card-email-hint').style.display = ok ? 'none' : 'block';
+  document.getElementById('btnPagarCard').disabled = !ok;
+  if (ok) { pacienteEmail = val; }
 }
 
 function cfMascaraNumero(el) {
@@ -1257,7 +1308,7 @@ async function pagarCartao() {
   } finally {
     _cardProcessando = false;
     btnCard.disabled = false;
-    btnCard.textContent = 'Pagar R$ 49,90 →';
+    btnCard.textContent = 'Pagar e iniciar atendimento →';
   }
 }
 
@@ -1411,7 +1462,7 @@ function fallbackCopy(text){
 }
 
 function continuarParaTriagem(){
-  showScreen('triage'); document.getElementById('nav-step').textContent='TRIAGEM MÉDICA'; startTriage();
+  showScreen('triage'); document.getElementById('nav-step').textContent='TRIAGEM MÉDICA'; setProgresso(0,0); startTriage();
 }
 
 // ── TRIAGEM ────────────────────────────────────────────────────────────────────
@@ -1502,7 +1553,7 @@ async function finalizarTriagem(){
 }
 
 function mostrarTelaEspera(){
-  showScreen('espera'); document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO';
+  showScreen('espera'); document.getElementById('nav-step').textContent='AGUARDANDO MÉDICO'; setProgresso(0,0);
   var badge=document.getElementById('esperaBadge'); badge.className='espera-badge '+tipoConsulta;
   document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
   document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
@@ -1664,10 +1715,10 @@ function encerrarConsultaPaciente(){
   if(sendBtn) sendBtn.disabled=true;
   limparSessao(); mostrarTelaEncerrado();
 }
-function mostrarTelaEncerrado(){ showScreen('encerrado'); document.getElementById('nav-step').textContent='CONSULTA ENCERRADA'; }
+function mostrarTelaEncerrado(){ showScreen('encerrado'); document.getElementById('nav-step').textContent='CONSULTA ENCERRADA'; setProgresso(0,0); }
 function mostrarPagamentoCancelado(){
   clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
-  showScreen('encerrado');
+  showScreen('encerrado'); setProgresso(0,0);
   document.getElementById('nav-step').textContent='PAGAMENTO';
   var icon  = document.getElementById('encerrado-icon');
   var titulo = document.getElementById('encerrado-titulo');
@@ -1678,10 +1729,18 @@ function mostrarPagamentoCancelado(){
   limparSessao();
 }
 function novaConsulta(){
-  limparSessao(); atendimentoId=null; tipoConsulta=''; chatAtivo=false; ultimaMsgId=0;
+  limparSessao(); atendimentoId=null; tipoConsulta='chat'; chatAtivo=false; ultimaMsgId=0;
   paymentId=null; pagbankOrderId=null; clearInterval(paymentPoller);
+  // Restaura visual do card de modalidade
+  var cardChat  = document.getElementById('cardChat');
+  var cardVideo = document.getElementById('cardVideo');
+  if(cardChat)  { cardChat.classList.add('selected'); }
+  if(cardVideo) { cardVideo.classList.remove('selected'); }
+  var btnMod = document.getElementById('btnModalCont');
+  if(btnMod)  { btnMod.textContent='💬 Continuar com chat →'; btnMod.classList.add('on'); btnMod.disabled=false; }
   history.replaceState(null,'','/triagem.html'); showScreen('identify');
   document.getElementById('nav-step').textContent='IDENTIFICAÇÃO';
+  setProgresso(25, 1);
 }
 
 async function callAPI(endpoint,system,history,userMsg){
