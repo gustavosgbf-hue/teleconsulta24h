@@ -1027,14 +1027,38 @@ function carregarSessao(){
 function esconderLoading(){ document.getElementById('loading-overlay').classList.add('hide'); }
 
 function setProgresso(pct, etapa) {
-  var wrap = document.getElementById('progress-bar-wrap');
-  var fill = document.getElementById('progress-fill-top');
-  var lbl  = document.getElementById('progress-label');
+  var wrap  = document.getElementById('progress-bar-wrap');
+  var fill  = document.getElementById('progress-fill-top');
+  var lbl   = document.getElementById('progress-label');
+  var texto = wrap ? wrap.querySelector('span:first-child') : null;
   if (!wrap) return;
   if (pct === 0) { wrap.style.display = 'none'; return; }
   wrap.style.display = 'block';
   fill.style.width   = pct + '%';
-  lbl.textContent    = 'Etapa ' + etapa + ' de 4';
+
+  // Microcopy por etapa
+  var copies = {
+    1: { left: 'Você está a poucos passos de falar com um médico', right: 'Etapa 1 de 4' },
+    2: { left: 'Você está quase lá',                               right: 'Etapa 2 de 4' },
+    3: { left: 'Você está quase lá',                               right: 'Etapa 3 de 4' },
+    4: { left: 'Finalize para iniciar seu atendimento',            right: 'Etapa 4 de 4' },
+    5: { left: 'Conectando você ao médico...',                     right: '✓ Concluído'  }
+  };
+  var c = copies[etapa] || copies[1];
+  if (texto) texto.textContent = c.left;
+  if (lbl)   lbl.textContent   = c.right;
+
+  // Destaque sutil só no pagamento (etapa 4)
+  if (etapa === 4) {
+    fill.style.background = 'linear-gradient(90deg,#c8f060,#5ee0a0)';
+    fill.style.boxShadow  = '0 0 8px rgba(180,224,90,.35)';
+  } else if (etapa === 5) {
+    fill.style.background = 'linear-gradient(90deg,#b4e05a,#5ee0a0)';
+    fill.style.boxShadow  = 'none';
+  } else {
+    fill.style.background = 'linear-gradient(90deg,#b4e05a,#5ee0a0)';
+    fill.style.boxShadow  = 'none';
+  }
 }
 
 function showScreen(n){
@@ -1147,7 +1171,7 @@ function irParaPagamento(){
   statusEl.className='pay-polling-status';
   showScreen('payment');
   document.getElementById('nav-step').textContent='PAGAMENTO';
-  setProgresso(100, 4);
+  setProgresso(90, 4);
   document.getElementById('pay-label-tipo').textContent='Atendimento médico online';
   document.getElementById('pay-subtitulo').textContent='Pagamento único · R$ 49,90 · Sem mensalidade';
 }
@@ -1462,7 +1486,11 @@ function fallbackCopy(text){
 }
 
 function continuarParaTriagem(){
-  showScreen('triage'); document.getElementById('nav-step').textContent='TRIAGEM MÉDICA'; setProgresso(0,0); startTriage();
+  setProgresso(100, 5);
+  setTimeout(function(){
+    showScreen('triage'); document.getElementById('nav-step').textContent='TRIAGEM MÉDICA'; setProgresso(0,0); startTriage();
+  }, 600);
+}
 }
 
 // ── TRIAGEM ────────────────────────────────────────────────────────────────────
