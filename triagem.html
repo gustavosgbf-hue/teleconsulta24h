@@ -378,15 +378,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="color:rgba(255,255,255,.93)">Consulta</span><span style="background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Já</span><span style="font-family:'Outfit',sans-serif;font-style:normal;font-size:.68rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)">24h</span>
       </span>
     </a>
-    <span class="nav__step" id="nav-step">Etapa 1 de 3 · Seus dados</span>
+    <span class="nav__step" id="nav-step">Seus dados · Etapa 1</span>
   </div>
 </nav>
 
 <!-- S1: IDENTIFICAÇÃO -->
 
 <div id="screen-identify" class="screen box-center">
+  <!-- HERO: promessa imediata -->
+  <div style="text-align:center;padding:0 20px 22px;max-width:480px;margin:0 auto">
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;line-height:1.35;margin-bottom:10px">Você está a poucos minutos de falar com um médico</h2>
+    <p style="font-size:.85rem;color:rgba(255,255,255,.6);font-weight:300;line-height:1.65">
+      Atendimento online imediato, sem fila.<br>
+      Após o pagamento, você já inicia sua consulta.
+    </p>
+  </div>
   <div class="box">
-    <div class="box-head"><h1>Você está a 1 minuto de falar com um médico</h1><p>Só preciso de algumas informações rápidas para te conectar agora.</p></div>
+    <div class="box-head">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0"></div>
+        <span style="font-size:.72rem;font-weight:600;color:var(--g2);letter-spacing:.06em;text-transform:uppercase">Atendimento médico online imediato</span>
+      </div>
+      <h1>Após o pagamento, você entra imediatamente no atendimento com um médico disponível</h1>
+      <p style="margin-top:6px">Preencha em segundos. Sem burocracia.</p>
+    </div>
     <div class="identify-body">
 
   <!-- Autopreenchimento — opcional, discreto -->
@@ -408,7 +423,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       WhatsApp válido
     </div>
   </div>
-  <div>
+  <div style="display:none">
     <div class="id-label">Data de nascimento <span style="color:rgba(255,255,255,.28);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(para o médico)</span></div>
     <input class="id-input" id="idNascimento" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraData(this);feedbackData(this)"/>
     <div class="field-feedback" id="fb-nasc">
@@ -416,11 +431,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       Data válida
     </div>
   </div>
-  <div>
+  <div style="display:none">
     <div class="id-label">E-mail <span style="color:rgba(255,255,255,.3);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional, para receber o resumo da consulta)</span></div>
     <input class="id-input" id="idEmail" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email"/>
   </div>
-  <div>
+  <div style="display:none">
     <div class="id-label">WhatsApp para documentos <span style="color:rgba(255,255,255,.28);font-size:.68rem;font-weight:300;text-transform:none;letter-spacing:0">(opcional, para receitas e atestados)</span></div>
     <input class="id-input" id="idTelDoc" type="tel" placeholder="Ex: 98999990000" inputmode="numeric"/>
     <label class="check-same-row" style="margin-top:8px" for="chkSameNumber">
@@ -428,31 +443,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       Usar o mesmo número do WhatsApp
     </label>
   </div>
-  <div class="id-note">🔒 Sigilo médico garantido. Seus dados são confidenciais.</div>
+  <div class="id-note">🔒 Sigilo médico garantido. Dados confidenciais.</div>
 
-  <!-- Como funciona -->
   <div class="trust-block">
-    <div class="trust-block__title">⏱ Médico disponível em menos de 5 minutos</div>
+    <div class="trust-block__title">⏱ Como funciona</div>
     <div class="trust-steps">
-      <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha em menos de 1 minuto, está quase pronto</span></div>
-      <div class="trust-step"><div class="trust-step__num">2</div><span>Duas ou três perguntas sobre seu caso</span></div>
-      <div class="trust-step"><div class="trust-step__num">3</div><span>Um médico assume e entra em contato</span></div>
-      <div class="trust-step"><div class="trust-step__num">4</div><span>Consulta por chat ou vídeo, na hora</span></div>
+      <div class="trust-step"><div class="trust-step__num">1</div><span>Preencha seus dados — leva segundos</span></div>
+      <div class="trust-step"><div class="trust-step__num">2</div><span>Pague R$&nbsp;49,90 · único, sem mensalidade</span></div>
+      <div class="trust-step"><div class="trust-step__num">3</div><span>Responda 2–3 perguntas rápidas sobre seu caso</span></div>
+      <div class="trust-step"><div class="trust-step__num">4</div><span>Médico assume e inicia a consulta</span></div>
     </div>
   </div>
 
   <!-- Legitimidade -->
   <div class="trust-block trust-block--green">
-    <div class="trust-block__title">Consulta de verdade, não um chatbot</div>
+    <div class="trust-block__title">Consulta real, não um chatbot</div>
     <ul class="trust-list">
-      <li><span class="ti">🩺</span><span>Médico com CRM ativo, formado, registrado, responsável</span></li>
-      <li><span class="ti">🔒</span><span>Tudo confidencial, sigilo médico protegido por lei</span></li>
-      <li><span class="ti">📋</span><span>Receita, atestado e pedido de exames quando necessário</span></li>
-      <li><span class="ti">⚖️</span><span>Telemedicina regulamentada pelo CFM nº 2.314/2022</span></li>
+      <li><span class="ti">🩺</span><span>Médico com CRM ativo e registro verificado</span></li>
+      <li><span class="ti">🔒</span><span>Sigilo médico protegido por lei</span></li>
+      <li><span class="ti">📋</span><span>Receita, atestado e exames quando necessário</span></li>
+      <li><span class="ti">⚖️</span><span>Telemedicina regulamentada · CFM nº 2.314/2022</span></li>
     </ul>
   </div>
 
-  <button class="id-btn" onclick="avancarIdentificacao()">Falar com médico agora →</button>
+  <div style="text-align:center;padding:4px 0 2px">
+    <p style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:4px">Consulta única por R$&nbsp;49,90 · Sem mensalidade</p>
+    <p style="font-size:.74rem;color:rgba(94,224,160,.75);font-weight:400">Pagamento seguro · Atendimento imediato · Sem compromisso</p>
+  </div>
+
+  <button class="id-btn" onclick="avancarIdentificacao()">Pagar e iniciar atendimento →</button>
 </div>
 
   </div>
@@ -462,7 +481,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="screen-terms" class="screen box-center">
   <div class="box">
-    <div class="box-head"><h1>Antes de começar</h1><p>Pontos importantes sobre o serviço — leitura rápida.</p></div>
+    <div class="box-head"><h1>Leitura rápida</h1><p>Pontos essenciais — menos de 1 minuto.</p></div>
     <div class="terms-body">
       <div class="titem"><strong>Serviço</strong>Orientação médica remota por profissional com CRM ativo, conforme Resolução CFM nº 2.314/2022. Não substitui atendimento presencial em urgências.</div>
       <div class="titem"><strong>Triagem automatizada</strong>A coleta de anamnese usa IA para estruturar as informações. Não constitui diagnóstico. Toda informação é revisada pelo médico.</div>
@@ -473,7 +492,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="terms-foot">
       <label class="check-row" for="termsCheck"><input type="checkbox" id="termsCheck"/><span>Li e concordo com os <a href="termos.html" target="_blank" style="color:#b4e05a">Termos de Uso</a> e <a href="privacy.html" target="_blank" style="color:#b4e05a">Política de Privacidade</a>.</span></label>
-      <button class="btn-aceitar" id="btnAceitar">Entendido, continuar →</button>
+      <button class="btn-aceitar" id="btnAceitar">Continuar para atendimento →</button>
     </div>
   </div>
 </div>
@@ -482,22 +501,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="screen-modalidade" class="screen box-center">
   <div class="modal-wrap">
-    <div class="modal-head"><h1>Chat ou vídeo?</h1><p>Escolha como prefere falar com o médico. Qualquer um funciona bem.</p></div>
+    <div class="modal-head"><h1>Como prefere o atendimento?</h1><p>Escolha agora — pode mudar depois. Qualquer opção funciona bem.</p></div>
     <div class="modal-cards">
-      <div class="modal-card chat" onclick="selecionarModalidade('chat',this)">
-        <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="mc-icon">💬</span><div class="mc-title">Consulta por chat</div>
-        <div class="mc-desc">Troca de mensagens com o médico em tempo real, discreto e rápido.</div>
-        <span class="mc-badge">Texto</span>
+      <div class="modal-card chat selected" id="cardChat" onclick="selecionarModalidade('chat',this)">
+        <div class="mc-check" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span class="mc-icon">💬</span><div class="mc-title">Chat com médico</div>
+        <div class="mc-desc">Troca de mensagens em tempo real. Discreto e rápido.</div>
+        <span class="mc-badge">Mais rápido</span>
       </div>
-      <div class="modal-card video" onclick="selecionarModalidade('video',this)">
+      <div class="modal-card video" id="cardVideo" onclick="selecionarModalidade('video',this)">
         <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <span class="mc-icon">🎥</span><div class="mc-title">Consulta por vídeo</div>
-        <div class="mc-desc">Consulta cara a cara via Google Meet, como se fosse pessoalmente.</div>
+        <span class="mc-icon">🎥</span><div class="mc-title">Videochamada</div>
+        <div class="mc-desc">Consulta face a face via Google Meet.</div>
         <span class="mc-badge">Videochamada</span>
       </div>
     </div>
-    <button class="btn-modal-cont" id="btnModalCont" disabled>Confirmar e continuar →</button>
+    <button class="btn-modal-cont on" id="btnModalCont">Ir para pagamento e atendimento →</button>
   </div>
 </div>
 
@@ -513,7 +532,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="dispon-status verde" id="disp-status-badge" style="margin:0 auto 16px;display:inline-flex"><div class="dispon-dot"></div><span id="disp-status-txt">Verificando...</span></div>
   <p class="dispon-info" id="disp-info" style="margin-bottom:24px"></p>
   <button class="btn-dispon-cont" id="btnDispCont" onclick="continuar_apos_disponibilidade()" style="display:none;font-size:1.05rem;padding:16px">
-    Iniciar consulta agora →
+    Ir para pagamento e atendimento →
   </button>
 </div>
 
@@ -532,8 +551,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="pay-head">
       <div class="pay-icon">⚡</div>
       <div class="pay-head-text">
-        <h2>Finalize seu atendimento</h2>
-        <p id="pay-subtitulo">Médico disponível agora, resposta em minutos</p>
+        <h2>Pagar e iniciar atendimento</h2>
+        <p id="pay-subtitulo">Pagamento único · R$&nbsp;49,90 · Sem mensalidade</p>
       </div>
     </div>
     <div class="pay-body">
@@ -548,7 +567,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="pay-valor">
     <div class="pay-valor-left">
       <div class="label" id="pay-label-tipo">Atendimento médico online</div>
-      <div class="desc">Médico com CRM ativo · início em minutos</div>
+      <div class="desc">Pagamento único · sem mensalidade · início imediato</div>
     </div>
     <div class="pay-price">R$&nbsp;49,90</div>
   </div>
@@ -560,18 +579,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <input class="pay-input" id="payTel" type="tel" placeholder="DDD + número" autocomplete="tel" inputmode="numeric"/>
   <div class="pay-label">CPF</div>
   <input class="pay-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
-  <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:-8px;margin-bottom:20px;line-height:1.6;display:flex;align-items:flex-start;gap:6px"><span style="flex-shrink:0;margin-top:1px">🏥</span><span>Obrigatório para emissão de receita, atestado e prontuário médico. Seus dados ficam protegidos pelo sigilo médico.</span></div>
+  <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:-8px;margin-bottom:20px;line-height:1.6;display:flex;align-items:flex-start;gap:6px"><span style="flex-shrink:0;margin-top:1px">🏥</span><span>Obrigatório para receita, atestado e prontuário. Protegido pelo sigilo médico.</span></div>
+
+  <!-- Reforço preço + micro-confiança -->
+  <div style="text-align:center;margin-bottom:18px;padding:12px 16px;border-radius:14px;background:rgba(94,224,160,.06);border:1px solid rgba(94,224,160,.18)">
+    <p style="font-size:.88rem;font-weight:700;color:rgba(255,255,255,.92);margin-bottom:4px">Consulta única por R$&nbsp;49,90 · Sem mensalidade</p>
+    <p style="font-size:.75rem;color:rgba(94,224,160,.8);font-weight:400">Pagamento seguro · Atendimento imediato · Sem compromisso</p>
+  </div>
 
   <!-- Inclui -->
   <div class="pay-includes">
-    <div class="pay-includes__title">O que está incluído</div>
+    <div class="pay-includes__title">Está incluído</div>
     <ul>
-      <li>Médico com CRM ativo · atendimento imediato</li>
-      <li>Chat ou videochamada, você escolhe</li>
-      <li>Atendimento médico completo</li>
-      <li>Sigilo médico garantido</li>
+      <li>Médico com CRM ativo · início imediato</li>
+      <li>Chat ou vídeo, você escolhe</li>
+      <li>Receita e atestado quando necessário</li>
+      <li>Sigilo médico garantido por lei</li>
     </ul>
-    <div class="pay-time-note">⚡ Após o pagamento, o médico recebe seu caso imediatamente</div>
+    <div class="pay-time-note">⚡ Após o pagamento, você já inicia sua consulta</div>
   </div>
 
   <!-- Seletor de método de pagamento -->
@@ -593,7 +618,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span style="flex-shrink:0;margin-top:1px">⚠️</span>
       <span>Seu banco pode mostrar um alerta, isso é normal, o pagamento é para <strong style="color:rgba(255,189,46,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, empresa médica registrada.</span>
     </div>
-    <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar com PIX →</button>
+    <button class="pay-btn" id="payBtn" onclick="gerarPagamento()">Pagar e iniciar atendimento →</button>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:4px;text-align:center">
+      <div style="font-size:.73rem;color:rgba(255,255,255,.55);font-weight:500">Pagamento único de R$&nbsp;49,90. Sem mensalidade.</div>
+      <div style="font-size:.71rem;color:rgba(94,224,160,.7)">✓ Após o pagamento, você já inicia sua triagem e atendimento</div>
+    </div>
     <div id="aviso-horario" style="display:none;margin-top:14px;padding:11px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:11px;font-size:13px;color:rgba(255,255,255,.52);line-height:1.6;text-align:center;font-weight:300">Neste horário, pode haver uma leve redução na disponibilidade de profissionais, mas os atendimentos continuam normalmente.</div>
     <div class="pay-qr-section" id="pay-qr-section">
       <div style="text-align:center;margin-bottom:20px">
@@ -661,7 +690,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </select>
     </div>
     <div class="card-err-msg" id="cardErrMsg"></div>
-    <button class="btn-pagar-card" id="btnPagarCard" onclick="pagarCartao()">Pagar R$ 49,90 →</button>
+    <button class="btn-pagar-card" id="btnPagarCard" onclick="pagarCartao()">Pagar e iniciar atendimento →</button>
     <div class="card-processing" id="cardProcessing">⏳ Processando pagamento...</div>
     <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:12px;font-size:.7rem;color:rgba(255,255,255,.35)">
       🔒 Dados tokenizados pelo SDK Efí · nunca trafegam pelo nosso servidor
@@ -696,8 +725,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="ia-banner">
     <span style="font-size:1.1rem">🤖</span>
     <div>
-      <strong>Preparando seu atendimento</strong>
-      <div style="font-size:.73rem;color:rgba(255,189,46,.75);margin-top:2px;font-weight:300">A assistente fará algumas perguntas rápidas para ajudar o médico a entender seu caso. Você ainda não está falando com um médico, suas respostas serão revisadas pelo médico antes do atendimento.</div>
+      <strong>Pagamento confirmado. Responda rapidamente.</strong>
+      <div style="font-size:.73rem;color:rgba(255,189,46,.75);margin-top:2px;font-weight:300">Essas perguntas direcionam seu caso ao médico adequado. Seja direto — quanto mais rápido, mais rápido o médico assume.</div>
     </div>
   </div>
   <div class="chat-area" id="triageChat"></div>
@@ -715,13 +744,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="screen-espera" class="screen box-center">
   <div class="espera-box">
     <div class="espera-anim" id="esperaAnim"><span style="font-size:2rem" id="esperaIcon">⏳</span></div>
-    <h2 class="espera-titulo" id="esperaTitulo">Preparando seu atendimento</h2>
-    <p class="espera-sub" id="esperaSub">Um médico assumirá sua consulta em breve.<br>Por favor, aguarde nesta página.</p>
+    <h2 class="espera-titulo" id="esperaTitulo">Médico sendo notificado agora</h2>
+    <p class="espera-sub" id="esperaSub">Fique nesta página. O médico assume em instantes.</p>
     <div style="margin:-8px auto 20px;max-width:400px;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);font-size:.78rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.6;text-align:left">
       <div style="display:flex;flex-direction:column;gap:6px">
-        <span>📩 Nossa equipe médica foi notificada e o primeiro médico disponível assumirá seu atendimento.</span>
-        <span>⏱ Tempo médio de espera: alguns minutos.</span>
-        <span>🔒 Suas informações são protegidas e seguem as normas de sigilo médico.</span>
+        <span>✅ Pagamento confirmado. Seu caso já foi enviado ao médico.</span>
+        <span>⏱ Tempo médio de espera: poucos minutos.</span>
+        <span>🔒 Sigilo médico garantido por lei.</span>
       </div>
     </div>
     <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">💬</span> <span id="esperaBadgeText">Consulta por chat</span></div>
