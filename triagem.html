@@ -900,7 +900,10 @@ function carregarSessao(){
 
   if(idParaRestaurar){
     try{
-      var res  = await fetch(API+'/api/atendimento/status/'+idParaRestaurar);
+      var ctrl = new AbortController();
+      var toid = setTimeout(function(){ ctrl.abort(); }, 10000);
+      var res  = await fetch(API+'/api/atendimento/status/'+idParaRestaurar, {signal: ctrl.signal});
+      clearTimeout(toid);
       var data = await res.json();
 
       console.log('[INIT] backend status:', data.ok ? data.atendimento.status : 'erro/404',
