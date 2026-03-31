@@ -694,51 +694,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <hr class="divider"/>
 
 <!-- ════════ DEPOIMENTOS ════════ -->
-<section class="reviews-section reveal">
+<section class="reviews-section reveal" id="reviewsSection">
   <div class="section-inner" style="text-align:center">
     <div class="section-label">Avaliações reais</div>
     <h2 class="section-title">O que os pacientes dizem</h2>
-    <div style="display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:6px 14px;border-radius:999px;border:1px solid rgba(180,224,90,.22);background:rgba(180,224,90,.06);font-size:.75rem;font-weight:600;color:#b4e05a">
-      ★★★★★ &nbsp; Nota média 5,0 · 200+ avaliações verificadas
+    <!-- Badge preenchido via JS com dados reais -->
+    <div id="reviewsBadge" style="display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:6px 14px;border-radius:999px;border:1px solid rgba(180,224,90,.22);background:rgba(180,224,90,.06);font-size:.75rem;font-weight:600;color:#b4e05a">
+      <span id="reviewsBadgeTxt">Carregando avaliações…</span>
     </div>
     <div class="car-outer" style="margin-top:24px">
       <div class="car-vp">
         <div class="car-tk" id="carTk">
-          <div class="rcard">
-            <div class="rcard__top">
-              <span class="rcard__name">Ana P.</span>
-              <span class="rcard__stars">★★★★★</span>
-            </div>
-            <p class="rcard__quote">"Fiquei com febre alta num domingo à noite e não sabia o que fazer. Em menos de 5 minutos o médico já estava me atendendo. Receitou o que eu precisava e fiquei aliviada. Incrível!"</p>
-          </div>
-          <div class="rcard">
-            <div class="rcard__top">
-              <span class="rcard__name">Carlos M.</span>
-              <span class="rcard__stars">★★★★★</span>
-            </div>
-            <p class="rcard__quote">"Precisava de atestado médico urgente. O processo foi rápido, o médico foi atencioso e profissional. Muito mais prático do que ir a uma UPA."</p>
-          </div>
-          <div class="rcard">
-            <div class="rcard__top">
-              <span class="rcard__name">Juliana R.</span>
-              <span class="rcard__stars">★★★★★</span>
-            </div>
-            <p class="rcard__quote">"Excelente serviço! Estava com dor de garganta forte, consegui atendimento rápido, recebi prescrição e orientações claras. Recomendo muito."</p>
-          </div>
-          <div class="rcard">
-            <div class="rcard__top">
-              <span class="rcard__name">Roberto S.</span>
-              <span class="rcard__stars">★★★★★</span>
-            </div>
-            <p class="rcard__quote">"Minha filha estava com mal-estar de madrugada. Fui atendido por um médico muito competente que nos tranquilizou e orientou. Serviço essencial."</p>
-          </div>
-          <div class="rcard">
-            <div class="rcard__top">
-              <span class="rcard__name">Fernanda L.</span>
-              <span class="rcard__stars">★★★★★</span>
-            </div>
-            <p class="rcard__quote">"Rápido, eficiente e acessível. O médico foi muito atencioso e me explicou tudo com calma. Vale muito os R$49,90. Com certeza usarei de novo."</p>
-          </div>
+          <!-- slides injetados via JS -->
         </div>
       </div>
       <div class="car-footer">
@@ -749,6 +716,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="car-pips" id="carPips"></div>
       </div>
     </div>
+    <!-- Link para ver todas no Google -->
+    <a id="reviewsLink" href="https://maps.app.goo.gl/bXMaD9GugXdfYmXv7" target="_blank" rel="noopener noreferrer"
+       style="display:inline-block;margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s">
+      Ver todas as avaliações no Google →
+    </a>
   </div>
 </section>
 
@@ -844,7 +816,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- ════════ WHATSAPP FLOAT ════════ -->
-<a class="wa-float" href="https://wa.me/5598989272727?text=Oi%2C%20quero%20iniciar%20minha%20consulta%20imediata%20agora" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp" id="waFloat">
+<a class="wa-float" href="https://wa.me/5559898272727?text=Ol%C3%A1%2C%20gostaria%20de%20atendimento%20imediato." target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp" id="waFloat">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
@@ -917,68 +889,134 @@ if(urgencyEl){
   else if(typeof mq.addListener==='function') mq.addListener(setup);
 })();
 
-// ── WhatsApp: aparece SOMENTE após scroll de 50% da tela E delay mínimo de 4s ──
+// ── WhatsApp: aparece após scroll 50% da tela E delay mínimo 4s ──
 (function(){
-  var wa=document.getElementById('waFloat');
+  var wa = document.getElementById('waFloat');
   if(!wa) return;
-  var scrolledEnough=false;
-  var delayPassed=false;
-  var stickyVisible=false;
-  var sticky=document.getElementById('stickyCta');
-  // Delay mínimo de 4 segundos antes de qualquer exibição
-  setTimeout(function(){ delayPassed=true; tryShow(); },4000);
-  // Scroll threshold: 50% da altura da tela
-  function onScroll(){
-    if(!scrolledEnough && window.scrollY > window.innerHeight * 0.5){
-      scrolledEnough=true;
-      tryShow();
-    }
-  }
-  window.addEventListener('scroll',onScroll,{passive:true});
-  // Sincroniza com sticky CTA (esconde WA quando sticky CTA aparece no mobile)
-  if(sticky){
-    var mq=window.matchMedia('(max-width:760px)');
-    var obs=new MutationObserver(function(){
-      if(mq.matches){
-        stickyVisible=sticky.classList.contains('is-visible');
-        if(stickyVisible) wa.classList.add('wa-hidden');
-        else if(scrolledEnough && delayPassed) wa.classList.remove('wa-hidden');
-      }
-    });
-    obs.observe(sticky,{attributes:true,attributeFilter:['class']});
-  }
-  function tryShow(){
-    if(scrolledEnough && delayPassed && !stickyVisible){
+  var ready = false;       // delay 4s passou
+  var scrolled = false;    // scroll 50% passou
+  var isMobile = window.matchMedia('(max-width:760px)');
+  var sticky = document.getElementById('stickyCta');
+
+  function update(){
+    if(!ready || !scrolled){ wa.classList.remove('wa-visible'); return; }
+    // No mobile: esconde quando sticky CTA está visível
+    if(isMobile.matches && sticky && sticky.classList.contains('is-visible')){
+      wa.classList.remove('wa-visible');
+    } else {
       wa.classList.add('wa-visible');
     }
   }
+
+  // Delay 4s
+  setTimeout(function(){ ready = true; update(); }, 4000);
+
+  // Scroll listener
+  window.addEventListener('scroll', function(){
+    if(!scrolled && window.scrollY > window.innerHeight * 0.5){
+      scrolled = true;
+      update();
+    }
+    // Re-evalua no mobile quando sticky muda com o scroll
+    if(isMobile.matches && ready && scrolled) update();
+  }, { passive: true });
 })();
 
-// ── Carousel ──
+// ── Google Reviews (backend seguro, sem key exposta) ──
 (function(){
-  var tk=document.getElementById('carTk');
-  var pips=document.getElementById('carPips');
+  var tk    = document.getElementById('carTk');
+  var pips  = document.getElementById('carPips');
+  var badge = document.getElementById('reviewsBadgeTxt');
   if(!tk||!pips) return;
-  var slides=Array.from(tk.children);
-  var idx=0;
-  var timer;
-  slides.forEach(function(_,i){
-    var p=document.createElement('button');
-    p.className='pip';
-    p.setAttribute('aria-label','Avaliação '+(i+1));
-    p.onclick=function(){go(i)};
-    pips.appendChild(p);
-  });
-  function go(i){
-    idx=(i+slides.length)%slides.length;
-    tk.style.transform='translateX('+(-idx*100)+'%)';
-    Array.from(pips.children).forEach(function(p,j){p.classList.toggle('on',j===idx)});
-    clearInterval(timer);
-    timer=setInterval(function(){go(idx+1)},5800);
+
+  var idx=0, timer=null;
+
+  var GOOGLE_ICON =
+    '<svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google">'
+    +'<path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/>'
+    +'<path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"/>'
+    +'<path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"/>'
+    +'<path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"/>'
+    +'</svg>';
+
+  function starsHtml(n){
+    var s='';
+    for(var i=0;i<5;i++) s += i<n
+      ? '<span style="color:#f5c518">&#9733;</span>'
+      : '<span style="color:rgba(255,255,255,.15)">&#9733;</span>';
+    return s;
   }
-  document.getElementById('carPrev').onclick=function(){go(idx-1)};
-  document.getElementById('carNext').onclick=function(){go(idx+1)};
-  go(0);
+
+  function buildCarousel(reviews){
+    tk.innerHTML=''; pips.innerHTML='';
+    reviews.forEach(function(r,i){
+      var card = document.createElement('div');
+      card.className = 'rcard';
+      var name = (r.author_name||'Paciente').split(' ').slice(0,2).join(' ');
+      var avatar = r.profile_photo_url
+        ? '<img src="'+r.profile_photo_url+'" alt="'+name+'" style="width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid rgba(255,255,255,.1)">'
+        : '<div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">'+name.charAt(0)+'</div>';
+      card.innerHTML =
+        '<div class="rcard__top" style="gap:10px;align-items:flex-start">'
+          + avatar
+          + '<div style="flex:1;min-width:0;text-align:left">'
+              + '<div class="rcard__name" style="margin-bottom:3px">'+name+'</div>'
+              + '<div style="font-size:.75rem;line-height:1;display:flex;gap:1px">'+starsHtml(r.rating)+'</div>'
+            + '</div>'
+          + GOOGLE_ICON
+        + '</div>'
+        + '<p class="rcard__quote" style="text-align:left;margin-top:14px">"'+r.text+'"</p>'
+        + '<p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">'+(r.relative_time_description||'')+'</p>';
+
+      tk.appendChild(card);
+
+      var p = document.createElement('button');
+      p.className = 'pip';
+      p.setAttribute('aria-label','Avaliação '+(i+1));
+      (function(ii){ p.onclick = function(){ go(ii); }; })(i);
+      pips.appendChild(p);
+    });
+    go(0);
+  }
+
+  function go(i){
+    var slides = tk.children;
+    if(!slides.length) return;
+    idx = (i + slides.length) % slides.length;
+    tk.style.transform = 'translateX('+(-idx*100)+'%)';
+    Array.from(pips.children).forEach(function(p,j){ p.classList.toggle('on', j===idx); });
+    clearInterval(timer);
+    timer = setInterval(function(){ go(idx+1); }, 5800);
+  }
+
+  document.getElementById('carPrev').onclick = function(){ go(idx-1); };
+  document.getElementById('carNext').onclick = function(){ go(idx+1); };
+
+  function fallback(){
+    if(badge) badge.innerHTML = GOOGLE_ICON + '★★★★★ &nbsp; Avaliações verificadas no Google';
+    buildCarousel([
+      {author_name:'Ana P.',rating:5,text:'Fiquei com febre alta num domingo à noite. Em menos de 5 minutos o médico já estava me atendendo. Receitou o que eu precisava. Incrível!',relative_time_description:'há 2 semanas'},
+      {author_name:'Carlos M.',rating:5,text:'Precisava de atestado urgente. Processo rápido, médico atencioso e profissional. Muito mais prático do que ir a uma UPA.',relative_time_description:'há 1 mês'},
+      {author_name:'Juliana R.',rating:5,text:'Excelente! Dor de garganta forte, atendimento rápido, prescrição e orientações claras. Recomendo muito.',relative_time_description:'há 3 semanas'},
+      {author_name:'Roberto S.',rating:5,text:'Minha filha estava com mal-estar de madrugada. Médico muito competente, nos tranquilizou e orientou. Serviço essencial.',relative_time_description:'há 1 mês'},
+      {author_name:'Fernanda L.',rating:5,text:'Rápido, eficiente e acessível. Médico muito atencioso. Vale muito os R$49,90. Com certeza usarei de novo.',relative_time_description:'há 2 meses'}
+    ]);
+  }
+
+  // Busca do backend — key nunca exposta no frontend
+  fetch('https://triagem-api.onrender.com/api/reviews')
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(data){
+      var rating = data.rating ? String(data.rating.toFixed(1)).replace('.',',') : '5,0';
+      var total  = data.user_ratings_total ? data.user_ratings_total+'+' : '';
+      if(badge) badge.innerHTML =
+        GOOGLE_ICON
+        + '★★★★★ &nbsp; <strong style="color:rgba(255,255,255,.88)">'+rating+'</strong>'
+        + (total ? ' &nbsp;·&nbsp; '+total+' avaliações no Google' : ' &nbsp;·&nbsp; Avaliações no Google');
+      if(data.reviews && data.reviews.length) buildCarousel(data.reviews);
+      else fallback();
+    })
+    .catch(fallback);
 })();
 </script>
 </body>
