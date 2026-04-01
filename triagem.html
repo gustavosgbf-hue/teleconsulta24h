@@ -1019,8 +1019,22 @@ async function avancarWhatsapp(){
       if(pacienteNascimento){ var nascEl = document.getElementById('wppNasc'); if(nascEl) nascEl.value = pacienteNascimento; }
       status.textContent = '✔ Cadastro encontrado. Continuando...';
       status.className   = 'autofill-status show';
-      // Se tem nome, prosseguir direto
+      // Se tem nome, prosseguir direto — mas se falta data de nascimento, pedir antes
       if(pacienteNome && pacienteNome.trim().split(/\s+/).length >= 2){
+        if(!pacienteNascimento){
+          // Retornante sem data de nascimento cadastrada — mostrar só o campo de data
+          document.getElementById('nasc-wrap').style.display = 'block';
+          status.textContent = '✔ Cadastro encontrado. Informe sua data de nascimento para continuar.';
+          btn.disabled = false; btn.textContent = 'Iniciar atendimento agora →';
+          // Reatribuir onclick para coletar a data antes de avançar
+          btn.onclick = function(){
+            pacienteNascimento = converterNascimento(document.getElementById('wppNasc').value);
+            fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel})}).catch(function(){});
+            fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel,versao:'termos-v1.0'})}).catch(function(){});
+            irParaPagamento();
+          };
+          return;
+        }
         // log identify + consent inline
         fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel})}).catch(function(){});
         fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel,versao:'termos-v1.0'})}).catch(function(){});
