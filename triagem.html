@@ -63,6 +63,8 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   background:rgba(255,255,255,.025);
   overflow:hidden;
 }
+/* Payment card: não cortar o QR que cresce após gerar PIX */
+#s-payment .s-card{ overflow:visible; }
 
 /* ── FIELDS ── */
 .f-label{font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px;display:block}
@@ -170,12 +172,12 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 /* ── PIX QR section ── */
 #pix-qr-wrap{display:none;text-align:center;padding:4px 0}
 #pix-qr-wrap.show{display:block}
-#pay-qr-img{width:200px;height:200px;border-radius:14px;border:2px solid rgba(180,224,90,.3);
-  background:#fff;padding:8px;display:none;margin:0 auto 10px;image-rendering:pixelated;
-  box-shadow:0 0 28px rgba(180,224,90,.1)}
-#pay-qr-fallback{display:none;width:200px;height:200px;border-radius:14px;
+#pay-qr-img{width:160px;height:160px;border-radius:12px;border:2px solid rgba(180,224,90,.3);
+  background:#fff;padding:6px;display:none;margin:0 auto 8px;image-rendering:pixelated;
+  box-shadow:0 0 20px rgba(180,224,90,.1)}
+#pay-qr-fallback{display:none;width:160px;height:160px;border-radius:12px;
   border:2px solid rgba(180,224,90,.12);background:rgba(255,255,255,.02);
-  margin:0 auto 10px;align-items:center;justify-content:center;
+  margin:0 auto 8px;align-items:center;justify-content:center;
   flex-direction:column;gap:6px;font-size:.78rem;color:rgba(255,255,255,.4)}
 .pix-copy-row{display:flex;align-items:center;gap:8px}
 #pixChaveInput{flex:1;min-width:0;background:rgba(255,255,255,.05);
@@ -457,6 +459,15 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <div id="nome-wrap" style="display:none">
           <label class="f-label" for="wppNome">Nome completo</label>
           <input class="f-input" id="wppNome" type="text" placeholder="Nome e sobrenome" autocomplete="name"/>
+        </div>
+        <!-- Data de nascimento: necessário para Memed e prontuário -->
+        <div id="nasc-wrap" style="display:none">
+          <label class="f-label" for="wppNasc">Data de nascimento <span style="text-transform:none;letter-spacing:0;font-weight:300;color:rgba(255,255,255,.3)">(para o médico)</span></label>
+          <input class="f-input" id="wppNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraNasc(this)"/>
+          <div class="fb" id="fb-nasc">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Data válida
+          </div>
         </div>
         <button class="cta" id="btnWpp" onclick="avancarWhatsapp()">Iniciar atendimento agora →</button>
         <p class="tcle">Ao continuar, você concorda com os <a href="termos.html" target="_blank">Termos de Uso</a> e <a href="privacy.html" target="_blank">Política de Privacidade</a></p>
@@ -1001,9 +1012,11 @@ async function avancarWhatsapp(){
       var p = data.paciente;
       pacienteNome        = p.nome        || '';
       pacienteTelDoc      = p.tel_doc     || tel;
-      pacienteNascimento  = p.data_nascimento || '';   // backend field is data_nascimento
+      pacienteNascimento  = p.data_nascimento || '';
       pacienteEmail       = p.email       || '';
       pacienteCPF         = p.cpf         || '';
+      // Pre-fill nascimento field if available
+      if(pacienteNascimento){ var nascEl = document.getElementById('wppNasc'); if(nascEl) nascEl.value = pacienteNascimento; }
       status.textContent = '✔ Cadastro encontrado. Continuando...';
       status.className   = 'autofill-status show';
       // Se tem nome, prosseguir direto
@@ -1025,8 +1038,9 @@ async function avancarWhatsapp(){
     status.className   = 'autofill-status show';
   }
 
-  // Mostrar campo nome
+  // Mostrar campos nome + nascimento
   nomeWrap.style.display = 'block';
+  document.getElementById('nasc-wrap').style.display = 'block';
   nomeEl.focus();
   btn.disabled = false; btn.textContent = 'Iniciar atendimento agora →';
   // Reatribuir onclick para etapa com nome
@@ -1042,8 +1056,9 @@ function confirmarWhatsappComNome(){
     setTimeout(function(){nomeEl.style.borderColor='';},1500);
     nomeEl.focus(); return;
   }
-  pacienteNome   = nome;
-  pacienteTelDoc = pacienteTel;
+  pacienteNome      = nome;
+  pacienteTelDoc    = pacienteTel;
+  pacienteNascimento = converterNascimento(document.getElementById('wppNasc').value);
   fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,tel:pacienteTel})}).catch(function(){});
   fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,tel:pacienteTel,versao:'termos-v1.0'})}).catch(function(){});
   irParaPagamento();
@@ -1196,7 +1211,7 @@ async function gerarPagamento(){
       imgEl.onerror = function(){ imgEl.style.display='none'; if(fbEl) fbEl.style.display='flex'; };
       if(qrBase64) imgEl.src = qrBase64.startsWith('data:image')?qrBase64:'data:image/png;base64,'+qrBase64;
       else if(data.qr_code_url) imgEl.src = data.qr_code_url;
-      else if(pixText) imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(pixText);
+      else if(pixText) imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data='+encodeURIComponent(pixText);
       else { imgEl.style.display='none'; if(fbEl) fbEl.style.display='flex'; }
     }
     var inputChave = document.getElementById('pixChaveInput');
@@ -1712,7 +1727,9 @@ function novaConsulta(){
   // Resetar form whatsapp
   document.getElementById('wppTel').value='';
   document.getElementById('wppNome').value='';
+  document.getElementById('wppNasc').value='';
   document.getElementById('nome-wrap').style.display='none';
+  document.getElementById('nasc-wrap').style.display='none';
   document.getElementById('autofill-status').className='autofill-status';
   document.getElementById('fb-wpp').classList.remove('show');
   document.getElementById('btnWpp').onclick=avancarWhatsapp;
@@ -1786,6 +1803,23 @@ async function callAPI(endpoint,system,history,userMsg){
   }
 }
 function esperar(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+
+function mascaraNasc(el){
+  var v=el.value.replace(/\D/g,'');
+  if(v.length>8) v=v.slice(0,8);
+  if(v.length>4) v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+  else if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
+  el.value=v;
+  var fb=document.getElementById('fb-nasc');
+  if(fb){ var ok=(v.length===10); fb.classList.toggle('show',ok); }
+}
+// Converte DD/MM/AAAA → AAAA-MM-DD para o backend (Memed espera ISO)
+function converterNascimento(val){
+  if(!val||val.length!==10) return val||'';
+  var p=val.split('/');
+  if(p.length!==3) return val;
+  return p[2]+'-'+p[1]+'-'+p[0];
+}
 
 // ─── TRIAGE INPUT EVENTS ────────────────────────────────────────────────────
 (function(){
