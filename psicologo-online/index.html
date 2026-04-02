@@ -622,32 +622,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="bk-btn" id="bk-btn-confirmar" onclick="bkConfirmarHorario()" disabled>Confirmar horário →</button>
     </div>
 
-    <!-- Step 2: Auth -->
+    <!-- Step 2: Checkout rápido (sem login) -->
     <div id="bk-step-auth" class="bk-inner" style="display:none">
-      <div class="bk-title">Acesse sua conta</div>
-      <p style="font-size:.82rem;color:var(--ink-2);margin-bottom:16px">Para confirmar o agendamento, entre na sua conta ou cadastre-se — leva menos de 1 minuto e seus dados ficam protegidos.</p>
-      <div class="bk-tabs">
-        <button class="bk-tab act" id="tab-login" onclick="bkSwitchAuth('login');this.classList.add('act');document.getElementById('tab-cad').classList.remove('act')">Já tenho conta</button>
-        <button class="bk-tab" id="tab-cad" onclick="bkSwitchAuth('cadastro');this.classList.add('act');document.getElementById('tab-login').classList.remove('act')">Cadastrar</button>
+      <div class="bk-title">Seus dados</div>
+      <p style="font-size:.82rem;color:var(--ink-2);margin-bottom:18px;line-height:1.55">Preencha rapidinho para confirmar o horário. Nenhuma senha necessária.</p>
+
+      <!-- Slot selecionado resumido -->
+      <div id="bk-checkout-slot-info" style="background:var(--psi);border:1px solid rgba(38,80,142,.18);border-radius:12px;padding:12px 14px;margin-bottom:18px;font-size:.82rem;color:var(--psi-dark);font-weight:500;display:flex;align-items:center;gap:8px">
+        <span style="font-size:1rem">📅</span>
+        <span id="bk-checkout-slot-label">—</span>
       </div>
 
-      <div id="bk-auth-login">
-        <input class="bk-input" id="bk-login-email" type="email" placeholder="Seu e-mail">
-        <input class="bk-input" id="bk-login-senha" type="password" placeholder="Senha">
-        <div class="bk-err" id="bk-login-err"></div>
-        <button class="bk-btn" onclick="bkLogin()">Entrar e confirmar →</button>
-      </div>
+      <input class="bk-input" id="bk-co-nome" type="text" placeholder="Nome completo" autocomplete="name">
+      <input class="bk-input" id="bk-co-email" type="email" placeholder="E-mail (para receber o link)" autocomplete="email">
+      <input class="bk-input" id="bk-co-tel" type="tel" placeholder="WhatsApp com DDD" oninput="bkFmtTel(this)" maxlength="15" autocomplete="tel">
+      <input class="bk-input" id="bk-co-cpf" type="tel" placeholder="CPF (obrigatório para pagamento)" oninput="bkFmtCpf(this)" maxlength="14" autocomplete="off">
 
-      <div id="bk-auth-cadastro" style="display:none">
-        <input class="bk-input" id="bk-cad-nome" type="text" placeholder="Seu nome completo">
-        <input class="bk-input" id="bk-cad-email" type="email" placeholder="Seu e-mail">
-        <input class="bk-input" id="bk-cad-senha" type="password" placeholder="Crie uma senha (mín. 6 caracteres)">
-        <input class="bk-input" id="bk-cad-cpf" type="tel" placeholder="CPF (obrigatório para pagamento)" oninput="bkFmtCpf(this)" maxlength="14">
-        <div class="bk-err" id="bk-cad-err"></div>
-        <button class="bk-btn" onclick="bkCadastro()">Cadastrar e confirmar →</button>
-      </div>
+      <div class="bk-err" id="bk-co-err"></div>
 
-      <button class="bk-btn bk-btn-sec" style="margin-top:10px" onclick="bkShowStep('bk-step-horario')">← Voltar</button>
+      <button class="bk-btn" id="bk-co-btn" onclick="bkCheckoutContinuar()">Continuar para pagamento →</button>
+      <button class="bk-btn bk-btn-sec" style="margin-top:8px" onclick="bkShowStep('bk-step-horario')">← Voltar</button>
+
+      <p style="margin-top:14px;font-size:.7rem;color:var(--ink-3);text-align:center;line-height:1.5">🔒 Seus dados são protegidos · Nenhuma cobrança antes da confirmação</p>
     </div>
 
     <!-- Step 3: Escolha de pagamento -->
@@ -727,11 +723,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button id="bk-pix-regenerar" class="bk-btn bk-btn-sec" style="display:none;margin-top:4px" onclick="bkRegenerarPix()">🔄 Gerar novo código PIX</button>
     </div>
 
-    <!-- Step 4: Confirmado -->
+    <!-- Step: Confirmado -->
     <div id="bk-step-ok" class="bk-inner" style="display:none;text-align:center">
       <div class="bk-ok-icon">🎉</div>
-      <div style="font-family:var(--font-d);font-size:1.5rem;font-weight:500;color:var(--ink);margin-bottom:8px">Agendamento confirmado!</div>
-      <p style="font-size:.88rem;color:var(--ink-2);font-weight:300;line-height:1.65;margin-bottom:20px">Pagamento recebido. Você receberá o link da sessão por e-mail. Qualquer dúvida, fale com a gente no WhatsApp.</p>
+      <div style="font-family:var(--font-d);font-size:1.5rem;font-weight:500;color:var(--ink);margin-bottom:8px">Sessão confirmada!</div>
+      <div id="bk-ok-details" style="background:var(--psi);border:1px solid rgba(38,80,142,.14);border-radius:14px;padding:16px;margin-bottom:16px;text-align:left">
+        <div style="font-size:.7rem;color:var(--ink-3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:600">Sua sessão</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:.85rem;color:var(--ink-2)">👩‍⚕️ <strong id="bk-ok-psi-nome">—</strong></div>
+          <div style="font-size:.85rem;color:var(--ink-2)">📅 <span id="bk-ok-slot">—</span></div>
+          <div style="font-size:.85rem;color:var(--ink-2)">⏱ Sessão de 50 minutos</div>
+        </div>
+      </div>
+      <p style="font-size:.85rem;color:var(--ink-2);font-weight:300;line-height:1.65;margin-bottom:8px">O link da sessão será enviado para o seu e-mail. Qualquer dúvida, fale conosco pelo WhatsApp.</p>
+      <p style="font-size:.77rem;color:var(--ink-3);margin-bottom:18px">💡 Você pode criar uma senha depois para acompanhar todas as suas sessões pela área do paciente.</p>
       <a href="https://wa.me/5598989272727?text=Confirmar%20meu%20agendamento" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;background:#25d366;color:#fff;font-weight:600;font-size:.88rem;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,.35)">💬 Falar com suporte</a>
       <button class="bk-btn" style="margin-top:10px" onclick="closeModal()">Fechar</button>
     </div>
@@ -1182,6 +1187,16 @@ function closeModal() {
   bkStopPixCountdown();
   bk.psi = null; bk.slots = []; bk.selSlot = null;
   bk.agendamentoId = null; bk.orderId = null; bk.paciente = null;
+
+  // Clear error messages and reset button states
+  const errEls = ['bk-co-err','bk-cc-err','bk-login-err','bk-cad-err'];
+  errEls.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = ''; });
+
+  const coBtn = document.getElementById('bk-co-btn');
+  if (coBtn) { coBtn.disabled = false; coBtn.textContent = 'Continuar para pagamento →'; }
+
+  const ccBtn = document.getElementById('bk-cc-btn');
+  if (ccBtn) { ccBtn.disabled = false; ccBtn.textContent = 'Pagar com cartão →'; }
 }
 
 function bkShowStep(id) {
@@ -1189,6 +1204,19 @@ function bkShowStep(id) {
     const el = document.getElementById(s);
     if (el) el.style.display = s === id ? 'block' : 'none';
   });
+
+  // Pre-fill card form with data from checkout step when shown
+  if (id === 'bk-step-cartao' && bk.paciente) {
+    const p = bk.paciente;
+    const nomeEl = document.getElementById('bk-cc-nome');
+    const cpfEl  = document.getElementById('bk-cc-cpf');
+    const emailEl= document.getElementById('bk-cc-email');
+    const telEl  = document.getElementById('bk-cc-tel');
+    if (nomeEl && !nomeEl.value && p.nome)  nomeEl.value = p.nome;
+    if (emailEl&& !emailEl.value && p.email) emailEl.value = p.email;
+    if (telEl  && !telEl.value  && p.tel)  { telEl.value = p.tel; bkFmtTel(telEl); }
+    if (cpfEl  && !cpfEl.value  && p.cpf)  { cpfEl.value = p.cpf; bkFmtCpf(cpfEl); }
+  }
 }
 
 function parseFocos(raw) {
@@ -1264,144 +1292,138 @@ function bkRenderPerfil() {
   document.getElementById('bk-btn-confirmar').disabled = true;
 }
 
-async function bkConfirmarHorario() {
+/* ----------------------------------------------------------------
+   CHECKOUT — no login required
+   ---------------------------------------------------------------- */
+function bkConfirmarHorario() {
   if (!bk.selSlot) return;
-  const token = localStorage.getItem('pac_token');
-  if (!token) { bkShowStep('bk-step-auth'); return; }
 
-  // Tentar recuperar dados do cache local
-  if (!bk.paciente) {
-    try { bk.paciente = JSON.parse(localStorage.getItem('pac_info') || 'null'); } catch(_) {}
+  // Pre-fill from cached session if available
+  const cachedInfo = JSON.parse(localStorage.getItem('pac_info') || 'null');
+  if (cachedInfo) {
+    if (cachedInfo.nome)  document.getElementById('bk-co-nome').value  = cachedInfo.nome;
+    if (cachedInfo.email) document.getElementById('bk-co-email').value = cachedInfo.email;
+    if (cachedInfo.tel)   { const el = document.getElementById('bk-co-tel'); el.value = cachedInfo.tel; bkFmtTel(el); }
+    if (cachedInfo.cpf)   { const el = document.getElementById('bk-co-cpf'); el.value = cachedInfo.cpf; bkFmtCpf(el); }
   }
 
-  // Se ainda não tem nome/email, buscar da API
-  if (!bk.paciente || !bk.paciente.nome || !bk.paciente.email) {
-    bkShowStep('bk-loading');
-    try {
-      const r = await fetch(API + '/api/paciente/me', {
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      const d = await r.json();
-      if (d.ok && d.paciente) {
-        bk.paciente = d.paciente;
-        localStorage.setItem('pac_info', JSON.stringify(d.paciente));
-      } else {
-        // Token inválido ou expirado
-        localStorage.removeItem('pac_token');
-        localStorage.removeItem('pac_info');
-        bkShowStep('bk-step-auth');
-        return;
-      }
-    } catch(_) {
-      bkShowStep('bk-step-auth');
-      return;
-    }
-  }
-
-  bkCriarAgendamento();
+  // Show selected slot in checkout summary
+  document.getElementById('bk-checkout-slot-label').textContent = bk.selSlot.label;
+  bkShowStep('bk-step-auth');
 }
 
-// AUTH
-function bkSwitchAuth(mode) {
-  document.getElementById('bk-auth-login').style.display = mode==='login'?'block':'none';
-  document.getElementById('bk-auth-cadastro').style.display = mode==='cadastro'?'block':'none';
-}
-
-async function bkLogin() {
-  const email = document.getElementById('bk-login-email').value.trim();
-  const senha = document.getElementById('bk-login-senha').value;
-  const err = document.getElementById('bk-login-err');
+async function bkCheckoutContinuar() {
+  const nome  = document.getElementById('bk-co-nome').value.trim();
+  const email = document.getElementById('bk-co-email').value.trim();
+  const tel   = document.getElementById('bk-co-tel').value.replace(/\D/g,'');
+  const cpf   = document.getElementById('bk-co-cpf').value.replace(/\D/g,'');
+  const err   = document.getElementById('bk-co-err');
   err.textContent = '';
-  if (!email || !senha) { err.textContent = 'Preencha e-mail e senha.'; return; }
-  try {
-    const r = await fetch(API + '/api/paciente/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email,senha}) });
-    const d = await r.json();
-    if (!d.ok || !d.token) throw new Error(d.mensagem || d.error || 'Credenciais inválidas');
-    localStorage.setItem('pac_token', d.token);
-    localStorage.setItem('pac_info', JSON.stringify(d.paciente));
-    bk.paciente = d.paciente;
-    bkCriarAgendamento();
-  } catch(e) { err.textContent = e.message; }
-}
 
-async function bkCadastro() {
-  const nome  = document.getElementById('bk-cad-nome').value.trim();
-  const email = document.getElementById('bk-cad-email').value.trim();
-  const senha = document.getElementById('bk-cad-senha').value;
-  const cpf   = document.getElementById('bk-cad-cpf').value.replace(/\D/g,'');
-  const err   = document.getElementById('bk-cad-err');
-  err.textContent = '';
-  if (!nome || !email || !senha) { err.textContent = 'Preencha todos os campos.'; return; }
-  if (cpf.length !== 11) { err.textContent = 'CPF inválido — obrigatório para pagamento.'; return; }
-  try {
-    const r = await fetch(API + '/api/paciente/cadastro', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({nome, email, senha, cpf}) });
-    const d = await r.json();
-    if (!d.ok || !d.token) throw new Error(d.mensagem || d.error || 'Erro no cadastro');
-    localStorage.setItem('pac_token', d.token);
-    localStorage.setItem('pac_info', JSON.stringify(d.paciente));
-    bk.paciente = d.paciente;
-    bkCriarAgendamento();
-  } catch(e) { err.textContent = e.message; }
+  if (!nome || nome.split(' ').length < 2) { err.textContent = 'Informe seu nome completo.'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'E-mail inválido.'; return; }
+  if (tel.length < 10) { err.textContent = 'Informe o WhatsApp com DDD.'; return; }
+  if (cpf.length !== 11) { err.textContent = 'CPF inválido — necessário para emissão do comprovante.'; return; }
+
+  const btn = document.getElementById('bk-co-btn');
+  btn.disabled = true;
+  btn.textContent = 'Aguarde…';
+
+  bk.paciente = { nome, email, tel, cpf };
+  // Cache for convenience (no password stored)
+  localStorage.setItem('pac_info', JSON.stringify(bk.paciente));
+
+  await bkCriarAgendamento();
+
+  btn.disabled = false;
+  btn.textContent = 'Continuar para pagamento →';
 }
 
 async function bkCriarAgendamento() {
   bkShowStep('bk-loading');
-  const token = localStorage.getItem('pac_token');
   const pac = bk.paciente || {};
+
+  // Try authenticated endpoint first (if cached token exists), fall back to guest endpoint
+  const token = localStorage.getItem('pac_token');
+  const headers = {'Content-Type':'application/json'};
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+
+  const payload = {
+    psicologoId:      bk.psi.id,
+    horario_agendado: bk.selSlot.iso,
+    paciente_nome:    pac.nome  || '',
+    paciente_email:   pac.email || '',
+    paciente_tel:     pac.tel   || '',
+    paciente_cpf:     String(pac.cpf || '').replace(/\D/g,''),
+    tipo_consulta:    'psicoterapia'
+  };
+
   try {
-    const r = await fetch(API + '/api/psicologia/agendamento/criar', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body: JSON.stringify({
-        psicologoId:      bk.psi.id,
-        horario_agendado: bk.selSlot.iso,
-        paciente_nome:    pac.nome  || '',
-        paciente_email:   pac.email || '',
-        paciente_tel:     pac.tel   || '',
-        paciente_cpf:     String(pac.cpf || '').replace(/\D/g,''),
-        tipo_consulta:    'psicoterapia'
-      })
-    });
-    const d = await r.json();
-    if (d.code === 'AUTH_REQUIRED') { localStorage.removeItem('pac_token'); bkShowStep('bk-step-auth'); return; }
-    if (!d.ok) throw new Error(d.error || d.mensagem || 'Erro ao criar agendamento');
+    let d;
+
+    // First attempt: with auth token if available
+    if (token) {
+      const r = await fetch(API + '/api/psicologia/agendamento/criar', {
+        method:'POST', headers, body: JSON.stringify(payload)
+      });
+      d = await r.json();
+      if (d.code === 'AUTH_REQUIRED') {
+        // Token expired — clear and retry as guest
+        localStorage.removeItem('pac_token');
+        d = null;
+      }
+    }
+
+    // Guest attempt (no token required)
+    if (!d) {
+      const r2 = await fetch(API + '/api/psicologia/agendamento/criar-guest', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      d = await r2.json();
+    }
+
+    if (!d || !d.ok) throw new Error((d && (d.error || d.mensagem)) || 'Erro ao criar agendamento');
+
     bk.agendamentoId = d.agendamentoId;
     bk.valorSessao = d.valor || bk.psi.valor_sessao;
     document.getElementById('bk-pay-valor').textContent = 'R$' + bk.valorSessao;
     bkShowStep('bk-step-pagamento');
+
+    gtag('event', 'checkout_started', {
+      event_category: 'conversion',
+      professional_id: bk.psi.id,
+      value: bk.valorSessao
+    });
   } catch(e) {
-    bkShowStep('bk-step-horario');
-    alert('Erro: ' + e.message);
+    bkShowStep('bk-step-auth');
+    document.getElementById('bk-co-err').textContent = 'Erro: ' + e.message + '. Verifique os dados e tente novamente.';
   }
 }
 
 async function bkGerarPix(valor) {
-  const token = localStorage.getItem('pac_token');
-  const pac = bk.paciente || {};
-  const nome = pac.nome || '';
-  const cpf  = String(pac.cpf || '').replace(/\D/g,'');
+  const pac  = bk.paciente || {};
+  const nome = pac.nome  || '';
+  const cpf  = String(pac.cpf  || '').replace(/\D/g,'');
+  const email= pac.email || '';
 
   if (!cpf || cpf.length !== 11) {
-    // CPF não cadastrado — pedir antes de gerar PIX
-    const cpfInput = prompt('Para gerar o PIX precisamos do seu CPF (só números):');
-    if (!cpfInput || cpfInput.replace(/\D/g,'').length !== 11) {
-      alert('CPF inválido. Tente novamente.');
-      return;
-    }
-    pac.cpf = cpfInput.replace(/\D/g,'');
-    bk.paciente = pac;
+    bkShowStep('bk-step-auth');
+    document.getElementById('bk-co-err').textContent = 'CPF obrigatório para gerar o PIX. Preencha seus dados novamente.';
+    return;
   }
 
   bkShowStep('bk-loading');
   try {
     const r = await fetch(API + '/api/psicologia/pagbank/order', {
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         agendamentoId: bk.agendamentoId,
         nome: nome || 'Paciente',
-        cpf:  String(pac.cpf || '').replace(/\D/g,''),
-        email: pac.email || ''
+        cpf,
+        email
       })
     });
     const d = await r.json();
@@ -1412,6 +1434,11 @@ async function bkGerarPix(valor) {
     bkShowStep('bk-step-pix');
     bkStartPolling();
     bkStartPixCountdown(600);
+
+    gtag('event', 'pix_generated', {
+      event_category: 'conversion',
+      value: d.valor || valor
+    });
   } catch(e) {
     bkShowStep('bk-step-pagamento');
     alert('Erro ao gerar PIX: ' + e.message);
@@ -1467,10 +1494,9 @@ async function bkPagarCartao() {
 
     if (!tokenResult || !tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão. Verifique os dados.');
 
-    const token = localStorage.getItem('pac_token');
     const r = await fetch(API + '/api/psicologia/efi/cartao/cobrar', {
       method: 'POST',
-      headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
+      headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
         payment_token: tokenResult.payment_token,
         nome, cpf, email,
@@ -1482,7 +1508,15 @@ async function bkPagarCartao() {
     });
     const d = await r.json();
     if (!d.ok) throw new Error(d.error || 'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
-    bkShowStep('bk-step-ok');
+
+    gtag('event', 'purchase', {
+      event_category: 'conversion',
+      value: bk.valorSessao,
+      currency: 'BRL',
+      payment_method: 'card'
+    });
+
+    bkShowConfirmado();
   } catch(e) {
     err.textContent = '❌ ' + (e.message || 'Erro ao processar. Tente novamente.');
     btnPagar.disabled = false;
@@ -1545,10 +1579,27 @@ function bkStartPolling() {
       if (d.ok && d.agendamento && d.agendamento.pagamento_status === 'confirmado') {
         clearInterval(bk.pollingTimer);
         bkStopPixCountdown();
-        bkShowStep('bk-step-ok');
+        bkShowConfirmado();
       }
     } catch(_) {}
   }, 4000);
+}
+
+function bkShowConfirmado() {
+  // Populate confirmation screen with session details
+  const psiNome = bk.psi ? (bk.psi.nome_exibicao || bk.psi.nome || '') : '';
+  const slotLabel = bk.selSlot ? bk.selSlot.label : '';
+  const el1 = document.getElementById('bk-ok-psi-nome');
+  const el2 = document.getElementById('bk-ok-slot');
+  if (el1) el1.textContent = psiNome;
+  if (el2) el2.textContent = slotLabel;
+  bkShowStep('bk-step-ok');
+
+  gtag('event', 'purchase_confirmed', {
+    event_category: 'conversion',
+    value: bk.valorSessao,
+    currency: 'BRL'
+  });
 }
 
 /* PIX countdown — 10 minutos (600 s) */
