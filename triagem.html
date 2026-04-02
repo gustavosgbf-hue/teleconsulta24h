@@ -505,6 +505,13 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
           </div>
         </div>
 
+        <!-- Aviso horário noturno — aparece só quando status vermelho -->
+        <div id="aviso-horario-pay" style="display:none;text-align:center;font-size:.72rem;
+          color:rgba(255,255,255,.38);font-weight:300;line-height:1.6;
+          margin:-4px 0 4px;padding:0 4px">
+          Atendimento disponível. Neste horário o médico pode demorar alguns minutos para assumir, fique na página após o pagamento.
+        </div>
+
         <!-- Preço -->
         <div class="price-row">
           <div>
@@ -561,7 +568,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
           </div>
           <button class="cta" id="payBtn" onclick="gerarPagamento()" style="margin-top:4px">Continuar para atendimento →</button>
           <div style="margin-top:8px;text-align:center;font-size:.7rem;color:rgba(255,255,255,.4)">Aprovação automática. Sem redirecionamento.</div>
-          <div id="aviso-horario" class="night-notice" style="margin-top:8px">Neste horário pode haver uma leve demora até o médico assumir.</div>
+
 
           <!-- QR Code — aparece após gerar -->
           <div id="pix-qr-wrap">
@@ -579,6 +586,20 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
               <strong style="color:rgba(255,255,255,.42)">JG FONSECA SERVICOS MEDICOS LTDA</strong><br>Válido por 30 min
             </div>
             <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento…</div>
+
+            <!-- Botão "já paguei" — aparece após 2 min de espera -->
+            <div id="ja-paguei-wrap" style="display:none;text-align:center;margin-top:10px">
+              <button onclick="verificarPagamentoManual()" id="ja-paguei-btn"
+                style="padding:10px 20px;border-radius:11px;border:1px solid rgba(180,224,90,.25);
+                background:rgba(180,224,90,.06);color:#b4e05a;font-family:'Outfit',sans-serif;
+                font-size:.82rem;font-weight:600;cursor:pointer;width:100%">
+                ✓ Já paguei, verificar agora
+              </button>
+              <div style="font-size:.65rem;color:rgba(255,255,255,.22);margin-top:5px">
+                Clique se o pagamento já foi debitado e a tela não avançou
+              </div>
+            </div>
+
             <div style="text-align:center;margin-top:12px">
               <button onclick="novaConsulta()" style="background:none;border:none;color:rgba(255,255,255,.2);font-family:'Outfit',sans-serif;font-size:.7rem;cursor:pointer;text-decoration:underline">← recomeçar</button>
             </div>
@@ -734,8 +755,34 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       </div>
       <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">💬</span> <span id="esperaBadgeText">Consulta por chat</span></div>
       <p class="espera-status" id="esperaStatusTxt">Verificando… <span id="esperaContador"></span></p>
+      <div id="aviso-horario-espera" class="night-notice" style="display:none;margin-bottom:12px">
+        ⚠️ Neste horário pode haver uma leve demora até o médico assumir. <strong>Continue nesta página</strong>, você será avisado quando ele entrar.
+      </div>
+
+      <!-- Link de retorno — aparece após atendimentoId disponível -->
+      <div id="link-retorno-box" style="display:none;margin-bottom:16px;padding:10px 14px;
+        background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+        border-radius:11px;text-align:left">
+        <div style="font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+          color:rgba(255,255,255,.3);margin-bottom:6px">🔗 Salve o link do seu atendimento</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input id="link-retorno-input" readonly type="text"
+            style="flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+            border-radius:8px;padding:8px 10px;color:rgba(255,255,255,.55);
+            font-family:'Outfit',sans-serif;font-size:.72rem;outline:none;cursor:pointer"
+            onclick="this.select()" value=""/>
+          <button onclick="copiarLinkRetorno()" id="btn-copiar-link"
+            style="padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);
+            background:rgba(255,255,255,.04);color:rgba(255,255,255,.5);
+            font-family:'Outfit',sans-serif;font-size:.72rem;cursor:pointer;white-space:nowrap;
+            flex-shrink:0">Copiar</button>
+        </div>
+        <div style="font-size:.62rem;color:rgba(255,255,255,.22);margin-top:5px;line-height:1.5">
+          Cole nas suas notas. Se sair da página, use este link para retornar ao atendimento.
+        </div>
+      </div>
       <div style="margin-bottom:14px">
-        <button onclick="novaConsulta()" style="background:none;border:none;color:rgba(255,255,255,.22);font-family:'Outfit',sans-serif;font-size:.7rem;cursor:pointer;text-decoration:underline">Iniciar nova consulta</button>
+        <button onclick="confirmarSairConsulta()" style="background:none;border:none;color:rgba(255,255,255,.22);font-family:'Outfit',sans-serif;font-size:.7rem;cursor:pointer;text-decoration:underline">Iniciar nova consulta</button>
       </div>
 
       <!-- CHAT CONSULTA -->
@@ -924,6 +971,13 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
           pagbankOrderId = a.pagbank_order_id || (sessao && sessao.pagbankOrderId) || null;
           esconderLoading();
           irParaPagamento();
+          // Se PIX já foi gerado (temos orderId), mostrar QR e retomar polling automaticamente
+          if(pagbankOrderId){
+            // Aguarda o DOM da tela de pagamento estar pronto antes de restaurar
+            setTimeout(function(){
+              restaurarPixAposRetorno(pagbankOrderId);
+            }, 400);
+          }
           return;
         }
 
@@ -972,13 +1026,21 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
 
   esconderLoading();
   showScreen('whatsapp');
-  setNavLabel('');
-  preencherHorario();
+  setNavLabel('');;
 })();
 
 function preencherHorario(){
   var h = new Date().getHours();
-  if(h>=23||h<6){ var el=document.getElementById('aviso-horario'); if(el) el.style.display='block'; }
+  // Fallback local — backend confirma via avisoHorario no /api/disponibilidade
+  if(h>=23||h<7){ var el=document.getElementById('aviso-horario'); if(el) el.style.display='block'; }
+}
+
+function aplicarAvisoHorario(avisoHorario){
+  // Exibe aviso tanto na tela de pagamento quanto na sala de espera
+  ['aviso-horario','aviso-horario-espera'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.style.display = avisoHorario ? 'block' : 'none';
+  });
 }
 
 // ─── SCREEN 1: WhatsApp ─────────────────────────────────────────────────────
@@ -1111,9 +1173,17 @@ async function irParaPagamento(){
     dispData = await res.json();
     var badge = document.getElementById('disp-badge-pay');
     var txt   = document.getElementById('disp-txt-pay');
-    if(dispData.status==='amarelo'){ badge.className='disp-badge amarelo'; txt.textContent='Alta demanda'; }
-    else if(dispData.status==='vermelho'){ badge.className='disp-badge vermelho'; txt.textContent='Baixa disponibilidade'; }
-    else { badge.className='disp-badge verde'; txt.textContent='Online agora'; }
+    var avisoPayEl = document.getElementById('aviso-horario-pay');
+    if(dispData.status==='amarelo'){
+      badge.className='disp-badge amarelo'; txt.textContent='Alta demanda';
+      if(avisoPayEl) avisoPayEl.style.display='none';
+    } else if(dispData.status==='vermelho'){
+      badge.className='disp-badge vermelho'; txt.textContent='Baixa disponibilidade';
+      if(avisoPayEl) avisoPayEl.style.display='block';
+    } else {
+      badge.className='disp-badge verde'; txt.textContent='Online agora';
+      if(avisoPayEl) avisoPayEl.style.display='none';
+    }
   }catch(e){}
 }
 
@@ -1251,6 +1321,7 @@ function iniciarPollingPagamento(){
   statusEl.textContent='⏳ Aguardando confirmação do pagamento…';
   statusEl.className='pay-polling-status';
   statusEl.style.display='block';
+  iniciarTimerJaPaguei(); // mostra botão "já paguei" após 2 min
   paymentPoller = setInterval(async function(){
     tentativas++;
     if(tentativas>MAX){
@@ -1265,6 +1336,9 @@ function iniciarPollingPagamento(){
       var d = await r.json();
       if(d.ok&&d.pago){
         clearInterval(paymentPoller);
+        clearTimeout(_jaPagTimer);
+        var jpw = document.getElementById('ja-paguei-wrap');
+        if(jpw) jpw.style.display = 'none';
         statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
         statusEl.className='pay-polling-status ok';
         if(!sessionStorage.getItem('conv')){
@@ -1470,6 +1544,7 @@ var tentativas=0, esperaPoller=null, chatPoller=null, meetPoller=null, encerrado
 function mostrarTelaEspera(){
   setFlowState('waiting');
   showScreen('espera'); setNavLabel('AGUARDANDO MÉDICO');
+  mostrarLinkRetorno();
   var badge=document.getElementById('esperaBadge'); badge.className='espera-badge '+tipoConsulta;
   document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
   document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
@@ -1477,6 +1552,16 @@ function mostrarTelaEspera(){
 }
 function mostrarSalaEspera(){
   mostrarTelaEspera();
+  // Aplica aviso noturno na sala de espera usando dado já carregado na tela de pagamento
+  if(dispData && typeof dispData.avisoHorario !== 'undefined'){
+    aplicarAvisoHorario(dispData.avisoHorario);
+  } else {
+    // Fallback: busca disponibilidade se ainda não tiver (ex: restauração de sessão)
+    fetch(API+'/api/disponibilidade')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ dispData=d; aplicarAvisoHorario(d.avisoHorario); })
+      .catch(function(){});
+  }
   verificarStatus(); esperaPoller=setInterval(verificarStatus,5000);
 }
 async function verificarStatus(){
@@ -1717,6 +1802,168 @@ function detectarBandeira(numero){
   return 'visa';
 }
 
+// ─── RESTAURAR PIX APÓS RETORNO ─────────────────────────────────────────────
+// Chamado quando o paciente volta à tela de pagamento com um orderId já gerado.
+// Reconstrói o QR a partir da chave salva (ou apenas retoma o polling se não tiver).
+function restaurarPixAposRetorno(orderId){
+  if(!orderId) return;
+  pagbankOrderId = orderId;
+
+  // Mostrar seção QR
+  var qrWrap = document.getElementById('pix-qr-wrap');
+  if(qrWrap) qrWrap.classList.add('show');
+
+  // Esconder botão gerar
+  var btn = document.getElementById('payBtn');
+  if(btn) btn.style.display = 'none';
+
+  // Mostrar status de aguardando
+  var statusEl = document.getElementById('pay-polling-status');
+  if(statusEl){
+    statusEl.textContent = '⏳ Aguardando confirmação do pagamento…';
+    statusEl.className = 'pay-polling-status';
+    statusEl.style.display = 'block';
+  }
+
+  // Regenerar QR via API qrserver se temos a chave salva no input
+  var chaveInput = document.getElementById('pixChaveInput');
+  var chave = chaveInput ? chaveInput.value : '';
+  if(!chave){
+    // Tenta buscar status do backend — se já pago, avança; se não, só retoma polling
+    fetch(API+'/api/pagbank/order/'+orderId)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d.ok && d.pago){
+          clearInterval(paymentPoller);
+          if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
+          setTimeout(mostrarCpfPosPix, 800);
+        } else {
+          iniciarPollingPagamento();
+        }
+      })
+      .catch(function(){ iniciarPollingPagamento(); });
+    return;
+  }
+
+  // Tem a chave — exibir QR novamente
+  var imgEl = document.getElementById('pay-qr-img');
+  if(imgEl && !imgEl.src){
+    imgEl.onload  = function(){ imgEl.style.display='block'; };
+    imgEl.onerror = function(){ imgEl.style.display='none'; var fb=document.getElementById('pay-qr-fallback'); if(fb) fb.style.display='flex'; };
+    imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data='+encodeURIComponent(chave);
+  }
+
+  iniciarPollingPagamento();
+}
+
+// ─── AVISO DE SAÍDA / TROCA DE TELA ──────────────────────────────────────────
+// Estados que merecem aviso antes de sair (o paciente perderia a posição na fila)
+var ESTADOS_CRITICOS = ['triage','waiting','atendimento'];
+
+function estadoCritico(){
+  return ESTADOS_CRITICOS.indexOf(flowState) !== -1;
+}
+
+// beforeunload: avisa se tentar fechar/recarregar durante estados críticos
+window.addEventListener('beforeunload', function(e){
+  if(!estadoCritico()) return;
+  var msg = 'Você está em atendimento. Sair pode fazer você perder sua posição na fila.';
+  e.preventDefault();
+  e.returnValue = msg;
+  return msg;
+});
+
+// visibilitychange: avisa quando paciente sai da tela durante PIX aguardando pagamento
+// Não bloqueia — apenas exibe banner de alerta quando volta
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden) return; // saiu — não faz nada
+
+  // Voltou à tela
+  var statusPix = flowState === 'payment' && pagbankOrderId;
+  var statusEspera = flowState === 'waiting' || flowState === 'triage';
+
+  if(statusPix){
+    // Paciente voltou durante aguardo do PIX — verificar se já pagou
+    if(!paymentPoller){
+      var statusEl = document.getElementById('pay-polling-status');
+      if(statusEl){ statusEl.textContent='⏳ Verificando pagamento...'; statusEl.className='pay-polling-status'; statusEl.style.display='block'; }
+      fetch(API+'/api/pagbank/order/'+pagbankOrderId)
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if(d.ok && d.pago){
+            if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
+            setTimeout(mostrarCpfPosPix, 800);
+          } else {
+            iniciarPollingPagamento(); // retoma polling
+          }
+        })
+        .catch(function(){ iniciarPollingPagamento(); });
+    }
+  }
+
+  if(statusEspera && atendimentoId){
+    // Paciente voltou durante espera — força verificação imediata de status
+    verificarStatus();
+  }
+});
+
+// ─── CONFIRMAR SAÍDA DA CONSULTA ─────────────────────────────────────────────
+// Chamado pelo botão "Iniciar nova consulta" na sala de espera.
+// Se há pagamento confirmado e consulta ativa, pede confirmação antes de descartar.
+function confirmarSairConsulta(){
+  // Só bloqueia se há atendimento ativo com pagamento
+  if(!atendimentoId || !estadoCritico()){
+    novaConsulta();
+    return;
+  }
+
+  // Criar modal de confirmação inline
+  var overlay = document.createElement('div');
+  overlay.id = 'confirm-sair-overlay';
+  overlay.style.cssText = [
+    'position:fixed','inset:0','z-index:9999',
+    'background:rgba(6,13,11,.88)','backdrop-filter:blur(8px)',
+    'display:flex','align-items:center','justify-content:center','padding:20px'
+  ].join(';');
+
+  overlay.innerHTML = [
+    '<div style="background:#0d1a14;border:1px solid rgba(255,255,255,.1);border-radius:18px;',
+    'max-width:360px;width:100%;padding:28px 24px;text-align:center">',
+    '<div style="font-size:2rem;margin-bottom:12px">⚠️</div>',
+    '<div style="font-family:Outfit,sans-serif;font-size:1rem;font-weight:600;',
+    'color:#fff;margin-bottom:10px">Tem certeza que deseja sair?</div>',
+    '<p style="font-size:.82rem;font-weight:300;color:rgba(255,255,255,.5);',
+    'line-height:1.65;margin-bottom:22px">',
+    'Você já pagou e está na fila de atendimento. Se sair, perderá sua posição.<br>',
+    '<strong style="color:rgba(255,255,255,.75)">Você pode retornar a esta mesma página</strong> ',
+    'para recuperar o atendimento.',
+    '</p>',
+    '<button id="confirm-sair-sim" style="width:100%;padding:13px;border-radius:11px;border:none;',
+    'background:rgba(255,95,87,.15);border:1px solid rgba(255,95,87,.3);',
+    'color:#ff8080;font-family:Outfit,sans-serif;font-size:.88rem;font-weight:600;',
+    'cursor:pointer;margin-bottom:10px">Sair mesmo assim</button>',
+    '<button id="confirm-sair-nao" style="width:100%;padding:13px;border-radius:11px;border:none;',
+    'background:linear-gradient(135deg,#b4e05a,#5ee0a0);',
+    'color:#051208;font-family:Outfit,sans-serif;font-size:.88rem;font-weight:700;',
+    'cursor:pointer">Continuar aguardando</button>',
+    '</div>'
+  ].join('');
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('confirm-sair-sim').onclick = function(){
+    document.body.removeChild(overlay);
+    novaConsulta();
+  };
+  document.getElementById('confirm-sair-nao').onclick = function(){
+    document.body.removeChild(overlay);
+  };
+  // Fechar clicando fora
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) document.body.removeChild(overlay);
+  });
+}
+
 // ─── NOVA CONSULTA ──────────────────────────────────────────────────────────
 function novaConsulta(){
   resetFlowState();
@@ -1833,6 +2080,90 @@ function converterNascimento(val){
   var p=val.split('/');
   if(p.length!==3) return val;
   return p[2]+'-'+p[1]+'-'+p[0];
+}
+
+// ─── VERIFICAR PAGAMENTO MANUAL ─────────────────────────────────────────────
+var _jaPagTimer = null;
+
+function iniciarTimerJaPaguei(){
+  // Mostra o botão "já paguei" após 2 minutos sem confirmação
+  clearTimeout(_jaPagTimer);
+  var wrap = document.getElementById('ja-paguei-wrap');
+  if(wrap) wrap.style.display = 'none';
+  _jaPagTimer = setTimeout(function(){
+    var w = document.getElementById('ja-paguei-wrap');
+    if(w) w.style.display = 'block';
+  }, 2 * 60 * 1000);
+}
+
+async function verificarPagamentoManual(){
+  if(!pagbankOrderId) return;
+  var btn = document.getElementById('ja-paguei-btn');
+  var statusEl = document.getElementById('pay-polling-status');
+  btn.disabled = true;
+  btn.textContent = 'Verificando...';
+  statusEl.textContent = '🔍 Verificando seu pagamento...';
+  statusEl.className = 'pay-polling-status';
+  statusEl.style.display = 'block';
+  try{
+    var r = await fetch(API+'/api/pagbank/order/'+pagbankOrderId);
+    var d = await r.json();
+    if(d.ok && d.pago){
+      clearInterval(paymentPoller);
+      clearTimeout(_jaPagTimer);
+      statusEl.textContent = '✅ Pagamento confirmado! Avançando...';
+      statusEl.className = 'pay-polling-status ok';
+      document.getElementById('ja-paguei-wrap').style.display = 'none';
+      await esperar(800);
+      mostrarCpfPosPix();
+    } else {
+      // Também tenta pelo atendimentoId direto (cobre caso onde orderId não bateu)
+      if(atendimentoId){
+        var r2 = await fetch(API+'/api/atendimento/status/'+atendimentoId);
+        var d2 = await r2.json();
+        if(d2.ok && d2.atendimento && d2.atendimento.pagamento_status === 'confirmado'){
+          clearInterval(paymentPoller);
+          clearTimeout(_jaPagTimer);
+          statusEl.textContent = '✅ Pagamento confirmado! Avançando...';
+          statusEl.className = 'pay-polling-status ok';
+          document.getElementById('ja-paguei-wrap').style.display = 'none';
+          await esperar(800);
+          mostrarCpfPosPix();
+          return;
+        }
+      }
+      statusEl.textContent = '⏳ Pagamento ainda não identificado. Aguarde mais alguns instantes.';
+      statusEl.className = 'pay-polling-status';
+      btn.disabled = false;
+      btn.textContent = '✓ Já paguei, verificar novamente';
+    }
+  } catch(e){
+    statusEl.textContent = '⚠️ Erro ao verificar. Tente novamente.';
+    statusEl.className = 'pay-polling-status err';
+    btn.disabled = false;
+    btn.textContent = '✓ Já paguei, verificar novamente';
+  }
+}
+
+// ─── LINK RETORNO ───────────────────────────────────────────────────────────
+function mostrarLinkRetorno(){
+  if(!atendimentoId) return;
+  var box = document.getElementById('link-retorno-box');
+  var inp = document.getElementById('link-retorno-input');
+  if(!box || !inp) return;
+  var link = location.origin + '/triagem.html?consulta=' + atendimentoId;
+  inp.value = link;
+  box.style.display = 'block';
+}
+
+function copiarLinkRetorno(){
+  var inp = document.getElementById('link-retorno-input');
+  if(!inp || !inp.value) return;
+  var btn = document.getElementById('btn-copiar-link');
+  function ok(){ btn.textContent = '✓ Copiado!'; setTimeout(function(){ btn.textContent = 'Copiar'; }, 2000); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(inp.value).then(ok).catch(function(){ fallbackCopy(inp.value); ok(); });
+  } else { fallbackCopy(inp.value); ok(); }
 }
 
 // ─── TRIAGE INPUT EVENTS ────────────────────────────────────────────────────
