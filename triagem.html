@@ -861,6 +861,24 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <script>
 // ─── GLOBALS ────────────────────────────────────────────────────────────────
 var API = 'https://triagem-api.onrender.com';
+
+// ─── CONVERSÃO GTM/Google Ads ────────────────────────────────────────────────
+// Dispara exatamente 1x por atendimento em QUALQUER caminho de confirmação.
+// Usa localStorage com chave por txId → sobrevive a reload, fecha aba e retorno.
+function dispararConversao(){
+  var txId = atendimentoId || pagbankOrderId || 'sem_id';
+  var chave = 'conv_' + txId;
+  if(localStorage.getItem(chave)) return; // já disparou para este atendimento
+  localStorage.setItem(chave, '1');
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'pagamento_confirmado',
+    value: 49.90,
+    currency: 'BRL',
+    transaction_id: txId
+  });
+}
+// ─────────────────────────────────────────────────────────────────────────────
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '',
     pacienteNascimento = '', pacienteEmail = '', tipoConsulta = 'chat';
 var atendimentoId = null;
@@ -959,6 +977,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
                 atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
                 pacienteNome  = a.nome || ''; pacienteTel = a.tel || '';
                 pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
+                dispararConversao();
                 esconderLoading(); mostrarModalidade(); return;
               }
             }catch(e){}
@@ -1341,11 +1360,7 @@ function iniciarPollingPagamento(){
         if(jpw) jpw.style.display = 'none';
         statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
         statusEl.className='pay-polling-status ok';
-        if(!sessionStorage.getItem('conv')){
-          sessionStorage.setItem('conv','1');
-          window.dataLayer=window.dataLayer||[];
-          window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:atendimentoId||''});
-        }
+        dispararConversao();
         await esperar(800);
         // Após PIX confirmado → pedir CPF (light screen)
         mostrarCpfPosPix();
@@ -1777,7 +1792,7 @@ async function pagarCartao(){
     var cardOk=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.status==='succeeded'||d.transaction_id||d.transactionId));
     if(cardOk){
       document.getElementById('cardProcessing').textContent='✅ Pagamento aceito! Selecionando modalidade...';
-      if(!sessionStorage.getItem('conv')){ sessionStorage.setItem('conv','1'); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:atendimentoId||''}); }
+      dispararConversao();
       await esperar(900);
       // Cartão: CPF já coletado → ir para modalidade
       mostrarModalidade();
@@ -1836,6 +1851,7 @@ function restaurarPixAposRetorno(orderId){
         if(d.ok && d.pago){
           clearInterval(paymentPoller);
           if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
+          dispararConversao();
           setTimeout(mostrarCpfPosPix, 800);
         } else {
           iniciarPollingPagamento();
@@ -1892,6 +1908,7 @@ document.addEventListener('visibilitychange', function(){
         .then(function(d){
           if(d.ok && d.pago){
             if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
+            dispararConversao();
             setTimeout(mostrarCpfPosPix, 800);
           } else {
             iniciarPollingPagamento(); // retoma polling
@@ -1977,7 +1994,7 @@ function novaConsulta(){
 
   limparSessao();
   // Limpar marcador de conversão GTM para nova consulta poder disparar evento
-  try{ sessionStorage.removeItem('conv'); }catch(e){}
+  // conv agora usa localStorage com chave por atendimentoId — não precisa limpar (é por atendimento)
 
   // Resetar estado global
   atendimentoId=null; tipoConsulta='chat';
@@ -2114,6 +2131,7 @@ async function verificarPagamentoManual(){
       statusEl.textContent = '✅ Pagamento confirmado! Avançando...';
       statusEl.className = 'pay-polling-status ok';
       document.getElementById('ja-paguei-wrap').style.display = 'none';
+      dispararConversao();
       await esperar(800);
       mostrarCpfPosPix();
     } else {
@@ -2127,6 +2145,7 @@ async function verificarPagamentoManual(){
           statusEl.textContent = '✅ Pagamento confirmado! Avançando...';
           statusEl.className = 'pay-polling-status ok';
           document.getElementById('ja-paguei-wrap').style.display = 'none';
+          dispararConversao();
           await esperar(800);
           mostrarCpfPosPix();
           return;
