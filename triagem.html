@@ -1301,6 +1301,17 @@ async function gerarPagamento(){
   var btn = document.getElementById('payBtn');
   btn.disabled=true; btn.textContent='Gerando PIX...';
 
+  // Timeout de 25s — se o Render estiver em cold start e demorar demais,
+  // reabilita o botão para o paciente poder clicar de novo
+  var _btnResetTimer = setTimeout(function(){
+    if(btn.disabled){
+      btn.disabled=false;
+      btn.textContent='Tentar novamente →';
+      var st=document.getElementById('pay-polling-status');
+      if(st){st.textContent='⏱ O servidor demorou para responder. Clique novamente.';st.className='pay-polling-status err';st.style.display='block';}
+    }
+  }, 25000);
+
   try{
     if(!atendimentoId){
       var rPre = await fetch(API+'/api/notify',{
@@ -1352,9 +1363,11 @@ async function gerarPagamento(){
     if(inputChave) inputChave.value = pixText || '';
     document.getElementById('pix-qr-wrap').classList.add('show');
     btn.style.display = 'none';
+    clearTimeout(_btnResetTimer);
     iniciarPollingPagamento();
 
   }catch(e){
+    clearTimeout(_btnResetTimer);
     btn.disabled=false; btn.textContent='Continuar para atendimento →';
     var statusEl = document.getElementById('pay-polling-status');
     statusEl.textContent='❌ '+(e.message||'Erro ao gerar PIX. Tente novamente.');
