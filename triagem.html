@@ -866,7 +866,15 @@ var API = 'https://triagem-api.onrender.com';
 // Dispara exatamente 1x por atendimento em QUALQUER caminho de confirmação.
 // Usa localStorage com chave por txId → sobrevive a reload, fecha aba e retorno.
 function dispararConversao(){
-  var txId = atendimentoId || pagbankOrderId || 'sem_id';
+  var txId = atendimentoId || pagbankOrderId;
+  if(!txId) {
+    // ID ainda não disponível — tenta de novo em 2s
+    setTimeout(dispararConversao, 2000);
+    return;
+  }
+  // Limpa chave 'sem_id' antiga se existir
+  localStorage.removeItem('conv_sem_id');
+  localStorage.removeItem('conv_null');
   var chave = 'conv_' + txId;
   if(localStorage.getItem(chave)) return; // já disparou para este atendimento
   localStorage.setItem(chave, '1');
@@ -875,8 +883,9 @@ function dispararConversao(){
     event: 'pagamento_confirmado',
     value: 49.90,
     currency: 'BRL',
-    transaction_id: txId
+    transaction_id: String(txId)
   });
+  console.log('[CONV] dispararConversao ok — txId:', txId);
 }
 // ─────────────────────────────────────────────────────────────────────────────
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '',
