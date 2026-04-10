@@ -876,13 +876,17 @@ var API = 'https://triagem-api.onrender.com';
 // Usa localStorage com chave por txId → sobrevive a reload, fecha aba e retorno.
 function dispararConversao(){
   var txId = atendimentoId || pagbankOrderId;
-  if(!txId) return; // sem ID — não dispara
-  // Limpa chaves inválidas de disparos anteriores com ID nulo
+  if(!txId) {
+    setTimeout(dispararConversao, 2000);
+    return;
+  }
   localStorage.removeItem('conv_sem_id');
   localStorage.removeItem('conv_null');
   var chave = 'conv_' + txId;
-  if(localStorage.getItem(chave)) return; // já disparou para este atendimento
+  if(localStorage.getItem(chave)) return;
   localStorage.setItem(chave, '1');
+
+  // 1. dataLayer para o GTM
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: 'pagamento_confirmado',
@@ -890,7 +894,21 @@ function dispararConversao(){
     currency: 'BRL',
     transaction_id: String(txId)
   });
-  console.log('[CONV] Conversão disparada — txId:', txId);
+
+  // 2. gtag direto — bypassa GTM, garante conversão no Ads independente do trigger
+  if(typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+      send_to: 'AW-17964942771/AT3gCPTl0PsbEL0LrfZC',
+      value: 49.90,
+      currency: 'BRL',
+      transaction_id: String(txId)
+    });
+    console.log('[CONV] gtag conversion disparado — txId:', txId);
+  } else {
+    console.warn('[CONV] gtag nao disponivel');
+  }
+
+  console.log('[CONV] dispararConversao ok — txId:', txId);
 }
 // ─────────────────────────────────────────────────────────────────────────────
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '',
