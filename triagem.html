@@ -13,6 +13,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- SDK Efí: tokenização de cartão no frontend -->
 <script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
+<!-- Google Ads + GA4 config -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17964942771');
+  gtag('config', 'GT-M6QMH9CH');
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
@@ -867,12 +876,8 @@ var API = 'https://triagem-api.onrender.com';
 // Usa localStorage com chave por txId → sobrevive a reload, fecha aba e retorno.
 function dispararConversao(){
   var txId = atendimentoId || pagbankOrderId;
-  if(!txId) {
-    // ID ainda não disponível — tenta de novo em 2s
-    setTimeout(dispararConversao, 2000);
-    return;
-  }
-  // Limpa chave 'sem_id' antiga se existir
+  if(!txId) return; // sem ID — não dispara
+  // Limpa chaves inválidas de disparos anteriores com ID nulo
   localStorage.removeItem('conv_sem_id');
   localStorage.removeItem('conv_null');
   var chave = 'conv_' + txId;
@@ -885,7 +890,7 @@ function dispararConversao(){
     currency: 'BRL',
     transaction_id: String(txId)
   });
-  console.log('[CONV] dispararConversao ok — txId:', txId);
+  console.log('[CONV] Conversão disparada — txId:', txId);
 }
 // ─────────────────────────────────────────────────────────────────────────────
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '',
@@ -986,7 +991,6 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
                 atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
                 pacienteNome  = a.nome || ''; pacienteTel = a.tel || '';
                 pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
-                dispararConversao();
                 esconderLoading(); mostrarModalidade(); return;
               }
             }catch(e){}
@@ -1369,7 +1373,6 @@ function iniciarPollingPagamento(){
         if(jpw) jpw.style.display = 'none';
         statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
         statusEl.className='pay-polling-status ok';
-        dispararConversao();
         await esperar(800);
         // Após PIX confirmado → pedir CPF (light screen)
         mostrarCpfPosPix();
@@ -1511,6 +1514,7 @@ async function finalizarTriagem(){
     var d=await r.json();
     if(!d.ok) throw new Error(d.error||'Erro ao registrar triagem');
     salvarSessao();
+    dispararConversao(); // triagem concluída com sucesso — atendimentoId garantido aqui
     // Triagem concluída — vai direto para sala de espera (modalidade já foi selecionada antes)
     mostrarSalaEspera();
   }catch(e){
@@ -1801,7 +1805,6 @@ async function pagarCartao(){
     var cardOk=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.status==='succeeded'||d.transaction_id||d.transactionId));
     if(cardOk){
       document.getElementById('cardProcessing').textContent='✅ Pagamento aceito! Selecionando modalidade...';
-      dispararConversao();
       await esperar(900);
       // Cartão: CPF já coletado → ir para modalidade
       mostrarModalidade();
@@ -1860,7 +1863,6 @@ function restaurarPixAposRetorno(orderId){
         if(d.ok && d.pago){
           clearInterval(paymentPoller);
           if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
-          dispararConversao();
           setTimeout(mostrarCpfPosPix, 800);
         } else {
           iniciarPollingPagamento();
@@ -1917,7 +1919,6 @@ document.addEventListener('visibilitychange', function(){
         .then(function(d){
           if(d.ok && d.pago){
             if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
-            dispararConversao();
             setTimeout(mostrarCpfPosPix, 800);
           } else {
             iniciarPollingPagamento(); // retoma polling
@@ -2140,7 +2141,6 @@ async function verificarPagamentoManual(){
       statusEl.textContent = '✅ Pagamento confirmado! Avançando...';
       statusEl.className = 'pay-polling-status ok';
       document.getElementById('ja-paguei-wrap').style.display = 'none';
-      dispararConversao();
       await esperar(800);
       mostrarCpfPosPix();
     } else {
@@ -2154,7 +2154,6 @@ async function verificarPagamentoManual(){
           statusEl.textContent = '✅ Pagamento confirmado! Avançando...';
           statusEl.className = 'pay-polling-status ok';
           document.getElementById('ja-paguei-wrap').style.display = 'none';
-          dispararConversao();
           await esperar(800);
           mostrarCpfPosPix();
           return;
