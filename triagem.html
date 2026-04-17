@@ -564,8 +564,8 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
         <!-- PIX: alerta e botão -->
         <div id="pix-section">
-          <!-- CPF coletado após pagamento PIX (tela s-cpf) -->
-          <div id="pix-cpf-wrap" style="display:none">
+          <!-- CPF: necessário para o gateway PagBank -->
+          <div id="pix-cpf-wrap">
             <label class="f-label">CPF</label>
             <input class="f-input" id="pixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"
               onkeydown="if(event.key==='Enter')gerarPagamento()"/>
@@ -672,7 +672,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div style="padding:20px 20px 14px;border-bottom:1px solid var(--line);text-align:center">
         <div style="font-size:1.8rem;margin-bottom:10px">✅</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:6px">Pagamento confirmado ✅</div>
-        <div style="font-size:.82rem;color:var(--muted);font-weight:300;line-height:1.5">Para emitir sua receita e atestado, precisamos do seu CPF</div>
+        <div style="font-size:.82rem;color:var(--muted);font-weight:300;line-height:1.5">Falta só um passo rápido antes de falar com o médico</div>
       </div>
       <div class="s-body" style="padding:18px 20px;gap:12px">
         <div>
@@ -1285,10 +1285,18 @@ function cfMascaraValidade(el){
 async function gerarPagamento(){
   var nome = pacienteNome;
   var tel  = pacienteTel;
-  // CPF para PIX: usa o já coletado ou placeholder válido (coletado após pagamento na tela s-cpf)
+  // Ler CPF do campo PIX (obrigatório para PagBank)
   var cpfInput = document.getElementById('pixCPF');
-  var cpfParaPix = (cpfInput ? cpfInput.value.replace(/\D/g,'') : '') || pacienteCPF || '00000000000';
-  if(cpfParaPix.length === 11) pacienteCPF = cpfParaPix; // persiste se real
+  var cpfParaPix = (cpfInput ? cpfInput.value.replace(/\D/g,'') : '') || pacienteCPF || '';
+  if(!cpfParaPix || cpfParaPix.length !== 11){
+    if(cpfInput){ cpfInput.focus(); cpfInput.style.borderColor='rgba(255,95,87,.5)'; setTimeout(function(){cpfInput.style.borderColor='';},1500); }
+    var statusEl = document.getElementById('pay-polling-status');
+    statusEl.textContent='⚠️ Informe seu CPF para gerar o PIX.';
+    statusEl.className='pay-polling-status err';
+    statusEl.style.display='block';
+    return;
+  }
+  pacienteCPF = cpfParaPix; // persiste para uso posterior
 
   var btn = document.getElementById('payBtn');
   btn.disabled=true; btn.textContent='Gerando PIX...';
@@ -1423,8 +1431,8 @@ function fallbackCopy(text){
 
 // ─── SCREEN 2b: CPF pós-PIX ─────────────────────────────────────────────────
 function mostrarCpfPosPix(){
-  // Pular tela apenas se CPF real já coletado (não placeholder)
-  if(pacienteCPF && pacienteCPF.length === 11 && pacienteCPF !== '00000000000'){
+  // Se CPF já foi coletado no campo PIX desta sessão, pular tela direto para modalidade
+  if(pacienteCPF && pacienteCPF.length === 11){
     mostrarModalidade();
     return;
   }
