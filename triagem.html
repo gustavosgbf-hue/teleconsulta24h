@@ -1662,7 +1662,7 @@ function medicoAssumiu(a){
 }
 function iniciarChatConsulta(atendimento){
   if(atendimento.medico_nome){
-    document.getElementById('chatMedicoLabel').textContent=atendimento.medico_nome+', pode enviar sua mensagem';
+    document.getElementById('chatMedicoLabel').textContent='Seu m\u00e9dico \u00e9 '+atendimento.medico_nome+'. Pode enviar sua mensagem.';
     document.getElementById('medicoNomeBanner').textContent=atendimento.medico_nome;
     document.getElementById('medicoEntrou').style.display='flex';
   }
