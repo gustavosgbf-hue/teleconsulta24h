@@ -538,7 +538,61 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   .trust-sep{display:none}
   .steps{gap:36px}
 }
+
+/* ── MODAL ── */
+.mo{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.68);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .24s ease}
+@media(min-width:560px){.mo{align-items:center}}
+.mo.open{opacity:1;pointer-events:auto}
+.mo-box{width:100%;max-width:430px;background:#0b1812;border:1px solid rgba(255,255,255,.08);border-radius:22px 22px 0 0;max-height:94vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(30px);transition:transform .27s cubic-bezier(.22,.68,0,1.1);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(min-width:560px){.mo-box{border-radius:22px;transform:translateY(16px)}}
+.mo.open .mo-box{transform:translateY(0)}
+.mo-head{display:flex;align-items:center;justify-content:space-between;padding:15px 18px 13px;border-bottom:1px solid rgba(255,255,255,.07)}
+.mo-head h3{font-size:.9rem;font-weight:600;color:rgba(255,255,255,.88)}
+.mo-x{width:26px;height:26px;border-radius:50%;border:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.mo-x:hover{background:rgba(255,255,255,.12)}
+.mo-step{display:none;padding:18px 18px 22px;flex-direction:column;gap:12px}
+.mo-step.on{display:flex}
+.ml{font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px;display:block}
+.mi{width:100%;padding:13px 14px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-family:'Outfit',sans-serif;font-size:max(.95rem,16px);font-weight:300;color:#fff;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.mi::placeholder{color:rgba(255,255,255,.22)}
+.mi:focus{border-color:rgba(94,224,160,.4)}
+.mcta{width:100%;padding:15px;border-radius:13px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 20px rgba(180,224,90,.24);transition:transform .12s,opacity .15s}
+.mcta:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+.mcta:hover:not(:disabled){transform:translateY(-1px)}
+.mghost{width:100%;padding:10px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.4);font-family:'Outfit',sans-serif;font-size:.84rem;cursor:pointer;transition:border-color .15s,color .15s}
+.mghost:hover{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.72)}
+.mprice{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:12px;background:rgba(180,224,90,.07);border:1px solid rgba(180,224,90,.18)}
+.mpriceval{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#b4e05a;line-height:1}
+.mtabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mtab{padding:10px 8px;border-radius:11px;border:2px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:rgba(255,255,255,.52);font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .18s;text-align:center;-webkit-appearance:none;line-height:1.4}
+.mtab:hover{border-color:rgba(94,224,160,.25);color:#fff}
+.mtab.pix{border-color:rgba(94,224,160,.55);background:rgba(94,224,160,.08);color:#5ee0a0}
+.mtab.card{border-color:rgba(180,224,90,.55);background:rgba(180,224,90,.07);color:#b4e05a}
+.mpix-alert{padding:8px 11px;border-radius:9px;background:rgba(94,224,160,.04);border:1px solid rgba(94,224,160,.14);font-size:.7rem;color:rgba(94,224,160,.72);line-height:1.6}
+.mqr-wrap{display:none;text-align:center;padding:4px 0}
+.mqr-wrap.show{display:block}
+.mqr-img{width:148px;height:148px;border-radius:10px;border:2px solid rgba(180,224,90,.28);background:#fff;padding:5px;display:none;margin:6px auto;image-rendering:pixelated}
+.mcopy-row{display:flex;gap:7px;align-items:center;margin-top:4px}
+.mcopy-input{flex:1;min-width:0;background:rgba(255,255,255,.05);border:1px solid rgba(180,224,90,.16);border-radius:8px;padding:8px 10px;color:#fff;font-family:'Outfit',sans-serif;font-size:.72rem;outline:none;cursor:pointer}
+.mcopy-btn{padding:8px 13px;border-radius:8px;border:1px solid rgba(180,224,90,.26);background:rgba(180,224,90,.07);color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.76rem;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.mstatus{margin-top:6px;font-size:.77rem;color:rgba(255,255,255,.38);text-align:center;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);line-height:1.6;display:none}
+.mstatus.ok{color:#5ee0a0;border-color:rgba(94,224,160,.2)}
+.mstatus.err{color:#ff8484;border-color:rgba(255,80,80,.18)}
+.mcard-fields{display:none;flex-direction:column;gap:10px}
+.mcard-fields.show{display:flex}
+.mcf-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.mcard-err{font-size:.74rem;color:#ff8484;display:none;padding:7px 10px;background:rgba(255,80,80,.05);border-radius:8px;border:1px solid rgba(255,80,80,.16);line-height:1.5}
+.mfb{font-size:.7rem;color:rgba(94,224,160,.85);margin-top:3px;opacity:0;transition:opacity .2s;min-height:16px}
+.mfb.show{opacity:1}
+.mautofill{font-size:.73rem;color:rgba(94,224,160,.85);margin-top:2px;display:none;line-height:1.5}
+.mautofill.show{display:block}
+.mautofill.err{color:rgba(255,160,140,.85)}
+.mtrust{font-size:.65rem;color:rgba(255,255,255,.24);text-align:center;line-height:1.75}
+.mconf{text-align:center;padding:28px 18px 26px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.mconf-icon{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.18),rgba(94,224,160,.12));border:1px solid rgba(94,224,160,.3);display:flex;align-items:center;justify-content:center;font-size:1.9rem}
+.mja-wrap{display:none;text-align:center;margin-top:6px}
 </style>
+<script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -564,47 +618,61 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ════════ HERO ════════ -->
 <section class="hero">
 
-  <div class="hero__badge" id="heroUrgency">
-    <span class="dot-green"></span> 3 médicos online agora · início em até 5 minutos
+  <div class="hero__badge">
+    <span class="dot-green"></span> ★★★★★ 5,0 · +2.000 atendimentos · Médicos com CRM ativo
   </div>
 
   <h1 class="hero__h1">
-    Precisa de médico agora?<br>
-    <em>Atendimento em até 5 minutos</em>
+    Com dor ou passando mal agora?<br>
+    <em>Fale com médico em até 5 minutos.</em>
   </h1>
 
   <p class="hero__sub">
-    Consulta online imediata, sem fila, direto do celular.<br>
-    <span class="hero__sub-mode">Fale com médico por chat ou vídeo 💬📹</span>
+    Sem fila, sem sair de casa.<br>
+    <span class="hero__sub-mode">Médico com CRM verificável, direto no celular.</span>
   </p>
 
   <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" id="heroCTA">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
-    Começar consulta agora
+    Falar com médico agora
   </a>
 
+  <p style="font-size:.75rem;color:rgba(255,255,255,.38);text-align:center;margin-top:10px;line-height:1.7">
+    Após o pagamento, o médico entra em contato pelo WhatsApp em poucos minutos.
+  </p>
+
   <div class="hero__price-trust">
-    <p class="hero__price-line"><strong>R$&nbsp;49,90</strong> &nbsp;·&nbsp; PIX ou cartão &nbsp;·&nbsp; início imediato</p>
+    <p class="hero__price-line"><strong>R$&nbsp;49,90</strong> &nbsp;·&nbsp; Sem taxa extra &nbsp;·&nbsp; Atendimento imediato</p>
     <div class="hero__trust-row">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Atestado médico quando indicado
+      Receita e atestado com validade legal
       <span class="sep">·</span>
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Receitas e orientações
+      Médico com CRM verificável
       <span class="sep">·</span>
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Médicos com CRM ativo
+      Sigilo médico garantido por lei
     </div>
   </div>
 
   <div class="hero__social">
     <div class="hero__social-stars">★★★★★</div>
     <div class="hero__social-txt">
-      <strong>Nota média 5,0</strong> &nbsp;·&nbsp; +2.000 atendimentos realizados
+      <strong>Nota 5,0</strong> &nbsp;·&nbsp; avaliações verificadas
     </div>
   </div>
 
 </section>
+
+<!-- ════════ MINI TRUST ════════ -->
+<div style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);padding:14px 20px">
+  <div style="max-width:700px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 24px">
+    <span style="font-size:.74rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:6px">🩺 Médicos com CRM verificável</span>
+    <span style="font-size:.74rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:6px">⭐ Nota 5,0 · avaliações verificadas</span>
+    <span style="font-size:.74rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:6px">🔒 CFM 2.314/2022 · LGPD</span>
+    <span style="font-size:.74rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:6px">🇧🇷 Todo o Brasil · 24h</span>
+  </div>
+</div>
 
 <!-- ════════ COM QUE PODEMOS AJUDAR ════════ -->
 <section class="pain-section reveal">
@@ -737,6 +805,134 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <hr class="divider"/>
 
+<!-- ════════ MÉDICOS ════════ -->
+<section class="reveal" style="padding:64px 20px;border-top:1px solid var(--line)">
+  <div class="section-inner" style="text-align:center">
+    <div class="section-label">Nosso time</div>
+    <h2 class="section-title">Médicos registrados no CRM</h2>
+    <p class="section-sub" style="margin:0 auto 8px">Todos os profissionais possuem CRM ativo e são habilitados para exercer a medicina no Brasil.</p>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.35);margin:0 auto 36px;max-width:480px">O atendimento é realizado pelo médico disponível no momento da consulta. Todos têm CRM ativo e atuam dentro das normas do CFM.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;max-width:860px;margin:0 auto">
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">HF</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Herllan Felix</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 18775</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MD</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Magali Di Gioia</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 282721</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JR</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Joao Reis</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 116053</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">RL</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Raquel Lima</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 14300</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">IZ</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Isadora Araujo</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 17420</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">GO</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Gabriela Oliveira</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 35883</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">KG</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Karina Guisard</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 280473</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">CP</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Clara Costa</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 19374</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">GA</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Gabriel Souza</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 16420</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MM</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Mariana Martins</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 15110</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">BH</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Bruna Heluy</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 6732</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Dermatologia</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JF</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Julia Fonseca</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 10300</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Ginecologia e Obstetrícia</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">CA</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Carolina Amate</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 8696-MA</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Ginecologia e Obstetrícia</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MF</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Mariana Franco</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 236748-SP</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Endocrinologia</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">DL</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Danielle Lourdes</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 271705-SP</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Dermatologia</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">PA</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Paulo Almeida</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 52126585-7/RJ</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Psiquiatria</div>
+      </div>
+
+    </div>
+    <p style="margin-top:20px;font-size:.7rem;color:rgba(255,255,255,.25)">Todos os CRMs podem ser verificados no portal CFM (cfm.org.br)</p>
+  </div>
+</section>
+
+<hr class="divider"/>
+
 <!-- ════════ FAQ ════════ -->
 <section class="faq-section reveal">
   <div class="section-inner" style="max-width:640px">
@@ -762,7 +958,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           Como funciona o pagamento?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a"><p>Você paga R$&nbsp;49,90 via PIX ou cartão de crédito, com processamento imediato e seguro. Após a confirmação, o atendimento começa.</p></div>
+        <div class="faq-a"><p>Você paga R$&nbsp;49,90 via PIX ou cartão de crédito. Após a confirmação, um médico entra em contato pelo WhatsApp em até 5 minutos. A cobrança aparece como <strong>JG Fonseca Serviços Médicos LTDA</strong>, que é a razão social da ConsultaJá24h.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -1029,6 +1225,480 @@ if(urgencyEl){
     })
     .catch(fallback);
 })();
+</script>
+
+<!-- ════════ MODAL PAGAMENTO ════════ -->
+<div class="mo" id="moOverlay">
+  <div class="mo-box" id="moBox">
+    <div class="mo-head">
+      <h3 id="moTitle">Iniciar atendimento</h3>
+      <button class="mo-x" onclick="moFechar()">&#10005;</button>
+    </div>
+
+    <!-- STEP 1: WhatsApp -->
+    <div class="mo-step on" id="moStep1">
+      <p style="font-size:.82rem;color:rgba(255,255,255,.48);font-weight:300;line-height:1.6">Voce esta a poucos segundos de falar com um medico.</p>
+      <div>
+        <label class="ml">WhatsApp com DDD</label>
+        <input class="mi" id="moTel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" oninput="moMascaraTel(this)" onkeydown="if(event.key==='Enter')moAvancarStep1()"/>
+        <div class="mfb" id="moFbTel">&#10003; Numero valido</div>
+      </div>
+      <div id="moNomeWrap" style="display:none">
+        <label class="ml">Nome completo</label>
+        <input class="mi" id="moNome" type="text" placeholder="Seu nome completo" autocomplete="name" onkeydown="if(event.key==='Enter')moConfirmarComNome()"/>
+      </div>
+      <div id="moNascWrap" style="display:none">
+        <label class="ml">Data de nascimento</label>
+        <input class="mi" id="moNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="moMascaraNasc(this)"/>
+      </div>
+      <div class="mautofill" id="moAutofill"></div>
+      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar &#8594;</button>
+      <p class="mtrust">&#128274; Seus dados sao protegidos por sigilo medico e LGPD</p>
+    </div>
+
+    <!-- STEP 2: Pagamento -->
+    <div class="mo-step" id="moStep2">
+      <div class="mprice">
+        <div>
+          <div style="font-size:.63rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:3px">Consulta medica online</div>
+          <div style="font-size:.69rem;color:rgba(255,255,255,.36);font-weight:300">Consulta completa &middot; Receita e atestado inclusos &middot; Sem taxas extras</div>
+        </div>
+        <div class="mpriceval">R$49<span style="font-size:.95rem">,90</span></div>
+      </div>
+      <div class="mtabs">
+        <button class="mtab pix" id="moTabPix" onclick="moMetodo('pix')">&#127974; PIX<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Aprovacao imediata</span></button>
+        <button class="mtab" id="moTabCard" onclick="moMetodo('cartao')">&#128179; Cartao<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Visa &middot; Master &middot; Elo</span></button>
+      </div>
+      <!-- CAMPOS CARTAO -->
+      <div class="mcard-fields" id="moCardFields">
+        <div><label class="ml">Nome completo</label><input class="mi" id="moPayNome" type="text" placeholder="Como no CPF" autocomplete="name"/></div>
+        <div><label class="ml">E-mail</label><input class="mi" id="moCardEmail" type="email" placeholder="seu@email.com" inputmode="email"/></div>
+        <div><label class="ml">Numero do cartao</label><input class="mi" id="moCfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="moCfMascaraNumero(this)"/></div>
+        <div><label class="ml">Nome no cartao</label><input class="mi" id="moCfNome" type="text" placeholder="Como aparece no cartao" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"/></div>
+        <div class="mcf-row">
+          <div><label class="ml">Validade</label><input class="mi" id="moCfValidade" type="text" placeholder="MM/AAAA" inputmode="numeric" maxlength="7" oninput="moCfMascaraValidade(this)"/></div>
+          <div><label class="ml">CVV</label><input class="mi" id="moCfCvv" type="text" placeholder="123" inputmode="numeric" maxlength="4"/></div>
+        </div>
+        <div class="mcard-err" id="moCardErr"></div>
+      </div>
+      <!-- CPF PIX -->
+      <div id="moPixCpfWrap">
+        <label class="ml">CPF</label>
+        <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)" onkeydown="if(event.key==='Enter')moPagar()"/>
+        <div style="font-size:.66rem;color:rgba(255,255,255,.28);margin-top:4px">&#127973; Necessario para emissao de receita e prontuario</div>
+      </div>
+
+      <!-- ALERTA PIX -->
+      <!-- CPF — obrigatório para PIX (PagBank) e cartão (Efí) -->
+      <div id="moCpfWrap">
+        <label class="ml">CPF</label>
+        <input class="mi" id="moCPFGlobal" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)" onkeydown="if(event.key==='Enter')moPagar()"/>
+        <div style="font-size:.67rem;color:rgba(255,255,255,.28);margin-top:4px;line-height:1.5">&#127973; Necessario para emissao de receita e atestado</div>
+      </div>
+      <div class="mpix-alert" id="moPixAlert">&#128274; O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong> &mdash; razão social da ConsultaJá24h, empresa médica registrada.</div>
+      <div id="moPixCpfWrap">
+        <label class="ml">CPF</label>
+        <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)" onkeydown="if(event.key==='Enter')moPagar()"/>
+        <div style="font-size:.66rem;color:rgba(255,255,255,.28);margin-top:4px;line-height:1.5">&#127973; Necessario para emissao de receita e prontuario</div>
+      </div>
+      <button class="mcta" id="moBtnPagar" onclick="moPagar()">Continuar para atendimento &#8594;</button>
+      <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.28)">Apos o pagamento, um medico assume seu caso em ate 5 minutos.</div>
+      <!-- QR PIX -->
+      <div class="mqr-wrap" id="moQrWrap">
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Escaneie ou use Pix Copia e Cola</div>
+        <img class="mqr-img" id="moQrImg" alt="QR Code PIX"/>
+        <div class="mcopy-row">
+          <input class="mcopy-input" id="moPixChave" readonly type="text" onclick="this.select();moCopiarPix()"/>
+          <button class="mcopy-btn" id="moCopyBtn" onclick="moCopiarPix()">Copiar</button>
+        </div>
+        <div style="font-size:.66rem;color:rgba(255,255,255,.26);text-align:center;margin-top:5px;line-height:1.6"><strong style="color:rgba(255,255,255,.38)">JG FONSECA SERVICOS MEDICOS LTDA</strong><br>Razão social da ConsultaJá24h · Válido por 30 min</div>
+        <div class="mstatus" id="moPixStatus">&#9203; Aguardando confirmacao do pagamento...</div>
+        <div class="mja-wrap" id="moJaWrap">
+          <button onclick="moVerificarManual()" id="moJaBtn" style="padding:10px 20px;border-radius:11px;border:1px solid rgba(180,224,90,.25);background:rgba(180,224,90,.06);color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;width:100%">&#10003; Ja paguei, verificar agora</button>
+          <div style="font-size:.63rem;color:rgba(255,255,255,.2);margin-top:4px">Clique se o pagamento foi debitado e a tela nao avancou</div>
+        </div>
+        <div style="text-align:center;margin-top:8px">
+          <button onclick="moReiniciar()" style="background:none;border:none;color:rgba(255,255,255,.18);font-family:'Outfit',sans-serif;font-size:.68rem;cursor:pointer;text-decoration:underline">&#8592; recomecar</button>
+        </div>
+      </div>
+      <div class="mtrust">&#128274; Pagamento seguro &middot; CNPJ verificado &middot; PIX via PagBank &middot; Cartao via Efi</div>
+    </div>
+
+    <!-- STEP 3: Confirmado -->
+    <div class="mo-step" id="moStep3">
+      <div class="mconf">
+        <div class="mconf-icon">&#9989;</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:500">Pagamento confirmado!</div>
+        <p style="font-size:.84rem;color:rgba(255,255,255,.5);font-weight:300;line-height:1.6">Conectando voce a um medico. Aguarde um instante...</p>
+        <div style="display:flex;gap:5px;align-items:center;justify-content:center">
+          <div style="width:7px;height:7px;border-radius:50%;background:#5ee0a0;animation:pulse 1.4s ease-in-out infinite"></div>
+          <div style="width:7px;height:7px;border-radius:50%;background:#5ee0a0;animation:pulse 1.4s ease-in-out infinite .2s"></div>
+          <div style="width:7px;height:7px;border-radius:50%;background:#5ee0a0;animation:pulse 1.4s ease-in-out infinite .4s"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var MO_API='https://triagem-api.onrender.com';
+var moTelVal='',moNomeVal='',moNascVal='',moCPFVal='',moEmailVal='';
+var moAtendimentoId=null,moOrderId=null,moMetodoAtual='pix';
+var moPoller=null,moJaTimer=null,moCardProcessando=false;
+var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
+
+function moAbrir(){
+  document.getElementById('moOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
+}
+function moFechar(){
+  if(moPoller){ clearInterval(moPoller); moPoller=null; }
+  if(moJaTimer){ clearTimeout(moJaTimer); moJaTimer=null; }
+  document.getElementById('moOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('moOverlay').addEventListener('click',function(e){ if(e.target===this) moFechar(); });
+
+function moIrStep(n){
+  document.querySelectorAll('.mo-step').forEach(function(s){ s.classList.remove('on'); });
+  document.getElementById('moStep'+n).classList.add('on');
+  document.getElementById('moBox').scrollTop=0;
+  var titles={1:'Iniciar atendimento',2:'Pagamento',3:'Confirmado'};
+  document.getElementById('moTitle').textContent=titles[n]||'';
+  var x=document.querySelector('.mo-x');
+  if(x) x.style.display=n===3?'none':'';
+}
+
+function moMascaraTel(el){
+  var v=el.value.replace(/\D/g,'').slice(0,11);
+  if(v.length>2) v='('+v.slice(0,2)+') '+v.slice(2);
+  if(v.length>10) v=v.slice(0,10)+'-'+v.slice(10);
+  el.value=v;
+  var d=el.value.replace(/\D/g,'');
+  document.getElementById('moFbTel').classList.toggle('show',d.length>=10&&d.length<=11);
+}
+function moMascaraNasc(el){
+  var v=el.value.replace(/\D/g,'').slice(0,8);
+  if(v.length>4) v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+  else if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
+  el.value=v;
+}
+function moMascaraCPF(el){
+  var v=el.value.replace(/\D/g,'').slice(0,11);
+  if(v.length>9) v=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6,9)+'-'+v.slice(9);
+  else if(v.length>6) v=v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6);
+  else if(v.length>3) v=v.slice(0,3)+'.'+v.slice(3);
+  el.value=v;
+}
+function moCfMascaraNumero(el){
+  var v=el.value.replace(/\D/g,'').slice(0,16);
+  el.value=v.replace(/(.{4})/g,'$1 ').trim();
+}
+function moCfMascaraValidade(el){
+  var v=el.value.replace(/\D/g,'').slice(0,6);
+  if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
+  el.value=v;
+}
+function moConverterNasc(val){
+  if(!val||val.length!==10) return val||'';
+  var p=val.split('/');
+  if(p.length!==3) return val;
+  return p[2]+'-'+p[1]+'-'+p[0];
+}
+
+async function moAvancarStep1(){
+  var telEl=document.getElementById('moTel');
+  var tel=telEl.value.replace(/\D/g,'');
+  if(tel.length>11&&tel.startsWith('55')) tel=tel.slice(2);
+  if(!tel||tel.length<10){
+    telEl.focus(); telEl.style.borderColor='rgba(255,95,87,.5)';
+    setTimeout(function(){ telEl.style.borderColor=''; },1500); return;
+  }
+  moTelVal=tel;
+  var btn=document.getElementById('moBtnStep1');
+  btn.disabled=true; btn.textContent='Verificando...';
+  var autofill=document.getElementById('moAutofill');
+  try {
+    var res=await fetch(MO_API+'/api/paciente/buscar?tel='+encodeURIComponent(tel));
+    var data=await res.json();
+    if(data.ok&&data.paciente&&data.paciente.nome&&data.paciente.nome.trim().split(/\s+/).length>=2){
+      var p=data.paciente;
+      moNomeVal=p.nome; moNascVal=p.data_nascimento||'';
+      autofill.textContent='Cadastro encontrado. Continuando...';
+      autofill.className='mautofill show';
+      fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
+      fetch(MO_API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'})}).catch(function(){});
+      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar'; moIrPagamento(); },700);
+      return;
+    } else {
+      autofill.textContent='Numero novo. Informe seu nome para continuar.';
+      autofill.className='mautofill show';
+    }
+  } catch(e) {
+    autofill.textContent='Nao foi possivel verificar. Informe seu nome abaixo.';
+    autofill.className='mautofill show';
+  }
+  document.getElementById('moNomeWrap').style.display='block';
+  document.getElementById('moNascWrap').style.display='block';
+  document.getElementById('moNome').focus();
+  btn.disabled=false; btn.textContent='Continuar';
+  btn.onclick=moConfirmarComNome;
+}
+
+function moConfirmarComNome(){
+  var nomeEl=document.getElementById('moNome');
+  var nome=nomeEl.value.trim();
+  if(!nome){ nomeEl.focus(); return; }
+  if(nome.split(/\s+/).length<2){
+    nomeEl.style.borderColor='rgba(255,95,87,.5)';
+    setTimeout(function(){ nomeEl.style.borderColor=''; },1500); return;
+  }
+  moNomeVal=nome;
+  moNascVal=moConverterNasc(document.getElementById('moNasc').value);
+  fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
+  fetch(MO_API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'})}).catch(function(){});
+  moIrPagamento();
+}
+
+async function moIrPagamento(){
+  var btn=document.getElementById('moBtnStep1');
+  btn.disabled=true; btn.textContent='Preparando...';
+  try {
+    var res=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,triagem:'(aguardando pagamento)',tipo:'chat',data_nascimento:moNascVal||''})});
+    var data=await res.json();
+    if(data.ok&&data.atendimentoId) moAtendimentoId=data.atendimentoId;
+  } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
+  btn.disabled=false; btn.textContent='Continuar';
+  btn.onclick=moAvancarStep1;
+  moMetodo('pix');
+  moIrStep(2);
+}
+
+function moMetodo(m){
+  moMetodoAtual=m;
+  document.getElementById('moTabPix').className='mtab'+(m==='pix'?' pix':'');
+  document.getElementById('moTabCard').className='mtab'+(m==='cartao'?' card':'');
+  document.getElementById('moCardFields').className='mcard-fields'+(m==='cartao'?' show':'');
+  document.getElementById('moPixAlert').style.display=m==='pix'?'block':'none';
+  document.getElementById('moPixCpfWrap').style.display=m==='pix'?'block':'none';
+  document.getElementById('moQrWrap').classList.remove('show');
+  var btn=document.getElementById('moBtnPagar');
+  btn.style.display='block'; btn.textContent='Continuar para atendimento'; btn.disabled=false;
+}
+
+async function moPagar(){
+  if(moMetodoAtual==='pix') await moGerarPix();
+  else await moPagarCartao();
+}
+
+async function moGerarPix(){
+  var cpfEl=document.getElementById('moPixCPF');
+  var cpfPix=cpfEl.value.replace(/\D/g,'');
+  if(!cpfPix||cpfPix.length!==11){
+    cpfEl.focus(); cpfEl.style.borderColor='rgba(255,95,87,.5)';
+    setTimeout(function(){ cpfEl.style.borderColor=''; },1500);
+    var st=document.getElementById('moPixStatus');
+    st.textContent='Informe seu CPF para gerar o PIX.'; st.className='mstatus err'; st.style.display='block';
+    return;
+  }
+  moCPFVal=cpfPix;
+  var btn=document.getElementById('moBtnPagar');
+  btn.disabled=true; btn.textContent='Gerando PIX...';
+  var statusEl=document.getElementById('moPixStatus');
+  statusEl.style.display='block'; statusEl.className='mstatus';
+  statusEl.textContent='Gerando codigo PIX...';
+  var _reset=setTimeout(function(){
+    if(btn.disabled){ btn.disabled=false; btn.textContent='Tentar novamente';
+      statusEl.textContent='Servidor demorou. Clique novamente.'; statusEl.className='mstatus err'; }
+  },25000);
+  try {
+    var res=await fetch(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome:moNomeVal,cpf:moCPFVal,email:undefined})});
+    var data=await res.json();
+    if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
+    moOrderId=data.order_id;
+    var pixText=data.qr_code_text||'';
+    if(moAtendimentoId&&moOrderId){
+      fetch(MO_API+'/api/atendimento/vincular-order',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})}).catch(function(){});
+    }
+    var img=document.getElementById('moQrImg');
+    if(pixText){
+      img.onload=function(){ img.style.display='block'; };
+      img.src='https://api.qrserver.com/v1/create-qr-code/?size=148x148&data='+encodeURIComponent(pixText);
+      document.getElementById('moPixChave').value=pixText;
+    }
+    document.getElementById('moQrWrap').classList.add('show');
+    btn.style.display='none';
+    clearTimeout(_reset);
+    statusEl.textContent='Aguardando confirmacao do pagamento...';
+    statusEl.className='mstatus'; statusEl.style.display='block';
+    moIniciarPolling();
+  } catch(e) {
+    clearTimeout(_reset);
+    btn.disabled=false; btn.textContent='Continuar para atendimento';
+    statusEl.textContent='Erro ao gerar PIX: '+(e.message||'Tente novamente.');
+    statusEl.className='mstatus err'; statusEl.style.display='block';
+  }
+}
+
+function moIniciarPolling(){
+  clearInterval(moPoller);
+  var tentativas=0;
+  moJaTimer=setTimeout(function(){ document.getElementById('moJaWrap').style.display='block'; },120000);
+  moPoller=setInterval(async function(){
+    tentativas++;
+    if(tentativas>600){ clearInterval(moPoller);
+      document.getElementById('moPixStatus').textContent='QR Code expirado. Recarregue.';
+      document.getElementById('moPixStatus').className='mstatus err'; return; }
+    if(!moOrderId) return;
+    try {
+      var r=await fetch(MO_API+'/api/pagbank/order/'+moOrderId);
+      var d=await r.json();
+      if(d.ok&&d.pago){ clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); }
+    } catch(e){}
+  },3000);
+}
+
+async function moVerificarManual(){
+  var btn=document.getElementById('moJaBtn');
+  btn.disabled=true; btn.textContent='Verificando...';
+  try {
+    var r=await fetch(MO_API+'/api/pagbank/order/'+moOrderId);
+    var d=await r.json();
+    if(d.ok&&d.pago){ clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return; }
+    if(moAtendimentoId){
+      var r2=await fetch(MO_API+'/api/atendimento/status/'+moAtendimentoId);
+      var d2=await r2.json();
+      if(d2.ok&&d2.atendimento&&d2.atendimento.pagamento_status==='confirmado'){
+        clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return;
+      }
+    }
+    document.getElementById('moPixStatus').textContent='Pagamento ainda nao identificado.';
+    btn.disabled=false; btn.textContent='Ja paguei, verificar novamente';
+  } catch(e){ btn.disabled=false; btn.textContent='Ja paguei, verificar novamente'; }
+}
+
+function moConfirmarPagamento(){
+  dispararConversao();
+  if(moAtendimentoId && moCPFVal && moCPFVal.length===11){
+    fetch(MO_API+'/api/atendimento/atualizar-cpf',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({atendimentoId:moAtendimentoId,cpf:moCPFVal})}).catch(function(){});
+  }
+  document.getElementById('moJaWrap').style.display='none';
+  document.getElementById('moPixStatus').textContent='Pagamento confirmado! Conectando...';
+  document.getElementById('moPixStatus').className='mstatus ok';
+  moIrStep(3);
+  setTimeout(function(){
+    var url='https://consultaja24h.com.br/triagem.html';
+    if(moAtendimentoId) url+='?consulta='+moAtendimentoId;
+    window.location.href=url;
+  },1800);
+}
+
+function moDetectarBandeira(n){
+  if(/^4/.test(n)) return 'visa';
+  if(/^5[1-5]/.test(n)) return 'mastercard';
+  if(/^3[47]/.test(n)) return 'amex';
+  if(/^(636368|438935|504175|451416|636297|5067|4576|4011)/.test(n)) return 'elo';
+  return 'visa';
+}
+
+async function moPagarCartao(){
+  if(moCardProcessando) return;
+  var nome=document.getElementById('moPayNome').value.trim();
+  var cpfNum=document.getElementById('moCPFGlobal').value.replace(/\D/g,'');
+  var email=document.getElementById('moCardEmail').value.trim();
+  var numero=document.getElementById('moCfNumero').value.replace(/\s/g,'');
+  var nomeCF=document.getElementById('moCfNome').value.trim();
+  var valCF=document.getElementById('moCfValidade').value.trim();
+  var cvv=document.getElementById('moCfCvv').value.trim();
+  var errEl=document.getElementById('moCardErr');
+  function err(msg){ errEl.textContent=msg; errEl.style.display='block'; }
+  errEl.style.display='none';
+  if(!nome){ document.getElementById('moPayNome').focus(); return; }
+  if(!cpfNum||cpfNum.length!==11){ err('CPF invalido.'); document.getElementById('moPayCPF').focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('E-mail invalido.'); document.getElementById('moCardEmail').focus(); return; }
+  if(numero.length<13){ err('Numero do cartao invalido.'); return; }
+  if(!nomeCF){ err('Informe o nome no cartao.'); return; }
+  var partes=valCF.split('/');
+  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ err('Validade invalida. Use MM/AAAA.'); return; }
+  if(!cvv||cvv.length<3){ err('CVV invalido.'); return; }
+  moCardProcessando=true;
+  var btn=document.getElementById('moBtnPagar');
+  btn.disabled=true; btn.textContent='Processando...';
+  moNomeVal=nome; moCPFVal=cpfNum; moEmailVal=email;
+  try {
+    if(!moAtendimentoId){
+      var rPre=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({nome:nome,tel:moTelVal,cpf:cpfNum,triagem:'(aguardando pagamento)',tipo:'chat',data_nascimento:moNascVal||''})});
+      var dPre=await rPre.json();
+      if(dPre&&dPre.atendimentoId) moAtendimentoId=dPre.atendimentoId;
+    }
+    if(typeof EfiPay==='undefined') throw new Error('SDK Efi nao carregou. Verifique sua conexao.');
+    var tokenResult=await EfiPay.CreditCard
+      .setAccount(EFI_PAYEE_CODE).setEnvironment('production')
+      .setCreditCardData({brand:moDetectarBandeira(numero),number:numero,cvv:cvv,
+        expirationMonth:partes[0],expirationYear:partes[1],holderName:nomeCF,holderDocument:cpfNum,reuse:false})
+      .getPaymentToken();
+    if(!tokenResult||!tokenResult.payment_token) throw new Error('Falha ao tokenizar cartao.');
+    var r=await fetch(MO_API+'/api/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({payment_token:tokenResult.payment_token,nome:nome,cpf:cpfNum,email:email,telefone:moTelVal,parcelas:1,atendimentoId:moAtendimentoId||undefined})});
+    var d=await r.json();
+    var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
+    if(ok){ moConfirmarPagamento(); }
+    else throw new Error(d.error||'Cartao nao aprovado. Verifique os dados ou tente outro cartao.');
+  } catch(e) {
+    document.getElementById('moCardErr').textContent=e.message||'Erro ao processar. Tente novamente.';
+    document.getElementById('moCardErr').style.display='block';
+  } finally {
+    moCardProcessando=false; btn.disabled=false; btn.textContent='Continuar para atendimento';
+  }
+}
+
+function moCopiarPix(){
+  var chave=document.getElementById('moPixChave').value;
+  if(!chave) return;
+  var btn=document.getElementById('moCopyBtn'); var prev=btn.textContent;
+  function ok(){ btn.textContent='Copiado!'; setTimeout(function(){ btn.textContent=prev; },2000); }
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(chave).then(ok).catch(function(){ moFallbackCopy(chave); ok(); });
+  else { moFallbackCopy(chave); ok(); }
+}
+function moFallbackCopy(text){
+  var el=document.createElement('textarea'); el.value=text; el.style.position='fixed'; el.style.opacity='0';
+  document.body.appendChild(el); el.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(el);
+}
+
+function moReiniciar(){
+  clearInterval(moPoller); clearTimeout(moJaTimer);
+  moPoller=null; moJaTimer=null; moOrderId=null; moAtendimentoId=null;
+  moTelVal=''; moNomeVal=''; moNascVal=''; moCPFVal=''; moEmailVal=''; moCardProcessando=false;
+  ['moTel','moNome','moNasc','moPayNome','moPayCPF','moCardEmail','moCfNumero','moCfNome','moCfValidade','moCfCvv'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('moFbTel').classList.remove('show');
+  document.getElementById('moNomeWrap').style.display='none';
+  document.getElementById('moNascWrap').style.display='none';
+  document.getElementById('moAutofill').className='mautofill';
+  document.getElementById('moAutofill').textContent='';
+  document.getElementById('moQrWrap').classList.remove('show');
+  var qrImg=document.getElementById('moQrImg'); if(qrImg){qrImg.src='';qrImg.style.display='none';}
+  document.getElementById('moJaWrap').style.display='none';
+  document.getElementById('moPixStatus').style.display='none';
+  document.getElementById('moCardErr').style.display='none';
+  var btn=document.getElementById('moBtnStep1');
+  btn.disabled=false; btn.textContent='Continuar'; btn.onclick=moAvancarStep1;
+  moIrStep(1);
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('a[href*="triagem.html"],.btn-primary,.sticky-cta a').forEach(function(el){
+    el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); moAbrir(); });
+  });
+});
 </script>
 </body>
 </html>
