@@ -279,6 +279,14 @@ section{position:relative;z-index:1}
 }
 .step{text-align:center;padding:0 8px;position:relative;z-index:1}
 @media(max-width:600px){
+  #heroBadge   { order:1 }
+  #heroTitle   { order:2 }
+  #heroSub     { order:3; line-height:2.1 }
+  #heroSocial  { order:4 }
+  #heroUrgency { order:5 }
+  #heroPrice   { order:6 }
+  #heroCTA     { order:7 }
+  #heroSecurity{ order:8 }
   .steps::before{display:none}
 }
 .step h3{font-size:.9rem;font-weight:700;margin-bottom:7px}
@@ -647,42 +655,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="c1">Consulta</span><span class="c2">Já</span><span class="c3">24h</span>
       </span>
     </a>
-    <a href="https://consultaja24h.com.br/triagem.html" class="nav__cta-link">Falar com médico →</a>
+    <a href="https://consultaja24h.com.br/triagem.html" class="nav__cta-link">Começar atendimento →</a>
   </div>
 </nav>
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
-  <div class="hero__badge">
+  <div class="hero__badge" id="heroBadge">
     <span class="dot-green"></span> ★★★★★ 5,0 · +2.000 atendimentos · Médicos com CRM ativo
   </div>
-  <h1 class="hero__h1">
+  <h1 class="hero__h1" id="heroTitle">
     Precisa de médico agora?<br>
     <em>Um médico inicia seu atendimento em até 5 minutos.</em>
   </h1>
-  <p class="hero__sub" style="line-height:1.9">
+  <p class="hero__sub" id="heroSub" style="line-height:1.9">
     Atendimento imediato, sem fila, por chat ou vídeo.<br>
     <span style="font-size:.82rem;color:rgba(255,255,255,.68);font-weight:500">Renovação de receitas</span><br>
     <span style="font-size:.82rem;color:rgba(255,255,255,.68);font-weight:500">Solicitação de exames de check-up</span><br>
     <span style="font-size:.82rem;color:rgba(255,255,255,.68);font-weight:500">Emissão de atestados</span>
   </p>
   <!-- prova social mini próxima ao CTA -->
-  <div style="display:inline-flex;align-items:center;gap:7px;margin-bottom:6px;font-size:.72rem;color:rgba(255,255,255,.52)">
+  <div id="heroSocial" style="display:inline-flex;align-items:center;gap:7px;margin-bottom:6px;font-size:.72rem;color:rgba(255,255,255,.52)">
     <span style="color:#d4aa30;letter-spacing:1px">★★★★★</span>
-    <span>Avaliado com 5,0 ⭐ por quem já foi atendido</span>
+    <span>Nota 5,0 ⭐ em atendimentos realizados</span>
+  </div>
+  <!-- urgência -->
+  <p id="heroUrgency" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:500;color:var(--g2);margin-bottom:6px;letter-spacing:.01em"><span class="live-dot"></span>Médicos online agora &nbsp;·&nbsp; resposta em poucos minutos</p>
+  <!-- preço -->
+  <div id="heroPrice" style="margin-bottom:4px;text-align:center">
+    <p style="margin-bottom:2px">
+      <strong style="font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1">R$&nbsp;49,90</strong>
+    </p>
+    <p style="font-size:.74rem;font-weight:400;color:rgba(255,255,255,.52);letter-spacing:.01em">valor único &nbsp;·&nbsp; sem cobrança adicional</p>
   </div>
   <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" id="heroCTA">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
     Começar atendimento agora
   </a>
-  <div class="hero__price-trust">
-    <p style="margin-bottom:2px">
-      <strong style="font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1">R$&nbsp;49,90</strong>
-    </p>
-    <p style="font-size:.74rem;font-weight:400;color:rgba(255,255,255,.52);margin-bottom:10px;letter-spacing:.01em">valor único &nbsp;·&nbsp; sem cobrança adicional</p>
-    <p style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:500;color:var(--g2);margin-bottom:8px;letter-spacing:.01em"><span class="live-dot"></span>Médicos online agora &nbsp;·&nbsp; resposta em poucos minutos</p>
-    <p style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.78);margin-bottom:0">✔ Pagamento seguro &nbsp;·&nbsp; Empresa verificada: JG FONSECA SERVIÇOS MÉDICOS LTDA</p>
-  </div>
+  <!-- segurança -->
+  <p id="heroSecurity" style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.78);margin-top:8px">✔ Pagamento seguro &nbsp;·&nbsp; Empresa verificada: JG FONSECA SERVIÇOS MÉDICOS LTDA</p>
 </section>
 
 <!-- ════════ MINI TRUST ════════ -->
