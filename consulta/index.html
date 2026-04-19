@@ -1232,16 +1232,16 @@ if(urgencyEl){
   <div class="mo-box" id="moBox">
     <div class="mo-head">
       <h3 id="moTitle">Iniciar atendimento</h3>
-      <button class="mo-x" onclick="moFechar()">&#10005;</button>
+      <button class="mo-x" onclick="moFechar()">✕</button>
     </div>
 
     <!-- STEP 1: WhatsApp -->
     <div class="mo-step on" id="moStep1">
-      <p style="font-size:.82rem;color:rgba(255,255,255,.48);font-weight:300;line-height:1.6">Voce esta a poucos segundos de falar com um medico.</p>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.48);font-weight:300;line-height:1.6">Você está a poucos segundos de falar com um médico.</p>
       <div>
         <label class="ml">WhatsApp com DDD</label>
         <input class="mi" id="moTel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" oninput="moMascaraTel(this)" onkeydown="if(event.key==='Enter')moAvancarStep1()"/>
-        <div class="mfb" id="moFbTel">&#10003; Numero valido</div>
+        <div class="mfb" id="moFbTel">✓ Número válido</div>
       </div>
       <div id="moNomeWrap" style="display:none">
         <label class="ml">Nome completo</label>
@@ -1252,29 +1252,29 @@ if(urgencyEl){
         <input class="mi" id="moNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="moMascaraNasc(this)"/>
       </div>
       <div class="mautofill" id="moAutofill"></div>
-      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar &#8594;</button>
-      <p class="mtrust">&#128274; Seus dados sao protegidos por sigilo medico e LGPD</p>
+      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar →</button>
+      <p class="mtrust">🔒 Seus dados são protegidos por sigilo médico e LGPD</p>
     </div>
 
     <!-- STEP 2: Pagamento -->
     <div class="mo-step" id="moStep2">
       <div class="mprice">
         <div>
-          <div style="font-size:.63rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:3px">Consulta medica online</div>
-          <div style="font-size:.69rem;color:rgba(255,255,255,.36);font-weight:300">Consulta completa &middot; Receita e atestado inclusos &middot; Sem taxas extras</div>
+          <div style="font-size:.63rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:3px">Consulta médica online</div>
+          <div style="font-size:.69rem;color:rgba(255,255,255,.36);font-weight:300">Consulta completa · Receita e atestado inclusos · Sem taxas extras</div>
         </div>
         <div class="mpriceval">R$49<span style="font-size:.95rem">,90</span></div>
       </div>
       <div class="mtabs">
-        <button class="mtab pix" id="moTabPix" onclick="moMetodo('pix')">&#127974; PIX<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Aprovacao imediata</span></button>
-        <button class="mtab" id="moTabCard" onclick="moMetodo('cartao')">&#128179; Cartao<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Visa &middot; Master &middot; Elo</span></button>
+        <button class="mtab pix" id="moTabPix" onclick="moMetodo('pix')">🏦 PIX<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Aprovação imediata</span></button>
+        <button class="mtab" id="moTabCard" onclick="moMetodo('cartao')">💳 Cartão<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Visa &middot; Master &middot; Elo</span></button>
       </div>
       <!-- CAMPOS CARTAO -->
       <div class="mcard-fields" id="moCardFields">
         <div><label class="ml">Nome completo</label><input class="mi" id="moPayNome" type="text" placeholder="Como no CPF" autocomplete="name"/></div>
         <div><label class="ml">E-mail</label><input class="mi" id="moCardEmail" type="email" placeholder="seu@email.com" inputmode="email"/></div>
-        <div><label class="ml">Numero do cartao</label><input class="mi" id="moCfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="moCfMascaraNumero(this)"/></div>
-        <div><label class="ml">Nome no cartao</label><input class="mi" id="moCfNome" type="text" placeholder="Como aparece no cartao" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"/></div>
+        <div><label class="ml">Número do cartão</label><input class="mi" id="moCfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="moCfMascaraNumero(this)"/></div>
+        <div><label class="ml">Nome no cartao</label><input class="mi" id="moCfNome" type="text" placeholder="Como aparece no cartão" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"/></div>
         <div class="mcf-row">
           <div><label class="ml">Validade</label><input class="mi" id="moCfValidade" type="text" placeholder="MM/AAAA" inputmode="numeric" maxlength="7" oninput="moCfMascaraValidade(this)"/></div>
           <div><label class="ml">CVV</label><input class="mi" id="moCfCvv" type="text" placeholder="123" inputmode="numeric" maxlength="4"/></div>
@@ -1285,24 +1285,13 @@ if(urgencyEl){
       <div id="moPixCpfWrap">
         <label class="ml">CPF</label>
         <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)" onkeydown="if(event.key==='Enter')moPagar()"/>
-        <div style="font-size:.66rem;color:rgba(255,255,255,.28);margin-top:4px">&#127973; Necessario para emissao de receita e prontuario</div>
+        <div style="font-size:.66rem;color:rgba(255,255,255,.28);margin-top:4px">🏥 Necessário para emissão de receita e prontuário</div>
       </div>
 
       <!-- ALERTA PIX -->
-      <!-- CPF — obrigatório para PIX (PagBank) e cartão (Efí) -->
-      <div id="moCpfWrap">
-        <label class="ml">CPF</label>
-        <input class="mi" id="moCPFGlobal" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)" onkeydown="if(event.key==='Enter')moPagar()"/>
-        <div style="font-size:.67rem;color:rgba(255,255,255,.28);margin-top:4px;line-height:1.5">&#127973; Necessario para emissao de receita e atestado</div>
-      </div>
-      <div class="mpix-alert" id="moPixAlert">&#128274; O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong> &mdash; razão social da ConsultaJá24h, empresa médica registrada.</div>
-      <div id="moPixCpfWrap">
-        <label class="ml">CPF</label>
-        <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)" onkeydown="if(event.key==='Enter')moPagar()"/>
-        <div style="font-size:.66rem;color:rgba(255,255,255,.28);margin-top:4px;line-height:1.5">&#127973; Necessario para emissao de receita e prontuario</div>
-      </div>
-      <button class="mcta" id="moBtnPagar" onclick="moPagar()">Continuar para atendimento &#8594;</button>
-      <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.28)">Apos o pagamento, um medico assume seu caso em ate 5 minutos.</div>
+      <div class="mpix-alert" id="moPixAlert">🔒 O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong> — razão social da ConsultaJá24h, empresa médica registrada.</div>
+      <button class="mcta" id="moBtnPagar" onclick="moPagar()">Continuar para atendimento →</button>
+      <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.28)">Após o pagamento, um médico assume seu caso em até 5 minutos.</div>
       <!-- QR PIX -->
       <div class="mqr-wrap" id="moQrWrap">
         <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Escaneie ou use Pix Copia e Cola</div>
@@ -1312,24 +1301,24 @@ if(urgencyEl){
           <button class="mcopy-btn" id="moCopyBtn" onclick="moCopiarPix()">Copiar</button>
         </div>
         <div style="font-size:.66rem;color:rgba(255,255,255,.26);text-align:center;margin-top:5px;line-height:1.6"><strong style="color:rgba(255,255,255,.38)">JG FONSECA SERVICOS MEDICOS LTDA</strong><br>Razão social da ConsultaJá24h · Válido por 30 min</div>
-        <div class="mstatus" id="moPixStatus">&#9203; Aguardando confirmacao do pagamento...</div>
+        <div class="mstatus" id="moPixStatus">⏳ Aguardando confirmação do pagamento...</div>
         <div class="mja-wrap" id="moJaWrap">
-          <button onclick="moVerificarManual()" id="moJaBtn" style="padding:10px 20px;border-radius:11px;border:1px solid rgba(180,224,90,.25);background:rgba(180,224,90,.06);color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;width:100%">&#10003; Ja paguei, verificar agora</button>
-          <div style="font-size:.63rem;color:rgba(255,255,255,.2);margin-top:4px">Clique se o pagamento foi debitado e a tela nao avancou</div>
+          <button onclick="moVerificarManual()" id="moJaBtn" style="padding:10px 20px;border-radius:11px;border:1px solid rgba(180,224,90,.25);background:rgba(180,224,90,.06);color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;width:100%">✓ Já paguei, verificar agora</button>
+          <div style="font-size:.63rem;color:rgba(255,255,255,.2);margin-top:4px">Clique se o pagamento foi debitado e a tela não avançou</div>
         </div>
         <div style="text-align:center;margin-top:8px">
-          <button onclick="moReiniciar()" style="background:none;border:none;color:rgba(255,255,255,.18);font-family:'Outfit',sans-serif;font-size:.68rem;cursor:pointer;text-decoration:underline">&#8592; recomecar</button>
+          <button onclick="moReiniciar()" style="background:none;border:none;color:rgba(255,255,255,.18);font-family:'Outfit',sans-serif;font-size:.68rem;cursor:pointer;text-decoration:underline">← recomeçar</button>
         </div>
       </div>
-      <div class="mtrust">&#128274; Pagamento seguro &middot; CNPJ verificado &middot; PIX via PagBank &middot; Cartao via Efi</div>
+      <div class="mtrust">🔒 Pagamento seguro · CNPJ verificado · PIX via PagBank · Cartão via Efí</div>
     </div>
 
     <!-- STEP 3: Confirmado -->
     <div class="mo-step" id="moStep3">
       <div class="mconf">
-        <div class="mconf-icon">&#9989;</div>
+        <div class="mconf-icon">✅</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:500">Pagamento confirmado!</div>
-        <p style="font-size:.84rem;color:rgba(255,255,255,.5);font-weight:300;line-height:1.6">Conectando voce a um medico. Aguarde um instante...</p>
+        <p style="font-size:.84rem;color:rgba(255,255,255,.5);font-weight:300;line-height:1.6">Conectando você a um médico. Aguarde um instante...</p>
         <div style="display:flex;gap:5px;align-items:center;justify-content:center">
           <div style="width:7px;height:7px;border-radius:50%;background:#5ee0a0;animation:pulse 1.4s ease-in-out infinite"></div>
           <div style="width:7px;height:7px;border-radius:50%;background:#5ee0a0;animation:pulse 1.4s ease-in-out infinite .2s"></div>
@@ -1433,11 +1422,11 @@ async function moAvancarStep1(){
       setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar'; moIrPagamento(); },700);
       return;
     } else {
-      autofill.textContent='Numero novo. Informe seu nome para continuar.';
+      autofill.textContent='Número novo. Informe seu nome para continuar.';
       autofill.className='mautofill show';
     }
   } catch(e) {
-    autofill.textContent='Nao foi possivel verificar. Informe seu nome abaixo.';
+    autofill.textContent='Não foi possível verificar. Informe seu nome abaixo.';
     autofill.className='mautofill show';
   }
   document.getElementById('moNomeWrap').style.display='block';
@@ -1509,7 +1498,7 @@ async function moGerarPix(){
   btn.disabled=true; btn.textContent='Gerando PIX...';
   var statusEl=document.getElementById('moPixStatus');
   statusEl.style.display='block'; statusEl.className='mstatus';
-  statusEl.textContent='Gerando codigo PIX...';
+  statusEl.textContent='Gerando código PIX...';
   var _reset=setTimeout(function(){
     if(btn.disabled){ btn.disabled=false; btn.textContent='Tentar novamente';
       statusEl.textContent='Servidor demorou. Clique novamente.'; statusEl.className='mstatus err'; }
@@ -1534,7 +1523,7 @@ async function moGerarPix(){
     document.getElementById('moQrWrap').classList.add('show');
     btn.style.display='none';
     clearTimeout(_reset);
-    statusEl.textContent='Aguardando confirmacao do pagamento...';
+    statusEl.textContent='Aguardando confirmação do pagamento...';
     statusEl.className='mstatus'; statusEl.style.display='block';
     moIniciarPolling();
   } catch(e) {
@@ -1577,9 +1566,9 @@ async function moVerificarManual(){
         clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return;
       }
     }
-    document.getElementById('moPixStatus').textContent='Pagamento ainda nao identificado.';
-    btn.disabled=false; btn.textContent='Ja paguei, verificar novamente';
-  } catch(e){ btn.disabled=false; btn.textContent='Ja paguei, verificar novamente'; }
+    document.getElementById('moPixStatus').textContent='Pagamento ainda não identificado.';
+    btn.disabled=false; btn.textContent='Já paguei, verificar novamente';
+  } catch(e){ btn.disabled=false; btn.textContent='Já paguei, verificar novamente'; }
 }
 
 function moConfirmarPagamento(){
@@ -1620,13 +1609,13 @@ async function moPagarCartao(){
   function err(msg){ errEl.textContent=msg; errEl.style.display='block'; }
   errEl.style.display='none';
   if(!nome){ document.getElementById('moPayNome').focus(); return; }
-  if(!cpfNum||cpfNum.length!==11){ err('CPF invalido.'); document.getElementById('moPayCPF').focus(); return; }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('E-mail invalido.'); document.getElementById('moCardEmail').focus(); return; }
-  if(numero.length<13){ err('Numero do cartao invalido.'); return; }
-  if(!nomeCF){ err('Informe o nome no cartao.'); return; }
+  if(!cpfNum||cpfNum.length!==11){ err('CPF inválido.'); document.getElementById('moPayCPF').focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('E-mail inválido.'); document.getElementById('moCardEmail').focus(); return; }
+  if(numero.length<13){ err('Número do cartão invalido.'); return; }
+  if(!nomeCF){ err('Informe o nome no cartão.'); return; }
   var partes=valCF.split('/');
-  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ err('Validade invalida. Use MM/AAAA.'); return; }
-  if(!cvv||cvv.length<3){ err('CVV invalido.'); return; }
+  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ err('Validade inválida. Use MM/AAAA.'); return; }
+  if(!cvv||cvv.length<3){ err('CVV inválido.'); return; }
   moCardProcessando=true;
   var btn=document.getElementById('moBtnPagar');
   btn.disabled=true; btn.textContent='Processando...';
@@ -1638,19 +1627,19 @@ async function moPagarCartao(){
       var dPre=await rPre.json();
       if(dPre&&dPre.atendimentoId) moAtendimentoId=dPre.atendimentoId;
     }
-    if(typeof EfiPay==='undefined') throw new Error('SDK Efi nao carregou. Verifique sua conexao.');
+    if(typeof EfiPay==='undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
     var tokenResult=await EfiPay.CreditCard
       .setAccount(EFI_PAYEE_CODE).setEnvironment('production')
       .setCreditCardData({brand:moDetectarBandeira(numero),number:numero,cvv:cvv,
         expirationMonth:partes[0],expirationYear:partes[1],holderName:nomeCF,holderDocument:cpfNum,reuse:false})
       .getPaymentToken();
-    if(!tokenResult||!tokenResult.payment_token) throw new Error('Falha ao tokenizar cartao.');
+    if(!tokenResult||!tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão.');
     var r=await fetch(MO_API+'/api/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({payment_token:tokenResult.payment_token,nome:nome,cpf:cpfNum,email:email,telefone:moTelVal,parcelas:1,atendimentoId:moAtendimentoId||undefined})});
     var d=await r.json();
     var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
     if(ok){ moConfirmarPagamento(); }
-    else throw new Error(d.error||'Cartao nao aprovado. Verifique os dados ou tente outro cartao.');
+    else throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
   } catch(e) {
     document.getElementById('moCardErr').textContent=e.message||'Erro ao processar. Tente novamente.';
     document.getElementById('moCardErr').style.display='block';
