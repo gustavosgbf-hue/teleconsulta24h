@@ -487,12 +487,16 @@ footer a:hover{color:var(--g2)}
 .sticky-cta{display:none}
 @media(max-width:760px){
   .sticky-cta{
-    position:fixed;left:12px;right:12px;bottom:16px;z-index:1000;
+    position:fixed;left:0;right:0;bottom:0;z-index:1000;
     display:block;
-    opacity:0;transform:translateY(12px);pointer-events:none;
-    transition:opacity .22s ease,transform .22s ease;
+    opacity:0;transform:translateY(100%);pointer-events:none;
+    transition:opacity .22s ease,transform .25s ease;
+    padding:12px 16px 16px;
+    background:rgba(6,13,11,.96);
+    backdrop-filter:blur(12px);
+    border-top:1px solid rgba(255,255,255,.08);
   }
-  .sticky-cta.is-visible{opacity:1;transform:none;pointer-events:auto}
+  .sticky-cta.is-visible{opacity:1;transform:none;pointer-events:auto;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
   .sticky-cta .btn-primary{
     width:100%;max-width:none;
     padding:17px 20px;font-size:1rem;
@@ -815,115 +819,100 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;max-width:860px;margin:0 auto">
 
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">HF</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Herllan Felix</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 18775</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JF</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Julia Fonseca</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 10300</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Ginecologia e Obstetrícia</div>
       </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MD</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Magali Di Gioia</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 282721</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JR</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Joao Reis</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 116053</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">RL</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Raquel Lima</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 14300</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">IZ</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Isadora Araujo</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 17420</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">GO</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Gabriela Oliveira</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 35883</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">KG</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Karina Guisard</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 280473</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">CP</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Clara Costa</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 19374</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">GA</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Gabriel Souza</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 16420</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MM</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Mariana Martins</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 15110</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
-      </div>
-
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
         <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">BH</div>
         <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Bruna Heluy</div>
         <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 6732</div>
         <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Dermatologia</div>
       </div>
-
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JF</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Julia Fonseca</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 10300</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Ginecologia e Obstetrícia</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MM</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Mariana Martins</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 15110</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
       </div>
-
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
         <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">CA</div>
         <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Carolina Amate</div>
         <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 8696-MA</div>
         <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Ginecologia e Obstetrícia</div>
       </div>
-
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MF</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Mariana Franco</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 236748-SP</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Endocrinologia</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">RL</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Raquel Lima</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 14300</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
       </div>
-
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">PA</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Paulo Almeida</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 52126585-7/RJ</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Psiquiatria</div>
+      </div>
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
         <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">DL</div>
         <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Danielle Lourdes</div>
         <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 271705-SP</div>
         <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Dermatologia</div>
       </div>
-
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">PA</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Paulo Almeida</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 52126585-7/RJ</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Psiquiatria</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">HF</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Herllan Felix</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 18775</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MD</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Magali Di Gioia</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 282721</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JR</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Joao Reis</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 116053</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">IZ</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Isadora Araujo</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 17420</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">GO</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Gabriela Oliveira</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 35883</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">KG</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Karina Guisard</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 280473</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">CP</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Clara Costa</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 19374</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">GA</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Gabriel Souza</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 16420</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Clínica Médica</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MF</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Mariana Franco</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 236748-SP</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)">Endocrinologia</div>
       </div>
 
     </div>
@@ -1253,7 +1242,7 @@ if(urgencyEl){
       </div>
       <div class="mautofill" id="moAutofill"></div>
       <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar →</button>
-      <p class="mtrust">🔒 Seus dados são protegidos por sigilo médico e LGPD</p>
+      <p class="mtrust">Ao continuar, você concorda com os <a href="https://consultaja24h.com.br/termos.html" target="_blank" style="color:rgba(94,224,160,.6);text-decoration:none">Termos de Uso</a> e a <a href="https://consultaja24h.com.br/privacy.html" target="_blank" style="color:rgba(94,224,160,.6);text-decoration:none">Política de Privacidade</a>. Seus dados são protegidos por sigilo médico e LGPD.</p>
     </div>
 
     <!-- STEP 2: Pagamento -->
