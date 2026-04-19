@@ -636,6 +636,22 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   display:flex;align-items:center;justify-content:center;font-size:1.7rem;
 }
 .mja-wrap{display:none;text-align:center;margin-top:5px}
+
+/* ── Step 0: escolha de modalidade ── */
+.mmode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0}
+.mmode-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;padding:18px 10px;border-radius:14px;
+  border:2px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);
+  color:rgba(255,255,255,.55);font-family:'Outfit',sans-serif;
+  cursor:pointer;transition:all .2s;text-align:center;-webkit-appearance:none;
+}
+.mmode-btn:hover{border-color:rgba(94,224,160,.3);color:#fff;background:rgba(94,224,160,.05)}
+.mmode-btn.selected{border-color:rgba(94,224,160,.7);background:rgba(94,224,160,.09);color:#fff}
+.mmode-btn .mmode-icon{font-size:1.9rem;line-height:1}
+.mmode-btn .mmode-label{font-size:.88rem;font-weight:700;line-height:1.2}
+.mmode-btn .mmode-sub{font-size:.66rem;font-weight:400;color:rgba(255,255,255,.38);line-height:1.4}
+.mmode-btn.selected .mmode-sub{color:rgba(94,224,160,.7)}
 </style>
 <script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 </head>
@@ -666,21 +682,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <h1 class="hero__h1" id="heroTitle">
     Precisa de médico agora?<br>
-    <em>Um médico inicia seu atendimento em até 5 minutos.</em>
+    <em>Atendimento em poucos minutos.</em>
   </h1>
-  <p class="hero__sub" id="heroSub" style="line-height:1.9">
-    Atendimento imediato, sem fila, por chat ou vídeo.<br>
-    <span style="font-size:.82rem;color:rgba(255,255,255,.68);font-weight:500">Renovação de receitas</span><br>
-    <span style="font-size:.82rem;color:rgba(255,255,255,.68);font-weight:500">Solicitação de exames de check-up</span><br>
-    <span style="font-size:.82rem;color:rgba(255,255,255,.68);font-weight:500">Emissão de atestados</span>
+  <p class="hero__sub" id="heroSub" style="line-height:1.7">
+    Consulta completa na própria plataforma, por chat ou vídeo.<br>
+    <span class="hero__sub-mode">Sem app. Sem WhatsApp. Sem sair de casa.</span>
   </p>
   <!-- prova social mini próxima ao CTA -->
   <div id="heroSocial" style="display:inline-flex;align-items:center;gap:7px;margin-bottom:6px;font-size:.72rem;color:rgba(255,255,255,.52)">
     <span style="color:#d4aa30;letter-spacing:1px">★★★★★</span>
-    <span>Nota 5,0 ⭐ em atendimentos realizados</span>
+    <span>Nota 5,0 · +2.000 atendimentos realizados</span>
   </div>
   <!-- urgência -->
-  <p id="heroUrgency" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:500;color:var(--g2);margin-bottom:6px;letter-spacing:.01em"><span class="live-dot"></span>Médicos online agora &nbsp;·&nbsp; resposta em poucos minutos</p>
+  <p id="heroUrgency" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:500;color:var(--g2);margin-bottom:6px;letter-spacing:.01em"><span class="live-dot"></span>Médico disponível agora &nbsp;·&nbsp; resposta imediata</p>
   <!-- preço -->
   <div id="heroPrice" style="margin-bottom:4px;text-align:center">
     <p style="margin-bottom:2px">
@@ -688,9 +702,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </p>
     <p style="font-size:.74rem;font-weight:400;color:rgba(255,255,255,.52);letter-spacing:.01em">valor único &nbsp;·&nbsp; sem cobrança adicional</p>
   </div>
+  <p style="font-size:.74rem;font-weight:500;color:rgba(255,255,255,.45);margin-bottom:8px;letter-spacing:.01em">Começa em menos de 1 minuto</p>
   <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" id="heroCTA">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
-    Começar atendimento agora
+    Falar com médico agora
   </a>
   <!-- segurança -->
   <p id="heroSecurity" style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.78);margin-top:8px">✔ Pagamento seguro &nbsp;·&nbsp; Empresa verificada: JG FONSECA SERVIÇOS MÉDICOS LTDA</p>
@@ -710,10 +725,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="pain-section reveal">
   <div class="section-inner" style="text-align:center">
     <h2 class="section-title" style="margin-bottom:6px">Com o que podemos te ajudar <em style="font-style:italic">agora?</em></h2>
-    <p style="font-size:.8rem;color:rgba(255,255,255,.38);font-weight:400;margin-bottom:18px">Sem sair de casa · médico real · atendimento completo</p>
+    <p style="font-size:.8rem;color:rgba(255,255,255,.38);font-weight:400;margin-bottom:18px">Sem fila · médico real · tudo na plataforma</p>
     <div class="pain-grid reveal-group">
       <div class="pain-item"><span>🌡️</span>Febre e gripe</div>
-      <div class="pain-item"><span>💢</span>Dor (cabeça, garganta, costas)</div>
+      <div class="pain-item"><span>💢</span>Dores em geral</div>
       <div class="pain-item"><span>🤢</span>Mal-estar e enjoo</div>
       <div class="pain-item"><span>📄</span>Atestado médico</div>
       <div class="pain-item"><span>💊</span>Receita médica</div>
@@ -726,7 +741,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="trust-strip__inner">
     <div class="trust-item-mini"><span class="icon">🩺</span>Médicos com CRM ativo</div>
     <div class="trust-sep"></div>
-    <div class="trust-item-mini"><span class="icon">⚡</span>Atendimento em 3–5 minutos</div>
+    <div class="trust-item-mini"><span class="icon">⚡</span>Resposta em poucos minutos</div>
     <div class="trust-sep"></div>
     <div class="trust-item-mini"><span class="icon">🇧🇷</span>Todo o Brasil · 24h</div>
     <div class="trust-sep"></div>
@@ -738,29 +753,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="how-section reveal" id="como-funciona">
   <div class="section-inner" style="text-align:center">
     <div class="section-label">Passo a passo</div>
-    <h2 class="section-title">Do clique ao médico<br>em menos de 5 minutos</h2>
-    <p class="section-sub" style="margin:0 auto 0">Sem aplicativo, sem cadastro complicado.</p>
+    <h2 class="section-title">Do clique ao médico<br>em poucos minutos</h2>
+    <p class="section-sub" style="margin:0 auto 0">Sem app, sem cadastro complicado.</p>
     <div class="steps reveal-group" style="margin-top:40px">
       <div class="step">
         <div class="step__num">1</div>
-        <h3>Preencha seus dados</h3>
-        <p>Nome, telefone e data de nascimento. Menos de 1 minuto. Dados protegidos por sigilo médico.</p>
+        <h3>Informe seus dados</h3>
+        <p>Só nome e telefone. Menos de 1 minuto. Tudo protegido por sigilo médico.</p>
       </div>
       <div class="step">
         <div class="step__num">2</div>
         <h3>Conte o que está sentindo</h3>
-        <p>Responda perguntas rápidas sobre seu caso. O médico vai aprofundar no atendimento.</p>
+        <p>Perguntas rápidas para o médico entender seu caso antes de começar.</p>
       </div>
       <div class="step">
         <div class="step__num">3</div>
-        <h3>Médico inicia o atendimento</h3>
-        <p>Um médico com CRM ativo começa a consulta por chat ou vídeo, diretamente na plataforma.</p>
+        <h3>Médico entra em contato</h3>
+        <p>O médico inicia a consulta diretamente na plataforma, por chat ou vídeo.</p>
       </div>
     </div>
     <div style="margin-top:40px">
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
-        Quero falar com médico agora
+        Falar com médico agora
       </a>
       <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.3)">R$&nbsp;49,90 · sem cadastro prévio · confirmação na hora</p>
     </div>
@@ -780,15 +795,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="price-desc">Atendimento com médico registrado no CRM<br><span style="font-size:.74rem;color:rgba(255,255,255,.28)">Sem taxa, sem mensalidade, sem letra miúda</span></p>
       <p class="price-badge">Início imediato · Sem fila · Sem sair de casa</p>
       <div class="price-feats reveal-group">
-        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Consulta por chat ou vídeo</div>
+        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Chat com médico ou vídeo, você escolhe</div>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Médico com CRM ativo, de verdade</div>
-        <div class="price-feat price-feat--highlight"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Atestado e solicitação de exames</div>
+        <div class="price-feat price-feat--highlight"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Receita, atestado e pedido de exames</div>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Sigilo médico garantido por lei</div>
-        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>PIX ou cartão · confirmação na hora</div>
+        <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>PIX ou cartão · aprovação na hora</div>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Disponível 24h · todo o Brasil</div>
       </div>
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none">
-        Começar consulta agora →
+        Falar com médico agora →
       </a>
     </div>
   </div>
@@ -1004,18 +1019,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ════════ CTA FINAL ════════ -->
 <section class="cta-final reveal">
-  <div class="section-label" style="text-align:center">Está com algum sintoma agora?</div>
+  <div class="section-label" style="text-align:center">Médico disponível agora</div>
   <h2 class="section-title" style="text-align:center;max-width:480px;margin:0 auto 14px">
     Não espere piorar.<br>
-    <em>Médico online agora.</em>
+    <em>Fale com um médico agora.</em>
   </h2>
   <p class="section-sub" style="text-align:center;margin:0 auto 32px">
-    Menos de 5 minutos para ser atendido. Médico com CRM, sigilo total, direto no seu celular.
+    Consulta completa na plataforma. Sem app, sem fila, sem sair de casa.
   </p>
   <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
     <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="animation:none;opacity:1;transform:none">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
-      Quero falar com médico agora
+      Falar com médico agora
     </a>
     <p style="font-size:.72rem;color:rgba(255,255,255,.3)">R$&nbsp;49,90 · PIX ou cartão · sem cadastro prévio</p>
     <p style="font-size:.7rem;color:rgba(255,255,255,.2)">🔒 Sigilo médico garantido · CRM ativo · LGPD · CFM 2.314/2022</p>
@@ -1039,7 +1054,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ════════ STICKY MOBILE CTA ════════ -->
 <div class="sticky-cta" id="stickyCta">
-  <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">Quero falar com médico agora →</a>
+  <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">Falar com médico agora →</a>
 </div>
 
 <script>
@@ -1192,9 +1207,29 @@ document.querySelectorAll('.btn-primary').forEach(function(btn){
       <button class="mo-x" onclick="moFechar()">✕</button>
     </div>
 
+    <!-- STEP 0: Escolha de modalidade -->
+    <div class="mo-step on" id="moStep0">
+      <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Como prefere falar com o médico?</p>
+      <p style="font-size:.74rem;color:rgba(255,255,255,.38);font-weight:300;margin-top:-4px">Os dois funcionam direto na plataforma, sem baixar nada.</p>
+      <div class="mmode-grid">
+        <button class="mmode-btn selected" id="moBtnChat" onclick="moSelecionarTipo('chat')">
+          <span class="mmode-icon">💬</span>
+          <span class="mmode-label">Chat com médico</span>
+          <span class="mmode-sub">Texto e envio de fotos</span>
+        </button>
+        <button class="mmode-btn" id="moBtnVideo" onclick="moSelecionarTipo('video')">
+          <span class="mmode-icon">🎥</span>
+          <span class="mmode-label">Vídeo, se preferir</span>
+          <span class="mmode-sub">Consulta por vídeo</span>
+        </button>
+      </div>
+      <button class="mcta" id="moBtnStep0" onclick="moAvancarStep0()">Continuar →</button>
+      <p class="mtrust">Começa em menos de 1 minuto · médico disponível agora</p>
+    </div>
+
     <!-- STEP 1: Telefone -->
-    <div class="mo-step on" id="moStep1">
-      <p style="font-size:.82rem;color:rgba(255,255,255,.48);font-weight:300;line-height:1.6">Você está a poucos segundos de falar com um médico.</p>
+    <div class="mo-step" id="moStep1">
+      <p style="font-size:.82rem;color:rgba(255,255,255,.48);font-weight:300;line-height:1.6">Só o telefone para começar. O médico entra em contato direto na plataforma.</p>
       <div>
         <label class="ml">Telefone com DDD</label>
         <input class="mi" id="moTel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" oninput="moMascaraTel(this)" onkeydown="if(event.key==='Enter')moAvancarStep1()"/>
@@ -1287,12 +1322,25 @@ var MO_API='https://triagem-api.onrender.com';
 var moTelVal='',moNomeVal='',moNascVal='',moCPFVal='',moEmailVal='';
 var moAtendimentoId=null,moOrderId=null,moMetodoAtual='pix';
 var moPoller=null,moJaTimer=null,moCardProcessando=false;
+var moTipoConsulta='chat'; // 'chat' ou 'video'
 var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
 
 function moAbrir(){
   document.getElementById('moOverlay').classList.add('open');
   document.body.style.overflow='hidden';
-  setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
+  moIrStep(0);
+  setTimeout(function(){ var el=document.getElementById('moBtnStep0'); if(el) el.focus(); },300);
+}
+
+function moSelecionarTipo(tipo){
+  moTipoConsulta=tipo;
+  document.getElementById('moBtnChat').classList.toggle('selected', tipo==='chat');
+  document.getElementById('moBtnVideo').classList.toggle('selected', tipo==='video');
+}
+
+function moAvancarStep0(){
+  moIrStep(1);
+  setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },200);
 }
 function moFechar(){
   if(moPoller){ clearInterval(moPoller); moPoller=null; }
@@ -1306,7 +1354,7 @@ function moIrStep(n){
   document.querySelectorAll('.mo-step').forEach(function(s){ s.classList.remove('on'); });
   document.getElementById('moStep'+n).classList.add('on');
   document.getElementById('moBox').scrollTop=0;
-  var titles={1:'Iniciar atendimento',2:'Pagamento',3:'Confirmado'};
+  var titles={0:'Como prefere ser atendido?',1:'Iniciar atendimento',2:'Pagamento',3:'Confirmado'};
   document.getElementById('moTitle').textContent=titles[n]||'';
   var x=document.querySelector('.mo-x');
   if(x) x.style.display=n===3?'none':'';
@@ -1408,7 +1456,7 @@ async function moIrPagamento(){
   btn.disabled=true; btn.textContent='Preparando...';
   try {
     var res=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,triagem:'(aguardando pagamento)',tipo:'chat',data_nascimento:moNascVal||''})});
+      body:JSON.stringify({nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||''})});
     var data=await res.json();
     if(data.ok&&data.atendimentoId) moAtendimentoId=data.atendimentoId;
   } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
@@ -1548,7 +1596,10 @@ function moConfirmarPagamento(){
   moIrStep(3);
   setTimeout(function(){
     var url='https://consultaja24h.com.br/triagem.html';
-    if(moAtendimentoId) url+='?consulta='+moAtendimentoId;
+    var params=[];
+    if(moAtendimentoId) params.push('consulta='+moAtendimentoId);
+    params.push('tipo='+moTipoConsulta);
+    if(params.length) url+='?'+params.join('&');
     window.location.href=url;
   },1800);
 }
@@ -1588,7 +1639,7 @@ async function moPagarCartao(){
   try {
     if(!moAtendimentoId){
       var rPre=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({nome:nome,tel:moTelVal,cpf:cpfNum,triagem:'(aguardando pagamento)',tipo:'chat',data_nascimento:moNascVal||''})});
+        body:JSON.stringify({nome:nome,tel:moTelVal,cpf:cpfNum,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||''})});
       var dPre=await rPre.json();
       if(dPre&&dPre.atendimentoId) moAtendimentoId=dPre.atendimentoId;
     }
@@ -1645,7 +1696,9 @@ function moReiniciar(){
   document.getElementById('moCardErr').style.display='none';
   var btn=document.getElementById('moBtnStep1');
   btn.disabled=false; btn.textContent='Continuar'; btn.onclick=moAvancarStep1;
-  moIrStep(1);
+  moTipoConsulta='chat';
+  moSelecionarTipo('chat');
+  moIrStep(0);
 }
 
 document.addEventListener('DOMContentLoaded',function(){
