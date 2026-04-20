@@ -93,6 +93,9 @@ body{
   text-align:center;
   display:flex;flex-direction:column;align-items:center;
 }
+@media(max-width:600px){
+  .hero{padding-top:24px}
+}
 
 /* ─── DOCTOR CARD (prova real) ─── */
 .doc-card{
@@ -477,18 +480,6 @@ footer a:hover{color:var(--g2)}
 
 /* ─── STICKY CTA MOBILE ─── */
 .sticky-cta{display:none}
-@media(max-width:760px){
-  .sticky-cta{
-    position:fixed;left:0;right:0;bottom:0;z-index:1000;
-    display:block;opacity:0;transform:translateY(100%);pointer-events:none;
-    transition:opacity .22s ease,transform .25s ease;
-    padding:12px 16px 16px;
-    background:rgba(6,13,11,.96);backdrop-filter:blur(12px);
-    border-top:1px solid rgba(255,255,255,.08);
-  }
-  .sticky-cta.is-visible{opacity:1;transform:none;pointer-events:auto;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
-  .sticky-cta .btn-primary{width:100%;max-width:none;padding:17px 20px;font-size:1rem}
-}
 
 /* ─── ANIMATIONS ─── */
 @keyframes fadeUp{
@@ -920,7 +911,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Disponível 24h · todo o Brasil</div>
       </div>
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none">
-        Iniciar consulta agora → R$ 49,90 
+        Iniciar consulta agora → R$ 49,90 →
       </a>
     </div>
   </div>
@@ -1210,11 +1201,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<!-- ════════ STICKY MOBILE CTA ════════ -->
-<div class="sticky-cta" id="stickyCta">
-  <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary">Falar com médico agora →</a>
-</div>
-
 <script>
 // ── FAQ toggle ──
 function toggleFaq(btn){
@@ -1248,30 +1234,6 @@ document.querySelectorAll('.btn-primary').forEach(function(btn){
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',observe);
   else observe();
-})();
-
-// ── Sticky CTA (mobile) , aparece só após seção de preço ──
-(function(){
-  var sticky=document.getElementById('stickyCta');
-  var trigger=document.querySelector('.price-section');
-  if(!sticky) return;
-  // fallback: se não há seção de preço, usa a seção "como funciona"
-  if(!trigger) trigger=document.getElementById('como-funciona');
-  if(!trigger) return;
-  var mq=window.matchMedia('(max-width:760px)');
-  var obs;
-  function setup(){
-    if(obs){obs.disconnect();obs=null}
-    if(!mq.matches){sticky.classList.remove('is-visible');return}
-    obs=new IntersectionObserver(function(entries){
-      // mostra sticky apenas quando a seção de preço já saiu de tela (scroll ↓)
-      sticky.classList.toggle('is-visible',!entries[0].isIntersecting);
-    },{threshold:0,rootMargin:'0px 0px 0px 0px'});
-    obs.observe(trigger);
-  }
-  setup();
-  if(typeof mq.addEventListener==='function') mq.addEventListener('change',setup);
-  else if(typeof mq.addListener==='function') mq.addListener(setup);
 })();
 
 // ── Google Reviews ──
@@ -1371,7 +1333,7 @@ document.querySelectorAll('.btn-primary').forEach(function(btn){
 
     <!-- STEP 0: Escolha de modalidade -->
     <div class="mo-step on" id="moStep0">
-      <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Como prefere falar com o médico?</p>
+      <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Chat por texto ou vídeo, você escolhe.</p>
       <p style="font-size:.74rem;color:rgba(255,255,255,.38);font-weight:300;margin-top:-4px">Os dois funcionam direto na plataforma, sem baixar nada.</p>
       <div class="mmode-grid">
         <button class="mmode-btn selected" id="moBtnChat" onclick="moSelecionarTipo('chat')">
@@ -1420,7 +1382,7 @@ document.querySelectorAll('.btn-primary').forEach(function(btn){
         <div class="mpriceval">R$49<span style="font-size:.95rem">,90</span></div>
       </div>
       <div class="mtabs">
-        <button class="mtab pix" id="moTabPix" onclick="moMetodo('pix')"><img src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/ChatGPT_Image_20_de_abr__de_2026__19_59_40.png" width="22" height="22" style="margin-bottom:3px;display:block;margin-left:auto;margin-right:auto" alt="PIX"><br>PIX<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Aprovação imediata</span></button>
+        <button class="mtab pix" id="moTabPix" onclick="moMetodo('pix')"><img src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/pix-logo.png" width="28" height="28" style="margin-bottom:2px;display:block;margin-left:auto;margin-right:auto;border-radius:4px" alt="PIX"><br>PIX<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Aprovação imediata</span></button>
         <button class="mtab" id="moTabCard" onclick="moMetodo('cartao')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:3px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg><br>Cartão<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Visa · Master · Elo</span></button>
       </div>
       <div class="mcard-fields" id="moCardFields">
