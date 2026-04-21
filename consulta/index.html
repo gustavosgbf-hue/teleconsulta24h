@@ -721,7 +721,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="hero">
   <!-- Médico real disponível agora: carrossel "arrastando" -->
   <style>
-    .doc-card--carousel{overflow:hidden;padding:0;background:rgba(94,224,160,.05);border:1px solid rgba(94,224,160,.2);border-radius:999px;max-width:360px;width:100%;margin-bottom:22px;animation:fadeUp .5s ease both .08s;position:relative}
+    .doc-card--carousel{overflow:hidden;padding:0;background:rgba(94,224,160,.05);border:1px solid rgba(94,224,160,.2);border-radius:999px;width:auto;display:inline-flex;max-width:280px;margin:0 auto 22px;animation:fadeUp .5s ease both .08s;position:relative}
     .doc-track{display:flex;transition:transform .55s cubic-bezier(.4,0,.2,1);will-change:transform}
     .doc-slide{flex:0 0 100%;display:flex;align-items:center;gap:12px;padding:10px 14px 10px 10px}
     .doc-slide__avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(180,224,90,.25),rgba(94,224,160,.18));border:1px solid rgba(94,224,160,.3);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#b4e05a;flex-shrink:0;position:relative}
@@ -794,15 +794,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     Iniciar consulta agora → R$ 49,90
   </a>
   <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
-  <div class="hero__chips" id="heroChips">
-    <span class="hero__chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Receita com validade legal</span>
-    <span class="hero__chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Atestado aceito em todo o Brasil</span>
-    <span class="hero__chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Pedido de exames</span>
+  <div id="heroChips" style="display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;animation:fadeUp .5s ease both .36s">
+    <div style="display:flex;gap:6px;flex-wrap:nowrap">
+      <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Receita legal</span>
+      <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Atestado</span>
+      <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Pedido de exames</span>
+    </div>
   </div>
   <!-- segurança -->
-  <p id="heroSecurity" style="font-size:.7rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:14px;display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap">
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-    Pagamento seguro &nbsp;·&nbsp; Empresa verificada: JG FONSECA SERVIÇOS MÉDICOS LTDA
+  <p id="heroSecurity" style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:14px;display:flex;align-items:center;justify-content:center;gap:5px;text-align:center;flex-wrap:wrap;padding:0 12px;animation:fadeUp .5s ease both .4s">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);flex-shrink:0;position:relative;top:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg><span>Pagamento seguro · Empresa verificada: JG FONSECA SERVIÇOS MÉDICOS LTDA</span>
   </p>
 </section>
 
