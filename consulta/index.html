@@ -914,7 +914,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Disponível 24h · todo o Brasil</div>
       </div>
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none">
-        Iniciar consulta agora → R$ 49,90
+        Iniciar consulta agora → R$ 49,90 →
       </a>
     </div>
   </div>
@@ -1401,6 +1401,11 @@ document.querySelectorAll('.btn-primary').forEach(function(btn){
       </div>
 
       <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, razão social da ConsultaJá24h, empresa médica registrada.</div>
+      <div id="moPixCpfWrap" style="display:none">
+        <label class="ml">CPF do pagador</label>
+        <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this);moPixCpfDetectar(this)">
+        <div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Necessário para emissão do recibo médico</div>
+      </div>
       <button class="mcta" id="moBtnPagar" onclick="moPagar()">Continuar para atendimento →</button>
       <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.28)">Após o pagamento, um médico assume seu caso em até 5 minutos.</div>
       <div class="mqr-wrap" id="moQrWrap">
@@ -1619,14 +1624,33 @@ function moMetodo(m){
   document.getElementById('moTabCard').className='mtab'+(m==='cartao'?' card':'');
   document.getElementById('moCardFields').className='mcard-fields'+(m==='cartao'?' show':'');
   document.getElementById('moPixAlert').style.display=m==='pix'?'block':'none';
+  document.getElementById('moPixCpfWrap').style.display='none';
   document.getElementById('moQrWrap').classList.remove('show');
   var btn=document.getElementById('moBtnPagar');
   btn.style.display='block'; btn.textContent='Continuar para atendimento'; btn.disabled=false;
 }
 
+function moPixCpfDetectar(el){
+  var cpf=el.value.replace(/\D/g,'');
+  if(cpf.length===11){
+    moCPFVal=cpf;
+    moGerarPix();
+  }
+}
+
 async function moPagar(){
-  if(moMetodoAtual==='pix') await moGerarPix();
-  else await moPagarCartao();
+  if(moMetodoAtual==='pix'){
+    if(moCPFVal && moCPFVal.length===11){
+      await moGerarPix();
+    } else {
+      var cpfWrap=document.getElementById('moPixCpfWrap');
+      cpfWrap.style.display='block';
+      document.getElementById('moBtnPagar').style.display='none';
+      setTimeout(function(){ var el=document.getElementById('moPixCPF'); if(el) el.focus(); },100);
+    }
+  } else {
+    await moPagarCartao();
+  }
 }
 
 async function moGerarPix(){
@@ -1901,6 +1925,7 @@ function moReiniciar(){
   document.getElementById('moAutofill').className='mautofill';
   document.getElementById('moAutofill').textContent='';
   document.getElementById('moQrWrap').classList.remove('show');
+  document.getElementById('moPixCpfWrap').style.display='none';
   var qrImg=document.getElementById('moQrImg'); if(qrImg){qrImg.src='';qrImg.style.display='none';}
   document.getElementById('moJaWrap').style.display='none';
   document.getElementById('moPixStatus').style.display='none';
