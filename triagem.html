@@ -1320,7 +1320,7 @@ function cfMascaraValidade(el){
 }
 
 async function gerarPagamento(){
-  var nome = pacienteNome;
+  var nome = (pacienteNome && pacienteNome.trim().length > 1) ? pacienteNome.trim() : 'Paciente';
   var tel  = pacienteTel;
   // Ler CPF do campo PIX (obrigatório para PagBank)
   var cpfInput = document.getElementById('pixCPF');
