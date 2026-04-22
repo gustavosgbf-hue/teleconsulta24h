@@ -1910,8 +1910,9 @@ async function moGerarPix(){
       statusEl.textContent='Servidor demorou. Clique novamente.'; statusEl.className='mstatus err'; }
   },25000);
   try {
+    var _nomeEnvio=(moNomeVal&&moNomeVal.trim().length>1)?moNomeVal.trim():'Paciente';
     var res=await fetch(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:moNomeVal,cpf:moCPFVal,email:undefined})});
+      body:JSON.stringify({nome:_nomeEnvio,cpf:moCPFVal,email:undefined})});
     var data=await res.json();
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
     moOrderId=data.order_id;
