@@ -1319,6 +1319,21 @@ function cfMascaraValidade(el){
   el.value = v;
 }
 
+
+// ─── VALIDAÇÃO CPF ───────────────────────────────────────────────────────────
+function validarCPF(cpf){
+  cpf = cpf.replace(/\D/g,'');
+  if(cpf.length!==11 || /^(\d)\1{10}$/.test(cpf)) return false;
+  var s=0, r;
+  for(var i=0;i<9;i++) s+=parseInt(cpf[i])*(10-i);
+  r=(s*10)%11; if(r===10) r=0;
+  if(r!==parseInt(cpf[9])) return false;
+  s=0;
+  for(var i=0;i<10;i++) s+=parseInt(cpf[i])*(11-i);
+  r=(s*10)%11; if(r===10) r=0;
+  return r===parseInt(cpf[10]);
+}
+
 async function gerarPagamento(){
   var nome = (pacienteNome && pacienteNome.trim().length > 1) ? pacienteNome.trim() : 'Paciente';
   var tel  = pacienteTel;
@@ -1329,6 +1344,14 @@ async function gerarPagamento(){
     if(cpfInput){ cpfInput.focus(); cpfInput.style.borderColor='rgba(255,95,87,.5)'; setTimeout(function(){cpfInput.style.borderColor='';},1500); }
     var statusEl = document.getElementById('pay-polling-status');
     statusEl.textContent='⚠️ Informe seu CPF para gerar o PIX.';
+    statusEl.className='pay-polling-status err';
+    statusEl.style.display='block';
+    return;
+  }
+  if(!validarCPF(cpfParaPix)){
+    if(cpfInput){ cpfInput.focus(); cpfInput.style.borderColor='rgba(255,95,87,.5)'; setTimeout(function(){cpfInput.style.borderColor='';},1500); }
+    var statusEl = document.getElementById('pay-polling-status');
+    statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.';
     statusEl.className='pay-polling-status err';
     statusEl.style.display='block';
     return;
@@ -1479,9 +1502,13 @@ function mostrarCpfPosPix(){
 }
 async function confirmarCpfPosPix(){
   var val = document.getElementById('cpfPosPix').value.replace(/\D/g,'');
-  if(!val || val.length!==11){
-    document.getElementById('cpfPosPix').style.borderColor='rgba(255,95,87,.5)';
-    setTimeout(function(){document.getElementById('cpfPosPix').style.borderColor='';},1500);
+  if(!val || val.length!==11 || !validarCPF(val)){
+    var hintEl = document.getElementById('cpfPosPix');
+    hintEl.style.borderColor='rgba(255,95,87,.5)';
+    setTimeout(function(){hintEl.style.borderColor='';},1500);
+    // show hint if element exists
+    var hintMsg = document.getElementById('cpfPosPixHint');
+    if(hintMsg){ hintMsg.textContent = val.length===11 ? '⚠️ CPF inválido. Verifique os números.' : '⚠️ CPF incompleto.'; hintMsg.style.display='block'; setTimeout(function(){if(hintMsg)hintMsg.style.display='none';},3000); }
     return;
   }
   pacienteCPF = val;
