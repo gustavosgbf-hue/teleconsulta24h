@@ -1,4 +1,3 @@
-
 <!DOCTYPE html><html lang="pt-BR"><head>
 <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771&amp;cx=c&amp;gtm=4e64g0"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NN2WKSD6"></script>
 
@@ -1912,7 +1911,7 @@ async function moGerarPix(){
   },25000);
   try {
     var res=await fetch(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:moNomeVal,cpf:moCPFVal||undefined,email:undefined})});
+      body:JSON.stringify({nome:moNomeVal,cpf:moCPFVal,email:undefined})});
     var data=await res.json();
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
     moOrderId=data.order_id;
