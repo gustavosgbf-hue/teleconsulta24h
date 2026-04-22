@@ -1778,6 +1778,21 @@ function moMascaraCPF(el){
   else if(v.length>3) v=v.slice(0,3)+'.'+v.slice(3);
   el.value=v;
 }
+
+// ─── VALIDAÇÃO CPF ───────────────────────────────────────────────────────────
+function validarCPF(cpf){
+  cpf = cpf.replace(/\D/g,'');
+  if(cpf.length!==11 || /^(\d)\1{10}$/.test(cpf)) return false;
+  var s=0, r;
+  for(var i=0;i<9;i++) s+=parseInt(cpf[i])*(10-i);
+  r=(s*10)%11; if(r===10) r=0;
+  if(r!==parseInt(cpf[9])) return false;
+  s=0;
+  for(var i=0;i<10;i++) s+=parseInt(cpf[i])*(11-i);
+  r=(s*10)%11; if(r===10) r=0;
+  return r===parseInt(cpf[10]);
+}
+
 function moCfMascaraNumero(el){
   var v=el.value.replace(/\D/g,'').slice(0,16);
   el.value=v.replace(/(.{4})/g,'$1 ').trim();
@@ -1877,7 +1892,14 @@ function moMetodo(m){
 
 function moPixCpfDetectar(el){
   var cpf=el.value.replace(/\D/g,'');
+  var statusEl=document.getElementById('moPixStatus');
   if(cpf.length===11){
+    if(!validarCPF(cpf)){
+      el.style.borderColor='rgba(255,95,87,.7)';
+      setTimeout(function(){el.style.borderColor='';},2000);
+      if(statusEl){ statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
+      return;
+    }
     moCPFVal=cpf;
     moGerarPix();
   }
@@ -1910,6 +1932,13 @@ async function moGerarPix(){
       statusEl.textContent='Servidor demorou. Clique novamente.'; statusEl.className='mstatus err'; }
   },25000);
   try {
+    if(!validarCPF(moCPFVal)){
+      var statusEl=document.getElementById('moPixStatus');
+      if(statusEl){ statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
+      btn.disabled=false; btn.textContent='Pagar com PIX';
+      clearTimeout(_reset);
+      return;
+    }
     var _nomeEnvio=(moNomeVal&&moNomeVal.trim().length>1)?moNomeVal.trim():'Paciente';
     var res=await fetch(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({nome:_nomeEnvio,cpf:moCPFVal,email:undefined})});
