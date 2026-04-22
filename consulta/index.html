@@ -1,3 +1,4 @@
+
 <!DOCTYPE html><html lang="pt-BR"><head>
 <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771&amp;cx=c&amp;gtm=4e64g0"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NN2WKSD6"></script>
 
@@ -704,6 +705,242 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="bg-glow" aria-hidden="true"></div>
 
+<!-- WhatsApp Float Button -->
+<style>
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9998;
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+.whatsapp-float.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.whatsapp-float:hover {
+  background: #20BD5A;
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.45);
+  transform: translateY(-2px);
+}
+.whatsapp-float svg {
+  width: 30px;
+  height: 30px;
+  fill: #fff;
+}
+
+/* WhatsApp Modal */
+.whatsapp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+}
+.whatsapp-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.whatsapp-modal {
+  width: 100%;
+  max-width: 400px;
+  background: #1f2d24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px 20px 0 0;
+  padding: 20px;
+  transform: translateY(20px);
+  transition: transform 0.25s ease;
+}
+.whatsapp-modal-overlay.open .whatsapp-modal {
+  transform: translateY(0);
+}
+@media (min-width: 480px) {
+  .whatsapp-modal-overlay {
+    align-items: center;
+  }
+  .whatsapp-modal {
+    border-radius: 20px;
+  }
+}
+.whatsapp-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.whatsapp-modal-header h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.whatsapp-modal-header h3 svg {
+  width: 22px;
+  height: 22px;
+  fill: #25D366;
+}
+.whatsapp-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.whatsapp-modal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.whatsapp-modal-body p {
+  font-family: 'Outfit', sans-serif;
+  font-size: .85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.whatsapp-modal-textarea {
+  width: 100%;
+  height: 100px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: .9rem;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.whatsapp-modal-textarea:focus {
+  border-color: rgba(37, 211, 102, 0.4);
+}
+.whatsapp-modal-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+.whatsapp-modal-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #25D366;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s, transform 0.1s;
+}
+.whatsapp-modal-btn:hover {
+  background: #20BD5A;
+}
+.whatsapp-modal-btn:active {
+  transform: scale(0.98);
+}
+.whatsapp-modal-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+</style>
+
+<button class="whatsapp-float" id="whatsappFloat">
+  <svg viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</button>
+
+<div class="whatsapp-modal-overlay" id="whatsappModal">
+  <div class="whatsapp-modal">
+    <div class="whatsapp-modal-header">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Fale no WhatsApp
+      </h3>
+      <button class="whatsapp-modal-close" id="whatsappModalClose">×</button>
+    </div>
+    <div class="whatsapp-modal-body">
+      <p>Escreva sua mensagem e um de nossos atendentes entrará em contato:</p>
+      <textarea class="whatsapp-modal-textarea" id="whatsappMessage" placeholder="Olá, gostaria de informações sobre a consulta..."></textarea>
+      <button class="whatsapp-modal-btn" id="whatsappSend">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        Enviar mensagem
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+var whatsappBtn = document.getElementById('whatsappFloat');
+var whatsappModal = document.getElementById('whatsappModal');
+var whatsappModalClose = document.getElementById('whatsappModalClose');
+var whatsappSend = document.getElementById('whatsappSend');
+var whatsappMessage = document.getElementById('whatsappMessage');
+
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 300) {
+    whatsappBtn.classList.add('visible');
+  } else {
+    whatsappBtn.classList.remove('visible');
+  }
+});
+
+whatsappBtn.addEventListener('click', function() {
+  whatsappModal.classList.add('open');
+  whatsappMessage.value = 'Olá, gostaria de iniciar uma consulta médica online.';
+  whatsappMessage.focus();
+});
+
+whatsappModalClose.addEventListener('click', function() {
+  whatsappModal.classList.remove('open');
+});
+
+whatsappModal.addEventListener('click', function(e) {
+  if (e.target === whatsappModal) {
+    whatsappModal.classList.remove('open');
+  }
+});
+
+whatsappSend.addEventListener('click', function() {
+  var msg = encodeURIComponent(whatsappMessage.value);
+  window.open('https://wa.me/5598989272727?text=' + msg, '_blank');
+  whatsappModal.classList.remove('open');
+});
+</script>
+
 <!-- ════════ NAV ════════ -->
 <nav class="nav">
   <div class="nav__in">
@@ -791,7 +1028,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p id="heroUrgency" style="display:inline-flex;align-items:center;gap:7px;font-size:.74rem;font-weight:500;color:var(--g2);margin-bottom:8px;letter-spacing:.01em"><span class="live-dot"></span>Médico disponível agora &nbsp;·&nbsp; resposta em minutos</p>
   <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" id="heroCTA">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
-    Iniciar consulta agora → R$ 49,90
+    Iniciar consulta agora → R$ 49,90
   </a>
   <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
   <div id="heroChips" style="display:flex;flex-wrap:nowrap;gap:6px;margin-top:14px;justify-content:center;animation:fadeUp .5s ease both .36s">
@@ -886,7 +1123,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="margin-top:40px">
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
-        Iniciar consulta agora → R$ 49,90
+        Iniciar consulta agora → R$ 49,90
       </a>
       <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.45)">R$&nbsp;49,90 · sem cadastro prévio · confirmação na hora</p>
     </div>
@@ -914,7 +1151,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Disponível 24h · todo o Brasil</div>
       </div>
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none">
-        Iniciar consulta agora → R$ 49,90
+        Iniciar consulta agora → R$ 49,90
       </a>
     </div>
   </div>
@@ -1213,12 +1450,21 @@ function toggleFaq(btn){
   if(!isOpen) item.classList.add('open');
 }
 
-// ── CTA click feedback ──
-document.querySelectorAll('.btn-primary').forEach(function(btn){
-  btn.addEventListener('click',function(){
+// ── CTA click feedback + conversion tracking ──
+document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(function(btn){
+  btn.addEventListener('click',function(e){
     btn.classList.remove('clicked');
     requestAnimationFrame(function(){btn.classList.add('clicked')});
     setTimeout(function(){btn.classList.remove('clicked')},260);
+    
+    // Google Ads conversion tracking
+    if(typeof gtag !== 'undefined'){
+      gtag('event', 'conversion', {
+        'send_to': 'AW-17964942771/CkT0CI2SpK8BEJWNz9ED',
+        'value': 49.90,
+        'currency': 'BRL'
+      });
+    }
   });
 });
 
