@@ -1667,10 +1667,14 @@ function iniciarChatConsulta(atendimento){
     document.getElementById('medicoEntrou').style.display='flex';
   }
   document.getElementById('chatConsulta').classList.add('ativo');
-  carregarHistoricoChat().then(function(){ chatAtivo=true; chatPoller=setInterval(buscarMensagensNovas,3000); });
+  carregarHistoricoChat().then(function(){ chatAtivo=true; if(!chatPoller) chatPoller=setInterval(buscarMensagensNovas,3000); });
   var inp=document.getElementById('chatInputPaciente');
-  inp.addEventListener('input',function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
-  inp.addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensagemChat(); } });
+  // [UX] Flag anti-duplicação de listeners (iniciarVideoConsulta também chama isso agora)
+  if(inp && !inp._init){
+    inp._init=true;
+    inp.addEventListener('input',function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
+    inp.addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensagemChat(); } });
+  }
 }
 async function carregarHistoricoChat(){
   if(!atendimentoId) return;
@@ -1746,6 +1750,9 @@ async function enviarArquivoTriagem(){
 function iniciarVideoConsulta(atendimento){
   if(atendimento.medico_nome){ document.getElementById('medicoNomeBannerVideo').textContent=atendimento.medico_nome; document.getElementById('medicoEntrouVideo').style.display='flex'; }
   document.getElementById('meetWrap').classList.add('ativo');
+  // [UX] Em vídeo, ATIVA o chat também — paciente precisa poder anexar exames/fotos/receitas.
+  // O chat aparece abaixo do botão do Meet e compartilha toda a lógica já existente.
+  iniciarChatConsulta(atendimento);
   if(atendimento.meet_link){ ativarLinkMeet(atendimento.meet_link); }
   else{
     meetPoller=setInterval(async function(){
