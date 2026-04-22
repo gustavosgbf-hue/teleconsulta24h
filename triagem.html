@@ -360,11 +360,14 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .chat-preview-cancel{width:20px;height:20px;border-radius:5px;border:none;background:rgba(255,95,87,.14);color:#ff5f57;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center}
 .msg-arquivo-img{max-width:220px;max-height:200px;border-radius:10px;display:block;margin-top:6px;cursor:pointer;transition:opacity .15s}
 .msg-arquivo-img:hover{opacity:.88}
-.msg-arquivo-pdf{display:flex;align-items:center;gap:12px;margin-top:6px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(94,224,160,.22);color:rgba(255,255,255,.92);font-size:.82rem;font-weight:500;text-decoration:none;transition:all .15s;min-width:220px}
-.msg-arquivo-pdf:hover{background:rgba(94,224,160,.08);border-color:rgba(94,224,160,.4)}
-.msg-arquivo-pdf::before{content:'📄';font-size:1.4rem;flex-shrink:0}
-.msg-arquivo-pdf .pdf-abrir{margin-left:auto;color:var(--g2);font-weight:600;font-size:.78rem;white-space:nowrap}
-.cmsg.paciente .msg-arquivo-pdf{background:rgba(255,255,255,.06);border-color:rgba(94,224,160,.35)}
+.msg-arquivo-pdf{display:flex;align-items:center;gap:12px;margin-top:6px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);color:#eaeaea;font-size:.88rem;font-weight:500;text-decoration:none;transition:background .15s,border-color .15s,transform .1s;min-width:0;max-width:100%}
+.msg-arquivo-pdf:hover{background:rgba(255,255,255,.06);border-color:rgba(94,224,160,.25)}
+.msg-arquivo-pdf:active{transform:scale(.995)}
+.msg-arquivo-pdf .pdf-ico{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:rgba(94,224,160,.08);display:flex;align-items:center;justify-content:center;color:var(--g2)}
+.msg-arquivo-pdf .pdf-meta{min-width:0;flex:1;display:flex;flex-direction:column}
+.msg-arquivo-pdf .pdf-nome{font-size:.88rem;font-weight:500;color:#eaeaea;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.msg-arquivo-pdf .pdf-sub{font-size:.7rem;color:rgba(255,255,255,.3);font-weight:400;margin-top:2px}
+.msg-arquivo-pdf .pdf-arrow{flex-shrink:0;color:var(--g2);opacity:.75}
 /* [UX] Bolhas premium — paleta da marca */
 .cmsg{display:flex;gap:8px;align-items:flex-end;animation:fadeUp .22s ease;max-width:78%}
 .cmsg.medico{align-self:flex-start}
@@ -1736,7 +1739,7 @@ async function carregarHistoricoChat(){
     var res=await fetch(API+'/api/chat/'+atendimentoId); var data=await res.json();
     if(!data.ok) return;
     var msgs=data.mensagens||[];
-    if(msgs.length>0){ msgs.forEach(function(m){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo); ultimaMsgId=m.id; }); }
+    if(msgs.length>0){ msgs.forEach(function(m){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); ultimaMsgId=m.id; }); }
   }catch(e){}
 }
 async function buscarMensagensNovas(){
@@ -1745,7 +1748,7 @@ async function buscarMensagensNovas(){
     var res=await fetch(API+'/api/chat/'+atendimentoId); var data=await res.json();
     if(!data.ok) return;
     var viuMedico=false;
-    (data.mensagens||[]).forEach(function(m){ if(m.id>ultimaMsgId){ if(m.autor==='medico'){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo); viuMedico=true; } ultimaMsgId=m.id; } });
+    (data.mensagens||[]).forEach(function(m){ if(m.id>ultimaMsgId){ if(m.autor==='medico'){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); viuMedico=true; } ultimaMsgId=m.id; } });
     // [UX] Quando chega msg nova do médico, pulsa o "digitando..." por 2s — sinaliza presença ativa
     if(viuMedico) _pulsarTyping();
   }catch(e){}
@@ -1770,21 +1773,26 @@ function _pulsarTyping(){
   clearTimeout(_typingTimer);
   _typingTimer=setTimeout(function(){ tip.classList.remove('visivel'); },2200);
 }
-function renderMsgChat(autor,texto,timestamp,arquivoUrl,arquivoTipo){
+function renderMsgChat(autor,texto,timestamp,arquivoUrl,arquivoTipo,arquivoNome){
   var msgs=document.getElementById('chatMsgs'); var div=document.createElement('div');
   div.className='cmsg '+autor;
   var hora=''; try{ hora=new Date(timestamp).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }catch(e){}
-  var av=autor==='medico'?'🩺':'🧑';
-  // [UX] Nome do remetente só acima de mensagens do médico
-  var senderNome=autor==='medico'?(window._medicoNomeAtual||'Médico'):'';
-  var senderHtml=autor==='medico'?('<div class="sender">'+senderNome+'</div>'):'';
-  var safe=String(texto).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  var safe=String(texto||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
   var arquivoHtml='';
-  if(arquivoUrl&&arquivoTipo==='imagem') arquivoHtml='<a href="'+arquivoUrl+'" target="_blank"><img class="msg-arquivo-img" src="'+arquivoUrl+'" alt="imagem"/></a>';
-  else if(arquivoUrl&&arquivoTipo==='pdf') arquivoHtml='<a class="msg-arquivo-pdf" href="'+arquivoUrl+'" target="_blank"><span style="flex:1;min-width:0"><span style="display:block;color:#fff;font-weight:600">Documento PDF</span><span style="display:block;font-size:.7rem;color:rgba(255,255,255,.45);margin-top:2px">Toque para abrir</span></span><span class="pdf-abrir">Abrir →</span></a>';
-  var conteudo=arquivoUrl?arquivoHtml:safe;
-  div.innerHTML='<div class="av">'+av+'</div><div class="bwrap">'+senderHtml+'<div class="bub">'+conteudo+'</div><div class="ts">'+hora+'</div></div>';
-  // [UX] Insere ANTES do indicador "digitando" para mantê-lo sempre como último filho
+  if(arquivoUrl&&arquivoTipo==='imagem'){
+    arquivoHtml='<a href="'+arquivoUrl+'" target="_blank"><img class="msg-arquivo-img" src="'+arquivoUrl+'" alt="imagem"/></a>';
+  } else if(arquivoUrl&&arquivoTipo==='pdf'){
+    // [UX v3] Card PDF minimalista: ícone + nome real + "PDF" + seta
+    var nomeArq=String(arquivoNome||'documento.pdf').slice(0,80).replace(/[<>"']/g,'');
+    arquivoHtml='<a class="msg-arquivo-pdf" href="'+arquivoUrl+'" target="_blank"><span class="pdf-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><span class="pdf-meta"><span class="pdf-nome">'+nomeArq+'</span><span class="pdf-sub">PDF</span></span><svg class="pdf-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>';
+  }
+  // [UX v3] Sem avatar/sender. Anexo fica fora da bub (card standalone).
+  if(arquivoUrl){
+    div.innerHTML='<div class="bwrap">'+arquivoHtml+'<div class="ts">'+hora+'</div></div>';
+  } else {
+    div.innerHTML='<div class="bwrap"><div class="bub">'+safe+'</div><div class="ts">'+hora+'</div></div>';
+  }
+  // Insere ANTES do indicador "digitando"
   var tip=document.getElementById('typingIndicator');
   if(tip&&tip.parentNode===msgs) msgs.insertBefore(div,tip); else msgs.appendChild(div);
   msgs.scrollTop=msgs.scrollHeight;
@@ -1816,7 +1824,7 @@ async function enviarArquivoTriagem(){
   try{
     var res=await fetch(API+'/api/chat/upload',{method:'POST',body:fd});
     var data=await res.json();
-    if(data.ok&&data.mensagem){ var m=data.mensagem; renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo); if(m.id>ultimaMsgId) ultimaMsgId=m.id; }
+    if(data.ok&&data.mensagem){ var m=data.mensagem; renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); if(m.id>ultimaMsgId) ultimaMsgId=m.id; }
   }catch(e){}
 }
 function iniciarVideoConsulta(atendimento){
