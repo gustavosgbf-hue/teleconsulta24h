@@ -360,27 +360,33 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .chat-preview-cancel{width:20px;height:20px;border-radius:5px;border:none;background:rgba(255,95,87,.14);color:#ff5f57;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center}
 .msg-arquivo-img{max-width:220px;max-height:200px;border-radius:10px;display:block;margin-top:6px;cursor:pointer;transition:opacity .15s}
 .msg-arquivo-img:hover{opacity:.88}
-.msg-arquivo-pdf{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:7px 12px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.82);font-size:.78rem;font-weight:500;text-decoration:none;transition:background .15s}
-.msg-arquivo-pdf:hover{background:rgba(255,255,255,.12)}
+.msg-arquivo-pdf{display:flex;align-items:center;gap:12px;margin-top:6px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(94,224,160,.22);color:rgba(255,255,255,.92);font-size:.82rem;font-weight:500;text-decoration:none;transition:all .15s;min-width:220px}
+.msg-arquivo-pdf:hover{background:rgba(94,224,160,.08);border-color:rgba(94,224,160,.4)}
+.msg-arquivo-pdf::before{content:'📄';font-size:1.4rem;flex-shrink:0}
+.msg-arquivo-pdf .pdf-abrir{margin-left:auto;color:var(--g2);font-weight:600;font-size:.78rem;white-space:nowrap}
+.cmsg.paciente .msg-arquivo-pdf{background:rgba(255,255,255,.06);border-color:rgba(94,224,160,.35)}
 /* [UX] Bolhas premium — paleta da marca */
-.cmsg{display:flex;gap:8px;align-items:flex-end;animation:fadeUp .22s ease;max-width:100%}
+.cmsg{display:flex;gap:8px;align-items:flex-end;animation:fadeUp .22s ease;max-width:78%}
 .cmsg.medico{align-self:flex-start}
-.cmsg.paciente{align-self:flex-end;flex-direction:row-reverse}
-.cmsg .av{width:28px;height:28px;border-radius:50%;background:#0d1f14;border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0;color:var(--g2)}
-.cmsg.paciente .av{display:none}
-.cmsg .bwrap{display:flex;flex-direction:column;max-width:82%;min-width:0}
+.cmsg.paciente{align-self:flex-end}
+/* [UX v2] Sem avatares/sender — layout limpo */
+.cmsg .av{display:none}
+.cmsg .sender{display:none}
+.cmsg .bwrap{display:flex;flex-direction:column;min-width:0;flex:1 1 auto}
 .cmsg.paciente .bwrap{align-items:flex-end}
-.cmsg .sender{font-size:.65rem;color:rgba(255,255,255,.35);margin:0 4px 3px;font-weight:500;letter-spacing:.02em}
-.cmsg.paciente .sender{display:none}
-.cmsg .bub{padding:10px 14px;border-radius:16px;font-size:.88rem;font-weight:300;line-height:1.55;word-break:break-word;overflow-wrap:anywhere}
-.cmsg.medico .bub{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-bottom-left-radius:4px;color:rgba(255,255,255,.88)}
-.cmsg.paciente .bub{background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-weight:500;border-bottom-right-radius:4px}
-.cmsg .ts{font-size:.6rem;color:rgba(255,255,255,.2);margin-top:3px;padding:0 4px}
-.cmsg.paciente .ts{text-align:right}
+.cmsg .bub{padding:11px 15px;border-radius:16px;font-size:.9rem;font-weight:300;line-height:1.55;word-break:break-word;overflow-wrap:anywhere}
+/* Médico (outro): cinza escuro translúcido à esquerda */
+.cmsg.medico .bub{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-bottom-left-radius:4px;color:rgba(255,255,255,.92)}
+/* Paciente (eu): verde escuro sólido com borda verde clara à direita */
+.cmsg.paciente .bub{background:#0d3d28;border:1px solid rgba(94,224,160,.4);border-bottom-right-radius:4px;color:#d5f5e6;font-weight:400}
+.cmsg .bub a{color:#b4e05a}
+.cmsg .ts{font-size:.6rem;color:rgba(255,255,255,.28);margin-top:4px;padding:0 4px;display:flex;align-items:center;gap:4px}
+.cmsg.paciente .ts{justify-content:flex-end}
+.cmsg.paciente .ts::after{content:'✓✓';color:var(--g2);font-size:.7rem}
 /* [UX] Indicador "médico digitando" — aparece entre mensagens do médico */
 .typing-indicator{display:none;align-self:flex-start;align-items:center;gap:8px;padding:2px 0;animation:fadeUp .2s ease}
 .typing-indicator.visivel{display:flex}
-.typing-indicator .av{width:28px;height:28px;border-radius:50%;background:#0d1f14;border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.82rem;color:var(--g2)}
+.typing-indicator .av{display:none}
 .typing-indicator .typ-bub{padding:10px 14px;border-radius:16px;border-bottom-left-radius:4px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;gap:4px;align-items:center}
 .typing-indicator .typ-bub span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45);animation:typDot 1.2s ease-in-out infinite}
 .typing-indicator .typ-bub span:nth-child(2){animation-delay:.2s}
@@ -847,6 +853,8 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
+        <!-- [UX v2] Rodapé de segurança -->
+        <div style="padding:7px 12px;text-align:center;font-size:.66rem;color:rgba(255,255,255,.25);background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.04);border-radius:0 0 14px 14px">🔒 Conversa segura e criptografada</div>
       </div>
 
       <!-- VIDEOCHAMADA -->
@@ -1773,7 +1781,7 @@ function renderMsgChat(autor,texto,timestamp,arquivoUrl,arquivoTipo){
   var safe=String(texto).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
   var arquivoHtml='';
   if(arquivoUrl&&arquivoTipo==='imagem') arquivoHtml='<a href="'+arquivoUrl+'" target="_blank"><img class="msg-arquivo-img" src="'+arquivoUrl+'" alt="imagem"/></a>';
-  else if(arquivoUrl&&arquivoTipo==='pdf') arquivoHtml='<a class="msg-arquivo-pdf" href="'+arquivoUrl+'" target="_blank">📄 Abrir PDF</a>';
+  else if(arquivoUrl&&arquivoTipo==='pdf') arquivoHtml='<a class="msg-arquivo-pdf" href="'+arquivoUrl+'" target="_blank"><span style="flex:1;min-width:0"><span style="display:block;color:#fff;font-weight:600">Documento PDF</span><span style="display:block;font-size:.7rem;color:rgba(255,255,255,.45);margin-top:2px">Toque para abrir</span></span><span class="pdf-abrir">Abrir →</span></a>';
   var conteudo=arquivoUrl?arquivoHtml:safe;
   div.innerHTML='<div class="av">'+av+'</div><div class="bwrap">'+senderHtml+'<div class="bub">'+conteudo+'</div><div class="ts">'+hora+'</div></div>';
   // [UX] Insere ANTES do indicador "digitando" para mantê-lo sempre como último filho
