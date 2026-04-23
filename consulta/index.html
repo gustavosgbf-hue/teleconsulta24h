@@ -1456,14 +1456,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
     requestAnimationFrame(function(){btn.classList.add('clicked')});
     setTimeout(function(){btn.classList.remove('clicked')},260);
     
-    // Google Ads conversion tracking
-    if(typeof gtag !== 'undefined'){
-      gtag('event', 'conversion', {
-        'send_to': 'AW-17964942771/CkT0CI2SpK8BEJWNz9ED',
-        'value': 49.90,
-        'currency': 'BRL'
-      });
-    }
+    // Google Ads: conversão disparada via dataLayer (gerou_pix) após PIX gerado com sucesso
   });
 });
 
@@ -1961,6 +1954,16 @@ async function moGerarPix(){
     clearTimeout(_reset);
     statusEl.textContent='Aguardando confirmação do pagamento...';
     statusEl.className='mstatus'; statusEl.style.display='block';
+    // [TRACKING] Dispara gerou_pix apenas 1x por order — flag evita duplicação
+    (function(){
+      var chavePixGerado = 'pix_gerado_' + (moOrderId || Date.now());
+      if(!sessionStorage.getItem(chavePixGerado)){
+        sessionStorage.setItem(chavePixGerado, '1');
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({event:'gerou_pix', value:49.90, currency:'BRL'});
+        console.log('[TRACKING] gerou_pix disparado', chavePixGerado);
+      }
+    })();
     moIniciarPolling();
   } catch(e) {
     clearTimeout(_reset);
@@ -2015,6 +2018,7 @@ function dispararConversao(){
   localStorage.setItem(chave, '1');
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:String(txId)});
+  console.log('[TRACKING] pagamento_confirmado disparado', String(txId));
   if(typeof gtag==='function'){
     gtag('event','conversion',{send_to:'AW-17964942771/AT3gCPTl0PsbEL0LrfZC',value:49.90,currency:'BRL',transaction_id:String(txId)});
   }
