@@ -89,12 +89,12 @@ body{
 /* ─── HERO ─── */
 .hero{
   position:relative;z-index:1;
-  padding:48px 20px 52px;
+  padding:20px 20px 52px;
   text-align:center;
   display:flex;flex-direction:column;align-items:center;
 }
 @media(max-width:600px){
-  .hero{padding-top:24px}
+  .hero{padding-top:52px}
 }
 
 /* ─── DOCTOR CARD (prova real) ─── */
@@ -505,7 +505,7 @@ footer a:hover{color:var(--g2)}
 hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
-  .hero{padding:48px 20px 44px}
+  .hero{padding:16px 20px 44px}
   .hero__h1{font-size:clamp(1.9rem,8.5vw,2.5rem)}
   .hero__sub{margin-bottom:30px}
   .pain-grid{grid-template-columns:repeat(2,1fr)}
@@ -949,7 +949,7 @@ whatsappSend.addEventListener('click', function() {
         <span class="c1">Consulta</span><span class="c2">Já</span><span class="c3">24h</span>
       </span>
     </a>
-    <a href="https://consultaja24h.com.br/triagem.html" class="nav__cta-link">Começar atendimento →</a>
+    <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()">Começar atendimento →</a>
   </div>
 </nav>
 
@@ -1014,20 +1014,20 @@ whatsappSend.addEventListener('click', function() {
   </script>
 
   <div class="hero__badge" id="heroBadge" style="font-size:.62rem">
-    ★★★★★ 5,0 · 2.134 atendimentos · tempo médio: 4m23s
+    ★★★★★ 5,0 · +2.000 atendimentos · tempo médio: 4m23s
   </div>
   <h1 class="hero__h1" id="heroTitle">
-    Médico online em até 5 minutos.<br>
-    <em>Receita e atestado quando indicados.</em>
+    Precisa de receita, atestado ou atendimento médico?<br>
+    <em>Fale com um médico online em até 5 minutos.</em>
   </h1>
   <p class="hero__sub" id="heroSub" style="line-height:1.7;color:rgba(255,255,255,.78)">
-    Conte o que está sentindo. Um médico assume seu caso em até 5 minutos, emite receita e atestado quando indicado → sem app, sem fila.
+    Pelo navegador. Sem app, sem cadastro. Médicos brasileiros com CRM ativo.
   </p>
   <!-- prova social + urgência fundidas em uma linha só -->
   <p id="heroUrgency" style="display:inline-flex;align-items:center;gap:7px;font-size:.74rem;font-weight:500;color:var(--g2);margin-bottom:8px;letter-spacing:.01em"><span class="live-dot"></span>Médico disponível agora &nbsp;·&nbsp; resposta em minutos</p>
   <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" id="heroCTA">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
-    Iniciar consulta agora → R$ 49,90
+    Falar com médico agora → R$ 49,90
   </a>
   <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
   <div id="heroChips" style="display:flex;flex-wrap:nowrap;gap:6px;margin-top:14px;justify-content:center;animation:fadeUp .5s ease both .36s">
@@ -1043,6 +1043,28 @@ whatsappSend.addEventListener('click', function() {
 
 
 <!-- ════════ COM QUE PODEMOS AJUDAR ════════ -->
+<!-- ════════ DOCTORS STRIP ════════ -->
+<section style="padding:20px 0 8px;border-top:1px solid rgba(255,255,255,.04)">
+  <div style="text-align:center;padding:0 20px;margin-bottom:14px">
+    <div style="display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:500;color:rgba(180,224,90,.85);letter-spacing:.02em;margin-bottom:6px"><span class="live-dot"></span>Quem vai te atender</div>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.55);font-weight:400;line-height:1.5">Médicos brasileiros com CRM ativo · disponíveis agora</p>
+  </div>
+  <div style="display:flex;gap:10px;padding:4px 16px 16px;flex-wrap:wrap;justify-content:center;max-width:1100px;margin:0 auto">
+    <style>
+      .dstrip-card{flex:0 0 auto;width:148px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 10px;text-align:center}
+      .dstrip-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));border:1px solid rgba(94,224,160,.25);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:#b4e05a;margin:0 auto 8px}
+    </style>
+    <div class="dstrip-card"><div class="dstrip-av">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">BH</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Bruna Heluy</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 6732-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Dermatologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">MF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Franco</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 236748-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Endocrinologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">HF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Herllan Felix</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 18775-PB</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">DL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Danielle Lourdes</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 271705-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Dermatologia</div></div>
+    <div class="dstrip-card" style="background:rgba(180,224,90,.06);border-color:rgba(180,224,90,.2)"><div class="dstrip-av" style="background:rgba(180,224,90,.18);color:#b4e05a;font-size:.95rem">+10</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 10 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
+  </div>
+</section>
+
 <section class="pain-section reveal visible">
   <div class="section-inner" style="text-align:center">
     <h2 class="section-title" style="margin-bottom:6px">Com o que podemos te ajudar <em style="font-style:italic">agora?</em></h2>
@@ -1122,7 +1144,7 @@ whatsappSend.addEventListener('click', function() {
     <div style="margin-top:40px">
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
-        Iniciar consulta agora → R$ 49,90
+        Falar com médico agora → R$ 49,90
       </a>
       <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.45)">R$&nbsp;49,90 · sem cadastro prévio · confirmação na hora</p>
     </div>
@@ -1150,7 +1172,7 @@ whatsappSend.addEventListener('click', function() {
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Disponível 24h · todo o Brasil</div>
       </div>
       <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none">
-        Iniciar consulta agora → R$ 49,90
+        Falar com médico agora → R$ 49,90
       </a>
     </div>
   </div>
@@ -1214,7 +1236,7 @@ whatsappSend.addEventListener('click', function() {
     <h2 class="section-title">Médicos registrados no CRM</h2>
     <p class="section-sub" style="margin:0 auto 8px">Todos os profissionais possuem CRM ativo e são habilitados para exercer a medicina no Brasil.</p>
     <p style="font-size:.78rem;color:rgba(255,255,255,.35);margin:0 auto 36px;max-width:480px">O atendimento é realizado pelo médico disponível no momento da consulta. Todos têm CRM ativo e atuam dentro das normas do CFM.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;max-width:860px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,160px));gap:12px;max-width:860px;margin:0 auto;justify-content:center">
 
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
         <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JF</div>
@@ -2217,7 +2239,7 @@ function moReiniciar(){
 }
 
 document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('a[href*="triagem.html"],.btn-primary,.sticky-cta a').forEach(function(el){
+  document.querySelectorAll('a[href*="triagem.html"],.btn-primary,.sticky-cta a,.nav__cta-link').forEach(function(el){
     el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); moAbrir(); });
   });
 
