@@ -2036,13 +2036,13 @@ function dispararConversao(){
   var txId = moAtendimentoId || moOrderId;
   if(!txId){ setTimeout(dispararConversao, 2000); return; }
   var chave = 'conv_' + txId;
-  if(localStorage.getItem(chave)) return;
-  localStorage.setItem(chave, '1');
+  if(sessionStorage.getItem(chave)) return;
+  sessionStorage.setItem(chave, '1');
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:String(txId)});
   console.log('[TRACKING] pagamento_confirmado disparado', String(txId));
   if(typeof gtag==='function'){
-    gtag('event','conversion',{send_to:'AW-17964942771/AT3gCPTl0PsbEL0LrfZC',value:49.90,currency:'BRL',transaction_id:String(txId)});
+    gtag('event','conversion',{send_to:'AW-17964942771/AT3gCPTl0PsbEL0LrfZC',value:49.90,currency:'BRL',transaction_id:String(txId),event_timeout:2000});
   }
 }
 
@@ -2190,7 +2190,7 @@ async function moPagarCartao(){
       body:JSON.stringify({payment_token:tokenResult.payment_token,nome:nome,cpf:cpfNum,email:email,telefone:moTelVal,parcelas:1,atendimentoId:moAtendimentoId||undefined})});
     var d=await r.json();
     var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
-    if(ok){ moConfirmarPagamento(); }
+    if(ok){ setTimeout(function(){ moConfirmarPagamento(); }, 800); }
     else throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
   } catch(e) {
     document.getElementById('moCardErr').textContent=e.message||'Erro ao processar. Tente novamente.';
