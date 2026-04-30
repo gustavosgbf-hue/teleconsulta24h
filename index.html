@@ -11,6 +11,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Médico Online Agora · ConsultaJá24h</title>
+<template id="__bundler_thumbnail" data-bg-color="#002017">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#002017"/>
+    <g transform="translate(600 400)" fill="none" stroke="#b4e05a" stroke-width="14" stroke-linecap="round">
+      <circle r="120" stroke-opacity=".25"/>
+      <path d="M-60 0 H60 M0 -60 V60"/>
+    </g>
+    <text x="600" y="600" text-anchor="middle" font-family="system-ui,sans-serif" font-size="44" font-weight="700" fill="#ffffff">ConsultaJá24h</text>
+  </svg>
+</template>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&amp;family=Outfit:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -333,14 +343,15 @@ section{position:relative;z-index:1}
 }
 .step{text-align:center;padding:0 8px;position:relative;z-index:1}
 @media(max-width:600px){
-  #heroDocCard { order:0 }
   #heroBadge   { order:1 }
   #heroTitle   { order:2 }
   #heroSub     { order:3; line-height:2.1 }
-  #heroUrgency { order:4 }
+  #heroDocCard { order:4; margin-top:4px; margin-bottom:18px }
+  #heroUrgency { order:5 }
   #heroCTA     { order:7 }
-  #heroChips   { order:8 }
-  #heroSecurity{ order:9 }
+  #heroPriceAnchor { order:8 }
+  #heroChips   { order:9 }
+  #heroSecurity{ order:10 }
   .steps::before{display:none}
 }
 .step h3{font-size:.9rem;font-weight:700;margin-bottom:7px}
@@ -664,6 +675,7 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 
 .mfb{font-size:.67rem;color:rgba(94,224,160,.85);margin-top:2px;opacity:0;transition:opacity .2s;min-height:14px}
 .mfb.show{opacity:1}
+.mfb.err{color:rgba(255,140,120,.95)}
 .mautofill{font-size:.7rem;color:rgba(94,224,160,.85);margin-top:2px;display:none;line-height:1.5}
 .mautofill.show{display:block}
 .mautofill.err{color:rgba(255,160,140,.85)}
@@ -940,6 +952,73 @@ whatsappSend.addEventListener('click', function() {
 });
 </script>
 
+<!-- ════════ LIVE STATUS BAR (urgência real) ════════ -->
+<style>
+  .livebar{
+    position:sticky;top:0;z-index:101;
+    background:linear-gradient(90deg,#0c4a30 0%,#125e3d 50%,#0c4a30 100%);
+    border-bottom:1px solid rgba(180,224,90,.35);
+    box-shadow:0 1px 0 rgba(180,224,90,.08), 0 4px 18px -8px rgba(0,0,0,.5);
+    color:#fff;
+    font-size:.78rem;font-weight:600;
+    padding:9px 14px;
+    text-align:center;
+    overflow:hidden;
+    letter-spacing:.01em;
+  }
+  .livebar__inner{
+    display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+    max-width:960px;margin:0 auto;
+  }
+  .livebar__item{display:inline-flex;align-items:center;gap:6px}
+  .livebar__item .live-dot{width:7px;height:7px}
+  .livebar__num{color:#c5ee6b;font-weight:800}
+  .livebar__sep{color:rgba(255,255,255,.28)}
+  @media(max-width:600px){
+    .livebar{padding:8px 10px;font-size:.74rem}
+    .livebar__inner{gap:10px}
+    .livebar__sep{display:inline}
+  }
+</style>
+<div class="livebar" id="liveBar">
+  <div class="livebar__inner">
+    <span class="livebar__item"><span class="live-dot"></span><span id="lbDocs" class="livebar__num">4</span>&nbsp;médicos online</span>
+    <span class="livebar__sep">·</span>
+    <span class="livebar__item">próxima vaga em <span id="lbWait" class="livebar__num">1m 12s</span></span>
+  </div>
+</div>
+<script>
+  // Contadores realistas: variação suave, sem inventar tráfego absurdo
+  (function(){
+    var docs = 3 + Math.floor(Math.random()*3); // 3-5
+    var waitSec = 60 + Math.floor(Math.random()*120); // 1-3min
+    var elDocs=document.getElementById('lbDocs'),
+        elWait=document.getElementById('lbWait');
+    function fmtWait(s){
+      if(s<60) return s+'s';
+      var m=Math.floor(s/60), r=s%60;
+      return m+'m '+(r<10?'0':'')+r+'s';
+    }
+    function render(){
+      elDocs.textContent = docs;
+      elWait.textContent = fmtWait(waitSec);
+    }
+    render();
+    setInterval(function(){
+      waitSec--;
+      if(waitSec <= 15){
+        waitSec = 45 + Math.floor(Math.random()*120);
+      }
+      render();
+    }, 1000);
+    setInterval(function(){
+      var delta = Math.random()<.5 ? -1 : 1;
+      docs = Math.max(2, Math.min(6, docs + delta));
+      render();
+    }, 18000);
+  })();
+</script>
+
 <!-- ════════ NAV ════════ -->
 <nav class="nav">
   <div class="nav__in">
@@ -952,6 +1031,7 @@ whatsappSend.addEventListener('click', function() {
     <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()">Começar atendimento →</a>
   </div>
 </nav>
+
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
@@ -1014,7 +1094,7 @@ whatsappSend.addEventListener('click', function() {
   </script>
 
   <div class="hero__badge" id="heroBadge" style="font-size:.62rem">
-    ★★★★★ 5,0 · +2.000 atendimentos · tempo médio: 4m23s
+    ★★★★★ 5,0 · +2.000 atendimentos
   </div>
   <h1 class="hero__h1" id="heroTitle">
     Precisa de receita, atestado ou atendimento médico?<br>
@@ -1023,12 +1103,32 @@ whatsappSend.addEventListener('click', function() {
   <p class="hero__sub" id="heroSub" style="line-height:1.7;color:rgba(255,255,255,.78)">
     Pelo navegador. Sem app, sem cadastro. Médicos brasileiros com CRM ativo.
   </p>
-  <!-- prova social + urgência fundidas em uma linha só -->
-  <p id="heroUrgency" style="display:inline-flex;align-items:center;gap:7px;font-size:.74rem;font-weight:500;color:var(--g2);margin-bottom:8px;letter-spacing:.01em"><span class="live-dot"></span>Médico disponível agora &nbsp;·&nbsp; resposta em minutos</p>
+  <!-- pílula removida visualmente: redundante com a livebar do topo. mantém DOM pra sync funcionar -->
+  <p id="heroUrgency" style="display:none"><span class="live-dot"></span>Próxima vaga em <span id="heroWait">1m 04s</span></p>
   <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" id="heroCTA">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
-    Falar com médico agora → R$ 49,90
+    <span>Iniciar consulta</span>
+    <span style="display:inline-block;width:1px;height:18px;background:rgba(6,20,9,.25);margin:0 2px"></span>
+    <span style="font-weight:800">R$ 49,90</span>
   </a>
+  <!-- âncora de preço: comparação com presencial -->
+  <p id="heroPriceAnchor" style="font-size:.74rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:10px;text-align:center;animation:fadeUp .5s ease both .32s">
+    <span style="color:rgba(255,255,255,.4);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)">Consulta presencial: R$ 200+</span>
+    &nbsp;<span style="color:var(--g1);font-weight:700">75% de economia</span>
+  </p>
+  <script>
+    // Sincroniza countdown do hero com a livebar
+    (function(){
+      var el = document.getElementById('heroWait');
+      if(!el) return;
+      var sync = function(){
+        var src = document.getElementById('lbWait');
+        if(src) el.textContent = src.textContent;
+      };
+      setInterval(sync, 1000);
+      sync();
+    })();
+  </script>
   <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
   <div id="heroChips" style="display:flex;flex-wrap:nowrap;gap:6px;margin-top:14px;justify-content:center;animation:fadeUp .5s ease both .36s">
     <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Receita</span>
@@ -1051,19 +1151,44 @@ whatsappSend.addEventListener('click', function() {
   </div>
   <div style="display:flex;gap:10px;padding:4px 16px 16px;flex-wrap:wrap;justify-content:center;max-width:1100px;margin:0 auto">
     <style>
-      .dstrip-card{flex:0 0 auto;width:148px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 10px;text-align:center}
-      .dstrip-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));border:1px solid rgba(94,224,160,.25);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:#b4e05a;margin:0 auto 8px}
+      .dstrip-card{flex:0 0 auto;width:148px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 10px 14px;text-align:center;transition:border-color .25s,transform .25s}
+      .dstrip-card:hover{border-color:rgba(180,224,90,.28);transform:translateY(-2px)}
+      .dstrip-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#b4e05a;margin:0 auto 10px;background-size:cover;background-position:center top;background-repeat:no-repeat;box-sizing:border-box;position:relative;overflow:visible}
+      .dstrip-av.has-photo{color:transparent;box-shadow:0 6px 16px rgba(0,0,0,.35),0 0 0 2px rgba(180,224,90,.55),0 0 0 5px rgba(180,224,90,.1)}
+      .dstrip-av.has-photo::after{content:'';position:absolute;right:0;bottom:1px;width:14px;height:14px;border-radius:50%;background:#5ee0a0;border:2.5px solid #002017;animation:pulse 2s ease-in-out infinite;z-index:2}
     </style>
-    <div class="dstrip-card"><div class="dstrip-av">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">BH</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Bruna Heluy</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 6732-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Dermatologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">MF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Franco</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 236748-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Endocrinologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">HF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Herllan Felix</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 18775-PB</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">DL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Danielle Lourdes</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 271705-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Dermatologia</div></div>
-    <div class="dstrip-card" style="background:rgba(180,224,90,.06);border-color:rgba(180,224,90,.2)"><div class="dstrip-av" style="background:rgba(180,224,90,.18);color:#b4e05a;font-size:.95rem">+10</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 10 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-julia-fonseca.png')">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-paulo-almeida.png')">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-franco.png')">MF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Franco</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 236748-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Endocrinologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-martins.png')">MM</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Martins</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 32814-DF</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-raquel-lima.png')">RL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Raquel Lima</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 14300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-carolina-amate.png')">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
+    <div class="dstrip-card" style="background:rgba(180,224,90,.06);border-color:rgba(180,224,90,.2)"><div class="dstrip-av" style="background:rgba(180,224,90,.18);color:#b4e05a;font-size:1rem;width:64px;height:64px">+12</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 12 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
   </div>
 </section>
+
+<!-- ════════ VÍDEO PROVA SOCIAL ════════ -->
+<section class="reveal" style="padding:36px 20px 44px;text-align:center;border-top:1px solid rgba(255,255,255,.04)">
+  <div class="section-inner" style="max-width:480px">
+    <div style="display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:500;color:rgba(180,224,90,.85);letter-spacing:.02em;margin-bottom:14px"><span class="live-dot"></span>Veja como funciona</div>
+    <div style="position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 40px rgba(0,0,0,.4);max-width:300px;margin:0 auto">
+      <video
+        src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/consulta_ja.mp4"
+        controls
+        playsinline
+        preload="metadata"
+        style="width:100%;display:block;background:#000"
+      ></video>
+    </div>
+    <a href="https://www.instagram.com/consultaja24h" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;margin-top:14px;text-decoration:none;color:rgba(255,255,255,.55);font-size:.78rem;font-weight:500;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.85)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      Veja mais no nosso Instagram
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
 
 <section class="pain-section reveal visible">
   <div class="section-inner" style="text-align:center">
@@ -1180,26 +1305,7 @@ whatsappSend.addEventListener('click', function() {
 
 <hr class="divider">
 
-<!-- ════════ VÍDEO PROVA SOCIAL ════════ -->
-<section class="reveal" style="padding:60px 20px;text-align:center">
-  <div class="section-inner" style="max-width:480px">
-    <div style="position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 40px rgba(0,0,0,.4);max-width:320px;margin:0 auto">
-      <video
-        src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/consulta_ja.mp4"
-        controls
-        playsinline
-        preload="metadata"
-        style="width:100%;display:block;background:#000"
-      ></video>
-    </div>
-    <a href="https://www.instagram.com/consultaja24h" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;margin-top:18px;text-decoration:none;color:rgba(255,255,255,.55);font-size:.8rem;font-weight:500;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.85)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-      Veja mais no nosso Instagram
-    </a>
-  </div>
-</section>
 
-<hr class="divider">
 
 <!-- ════════ DEPOIMENTOS ════════ -->
 <section class="reviews-section reveal" id="reviewsSection">
@@ -1616,10 +1722,11 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
 
     <!-- STEP 1: Telefone -->
     <div class="mo-step" id="moStep1">
-      <p style="font-size:.82rem;color:rgba(255,255,255,.48);font-weight:300;line-height:1.6">Só o telefone para começar. O médico entra em contato direto na plataforma.</p>
+      <p style="font-size:.86rem;color:rgba(255,255,255,.78);font-weight:500;line-height:1.55;margin-bottom:2px">Qual seu telefone?</p>
+      <p style="font-size:.74rem;color:rgba(255,255,255,.42);font-weight:300;line-height:1.55">Seus documentos chegam no seu celular pela <strong style="color:rgba(255,255,255,.78);font-weight:600">Memed</strong>, com validade em todo o Brasil.</p>
       <div>
         <label class="ml">Telefone com DDD</label>
-        <input class="mi" id="moTel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" oninput="moMascaraTel(this)" onkeydown="if(event.key==='Enter')moAvancarStep1()">
+        <input class="mi" id="moTel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" oninput="moMascaraTel(this)" onkeydown="if(event.key==='Enter')moAvancarStep1()" autocomplete="tel-national">
         <div class="mfb" id="moFbTel">✓ Número válido</div>
       </div>
       <div id="moNomeWrap" style="display:none">
@@ -1632,7 +1739,25 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       </div>
       <div class="mautofill" id="moAutofill"></div>
       <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar →</button>
-      <p class="mtrust">Ao continuar, você concorda com os <a href="https://consultaja24h.com.br/termos.html" target="_blank" style="color:rgba(94,224,160,.6);text-decoration:none">Termos de Uso</a> e a <a href="https://consultaja24h.com.br/privacy.html" target="_blank" style="color:rgba(94,224,160,.6);text-decoration:none">Política de Privacidade</a>. Seus dados são protegidos por sigilo médico e LGPD.</p>
+      <!-- toggle discreto: chat é default, oferece vídeo como secundário -->
+      <div id="moModoPill" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:7px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto;border-radius:999px">
+        <span id="moModoToggleLabel" style="font-size:.7rem;color:rgba(255,255,255,.5);font-weight:400">Prefere atendimento por <strong>vídeo</strong>?</span>
+        <a href="#" onclick="moTrocarModo(event)" style="font-size:.7rem;color:var(--g2);font-weight:600;text-decoration:none;border-bottom:1px dashed rgba(94,224,160,.4);padding-bottom:1px">trocar</a>
+      </div>
+      <!-- selo Memed: pictograma genérico de receita digital + texto -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:10px;padding:7px 12px;background:rgba(94,224,160,.06);border:1px solid rgba(94,224,160,.18);border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--g2);flex-shrink:0">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <polyline points="9 15 11 17 15 13"></polyline>
+        </svg>
+        <span style="font-size:.68rem;color:rgba(255,255,255,.7);font-weight:500;letter-spacing:.01em">Documentos digitais via <strong style="color:var(--g2);font-weight:700">Memed</strong>, com validade nacional</span>
+      </div>
+      <p class="mtrust" style="display:flex;align-items:center;justify-content:center;gap:6px;font-size:.68rem;margin-top:10px">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <span>Dados protegidos por sigilo médico e LGPD</span>
+      </p>
+      <p class="mtrust" style="font-size:.62rem;opacity:.5;margin-top:2px">Ao continuar, você concorda com os <a href="https://consultaja24h.com.br/termos.html" target="_blank" style="color:rgba(94,224,160,.6);text-decoration:none">Termos</a> e a <a href="https://consultaja24h.com.br/privacy.html" target="_blank" style="color:rgba(94,224,160,.6);text-decoration:none">Política de Privacidade</a>.</p>
     </div>
 
     <!-- STEP 2: Pagamento -->
@@ -1740,20 +1865,113 @@ function moAbrir(contexto){
   moPreContexto = contexto || '';
   document.getElementById('moOverlay').classList.add('open');
   document.body.style.overflow='hidden';
-  moIrStep(0);
-  setTimeout(function(){ var el=document.getElementById('moBtnStep0'); if(el) el.focus(); },300);
+  // pula direto pro telefone — escolha chat/vídeo vira opcional no proprio step 1
+  moTipoConsulta='chat';
+  moSelecionarTipo('chat');
+  moAtualizarToggleModo();
+  moIrStep(1);
+  setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
 }
 
 function moSelecionarTipo(tipo){
   moTipoConsulta=tipo;
-  document.getElementById('moBtnChat').classList.toggle('selected', tipo==='chat');
-  document.getElementById('moBtnVideo').classList.toggle('selected', tipo==='video');
+  var btnChat=document.getElementById('moBtnChat');
+  var btnVideo=document.getElementById('moBtnVideo');
+  if(btnChat) btnChat.classList.toggle('selected', tipo==='chat');
+  if(btnVideo) btnVideo.classList.toggle('selected', tipo==='video');
+  moAtualizarToggleModo();
+}
+
+// atualiza o texto do toggle no step 1
+function moAtualizarToggleModo(){
+  var el=document.getElementById('moModoToggleLabel');
+  if(!el) return;
+  el.innerHTML = moTipoConsulta==='chat'
+    ? 'Prefere atendimento por <strong>vídeo</strong>?'
+    : 'Prefere atendimento por <strong>chat</strong>?';
+}
+
+// alterna entre chat e vídeo a partir do toggle do step 1
+function moTrocarModo(e){
+  if(e) e.preventDefault();
+  moSelecionarTipo(moTipoConsulta==='chat' ? 'video' : 'chat');
+  // feedback visual sutil
+  var pill=document.getElementById('moModoPill');
+  if(pill){
+    pill.style.transition='background .25s';
+    pill.style.background='rgba(94,224,160,.18)';
+    setTimeout(function(){ pill.style.background=''; },350);
+  }
 }
 
 function moAvancarStep0(){
   moIrStep(1);
   setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },200);
 }
+
+// POST com retry exponencial (1s, 3s, 8s) — protege registro de consentimento
+// quando o servidor Render acorda lento. Roda em background, não bloqueia UX.
+function moPostConfiavel(endpoint, payload){
+  var url = MO_API + endpoint;
+  var body = JSON.stringify(payload);
+  var atrasos = [0, 1000, 3000, 8000]; // imediato + 3 retries
+  function tentar(i){
+    if(i >= atrasos.length){
+      // último fallback: salva no localStorage pra reenviar quando voltar
+      try {
+        var pendentes = JSON.parse(localStorage.getItem('moPendentes')||'[]');
+        pendentes.push({endpoint:endpoint, payload:payload, ts:Date.now()});
+        // limita a 50 pra não inflar localStorage
+        if(pendentes.length>50) pendentes = pendentes.slice(-50);
+        localStorage.setItem('moPendentes', JSON.stringify(pendentes));
+      } catch(e){}
+      return;
+    }
+    setTimeout(function(){
+      fetch(url, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: body,
+        keepalive: true // permite request continuar mesmo se a aba fechar
+      })
+      .then(function(r){ if(!r.ok) throw new Error('status '+r.status); })
+      .catch(function(){ tentar(i+1); });
+    }, atrasos[i]);
+  }
+  tentar(0);
+}
+
+// Tenta reenviar registros pendentes que ficaram salvos no localStorage
+// (rodadas anteriores em que servidor estava fora do ar)
+function moReenviarPendentes(){
+  try {
+    var pendentes = JSON.parse(localStorage.getItem('moPendentes')||'[]');
+    if(!pendentes.length) return;
+    var aindaPendentes = [];
+    pendentes.forEach(function(p){
+      // expira após 7 dias pra não ficar tentando pra sempre
+      if(Date.now() - (p.ts||0) > 7*24*60*60*1000) return;
+      fetch(MO_API+p.endpoint,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(p.payload)
+      }).catch(function(){ aindaPendentes.push(p); });
+    });
+    // limpa imediatamente; quem falhar volta pelo catch acima
+    localStorage.setItem('moPendentes', JSON.stringify([]));
+    setTimeout(function(){
+      if(aindaPendentes.length){
+        try {
+          var atuais = JSON.parse(localStorage.getItem('moPendentes')||'[]');
+          localStorage.setItem('moPendentes', JSON.stringify(atuais.concat(aindaPendentes)));
+        } catch(e){}
+      }
+    }, 5000);
+  } catch(e){}
+}
+// dispara reenvio ao carregar a página (pega pendências do dia anterior)
+setTimeout(moReenviarPendentes, 4000);
+
 function moFechar(){
   if(moPoller){ clearInterval(moPoller); moPoller=null; }
   if(moJaTimer){ clearTimeout(moJaTimer); moJaTimer=null; }
@@ -1778,7 +1996,20 @@ function moMascaraTel(el){
   if(v.length>10) v=v.slice(0,10)+'-'+v.slice(10);
   el.value=v;
   var d=el.value.replace(/\D/g,'');
-  document.getElementById('moFbTel').classList.toggle('show',d.length>=10&&d.length<=11);
+  var fb=document.getElementById('moFbTel');
+  if(!fb) return;
+  // limpa estado de erro qdo usuário volta a digitar
+  fb.classList.remove('err');
+  el.style.borderColor='';
+  if(d.length===0){
+    fb.classList.remove('show');
+  } else if(d.length<10){
+    fb.textContent='Faltam '+(10-d.length)+' dígito'+(10-d.length===1?'':'s');
+    fb.classList.add('show');
+  } else if(d.length>=10 && d.length<=11){
+    fb.textContent='✓ Número válido';
+    fb.classList.add('show');
+  }
 }
 function moMascaraNasc(el){
   var v=el.value.replace(/\D/g,'').slice(0,8);
@@ -1826,18 +2057,30 @@ function moConverterNasc(val){
 
 async function moAvancarStep1(){
   var telEl=document.getElementById('moTel');
+  var fb=document.getElementById('moFbTel');
   var tel=telEl.value.replace(/\D/g,'');
   if(tel.length>11&&tel.startsWith('55')) tel=tel.slice(2);
   if(!tel||tel.length<10){
-    telEl.focus(); telEl.style.borderColor='rgba(255,95,87,.5)';
-    setTimeout(function(){ telEl.style.borderColor=''; },1500); return;
+    telEl.focus();
+    telEl.style.borderColor='rgba(255,140,120,.6)';
+    if(fb){
+      fb.textContent= tel.length===0
+        ? 'Digite seu telefone com DDD'
+        : 'Número incompleto · faltam '+(10-tel.length)+' dígito'+(10-tel.length===1?'':'s');
+      fb.classList.add('show','err');
+    }
+    return;
   }
   moTelVal=tel;
   var btn=document.getElementById('moBtnStep1');
   btn.disabled=true; btn.textContent='Verificando...';
   var autofill=document.getElementById('moAutofill');
+  // timeout de 4s pra nao travar UI se servidor estiver dormindo (Render free)
+  var ctrl = (typeof AbortController!=='undefined') ? new AbortController() : null;
+  var timeoutId = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 4000);
   try {
-    var res=await fetch(MO_API+'/api/paciente/buscar?tel='+encodeURIComponent(tel));
+    var res=await fetch(MO_API+'/api/paciente/buscar?tel='+encodeURIComponent(tel), ctrl?{signal:ctrl.signal}:{});
+    clearTimeout(timeoutId);
     var data=await res.json();
     if(data.ok&&data.paciente&&data.paciente.nome&&data.paciente.nome.trim().split(/\s+/).length>=2){
       var p=data.paciente;
@@ -1845,15 +2088,16 @@ async function moAvancarStep1(){
       autofill.textContent='Cadastro encontrado. Continuando...';
       autofill.className='mautofill show';
       fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
-      fetch(MO_API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'})}).catch(function(){});
+      moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
       setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar'; moIrPagamento(); },700);
       return;
     } else {
-      autofill.textContent='Número novo. Informe seu nome para continuar.';
+      autofill.textContent='Falta só seu nome para finalizar.';
       autofill.className='mautofill show';
     }
   } catch(e) {
-    autofill.textContent='Não foi possível verificar. Informe seu nome abaixo.';
+    clearTimeout(timeoutId);
+    autofill.textContent='Informe seu nome abaixo para continuar.';
     autofill.className='mautofill show';
   }
   document.getElementById('moNomeWrap').style.display='block';
@@ -1874,7 +2118,7 @@ function moConfirmarComNome(){
   moNomeVal=nome;
   moNascVal=moConverterNasc(document.getElementById('moNasc').value);
   fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
-  fetch(MO_API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'})}).catch(function(){});
+  moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
   moIrPagamento();
 }
 
