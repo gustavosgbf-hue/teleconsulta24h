@@ -11,6 +11,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Médico Online Agora · ConsultaJá24h</title>
+<template id="__bundler_thumbnail" data-bg-color="#002017">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#002017"/>
+    <g transform="translate(600 400)" fill="none" stroke="#b4e05a" stroke-width="14" stroke-linecap="round">
+      <circle r="120" stroke-opacity=".25"/>
+      <path d="M-60 0 H60 M0 -60 V60"/>
+    </g>
+    <text x="600" y="600" text-anchor="middle" font-family="system-ui,sans-serif" font-size="44" font-weight="700" fill="#ffffff">ConsultaJá24h</text>
+  </svg>
+</template>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&amp;family=Outfit:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -1051,19 +1061,44 @@ whatsappSend.addEventListener('click', function() {
   </div>
   <div style="display:flex;gap:10px;padding:4px 16px 16px;flex-wrap:wrap;justify-content:center;max-width:1100px;margin:0 auto">
     <style>
-      .dstrip-card{flex:0 0 auto;width:148px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 10px;text-align:center}
-      .dstrip-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));border:1px solid rgba(94,224,160,.25);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:#b4e05a;margin:0 auto 8px}
+      .dstrip-card{flex:0 0 auto;width:148px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 10px 14px;text-align:center;transition:border-color .25s,transform .25s}
+      .dstrip-card:hover{border-color:rgba(180,224,90,.28);transform:translateY(-2px)}
+      .dstrip-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#b4e05a;margin:0 auto 10px;background-size:cover;background-position:center top;background-repeat:no-repeat;box-sizing:border-box;position:relative;overflow:visible}
+      .dstrip-av.has-photo{color:transparent;box-shadow:0 6px 16px rgba(0,0,0,.35),0 0 0 2px rgba(180,224,90,.55),0 0 0 5px rgba(180,224,90,.1)}
+      .dstrip-av.has-photo::after{content:'';position:absolute;right:0;bottom:1px;width:14px;height:14px;border-radius:50%;background:#5ee0a0;border:2.5px solid #002017;animation:pulse 2s ease-in-out infinite;z-index:2}
     </style>
-    <div class="dstrip-card"><div class="dstrip-av">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">BH</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Bruna Heluy</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 6732-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Dermatologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">MF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Franco</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 236748-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Endocrinologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">HF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Herllan Felix</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 18775-PB</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av">DL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Danielle Lourdes</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 271705-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Dermatologia</div></div>
-    <div class="dstrip-card" style="background:rgba(180,224,90,.06);border-color:rgba(180,224,90,.2)"><div class="dstrip-av" style="background:rgba(180,224,90,.18);color:#b4e05a;font-size:.95rem">+10</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 10 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('img/dr-julia-fonseca.png?v=4')">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('img/dr-paulo-almeida.png?v=4')">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('img/dr-mariana-franco.png?v=4')">MF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Franco</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 236748-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Endocrinologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('img/dr-mariana-martins.png?v=4')">MM</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Martins</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 32814-DF</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('img/dr-raquel-lima.png?v=4')">RL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Raquel Lima</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 14300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('img/dr-carolina-amate.png?v=4')">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
+    <div class="dstrip-card" style="background:rgba(180,224,90,.06);border-color:rgba(180,224,90,.2)"><div class="dstrip-av" style="background:rgba(180,224,90,.18);color:#b4e05a;font-size:1rem;width:64px;height:64px">+12</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 12 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
   </div>
 </section>
+
+<!-- ════════ VÍDEO PROVA SOCIAL ════════ -->
+<section class="reveal" style="padding:36px 20px 44px;text-align:center;border-top:1px solid rgba(255,255,255,.04)">
+  <div class="section-inner" style="max-width:480px">
+    <div style="display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:500;color:rgba(180,224,90,.85);letter-spacing:.02em;margin-bottom:14px"><span class="live-dot"></span>Veja como funciona</div>
+    <div style="position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 40px rgba(0,0,0,.4);max-width:300px;margin:0 auto">
+      <video
+        src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/consulta_ja.mp4"
+        controls
+        playsinline
+        preload="metadata"
+        style="width:100%;display:block;background:#000"
+      ></video>
+    </div>
+    <a href="https://www.instagram.com/consultaja24h" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;margin-top:14px;text-decoration:none;color:rgba(255,255,255,.55);font-size:.78rem;font-weight:500;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.85)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      Veja mais no nosso Instagram
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
 
 <section class="pain-section reveal visible">
   <div class="section-inner" style="text-align:center">
@@ -1180,26 +1215,7 @@ whatsappSend.addEventListener('click', function() {
 
 <hr class="divider">
 
-<!-- ════════ VÍDEO PROVA SOCIAL ════════ -->
-<section class="reveal" style="padding:60px 20px;text-align:center">
-  <div class="section-inner" style="max-width:480px">
-    <div style="position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 40px rgba(0,0,0,.4);max-width:320px;margin:0 auto">
-      <video
-        src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/consulta_ja.mp4"
-        controls
-        playsinline
-        preload="metadata"
-        style="width:100%;display:block;background:#000"
-      ></video>
-    </div>
-    <a href="https://www.instagram.com/consultaja24h" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;margin-top:18px;text-decoration:none;color:rgba(255,255,255,.55);font-size:.8rem;font-weight:500;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.85)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-      Veja mais no nosso Instagram
-    </a>
-  </div>
-</section>
 
-<hr class="divider">
 
 <!-- ════════ DEPOIMENTOS ════════ -->
 <section class="reviews-section reveal" id="reviewsSection">
