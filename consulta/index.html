@@ -1,6 +1,14 @@
 <!DOCTYPE html><html lang="pt-BR"><head>
 <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771&amp;cx=c&amp;gtm=4e64g0"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NN2WKSD6"></script>
 
+<!-- gtag init: necessário pro gtag('event','conversion',...) funcionar direto pro Google Ads -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17964942771');
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -2272,18 +2280,88 @@ async function moVerificarManual(){
   } catch(e){ btn.disabled=false; btn.textContent='Já paguei, verificar novamente'; }
 }
 
-function dispararConversao(){
+function dispararConversao(_tentativa, _onComplete){
+  var tentativa = _tentativa || 0;
+  var onComplete = _onComplete || function(){};
   var txId = moAtendimentoId || moOrderId;
-  if(!txId){ setTimeout(dispararConversao, 2000); return; }
-  var chave = 'conv_' + txId;
-  if(sessionStorage.getItem(chave)) return;
-  sessionStorage.setItem(chave, '1');
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({event:'pagamento_confirmado',value:49.90,currency:'BRL',transaction_id:String(txId)});
-  console.log('[TRACKING] pagamento_confirmado disparado', String(txId));
-  if(typeof gtag==='function'){
-    gtag('event','conversion',{send_to:'AW-17964942771/AT3gCPTl0PsbEL0LrfZC',value:49.90,currency:'BRL',transaction_id:String(txId),event_timeout:2000});
+
+  // se não tem txId em 5 tentativas (10s), dispara assim mesmo com txId temporário
+  // melhor disparar conversão sem ID do que perder a conversão de vez
+  if(!txId){
+    if(tentativa < 5){
+      setTimeout(function(){ dispararConversao(tentativa+1, onComplete); }, 2000);
+      return;
+    }
+    txId = 'no_id_' + Date.now();
+    console.warn('[TRACKING] disparando sem transaction_id após '+tentativa+' tentativas');
   }
+
+  var chave = 'conv_' + txId;
+  if(sessionStorage.getItem(chave)){
+    console.log('[TRACKING] conversão já disparada para', txId, '- ignorado');
+    onComplete();
+    return;
+  }
+  sessionStorage.setItem(chave, '1');
+
+  // Garante que o callback dispare no máximo uma vez, com timeout de segurança
+  var jaCompletou = false;
+  var completarUmaVez = function(motivo){
+    if(jaCompletou) return;
+    jaCompletou = true;
+    console.log('[TRACKING] callback final ('+motivo+')');
+    onComplete();
+  };
+  // timeout de segurança: 1500ms é suficiente pro request sair, mas não trava UX
+  var timeoutSeguranca = setTimeout(function(){ completarUmaVez('timeout'); }, 1500);
+
+  // 1) dataLayer (GTM): caminho principal — depende do GTM ter trigger 'pagamento_confirmado'
+  try {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event:'pagamento_confirmado',
+      value:49.90,
+      currency:'BRL',
+      transaction_id:String(txId),
+      eventCallback: function(){
+        clearTimeout(timeoutSeguranca);
+        completarUmaVez('dataLayer eventCallback');
+      },
+      eventTimeout: 1200
+    });
+    console.log('[TRACKING] dataLayer push ok', String(txId));
+  } catch(e){ console.error('[TRACKING] dataLayer falhou:', e); }
+
+  // 2) gtag direto com event_callback (caminho independente do GTM)
+  try {
+    if(typeof gtag==='function'){
+      gtag('event','conversion',{
+        send_to:'AW-17964942771/AT3gCPTl0PsbEL0LrfZC',
+        value:49.90,
+        currency:'BRL',
+        transaction_id:String(txId),
+        event_timeout:1200,
+        event_callback: function(){
+          clearTimeout(timeoutSeguranca);
+          completarUmaVez('gtag event_callback');
+        }
+      });
+      console.log('[TRACKING] gtag conversion ok', String(txId));
+    } else {
+      console.warn('[TRACKING] gtag indisponível, conversão indo só via dataLayer/GTM');
+    }
+  } catch(e){ console.error('[TRACKING] gtag falhou:', e); }
+
+  // 3) gtag genérico de purchase (redundância)
+  try {
+    if(typeof gtag==='function'){
+      gtag('event','purchase',{
+        transaction_id:String(txId),
+        value:49.90,
+        currency:'BRL'
+      });
+    }
+  } catch(e){}
 }
 
 function moConfirmarPagamento(){
@@ -2377,7 +2455,20 @@ function moEnviarCpfEIr(){
   params.push('tipo='+moTipoConsulta);
   if(moCPFVal) params.push('cpf='+moCPFVal);
   if(params.length) url+='?'+params.join('&');
-  window.location.href=url;
+
+  // CRÍTICO: aguarda a conversão sair antes de redirecionar.
+  // Sem isso, o navegador aborta o request da conversão ao mudar de página.
+  // Se ainda não foi disparada (raro), dispara aqui e espera o callback.
+  var chaveTx = 'conv_' + (moAtendimentoId || moOrderId || '');
+  if(sessionStorage.getItem(chaveTx)){
+    // já foi disparada antes - dá um tempinho extra mínimo pro request terminar
+    setTimeout(function(){ window.location.href = url; }, 350);
+  } else {
+    // não foi disparada ainda - dispara agora e só redireciona após callback
+    dispararConversao(0, function(){
+      window.location.href = url;
+    });
+  }
 }
 
 function moDetectarBandeira(n){
