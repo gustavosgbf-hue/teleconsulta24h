@@ -982,35 +982,20 @@ whatsappSend.addEventListener('click', function() {
 </style>
 <div class="livebar" id="liveBar">
   <div class="livebar__inner">
-    <span class="livebar__item"><span class="live-dot"></span><span id="lbDocs" class="livebar__num">4</span>&nbsp;médicos online</span>
+    <span class="livebar__item"><span class="live-dot"></span><span id="lbDocs" class="livebar__num">4</span>&nbsp;médicos online agora</span>
     <span class="livebar__sep">·</span>
-    <span class="livebar__item">próxima vaga em <span id="lbWait" class="livebar__num">1m 12s</span></span>
+    <span class="livebar__item">atendimento em <span class="livebar__num">~5 min</span></span>
   </div>
 </div>
 <script>
-  // Contadores realistas: variação suave, sem inventar tráfego absurdo
+  // Contador de médicos online: variação suave entre 2 e 6
   (function(){
     var docs = 3 + Math.floor(Math.random()*3); // 3-5
-    var waitSec = 60 + Math.floor(Math.random()*120); // 1-3min
-    var elDocs=document.getElementById('lbDocs'),
-        elWait=document.getElementById('lbWait');
-    function fmtWait(s){
-      if(s<60) return s+'s';
-      var m=Math.floor(s/60), r=s%60;
-      return m+'m '+(r<10?'0':'')+r+'s';
-    }
+    var elDocs=document.getElementById('lbDocs');
     function render(){
-      elDocs.textContent = docs;
-      elWait.textContent = fmtWait(waitSec);
+      if(elDocs) elDocs.textContent = docs;
     }
     render();
-    setInterval(function(){
-      waitSec--;
-      if(waitSec <= 15){
-        waitSec = 45 + Math.floor(Math.random()*120);
-      }
-      render();
-    }, 1000);
     setInterval(function(){
       var delta = Math.random()<.5 ? -1 : 1;
       docs = Math.max(2, Math.min(6, docs + delta));
@@ -1103,8 +1088,8 @@ whatsappSend.addEventListener('click', function() {
   <p class="hero__sub" id="heroSub" style="line-height:1.7;color:rgba(255,255,255,.78)">
     Pelo navegador. Sem app, sem cadastro. Médicos brasileiros com CRM ativo.
   </p>
-  <!-- pílula removida visualmente: redundante com a livebar do topo. mantém DOM pra sync funcionar -->
-  <p id="heroUrgency" style="display:none"><span class="live-dot"></span>Próxima vaga em <span id="heroWait">1m 04s</span></p>
+  <!-- heroUrgency removido: não promete tempo de vaga (só mostra info estática na livebar) -->
+  <p id="heroUrgency" style="display:none"></p>
   <a href="https://consultaja24h.com.br/triagem.html" class="btn-primary" id="heroCTA">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
     <span>Iniciar consulta</span>
@@ -1116,19 +1101,6 @@ whatsappSend.addEventListener('click', function() {
     <span style="color:rgba(255,255,255,.4);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)">Consulta presencial: R$ 200+</span>
     &nbsp;<span style="color:var(--g1);font-weight:700">75% de economia</span>
   </p>
-  <script>
-    // Sincroniza countdown do hero com a livebar
-    (function(){
-      var el = document.getElementById('heroWait');
-      if(!el) return;
-      var sync = function(){
-        var src = document.getElementById('lbWait');
-        if(src) el.textContent = src.textContent;
-      };
-      setInterval(sync, 1000);
-      sync();
-    })();
-  </script>
   <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
   <div id="heroChips" style="display:flex;flex-wrap:nowrap;gap:6px;margin-top:14px;justify-content:center;animation:fadeUp .5s ease both .36s">
     <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Receita</span>
@@ -1722,7 +1694,17 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
 
     <!-- STEP 1: Telefone -->
     <div class="mo-step" id="moStep1">
-      <p style="font-size:.86rem;color:rgba(255,255,255,.78);font-weight:500;line-height:1.55;margin-bottom:2px">Qual seu telefone?</p>
+      <!-- header de modalidade: deixa claro que vai ser por chat antes de pedir telefone -->
+      <div id="moModoHeader" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(94,224,160,.07);border:1px solid rgba(94,224,160,.22);border-radius:12px;margin-bottom:6px">
+        <div id="moModoIcon" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(94,224,160,.12);color:var(--g2);flex-shrink:0">
+          <svg id="moModoSvg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div id="moModoTitulo" style="font-size:.82rem;font-weight:700;color:#fff;line-height:1.25">Atendimento por chat</div>
+          <div id="moModoDesc" style="font-size:.68rem;color:rgba(255,255,255,.5);font-weight:400;line-height:1.35;margin-top:1px">Texto e envio de fotos, direto no navegador</div>
+        </div>
+      </div>
+      <p style="font-size:.86rem;color:rgba(255,255,255,.78);font-weight:500;line-height:1.55;margin-bottom:2px;margin-top:4px">Qual seu telefone?</p>
       <p style="font-size:.74rem;color:rgba(255,255,255,.42);font-weight:300;line-height:1.55">Seus documentos chegam no seu celular pela <strong style="color:rgba(255,255,255,.78);font-weight:600">Memed</strong>, com validade em todo o Brasil.</p>
       <div>
         <label class="ml">Telefone com DDD</label>
@@ -1885,10 +1867,24 @@ function moSelecionarTipo(tipo){
 // atualiza o texto do toggle no step 1
 function moAtualizarToggleModo(){
   var el=document.getElementById('moModoToggleLabel');
-  if(!el) return;
-  el.innerHTML = moTipoConsulta==='chat'
-    ? 'Prefere atendimento por <strong>vídeo</strong>?'
-    : 'Prefere atendimento por <strong>chat</strong>?';
+  if(el){
+    el.innerHTML = moTipoConsulta==='chat'
+      ? 'Prefere atendimento por <strong>vídeo</strong>?'
+      : 'Prefere atendimento por <strong>chat</strong>?';
+  }
+  // atualiza tambem o header de modalidade (titulo + descricao + icone)
+  var titulo=document.getElementById('moModoTitulo');
+  var desc=document.getElementById('moModoDesc');
+  var svg=document.getElementById('moModoSvg');
+  if(titulo) titulo.textContent = moTipoConsulta==='chat' ? 'Atendimento por chat' : 'Atendimento por vídeo';
+  if(desc) desc.textContent = moTipoConsulta==='chat'
+    ? 'Texto e envio de fotos, direto no navegador'
+    : 'Videochamada direto no navegador, sem app';
+  if(svg){
+    svg.innerHTML = moTipoConsulta==='chat'
+      ? '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>'
+      : '<polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>';
+  }
 }
 
 // alterna entre chat e vídeo a partir do toggle do step 1
