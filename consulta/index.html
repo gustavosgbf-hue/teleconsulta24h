@@ -358,8 +358,10 @@ section{position:relative;z-index:1}
   #heroUrgency { order:5 }
   #heroCTA     { order:7 }
   #heroPriceAnchor { order:8 }
-  #heroChips   { order:9 }
-  #heroSecurity{ order:10 }
+  #heroReviewProof { order:9 }
+  #heroChips   { order:10 }
+  #heroSpecialtyLinks { order:11 }
+  #heroSecurity{ order:12 }
   .steps::before{display:none}
 }
 .step h3{font-size:.9rem;font-weight:700;margin-bottom:7px}
@@ -1094,7 +1096,7 @@ whatsappSend.addEventListener('click', function() {
     <em>Fale com um médico online em até 5 minutos.</em>
   </h1>
   <p class="hero__sub" id="heroSub" style="line-height:1.7;color:rgba(255,255,255,.78)">
-    Pelo navegador. Sem app, sem cadastro. Médicos brasileiros com CRM ativo.
+    Pelo navegador. Sem app, sem criar conta. Médicos brasileiros com CRM ativo.
   </p>
   <!-- heroUrgency removido: não promete tempo de vaga (só mostra info estática na livebar) -->
   <p id="heroUrgency" style="display:none"></p>
@@ -1109,11 +1111,24 @@ whatsappSend.addEventListener('click', function() {
     <span style="color:rgba(255,255,255,.4);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)">Consulta presencial: R$ 200+</span>
     &nbsp;<span style="color:var(--g1);font-weight:700">75% de economia</span>
   </p>
+  <a id="heroReviewProof" href="https://maps.app.goo.gl/bXMaD9GugXdfYmXv7" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding:8px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);color:rgba(255,255,255,.72);font-size:.72rem;font-weight:600;text-decoration:none;animation:fadeUp .5s ease both .34s">
+    <svg width="13" height="13" viewBox="0 0 48 48" aria-label="Google" style="flex-shrink:0"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg>
+    <span>5,0 no Google · avaliações verificadas</span>
+  </a>
   <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
   <div id="heroChips" style="display:flex;flex-wrap:nowrap;gap:6px;margin-top:14px;justify-content:center;animation:fadeUp .5s ease both .36s">
     <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Receita</span>
     <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Atestado</span>
     <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Pedido de exames</span>
+  </div>
+  <div id="heroSpecialtyLinks" style="margin-top:12px;animation:fadeUp .5s ease both .38s;max-width:430px;width:100%">
+    <p style="font-size:.66rem;color:rgba(255,255,255,.36);font-weight:500;margin-bottom:7px">Procura uma área específica?</p>
+    <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center">
+      <a href="https://consultaja24h.com.br/especialistas/psiquiatria" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:.7rem;font-weight:600;text-decoration:none">Psiquiatra</a>
+      <a href="https://consultaja24h.com.br/psicologo-online/" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:.7rem;font-weight:600;text-decoration:none">Psicólogo</a>
+      <a href="https://consultaja24h.com.br/especialistas/endocrinologia" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:.7rem;font-weight:600;text-decoration:none">Endócrino</a>
+      <a href="https://consultaja24h.com.br/especialistas" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:.7rem;font-weight:600;text-decoration:none">Outras especialidades</a>
+    </div>
   </div>
   <!-- segurança -->
   <p id="heroSecurity" style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:14px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
@@ -1228,12 +1243,12 @@ whatsappSend.addEventListener('click', function() {
   <div class="section-inner" style="text-align:center">
     <div class="section-label">Passo a passo</div>
     <h2 class="section-title">Do clique ao médico<br>em poucos minutos</h2>
-    <p class="section-sub" style="margin:0 auto 0">Sem app, sem cadastro complicado.</p>
+    <p class="section-sub" style="margin:0 auto 0">Sem app, sem criar conta.</p>
     <div class="steps reveal-group" style="margin-top:40px">
       <div class="step">
         <div class="step__num">1</div>
         <h3>Informe seus dados</h3>
-        <p>Só nome e telefone. Menos de 1 minuto. Tudo protegido por sigilo médico.</p>
+        <p>Telefone para localizar seu cadastro e enviar documentos por SMS. Tudo protegido por sigilo médico.</p>
       </div>
       <div class="step">
         <div class="step__num">2</div>
@@ -1251,7 +1266,7 @@ whatsappSend.addEventListener('click', function() {
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
         Falar com médico agora → R$ 49,90
       </a>
-      <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.45)">R$&nbsp;49,90 · sem cadastro prévio · confirmação na hora</p>
+      <p style="margin-top:10px;font-size:.72rem;color:rgba(255,255,255,.45)">R$&nbsp;49,90 · sem criar conta · confirmação na hora</p>
     </div>
   </div>
 </section>
@@ -1525,7 +1540,7 @@ whatsappSend.addEventListener('click', function() {
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
       Falar com médico agora
     </a>
-    <p style="font-size:.72rem;color:rgba(255,255,255,.45)">R$&nbsp;49,90 · PIX ou cartão · sem cadastro prévio</p>
+    <p style="font-size:.72rem;color:rgba(255,255,255,.45)">R$&nbsp;49,90 · PIX ou cartão · sem criar conta</p>
     <p style="font-size:.7rem;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:5px;justify-content:center">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
       Sigilo médico garantido · CRM ativo · LGPD · CFM 2.314/2022
@@ -1713,7 +1728,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         </div>
       </div>
       <p style="font-size:.86rem;color:rgba(255,255,255,.78);font-weight:500;line-height:1.55;margin-bottom:2px;margin-top:4px">Qual seu telefone?</p>
-      <p style="font-size:.74rem;color:rgba(255,255,255,.42);font-weight:300;line-height:1.55">Seus documentos chegam no seu celular pela <strong style="color:rgba(255,255,255,.78);font-weight:600">Memed</strong>, com validade em todo o Brasil.</p>
+      <p style="font-size:.74rem;color:rgba(255,255,255,.42);font-weight:300;line-height:1.55">Usamos seu telefone para localizar seu cadastro e enviar receita, atestado ou pedido de exames por SMS via <strong style="color:rgba(255,255,255,.78);font-weight:600">Memed</strong>.</p>
       <div>
         <label class="ml">Telefone com DDD</label>
         <input class="mi" id="moTel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" oninput="moMascaraTel(this)" onkeydown="if(event.key==='Enter')moAvancarStep1()" autocomplete="tel-national">
@@ -1765,6 +1780,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       </div>
       <div class="mcard-fields" id="moCardFields">
         <div><label class="ml">Nome completo</label><input class="mi" id="moPayNome" type="text" placeholder="Como no CPF" autocomplete="name"></div>
+        <div><label class="ml">CPF do pagador</label><input class="mi" id="moPayCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)"><div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Necessário para pagamento e emissão dos documentos médicos.</div></div>
         <div><label class="ml">E-mail</label><input class="mi" id="moCardEmail" type="email" placeholder="seu@email.com" inputmode="email"></div>
         <div><label class="ml">Número do cartão</label><input class="mi" id="moCfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="moCfMascaraNumero(this)"></div>
         <div><label class="ml">Nome no cartão</label><input class="mi" id="moCfNome" type="text" placeholder="Como aparece no cartão" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"></div>
@@ -1775,11 +1791,11 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <div class="mcard-err" id="moCardErr"></div>
       </div>
 
-      <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, razão social da ConsultaJá24h, empresa médica registrada.</div>
+      <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>. Para gerar o PIX, o CPF é necessário para pagamento e emissão dos documentos médicos.</div>
       <div id="moPixCpfWrap" style="display:none">
         <label class="ml">CPF do pagador</label>
         <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this);moPixCpfDetectar(this)">
-        <div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Necessário para emissão dos seus documentos </div>
+        <div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Necessário para gerar o PIX e emitir seus documentos médicos.</div>
       </div>
       <button class="mcta" id="moBtnPagar" onclick="moPagar()">Continuar para atendimento →</button>
       <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.28)">Após o pagamento, um médico assume seu caso em até 5 minutos.</div>
@@ -1851,8 +1867,24 @@ var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
 // contexto pré-selecionado do pain-grid
 var moPreContexto = '';
 
+function moTrack(eventName, data){
+  try {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({event:eventName}, data || {}));
+  } catch(e) {}
+}
+
+function moTrackOnce(key, eventName, data){
+  try {
+    if(sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, '1');
+  } catch(e) {}
+  moTrack(eventName, data);
+}
+
 function moAbrir(contexto){
   moPreContexto = contexto || '';
+  moTrack('modal_open');
   document.getElementById('moOverlay').classList.add('open');
   document.body.style.overflow='hidden';
   // pula direto pro telefone — escolha chat/vídeo vira opcional no proprio step 1
@@ -2076,6 +2108,7 @@ async function moAvancarStep1(){
     return;
   }
   moTelVal=tel;
+  moTrackOnce('tel_valid_'+tel, 'telefone_valido', {tipo:moTipoConsulta});
   var btn=document.getElementById('moBtnStep1');
   btn.disabled=true; btn.textContent='Verificando...';
   var autofill=document.getElementById('moAutofill');
@@ -2134,6 +2167,7 @@ async function moIrPagamento(){
       body:JSON.stringify({nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||''})});
     var data=await res.json();
     if(data.ok&&data.atendimentoId) moAtendimentoId=data.atendimentoId;
+    moTrack('lead_pre_pagamento', {tipo:moTipoConsulta});
   } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
   btn.disabled=false; btn.textContent='Continuar';
   btn.onclick=moAvancarStep1;
@@ -2143,6 +2177,7 @@ async function moIrPagamento(){
 
 function moMetodo(m){
   moMetodoAtual=m;
+  moTrack('payment_method_selected', {method:m});
   document.getElementById('moTabPix').className='mtab'+(m==='pix'?' pix':'');
   document.getElementById('moTabCard').className='mtab'+(m==='cartao'?' card':'');
   document.getElementById('moCardFields').className='mcard-fields'+(m==='cartao'?' show':'');
@@ -2164,6 +2199,7 @@ function moPixCpfDetectar(el){
       return;
     }
     moCPFVal=cpf;
+    moTrackOnce('cpf_pix_'+cpf, 'cpf_informado', {method:'pix'});
     moGerarPix();
   }
 }
@@ -2482,7 +2518,7 @@ function moDetectarBandeira(n){
 async function moPagarCartao(){
   if(moCardProcessando) return;
   var nome=document.getElementById('moPayNome').value.trim();
-  var cpfNum=document.getElementById('moCPFGlobal').value.replace(/\D/g,'');
+  var cpfNum=document.getElementById('moPayCPF').value.replace(/\D/g,'');
   var email=document.getElementById('moCardEmail').value.trim();
   var numero=document.getElementById('moCfNumero').value.replace(/\s/g,'');
   var nomeCF=document.getElementById('moCfNome').value.trim();
@@ -2493,6 +2529,7 @@ async function moPagarCartao(){
   errEl.style.display='none';
   if(!nome){ document.getElementById('moPayNome').focus(); return; }
   if(!cpfNum||cpfNum.length!==11){ err('CPF inválido.'); document.getElementById('moPayCPF').focus(); return; }
+  if(!validarCPF(cpfNum)){ err('CPF inválido. Verifique os números e tente novamente.'); document.getElementById('moPayCPF').focus(); return; }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('E-mail inválido.'); document.getElementById('moCardEmail').focus(); return; }
   if(numero.length<13){ err('Número do cartão invalido.'); return; }
   if(!nomeCF){ err('Informe o nome no cartão.'); return; }
@@ -2500,6 +2537,7 @@ async function moPagarCartao(){
   if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ err('Validade inválida. Use MM/AAAA.'); return; }
   if(!cvv||cvv.length<3){ err('CVV inválido.'); return; }
   moCardProcessando=true;
+  moTrackOnce('cpf_card_'+cpfNum, 'cpf_informado', {method:'cartao'});
   var btn=document.getElementById('moBtnPagar');
   btn.disabled=true; btn.textContent='Processando...';
   moNomeVal=nome; moCPFVal=cpfNum; moEmailVal=email;
