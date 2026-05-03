@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="pt-BR"><head>
-<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771&amp;cx=c&amp;gtm=4e64g0"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NN2WKSD6"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
 
 <!-- gtag init: necessário pro gtag('event','conversion',...) funcionar direto pro Google Ads -->
 <script>
@@ -37,7 +37,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 html{scroll-behavior:smooth}
 body{
   font-family:'Outfit',sans-serif;
-  background:#060d0b;
+  background:#002017;
   color:rgba(255,255,255,.92);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
@@ -351,17 +351,17 @@ section{position:relative;z-index:1}
 }
 .step{text-align:center;padding:0 8px;position:relative;z-index:1}
 @media(max-width:600px){
-  #heroBadge   { order:1 }
-  #heroTitle   { order:2 }
-  #heroSub     { order:3; line-height:2.1 }
-  #heroDocCard { order:4; margin-top:4px; margin-bottom:18px }
+  #heroBadge   { display:none }
+  #heroTitle   { order:1 }
+  #heroSub     { order:2; line-height:1.55 }
+  #heroCTA     { order:3 }
+  #heroDocCard { order:4; margin-top:16px; margin-bottom:0 }
   #heroUrgency { order:5 }
-  #heroCTA     { order:7 }
-  #heroPriceAnchor { order:8 }
-  #heroReviewProof { order:9 }
-  #heroChips   { order:10 }
-  #heroSpecialtyLinks { order:11 }
-  #heroSecurity{ order:12 }
+  #heroPriceAnchor { order:6 }
+  #heroReviewProof { order:7 }
+  #heroChips   { order:8 }
+  #heroSpecialtyLinks { order:9 }
+  #heroSecurity{ order:10 }
   .steps::before{display:none}
 }
 .step h3{font-size:.9rem;font-weight:700;margin-bottom:7px}
@@ -526,9 +526,12 @@ footer a:hover{color:var(--g2)}
 hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
-  .hero{padding:16px 20px 44px}
-  .hero__h1{font-size:clamp(1.9rem,8.5vw,2.5rem)}
-  .hero__sub{margin-bottom:30px}
+  .nav__in{padding:10px 14px}
+  .nav__cta-link{padding:7px 11px;color:rgba(180,224,90,.9);border-color:rgba(180,224,90,.28);background:rgba(180,224,90,.055);font-size:.7rem}
+  .hero{padding:28px 20px 38px}
+  .hero__h1{font-size:clamp(1.72rem,7.4vw,2.26rem);line-height:1.08;margin-bottom:14px}
+  .hero__sub{font-size:.9rem;margin-bottom:22px}
+  .btn-primary{padding:17px 22px;font-size:1rem;border-radius:13px}
   .pain-grid{grid-template-columns:repeat(2,1fr)}
   .price-box{padding:32px 20px}
   .price-num{font-size:3rem}
@@ -718,8 +721,8 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 .mmode-btn.selected .mmode-sub{color:rgba(94,224,160,.7)}
 </style>
 <script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
-<script type="text/javascript" async="" src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/17964942771/?random=1776709732078&amp;cv=11&amp;fst=1776709732078&amp;bg=ffffff&amp;guid=ON&amp;async=1&amp;en=gtag.config&amp;gtm=45be64g0v9244136315z89246715148za20gzb9246715148zd9246715148xec&amp;gcd=13l3l3l3l1l1&amp;dma=0&amp;tag_exp=0~115616985~115938466~115938468~117266400&amp;u_w=1800&amp;u_h=1169&amp;url=https%3A%2F%2F1fec6cc7-952e-4150-83b7-1fcd5f659913.claudeusercontent.com%2Fv1%2Fdesign%2Fprojects%2F1fec6cc7-952e-4150-83b7-1fcd5f659913%2Fserve%2Findex.html%3Ft%3Da4a5efb7e10abac5582da4a59d8b90ec3ae2ec5379b68324478337bca1733490.2529b2f8-6f80-427e-a2cc-cbcdfda96cfb.853f0614-edfb-4c8e-af90-00d700953b65.1776711612%26_r%3D1776709731660&amp;ref=https%3A%2F%2Fclaude.ai%2F&amp;top=https%3A%2F%2Fclaude.ai%2F&amp;rcb=11&amp;frm=2&amp;tiba=M%C3%A9dico%20Online%20Agora%20%C2%B7%20ConsultaJ%C3%A124h&amp;hn=www.googleadservices.com&amp;npa=0&amp;pscdl=noapi&amp;uaa=arm&amp;uab=64&amp;uafvl=Google%2520Chrome%3B147.0.7727.56%7CNot.A%252FBrand%3B8.0.0.0%7CChromium%3B147.0.7727.56&amp;uamb=0&amp;uam=&amp;uap=macOS&amp;uapv=26.3.1&amp;uaw=0&amp;data=event%3Dgtag.config&amp;rfmt=3&amp;fmt=4"></script><meta id="dcngeagmmhegagicpcmpinaoklddcgon"></head>
-<body data-cc-id="cc-1" style="font-family: Outfit; cursor: crosshair; background-color: rgb(0, 32, 23);">
+</head>
+<body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NN2WKSD6"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
