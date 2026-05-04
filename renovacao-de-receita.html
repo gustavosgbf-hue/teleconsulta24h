@@ -199,7 +199,21 @@ footer a:hover{color:var(--g2)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 @media(max-width:640px){.hero{padding:36px 20px 30px}.modal__box{padding:20px;margin:12px auto;border-radius:14px}.modal__title{font-size:1.2rem}.choice{grid-template-columns:1fr}}
+
+.pay-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.pay-tab{border:1.5px solid var(--line);background:rgba(255,255,255,.035);color:rgba(255,255,255,.72);border-radius:12px;padding:11px 10px;font-family:inherit;font-size:.86rem;font-weight:800;cursor:pointer;transition:all .2s}
+.pay-tab.active{border-color:var(--g2);background:rgba(94,224,160,.08);color:white;box-shadow:0 0 0 3px rgba(94,224,160,.06)}
+.pay-panel{display:none;margin-top:10px}
+.pay-panel.active{display:block}
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay-status{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.78rem;line-height:1.45}
+.pay-status.info{display:block;background:rgba(94,224,160,.06);border:1px solid rgba(94,224,160,.18);color:rgba(180,224,90,.9)}
+.pay-status.err{display:block;background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.22);color:#fda4af}
+.pix-box{text-align:center;padding:14px 0}
+.pix-qr{max-width:220px;width:100%;background:white;padding:12px;border-radius:12px;margin:10px auto;display:block}
+.pix-code{font-size:.68rem;color:var(--muted);word-break:break-all;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:10px;border-radius:8px;margin:10px 0;max-height:86px;overflow:auto}
 </style>
+<script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 </head>
 <body>
 <div class="bg-glow"></div>
@@ -470,7 +484,23 @@ footer a:hover{color:var(--g2)}
       </div>
       <label class="checkbox"><input type="checkbox" id="cTermos"/><span>Declaro que estou em <strong>tratamento contínuo</strong> com os medicamentos informados e que a receita anterior é verdadeira. Ciente de que a prescrição não é automática e o médico pode optar por não renovar.</span></label>
       <label class="checkbox" id="cFisicaBlock" style="display:none"><input type="checkbox" id="cFisica"/><span>Ciente de que minha receita é <strong>controlada</strong> (azul/amarela) e será enviada via Correios de São Luís — MA após avaliação médica.</span></label>
-      <button class="btn-modal" id="btnPagar" onclick="iniciarPagamento()" disabled>Pagar com PIX ou cartão</button>
+      <div class="pay-tabs">
+        <button class="pay-tab active" id="tabPix" type="button" onclick="selecionarPagamento('pix')">PIX</button>
+        <button class="pay-tab" id="tabCartao" type="button" onclick="selecionarPagamento('cartao')">Cartão</button>
+      </div>
+      <div class="pay-panel active" id="panelPix">
+        <div class="alert alert--info">PIX confirma mais rápido. Depois do pagamento, sua solicitação entra para avaliação.</div>
+      </div>
+      <div class="pay-panel" id="panelCartao">
+        <div class="field" id="fCardNumero"><label class="field__label">Número do cartão</label><input class="field__input" id="iCardNumero" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19"/><div class="field__error">Número inválido</div></div>
+        <div class="field" id="fCardNome"><label class="field__label">Nome no cartão</label><input class="field__input" id="iCardNome" placeholder="Como aparece no cartão"/></div>
+        <div class="card-grid">
+          <div class="field" id="fCardVal"><label class="field__label">Validade</label><input class="field__input" id="iCardVal" placeholder="MM/AAAA" inputmode="numeric" maxlength="7"/><div class="field__error">Validade inválida</div></div>
+          <div class="field" id="fCardCvv"><label class="field__label">CVV</label><input class="field__input" id="iCardCvv" placeholder="123" inputmode="numeric" maxlength="4"/><div class="field__error">CVV inválido</div></div>
+        </div>
+      </div>
+      <div class="pay-status" id="payStatus"></div>
+      <button class="btn-modal" id="btnPagar" onclick="iniciarPagamento()" disabled>Pagar com PIX</button>
       <button class="btn-secondary" onclick="irParaStep(SOLIC.tipo==='fisica'?6:4)">← Voltar</button>
     </div>
 
@@ -487,7 +517,10 @@ footer a:hover{color:var(--g2)}
 
 <script>
 const API="https://triagem-api.onrender.com";
-const SOLIC={tipo:'digital',atendimentoId:null,valorTotal:59.90,valorBase:59.90,valorFrete:0,valorLogistica:0,freteServicoId:null,freteModalidade:null,fretePrazoDias:null,anexos:{receita_anterior:null,documento:null}};
+const EFI_PAYEE_CODE="b241c1c1aa59c7a663f8360ac1d05b52";
+let METODO_PAGAMENTO="pix";
+let POLLER_PAGAMENTO=null;
+const SOLIC={tipo:'digital',atendimentoId:null,valorTotal:59.90,valorBase:59.90,valorFrete:0,valorLogistica:0,freteServicoId:null,freteModalidade:null,fretePrazoDias:null,anexos:{receita_anterior:null,documento:null},files:{receita_anterior:null,documento:null}};
 
 function mascCpf(v){v=v.replace(/\D/g,'').slice(0,11);return v.replace(/^(\d{3})(\d)/,'$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1-$2')}
 function mascData(v){v=v.replace(/\D/g,'').slice(0,8);return v.replace(/^(\d{2})(\d)/,'$1/$2').replace(/^(\d{2})\/(\d{2})(\d)/,'$1/$2/$3')}
@@ -499,6 +532,9 @@ document.getElementById('iCpf').addEventListener('input',e=>e.target.value=mascC
 document.getElementById('iNasc').addEventListener('input',e=>e.target.value=mascData(e.target.value));
 document.getElementById('iTel').addEventListener('input',e=>e.target.value=mascTel(e.target.value));
 document.getElementById('iCep').addEventListener('input',e=>{e.target.value=mascCep(e.target.value);if(e.target.value.length===9)buscarCep(e.target.value)});
+document.getElementById('iCardNumero').addEventListener('input',e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,16).replace(/(\d{4})(?=\d)/g,'$1 '));
+document.getElementById('iCardVal').addEventListener('input',e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,6).replace(/^(\d{2})(\d)/,'$1/$2'));
+document.getElementById('iCardCvv').addEventListener('input',e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,4));
 
 function abrirModal(){document.getElementById('modal').classList.add('show');document.body.style.overflow='hidden';irParaStep(1)}
 function fecharModal(){document.getElementById('modal').classList.remove('show');document.body.style.overflow=''}
@@ -550,51 +586,75 @@ async function handleUpload(input,tipo){
   if(file.size>10*1024*1024){alert('Arquivo maior que 10MB');input.value='';return}
   const errEl=document.getElementById('uploadErr');
   errEl.style.display='none';
-  if(!SOLIC.atendimentoId){
-    try{await criarPreRegistro()}
-    catch(e){errEl.textContent='Erro ao criar registro. Tente novamente.';errEl.style.display='block';input.value='';return}
-  }
-  const fd=new FormData();
-  fd.append('arquivo',file);fd.append('atendimentoId',SOLIC.atendimentoId);fd.append('tipo_anexo',tipo);
   const upEl=tipo==='receita_anterior'?document.getElementById('upReceita'):document.getElementById('upDoc');
   const txtEl=upEl.querySelector('.upload__txt');
   const subEl=upEl.querySelector('.upload__sub');
-  const txtAnt=txtEl.textContent;
-  txtEl.innerHTML='<span class="spinner"></span> Enviando...';
-  try{
-    const r=await fetch(API+'/api/renovacao/upload-anexo',{method:'POST',body:fd});
-    const d=await r.json();
-    if(!d.ok)throw new Error(d.error||'Erro no upload');
-    SOLIC.anexos[tipo]=d.url;
-    upEl.classList.add('has-file');
-    txtEl.textContent='✓ '+(file.name.length>30?file.name.slice(0,28)+'...':file.name);
-    subEl.textContent='Clique para trocar';
-    atualizarBtnStep4();
-  }catch(e){
-    errEl.textContent='Erro: '+e.message;
-    errEl.style.display='block';
-    txtEl.textContent=txtAnt;
-    input.value='';
-  }
+  SOLIC.files[tipo]=file;
+  SOLIC.anexos[tipo]=null;
+  upEl.classList.add('has-file');
+  txtEl.textContent='✓ '+(file.name.length>30?file.name.slice(0,28)+'...':file.name);
+  subEl.textContent='Anexado · será enviado com segurança antes do pagamento';
+  atualizarBtnStep4();
 }
 function atualizarBtnStep4(){
-  const okReceita=!!SOLIC.anexos.receita_anterior;
-  const okDoc=SOLIC.tipo==='digital'||!!SOLIC.anexos.documento;
+  const okReceita=!!SOLIC.files.receita_anterior||!!SOLIC.anexos.receita_anterior;
+  const okDoc=SOLIC.tipo==='digital'||!!SOLIC.files.documento||!!SOLIC.anexos.documento;
   document.getElementById('btnStep4').disabled=!(okReceita&&okDoc);
 }
 
 async function criarPreRegistro(){
+  if(SOLIC.atendimentoId)return true;
   const meds=document.getElementById('iMeds').value.trim();
   let questionario=null;
   if(SOLIC.tipo==='fisica'){
     questionario={tempo_uso:document.getElementById('qTempo').value,medico_original:document.getElementById('qMedico').value,acompanhamento:document.getElementById('qAcomp').value,efeitos_colaterais:document.getElementById('qEfeitos').value,laudo_diagnostico:document.getElementById('qLaudo').value};
   }
   const payload={nome:document.getElementById('iNome').value.trim(),tel:document.getElementById('iTel').value,cpf:document.getElementById('iCpf').value,data_nascimento:document.getElementById('iNasc').value,email:document.getElementById('iEmail').value.trim(),tipo_renovacao:SOLIC.tipo,medicamentos:meds,questionario};
+  if(SOLIC.tipo==='fisica'){
+    payload.endereco_envio=getEnderecoEnvio();
+    payload.frete_modalidade=SOLIC.freteModalidade;
+    payload.frete_valor=SOLIC.valorFrete;
+    payload.frete_servico_id=SOLIC.freteServicoId;
+    payload.frete_prazo_dias=SOLIC.fretePrazoDias;
+  }
   const r=await fetch(API+'/api/renovacao/criar-pre',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   const d=await r.json();
   if(!d.ok)throw new Error(d.error||'Erro ao criar registro');
   SOLIC.atendimentoId=d.atendimentoId;
   return true;
+}
+
+function getEnderecoEnvio(){
+  return {
+    cep:document.getElementById('iCep').value.replace(/\D/g,''),
+    rua:document.getElementById('iRua').value.trim(),
+    numero:document.getElementById('iNum').value.trim(),
+    complemento:document.getElementById('iComp').value.trim(),
+    bairro:document.getElementById('iBairro').value.trim(),
+    cidade:document.getElementById('iCid').value.trim(),
+    uf:document.getElementById('iUf').value.trim().toUpperCase()
+  };
+}
+
+async function subirAnexo(tipo){
+  if(SOLIC.anexos[tipo])return SOLIC.anexos[tipo];
+  const file=SOLIC.files[tipo];
+  if(!file)return null;
+  const fd=new FormData();
+  fd.append('arquivo',file);
+  fd.append('atendimentoId',SOLIC.atendimentoId);
+  fd.append('tipo_anexo',tipo);
+  const r=await fetch(API+'/api/renovacao/upload-anexo',{method:'POST',body:fd});
+  const d=await r.json();
+  if(!d.ok)throw new Error(d.error||'Erro no upload');
+  SOLIC.anexos[tipo]=d.url;
+  return d.url;
+}
+
+async function garantirRegistroEUploads(){
+  await criarPreRegistro();
+  await subirAnexo('receita_anterior');
+  if(SOLIC.tipo==='fisica')await subirAnexo('documento');
 }
 
 async function buscarCep(cep){
@@ -670,49 +730,129 @@ function atualizarResumo(){
   const c2=document.getElementById('cFisica');
   const checkBtns=()=>{document.getElementById('btnPagar').disabled=!(c1.checked && (SOLIC.tipo==='digital'||c2.checked))}
   c1.onchange=checkBtns;c2.onchange=checkBtns;
+  selecionarPagamento(METODO_PAGAMENTO);
 }
 
 async function iniciarPagamento(){
+  if(METODO_PAGAMENTO==='cartao')return pagarCartao();
+  return gerarPix();
+}
+
+function selecionarPagamento(metodo){
+  METODO_PAGAMENTO=metodo;
+  document.getElementById('tabPix').classList.toggle('active',metodo==='pix');
+  document.getElementById('tabCartao').classList.toggle('active',metodo==='cartao');
+  document.getElementById('panelPix').classList.toggle('active',metodo==='pix');
+  document.getElementById('panelCartao').classList.toggle('active',metodo==='cartao');
   const btn=document.getElementById('btnPagar');
+  btn.textContent=metodo==='pix'?'Pagar com PIX':'Pagar com cartão';
+}
+
+function setPayStatus(msg,tipo){
+  const el=document.getElementById('payStatus');
+  el.textContent=msg||'';
+  el.className='pay-status '+(tipo||'');
+}
+
+async function prepararPagamento(btn,msg){
   btn.disabled=true;
-  btn.innerHTML='<span class="spinner spinner--dark"></span> Processando...';
-  const valorCentavos=Math.round(SOLIC.valorTotal*100);
+  btn.innerHTML='<span class="spinner spinner--dark"></span> '+msg;
+  setPayStatus('Salvando solicitação e enviando anexos com segurança...','info');
+  await garantirRegistroEUploads();
+}
+
+async function gerarPix(){
+  const btn=document.getElementById('btnPagar');
   try{
-    const orderRes=await fetch(API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({atendimentoId:SOLIC.atendimentoId,valor:valorCentavos,descricao:`Renovação de receita ${SOLIC.tipo}`,nome:document.getElementById('iNome').value,cpf:document.getElementById('iCpf').value.replace(/\D/g,''),email:document.getElementById('iEmail').value,tel:document.getElementById('iTel').value.replace(/\D/g,''),tipo_fluxo:'renovacao'})});
+    await prepararPagamento(btn,'Gerando PIX...');
+    setPayStatus('Gerando código PIX...','info');
+    const orderRes=await fetch(API+'/api/renovacao/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({atendimentoId:SOLIC.atendimentoId,nome:document.getElementById('iNome').value.trim(),cpf:document.getElementById('iCpf').value.replace(/\D/g,''),email:document.getElementById('iEmail').value.trim()})});
     const orderData=await orderRes.json();
-    if(orderData.checkout_url){window.location.href=orderData.checkout_url;return}
-    if(orderData.qr_code){mostrarPix(orderData);return}
-    throw new Error('Falha no pagamento');
+    if(!orderData.ok)throw new Error(orderData.error||'Erro ao gerar PIX');
+    mostrarPix(orderData);
   }catch(e){
     btn.disabled=false;
-    btn.innerHTML='Tentar novamente';
-    alert('Erro ao iniciar pagamento: '+e.message);
+    btn.textContent='Tentar novamente';
+    setPayStatus('Erro: '+(e.message||'tente novamente.'),'err');
   }
 }
 
 function mostrarPix(d){
+  const pixText=d.qr_code_text||d.qr_code||'';
   const step7=document.getElementById('step7');
-  step7.innerHTML=`<div style="text-align:center;padding:8px 0"><div class="modal__title" style="text-align:center;padding-right:0">Pague com PIX</div><div class="modal__sub" style="text-align:center">Escaneie o QR ou copie o código.</div><img src="${d.qr_code_image||d.qr_code}" alt="QR PIX" style="max-width:240px;width:100%;background:white;padding:12px;border-radius:12px;margin:10px 0"/><div style="font-size:.7rem;color:var(--muted);word-break:break-all;background:rgba(255,255,255,.04);padding:10px;border-radius:8px;margin:10px 0">${d.qr_code||''}</div><button class="btn-modal" onclick="navigator.clipboard.writeText('${d.qr_code||''}');this.textContent='✓ Código copiado'">Copiar código PIX</button></div>`;
+  step7.innerHTML=`<div class="pix-box"><div class="modal__title" style="text-align:center;padding-right:0">Pague com PIX</div><div class="modal__sub" style="text-align:center">Escaneie o QR ou copie o código. A confirmação é automática.</div><img class="pix-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(pixText)}" alt="QR PIX"/><div class="pix-code" id="pixCode">${pixText}</div><button class="btn-modal" onclick="copiarPix(this)">Copiar código PIX</button><div class="pay-status info" id="pixStatus">Aguardando confirmação do pagamento...</div></div>`;
   iniciarPolling(d.order_id);
+}
+
+function copiarPix(btn){
+  const txt=document.getElementById('pixCode')?.textContent||'';
+  if(!txt)return;
+  navigator.clipboard.writeText(txt).then(()=>{btn.textContent='✓ Código copiado';setTimeout(()=>btn.textContent='Copiar código PIX',1800)}).catch(()=>{btn.textContent='Copie manualmente acima'});
 }
 
 function iniciarPolling(orderId){
   let tentativas=0;
-  const intervalo=setInterval(async ()=>{
+  clearInterval(POLLER_PAGAMENTO);
+  POLLER_PAGAMENTO=setInterval(async ()=>{
     tentativas++;
-    if(tentativas>120){clearInterval(intervalo);return}
+    if(tentativas>120){clearInterval(POLLER_PAGAMENTO);return}
     try{
-      const r=await fetch(API+'/api/pagbank/order/'+orderId);
+      const r=await fetch(API+'/api/renovacao/'+SOLIC.atendimentoId+'/status');
       const d=await r.json();
-      if(d.status==='PAID'||d.status==='paid'){
-        clearInterval(intervalo);
-        await fetch(API+'/api/renovacao/confirmar-pagamento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({atendimentoId:SOLIC.atendimentoId})});
-        irParaStep(8);
-        const msg=SOLIC.tipo==='digital'?'Sua receita digital chegará no seu email e WhatsApp após avaliação do médico.':'Sua receita controlada será preparada e enviada via Correios após avaliação médica.';
-        document.getElementById('sucessoMsg').textContent=msg;
-      }
+      if(d.ok&&(d.pagamento_status==='confirmado'||d.status==='aguardando'||d.status==='em_atendimento'))finalizarPagamento();
     }catch(e){console.warn('poll',e)}
   },5000);
+}
+
+function detectarBandeira(n){
+  if(/^4/.test(n))return 'visa';
+  if(/^5[1-5]/.test(n))return 'mastercard';
+  if(/^3[47]/.test(n))return 'amex';
+  if(/^(636368|438935|504175|451416|636297|5067|4576|4011)/.test(n))return 'elo';
+  return 'visa';
+}
+
+async function pagarCartao(){
+  const btn=document.getElementById('btnPagar');
+  const numero=document.getElementById('iCardNumero').value.replace(/\D/g,'');
+  const nomeCartao=document.getElementById('iCardNome').value.trim();
+  const validade=document.getElementById('iCardVal').value.trim();
+  const cvv=document.getElementById('iCardCvv').value.trim();
+  const partes=validade.split('/');
+  if(numero.length<13)return setPayStatus('Informe um número de cartão válido.','err');
+  if(!nomeCartao)return setPayStatus('Informe o nome impresso no cartão.','err');
+  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4)return setPayStatus('Informe a validade no formato MM/AAAA.','err');
+  if(cvv.length<3)return setPayStatus('Informe o CVV.','err');
+  try{
+    await prepararPagamento(btn,'Processando cartão...');
+    if(typeof EfiPay==='undefined')throw new Error('SDK Efí não carregou. Verifique sua conexão.');
+    setPayStatus('Validando cartão com segurança...','info');
+    const cpf=document.getElementById('iCpf').value.replace(/\D/g,'');
+    const tokenResult=await EfiPay.CreditCard
+      .setAccount(EFI_PAYEE_CODE).setEnvironment('production')
+      .setCreditCardData({brand:detectarBandeira(numero),number:numero,cvv:cvv,expirationMonth:partes[0],expirationYear:partes[1],holderName:nomeCartao,holderDocument:cpf,reuse:false})
+      .getPaymentToken();
+    if(!tokenResult||!tokenResult.payment_token)throw new Error('Falha ao tokenizar cartão.');
+    const r=await fetch(API+'/api/renovacao/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({payment_token:tokenResult.payment_token,nome:document.getElementById('iNome').value.trim(),cpf:cpf,email:document.getElementById('iEmail').value.trim(),telefone:document.getElementById('iTel').value.replace(/\D/g,''),nascimento:document.getElementById('iNasc').value,parcelas:1,atendimentoId:SOLIC.atendimentoId})});
+    const d=await r.json();
+    if(d.ok||d.status==='paid'||d.status==='approved'||d.status==='waiting'){
+      setPayStatus('Pagamento recebido. Finalizando...','info');
+      setTimeout(finalizarPagamento,700);
+      return;
+    }
+    throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
+  }catch(e){
+    btn.disabled=false;
+    btn.textContent='Tentar novamente';
+    setPayStatus('Erro: '+(e.message||'tente novamente.'),'err');
+  }
+}
+
+function finalizarPagamento(){
+  clearInterval(POLLER_PAGAMENTO);
+  irParaStep(8);
+  const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida. A receita digital será enviada por email e WhatsApp após avaliação médica.':'Sua solicitação foi recebida. A receita controlada será preparada e enviada via Correios após avaliação médica.';
+  document.getElementById('sucessoMsg').textContent=msg;
 }
 </script>
 </body></html>
