@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Renove sua receita médica · ConsultaJá24h</title>
-<meta name="description" content="Renove sua receita médica online sem sair de casa. Receita digital pelo Memed, controladas (azul/amarela) por Sedex/PAC.">
+<meta name="description" content="Renove sua receita médica online sem sair de casa. Receita digital pelo Memed e receitas físicas por Sedex/PAC quando necessário.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -243,7 +243,7 @@ footer a:hover{color:var(--g2)}
   <div class="disclaimer-bar__box">
     <div class="disclaimer-bar__icon">⚠️</div>
     <div class="disclaimer-bar__txt">
-      <strong>A prescrição médica não é automática.</strong> Cada caso é avaliado individualmente, e o médico pode optar por não renovar a receita, sempre priorizando sua segurança. Em caso de recusa, o valor é integralmente reembolsado.
+      <strong>A prescrição médica não é automática.</strong> Cada caso é avaliado individualmente, e o médico pode optar por não renovar a receita, sempre priorizando sua segurança. O médico poderá solicitar informações adicionais, teleconsulta ou exames antes de decidir pela renovação. Em caso de recusa, o valor é integralmente reembolsado.
     </div>
   </div>
 </div>
@@ -253,7 +253,7 @@ footer a:hover{color:var(--g2)}
   <div class="section-inner">
     <div class="section-label">Tipos de receita</div>
     <h2 class="section-title">Como sua receita será entregue</h2>
-    <p class="section-sub">A entrega depende da classificação ANVISA do seu medicamento. Receitas brancas (não controladas e C1) são digitais; controladas azul/amarela seguem por Correios.</p>
+    <p class="section-sub">A entrega depende da classificação do medicamento e da política do serviço. Receitas brancas (comum e C1) podem ser emitidas digitalmente; receitas azul/amarela são enviadas fisicamente por Correios enquanto a emissão eletrônica via SNCR não estiver disponível/implementada no serviço.</p>
     <div class="receita-types">
 
       <div class="rtype rtype--branca">
@@ -271,7 +271,7 @@ footer a:hover{color:var(--g2)}
           <span class="rtype__chip">Branca C1</span>
           <span class="rtype__title">Controle especial</span>
         </div>
-        <div class="rtype__desc">Substâncias sob controle especial em receita branca de 2 vias. Também emitida digitalmente via Memed.</div>
+        <div class="rtype__desc">Substâncias sob controle especial em receita branca de 2 vias. Quando aplicável, a receita é emitida como documento eletrônico nato-digital, assinado com certificado compatível com ICP-Brasil via Memed.</div>
         <div class="rtype__exemplos">Antidepressivos (sertralina, fluoxetina), anticonvulsivantes, neurolépticos.</div>
         <span class="rtype__delivery digital">📱 Receita Digital · Memed</span>
       </div>
@@ -279,10 +279,10 @@ footer a:hover{color:var(--g2)}
       <div class="rtype rtype--azul">
         <div class="rtype__head">
           <span class="rtype__chip">Azul B1/B2</span>
-          <span class="rtype__title">Psicotrópicos</span>
+          <span class="rtype__title">Psicotrópicos e anorexígenos</span>
         </div>
-        <div class="rtype__desc">Notificação de receita azul, com talonário numerado. Preenchida manualmente e enviada por Correios.</div>
-        <div class="rtype__exemplos">Clonazepam, alprazolam, zolpidem, sibutramina.</div>
+        <div class="rtype__desc">Notificação de Receita B ou B2, com numeração própria. Preenchida fisicamente e enviada por Correios, enquanto a emissão eletrônica via SNCR não estiver disponível/implementada no serviço.</div>
+        <div class="rtype__exemplos">Clonazepam, alprazolam, zolpidem, modafinila, sibutramina.</div>
         <span class="rtype__delivery fisica">📦 Física · Sedex/PAC</span>
       </div>
 
@@ -291,8 +291,8 @@ footer a:hover{color:var(--g2)}
           <span class="rtype__chip">Amarela A3</span>
           <span class="rtype__title">Controle rigoroso</span>
         </div>
-        <div class="rtype__desc">Notificação de receita amarela, válida 30 dias, retida na farmácia. Enviada por Correios após preenchimento manual.</div>
-        <div class="rtype__exemplos">Ritalina (metilfenidato), Venvanse (lisdexanfetamina), modafinila.</div>
+        <div class="rtype__desc">Notificação de Receita A, válida por 30 dias e retida na farmácia. Enviada por Correios após preenchimento físico, enquanto a emissão eletrônica via SNCR não estiver disponível/implementada no serviço.</div>
+        <div class="rtype__exemplos">Ritalina/Concerta (metilfenidato), Venvanse/Juneve (lisdexanfetamina).</div>
         <span class="rtype__delivery fisica">📦 Física · Sedex/PAC</span>
       </div>
 
@@ -349,10 +349,10 @@ footer a:hover{color:var(--g2)}
     <div class="section-label">Dúvidas frequentes</div>
     <h2 class="section-title">Perguntas comuns</h2>
     <div class="faq-wrap">
-      <details class="faq-item"><summary class="faq-q">Quanto tempo demora para receber minha receita?</summary><div class="faq-a">Receita digital (branca e branca C1) é processada conforme avaliação do médico. Receita física (azul/amarela) é postada após avaliação e o prazo total varia conforme prazo do Correios na sua região (geralmente 3-5 dias Sedex e 7-12 dias PAC).</div></details>
+      <details class="faq-item"><summary class="faq-q">Quanto tempo demora para receber minha receita?</summary><div class="faq-a">Receita digital (branca e branca C1) é processada conforme avaliação do médico. Receita física (azul/amarela) é postada após avaliação e o prazo total varia conforme prazo dos Correios na sua região.</div></details>
       <details class="faq-item"><summary class="faq-q">Vocês renovam receita controlada (azul/amarela)?</summary><div class="faq-a">Sim, para pacientes em tratamento contínuo já estabelecido. Você precisará anexar a receita anterior e um documento com foto (RG ou CNH) para validação. Se sua receita anterior tiver mais de 6 meses, recomendamos uma teleconsulta no nosso plantão.</div></details>
-      <details class="faq-item"><summary class="faq-q">Como funciona a receita digital pelo Memed?</summary><div class="faq-a">A receita digital é assinada eletronicamente com certificado ICP-Brasil. Ela chega no seu email e WhatsApp com um QR Code que qualquer farmácia do Brasil pode validar — equivale a uma receita em papel.</div></details>
-      <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática — cada caso é avaliado individualmente. Se o médico identificar que não é seguro renovar (receita anterior antiga, ilegível, ou alguma dúvida clínica), devolvemos 100% do valor pago em até 5 dias úteis e recomendamos uma teleconsulta no plantão.</div></details>
+      <details class="faq-item"><summary class="faq-q">Como funciona a receita digital pelo Memed?</summary><div class="faq-a">A receita digital é um documento eletrônico nato-digital, assinado com certificado compatível com ICP-Brasil. Ela chega no seu email e WhatsApp com QR Code para validação. Foto ou scan de receita física não substitui uma receita digital válida.</div></details>
+      <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática — cada caso é avaliado individualmente. O médico poderá solicitar informações adicionais, teleconsulta ou exames antes da decisão. Se identificar que não é seguro renovar, devolvemos 100% do valor pago em até 5 dias úteis.</div></details>
       <details class="faq-item"><summary class="faq-q">Perdi minha receita anterior. Posso solicitar renovação?</summary><div class="faq-a">Não — a receita anterior é necessária para validação. Se você perdeu sua receita, recomendamos uma <a href="https://consultaja24h.com.br">teleconsulta no plantão médico</a>, onde será feita uma nova avaliação completa.</div></details>
       <details class="faq-item"><summary class="faq-q">Quais formas de pagamento vocês aceitam?</summary><div class="faq-a">PIX (confirmação imediata) e cartão de crédito nas principais bandeiras, em até 12x.</div></details>
       <details class="faq-item"><summary class="faq-q">É seguro? Meus dados estão protegidos?</summary><div class="faq-a">Sim. A plataforma é operada em conformidade com a Resolução CFM 2.314/2022 (telemedicina) e com a LGPD. Todos os arquivos são armazenados com criptografia.</div></details>
@@ -362,7 +362,7 @@ footer a:hover{color:var(--g2)}
 
 <section class="cta-final">
   <h2>Pronto para renovar?</h2>
-  <p>Receita digital pelo Memed · física por Correios após avaliação</p>
+  <p>Receita digital pelo Memed · física por Correios quando necessário</p>
   <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
 </section>
 
@@ -382,7 +382,7 @@ footer a:hover{color:var(--g2)}
 
     <div class="modal__step active" id="step1">
       <div class="modal__title">Como você quer receber?</div>
-      <div class="modal__sub">Receitas brancas (comum e C1) podem ser digitais. Controladas (azul/amarela) precisam ser físicas.</div>
+      <div class="modal__sub">Receitas brancas (comum e C1) podem ser digitais. Azul/amarela são enviadas fisicamente enquanto a emissão eletrônica via SNCR não estiver disponível no serviço.</div>
       <div class="choice">
         <div class="choice__opt active" id="optDigital" onclick="selecModalidade('digital')">
           <div class="choice__opt-icon">📱</div>
@@ -396,7 +396,7 @@ footer a:hover{color:var(--g2)}
         </div>
       </div>
       <div class="alert alert--info" id="alertDigital">Receita digital pelo Memed chega no seu email e WhatsApp após avaliação do médico.</div>
-      <div class="alert alert--warn" id="alertFisica" style="display:none">Receitas controladas exigem documento com foto (RG/CNH) e endereço. Frete dos Correios calculado pelo CEP.</div>
+      <div class="alert alert--warn" id="alertFisica" style="display:none">Receitas azul/amarela exigem documento com foto (RG/CNH) e endereço. O envio físico é feito pelos Correios enquanto o SNCR eletrônico não estiver implementado no serviço.</div>
       <button class="btn-modal" onclick="irParaStep(2)">Continuar →</button>
     </div>
 
@@ -417,12 +417,19 @@ footer a:hover{color:var(--g2)}
       <div class="modal__sub">Liste o nome, dose e posologia dos medicamentos da sua receita atual.</div>
       <div class="field" id="fMeds"><label class="field__label">Medicamentos (um por linha)</label><textarea class="field__textarea" id="iMeds" rows="4" placeholder="Ex:&#10;Losartana 50mg — 1cp pela manhã&#10;Metformina 500mg — 2x ao dia"></textarea><div class="field__hint">Quanto mais detalhado (dose, posologia), mais rápido a renovação é processada.</div><div class="field__error">Liste pelo menos um medicamento</div></div>
 
-      <div id="questBlock" style="display:none">
-        <div class="alert alert--info" style="margin-bottom:14px">Para receitas controladas, precisamos de algumas informações adicionais.</div>
+      <div id="questBlock">
+        <div class="alert alert--info" style="margin-bottom:14px">Responda em poucas palavras. Essas informações ajudam o médico a decidir se a renovação é segura.</div>
+        <div class="field"><label class="field__label">Qual condição ou diagnóstico você trata com esses medicamentos?</label><input class="field__input" id="qCondicao" placeholder="Ex: hipertensão, diabetes, ansiedade, TDAH"/></div>
         <div class="field"><label class="field__label">Há quanto tempo você usa esse medicamento?</label><select class="field__select" id="qTempo"><option value="">Selecione</option><option>Menos de 1 mês</option><option>1 a 3 meses</option><option>3 a 6 meses</option><option>6 meses a 1 ano</option><option>1 a 3 anos</option><option>Mais de 3 anos</option></select></div>
+        <div class="field"><label class="field__label">Teve mudança de dose recentemente?</label><select class="field__select" id="qDose"><option value="">Selecione</option><option>Não, uso a mesma dose</option><option>Sim, dose aumentou</option><option>Sim, dose reduziu</option><option>Não sei informar</option></select></div>
+        <div class="field"><label class="field__label">Algum efeito colateral atual?</label><textarea class="field__textarea" id="qEfeitos" rows="2" placeholder="Ex: nenhum, ou descreva brevemente"></textarea></div>
+        <div class="field"><label class="field__label">Há algo importante que o médico precisa saber?</label><textarea class="field__textarea" id="qRisco" rows="2" placeholder="Ex: alergias, gestação, amamentação, doença renal/hepática, uso de outros medicamentos"></textarea></div>
+      </div>
+
+      <div id="questFisicaBlock" style="display:none">
+        <div class="alert alert--warn" style="margin-bottom:14px">Para receitas azul/amarela, podemos precisar confirmar vínculo de tratamento e documentação adicional.</div>
         <div class="field"><label class="field__label">Qual médico/especialidade prescreveu originalmente?</label><input class="field__input" id="qMedico" placeholder="Ex: Psiquiatra Dr. João Silva"/></div>
         <div class="field"><label class="field__label">Faz acompanhamento médico regular?</label><select class="field__select" id="qAcomp"><option value="">Selecione</option><option>Sim, mensal</option><option>Sim, a cada 3 meses</option><option>Sim, a cada 6 meses</option><option>Sim, anualmente</option><option>Não, há mais de 1 ano sem consulta</option></select></div>
-        <div class="field"><label class="field__label">Algum efeito colateral atual?</label><textarea class="field__textarea" id="qEfeitos" rows="2" placeholder="Ex: nenhum, ou descreva brevemente"></textarea></div>
         <div class="field"><label class="field__label">Tem laudo médico ou diagnóstico documentado?</label><select class="field__select" id="qLaudo"><option value="">Selecione</option><option>Sim, posso enviar se necessário</option><option>Não tenho, mas tenho receitas anteriores</option><option>Não tenho documentação</option></select></div>
       </div>
 
@@ -483,7 +490,7 @@ footer a:hover{color:var(--g2)}
         <div class="totals__row totals__total"><span>Total</span><strong id="rValTotal">R$ 59,90</strong></div>
       </div>
       <label class="checkbox"><input type="checkbox" id="cTermos"/><span>Declaro que estou em <strong>tratamento contínuo</strong> com os medicamentos informados e que a receita anterior é verdadeira. Ciente de que a prescrição não é automática e o médico pode optar por não renovar.</span></label>
-      <label class="checkbox" id="cFisicaBlock" style="display:none"><input type="checkbox" id="cFisica"/><span>Ciente de que minha receita é <strong>controlada</strong> (azul/amarela) e será enviada via Correios de São Luís — MA após avaliação médica.</span></label>
+      <label class="checkbox" id="cFisicaBlock" style="display:none"><input type="checkbox" id="cFisica"/><span>Ciente de que minha receita é <strong>controlada</strong> (azul/amarela) e será enviada fisicamente via Correios de São Luís — MA após avaliação médica, enquanto a emissão eletrônica via SNCR não estiver disponível no serviço.</span></label>
       <div class="pay-tabs">
         <button class="pay-tab active" id="tabPix" type="button" onclick="selecionarPagamento('pix')">PIX</button>
         <button class="pay-tab" id="tabCartao" type="button" onclick="selecionarPagamento('cartao')">Cartão</button>
@@ -559,7 +566,7 @@ function selecModalidade(t){
   document.getElementById('optFisica').classList.toggle('active',t==='fisica');
   document.getElementById('alertDigital').style.display=t==='digital'?'block':'none';
   document.getElementById('alertFisica').style.display=t==='fisica'?'block':'none';
-  document.getElementById('questBlock').style.display=t==='fisica'?'block':'none';
+  document.getElementById('questFisicaBlock').style.display=t==='fisica'?'block':'none';
   document.getElementById('upDocBlock').style.display=t==='fisica'?'block':'none';
   document.getElementById('cFisicaBlock').style.display=t==='fisica'?'flex':'none';
 }
@@ -605,9 +612,17 @@ function atualizarBtnStep4(){
 async function criarPreRegistro(){
   if(SOLIC.atendimentoId)return true;
   const meds=document.getElementById('iMeds').value.trim();
-  let questionario=null;
+  const questionario={
+    condicao_diagnostico:document.getElementById('qCondicao').value,
+    tempo_uso:document.getElementById('qTempo').value,
+    mudanca_dose:document.getElementById('qDose').value,
+    efeitos_colaterais:document.getElementById('qEfeitos').value,
+    informacoes_importantes:document.getElementById('qRisco').value
+  };
   if(SOLIC.tipo==='fisica'){
-    questionario={tempo_uso:document.getElementById('qTempo').value,medico_original:document.getElementById('qMedico').value,acompanhamento:document.getElementById('qAcomp').value,efeitos_colaterais:document.getElementById('qEfeitos').value,laudo_diagnostico:document.getElementById('qLaudo').value};
+    questionario.medico_original=document.getElementById('qMedico').value;
+    questionario.acompanhamento=document.getElementById('qAcomp').value;
+    questionario.laudo_diagnostico=document.getElementById('qLaudo').value;
   }
   const payload={nome:document.getElementById('iNome').value.trim(),tel:document.getElementById('iTel').value,cpf:document.getElementById('iCpf').value,data_nascimento:document.getElementById('iNasc').value,email:document.getElementById('iEmail').value.trim(),tipo_renovacao:SOLIC.tipo,medicamentos:meds,questionario};
   if(SOLIC.tipo==='fisica'){
