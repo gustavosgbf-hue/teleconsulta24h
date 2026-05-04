@@ -95,6 +95,7 @@ body{
   color:rgba(255,255,255,.35);-webkit-text-fill-color:rgba(255,255,255,.35);
 }
 .nav__cta-link{
+  display:inline-flex;align-items:center;justify-content:center;
   padding:7px 14px;border-radius:999px;
   border:1px solid rgba(255,255,255,.12);
   background:transparent;
@@ -104,6 +105,7 @@ body{
   transition:color .15s,border-color .15s;
 }
 .nav__cta-link:hover{color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.22)}
+.nav__cta-short{display:none}
 .nav__rx-link{
   display:inline-flex;align-items:center;gap:7px;
   padding:9px 15px;border-radius:999px;
@@ -573,7 +575,9 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
   .nav__in{padding:10px 14px}
-  .nav__cta-link{padding:7px 11px;color:rgba(180,224,90,.9);border-color:rgba(180,224,90,.28);background:rgba(180,224,90,.055);font-size:.7rem}
+  .nav__cta-link{padding:8px 10px;color:rgba(180,224,90,.9);border-color:rgba(180,224,90,.28);background:rgba(180,224,90,.055);font-size:.7rem;font-weight:700;white-space:nowrap}
+  .nav__cta-full{display:none}
+  .nav__cta-short{display:inline}
   .nav__actions{gap:7px}
   .nav__rx-link{padding:8px 10px;font-size:.7rem;gap:5px}
   .nav__rx-new{display:none}
@@ -1082,7 +1086,7 @@ whatsappSend.addEventListener('click', function() {
         <span>💊</span>
         <span class="nav__rx-text">Renovar receita</span>
       </a>
-      <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()">Começar atendimento →</a>
+      <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()"><span class="nav__cta-full">Começar atendimento →</span><span class="nav__cta-short">Consulta →</span></a>
     </div>
   </div>
 </nav>
