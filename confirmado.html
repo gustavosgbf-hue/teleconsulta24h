@@ -127,6 +127,8 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   }
 
   setTimeout(function(){
+    params.delete('cpf');
+    console.log('[CONFIRMADO] Redirecionando sem CPF na URL');
     if(!consultaId){
       window.location.href = '/triagem.html';
       return;

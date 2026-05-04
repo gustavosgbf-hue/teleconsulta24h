@@ -2564,7 +2564,6 @@ function moEnviarCpfEIr(){
   var params=[];
   if(moAtendimentoId) params.push('consulta='+moAtendimentoId);
   params.push('tipo='+moTipoConsulta);
-  if(moCPFVal) params.push('cpf='+moCPFVal);
   if(params.length) url+='?'+params.join('&');
 
   // Mantém a conversão da landing como backup, mas o fluxo principal agora
