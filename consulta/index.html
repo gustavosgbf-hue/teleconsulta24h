@@ -1763,6 +1763,10 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
     <div class="mo-step on" id="moStep0">
       <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Chat por texto ou vídeo, você escolhe.</p>
       <p style="font-size:.74rem;color:rgba(255,255,255,.38);font-weight:300;margin-top:-4px">Os dois funcionam direto na plataforma, sem baixar nada.</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin:8px 0">
+        <span style="font-size:.9rem;font-weight:600;color:#fff">R$49,90</span>
+        <span style="font-size:.7rem;color:rgba(255,255,255,.4)">à vista no PIX ou cartão</span>
+      </div>
       <div class="mmode-grid">
         <button class="mmode-btn selected" id="moBtnChat" onclick="moSelecionarTipo('chat')">
           <span class="mmode-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
@@ -1781,6 +1785,12 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
 
     <!-- STEP 1: Telefone -->
     <div class="mo-step" id="moStep1">
+      <!-- preco destacado antes dos campos -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 14px;background:rgba(180,224,90,.08);border:1px solid rgba(180,224,90,.2);border-radius:10px;margin-bottom:12px">
+        <span style="font-size:.75rem;color:rgba(255,255,255,.5)">Consulta</span>
+        <span style="font-size:1rem;font-weight:700;color:#b4e05a">R$49,90</span>
+        <span style="font-size:.65rem;color:rgba(255,255,255,.35)">no cartão ou PIX</span>
+      </div>
       <!-- header de modalidade: deixa claro que vai ser por chat antes de pedir telefone -->
       <div id="moModoHeader" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(94,224,160,.07);border:1px solid rgba(94,224,160,.22);border-radius:12px;margin-bottom:6px">
         <div id="moModoIcon" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(94,224,160,.12);color:var(--g2);flex-shrink:0">
