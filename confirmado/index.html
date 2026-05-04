@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17964942771');
+</script>
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NN2WKSD6');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pagamento confirmado · ConsultaJá24h</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  font-family:'Outfit',sans-serif;
+  background:
+    radial-gradient(ellipse 80vw 55vh at 50% -10%,rgba(94,224,160,.12),transparent 62%),
+    #002017;
+  color:rgba(255,255,255,.92);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{width:100%;max-width:420px;text-align:center}
+.brand{
+  display:inline-flex;align-items:center;gap:8px;margin-bottom:34px;
+  color:inherit;text-decoration:none;
+}
+.dot{
+  width:8px;height:8px;border-radius:999px;background:#5ee0a0;
+  box-shadow:0 0 0 0 rgba(94,224,160,.48);
+  animation:pulse 2s ease-in-out infinite;
+}
+.logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.22rem;font-weight:700}
+.logo .c1{color:rgba(255,255,255,.94)}
+.logo .c2{
+  background:linear-gradient(135deg,#b4e05a,#5ee0a0);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.logo .c3{font-family:'Outfit',sans-serif;font-style:normal;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.38);-webkit-text-fill-color:rgba(255,255,255,.38)}
+.card{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(6,13,11,.58);
+  border-radius:18px;
+  padding:34px 26px 30px;
+  box-shadow:0 24px 70px rgba(0,0,0,.24);
+}
+.check{
+  width:58px;height:58px;border-radius:999px;margin:0 auto 20px;
+  display:grid;place-items:center;
+  background:linear-gradient(160deg,#8fd44a,#35c46e);
+  color:#061409;font-size:1.55rem;font-weight:900;
+  box-shadow:0 14px 34px rgba(53,196,110,.28);
+}
+h1{font-size:1.8rem;line-height:1.08;font-weight:800;letter-spacing:0;margin-bottom:10px}
+p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px}
+.loader{
+  width:34px;height:34px;border-radius:999px;margin:0 auto 18px;
+  border:3px solid rgba(255,255,255,.12);
+  border-top-color:#5ee0a0;
+  animation:spin .8s linear infinite;
+}
+.small{font-size:.82rem;color:rgba(255,255,255,.42);margin:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(94,224,160,.48)}
+  50%{box-shadow:0 0 0 7px rgba(94,224,160,0)}
+}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NN2WKSD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<main class="wrap">
+  <a class="brand" href="https://consultaja24h.com.br/consulta" aria-label="ConsultaJá24h">
+    <span class="dot"></span>
+    <span class="logo"><span class="c1">Consulta</span><span class="c2">Já</span><span class="c3">24h</span></span>
+  </a>
+  <section class="card">
+    <div class="check">✓</div>
+    <h1>Pagamento confirmado</h1>
+    <p>Estamos iniciando sua triagem médica...</p>
+    <div class="loader" aria-label="Carregando"></div>
+    <p class="small">Não feche esta página.</p>
+  </section>
+</main>
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var consultaId = params.get('consulta') || '';
+  var txId = consultaId || ('sem_id_' + Date.now());
+  var chave = 'conv_confirmado_' + txId;
+
+  if(!sessionStorage.getItem(chave)){
+    sessionStorage.setItem(chave, '1');
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'pagamento_confirmado',
+      value: 49.90,
+      currency: 'BRL',
+      transaction_id: String(txId)
+    });
+
+    if(typeof gtag === 'function'){
+      gtag('event', 'conversion', {
+        send_to: 'AW-17964942771/AT3gCPTl0PsbELOLrfZC',
+        value: 49.90,
+        currency: 'BRL',
+        transaction_id: String(txId)
+      });
+    }
+  }
+
+  setTimeout(function(){
+    if(!consultaId){
+      window.location.href = '/triagem.html';
+      return;
+    }
+    window.location.href = '/triagem.html?' + params.toString();
+  }, 2500);
+})();
+</script>
+</body>
+</html>

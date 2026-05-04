@@ -2560,22 +2560,19 @@ function moEnviarCpfEIr(){
     fetch(MO_API+'/api/atendimento/atualizar-cpf',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({atendimentoId:moAtendimentoId,cpf:moCPFVal})}).catch(function(){});
   }
-  var url='https://consultaja24h.com.br/triagem.html';
+  var url='https://consultaja24h.com.br/confirmado';
   var params=[];
   if(moAtendimentoId) params.push('consulta='+moAtendimentoId);
   params.push('tipo='+moTipoConsulta);
   if(moCPFVal) params.push('cpf='+moCPFVal);
   if(params.length) url+='?'+params.join('&');
 
-  // CRÍTICO: aguarda a conversão sair antes de redirecionar.
-  // Sem isso, o navegador aborta o request da conversão ao mudar de página.
-  // Se ainda não foi disparada (raro), dispara aqui e espera o callback.
+  // Mantém a conversão da landing como backup, mas o fluxo principal agora
+  // passa pela página /confirmado, onde a conversão dispara em pageview.
   var chaveTx = 'conv_' + (moAtendimentoId || moOrderId || '');
   if(sessionStorage.getItem(chaveTx)){
-    // já foi disparada antes - dá tempo extra pros requests terminarem
-    setTimeout(function(){ window.location.href = url; }, 2500);
+    setTimeout(function(){ window.location.href = url; }, 300);
   } else {
-    // não foi disparada ainda - dispara agora e só redireciona após callback
     dispararConversao(0, function(){
       window.location.href = url;
     });
