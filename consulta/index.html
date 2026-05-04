@@ -2465,7 +2465,7 @@ function dispararConversao(_tentativa, _onComplete){
 }
 
 function moConfirmarPagamento(){
-  dispararConversao();
+  console.log('[TRACKING] pagamento confirmado detectado');
   document.getElementById('moJaWrap').style.display='none';
   document.getElementById('moPixStatus').textContent='Pagamento confirmado!';
   document.getElementById('moPixStatus').className='mstatus ok';
@@ -2480,11 +2480,18 @@ function moConfirmarPagamento(){
   // Se nascimento já foi coletado, esconde
   if(moNascVal){ nascWrap.style.display='none'; } else { nascWrap.style.display='block'; }
 
-  // Se já temos CPF (pagamento por cartão), pula direto para a triagem
+  // Se já temos CPF (pagamento por cartão), aguarda conversão antes de redirecionar
   if(moCPFVal && moCPFVal.length===11){
-    moEnviarCpfEIr();
+    console.log('[TRACKING] aguardando conversão antes do redirect');
+    dispararConversao(0, function(){
+      setTimeout(function(){
+        console.log('[TRACKING] redirecionando para triagem após conversão');
+        moEnviarCpfEIr();
+      }, 300);
+    });
   } else {
     // PIX: vai para Step 3 para coletar CPF (e nome/nascimento se necessário)
+    DispararConversao();
     moIrStep(3);
     setTimeout(function(){
       // Focar no primeiro campo visível
@@ -2493,6 +2500,7 @@ function moConfirmarPagamento(){
       else { var el=document.getElementById('moCpfPos'); if(el) el.focus(); }
     },320);
   }
+}
 }
 
 function moIniciarTriagem(){
@@ -2561,8 +2569,8 @@ function moEnviarCpfEIr(){
   // Se ainda não foi disparada (raro), dispara aqui e espera o callback.
   var chaveTx = 'conv_' + (moAtendimentoId || moOrderId || '');
   if(sessionStorage.getItem(chaveTx)){
-    // já foi disparada antes - dá um tempinho extra mínimo pro request terminar
-    setTimeout(function(){ window.location.href = url; }, 350);
+    // já foi disparada antes - dá tempo extra pros requests terminarem
+    setTimeout(function(){ window.location.href = url; }, 2500);
   } else {
     // não foi disparada ainda - dispara agora e só redireciona após callback
     dispararConversao(0, function(){
