@@ -908,44 +908,24 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 // ─── GLOBALS ────────────────────────────────────────────────────────────────
 var API = 'https://triagem-api.onrender.com';
 
-// ─── CONVERSÃO GTM/Google Ads ────────────────────────────────────────────────
-// Dispara exatamente 1x por atendimento em QUALQUER caminho de confirmação.
-// Usa localStorage com chave por txId → sobrevive a reload, fecha aba e retorno.
-function dispararConversao(){
-  var txId = atendimentoId || pagbankOrderId;
-  if(!txId) {
-    setTimeout(dispararConversao, 2000);
-    return;
-  }
-  localStorage.removeItem('conv_sem_id');
-  localStorage.removeItem('conv_null');
-  var chave = 'conv_' + txId;
-  if(localStorage.getItem(chave)) return;
-  localStorage.setItem(chave, '1');
-
-  // 1. dataLayer para o GTM
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: 'pagamento_confirmado',
-    value: 49.90,
-    currency: 'BRL',
-    transaction_id: String(txId)
-  });
-
-  // 2. gtag direto — bypassa GTM, garante conversão no Ads independente do trigger
-  if(typeof gtag === 'function') {
-    gtag('event', 'conversion', {
-      send_to: 'AW-17964942771/AT3gCPTl0PsbEL0LrfZC',
-      value: 49.90,
-      currency: 'BRL',
-      transaction_id: String(txId)
+// ─── EVENTOS DE FUNIL DA TRIAGEM ────────────────────────────────────────────
+// A conversão de compra fica centralizada na landing. Aqui medimos apenas uso
+// da triagem/atendimento para não duplicar conversões no Google Ads.
+function trackTriagemEvento(nomeEvento){
+  try{
+    var id = String(atendimentoId || '');
+    var chave = 'triagem_evt_' + nomeEvento + '_' + id;
+    if(id && sessionStorage.getItem(chave)) return;
+    if(id) sessionStorage.setItem(chave, '1');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: nomeEvento,
+      atendimento_id: id,
+      tipo_consulta: tipoConsulta || 'chat'
     });
-    console.log('[CONV] gtag conversion disparado — txId:', txId);
-  } else {
-    console.warn('[CONV] gtag nao disponivel');
+  }catch(e){
+    console.warn('[TRIAGEM] tracking falhou:', e.message);
   }
-
-  console.log('[CONV] dispararConversao ok — txId:', txId);
 }
 // ─────────────────────────────────────────────────────────────────────────────
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '',
@@ -1538,6 +1518,7 @@ function irParaTriagem(){
   setFlowState('triage');
   showScreen('triage');
   setNavLabel('TRIAGEM MÉDICA');
+  trackTriagemEvento('triagem_iniciada');
   startTriage();
 }
 
@@ -1609,7 +1590,7 @@ async function finalizarTriagem(){
     var d=await r.json();
     if(!d.ok) throw new Error(d.error||'Erro ao registrar triagem');
     salvarSessao();
-    dispararConversao(); // triagem concluída com sucesso — atendimentoId garantido aqui
+    trackTriagemEvento('triagem_concluida');
     // Triagem concluída — vai direto para sala de espera (modalidade já foi selecionada antes)
     mostrarSalaEspera();
   }catch(e){
