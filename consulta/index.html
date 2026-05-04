@@ -1199,7 +1199,7 @@ whatsappSend.addEventListener('click', function() {
     </div>
   </div>
   <!-- segurança -->
-  <p id="heroSecurity" style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:14px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
+  <p id="heroSecurity" style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:24px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);display:inline;vertical-align:middle;margin-right:3px;position:relative;top:-1px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Pagamento seguro · Empresa verificada: JG FONSECA SERVIÇOS MÉDICOS LTDA
   </p>
 </section>
@@ -1859,14 +1859,14 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <div class="mcard-err" id="moCardErr"></div>
       </div>
 
-      <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>. Para gerar o PIX, o CPF é necessário para pagamento e emissão dos documentos médicos.</div>
+      <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, razão social da ConsultaJá24h. O CPF é solicitado apenas para gerar o pagamento, localizar seu atendimento e permitir a emissão de documentos médicos quando indicados.</div>
       <div id="moPixCpfWrap" style="display:none">
         <label class="ml">CPF do pagador</label>
         <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this);moPixCpfDetectar(this)">
-        <div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Necessário para gerar o PIX e emitir seus documentos médicos.</div>
+        <div style="font-size:.63rem;color:rgba(255,255,255,.34);margin-top:5px;line-height:1.45">Seus dados são protegidos por sigilo médico e LGPD. Não comercializamos medicamentos; receitas e atestados dependem de avaliação médica.</div>
       </div>
       <button class="mcta" id="moBtnPagar" onclick="moPagar()">Continuar para atendimento →</button>
-      <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.28)">Após o pagamento, um médico assume seu caso em até 5 minutos.</div>
+      <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.34);line-height:1.45">Após o pagamento, você será direcionado para a triagem médica. Receita, atestado ou exames só serão emitidos se houver indicação do médico.</div>
       <div class="mqr-wrap" id="moQrWrap">
         <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Escaneie ou use Pix Copia e Cola</div>
         <img class="mqr-img" id="moQrImg" alt="QR Code PIX">
