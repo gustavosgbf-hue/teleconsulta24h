@@ -1921,18 +1921,6 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
 </div>
 
 <script>
-window.moAbrir = function(contexto){
-  moPreContexto = contexto || '';
-  moTrack('modal_open');
-  document.getElementById('moOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  moTipoConsulta='chat';
-  moSelecionarTipo('chat');
-  moAtualizarToggleModo();
-  moIrStep(1);
-  setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
-};
-
 var MO_API='https://triagem-api.onrender.com';
 var moTelVal='',moNomeVal='',moNascVal='',moCPFVal='',moEmailVal='';
 var moAtendimentoId=null,moOrderId=null,moMetodoAtual='pix';
@@ -2503,7 +2491,7 @@ function moConfirmarPagamento(){
     });
   } else {
     // PIX: vai para Step 3 para coletar CPF (e nome/nascimento se necessário)
-    DispararConversao();
+    dispararConversao();
     moIrStep(3);
     setTimeout(function(){
       // Focar no primeiro campo visível
