@@ -1958,6 +1958,7 @@ function moAbrir(contexto){
   moIrStep(1);
   setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
 }
+window.moAbrir = moAbrir;
 
 function moSelecionarTipo(tipo){
   moTipoConsulta=tipo;
@@ -2500,7 +2501,6 @@ function moConfirmarPagamento(){
       else { var el=document.getElementById('moCpfPos'); if(el) el.focus(); }
     },320);
   }
-}
 }
 
 function moIniciarTriagem(){
