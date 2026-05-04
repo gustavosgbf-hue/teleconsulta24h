@@ -754,6 +754,13 @@ function setPayStatus(msg,tipo){
   el.className='pay-status '+(tipo||'');
 }
 
+function erroTexto(err){
+  if(!err)return 'tente novamente.';
+  if(typeof err==='string')return err;
+  if(err.message&&err.message!=='[object Object]')return err.message;
+  try{return JSON.stringify(err)}catch(e){return 'tente novamente.'}
+}
+
 async function prepararPagamento(btn,msg){
   btn.disabled=true;
   btn.innerHTML='<span class="spinner spinner--dark"></span> '+msg;
@@ -768,12 +775,12 @@ async function gerarPix(){
     setPayStatus('Gerando código PIX...','info');
     const orderRes=await fetch(API+'/api/renovacao/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({atendimentoId:SOLIC.atendimentoId,nome:document.getElementById('iNome').value.trim(),cpf:document.getElementById('iCpf').value.replace(/\D/g,''),email:document.getElementById('iEmail').value.trim()})});
     const orderData=await orderRes.json();
-    if(!orderData.ok)throw new Error(orderData.error||'Erro ao gerar PIX');
+    if(!orderData.ok)throw new Error(erroTexto(orderData.error||'Erro ao gerar PIX'));
     mostrarPix(orderData);
   }catch(e){
     btn.disabled=false;
     btn.textContent='Tentar novamente';
-    setPayStatus('Erro: '+(e.message||'tente novamente.'),'err');
+    setPayStatus('Erro: '+erroTexto(e),'err');
   }
 }
 
@@ -844,7 +851,7 @@ async function pagarCartao(){
   }catch(e){
     btn.disabled=false;
     btn.textContent='Tentar novamente';
-    setPayStatus('Erro: '+(e.message||'tente novamente.'),'err');
+    setPayStatus('Erro: '+erroTexto(e),'err');
   }
 }
 
