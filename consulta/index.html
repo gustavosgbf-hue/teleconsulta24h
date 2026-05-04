@@ -70,6 +70,7 @@ body{
   padding:12px 20px;max-width:960px;margin:0 auto;
 }
 .nav__brand{display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav__actions{display:flex;align-items:center;gap:10px}
 .live-dot{
   width:7px;height:7px;border-radius:50%;
   background:var(--g2);flex-shrink:0;
@@ -103,6 +104,28 @@ body{
   transition:color .15s,border-color .15s;
 }
 .nav__cta-link:hover{color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.22)}
+.nav__rx-link{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 15px;border-radius:999px;
+  background:linear-gradient(160deg,#8fd44a 0%,#35c46e 100%);
+  color:#061409;text-decoration:none;
+  font-size:.78rem;font-weight:900;
+  box-shadow:0 8px 24px rgba(53,196,110,.28),0 0 0 1px rgba(255,255,255,.12) inset;
+  position:relative;overflow:hidden;
+  animation:rxPulse 2.8s ease-in-out infinite;
+}
+.nav__rx-link::after{
+  content:'';position:absolute;top:-60%;bottom:-60%;width:28px;left:-36px;
+  background:rgba(255,255,255,.35);transform:rotate(18deg);
+  animation:rxShine 3.4s ease-in-out infinite;
+}
+.nav__rx-new{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:2px 6px;border-radius:999px;background:#061409;color:#b4e05a;
+  font-size:.58rem;font-weight:900;line-height:1;text-transform:uppercase;
+}
+@keyframes rxPulse{0%,100%{box-shadow:0 8px 24px rgba(53,196,110,.28),0 0 0 0 rgba(94,224,160,.35)}50%{box-shadow:0 10px 28px rgba(53,196,110,.4),0 0 0 5px rgba(94,224,160,0)}}
+@keyframes rxShine{0%,55%{left:-42px}72%,100%{left:125%}}
 
 /* ─── HERO ─── */
 .hero{
@@ -555,6 +578,10 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 @media(max-width:640px){
   .nav__in{padding:10px 14px}
   .nav__cta-link{padding:7px 11px;color:rgba(180,224,90,.9);border-color:rgba(180,224,90,.28);background:rgba(180,224,90,.055);font-size:.7rem}
+  .nav__actions{gap:7px}
+  .nav__rx-link{padding:8px 10px;font-size:.7rem;gap:5px}
+  .nav__rx-new{display:none}
+  .nav__rx-text{max-width:92px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hero{padding:28px 20px 38px}
   .hero__h1{font-size:clamp(1.72rem,7.4vw,2.26rem);line-height:1.08;margin-bottom:14px}
   .hero__sub{font-size:.9rem;margin-bottom:22px}
@@ -1053,7 +1080,14 @@ whatsappSend.addEventListener('click', function() {
         <span class="c1">Consulta</span><span class="c2">Já</span><span class="c3">24h</span>
       </span>
     </a>
-    <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()">Começar atendimento →</a>
+    <div class="nav__actions">
+      <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link" aria-label="Renovar receita médica">
+        <span class="nav__rx-new">Novo</span>
+        <span>💊</span>
+        <span class="nav__rx-text">Renovar receita</span>
+      </a>
+      <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()">Começar atendimento →</a>
+    </div>
   </div>
 </nav>
 
