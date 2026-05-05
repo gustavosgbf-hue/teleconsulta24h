@@ -96,31 +96,30 @@ body{
 }
 .nav__cta-link{
   display:inline-flex;align-items:center;justify-content:center;
-  padding:7px 14px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:transparent;
-  color:rgba(255,255,255,.4);font-family:'Outfit',sans-serif;
-  font-weight:500;font-size:.74rem;
+  padding:9px 16px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(160deg,#b4e05a 0%,#5ee0a0 100%);
+  color:#061409;font-family:'Outfit',sans-serif;
+  font-weight:800;font-size:.78rem;
   text-decoration:none;
-  transition:color .15s,border-color .15s;
+  box-shadow:0 4px 14px rgba(94,224,160,.18),0 0 0 1px rgba(255,255,255,.12) inset;
+  transition:transform .15s,box-shadow .15s;
 }
-.nav__cta-link:hover{color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.22)}
+.nav__cta-link:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(94,224,160,.24),0 0 0 1px rgba(255,255,255,.16) inset}
 .nav__cta-short{display:none}
 .nav__rx-link{
   display:inline-flex;align-items:center;gap:7px;
-  padding:9px 15px;border-radius:999px;
-  background:linear-gradient(160deg,#6abf3d 0%,#2d9659 100%);
-  color:#061409;text-decoration:none;
-  font-size:.78rem;font-weight:700;
-  box-shadow:0 4px 12px rgba(53,196,110,.2),0 0 0 1px rgba(255,255,255,.08) inset;
+  padding:8px 12px;border-radius:999px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.09);
+  color:rgba(255,255,255,.56);text-decoration:none;
+  font-size:.74rem;font-weight:600;
   position:relative;overflow:hidden;
 }
-.nav__rx-link::after{
-  content:'';position:absolute;top:-60%;bottom:-60%;width:28px;left:-36px;
-  background:rgba(255,255,255,.2);transform:rotate(18deg);
-}
+.nav__rx-link:hover{color:rgba(255,255,255,.78);border-color:rgba(180,224,90,.18)}
+.nav__rx-link::after{display:none}
 .nav__rx-new{
-  display:inline-flex;align-items:center;justify-content:center;
+  display:none;align-items:center;justify-content:center;
   padding:2px 6px;border-radius:999px;background:#061409;color:#b4e05a;
   font-size:.58rem;font-weight:700;line-height:1;text-transform:uppercase;
 }
@@ -606,13 +605,13 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
   .nav__in{padding:10px 14px}
-  .nav__cta-link{padding:8px 10px;color:rgba(180,224,90,.9);border-color:rgba(180,224,90,.28);background:rgba(180,224,90,.055);font-size:.7rem;font-weight:700;white-space:nowrap}
+  .nav__cta-link{padding:9px 14px;font-size:.72rem;font-weight:800;white-space:nowrap}
   .nav__cta-full{display:none}
   .nav__cta-short{display:inline}
   .nav__actions{gap:7px}
   .nav__rx-link{padding:8px 10px;font-size:.7rem;gap:5px}
   .nav__rx-new{display:none}
-  .nav__rx-text{max-width:92px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav__rx-text{max-width:88px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hero{padding:28px 20px 38px}
   .hero__h1{font-size:clamp(1.72rem,7.4vw,2.26rem);line-height:1.08;margin-bottom:14px}
   .hero__sub{font-size:.9rem;margin-bottom:22px}
@@ -1191,11 +1190,11 @@ whatsappSend.addEventListener('click', function() {
     ★★★★★ 5,0 · +2.000 atendimentos
   </div>
   <h1 class="hero__h1" id="heroTitle">
-    Precisa de receita, atestado ou atendimento médico?<br>
-    <em>Fale com um médico online em até 5 minutos.</em>
+    Fale com um médico online<br>
+    <em>em até 5 minutos.</em>
   </h1>
   <p class="hero__sub" id="heroSub" style="line-height:1.7;color:rgba(255,255,255,.78)">
-    Pelo navegador. Sem app, sem criar conta. Médicos brasileiros com CRM ativo.
+    Consulta por chat ou vídeo, sem app. Receita, atestado e exames quando indicados.
   </p>
   <!-- heroUrgency removido: não promete tempo de vaga (só mostra info estática na livebar) -->
   <p id="heroUrgency" style="display:none"></p>
@@ -1212,22 +1211,13 @@ whatsappSend.addEventListener('click', function() {
   </p>
   <a id="heroReviewProof" href="#reviewsSection" aria-label="Ver avaliações da ConsultaJá24h" title="Ver avaliações abaixo" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:11px;padding:4px 2px;color:rgba(255,255,255,.58);font-size:.72rem;font-weight:600;text-decoration:none;animation:fadeUp .5s ease both .34s">
     <svg width="13" height="13" viewBox="0 0 48 48" aria-label="Google" style="flex-shrink:0"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg>
-    <span>5,0 no Google · <strong>Avaliações abaixo</strong></span>
+    <span>5,0 no Google · <strong>+2.000 atendimentos</strong></span>
   </a>
   <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
   <div id="heroChips" style="display:flex;flex-wrap:nowrap;gap:6px;margin-top:14px;justify-content:center;animation:fadeUp .5s ease both .36s">
     <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Receita se indicada</span>
     <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Atestado se indicado</span>
     <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Exames se indicados</span>
-  </div>
-  <div id="heroSpecialtyLinks" style="margin-top:12px;animation:fadeUp .5s ease both .38s;max-width:430px;width:100%">
-    <p style="font-size:.66rem;color:rgba(255,255,255,.36);font-weight:500;margin-bottom:7px">Procura uma área específica?</p>
-    <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center">
-      <button type="button" onclick="moAbrir('consulta com psiquiatra')" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:600;text-decoration:none;cursor:pointer">Psiquiatra</button>
-      <button type="button" onclick="moAbrir('consulta com psicólogo')" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:600;text-decoration:none;cursor:pointer">Psicólogo</button>
-      <button type="button" onclick="moAbrir('consulta com endocrinologista')" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:600;text-decoration:none;cursor:pointer">Endócrino</button>
-      <button type="button" onclick="moAbrir('consulta médica online')" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:600;text-decoration:none;cursor:pointer">Outras especialidades</button>
-    </div>
   </div>
   <!-- segurança -->
   <p id="heroSecurity" style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:24px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
@@ -1313,6 +1303,18 @@ whatsappSend.addEventListener('click', function() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
         Check-up
       </a>
+    </div>
+  </div>
+</section>
+
+<section class="reveal visible" style="padding:0 20px 34px">
+  <div class="section-inner" style="text-align:center;max-width:620px">
+    <p style="font-size:.72rem;color:rgba(255,255,255,.36);font-weight:500;margin-bottom:10px">Procura uma área específica?</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+      <button type="button" onclick="moAbrir('consulta com psiquiatra')" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Psiquiatra</button>
+      <button type="button" onclick="moAbrir('consulta com psicólogo')" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Psicólogo</button>
+      <button type="button" onclick="moAbrir('consulta com endocrinologista')" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Endócrino</button>
+      <button type="button" onclick="moAbrir('consulta médica online')" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Outras especialidades</button>
     </div>
   </div>
 </section>
