@@ -2026,6 +2026,80 @@ function moNomeParaCadastro(){
   return (moNomeVal&&moNomeVal.trim().length>1) ? moNomeVal.trim() : 'Paciente';
 }
 
+function moPayloadAtendimento(extra){
+  return Object.assign({
+    nome:moNomeParaCadastro(),
+    tel:moTelVal,
+    cpf:moCPFVal,
+    triagem:moResumoTriagem(),
+    tipo:moTipoConsulta,
+    data_nascimento:moNascVal||'',
+    email:moEmailVal||'',
+    contexto:moPreContexto||''
+  }, extra||{});
+}
+
+function moSalvarCheckoutSessao(){
+  if(!moAtendimentoId) return;
+  try {
+    var snap = {
+      atendimentoId:moAtendimentoId,
+      tipoConsulta:moTipoConsulta,
+      pacienteNome:moNomeVal||'',
+      pacienteTel:moTelVal||'',
+      pacienteCPF:moCPFVal||'',
+      pacienteEmail:moEmailVal||'',
+      pagbankOrderId:moOrderId||null,
+      ts:Date.now()
+    };
+    localStorage.setItem('cj_sessao', JSON.stringify(snap));
+    sessionStorage.setItem('mo_checkout_sessao', JSON.stringify(snap));
+  } catch(e) {}
+}
+
+async function moGarantirAtendimentoAntesDaTriagem(){
+  if(!moAtendimentoId){
+    var res = await moFetchComTimeout(MO_API+'/api/notify',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(moPayloadAtendimento())
+    },15000);
+    var data = await res.json();
+    if(!data || !data.atendimentoId){
+      throw new Error((data&&data.error)||'Não foi possível abrir sua triagem. Tente novamente.');
+    }
+    moAtendimentoId = data.atendimentoId;
+  } else {
+    moPostConfiavel('/api/notify', moPayloadAtendimento({atendimentoId:moAtendimentoId}));
+  }
+
+  moSalvarCheckoutSessao();
+
+  var pendencias = [];
+  if(moAtendimentoId && moOrderId){
+    pendencias.push(moFetchComTimeout(MO_API+'/api/atendimento/vincular-order',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})
+    },6000).then(function(){ moSalvarCheckoutSessao(); }).catch(function(e){
+      console.warn('[MO] vínculo do pagamento pendente:', e.message);
+    }));
+  }
+
+  if(moAtendimentoId && moCPFVal){
+    pendencias.push(moFetchComTimeout(MO_API+'/api/atendimento/atualizar-cpf',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({atendimentoId:moAtendimentoId,cpf:moCPFVal})
+    },6000).catch(function(e){ console.warn('[MO] CPF pendente:', e.message); }));
+  }
+
+  if(pendencias.length) await Promise.all(pendencias);
+  moSalvarCheckoutSessao();
+
+  return moAtendimentoId;
+}
+
 function moAtualizarContexto(){
   var pill=document.getElementById('moContextPill');
   var text=document.getElementById('moContextText');
@@ -2321,9 +2395,12 @@ async function moIrPagamento(){
   btn.disabled=true; btn.textContent='Preparando...';
   try {
     var res=await moFetchComTimeout(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:moNomeParaCadastro(),tel:moTelVal,cpf:moCPFVal,triagem:moResumoTriagem(),tipo:moTipoConsulta,data_nascimento:moNascVal||'',contexto:moPreContexto||''})},6500);
+      body:JSON.stringify(moPayloadAtendimento())},6500);
     var data=await res.json();
-    if(data.ok&&data.atendimentoId) moAtendimentoId=data.atendimentoId;
+    if(data.ok&&data.atendimentoId){
+      moAtendimentoId=data.atendimentoId;
+      moSalvarCheckoutSessao();
+    }
   } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
   moTrack('lead_pre_pagamento', {tipo:moTipoConsulta,contexto:moPreContexto||'geral',atendimento_id:moAtendimentoId||''});
   btn.disabled=false; btn.textContent='Continuar';
@@ -2412,8 +2489,11 @@ async function moGerarPix(){
     var pixText=data.qr_code_text||'';
     if(moAtendimentoId&&moOrderId){
       fetch(MO_API+'/api/atendimento/vincular-order',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})}).catch(function(){});
+        body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})})
+        .then(function(){ moSalvarCheckoutSessao(); })
+        .catch(function(){});
     }
+    moSalvarCheckoutSessao();
     var img=document.getElementById('moQrImg');
     if(pixText){
       img.onload=function(){ img.style.display='block'; };
@@ -2495,19 +2575,20 @@ function moConfirmarPagamento(){
   var nascWrap=document.getElementById('moPosNascWrap');
   var cpfWrap=document.getElementById('moPosCpfWrap');
   var cpfEl=document.getElementById('moCpfPos');
+  var precisaAbrirAtendimento = !moAtendimentoId;
   // Se nome já foi coletado (autofill ou Step 1), esconde o campo
   if(moNomeVal){ nomeEl.value=moNomeVal; nomeWrap.style.display='none'; } else { nomeWrap.style.display='block'; }
   // Nascimento só entra aqui quando já vamos pedir nome; não bloqueia compras de retorno.
   if(moNascVal||moNomeVal){ nascWrap.style.display='none'; } else { nascWrap.style.display='block'; }
   if(moCPFVal&&moCPFVal.length===11){
     cpfEl.value=moCPFVal;
-    cpfWrap.style.display='none';
+    cpfWrap.style.display=precisaAbrirAtendimento?'block':'none';
   } else {
     cpfWrap.style.display='block';
   }
 
   // A conversão de compra dispara na página /confirmado. A landing apenas redireciona.
-  var precisaDados = !moNomeVal || !(moCPFVal && moCPFVal.length===11);
+  var precisaDados = precisaAbrirAtendimento || !moNomeVal || !(moCPFVal && moCPFVal.length===11);
   if(precisaDados){
     moTrack('post_payment_details_view', {contexto:moPreContexto||'geral'});
     moIrStep(3);
@@ -2522,7 +2603,7 @@ function moConfirmarPagamento(){
   }
 }
 
-function moIniciarTriagem(){
+async function moIniciarTriagem(){
   var errEl=document.getElementById('moCpfPosErr');
   errEl.style.display='none';
 
@@ -2563,19 +2644,40 @@ function moIniciarTriagem(){
 
   // Atualizar nome/nascimento no registro se coletados aqui
   if(moAtendimentoId && (moNomeVal||moNascVal)){
-    moPostConfiavel('/api/notify',{atendimentoId:moAtendimentoId,nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,data_nascimento:moNascVal||'',triagem:moResumoTriagem(),tipo:moTipoConsulta,contexto:moPreContexto||''});
+    moPostConfiavel('/api/notify',moPayloadAtendimento({atendimentoId:moAtendimentoId}));
   }
 
   var btn=document.getElementById('moBtnTriagem');
   btn.disabled=true; btn.textContent='Entrando...';
-  moEnviarCpfEIr();
+  await moEnviarCpfEIr();
 }
 
-function moEnviarCpfEIr(){
-  // Atualiza CPF no registro (Sheets/Memed/prontuário)
-  if(moAtendimentoId && moCPFVal){
-    fetch(MO_API+'/api/atendimento/atualizar-cpf',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({atendimentoId:moAtendimentoId,cpf:moCPFVal})}).catch(function(){});
+async function moEnviarCpfEIr(){
+  var btn=document.getElementById('moBtnTriagem');
+  var errEl=document.getElementById('moCpfPosErr');
+  var statusEl=document.getElementById('moPixStatus');
+  try {
+    if(btn){ btn.disabled=true; btn.textContent='Abrindo triagem...'; }
+    if(errEl) errEl.style.display='none';
+    if(statusEl && !moAtendimentoId){
+      statusEl.textContent='Abrindo sua triagem médica...';
+      statusEl.className='mstatus';
+      statusEl.style.display='block';
+    }
+    await moGarantirAtendimentoAntesDaTriagem();
+  } catch(e) {
+    var msg=e.message||'Não foi possível abrir sua triagem. Tente novamente.';
+    if(errEl){
+      errEl.textContent=msg;
+      errEl.style.display='block';
+    }
+    if(statusEl){
+      statusEl.textContent=msg;
+      statusEl.className='mstatus err';
+      statusEl.style.display='block';
+    }
+    if(btn){ btn.disabled=false; btn.textContent='Tentar abrir triagem novamente'; }
+    return false;
   }
   var url='https://consultaja24h.com.br/confirmado';
   var params=[];
@@ -2624,9 +2726,12 @@ async function moPagarCartao(){
   try {
     if(!moAtendimentoId){
       var rPre=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({nome:nome,tel:moTelVal,cpf:cpfNum,triagem:moResumoTriagem(),tipo:moTipoConsulta,data_nascimento:moNascVal||'',contexto:moPreContexto||''})});
+        body:JSON.stringify(moPayloadAtendimento({nome:nome,cpf:cpfNum,email:email}))});
       var dPre=await rPre.json();
-      if(dPre&&dPre.atendimentoId) moAtendimentoId=dPre.atendimentoId;
+      if(dPre&&dPre.atendimentoId){
+        moAtendimentoId=dPre.atendimentoId;
+        moSalvarCheckoutSessao();
+      }
     }
     if(typeof EfiPay==='undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
     var tokenResult=await EfiPay.CreditCard
