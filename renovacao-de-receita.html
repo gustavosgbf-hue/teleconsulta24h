@@ -876,12 +876,5 @@ function finalizarPagamento(){
   const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida. A receita digital será enviada por email e WhatsApp após avaliação médica.':'Sua solicitação foi recebida. A receita controlada será preparada e enviada via Correios após avaliação médica.';
   document.getElementById('sucessoMsg').textContent=msg;
 }
-
-(function abrirFluxoSeSolicitado(){
-  const params=new URLSearchParams(window.location.search);
-  if(params.get('abrir')==='1'||window.location.hash==='#solicitar'){
-    setTimeout(abrirModal,120);
-  }
-})();
 </script>
 </body></html>
