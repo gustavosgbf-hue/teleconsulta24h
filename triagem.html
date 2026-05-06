@@ -949,6 +949,17 @@ function limparSessao(){ localStorage.removeItem('cj_sessao'); }
 function carregarSessao(){
   try{ return JSON.parse(localStorage.getItem('cj_sessao')||'null'); }catch(e){ return null; }
 }
+function sessaoPodeRetomarTriagem(sessao){
+  return !!(sessao && sessao.atendimentoId && (sessao.pagbankOrderId || sessao.pagamentoConfirmado));
+}
+function montarDestinoLandingConsulta(){
+  var qs = location.search || '';
+  var hash = location.hash || '';
+  if(location.protocol === 'file:'){
+    return new URL('consulta/index.html' + qs + hash, location.href).href;
+  }
+  return '/consulta/' + qs + hash;
+}
 
 // ─── FLOW STATE MACHINE ──────────────────────────────────────────────────────
 // Tracks the current logical step. Screens can only advance forward.
@@ -989,6 +1000,10 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
   var url = new URL(location.href);
   var idParam = url.searchParams.get('consulta');
   var sessao = carregarSessao();
+  if(!idParam && !sessaoPodeRetomarTriagem(sessao)){
+    window.location.replace(montarDestinoLandingConsulta());
+    return;
+  }
   var idParaRestaurar = idParam || (sessao && sessao.atendimentoId);
 
   // Restore persisted flow state — prevents modality from showing on reload
