@@ -933,13 +933,16 @@ var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '',
 var atendimentoId = null;
 var paymentId = null, pagbankOrderId = null, paymentPoller = null;
 var dispData = null;
+var pagamentoConfirmadoLocal = false;
 
 // ─── SESSION ────────────────────────────────────────────────────────────────
 function salvarSessao(){
   if(!atendimentoId) return;
   localStorage.setItem('cj_sessao', JSON.stringify({
     atendimentoId, tipoConsulta, pacienteNome, pacienteTel,
-    pacienteCPF, pacienteEmail, pagbankOrderId: pagbankOrderId||null, ts: Date.now()
+    pacienteCPF, pacienteEmail, pagbankOrderId: pagbankOrderId||null,
+    pagamentoConfirmado: !!pagamentoConfirmadoLocal,
+    ts: Date.now()
   }));
 }
 function limparSessao(){ localStorage.removeItem('cj_sessao'); }
@@ -1022,10 +1025,11 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
             try{
               var pbRes  = await fetch(API+'/api/pagbank/order/'+orderIdLocal);
               var pbData = await pbRes.json();
-              if(pbData.ok && pbData.pago){
+          if(pbData.ok && pbData.pago){
                 atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
                 pacienteNome  = a.nome || ''; pacienteTel = a.tel || '';
                 pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
+                pagamentoConfirmadoLocal = true; salvarSessao();
                 esconderLoading(); mostrarModalidade(); return;
               }
             }catch(e){}
@@ -1053,6 +1057,8 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
           atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
           pacienteNome  = a.nome || ''; pacienteTel = a.tel || '';
           pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
+          pagamentoConfirmadoLocal = a.pagamento_status === 'confirmado';
+          salvarSessao();
           // Avançar flowState além de modality para impedir reexibição
           setFlowState('triage');
           esconderLoading(); irParaTriagem(); return;
@@ -1066,6 +1072,8 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         pacienteTel   = a.tel   || (sessao && sessao.pacienteTel)  || '';
         pacienteCPF   = a.cpf   || (sessao && sessao.pacienteCPF)  || '';
         pacienteEmail = a.email || (sessao && sessao.pacienteEmail) || '';
+        pagamentoConfirmadoLocal = a.pagamento_status === 'confirmado';
+        salvarSessao();
         // Advance flow past modality so the guard in mostrarModalidade blocks it
         if(flowStateIndex(flowState) <= flowStateIndex('modality')){
           setFlowState('waiting');
@@ -1074,7 +1082,9 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
       }
     }catch(e){}
 
-    // Fallback: usa sessão local — assume que pagamento foi feito, modality já passou
+    // Fallback local: nunca joga direto para a fila sem confirmação do backend.
+    // A landing salva sessão antes do pagamento; se a restauração falhar,
+    // retomamos o pagamento/triagem em vez de mostrar "aguardando médico" sem triagem.
     if(sessao && sessao.atendimentoId){
       atendimentoId  = sessao.atendimentoId;
       tipoConsulta   = sessao.tipoConsulta  || 'chat';
@@ -1083,11 +1093,17 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
       pacienteCPF    = sessao.pacienteCPF   || '';
       pacienteEmail  = sessao.pacienteEmail || '';
       pagbankOrderId = sessao.pagbankOrderId || null;
-      // Sessão local só existe após pagamento confirmado — modality já foi ou vai ser pulada
-      if(flowStateIndex(flowState) <= flowStateIndex('modality')){
-        setFlowState('waiting');
+      pagamentoConfirmadoLocal = !!sessao.pagamentoConfirmado;
+      esconderLoading();
+      if(pagbankOrderId && !pagamentoConfirmadoLocal){
+        irParaPagamento();
+        setTimeout(function(){ restaurarPixAposRetorno(pagbankOrderId); }, 400);
+        return;
       }
-      esconderLoading(); mostrarSalaEspera(); return;
+      if(pagamentoConfirmadoLocal){
+        mostrarModalidade();
+        return;
+      }
     }
   }
 
@@ -1368,7 +1384,7 @@ async function gerarPagamento(){
 
     var res = await fetch(API+'/api/pagbank/order',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:nome||'-',cpf:cpfParaPix,email:pacienteEmail||undefined})
+      body:JSON.stringify({atendimentoId,nome:nome||'-',cpf:cpfParaPix,email:pacienteEmail||undefined})
     });
     var data = await res.json();
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
@@ -1442,6 +1458,8 @@ function iniciarPollingPagamento(){
         clearTimeout(_jaPagTimer);
         var jpw = document.getElementById('ja-paguei-wrap');
         if(jpw) jpw.style.display = 'none';
+        pagamentoConfirmadoLocal = true;
+        salvarSessao();
         statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
         statusEl.className='pay-polling-status ok';
         await esperar(800);
@@ -1930,6 +1948,8 @@ async function pagarCartao(){
     var d=await r.json();
     var cardOk=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.status==='succeeded'||d.transaction_id||d.transactionId));
     if(cardOk){
+      pagamentoConfirmadoLocal = true;
+      salvarSessao();
       document.getElementById('cardProcessing').textContent='✅ Pagamento aceito! Selecionando modalidade...';
       await esperar(900);
       // Cartão: CPF já coletado → ir para modalidade

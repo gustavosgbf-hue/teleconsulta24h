@@ -2003,6 +2003,7 @@ var MO_API='https://triagem-api.onrender.com';
 var moTelVal='',moNomeVal='',moNascVal='',moCPFVal='',moEmailVal='';
 var moAtendimentoId=null,moOrderId=null,moMetodoAtual='pix';
 var moPoller=null,moJaTimer=null,moCardProcessando=false;
+var moPagamentoConfirmado=false;
 var moTipoConsulta='chat'; // 'chat' ou 'video'
 var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
 
@@ -2070,11 +2071,43 @@ function moSalvarCheckoutSessao(){
       pacienteCPF:moCPFVal||'',
       pacienteEmail:moEmailVal||'',
       pagbankOrderId:moOrderId||null,
+      pagamentoConfirmado:!!moPagamentoConfirmado,
       ts:Date.now()
     };
     localStorage.setItem('cj_sessao', JSON.stringify(snap));
     sessionStorage.setItem('mo_checkout_sessao', JSON.stringify(snap));
   } catch(e) {}
+}
+
+async function moRetomarSessaoAtiva(){
+  var sessao=null;
+  try{ sessao=JSON.parse(localStorage.getItem('cj_sessao')||'null'); }catch(e){ sessao=null; }
+  if(!sessao||!sessao.atendimentoId) return false;
+  var id=String(sessao.atendimentoId);
+  var tipo=sessao.tipoConsulta||'chat';
+  var destino='/triagem.html?consulta='+encodeURIComponent(id)+'&tipo='+encodeURIComponent(tipo);
+  try{
+    var res=await moFetchComTimeout(MO_API+'/api/atendimento/status/'+encodeURIComponent(id),{},5000);
+    var data=await res.json();
+    if(!data.ok||!data.atendimento) return false;
+    var a=data.atendimento;
+    if(a.status==='encerrado'){
+      localStorage.removeItem('cj_sessao');
+      sessionStorage.removeItem('mo_checkout_sessao');
+      return false;
+    }
+    if(a.tipo) destino='/triagem.html?consulta='+encodeURIComponent(id)+'&tipo='+encodeURIComponent(a.tipo);
+    if(a.pagamento_status==='confirmado'||a.pagbank_order_id||sessao.pagbankOrderId||sessao.pagamentoConfirmado){
+      window.location.href=destino;
+      return true;
+    }
+  }catch(e){
+    if(sessao.pagbankOrderId||sessao.pagamentoConfirmado){
+      window.location.href=destino;
+      return true;
+    }
+  }
+  return false;
 }
 
 async function moGarantirAtendimentoAntesDaTriagem(){
@@ -2133,8 +2166,9 @@ function moAtualizarContexto(){
   }
 }
 
-function moAbrir(contexto){
+async function moAbrir(contexto){
   moPreContexto = contexto || '';
+  if(await moRetomarSessaoAtiva()) return;
   moTrack('modal_open', {contexto:moPreContexto||'geral'});
   document.getElementById('moOverlay').classList.add('open');
   document.body.style.overflow='hidden';
@@ -2501,17 +2535,19 @@ async function moGerarPix(){
       clearTimeout(_reset);
       return;
     }
+    await moGarantirAtendimentoAntesDaTriagem();
+    if(!moAtendimentoId) throw new Error('Não foi possível abrir seu atendimento. Tente novamente.');
     var res=await moFetchComTimeout(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:moNomeParaCadastro(),cpf:moCPFVal,email:undefined})},23000);
+      body:JSON.stringify({atendimentoId:moAtendimentoId,nome:moNomeParaCadastro(),cpf:moCPFVal,email:undefined})},23000);
     var data=await res.json();
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
     moOrderId=data.order_id;
     var pixText=data.qr_code_text||'';
     if(moAtendimentoId&&moOrderId){
-      fetch(MO_API+'/api/atendimento/vincular-order',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})})
-        .then(function(){ moSalvarCheckoutSessao(); })
-        .catch(function(){});
+      var vinculoRes=await moFetchComTimeout(MO_API+'/api/atendimento/vincular-order',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})},8000);
+      var vinculoData=await vinculoRes.json();
+      if(!vinculoData.ok) throw new Error(vinculoData.error||'Não foi possível associar o PIX ao atendimento.');
     }
     moSalvarCheckoutSessao();
     var img=document.getElementById('moQrImg');
@@ -2584,6 +2620,8 @@ async function moVerificarManual(){
 
 function moConfirmarPagamento(){
   console.log('[TRACKING] pagamento confirmado detectado');
+  moPagamentoConfirmado=true;
+  moSalvarCheckoutSessao();
   document.getElementById('moJaWrap').style.display='none';
   document.getElementById('moPixStatus').textContent='Pagamento confirmado!';
   document.getElementById('moPixStatus').className='mstatus ok';
@@ -2790,7 +2828,7 @@ function moFallbackCopy(text){
 function moReiniciar(){
   clearInterval(moPoller); clearTimeout(moJaTimer);
   moPoller=null; moJaTimer=null; moOrderId=null; moAtendimentoId=null;
-  moTelVal=''; moNomeVal=''; moNascVal=''; moCPFVal=''; moEmailVal=''; moCardProcessando=false;
+  moTelVal=''; moNomeVal=''; moNascVal=''; moCPFVal=''; moEmailVal=''; moCardProcessando=false; moPagamentoConfirmado=false;
   ['moTel','moNome','moNasc','moPayNome','moPayCPF','moCardEmail','moCfNumero','moCfNome','moCfValidade','moCfCvv','moPixCPF','moCpfPos','moCpfPosNome','moCpfPosNasc'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value='';
   });
