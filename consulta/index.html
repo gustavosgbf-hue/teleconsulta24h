@@ -186,26 +186,6 @@ body{
 .doc-card__name{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.92);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .doc-card__meta{font-size:.66rem;color:rgba(94,224,160,.75);font-weight:500;letter-spacing:.01em}
 
-/* ─── CHIPS DE DOCUMENTOS (hero) ─── */
-.hero__chips{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));justify-content:center;gap:10px;
-  margin-top:20px;width:100%;max-width:440px;
-  animation:fadeUp .5s ease both .36s;
-}
-.hero__chip{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  min-height:64px;
-  padding:10px 9px;border-radius:14px;
-  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
-  border:1px solid rgba(255,255,255,.13);
-  box-shadow:0 12px 28px rgba(0,0,0,.22),0 0 0 1px rgba(67,223,126,.035) inset;
-  font-size:.76rem;font-weight:600;line-height:1.18;
-  color:rgba(255,255,255,.86);
-  text-align:left;
-}
-.hero__chip svg{width:20px;height:20px;color:var(--g2);flex-shrink:0;opacity:.9;filter:drop-shadow(0 0 10px rgba(67,223,126,.22))}
-.hero__chip b{font-weight:800;line-height:1.1}
-.hero__chip span{display:block;color:rgba(255,255,255,.54);font-weight:500;margin-top:3px}
 #heroReviewProof{
   cursor:pointer;
   transition:color .15s,opacity .15s,transform .15s;
@@ -343,19 +323,6 @@ body{
 .hero__proof-row svg{width:17px;height:17px;color:var(--g2);flex-shrink:0;filter:drop-shadow(0 0 10px rgba(67,223,126,.2))}
 .hero__proof-row strong{color:var(--g1);font-weight:800}
 .hero__proof-row s{color:rgba(255,255,255,.34);text-decoration-color:rgba(255,255,255,.34)}
-.hero__social-badge{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  margin-top:14px;
-  padding:8px 14px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.025);
-  color:rgba(255,255,255,.54);
-  font-size:.72rem;font-weight:600;
-  animation:fadeUp .5s ease both .35s;
-}
-.hero__social-badge svg{width:15px;height:15px;color:var(--g2);filter:drop-shadow(0 0 10px rgba(67,223,126,.22))}
-
 .dot-green{
   width:6px;height:6px;border-radius:50%;
   background:#5ee0a0;flex-shrink:0;
@@ -444,10 +411,8 @@ section{position:relative;z-index:1}
 #heroUrgency { order:6 }
 #heroPriceAnchor { order:7 }
 #heroReviewProof { order:8 }
-#heroSocialBadge { order:9 }
-#heroChips   { order:10 }
-#heroSpecialtyLinks { order:11 }
-#heroSecurity{ order:12 }
+#heroSpecialtyLinks { order:9 }
+#heroSecurity{ order:10 }
 @media(max-width:600px){
   #heroBadge   { display:none }
   #heroTitle   { order:1 }
@@ -457,10 +422,8 @@ section{position:relative;z-index:1}
   #heroUrgency { order:5 }
   #heroPriceAnchor { order:6 }
   #heroReviewProof { order:7 }
-  #heroSocialBadge { order:8 }
-  #heroChips   { order:9 }
-  #heroSpecialtyLinks { order:10 }
-  #heroSecurity{ order:11 }
+  #heroSpecialtyLinks { order:8 }
+  #heroSecurity{ order:9 }
   .steps::before{display:none}
 }
 .step h3{font-size:.94rem;font-weight:800;margin-bottom:7px}
@@ -674,9 +637,6 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   .hero__h1{font-size:clamp(2.05rem,8.9vw,2.62rem);line-height:1.1;margin-bottom:14px}
   .hero__sub{font-size:.9rem;margin-bottom:22px}
   .btn-primary{padding:18px 20px;font-size:1rem;border-radius:15px}
-  .hero__chips{gap:8px}
-  .hero__chip{min-height:58px;padding:9px 7px;font-size:.68rem;gap:6px;justify-content:flex-start}
-  .hero__chip svg{width:18px;height:18px}
   .pain-grid{grid-template-columns:repeat(2,1fr)}
   .price-box{padding:32px 20px}
   .price-num{font-size:3rem}
@@ -1280,18 +1240,8 @@ whatsappSend.addEventListener('click', function() {
     <svg width="13" height="13" viewBox="0 0 48 48" aria-label="Google" style="flex-shrink:0"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg>
     <span>5,0 no Google · <strong>Ver avaliações</strong> · +2.000 atendimentos</span>
   </a>
-  <div id="heroSocialBadge" class="hero__social-badge">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14.6 8.3 20.5 9.1 16.2 13.3 17.2 19.2 12 16.4 6.8 19.2 7.8 13.3 3.5 9.1 9.4 8.3 12 3Z"></path><path d="m9.5 12 1.6 1.6 3.4-3.6"></path></svg>
-    <span>Instagram verificado · presença forte no TikTok</span>
-  </div>
-  <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
-  <div id="heroChips" class="hero__chips">
-    <span class="hero__chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-5"></path></svg><b>Receita<span>se indicada</span></b></span>
-    <span class="hero__chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-5"></path></svg><b>Atestado<span>se indicado</span></b></span>
-    <span class="hero__chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6"></path><path d="M10 2v6.3L5.2 18a3 3 0 0 0 2.7 4h8.2a3 3 0 0 0 2.7-4L14 8.3V2"></path><path d="M7 17h10"></path></svg><b>Exames<span>se indicados</span></b></span>
-  </div>
   <!-- segurança -->
-  <p id="heroSecurity" style="font-size:.72rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:22px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
+  <p id="heroSecurity" style="font-size:.72rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:18px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);display:inline;vertical-align:middle;margin-right:3px;position:relative;top:-1px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Pagamento seguro · Empresa verificada: JG FONSECA SERVIÇOS MÉDICOS LTDA
   </p>
 </section>
