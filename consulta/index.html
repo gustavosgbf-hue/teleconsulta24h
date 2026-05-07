@@ -2006,14 +2006,45 @@ var moPoller=null,moJaTimer=null,moCardProcessando=false;
 var moPagamentoConfirmado=false;
 var moTipoConsulta='chat'; // 'chat' ou 'video'
 var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
+var moStepAtual=0;
 
 // contexto pré-selecionado do pain-grid
 var moPreContexto = '';
 
+function moGetCheckoutSessionId(){
+  try {
+    var id=sessionStorage.getItem('mo_checkout_session_id');
+    if(!id){
+      id='cj_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,9);
+      sessionStorage.setItem('mo_checkout_session_id',id);
+    }
+    return id;
+  } catch(e) {
+    return 'cj_sem_storage';
+  }
+}
+
+function moStepNome(n){
+  return ({0:'modalidade',1:'telefone',2:'pagamento',3:'confirmado_dados'})[n]||'desconhecido';
+}
+
+function moErroSeguro(msg){
+  return String(msg||'erro_desconhecido').replace(/\s+/g,' ').slice(0,140);
+}
+
 function moTrack(eventName, data){
   try {
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(Object.assign({event:eventName}, data || {}));
+    window.dataLayer.push(Object.assign({
+      event:eventName,
+      checkout_session_id:moGetCheckoutSessionId(),
+      atendimento_id:moAtendimentoId||'',
+      tipo_consulta:moTipoConsulta||'chat',
+      contexto:moPreContexto||'geral',
+      payment_method:moMetodoAtual||'pix',
+      checkout_step:moStepAtual,
+      checkout_step_name:moStepNome(moStepAtual)
+    }, data || {}));
   } catch(e) {}
 }
 
@@ -2071,6 +2102,8 @@ function moSalvarCheckoutSessao(){
       pacienteCPF:moCPFVal||'',
       pacienteEmail:moEmailVal||'',
       pagbankOrderId:moOrderId||null,
+      checkoutSessionId:moGetCheckoutSessionId(),
+      paymentMethod:moMetodoAtual||'pix',
       pagamentoConfirmado:!!moPagamentoConfirmado,
       ts:Date.now()
     };
@@ -2098,11 +2131,21 @@ async function moRetomarSessaoAtiva(){
     }
     if(a.tipo) destino='/triagem.html?consulta='+encodeURIComponent(id)+'&tipo='+encodeURIComponent(a.tipo);
     if(a.pagamento_status==='confirmado'||a.pagbank_order_id||sessao.pagbankOrderId||sessao.pagamentoConfirmado){
+      moTrack('resume_existing_session', {
+        atendimento_id:id,
+        resume_reason:a.pagamento_status==='confirmado'?'pagamento_confirmado':'pagamento_iniciado',
+        destino:destino
+      });
       window.location.href=destino;
       return true;
     }
   }catch(e){
     if(sessao.pagbankOrderId||sessao.pagamentoConfirmado){
+      moTrack('resume_existing_session', {
+        atendimento_id:id,
+        resume_reason:'status_indisponivel_sessao_local',
+        destino:destino
+      });
       window.location.href=destino;
       return true;
     }
@@ -2296,14 +2339,26 @@ function moReenviarPendentes(){
 setTimeout(moReenviarPendentes, 4000);
 
 function moFechar(){
+  var overlay=document.getElementById('moOverlay');
+  if(overlay&&overlay.classList.contains('open')){
+    moTrack('checkout_close', {
+      close_step:moStepAtual,
+      close_step_name:moStepNome(moStepAtual),
+      has_atendimento:!!moAtendimentoId,
+      has_order:!!moOrderId,
+      pagamento_confirmado:!!moPagamentoConfirmado,
+      qr_visible:!!(document.getElementById('moQrWrap')&&document.getElementById('moQrWrap').classList.contains('show'))
+    });
+  }
   if(moPoller){ clearInterval(moPoller); moPoller=null; }
   if(moJaTimer){ clearTimeout(moJaTimer); moJaTimer=null; }
-  document.getElementById('moOverlay').classList.remove('open');
+  overlay.classList.remove('open');
   document.body.style.overflow='';
 }
 document.getElementById('moOverlay').addEventListener('click',function(e){ if(e.target===this) moFechar(); });
 
 function moIrStep(n){
+  moStepAtual=n;
   document.querySelectorAll('.mo-step').forEach(function(s){ s.classList.remove('on'); });
   document.getElementById('moStep'+n).classList.add('on');
   document.getElementById('moBox').scrollTop=0;
@@ -2311,6 +2366,10 @@ function moIrStep(n){
   document.getElementById('moTitle').textContent=titles[n]||'';
   var x=document.querySelector('.mo-x');
   if(x) x.style.display=n===3?'none':'';
+  moTrackOnce('checkout_step_'+moGetCheckoutSessionId()+'_'+n,'checkout_step_view',{
+    step_number:n,
+    step_name:moStepNome(n)
+  });
 }
 
 function moMascaraTel(el){
@@ -2395,7 +2454,7 @@ async function moAvancarStep1(){
     return;
   }
   moTelVal=tel;
-  moTrackOnce('tel_valid_'+tel, 'telefone_valido', {tipo:moTipoConsulta});
+  moTrackOnce('tel_valid_'+moGetCheckoutSessionId(), 'telefone_valido', {tipo:moTipoConsulta});
   var btn=document.getElementById('moBtnStep1');
   btn.disabled=true; btn.textContent='Verificando...';
   var autofill=document.getElementById('moAutofill');
@@ -2409,6 +2468,7 @@ async function moAvancarStep1(){
     if(data.ok&&data.paciente&&data.paciente.nome&&data.paciente.nome.trim().split(/\s+/).length>=2){
       var p=data.paciente;
       moNomeVal=p.nome; moNascVal=p.data_nascimento||'';
+      moTrack('patient_lookup_result', {result:'found'});
       autofill.textContent='Cadastro encontrado. Continuando...';
       autofill.className='mautofill show';
       fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
@@ -2416,11 +2476,13 @@ async function moAvancarStep1(){
       setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar'; moIrPagamento(); },700);
       return;
     } else {
+      moTrack('patient_lookup_result', {result:'not_found'});
       autofill.textContent='Tudo certo. Vamos gerar seu Pix com segurança.';
       autofill.className='mautofill show';
     }
   } catch(e) {
     clearTimeout(timeoutId);
+    moTrack('patient_lookup_result', {result:'error',error_message:moErroSeguro(e.message||'timeout')});
     autofill.textContent='Tudo certo. Vamos seguir para o pagamento.';
     autofill.className='mautofill show';
   }
@@ -2491,7 +2553,7 @@ function moPixCpfDetectar(el){
       return;
     }
     moCPFVal=cpf;
-    moTrackOnce('cpf_pix_'+cpf, 'cpf_informado', {method:'pix'});
+    moTrackOnce('cpf_pix_'+moGetCheckoutSessionId(), 'cpf_informado', {method:'pix'});
     if(statusEl&&statusEl.classList.contains('err')) statusEl.style.display='none';
   }
 }
@@ -2502,6 +2564,7 @@ async function moPagar(){
     var cpf=(cpfEl.value||'').replace(/\D/g,'');
     var statusEl=document.getElementById('moPixStatus');
     if(!cpf||cpf.length!==11||!validarCPF(cpf)){
+      moTrack('pix_error', {error_stage:'cpf_validation',error_message:'cpf_invalido'});
       if(statusEl){ statusEl.textContent='⚠️ Informe um CPF válido para gerar o Pix.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
       cpfEl.focus();
       cpfEl.style.borderColor='rgba(255,95,87,.7)';
@@ -2509,7 +2572,7 @@ async function moPagar(){
       return;
     }
     moCPFVal=cpf;
-    moTrackOnce('cpf_pix_'+cpf, 'cpf_informado', {method:'pix'});
+    moTrackOnce('cpf_pix_'+moGetCheckoutSessionId(), 'cpf_informado', {method:'pix'});
     moTrack('pix_generate_click', {contexto:moPreContexto||'geral'});
     await moGerarPix();
   } else {
@@ -2525,7 +2588,8 @@ async function moGerarPix(){
   statusEl.textContent='Gerando código PIX...';
   var _reset=setTimeout(function(){
     if(btn.disabled){ btn.disabled=false; btn.textContent='Tentar novamente';
-      statusEl.textContent='Servidor demorou. Clique novamente.'; statusEl.className='mstatus err'; }
+      statusEl.textContent='Servidor demorou. Clique novamente.'; statusEl.className='mstatus err';
+      moTrack('pix_error', {error_stage:'timeout',error_message:'servidor_demorou'}); }
   },25000);
   try {
     if(!validarCPF(moCPFVal)){
@@ -2533,6 +2597,7 @@ async function moGerarPix(){
       if(statusEl){ statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
       btn.disabled=false; btn.textContent='Gerar Pix de R$ 49,90';
       clearTimeout(_reset);
+      moTrack('pix_error', {error_stage:'cpf_validation_late',error_message:'cpf_invalido'});
       return;
     }
     await moGarantirAtendimentoAntesDaTriagem();
@@ -2567,8 +2632,7 @@ async function moGerarPix(){
       var chavePixGerado = 'pix_gerado_' + (moOrderId || Date.now());
       if(!sessionStorage.getItem(chavePixGerado)){
         sessionStorage.setItem(chavePixGerado, '1');
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({event:'gerou_pix', value:49.90, currency:'BRL'});
+        moTrack('gerou_pix', {value:49.90,currency:'BRL'});
         console.log('[TRACKING] gerou_pix disparado', chavePixGerado);
       }
     })();
@@ -2578,6 +2642,7 @@ async function moGerarPix(){
     btn.disabled=false; btn.textContent='Gerar Pix de R$ 49,90';
     statusEl.textContent='Erro ao gerar PIX: '+(e.message||'Tente novamente.');
     statusEl.className='mstatus err'; statusEl.style.display='block';
+    moTrack('pix_error', {error_stage:'order_create',error_message:moErroSeguro(e.message)});
   }
 }
 
@@ -2600,28 +2665,32 @@ function moIniciarPolling(){
 }
 
 async function moVerificarManual(){
+  moTrack('manual_payment_check', {result:'clicked'});
   var btn=document.getElementById('moJaBtn');
   btn.disabled=true; btn.textContent='Verificando...';
   try {
     var r=await fetch(MO_API+'/api/pagbank/order/'+moOrderId);
     var d=await r.json();
-    if(d.ok&&d.pago){ clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return; }
+    if(d.ok&&d.pago){ moTrack('manual_payment_check_result', {result:'paid_pagbank'}); clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return; }
     if(moAtendimentoId){
       var r2=await fetch(MO_API+'/api/atendimento/status/'+moAtendimentoId);
       var d2=await r2.json();
       if(d2.ok&&d2.atendimento&&d2.atendimento.pagamento_status==='confirmado'){
+        moTrack('manual_payment_check_result', {result:'paid_backend'});
         clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return;
       }
     }
+    moTrack('manual_payment_check_result', {result:'pending'});
     document.getElementById('moPixStatus').textContent='Pagamento ainda não identificado.';
     btn.disabled=false; btn.textContent='Já paguei, verificar novamente';
-  } catch(e){ btn.disabled=false; btn.textContent='Já paguei, verificar novamente'; }
+  } catch(e){ moTrack('manual_payment_check_result', {result:'error',error_message:moErroSeguro(e.message)}); btn.disabled=false; btn.textContent='Já paguei, verificar novamente'; }
 }
 
 function moConfirmarPagamento(){
   console.log('[TRACKING] pagamento confirmado detectado');
   moPagamentoConfirmado=true;
   moSalvarCheckoutSessao();
+  moTrack('checkout_payment_detected', {payment_detected_method:moMetodoAtual||'pix'});
   document.getElementById('moJaWrap').style.display='none';
   document.getElementById('moPixStatus').textContent='Pagamento confirmado!';
   document.getElementById('moPixStatus').className='mstatus ok';
@@ -2725,6 +2794,7 @@ async function moEnviarCpfEIr(){
     await moGarantirAtendimentoAntesDaTriagem();
   } catch(e) {
     var msg=e.message||'Não foi possível abrir sua triagem. Tente novamente.';
+    moTrack('triage_open_error', {error_message:moErroSeguro(msg)});
     if(errEl){
       errEl.textContent=msg;
       errEl.style.display='block';
@@ -2743,6 +2813,7 @@ async function moEnviarCpfEIr(){
   params.push('tipo='+moTipoConsulta);
   if(moPreContexto) params.push('motivo='+encodeURIComponent(moPreContexto));
   if(params.length) url+='?'+params.join('&');
+  moTrack('triage_redirect_start', {destino:'confirmado'});
 
   window.location.href = url;
 }
@@ -2765,19 +2836,23 @@ async function moPagarCartao(){
   var valCF=document.getElementById('moCfValidade').value.trim();
   var cvv=document.getElementById('moCfCvv').value.trim();
   var errEl=document.getElementById('moCardErr');
-  function err(msg){ errEl.textContent=msg; errEl.style.display='block'; }
+  function err(msg,campo){
+    errEl.textContent=msg; errEl.style.display='block';
+    moTrack('card_error', {error_stage:'validation',field:campo||'',error_message:moErroSeguro(msg)});
+  }
   errEl.style.display='none';
-  if(!nome){ document.getElementById('moPayNome').focus(); return; }
-  if(!cpfNum||cpfNum.length!==11){ err('CPF inválido.'); document.getElementById('moPayCPF').focus(); return; }
-  if(!validarCPF(cpfNum)){ err('CPF inválido. Verifique os números e tente novamente.'); document.getElementById('moPayCPF').focus(); return; }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('E-mail inválido.'); document.getElementById('moCardEmail').focus(); return; }
-  if(numero.length<13){ err('Número do cartão invalido.'); return; }
-  if(!nomeCF){ err('Informe o nome no cartão.'); return; }
+  if(!nome){ moTrack('card_error', {error_stage:'validation',field:'nome',error_message:'nome_vazio'}); document.getElementById('moPayNome').focus(); return; }
+  if(!cpfNum||cpfNum.length!==11){ err('CPF inválido.','cpf'); document.getElementById('moPayCPF').focus(); return; }
+  if(!validarCPF(cpfNum)){ err('CPF inválido. Verifique os números e tente novamente.','cpf'); document.getElementById('moPayCPF').focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('E-mail inválido.','email'); document.getElementById('moCardEmail').focus(); return; }
+  if(numero.length<13){ err('Número do cartão invalido.','numero'); return; }
+  if(!nomeCF){ err('Informe o nome no cartão.','nome_cartao'); return; }
   var partes=valCF.split('/');
-  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ err('Validade inválida. Use MM/AAAA.'); return; }
-  if(!cvv||cvv.length<3){ err('CVV inválido.'); return; }
+  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ err('Validade inválida. Use MM/AAAA.','validade'); return; }
+  if(!cvv||cvv.length<3){ err('CVV inválido.','cvv'); return; }
   moCardProcessando=true;
-  moTrackOnce('cpf_card_'+cpfNum, 'cpf_informado', {method:'cartao'});
+  moTrackOnce('cpf_card_'+moGetCheckoutSessionId(), 'cpf_informado', {method:'cartao'});
+  moTrack('card_attempt', {installments:1});
   var btn=document.getElementById('moBtnPagar');
   btn.disabled=true; btn.textContent='Processando...';
   moNomeVal=nome; moCPFVal=cpfNum; moEmailVal=email;
@@ -2802,11 +2877,12 @@ async function moPagarCartao(){
       body:JSON.stringify({payment_token:tokenResult.payment_token,nome:nome,cpf:cpfNum,email:email,telefone:moTelVal,parcelas:1,atendimentoId:moAtendimentoId||undefined})});
     var d=await r.json();
     var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
-    if(ok){ setTimeout(function(){ moConfirmarPagamento(); }, 800); }
+    if(ok){ moTrack('card_approved', {status:d.status||'approved'}); setTimeout(function(){ moConfirmarPagamento(); }, 800); }
     else throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
   } catch(e) {
     document.getElementById('moCardErr').textContent=e.message||'Erro ao processar. Tente novamente.';
     document.getElementById('moCardErr').style.display='block';
+    moTrack('card_error', {error_stage:'processing',error_message:moErroSeguro(e.message)});
   } finally {
     moCardProcessando=false; btn.disabled=false; btn.textContent='Pagar com cartão';
   }
@@ -2851,6 +2927,14 @@ function moReiniciar(){
 }
 
 document.addEventListener('DOMContentLoaded',function(){
+  try{
+    var triagemRedirect=sessionStorage.getItem('cj_triagem_redirected');
+    if(triagemRedirect){
+      sessionStorage.removeItem('cj_triagem_redirected');
+      moTrack('triagem_invalid_entry_redirected', JSON.parse(triagemRedirect));
+    }
+  }catch(e){}
+
   document.querySelectorAll('a[href*="triagem.html"],.btn-primary,.sticky-cta a,.nav__cta-link').forEach(function(el){
     el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); moAbrir(); });
   });

@@ -1001,6 +1001,15 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
   var idParam = url.searchParams.get('consulta');
   var sessao = carregarSessao();
   if(!idParam && !sessaoPodeRetomarTriagem(sessao)){
+    try{
+      sessionStorage.setItem('cj_triagem_redirected', JSON.stringify({
+        from_path:location.pathname||'/triagem',
+        has_query:!!location.search,
+        utm_source:url.searchParams.get('utm_source')||'',
+        utm_campaign:url.searchParams.get('utm_campaign')||'',
+        gclid_present:!!url.searchParams.get('gclid')
+      }));
+    }catch(e){}
     window.location.replace(montarDestinoLandingConsulta());
     return;
   }

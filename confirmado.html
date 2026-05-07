@@ -102,15 +102,16 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
 (function(){
   var params = new URLSearchParams(window.location.search);
   var consultaId = params.get('consulta') || '';
+  var sessao = null;
+  try {
+    sessao = JSON.parse(sessionStorage.getItem('mo_checkout_sessao') || localStorage.getItem('cj_sessao') || 'null');
+  } catch(e) {}
   if(!consultaId){
-    try {
-      var sessao = JSON.parse(sessionStorage.getItem('mo_checkout_sessao') || localStorage.getItem('cj_sessao') || 'null');
-      if(sessao && sessao.atendimentoId){
-        consultaId = String(sessao.atendimentoId);
-        params.set('consulta', consultaId);
-        if(sessao.tipoConsulta && !params.get('tipo')) params.set('tipo', sessao.tipoConsulta);
-      }
-    } catch(e) {}
+    if(sessao && sessao.atendimentoId){
+      consultaId = String(sessao.atendimentoId);
+      params.set('consulta', consultaId);
+      if(sessao.tipoConsulta && !params.get('tipo')) params.set('tipo', sessao.tipoConsulta);
+    }
   }
   var txId = consultaId || ('sem_id_' + Date.now());
   var chave = 'conv_confirmado_' + txId;
@@ -123,7 +124,11 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       event: 'pagamento_confirmado',
       value: 49.90,
       currency: 'BRL',
-      transaction_id: String(txId)
+      transaction_id: String(txId),
+      atendimento_id: String(consultaId || ''),
+      checkout_session_id: (sessao && sessao.checkoutSessionId) || '',
+      tipo_consulta: (sessao && sessao.tipoConsulta) || params.get('tipo') || '',
+      payment_method: (sessao && sessao.paymentMethod) || ''
     });
 
     if(typeof gtag === 'function'){
