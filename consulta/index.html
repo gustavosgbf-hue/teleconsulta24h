@@ -800,6 +800,26 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 
 .mtrust{font-size:.62rem;color:rgba(255,255,255,.42);text-align:center;line-height:1.7}
 
+.mo-exit{
+  display:none;padding:18px 16px 20px;flex-direction:column;gap:10px;
+  border-top:1px solid rgba(255,255,255,.06);
+  background:linear-gradient(180deg,rgba(94,224,160,.035),rgba(255,255,255,.015));
+}
+.mo-exit.on{display:flex}
+.mo-exit__badge{
+  align-self:flex-start;padding:5px 9px;border-radius:999px;
+  background:rgba(94,224,160,.08);border:1px solid rgba(94,224,160,.18);
+  color:rgba(94,224,160,.88);font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+}
+.mo-exit__title{font-size:1.05rem;font-weight:800;color:rgba(255,255,255,.94);line-height:1.25}
+.mo-exit__text{font-size:.78rem;color:rgba(255,255,255,.58);line-height:1.6;margin-bottom:2px}
+.mwhats{
+  width:100%;padding:12px;border-radius:12px;border:1px solid rgba(37,211,102,.3);
+  background:rgba(37,211,102,.1);color:#73e69c;font-family:'Outfit',sans-serif;
+  font-size:.9rem;font-weight:700;cursor:pointer;transition:border-color .15s,background .15s;
+}
+.mwhats:hover{border-color:rgba(37,211,102,.48);background:rgba(37,211,102,.14)}
+
 .mconf{text-align:center;padding:24px 16px 22px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .mconf-icon{
   width:56px;height:56px;border-radius:50%;
@@ -1833,6 +1853,15 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       <button class="mo-x" onclick="moFechar()">✕</button>
     </div>
 
+    <div class="mo-exit" id="moExitPrompt">
+      <div class="mo-exit__badge">Antes de sair</div>
+      <div class="mo-exit__title">Quer ajuda para finalizar?</div>
+      <p class="mo-exit__text">Se o Pix ou cartão travou, nossa equipe continua com você pelo WhatsApp. A consulta só abre após a confirmação do pagamento.</p>
+      <button class="mcta" onclick="moContinuarCheckout()">Continuar pagamento</button>
+      <button class="mwhats" onclick="moAbrirWhatsAppRecuperacao()">Falar no WhatsApp</button>
+      <button class="mghost" onclick="moSairMesmo()">Sair mesmo</button>
+    </div>
+
     <!-- STEP 0: Escolha de modalidade -->
     <div class="mo-step on" id="moStep0">
       <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Chat por texto ou vídeo, você escolhe.</p>
@@ -2006,7 +2035,9 @@ var moPoller=null,moJaTimer=null,moCardProcessando=false;
 var moPagamentoConfirmado=false;
 var moTipoConsulta='chat'; // 'chat' ou 'video'
 var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
+var MO_WHATSAPP_NUMBER='5598989272727';
 var moStepAtual=0;
+var moStepAntesSaida=1,moTentouRecuperarSaida=false;
 
 // contexto pré-selecionado do pain-grid
 var moPreContexto = '';
@@ -2212,6 +2243,8 @@ function moAtualizarContexto(){
 async function moAbrir(contexto){
   moPreContexto = contexto || '';
   if(await moRetomarSessaoAtiva()) return;
+  moTentouRecuperarSaida=false;
+  moStepAntesSaida=1;
   moTrack('modal_open', {contexto:moPreContexto||'geral'});
   document.getElementById('moOverlay').classList.add('open');
   document.body.style.overflow='hidden';
@@ -2340,6 +2373,11 @@ setTimeout(moReenviarPendentes, 4000);
 
 function moFechar(){
   var overlay=document.getElementById('moOverlay');
+  var exit=document.getElementById('moExitPrompt');
+  if(exit&&exit.classList.contains('on')){
+    moSairMesmo();
+    return;
+  }
   if(overlay&&overlay.classList.contains('open')){
     moTrack('checkout_close', {
       close_step:moStepAtual,
@@ -2350,14 +2388,74 @@ function moFechar(){
       qr_visible:!!(document.getElementById('moQrWrap')&&document.getElementById('moQrWrap').classList.contains('show'))
     });
   }
+  if(moDeveMostrarRecuperacao()){
+    moMostrarRecuperacaoSaida();
+    return;
+  }
+  moSairMesmo();
+}
+
+function moDeveMostrarRecuperacao(){
+  var exit=document.getElementById('moExitPrompt');
+  if(exit&&exit.classList.contains('on')) return false;
+  if(moPagamentoConfirmado||moTentouRecuperarSaida) return false;
+  return moStepAtual>=2 || !!moOrderId;
+}
+
+function moMostrarRecuperacaoSaida(){
+  moTentouRecuperarSaida=true;
+  moStepAntesSaida=moStepAtual||2;
+  document.querySelectorAll('.mo-step').forEach(function(s){ s.classList.remove('on'); });
+  var exit=document.getElementById('moExitPrompt');
+  if(exit) exit.classList.add('on');
+  document.getElementById('moTitle').textContent='Ainda precisa de ajuda?';
+  moTrack('checkout_recovery_view', {
+    recovery_step:moStepAntesSaida,
+    recovery_step_name:moStepNome(moStepAntesSaida),
+    has_order:!!moOrderId
+  });
+}
+
+function moContinuarCheckout(){
+  var exit=document.getElementById('moExitPrompt');
+  if(exit) exit.classList.remove('on');
+  moTrack('checkout_recovery_continue', {recovery_step:moStepAntesSaida});
+  moIrStep(moStepAntesSaida||2);
+}
+
+function moAbrirWhatsAppRecuperacao(){
+  var msg='Olá, comecei uma consulta médica online no ConsultaJá24h e preciso de ajuda para finalizar o pagamento.';
+  if(moAtendimentoId) msg+=' Atendimento #'+moAtendimentoId+'.';
+  moTrack('checkout_recovery_whatsapp', {
+    recovery_step:moStepAntesSaida,
+    has_atendimento:!!moAtendimentoId,
+    has_order:!!moOrderId
+  });
+  window.open('https://wa.me/'+MO_WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+  moSairMesmo(true);
+}
+
+function moSairMesmo(semEventoRecuperacao){
+  var exit=document.getElementById('moExitPrompt');
+  if(!semEventoRecuperacao&&exit&&exit.classList.contains('on')){
+    moTrack('checkout_recovery_dismiss', {
+      recovery_step:moStepAntesSaida||moStepAtual,
+      has_atendimento:!!moAtendimentoId,
+      has_order:!!moOrderId
+    });
+  }
   if(moPoller){ clearInterval(moPoller); moPoller=null; }
   if(moJaTimer){ clearTimeout(moJaTimer); moJaTimer=null; }
+  if(exit) exit.classList.remove('on');
+  var overlay=document.getElementById('moOverlay');
   overlay.classList.remove('open');
   document.body.style.overflow='';
 }
 document.getElementById('moOverlay').addEventListener('click',function(e){ if(e.target===this) moFechar(); });
 
 function moIrStep(n){
+  var exit=document.getElementById('moExitPrompt');
+  if(exit) exit.classList.remove('on');
   moStepAtual=n;
   document.querySelectorAll('.mo-step').forEach(function(s){ s.classList.remove('on'); });
   document.getElementById('moStep'+n).classList.add('on');
