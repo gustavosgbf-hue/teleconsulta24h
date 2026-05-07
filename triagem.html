@@ -212,6 +212,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
 /* ── SCREEN 2b: CPF after PIX ── */
 #s-cpf .s-body{padding:24px 22px;display:flex;flex-direction:column;gap:14px}
+#s-dados .s-body{padding:18px 20px;display:flex;flex-direction:column;gap:12px}
 
 /* ── SCREEN 3: TRIAGE ── */
 #s-triage{overflow:hidden}
@@ -715,6 +716,33 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
+     SCREEN 2c — Dados do paciente quando sessão antiga veio incompleta
+═══════════════════════════════════════════════════════ -->
+<div id="s-dados" class="screen-wrap">
+  <div class="s-inner">
+    <div class="s-card">
+      <div style="padding:20px 20px 14px;border-bottom:1px solid var(--line);text-align:center">
+        <div style="font-size:1.6rem;margin-bottom:10px">🩺</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:6px">Confirme seus dados</div>
+        <div style="font-size:.82rem;color:var(--muted);font-weight:300;line-height:1.5">Precisamos do seu nome real para o médico receber o atendimento corretamente.</div>
+      </div>
+      <div class="s-body">
+        <div>
+          <label class="f-label" for="dadosNome">Nome completo</label>
+          <input class="f-input" id="dadosNome" type="text" placeholder="Nome e sobrenome" autocomplete="name" onkeydown="if(event.key==='Enter')confirmarDadosPaciente()"/>
+        </div>
+        <div>
+          <label class="f-label" for="dadosNasc">Data de nascimento <span style="text-transform:none;letter-spacing:0;font-weight:300;color:rgba(255,255,255,.3)">(opcional)</span></label>
+          <input class="f-input" id="dadosNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraNasc(this)" onkeydown="if(event.key==='Enter')confirmarDadosPaciente()"/>
+        </div>
+        <div class="card-err" id="dadosErr"></div>
+        <button class="cta" id="btnDadosPaciente" onclick="confirmarDadosPaciente()">Continuar →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
      SCREEN 3 — Triagem (OpenAI)
 ═══════════════════════════════════════════════════════ -->
 <div id="s-triage" class="screen-wrap">
@@ -952,6 +980,26 @@ function carregarSessao(){
 function sessaoPodeRetomarTriagem(sessao){
   return !!(sessao && sessao.atendimentoId && (sessao.pagbankOrderId || sessao.pagamentoConfirmado));
 }
+function normalizarNomePacienteLocal(nome){
+  var n = String(nome||'').trim().replace(/\s+/g,' ');
+  var k = n.toLowerCase();
+  if(!n || k==='-' || k==='paciente' || k==='paciente whatsapp') return '';
+  return n;
+}
+function nomePacienteValido(nome){
+  var n = normalizarNomePacienteLocal(nome);
+  return !!(n && n.split(/\s+/).length >= 2);
+}
+function nomePacientePreferido(a, sessao){
+  return normalizarNomePacienteLocal(a && a.nome) ||
+         normalizarNomePacienteLocal(sessao && sessao.pacienteNome) ||
+         '';
+}
+function formatarNascimentoTela(val){
+  val = String(val||'').trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(val)) return val.slice(8,10)+'/'+val.slice(5,7)+'/'+val.slice(0,4);
+  return val;
+}
 function montarDestinoLandingConsulta(){
   var qs = location.search || '';
   var hash = location.hash || '';
@@ -964,7 +1012,7 @@ function montarDestinoLandingConsulta(){
 // ─── FLOW STATE MACHINE ──────────────────────────────────────────────────────
 // Tracks the current logical step. Screens can only advance forward.
 // Prevents modality from reappearing after atendimento starts/ends.
-var FLOW_STATES = ['whatsapp','payment','cpf','modality','triage','waiting','atendimento','final'];
+var FLOW_STATES = ['whatsapp','payment','cpf','dados','modality','triage','waiting','atendimento','final'];
 var flowState = 'whatsapp';
 
 function setFlowState(s){
@@ -987,6 +1035,71 @@ function showScreen(n){
   document.querySelectorAll('.screen-wrap').forEach(function(s){ s.classList.remove('active'); });
   var el = document.getElementById('s-'+n);
   if(el){ el.classList.add('active'); el.scrollTop = 0; }
+}
+
+var proximoAposDadosPaciente = 'modality';
+function pedirDadosPacienteAntesDe(proximo){
+  proximoAposDadosPaciente = proximo || 'modality';
+  setFlowState('dados');
+  showScreen('dados');
+  setNavLabel('DADOS');
+  var nomeEl = document.getElementById('dadosNome');
+  var nascEl = document.getElementById('dadosNasc');
+  var errEl = document.getElementById('dadosErr');
+  if(errEl){ errEl.style.display='none'; errEl.textContent=''; }
+  if(nomeEl) nomeEl.value = nomePacienteValido(pacienteNome) ? normalizarNomePacienteLocal(pacienteNome) : '';
+  if(nascEl) nascEl.value = pacienteNascimento ? formatarNascimentoTela(pacienteNascimento) : '';
+  setTimeout(function(){ if(nomeEl && !nomeEl.value) nomeEl.focus(); }, 180);
+}
+
+async function confirmarDadosPaciente(){
+  var nomeEl = document.getElementById('dadosNome');
+  var nascEl = document.getElementById('dadosNasc');
+  var errEl = document.getElementById('dadosErr');
+  var btn = document.getElementById('btnDadosPaciente');
+  var nome = normalizarNomePacienteLocal(nomeEl ? nomeEl.value : '');
+  if(!nome || nome.split(/\s+/).length < 2){
+    if(errEl){ errEl.textContent='Informe nome e sobrenome para o médico identificar o atendimento.'; errEl.style.display='block'; }
+    if(nomeEl){ nomeEl.focus(); nomeEl.style.borderColor='rgba(255,95,87,.5)'; setTimeout(function(){ nomeEl.style.borderColor=''; },1500); }
+    return;
+  }
+  pacienteNome = nome;
+  if(nascEl && nascEl.value.trim()) pacienteNascimento = converterNascimento(nascEl.value.trim());
+  salvarSessao();
+  if(btn){ btn.disabled=true; btn.textContent='Salvando...'; }
+  try{
+    if(atendimentoId){
+      var r = await fetch(API+'/api/notify',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          atendimentoId:atendimentoId,
+          nome:pacienteNome,
+          tel:pacienteTel,
+          tel_documentos:pacienteTelDoc||pacienteTel,
+          cpf:pacienteCPF,
+          tipo:tipoConsulta,
+          data_nascimento:pacienteNascimento,
+          email:pacienteEmail||'',
+          triagem:'(triagem em andamento)'
+        })
+      });
+      var d = await r.json();
+      if(!d.ok) throw new Error(d.error||'Não foi possível salvar seus dados.');
+    }
+    if(proximoAposDadosPaciente === 'triage') irParaTriagem();
+    else if(proximoAposDadosPaciente === 'finalizar'){
+      setFlowState('triage');
+      showScreen('triage');
+      setNavLabel('TRIAGEM MÉDICA');
+      finalizarTriagem();
+    }
+    else if(proximoAposDadosPaciente === 'waiting') mostrarSalaEspera();
+    else mostrarModalidade();
+  }catch(e){
+    if(errEl){ errEl.textContent=e.message||'Não foi possível salvar. Verifique a conexão e tente novamente.'; errEl.style.display='block'; }
+    if(btn){ btn.disabled=false; btn.textContent='Tentar novamente →'; }
+  }
 }
 
 // ─── LOADING ────────────────────────────────────────────────────────────────
@@ -1036,7 +1149,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         // ── Encerrado: vai direto para final, sem passar por modality
         if(a.status === 'encerrado'){
           atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
-          pacienteNome  = a.nome || ''; pacienteTel = a.tel || '';
+          pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
           pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
           setFlowState('final');
           esconderLoading(); showScreen('encerrado'); setNavLabel('ENCERRADO'); return;
@@ -1049,17 +1162,19 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
             try{
               var pbRes  = await fetch(API+'/api/pagbank/order/'+orderIdLocal);
               var pbData = await pbRes.json();
-          if(pbData.ok && pbData.pago){
+              if(pbData.ok && pbData.pago){
                 atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
-                pacienteNome  = a.nome || ''; pacienteTel = a.tel || '';
+                pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
                 pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
                 pagamentoConfirmadoLocal = true; salvarSessao();
-                esconderLoading(); mostrarModalidade(); return;
+                esconderLoading();
+                if(!nomePacienteValido(pacienteNome)){ pedirDadosPacienteAntesDe('modality'); return; }
+                mostrarModalidade(); return;
               }
             }catch(e){}
           }
           atendimentoId  = a.id; tipoConsulta = a.tipo || 'chat';
-          pacienteNome   = a.nome  || (sessao && sessao.pacienteNome)  || '';
+          pacienteNome   = nomePacientePreferido(a, sessao);
           pacienteTel    = a.tel   || (sessao && sessao.pacienteTel)   || '';
           pacienteCPF    = a.cpf   || (sessao && sessao.pacienteCPF)   || '';
           pacienteEmail  = a.email || (sessao && sessao.pacienteEmail) || '';
@@ -1079,10 +1194,13 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         // ── Triagem em andamento: modalidade já foi selecionada (novo fluxo: modality → triage)
         if(a.status === 'triagem'){
           atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
-          pacienteNome  = a.nome || ''; pacienteTel = a.tel || '';
+          pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
           pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
           pagamentoConfirmadoLocal = a.pagamento_status === 'confirmado';
           salvarSessao();
+          if(!nomePacienteValido(pacienteNome)){
+            esconderLoading(); pedirDadosPacienteAntesDe('triage'); return;
+          }
           // Avançar flowState além de modality para impedir reexibição
           setFlowState('triage');
           esconderLoading(); irParaTriagem(); return;
@@ -1092,7 +1210,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         // Força flowState para 'waiting' ou superior antes de mostrarSalaEspera,
         // assim mostrarModalidade nunca pode ser chamada neste ciclo.
         atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
-        pacienteNome  = a.nome  || (sessao && sessao.pacienteNome) || '';
+        pacienteNome  = nomePacientePreferido(a, sessao);
         pacienteTel   = a.tel   || (sessao && sessao.pacienteTel)  || '';
         pacienteCPF   = a.cpf   || (sessao && sessao.pacienteCPF)  || '';
         pacienteEmail = a.email || (sessao && sessao.pacienteEmail) || '';
@@ -1101,6 +1219,9 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         // Advance flow past modality so the guard in mostrarModalidade blocks it
         if(flowStateIndex(flowState) <= flowStateIndex('modality')){
           setFlowState('waiting');
+        }
+        if(!nomePacienteValido(pacienteNome)){
+          esconderLoading(); pedirDadosPacienteAntesDe('waiting'); return;
         }
         esconderLoading(); mostrarSalaEspera(); return;
       }
@@ -1112,7 +1233,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
     if(sessao && sessao.atendimentoId){
       atendimentoId  = sessao.atendimentoId;
       tipoConsulta   = sessao.tipoConsulta  || 'chat';
-      pacienteNome   = sessao.pacienteNome  || '';
+      pacienteNome   = normalizarNomePacienteLocal(sessao.pacienteNome);
       pacienteTel    = sessao.pacienteTel   || '';
       pacienteCPF    = sessao.pacienteCPF   || '';
       pacienteEmail  = sessao.pacienteEmail || '';
@@ -1125,6 +1246,10 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         return;
       }
       if(pagamentoConfirmadoLocal){
+        if(!nomePacienteValido(pacienteNome)){
+          pedirDadosPacienteAntesDe('modality');
+          return;
+        }
         mostrarModalidade();
         return;
       }
@@ -1179,7 +1304,7 @@ async function avancarWhatsapp(){
     var data = await res.json();
     if(data.ok && data.paciente){
       var p = data.paciente;
-      pacienteNome        = p.nome        || '';
+      pacienteNome        = normalizarNomePacienteLocal(p.nome);
       pacienteTelDoc      = p.tel_doc     || tel;
       pacienteNascimento  = p.data_nascimento || '';
       pacienteEmail       = p.email       || '';
@@ -1189,7 +1314,7 @@ async function avancarWhatsapp(){
       status.textContent = '✔ Cadastro encontrado. Continuando...';
       status.className   = 'autofill-status show';
       // Se tem nome, prosseguir direto — mas se falta data de nascimento, pedir antes
-      if(pacienteNome && pacienteNome.trim().split(/\s+/).length >= 2){
+      if(nomePacienteValido(pacienteNome)){
         if(!pacienteNascimento){
           // Retornante sem data de nascimento cadastrada — mostrar só o campo de data
           document.getElementById('nasc-wrap').style.display = 'block';
@@ -1355,7 +1480,7 @@ function validarCPF(cpf){
 }
 
 async function gerarPagamento(){
-  var nome = (pacienteNome && pacienteNome.trim().length > 1) ? pacienteNome.trim() : 'Paciente';
+  var nome = nomePacienteValido(pacienteNome) ? normalizarNomePacienteLocal(pacienteNome) : 'Paciente';
   var tel  = pacienteTel;
   // Ler CPF do campo PIX (obrigatório para PagBank)
   var cpfInput = document.getElementById('pixCPF');
@@ -1515,6 +1640,10 @@ function fallbackCopy(text){
 function mostrarCpfPosPix(){
   // Se CPF já foi coletado no campo PIX desta sessão, pular tela direto para modalidade
   if(pacienteCPF && pacienteCPF.length === 11){
+    if(!nomePacienteValido(pacienteNome)){
+      pedirDadosPacienteAntesDe('modality');
+      return;
+    }
     mostrarModalidade();
     return;
   }
@@ -1549,14 +1678,26 @@ async function confirmarCpfPosPix(){
     }
   }
   salvarSessao();
+  if(!nomePacienteValido(pacienteNome)){
+    pedirDadosPacienteAntesDe('modality');
+    return;
+  }
   mostrarModalidade();
 }
 function pularCpfPosPix(){
+  if(!nomePacienteValido(pacienteNome)){
+    pedirDadosPacienteAntesDe('modality');
+    return;
+  }
   mostrarModalidade();
 }
 
 // ─── SCREEN 3: Triagem ──────────────────────────────────────────────────────
 function irParaTriagem(){
+  if(!nomePacienteValido(pacienteNome)){
+    pedirDadosPacienteAntesDe('triage');
+    return;
+  }
   setFlowState('triage');
   showScreen('triage');
   setNavLabel('TRIAGEM MÉDICA');
@@ -1572,7 +1713,8 @@ function startTriage(){
   document.getElementById('triageChat').innerHTML='';
   document.getElementById('quickReplies').innerHTML='';
   document.getElementById('progressFill').style.width='0%';
-  addMsg('triageChat','bot','Olá, '+(pacienteNome||'').split(' ')[0]+'! Sou o assistente de triagem da ConsultaJá24h.\nVou fazer algumas perguntas rápidas para ajudar o médico a entender melhor seu caso.\n\nQual é o problema que está sentindo?');
+  var primeiroNome = nomePacienteValido(pacienteNome) ? pacienteNome.split(' ')[0] : '';
+  addMsg('triageChat','bot','Olá'+(primeiroNome?', '+primeiroNome:'')+'! Sou o assistente de triagem da ConsultaJá24h.\nVou fazer algumas perguntas rápidas para ajudar o médico a entender melhor seu caso.\n\nQual é o problema que está sentindo?');
   step=1; updateProgress(1);
 }
 function addMsg(id,tipo,texto){
@@ -1628,9 +1770,23 @@ async function finalizarTriagem(){
   try{
     if(!atendimentoId) throw new Error('Sessão perdida. Recarregue a página.');
     var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({atendimentoId,triagem:anamnesis.summary||''})});
+      body:JSON.stringify({
+        atendimentoId,
+        triagem:anamnesis.summary||'',
+        nome:pacienteNome,
+        tel:pacienteTel,
+        cpf:pacienteCPF,
+        data_nascimento:pacienteNascimento,
+        email:pacienteEmail||''
+      })});
     var d=await r.json();
-    if(!d.ok) throw new Error(d.error||'Erro ao registrar triagem');
+    if(!d.ok){
+      if(d.error === 'nome_paciente_obrigatorio'){
+        pedirDadosPacienteAntesDe('finalizar');
+        return;
+      }
+      throw new Error(d.error||'Erro ao registrar triagem');
+    }
     salvarSessao();
     trackTriagemEvento('triagem_concluida');
     // Triagem concluída — vai direto para sala de espera (modalidade já foi selecionada antes)
@@ -1938,7 +2094,7 @@ async function pagarCartao(){
   var errEl      = document.getElementById('cardErrMsg');
   function mostrarErroCard(msg){ errEl.textContent=msg; errEl.style.display='block'; }
   errEl.style.display='none';
-  if(!nome){ document.getElementById('payNome').focus(); return; }
+  if(!nomePacienteValido(nome)){ document.getElementById('payNome').focus(); mostrarErroCard('Informe nome e sobrenome.'); return; }
   if(!cpfNum||cpfNum.length!==11){ document.getElementById('payCPF').focus(); mostrarErroCard('CPF inválido.'); return; }
   if(numero.length<13){ mostrarErroCard('Número do cartão inválido.'); return; }
   if(!nomeCF){ mostrarErroCard('Informe o nome como aparece no cartão.'); return; }
@@ -1951,7 +2107,7 @@ async function pagarCartao(){
   var btnCard=document.getElementById('btnPagarCard');
   btnCard.disabled=true; btnCard.textContent='Processando...';
   document.getElementById('cardProcessing').style.display='block';
-  pacienteNome=nome; pacienteCPF=cpfNum;
+  pacienteNome=normalizarNomePacienteLocal(nome); pacienteCPF=cpfNum;
   try{
     if(!atendimentoId){
       var rPre=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -2375,7 +2531,7 @@ function copiarLinkRetorno(){
 // When input is focused on vertically-centered screens, shift card to top
 // to prevent it being clipped behind the keyboard on small iPhones.
 (function(){
-  var screens = ['s-whatsapp','s-cpf'];
+  var screens = ['s-whatsapp','s-cpf','s-dados'];
   screens.forEach(function(screenId){
     var screen = document.getElementById(screenId);
     if(!screen) return;

@@ -2105,8 +2105,14 @@ function moResumoTriagem(){
     : '(aguardando pagamento)';
 }
 
+function moNomeValido(nome){
+  var n=String(nome||'').trim().replace(/\s+/g,' ');
+  var k=n.toLowerCase();
+  return !!(n&&n.length>1&&k!=='-'&&k!=='paciente'&&k!=='paciente whatsapp');
+}
+
 function moNomeParaCadastro(){
-  return (moNomeVal&&moNomeVal.trim().length>1) ? moNomeVal.trim() : 'Paciente';
+  return moNomeValido(moNomeVal) ? moNomeVal.trim().replace(/\s+/g,' ') : 'Paciente';
 }
 
 function moPayloadAtendimento(extra){
@@ -2801,10 +2807,11 @@ function moConfirmarPagamento(){
   var cpfWrap=document.getElementById('moPosCpfWrap');
   var cpfEl=document.getElementById('moCpfPos');
   var precisaAbrirAtendimento = !moAtendimentoId;
+  var temNomeReal = moNomeValido(moNomeVal);
   // Se nome já foi coletado (autofill ou Step 1), esconde o campo
-  if(moNomeVal){ nomeEl.value=moNomeVal; nomeWrap.style.display='none'; } else { nomeWrap.style.display='block'; }
+  if(temNomeReal){ nomeEl.value=moNomeVal.trim().replace(/\s+/g,' '); nomeWrap.style.display='none'; } else { nomeWrap.style.display='block'; }
   // Nascimento só entra aqui quando já vamos pedir nome; não bloqueia compras de retorno.
-  if(moNascVal||moNomeVal){ nascWrap.style.display='none'; } else { nascWrap.style.display='block'; }
+  if(moNascVal||temNomeReal){ nascWrap.style.display='none'; } else { nascWrap.style.display='block'; }
   if(moCPFVal&&moCPFVal.length===11){
     cpfEl.value=moCPFVal;
     cpfWrap.style.display=precisaAbrirAtendimento?'block':'none';
@@ -2813,7 +2820,7 @@ function moConfirmarPagamento(){
   }
 
   // A conversão de compra dispara na página /confirmado. A landing apenas redireciona.
-  var precisaDados = precisaAbrirAtendimento || !moNomeVal || !(moCPFVal && moCPFVal.length===11);
+  var precisaDados = precisaAbrirAtendimento || !temNomeReal || !(moCPFVal && moCPFVal.length===11);
   if(precisaDados){
     moTrack('post_payment_details_view', {contexto:moPreContexto||'geral'});
     moIrStep(3);
