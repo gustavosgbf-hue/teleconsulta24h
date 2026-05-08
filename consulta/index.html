@@ -2917,6 +2917,14 @@ async function moEnviarCpfEIr(){
   if(moAtendimentoId) params.push('consulta='+moAtendimentoId);
   params.push('tipo='+moTipoConsulta);
   if(moPreContexto) params.push('motivo='+encodeURIComponent(moPreContexto));
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    origem.forEach(function(valor,chave){
+      if(/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0){
+        params.push(encodeURIComponent(chave)+'='+encodeURIComponent(valor));
+      }
+    });
+  }catch(e){}
   if(params.length) url+='?'+params.join('&');
   moTrack('triage_redirect_start', {destino:'confirmado'});
 
