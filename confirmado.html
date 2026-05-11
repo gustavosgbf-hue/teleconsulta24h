@@ -120,6 +120,9 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
 
   function irParaTriagem(){
     params.delete('cpf');
+    try{
+      if(consultaId) sessionStorage.setItem('cj_passou_confirmado_' + String(consultaId), '1');
+    }catch(e){}
     console.log('[CONFIRMADO] Redirecionando sem CPF na URL');
     if(!consultaId){
       window.location.href = '/triagem.html';

@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-BR"><head>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
 
-<!-- gtag init: necessário pro gtag('event','conversion',...) funcionar direto pro Google Ads -->
+<!-- gtag init: base do Google Ads; conversão de compra fica centralizada em /confirmado -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -2079,6 +2079,50 @@ function moTrack(eventName, data){
   } catch(e) {}
 }
 
+function moChavePassagemConfirmado(id){
+  return 'cj_passou_confirmado_' + String(id || '');
+}
+
+function moJaPassouPorConfirmado(id){
+  try{ return !!(id && sessionStorage.getItem(moChavePassagemConfirmado(id)) === '1'); }catch(e){ return false; }
+}
+
+function moMontarUrlConfirmado(id,tipo){
+  var params = new URLSearchParams();
+  if(id) params.set('consulta', String(id));
+  params.set('tipo', tipo || moTipoConsulta || 'chat');
+  if(moPreContexto) params.set('motivo', moPreContexto);
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    origem.forEach(function(valor,chave){
+      if(!chave || chave.toLowerCase() === 'cpf') return;
+      if(/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0){
+        params.set(chave, valor);
+      }
+    });
+  }catch(e){}
+  return 'https://consultaja24h.com.br/confirmado?' + params.toString();
+}
+
+function moRedirecionarConfirmadoObrigatorio(id,tipo,metodo,origem){
+  if(!id) return false;
+  var tipoFinal = tipo || moTipoConsulta || 'chat';
+  console.log('PAGAMENTO_CONFIRMADO_REDIRECT_CONFIRMADO', {
+    consultaId:String(id),
+    tipo:tipoFinal,
+    metodo:metodo || moMetodoAtual || 'desconhecido',
+    origem:origem || ''
+  });
+  moTrack('pagamento_confirmado_redirect_confirmado', {
+    atendimento_id:id,
+    tipo_consulta:tipoFinal,
+    payment_method:metodo || moMetodoAtual || 'desconhecido',
+    origem:origem || ''
+  });
+  window.location.href = moMontarUrlConfirmado(id,tipoFinal);
+  return true;
+}
+
 function moTrackOnce(key, eventName, data){
   try {
     if(sessionStorage.getItem(key)) return;
@@ -2166,7 +2210,19 @@ async function moRetomarSessaoAtiva(){
       sessionStorage.removeItem('mo_checkout_sessao');
       return false;
     }
-    if(a.tipo) destino='/triagem.html?consulta='+encodeURIComponent(id)+'&tipo='+encodeURIComponent(a.tipo);
+    if(a.tipo){
+      tipo=a.tipo;
+      destino='/triagem.html?consulta='+encodeURIComponent(id)+'&tipo='+encodeURIComponent(a.tipo);
+    }
+    if((a.pagamento_status==='confirmado'||sessao.pagamentoConfirmado) && !moJaPassouPorConfirmado(id)){
+      moTrack('resume_existing_session', {
+        atendimento_id:id,
+        resume_reason:'pagamento_confirmado_redirect_confirmado',
+        destino:'confirmado'
+      });
+      moRedirecionarConfirmadoObrigatorio(id,tipo,'confirmado_backend','consulta_retomar_sessao_confirmada');
+      return true;
+    }
     if(a.pagamento_status==='confirmado'||a.pagbank_order_id||sessao.pagbankOrderId||sessao.pagamentoConfirmado){
       moTrack('resume_existing_session', {
         atendimento_id:id,
@@ -2177,6 +2233,15 @@ async function moRetomarSessaoAtiva(){
       return true;
     }
   }catch(e){
+    if(sessao.pagamentoConfirmado && !moJaPassouPorConfirmado(id)){
+      moTrack('resume_existing_session', {
+        atendimento_id:id,
+        resume_reason:'status_indisponivel_pagamento_confirmado_redirect_confirmado',
+        destino:'confirmado'
+      });
+      moRedirecionarConfirmadoObrigatorio(id,tipo,'sessao_local','consulta_retomar_sessao_confirmada_fallback');
+      return true;
+    }
     if(sessao.pagbankOrderId||sessao.pagamentoConfirmado){
       moTrack('resume_existing_session', {
         atendimento_id:id,
@@ -2912,23 +2977,8 @@ async function moEnviarCpfEIr(){
     if(btn){ btn.disabled=false; btn.textContent='Tentar abrir triagem novamente'; }
     return false;
   }
-  var url='https://consultaja24h.com.br/confirmado';
-  var params=[];
-  if(moAtendimentoId) params.push('consulta='+moAtendimentoId);
-  params.push('tipo='+moTipoConsulta);
-  if(moPreContexto) params.push('motivo='+encodeURIComponent(moPreContexto));
-  try{
-    var origem = new URLSearchParams(window.location.search);
-    origem.forEach(function(valor,chave){
-      if(/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0){
-        params.push(encodeURIComponent(chave)+'='+encodeURIComponent(valor));
-      }
-    });
-  }catch(e){}
-  if(params.length) url+='?'+params.join('&');
   moTrack('triage_redirect_start', {destino:'confirmado'});
-
-  window.location.href = url;
+  moRedirecionarConfirmadoObrigatorio(moAtendimentoId,moTipoConsulta,moMetodoAtual||'pix','consulta_pagamento_confirmado');
 }
 
 function moDetectarBandeira(n){

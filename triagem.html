@@ -937,7 +937,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 var API = 'https://triagem-api.onrender.com';
 
 // ─── EVENTOS DE FUNIL DA TRIAGEM ────────────────────────────────────────────
-// A conversão de compra fica centralizada na landing. Aqui medimos apenas uso
+// A conversão de compra fica centralizada em /confirmado. Aqui medimos apenas uso
 // da triagem/atendimento para não duplicar conversões no Google Ads.
 function trackTriagemEvento(nomeEvento){
   try{
@@ -1007,6 +1007,40 @@ function montarDestinoLandingConsulta(){
     return new URL('consulta/index.html' + qs + hash, location.href).href;
   }
   return '/consulta/' + qs + hash;
+}
+function chavePassagemConfirmado(id){
+  return 'cj_passou_confirmado_' + String(id || '');
+}
+function jaPassouPorConfirmado(id){
+  try{ return !!(id && sessionStorage.getItem(chavePassagemConfirmado(id)) === '1'); }catch(e){ return false; }
+}
+function montarUrlConfirmadoObrigatorio(id, tipo){
+  var params = new URLSearchParams();
+  params.set('consulta', String(id || ''));
+  params.set('tipo', tipo || 'chat');
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    origem.forEach(function(valor,chave){
+      if(!chave || chave.toLowerCase() === 'cpf') return;
+      if(/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0){
+        params.set(chave, valor);
+      }
+    });
+  }catch(e){}
+  var base = location.protocol === 'file:' ? 'https://consultaja24h.com.br/confirmado' : '/confirmado';
+  return base + '?' + params.toString();
+}
+function redirecionarConfirmadoObrigatorio(metodo, origem){
+  if(!atendimentoId || jaPassouPorConfirmado(atendimentoId)) return false;
+  var tipo = tipoConsulta || 'chat';
+  console.log('PAGAMENTO_CONFIRMADO_REDIRECT_CONFIRMADO', {
+    consultaId:String(atendimentoId),
+    tipo:tipo,
+    metodo:metodo || 'desconhecido',
+    origem:origem || ''
+  });
+  window.location.href = montarUrlConfirmadoObrigatorio(atendimentoId, tipo);
+  return true;
 }
 
 // ─── FLOW STATE MACHINE ──────────────────────────────────────────────────────
@@ -1168,6 +1202,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
                 pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
                 pagamentoConfirmadoLocal = true; salvarSessao();
                 esconderLoading();
+                if(redirecionarConfirmadoObrigatorio('pix','triagem_init_pagbank_paid')) return;
                 if(!nomePacienteValido(pacienteNome)){ pedirDadosPacienteAntesDe('modality'); return; }
                 mostrarModalidade(); return;
               }
@@ -1198,6 +1233,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
           pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
           pagamentoConfirmadoLocal = a.pagamento_status === 'confirmado';
           salvarSessao();
+          if(pagamentoConfirmadoLocal && redirecionarConfirmadoObrigatorio('confirmado_backend','triagem_init_status_triagem')) return;
           if(!nomePacienteValido(pacienteNome)){
             esconderLoading(); pedirDadosPacienteAntesDe('triage'); return;
           }
@@ -1216,6 +1252,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         pacienteEmail = a.email || (sessao && sessao.pacienteEmail) || '';
         pagamentoConfirmadoLocal = a.pagamento_status === 'confirmado';
         salvarSessao();
+        if(pagamentoConfirmadoLocal && redirecionarConfirmadoObrigatorio('confirmado_backend','triagem_init_status_waiting')) return;
         // Advance flow past modality so the guard in mostrarModalidade blocks it
         if(flowStateIndex(flowState) <= flowStateIndex('modality')){
           setFlowState('waiting');
@@ -1246,6 +1283,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         return;
       }
       if(pagamentoConfirmadoLocal){
+        if(redirecionarConfirmadoObrigatorio('sessao_local','triagem_fallback_local_confirmado')) return;
         if(!nomePacienteValido(pacienteNome)){
           pedirDadosPacienteAntesDe('modality');
           return;
@@ -1612,6 +1650,7 @@ function iniciarPollingPagamento(){
         statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
         statusEl.className='pay-polling-status ok';
         await esperar(800);
+        if(redirecionarConfirmadoObrigatorio('pix','triagem_pix_polling')) return;
         // Após PIX confirmado → pedir CPF (light screen)
         mostrarCpfPosPix();
       }
@@ -2130,8 +2169,9 @@ async function pagarCartao(){
     if(cardOk){
       pagamentoConfirmadoLocal = true;
       salvarSessao();
-      document.getElementById('cardProcessing').textContent='✅ Pagamento aceito! Selecionando modalidade...';
+      document.getElementById('cardProcessing').textContent='✅ Pagamento aceito! Redirecionando...';
       await esperar(900);
+      if(redirecionarConfirmadoObrigatorio('cartao','triagem_cartao_aprovado')) return;
       // Cartão: CPF já coletado → ir para modalidade
       mostrarModalidade();
     } else { throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.'); }
@@ -2189,6 +2229,9 @@ function restaurarPixAposRetorno(orderId){
         if(d.ok && d.pago){
           clearInterval(paymentPoller);
           if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
+          pagamentoConfirmadoLocal = true;
+          salvarSessao();
+          if(redirecionarConfirmadoObrigatorio('pix','triagem_restaurar_pix_pago')) return;
           setTimeout(mostrarCpfPosPix, 800);
         } else {
           iniciarPollingPagamento();
@@ -2245,6 +2288,9 @@ document.addEventListener('visibilitychange', function(){
         .then(function(d){
           if(d.ok && d.pago){
             if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
+            pagamentoConfirmadoLocal = true;
+            salvarSessao();
+            if(redirecionarConfirmadoObrigatorio('pix','triagem_visibility_pix_pago')) return;
             setTimeout(mostrarCpfPosPix, 800);
           } else {
             iniciarPollingPagamento(); // retoma polling
@@ -2468,6 +2514,9 @@ async function verificarPagamentoManual(){
       statusEl.className = 'pay-polling-status ok';
       document.getElementById('ja-paguei-wrap').style.display = 'none';
       await esperar(800);
+      pagamentoConfirmadoLocal = true;
+      salvarSessao();
+      if(redirecionarConfirmadoObrigatorio('pix','triagem_manual_pix_pago')) return;
       mostrarCpfPosPix();
     } else {
       // Também tenta pelo atendimentoId direto (cobre caso onde orderId não bateu)
@@ -2481,6 +2530,9 @@ async function verificarPagamentoManual(){
           statusEl.className = 'pay-polling-status ok';
           document.getElementById('ja-paguei-wrap').style.display = 'none';
           await esperar(800);
+          pagamentoConfirmadoLocal = true;
+          salvarSessao();
+          if(redirecionarConfirmadoObrigatorio('confirmado_backend','triagem_manual_backend_confirmado')) return;
           mostrarCpfPosPix();
           return;
         }
