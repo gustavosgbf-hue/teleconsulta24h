@@ -978,7 +978,7 @@ function carregarSessao(){
   try{ return JSON.parse(localStorage.getItem('cj_sessao')||'null'); }catch(e){ return null; }
 }
 function sessaoPodeRetomarTriagem(sessao){
-  return !!(sessao && sessao.atendimentoId && (sessao.pagbankOrderId || sessao.pagamentoConfirmado));
+  return !!(sessao && sessao.atendimentoId && sessao.pagamentoConfirmado);
 }
 function normalizarNomePacienteLocal(nome){
   var n = String(nome||'').trim().replace(/\s+/g,' ');
@@ -1007,6 +1007,22 @@ function montarDestinoLandingConsulta(){
     return new URL('consulta/index.html' + qs + hash, location.href).href;
   }
   return '/consulta/' + qs + hash;
+}
+function redirecionarPagamentoPendenteParaLanding(origem){
+  try{
+    var sessao = carregarSessao();
+    if(sessao){
+      sessao.pagbankOrderId = null;
+      sessao.pagamentoConfirmado = false;
+      localStorage.setItem('cj_sessao', JSON.stringify(sessao));
+    }
+    sessionStorage.setItem('cj_triagem_payment_redirected', JSON.stringify({
+      origem:origem||'',
+      atendimentoId:atendimentoId||'',
+      ts:Date.now()
+    }));
+  }catch(e){}
+  window.location.replace(montarDestinoLandingConsulta());
 }
 function chavePassagemConfirmado(id){
   return 'cj_passou_confirmado_' + String(id || '');
@@ -1233,7 +1249,8 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
           esconderLoading(); showScreen('encerrado'); setNavLabel('ENCERRADO'); return;
         }
 
-        // ── Pagamento pendente: vai direto ao payment
+        // ── Pagamento pendente: a landing concentra o checkout.
+        // A triagem só continua depois de pagamento confirmado.
         if(a.pagamento_status === 'pendente'){
           var orderIdLocal = (sessao && sessao.pagbankOrderId) || null;
           if(orderIdLocal){
@@ -1253,20 +1270,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
             }catch(e){}
           }
           atendimentoId  = a.id; tipoConsulta = a.tipo || 'chat';
-          pacienteNome   = nomePacientePreferido(a, sessao);
-          pacienteTel    = a.tel   || (sessao && sessao.pacienteTel)   || '';
-          pacienteCPF    = a.cpf   || (sessao && sessao.pacienteCPF)   || '';
-          pacienteEmail  = a.email || (sessao && sessao.pacienteEmail) || '';
-          pagbankOrderId = a.pagbank_order_id || (sessao && sessao.pagbankOrderId) || null;
-          esconderLoading();
-          irParaPagamento();
-          // Se PIX já foi gerado (temos orderId), mostrar QR e retomar polling automaticamente
-          if(pagbankOrderId){
-            // Aguarda o DOM da tela de pagamento estar pronto antes de restaurar
-            setTimeout(function(){
-              restaurarPixAposRetorno(pagbankOrderId);
-            }, 400);
-          }
+          redirecionarPagamentoPendenteParaLanding('triagem_status_pagamento_pendente');
           return;
         }
 
@@ -1322,8 +1326,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
       pagamentoConfirmadoLocal = !!sessao.pagamentoConfirmado;
       esconderLoading();
       if(pagbankOrderId && !pagamentoConfirmadoLocal){
-        irParaPagamento();
-        setTimeout(function(){ restaurarPixAposRetorno(pagbankOrderId); }, 400);
+        redirecionarPagamentoPendenteParaLanding('triagem_fallback_pagbank_pendente');
         return;
       }
       if(pagamentoConfirmadoLocal){

@@ -2274,14 +2274,27 @@ async function moRetomarSessaoAtiva(){
       moRedirecionarConfirmadoObrigatorio(id,tipo,'confirmado_backend','consulta_retomar_sessao_confirmada');
       return true;
     }
-    if(a.pagamento_status==='confirmado'||a.pagbank_order_id||sessao.pagbankOrderId||sessao.pagamentoConfirmado){
+    if(a.pagamento_status==='confirmado'||sessao.pagamentoConfirmado){
       moTrack('resume_existing_session', {
         atendimento_id:id,
-        resume_reason:a.pagamento_status==='confirmado'?'pagamento_confirmado':'pagamento_iniciado',
+        resume_reason:'pagamento_confirmado',
         destino:destino
       });
       window.location.href=destino;
       return true;
+    }
+    if(a.pagamento_status==='pendente'||a.pagbank_order_id||sessao.pagbankOrderId){
+      moTrack('resume_existing_session_ignored', {
+        atendimento_id:id,
+        resume_reason:'pagamento_pendente_fica_na_landing',
+        destino:'consulta'
+      });
+      try{
+        var limpo = Object.assign({}, sessao, {pagbankOrderId:null, pagamentoConfirmado:false});
+        localStorage.setItem('cj_sessao', JSON.stringify(limpo));
+        sessionStorage.setItem('mo_checkout_sessao', JSON.stringify(limpo));
+      }catch(_e){}
+      return false;
     }
   }catch(e){
     if(sessao.pagamentoConfirmado && !moJaPassouPorConfirmado(id)){
@@ -2293,14 +2306,27 @@ async function moRetomarSessaoAtiva(){
       moRedirecionarConfirmadoObrigatorio(id,tipo,'sessao_local','consulta_retomar_sessao_confirmada_fallback');
       return true;
     }
-    if(sessao.pagbankOrderId||sessao.pagamentoConfirmado){
+    if(sessao.pagamentoConfirmado){
       moTrack('resume_existing_session', {
         atendimento_id:id,
-        resume_reason:'status_indisponivel_sessao_local',
+        resume_reason:'status_indisponivel_sessao_confirmada',
         destino:destino
       });
       window.location.href=destino;
       return true;
+    }
+    if(sessao.pagbankOrderId){
+      moTrack('resume_existing_session_ignored', {
+        atendimento_id:id,
+        resume_reason:'status_indisponivel_pagamento_pendente_fica_na_landing',
+        destino:'consulta'
+      });
+      try{
+        var limpoFallback = Object.assign({}, sessao, {pagbankOrderId:null, pagamentoConfirmado:false});
+        localStorage.setItem('cj_sessao', JSON.stringify(limpoFallback));
+        sessionStorage.setItem('mo_checkout_sessao', JSON.stringify(limpoFallback));
+      }catch(_e2){}
+      return false;
     }
   }
   return false;
