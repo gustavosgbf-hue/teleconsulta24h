@@ -2473,6 +2473,41 @@ function moIniciarTriagem(){
   moEnviarCpfEIr();
 }
 
+function moAdsParamPermitido(chave){
+  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
+}
+
+function moSalvarAdsParamsAtuais(){
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    var salvos = {};
+    origem.forEach(function(valor,chave){
+      if(moAdsParamPermitido(chave) && valor) salvos[chave] = valor;
+    });
+    if(Object.keys(salvos).length){
+      var json = JSON.stringify(salvos);
+      sessionStorage.setItem('cj_ads_params', json);
+      localStorage.setItem('cj_ads_params', json);
+    }
+  }catch(e){}
+}
+
+function moAdicionarAdsParamsConfirmado(params){
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    var salvos = JSON.parse(raw);
+    Object.keys(salvos || {}).forEach(function(chave){
+      if(moAdsParamPermitido(chave) && salvos[chave]) params.set(chave, salvos[chave]);
+    });
+    var origem = new URLSearchParams(window.location.search);
+    origem.forEach(function(valor,chave){
+      if(moAdsParamPermitido(chave) && valor) params.set(chave, valor);
+    });
+  }catch(e){}
+}
+
+moSalvarAdsParamsAtuais();
+
 function moEnviarCpfEIr(){
   // Atualiza CPF no registro (Sheets/Memed/prontuário)
   if(moAtendimentoId && moCPFVal){
@@ -2480,10 +2515,11 @@ function moEnviarCpfEIr(){
       body:JSON.stringify({atendimentoId:moAtendimentoId,cpf:moCPFVal})}).catch(function(){});
   }
   var url='https://consultaja24h.com.br/confirmado';
-  var params=[];
-  if(moAtendimentoId) params.push('consulta='+moAtendimentoId);
-  params.push('tipo='+moTipoConsulta);
-  if(params.length) url+='?'+params.join('&');
+  var params=new URLSearchParams();
+  if(moAtendimentoId) params.set('consulta', String(moAtendimentoId));
+  params.set('tipo', moTipoConsulta || 'chat');
+  moAdicionarAdsParamsConfirmado(params);
+  url+='?'+params.toString();
 
   console.log('PAGAMENTO_CONFIRMADO_REDIRECT_CONFIRMADO', {
     consultaId:String(moAtendimentoId || ''),

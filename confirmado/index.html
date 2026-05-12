@@ -118,6 +118,27 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   var emDebug = params.has('debug_tag') || params.has('force_tag');
   params.forEach(function(_, chaveParam){ if(/^gtm_/i.test(chaveParam)) emDebug = true; });
 
+  function pingConfirmadoView(){
+    var payload = {
+      consultaId: String(consultaId || ''),
+      tipo: params.get('tipo') || (sessao && sessao.tipoConsulta) || '',
+      paymentMethod: (sessao && sessao.paymentMethod) || '',
+      gclid: params.get('gclid') || '',
+      gbraid: params.get('gbraid') || '',
+      wbraid: params.get('wbraid') || '',
+      href: location.href,
+      referrer: document.referrer || ''
+    };
+    try{
+      var body = JSON.stringify(payload);
+      if(navigator.sendBeacon){
+        navigator.sendBeacon('https://triagem-api.onrender.com/api/tracking/confirmado-view', new Blob([body], {type:'application/json'}));
+      } else {
+        fetch('https://triagem-api.onrender.com/api/tracking/confirmado-view', {method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){});
+      }
+    }catch(e){}
+  }
+
   function irParaTriagem(){
     params.delete('cpf');
     try{
@@ -133,6 +154,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
 
   if(emDebug || !sessionStorage.getItem(chave)){
     sessionStorage.setItem(chave, '1');
+    pingConfirmadoView();
 
     window.dataLayer = window.dataLayer || [];
     var eventoCompra = {

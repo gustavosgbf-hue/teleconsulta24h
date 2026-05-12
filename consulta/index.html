@@ -2087,22 +2087,53 @@ function moJaPassouPorConfirmado(id){
   try{ return !!(id && sessionStorage.getItem(moChavePassagemConfirmado(id)) === '1'); }catch(e){ return false; }
 }
 
+function moAdsParamPermitido(chave){
+  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
+}
+
+function moSalvarAdsParamsAtuais(){
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    var salvos = {};
+    origem.forEach(function(valor,chave){
+      if(moAdsParamPermitido(chave) && valor) salvos[chave] = valor;
+    });
+    if(Object.keys(salvos).length){
+      var json = JSON.stringify(salvos);
+      sessionStorage.setItem('cj_ads_params', json);
+      localStorage.setItem('cj_ads_params', json);
+    }
+  }catch(e){}
+}
+
+function moAplicarAdsParamsSalvos(params){
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    var salvos = JSON.parse(raw);
+    Object.keys(salvos || {}).forEach(function(chave){
+      if(moAdsParamPermitido(chave) && salvos[chave] && !params.has(chave)) params.set(chave, salvos[chave]);
+    });
+  }catch(e){}
+}
+
 function moMontarUrlConfirmado(id,tipo){
   var params = new URLSearchParams();
   if(id) params.set('consulta', String(id));
   params.set('tipo', tipo || moTipoConsulta || 'chat');
   if(moPreContexto) params.set('motivo', moPreContexto);
+  moAplicarAdsParamsSalvos(params);
   try{
     var origem = new URLSearchParams(window.location.search);
     origem.forEach(function(valor,chave){
-      if(!chave || chave.toLowerCase() === 'cpf') return;
-      if(/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0){
+      if(moAdsParamPermitido(chave)){
         params.set(chave, valor);
       }
     });
   }catch(e){}
   return 'https://consultaja24h.com.br/confirmado?' + params.toString();
 }
+
+moSalvarAdsParamsAtuais();
 
 function moRedirecionarConfirmadoObrigatorio(id,tipo,metodo,origem){
   if(!id) return false;

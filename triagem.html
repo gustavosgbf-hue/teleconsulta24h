@@ -1014,15 +1014,41 @@ function chavePassagemConfirmado(id){
 function jaPassouPorConfirmado(id){
   try{ return !!(id && sessionStorage.getItem(chavePassagemConfirmado(id)) === '1'); }catch(e){ return false; }
 }
+function adsParamPermitido(chave){
+  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
+}
+function salvarAdsParamsAtuais(){
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    var salvos = {};
+    origem.forEach(function(valor,chave){
+      if(adsParamPermitido(chave) && valor) salvos[chave] = valor;
+    });
+    if(Object.keys(salvos).length){
+      var json = JSON.stringify(salvos);
+      sessionStorage.setItem('cj_ads_params', json);
+      localStorage.setItem('cj_ads_params', json);
+    }
+  }catch(e){}
+}
+function aplicarAdsParamsSalvos(params){
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    var salvos = JSON.parse(raw);
+    Object.keys(salvos || {}).forEach(function(chave){
+      if(adsParamPermitido(chave) && salvos[chave] && !params.has(chave)) params.set(chave, salvos[chave]);
+    });
+  }catch(e){}
+}
 function montarUrlConfirmadoObrigatorio(id, tipo){
   var params = new URLSearchParams();
   params.set('consulta', String(id || ''));
   params.set('tipo', tipo || 'chat');
+  aplicarAdsParamsSalvos(params);
   try{
     var origem = new URLSearchParams(window.location.search);
     origem.forEach(function(valor,chave){
-      if(!chave || chave.toLowerCase() === 'cpf') return;
-      if(/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0){
+      if(adsParamPermitido(chave)){
         params.set(chave, valor);
       }
     });
@@ -1030,6 +1056,7 @@ function montarUrlConfirmadoObrigatorio(id, tipo){
   var base = location.protocol === 'file:' ? 'https://consultaja24h.com.br/confirmado' : '/confirmado';
   return base + '?' + params.toString();
 }
+salvarAdsParamsAtuais();
 function redirecionarConfirmadoObrigatorio(metodo, origem){
   if(!atendimentoId || jaPassouPorConfirmado(atendimentoId)) return false;
   var tipo = tipoConsulta || 'chat';
