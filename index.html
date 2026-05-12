@@ -2229,7 +2229,7 @@ async function moIrPagamento(){
   btn.disabled=true; btn.textContent='Preparando...';
   try {
     var res=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||''})});
+      body:JSON.stringify({nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||'',ads:moAdsAttributionPayload()})});
     var data=await res.json();
     if(data.ok&&data.atendimentoId) moAtendimentoId=data.atendimentoId;
     moTrack('lead_pre_pagamento', {tipo:moTipoConsulta});
@@ -2305,7 +2305,7 @@ async function moGerarPix(){
     }
     var _nomeEnvio=(moNomeVal&&moNomeVal.trim().length>1)?moNomeVal.trim():'Paciente';
     var res=await fetch(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:_nomeEnvio,cpf:moCPFVal,email:undefined})});
+      body:JSON.stringify({atendimentoId:moAtendimentoId||undefined,nome:_nomeEnvio,cpf:moCPFVal,email:undefined,ads:moAdsAttributionPayload()})});
     var data=await res.json();
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
     moOrderId=data.order_id;
@@ -2506,6 +2506,24 @@ function moAdicionarAdsParamsConfirmado(params){
   }catch(e){}
 }
 
+function moAdsAttributionPayload(){
+  var out = {};
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    out = JSON.parse(raw) || {};
+  }catch(e){ out = {}; }
+  try{
+    var atual = new URLSearchParams(window.location.search);
+    atual.forEach(function(valor,chave){
+      if(moAdsParamPermitido(chave) && valor) out[chave] = valor;
+    });
+  }catch(e){}
+  out.landing_url = location.href;
+  out.referrer = document.referrer || '';
+  out.user_agent = navigator.userAgent || '';
+  return out;
+}
+
 moSalvarAdsParamsAtuais();
 
 function moEnviarCpfEIr(){
@@ -2567,7 +2585,7 @@ async function moPagarCartao(){
   try {
     if(!moAtendimentoId){
       var rPre=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({nome:nome,tel:moTelVal,cpf:cpfNum,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||''})});
+        body:JSON.stringify({nome:nome,tel:moTelVal,cpf:cpfNum,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||'',email:email,ads:moAdsAttributionPayload()})});
       var dPre=await rPre.json();
       if(dPre&&dPre.atendimentoId) moAtendimentoId=dPre.atendimentoId;
     }
@@ -2579,7 +2597,7 @@ async function moPagarCartao(){
       .getPaymentToken();
     if(!tokenResult||!tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão.');
     var r=await fetch(MO_API+'/api/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({payment_token:tokenResult.payment_token,nome:nome,cpf:cpfNum,email:email,telefone:moTelVal,parcelas:1,atendimentoId:moAtendimentoId||undefined})});
+      body:JSON.stringify({payment_token:tokenResult.payment_token,nome:nome,cpf:cpfNum,email:email,telefone:moTelVal,parcelas:1,atendimentoId:moAtendimentoId||undefined,ads:moAdsAttributionPayload()})});
     var d=await r.json();
     var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
     if(ok){ setTimeout(function(){ moConfirmarPagamento(); }, 800); }

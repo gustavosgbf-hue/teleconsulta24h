@@ -1040,6 +1040,23 @@ function aplicarAdsParamsSalvos(params){
     });
   }catch(e){}
 }
+function adsAttributionPayload(){
+  var out = {};
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    out = JSON.parse(raw) || {};
+  }catch(e){ out = {}; }
+  try{
+    var atual = new URLSearchParams(window.location.search);
+    atual.forEach(function(valor,chave){
+      if(adsParamPermitido(chave) && valor) out[chave] = valor;
+    });
+  }catch(e){}
+  out.landing_url = location.href;
+  out.referrer = document.referrer || '';
+  out.user_agent = navigator.userAgent || '';
+  return out;
+}
 function montarUrlConfirmadoObrigatorio(id, tipo){
   var params = new URLSearchParams();
   params.set('consulta', String(id || ''));
@@ -1588,7 +1605,7 @@ async function gerarPagamento(){
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({nome:nome||'-',tel,tel_documentos:pacienteTelDoc||tel,
           cpf:cpfParaPix,triagem:'(aguardando pagamento)',tipo:tipoConsulta,
-          data_nascimento:pacienteNascimento,email:pacienteEmail||''})
+          data_nascimento:pacienteNascimento,email:pacienteEmail||'',ads:adsAttributionPayload()})
       });
       var dPre = await rPre.json();
       if(!dPre||!dPre.atendimentoId) throw new Error(dPre&&dPre.error?dPre.error:'Não foi possível iniciar o atendimento.');
@@ -1598,7 +1615,7 @@ async function gerarPagamento(){
 
     var res = await fetch(API+'/api/pagbank/order',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({atendimentoId,nome:nome||'-',cpf:cpfParaPix,email:pacienteEmail||undefined})
+      body:JSON.stringify({atendimentoId,nome:nome||'-',cpf:cpfParaPix,email:pacienteEmail||undefined,ads:adsAttributionPayload()})
     });
     var data = await res.json();
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
@@ -2178,7 +2195,7 @@ async function pagarCartao(){
     if(!atendimentoId){
       var rPre=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc||tel,cpf:cpfNum,
-          triagem:'(aguardando pagamento)',tipo:tipoConsulta,data_nascimento:pacienteNascimento,email:pacienteEmail||''})});
+          triagem:'(aguardando pagamento)',tipo:tipoConsulta,data_nascimento:pacienteNascimento,email:pacienteEmail||'',ads:adsAttributionPayload()})});
       var dPre=await rPre.json();
       if(!dPre||!dPre.atendimentoId) throw new Error(dPre&&dPre.error?dPre.error:'Não foi possível iniciar o atendimento.');
       atendimentoId=dPre.atendimentoId; salvarSessao();
@@ -2190,7 +2207,7 @@ async function pagarCartao(){
     }).getPaymentToken();
     if(!tokenResult||!tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão. Verifique os dados.');
     var r=await fetch(API+'/api/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({payment_token:tokenResult.payment_token,nome,cpf:cpfNum,email:pacienteEmail,telefone:tel,parcelas,atendimentoId:atendimentoId||undefined})});
+      body:JSON.stringify({payment_token:tokenResult.payment_token,nome,cpf:cpfNum,email:pacienteEmail,telefone:tel,parcelas,atendimentoId:atendimentoId||undefined,ads:adsAttributionPayload()})});
     var d=await r.json();
     var cardOk=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.status==='succeeded'||d.transaction_id||d.transactionId));
     if(cardOk){
