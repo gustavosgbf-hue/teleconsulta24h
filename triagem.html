@@ -12,7 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- SDK Efí: tokenização de cartão no frontend -->
-<script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 <!-- Google Ads + GA4 config -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
 <script>
@@ -138,7 +137,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
   font-size:.67rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--g2);
   margin-bottom:8px;align-self:flex-start}
 
-/* ── SCREEN 2: PAYMENT ── */
+/* ── SCREEN 2: CHECKOUT REDIRECT ── */
 #s-payment .s-header{padding:14px 18px 12px;border-bottom:1px solid var(--line);
   display:flex;align-items:center;gap:12px}
 .pay-icon-wrap{width:40px;height:40px;border-radius:50%;flex-shrink:0;
@@ -147,6 +146,17 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .pay-header-text h2{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;margin-bottom:2px}
 .pay-header-text p{font-size:.73rem;color:var(--muted);font-weight:300}
 #s-payment .s-body{padding:14px 18px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1}
+#s-payment .price-row,
+#s-payment .method-tabs,
+#s-payment #card-fields,
+#s-payment #pix-section,
+#s-payment #card-form,
+#s-payment .pay-trust{display:none!important}
+.checkout-redirect-note{
+  padding:16px;border-radius:14px;text-align:center;line-height:1.55;
+  background:rgba(94,224,160,.07);border:1px solid rgba(94,224,160,.2);
+  color:rgba(255,255,255,.72);font-size:.82rem}
+.checkout-redirect-note strong{display:block;color:#fff;font-size:.95rem;margin-bottom:5px}
 
 .price-row{display:flex;align-items:center;justify-content:space-between;
   padding:12px 16px;border-radius:14px;
@@ -520,7 +530,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     SCREEN 2 — Pagamento
+     SCREEN 2 — Checkout redirecionado para /consulta
 ═══════════════════════════════════════════════════════ -->
 <div id="s-payment" class="screen-wrap scrollable">
   <div class="s-inner" style="justify-content:flex-start;padding-top:12px">
@@ -528,12 +538,17 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div class="s-header">
         <div class="pay-icon-wrap">⚡</div>
         <div class="pay-header-text">
-          <h2>Continuar para atendimento</h2>
-          <p id="pay-subtitulo">Consulta única · sem mensalidade</p>
+          <h2>Pagamento pela consulta</h2>
+          <p id="pay-subtitulo">A triagem abre após o pagamento confirmado</p>
         </div>
       </div>
       <div class="s-body">
-        <button class="back-btn" onclick="voltarParaWhatsapp()">← Voltar</button>
+        <button class="back-btn" onclick="abrirCheckoutConsulta('triagem_checkout_link_topo')">Ir para /consulta</button>
+        <div class="checkout-redirect-note">
+          <strong>Pagamento agora é feito na página da consulta.</strong>
+          Se você chegou por um link antigo, toque no botão abaixo para iniciar ou refazer o pagamento pelo fluxo atual.
+        </div>
+        <button class="cta" onclick="abrirCheckoutConsulta('triagem_checkout_link_card')">Abrir página de consulta →</button>
 
         <!-- Disponibilidade inline badge -->
         <div style="display:flex;justify-content:center">
@@ -680,10 +695,10 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
           </div>
         </div>
 
-        <div style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.3)">
+        <div class="pay-trust" style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.3)">
           🔒 Pagamento seguro · CNPJ verificado · PIX via PagBank · Cartão via Efí
         </div>
-        <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.22)">
+        <div class="pay-trust" style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.22)">
           ★ 5.0 · +2000 atendimentos · Médicos com CRM ativo
         </div>
       </div>
@@ -1023,6 +1038,22 @@ function redirecionarPagamentoPendenteParaLanding(origem){
     }));
   }catch(e){}
   window.location.replace(montarDestinoLandingConsulta());
+}
+function abrirCheckoutConsulta(origem){
+  try{
+    var sessao = carregarSessao();
+    if(sessao && !sessao.pagamentoConfirmado){
+      sessao.pagbankOrderId = null;
+      sessao.pagamentoConfirmado = false;
+      localStorage.setItem('cj_sessao', JSON.stringify(sessao));
+    }
+    sessionStorage.setItem('cj_triagem_checkout_link', JSON.stringify({
+      origem:origem||'',
+      atendimentoId:atendimentoId||'',
+      ts:Date.now()
+    }));
+  }catch(e){}
+  window.location.href = montarDestinoLandingConsulta();
 }
 function chavePassagemConfirmado(id){
   return 'cj_passou_confirmado_' + String(id || '');
@@ -1465,43 +1496,7 @@ function voltarParaWhatsapp(){
 var metodoPagamento = 'pix';
 
 async function irParaPagamento(){
-  setFlowState('payment');
-  clearInterval(paymentPoller);
-  document.getElementById('pix-qr-wrap').classList.remove('show');
-  var imgEl = document.getElementById('pay-qr-img');
-  if(imgEl){ imgEl.src=''; imgEl.style.display='none'; }
-  var fbEl = document.getElementById('pay-qr-fallback');
-  if(fbEl) fbEl.style.display='none';
-  var pixInput = document.getElementById('pixChaveInput');
-  if(pixInput) pixInput.value='';
-  var btn = document.getElementById('payBtn');
-  btn.style.display='block'; btn.disabled=false; btn.textContent='Continuar para atendimento →';
-  var statusEl = document.getElementById('pay-polling-status');
-  statusEl.textContent='⏳ Aguardando confirmação do pagamento…';
-  statusEl.className='pay-polling-status';
-  statusEl.style.display='none'; // hidden until PIX is generated
-  selecionarMetodo('pix'); // also pre-fills pixCPF if available
-  showScreen('payment');
-  setNavLabel('PAGAMENTO');
-
-  // Verificar disponibilidade em background (não bloquear)
-  try{
-    var res = await fetch(API+'/api/disponibilidade');
-    dispData = await res.json();
-    var badge = document.getElementById('disp-badge-pay');
-    var txt   = document.getElementById('disp-txt-pay');
-    var avisoPayEl = document.getElementById('aviso-horario-pay');
-    if(dispData.status==='amarelo'){
-      badge.className='disp-badge amarelo'; txt.textContent='Alta demanda';
-      if(avisoPayEl) avisoPayEl.style.display='none';
-    } else if(dispData.status==='vermelho'){
-      badge.className='disp-badge vermelho'; txt.textContent='Baixa disponibilidade';
-      if(avisoPayEl) avisoPayEl.style.display='block';
-    } else {
-      badge.className='disp-badge verde'; txt.textContent='Online agora';
-      if(avisoPayEl) avisoPayEl.style.display='none';
-    }
-  }catch(e){}
+  abrirCheckoutConsulta('triagem_ir_para_pagamento');
 }
 
 function selecionarMetodo(metodo){
@@ -1565,6 +1560,8 @@ function validarCPF(cpf){
 }
 
 async function gerarPagamento(){
+  abrirCheckoutConsulta('triagem_gerar_pagamento_desativado');
+  return;
   var nome = nomePacienteValido(pacienteNome) ? normalizarNomePacienteLocal(pacienteNome) : 'Paciente';
   var tel  = pacienteTel;
   // Ler CPF do campo PIX (obrigatório para PagBank)
@@ -2167,6 +2164,8 @@ var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
 var _cardProcessando=false;
 
 async function pagarCartao(){
+  abrirCheckoutConsulta('triagem_cartao_desativado');
+  return;
   if(_cardProcessando) return;
   var nome       = document.getElementById('payNome').value.trim();
   var tel        = pacienteTel;
@@ -2246,6 +2245,8 @@ function detectarBandeira(numero){
 // Chamado quando o paciente volta à tela de pagamento com um orderId já gerado.
 // Reconstrói o QR a partir da chave salva (ou apenas retoma o polling se não tiver).
 function restaurarPixAposRetorno(orderId){
+  abrirCheckoutConsulta('triagem_restaurar_pix_desativado');
+  return;
   if(!orderId) return;
   pagbankOrderId = orderId;
 
@@ -2543,6 +2544,8 @@ function iniciarTimerJaPaguei(){
 }
 
 async function verificarPagamentoManual(){
+  abrirCheckoutConsulta('triagem_verificar_pagamento_desativado');
+  return;
   if(!pagbankOrderId) return;
   var btn = document.getElementById('ja-paguei-btn');
   var statusEl = document.getElementById('pay-polling-status');
