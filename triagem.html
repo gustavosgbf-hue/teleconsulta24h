@@ -1372,9 +1372,14 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
     }
   }
 
+  if(idParaRestaurar){
+    redirecionarPagamentoPendenteParaLanding('triagem_consulta_invalida_ou_indisponivel');
+    return;
+  }
+
   esconderLoading();
   showScreen('whatsapp');
-  setNavLabel('');;
+  setNavLabel('');
 })();
 
 function preencherHorario(){
