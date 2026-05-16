@@ -1072,7 +1072,7 @@ var whatsappSend = document.getElementById('whatsappSend');
 var whatsappMessage = document.getElementById('whatsappMessage');
 
 window.addEventListener('scroll', function() {
-  if (window.scrollY > 300) {
+  if (window.scrollY > 1600) {
     whatsappBtn.classList.add('visible');
   } else {
     whatsappBtn.classList.remove('visible');
@@ -1081,7 +1081,7 @@ window.addEventListener('scroll', function() {
 
 whatsappBtn.addEventListener('click', function() {
   whatsappModal.classList.add('open');
-  whatsappMessage.value = 'Olá, gostaria de iniciar uma consulta médica online.';
+  whatsappMessage.value = 'Olá, tive dúvida para finalizar minha consulta médica online.';
   whatsappMessage.focus();
 });
 
@@ -1179,7 +1179,7 @@ whatsappSend.addEventListener('click', function() {
           <span class="nav__rx-text"><span class="nav__link-full">Psicologia</span><span class="nav__link-short">Psico</span></span>
         </a>
       </div>
-      <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()"><span class="nav__cta-full">Iniciar consulta</span><span class="nav__cta-short">Consulta</span></a>
+      <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Consulta</span></a>
     </div>
   </div>
 </nav>
@@ -1263,7 +1263,7 @@ whatsappSend.addEventListener('click', function() {
   <p id="heroUrgency" style="display:none"></p>
   <a href="#" class="btn-primary" id="heroCTA" onclick="event.preventDefault();try{window.moAbrir()}catch(e){console.error(e)}">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
-    <span>Iniciar consulta</span>
+    <span>Falar com médico agora</span>
     <span style="display:inline-block;width:1px;height:18px;background:rgba(6,20,9,.25);margin:0 2px"></span>
     <span style="font-weight:800">R$ 49,90</span>
   </a>
@@ -1374,10 +1374,10 @@ whatsappSend.addEventListener('click', function() {
   <div class="section-inner" style="text-align:center;max-width:620px">
     <p style="font-size:.72rem;color:rgba(255,255,255,.36);font-weight:500;margin-bottom:10px">Procura uma área específica?</p>
     <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
-      <button type="button" onclick="moAbrir('consulta com psiquiatra')" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Psiquiatra</button>
-      <button type="button" onclick="moAbrir('consulta com psicólogo')" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Psicólogo</button>
-      <button type="button" onclick="moAbrir('consulta com endocrinologista')" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Endócrino</button>
-      <button type="button" onclick="moAbrir('consulta médica online')" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Outras especialidades</button>
+      <a href="https://consultaja24h.com.br/especialistas/psiquiatria" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Psiquiatra</a>
+      <a href="https://consultaja24h.com.br/psicologo-online" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Psicólogo</a>
+      <a href="https://consultaja24h.com.br/especialistas/endocrinologia" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Endócrino</a>
+      <a href="https://consultaja24h.com.br/especialistas" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Outras especialidades</a>
     </div>
   </div>
 </section>
@@ -1920,6 +1920,13 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="color:var(--g1);flex-shrink:0"><polyline points="20 6 9 17 4 12"></polyline></svg>
         <span>Vamos iniciar: <strong id="moContextText" style="color:#fff;font-weight:700"></strong></span>
       </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;background:rgba(180,224,90,.07);border:1px solid rgba(180,224,90,.2);border-radius:13px;margin:8px 0 6px">
+        <div style="font-size:.74rem;color:rgba(255,255,255,.68);line-height:1.35">
+          <strong style="display:block;color:#fff;font-size:.82rem;margin-bottom:1px">Consulta médica online</strong>
+          Pagamento único · sem app · começa após confirmação
+        </div>
+        <div style="font-size:1rem;font-weight:800;color:#b4e05a;white-space:nowrap">R$ 49,90</div>
+      </div>
       <p style="font-size:.86rem;color:rgba(255,255,255,.78);font-weight:500;line-height:1.55;margin-bottom:2px;margin-top:4px">Qual seu telefone?</p>
       <p style="font-size:.74rem;color:rgba(255,255,255,.42);font-weight:300;line-height:1.55">Usamos seu telefone para localizar seu atendimento e avisar quando o médico assumir. Sem criar conta.</p>
       <div>
@@ -1936,7 +1943,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <input class="mi" id="moNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="moMascaraNasc(this)">
       </div>
       <div class="mautofill" id="moAutofill"></div>
-      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar →</button>
+      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar para pagamento seguro →</button>
       <!-- toggle discreto: chat é default, oferece vídeo como secundário -->
       <div id="moModoPill" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:7px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto;border-radius:999px">
         <span id="moModoToggleLabel" style="font-size:.7rem;color:rgba(255,255,255,.5);font-weight:400">Prefere atendimento por <strong>vídeo</strong>?</span>
@@ -2741,7 +2748,7 @@ async function moAvancarStep1(){
       autofill.className='mautofill show';
       fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
       moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
-      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar'; moIrPagamento(); },700);
+      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar para pagamento seguro →'; moIrPagamento(); },700);
       return;
     } else {
       moTrack('patient_lookup_result', {result:'not_found'});
@@ -2787,7 +2794,7 @@ async function moIrPagamento(){
     }
   } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
   moTrack('lead_pre_pagamento', {tipo:moTipoConsulta,contexto:moPreContexto||'geral',atendimento_id:moAtendimentoId||''});
-  btn.disabled=false; btn.textContent='Continuar';
+  btn.disabled=false; btn.textContent='Continuar para pagamento seguro →';
   btn.onclick=moAvancarStep1;
   moMetodo('pix');
   moIrStep(2);
@@ -3182,7 +3189,7 @@ function moReiniciar(){
   document.getElementById('moPixStatus').style.display='none';
   document.getElementById('moCardErr').style.display='none';
   var btn=document.getElementById('moBtnStep1');
-  btn.disabled=false; btn.textContent='Continuar'; btn.onclick=moAvancarStep1;
+  btn.disabled=false; btn.textContent='Continuar para pagamento seguro →'; btn.onclick=moAvancarStep1;
   moTipoConsulta='chat';
   moSelecionarTipo('chat');
   moIrStep(0);
