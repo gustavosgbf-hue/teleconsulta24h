@@ -22,26 +22,27 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#faf8f5;
+  --cream:#f7f9fc;
   --warm-white:#ffffff;
-  --ink:#1a1612;
-  --ink-2:#4a4540;
-  --ink-3:#8a857f;
-  --line:rgba(26,22,18,.08);
-  --line-mid:rgba(26,22,18,.12);
+  --ink:#111827;
+  --ink-2:#334155;
+  --ink-3:#64748b;
+  --line:rgba(15,23,42,.09);
+  --line-mid:rgba(15,23,42,.15);
   --font-display:'Cormorant Garamond',Georgia,serif;
   --font-body:'DM Sans',sans-serif;
   --radius:16px;
   --radius-sm:10px;
-  --shadow:0 2px 20px rgba(26,22,18,.07);
-  --shadow-md:0 8px 40px rgba(26,22,18,.11);
+  --shadow:0 2px 20px rgba(15,23,42,.07);
+  --shadow-md:0 10px 40px rgba(15,23,42,.12);
   --transition:.22s cubic-bezier(.4,0,.2,1);
-  /* Psiquiatria — azul bebê */
-  --acc:#dae8f5;
-  --acc-mid:#aacce8;
-  --acc-deep:#3a7cbf;
-  --acc-text:#1e4a78;
-  --acc-dark:#163558;
+  --acc:#eaf2ff;
+  --acc-mid:#9cc3f5;
+  --acc-deep:#1d5fbf;
+  --acc-text:#164b96;
+  --acc-dark:#0f2f5f;
+  --cta-from:#2268d1;
+  --cta-to:#123f85;
 }
 html{scroll-behavior:smooth}
 body{
@@ -60,7 +61,7 @@ a{text-decoration:none;color:inherit}
 /* ── NAV ── */
 nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(250,248,245,.92);
+  background:rgba(247,249,252,.96);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
@@ -89,13 +90,13 @@ nav{
   background:var(--warm-white);
   color:var(--ink);
   transition:all var(--transition);
-  box-shadow:0 1px 4px rgba(26,22,18,.06);
+  box-shadow:0 1px 4px rgba(15,23,42,.06);
 }
 .nav__cta-pill:hover{background:var(--ink);color:var(--warm-white);border-color:var(--ink)}
 
 /* ── HERO ESPECIALIDADE ── */
 .spec-hero{
-  background:var(--acc);
+  background:linear-gradient(135deg,var(--acc),#f8fbff);
   padding:64px 32px 56px;
   border-bottom:1px solid var(--acc-mid);
 }
@@ -109,8 +110,8 @@ nav{
 .spec-hero__breadcrumb a:hover{opacity:1}
 .spec-hero__tag{
   display:inline-flex;align-items:center;gap:6px;
-  background:rgba(58,124,191,.12);
-  border:1px solid rgba(58,124,191,.2);
+  background:rgba(29,95,191,.1);
+  border:1px solid rgba(29,95,191,.18);
   border-radius:999px;
   padding:4px 12px;
   font-size:.72rem;font-weight:500;
@@ -124,12 +125,12 @@ nav{
 .spec-hero__h1{
   font-family:var(--font-display);
   font-size:clamp(2.2rem,5vw,3.4rem);
-  font-weight:400;line-height:1.15;
+  font-weight:500;line-height:1.15;
   color:var(--acc-dark);
   margin-bottom:16px;
-  letter-spacing:-.01em;
+  letter-spacing:0;
 }
-.spec-hero__h1 em{font-style:italic;font-weight:300}
+.spec-hero__h1 em{font-style:italic;font-weight:500}
 .spec-hero__desc{
   font-size:.95rem;font-weight:300;
   color:var(--acc-text);
@@ -151,13 +152,13 @@ nav{
   transition:all var(--transition);
 }
 .hero-cta--primary{
-  background:var(--acc-dark);
+  background:linear-gradient(135deg,var(--cta-from),var(--cta-to));
   color:#fff;
-  box-shadow:0 10px 20px rgba(22,53,88,.22);
+  box-shadow:0 10px 22px rgba(29,95,191,.25);
 }
-.hero-cta--primary:hover{transform:translateY(-2px)}
+.hero-cta--primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(29,95,191,.32)}
 .hero-cta--ghost{
-  border:1px solid rgba(30,74,120,.2);
+  border:1px solid rgba(29,95,191,.18);
   background:rgba(255,255,255,.75);
   color:var(--acc-dark);
 }
@@ -168,7 +169,7 @@ nav{
 }
 .trust-item{
   background:rgba(255,255,255,.6);
-  border:1px solid rgba(30,74,120,.14);
+  border:1px solid rgba(29,95,191,.14);
   border-radius:12px;
   padding:10px;
   display:flex;gap:8px;align-items:flex-start;
@@ -177,7 +178,7 @@ nav{
 .trust-item__icon{font-size:.95rem;line-height:1}
 .spec-hero__pill{
   background:rgba(255,255,255,.6);
-  border:1px solid rgba(58,124,191,.18);
+  border:1px solid rgba(29,95,191,.18);
   border-radius:999px;
   padding:5px 14px;
   font-size:.75rem;
@@ -193,11 +194,12 @@ nav{
 .section-title{
   font-family:var(--font-display);
   font-size:clamp(1.6rem,3vw,2.2rem);
-  font-weight:400;line-height:1.2;
-  margin-bottom:40px;
+  font-weight:500;line-height:1.2;
+  margin-bottom:14px;
   color:var(--ink);
 }
 .section-title em{font-style:italic}
+.section-sub{font-size:.9rem;font-weight:300;color:var(--ink-2);line-height:1.65;max-width:620px;margin-bottom:30px}
 hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 auto}
 
 /* ── MÉDICOS ── */
@@ -264,8 +266,8 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
   font-size:.66rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.05em;
   color:var(--acc-dark);
-  background:rgba(58,124,191,.1);
-  border:1px solid rgba(58,124,191,.18);
+  background:rgba(29,95,191,.1);
+  border:1px solid rgba(29,95,191,.18);
   border-radius:999px;
   padding:3px 9px;
 }
@@ -287,18 +289,18 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
   display:inline-flex;align-items:center;gap:6px;
   font-size:.78rem;font-weight:700;
   padding:11px 18px;border-radius:999px;
-  background:var(--acc-dark);
+  background:linear-gradient(135deg,var(--cta-from),var(--cta-to));
   color:#fff;
   transition:all var(--transition);
   border:none;cursor:pointer;
-  box-shadow:0 8px 18px rgba(22,53,88,.2);
+  box-shadow:0 8px 18px rgba(29,95,191,.24);
 }
-.doctor-card__btn:hover{background:#102e4b;transform:translateY(-2px);box-shadow:0 12px 22px rgba(22,53,88,.25)}
+.doctor-card__btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(29,95,191,.32)}
 
 /* ── HORÁRIOS MODAL ── */
 .modal-overlay{
   position:fixed;inset:0;z-index:200;
-  background:rgba(26,22,18,.4);
+  background:rgba(15,23,42,.44);
   backdrop-filter:blur(4px);
   -webkit-backdrop-filter:blur(4px);
   display:flex;align-items:flex-end;justify-content:center;
@@ -364,7 +366,7 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 .slot__time{font-size:.9rem;font-weight:500;color:var(--ink)}
 .modal__cta{
   width:100%;padding:14px;border-radius:999px;
-  background:var(--acc-deep);color:#fff;
+  background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;
   font-family:var(--font-body);font-size:.88rem;font-weight:500;
   border:none;cursor:pointer;
   transition:all var(--transition);
@@ -372,10 +374,10 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 }
 .modal__cta:hover{background:var(--acc-dark);transform:translateY(-1px)}
 .modal__cta:disabled{opacity:1;cursor:not-allowed;transform:none;background:#c8c8c8;color:#888;box-shadow:none}
-.modal__cta:not(:disabled){background:var(--acc-dark);box-shadow:0 6px 18px rgba(22,53,88,.32)}
-.modal__cta.is-ready:not(:disabled){background:#163558;box-shadow:0 10px 26px rgba(22,53,88,.45)}
+.modal__cta:not(:disabled){background:linear-gradient(135deg,var(--cta-from),var(--cta-to));box-shadow:0 6px 18px rgba(29,95,191,.32)}
+.modal__cta.is-ready:not(:disabled){background:linear-gradient(135deg,var(--cta-from),var(--cta-to));box-shadow:0 10px 26px rgba(29,95,191,.42)}
 .cta-confirmar{transition:all var(--transition)}
-.cta-confirmar.cta-enabled{background:#163558 !important;color:#fff !important;box-shadow:0 10px 26px rgba(22,53,88,.4) !important}
+.cta-confirmar.cta-enabled{background:linear-gradient(135deg,var(--cta-from),var(--cta-to)) !important;color:#fff !important;box-shadow:0 10px 26px rgba(29,95,191,.4) !important}
 .cta-confirmar:not(.cta-enabled){background:#c9ced6 !important;color:#6b7280 !important;box-shadow:none !important}
 .cta-confirmar.cta-enabled:hover{transform:translateY(-1px);filter:brightness(.98)}
 .modal__note{
@@ -412,7 +414,7 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 .cta-bottom__h{
   font-family:var(--font-display);
   font-size:clamp(1.7rem,3.5vw,2.6rem);
-  font-weight:300;line-height:1.2;
+  font-weight:500;line-height:1.2;
   margin-bottom:14px;
 }
 .cta-bottom__h em{font-style:italic}
@@ -479,7 +481,7 @@ footer a:hover{color:var(--ink)}
   border:1px solid var(--line-mid);
   border-radius:14px;
   padding:14px;
-  box-shadow:0 18px 30px rgba(26,22,18,.14);
+  box-shadow:0 18px 30px rgba(15,23,42,.14);
   display:none;
 }
 .whatsapp-widget.open .whatsapp-widget__panel{display:block;animation:whatsIn .2s ease both}
@@ -525,7 +527,7 @@ footer a:hover{color:var(--ink)}
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
     Especialidades
   </a>
-  <a href="/consulta/" class="nav__cta-pill">Consulta imediata →</a>
+  <a href="/consulta/" class="nav__cta-pill">Consulta 24h →</a>
 </nav>
 
 <!-- HERO ESPECIALIDADE -->
@@ -538,10 +540,10 @@ footer a:hover{color:var(--ink)}
     </div>
     <div class="spec-hero__tag reveal">
       <span class="spec-hero__tag-dot"></span>
-      Especialidade disponível
+      Psiquiatras com CRM
     </div>
-    <h1 class="spec-hero__h1 reveal">Psiquiatra online para ansiedade, depressão e insônia — atendimento imediato disponível</h1>
-    <p class="spec-hero__desc reveal">Atendimento por videochamada com total sigilo para diagnóstico, acompanhamento e ajuste terapêutico. Comece rápido com cuidado qualificado e sem fila de espera.</p>
+    <h1 class="spec-hero__h1 reveal">Psiquiatra online: escolha o médico e veja horários</h1>
+    <p class="spec-hero__desc reveal">Consulta por vídeo com psiquiatra, CRM ativo, sigilo e prescrição quando indicada. Você vê horário e valor antes de pagar.</p>
     <div class="spec-hero__pills reveal">
       <span class="spec-hero__pill">Ansiedade</span>
       <span class="spec-hero__pill">Depressão</span>
@@ -550,13 +552,13 @@ footer a:hover{color:var(--ink)}
       <span class="spec-hero__pill">TDAH no adulto</span>
     </div>
     <div class="spec-hero__actions reveal">
-      <a class="hero-cta hero-cta--primary" href="#doctorsGrid">Agendar consulta agora</a>
-      <a class="hero-cta hero-cta--ghost" href="/consulta/">Iniciar consulta agora</a>
+      <a class="hero-cta hero-cta--primary" href="#doctorsGrid">Ver horários disponíveis</a>
+      <a class="hero-cta hero-cta--ghost" href="/consulta/">Consulta clínica 24h</a>
     </div>
     <div class="trust-strip reveal">
-      <div class="trust-item"><span class="trust-item__icon">🔒</span><span>Cuidado 100% online e privado</span></div>
-      <div class="trust-item"><span class="trust-item__icon">🩺</span><span>Profissionais médicos qualificados</span></div>
-      <div class="trust-item"><span class="trust-item__icon">⚡</span><span>Atendimento rápido, sem espera</span></div>
+      <div class="trust-item"><span class="trust-item__icon">🔒</span><span>Consulta online privada e sigilosa</span></div>
+      <div class="trust-item"><span class="trust-item__icon">🩺</span><span>CRM verificado antes do agendamento</span></div>
+      <div class="trust-item"><span class="trust-item__icon">💳</span><span>Valor visível antes do pagamento</span></div>
     </div>
   </div>
 </div>
@@ -564,7 +566,8 @@ footer a:hover{color:var(--ink)}
 <!-- MÉDICOS -->
 <section class="section">
   <div class="section-label reveal">Profissionais disponíveis</div>
-  <h2 class="section-title reveal">Escolha seu <em>psiquiatra</em></h2>
+  <h2 class="section-title reveal">Escolha seu <em>psiquiatra</em> e veja horários</h2>
+  <p class="section-sub reveal">Compare médicos disponíveis, valor da consulta e próximos horários antes de confirmar o pagamento.</p>
 
   <div class="doctors-grid reveal" id="doctorsGrid">
     <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Carregando médicos...</div>
@@ -593,9 +596,9 @@ footer a:hover{color:var(--ink)}
 
 <!-- CTA -->
 <section class="cta-bottom">
-  <h2 class="cta-bottom__h">Precisa de atendimento<br><em>imediato?</em></h2>
-  <p class="cta-bottom__sub">Consulta com clínico geral disponível agora, sem agendamento. R$ 49,90 via PIX.</p>
-  <a href="/consulta/" class="cta-bottom__btn">Consulta imediata →</a>
+  <h2 class="cta-bottom__h">Não encontrou<br><em>horário?</em></h2>
+  <p class="cta-bottom__sub">Se for algo mais simples ou urgente, a consulta clínica 24h continua disponível por R$ 49,90.</p>
+  <a href="/consulta/" class="cta-bottom__btn">Consulta clínica 24h →</a>
 </section>
 
 <footer>
@@ -604,7 +607,7 @@ footer a:hover{color:var(--ink)}
     <a href="/termos.html">Termos de Uso</a> &nbsp;·&nbsp;
     <a href="/privacy.html">Política de Privacidade</a>
   </p>
-  <p style="margin-top:10px;font-size:.68rem;color:#b0a89f">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
+  <p style="margin-top:10px;font-size:.68rem;color:#94a3b8">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
 </footer>
 
 <div class="whatsapp-widget" id="whatsappWidget">
@@ -622,7 +625,7 @@ footer a:hover{color:var(--ink)}
 <div class="modal-overlay" id="modalOverlay" onclick="fecharModalOverlay(event)">
   <div class="modal" id="modal">
     <div class="modal__header">
-      <div class="modal__title">Agendar consulta</div>
+      <div class="modal__title">Escolher horário</div>
       <button class="modal__close" onclick="fecharModal()">✕</button>
     </div>
     <div class="modal__doctor" id="modalDoctor">—</div>
@@ -632,7 +635,7 @@ footer a:hover{color:var(--ink)}
       <div class="modal__slots-label">Horários disponíveis</div>
       <div class="slots-grid" id="slotsGrid"></div>
       <button class="modal__cta" id="btnProximo" onclick="irParaDados()" disabled>
-        Continuar →
+        Continuar com este horário →
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
     </div>
@@ -662,7 +665,7 @@ footer a:hover{color:var(--ink)}
       <div style="display:flex;gap:8px">
         <button onclick="voltarParaHorario()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
         <button id="modalCta" class="cta-confirmar" onclick="confirmarAgendamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc,#1a7a4a);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
-          Confirmar →
+          Continuar para pagamento →
         </button>
       </div>
     </div>
@@ -684,7 +687,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div style="display:flex;gap:8px">
         <button onclick="voltarParaDados()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
-        <button onclick="processarPagamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc,#1a7a4a);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+        <button onclick="processarPagamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
           Pagar →
         </button>
       </div>
@@ -745,7 +748,7 @@ footer a:hover{color:var(--ink)}
       <div id="cartao-err" style="display:none;color:#b91c1c;font-size:.8rem;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-radius:8px;border:1px solid #fca5a5"></div>
       <div style="display:flex;gap:8px">
         <button onclick="voltarParaPagamento()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
-        <button id="btnPagarCartao" onclick="processarCartao()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc-dark);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+        <button id="btnPagarCartao" onclick="processarCartao()" style="flex:2;padding:12px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
           Pagar com Cartão →
         </button>
       </div>
@@ -762,7 +765,7 @@ footer a:hover{color:var(--ink)}
 </div>
 
 <!-- PiP: Login / Cadastro do paciente -->
-<div id="pip-overlay" style="display:none;position:fixed;inset:0;background:rgba(26,22,18,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:20px">
+<div id="pip-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:20px">
   <div id="pip-modal" style="background:#fff;border-radius:20px;width:100%;max-width:400px;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:pipSlide .3s ease">
     <div style="text-align:center;margin-bottom:24px">
       <div style="font-family:var(--font-display,Georgia);font-size:1.4rem;font-weight:500;color:var(--ink)">Entre ou crie sua conta</div>
@@ -905,7 +908,7 @@ function renderEspecialistas() {
           ' data-valor="' + (Number.isFinite(valorConsulta) ? valorConsulta : 0) + '"' +
             " data-disponibilidade='" + JSON.stringify(disponibilidade).replace(/'/g, '&#39;') + "'" +
           '>' +
-            'Agendar consulta agora' +
+            'Ver horários' +
             '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>' +
           '</button>' +
         '</div>' +
@@ -1457,7 +1460,7 @@ async function confirmarAgendamento() {
     if (!resAg.ok || !parsedAg.isJson || !dadosAg.ok) {
       errEl.textContent = extractErrorMessage(dadosAg, 'Erro ao criar agendamento.');
       errEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Confirmar →';
+      btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
       atualizarBotaoConfirmacaoDados();
       return;
     }
@@ -1467,7 +1470,7 @@ async function confirmarAgendamento() {
   } catch(e) {
     errEl.textContent = 'Erro de conexão. Tente novamente.';
     errEl.style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Confirmar →';
+    btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
     atualizarBotaoConfirmacaoDados();
     mostrarPasso('passo-dados');
   }

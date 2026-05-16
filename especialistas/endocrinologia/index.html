@@ -22,25 +22,27 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#faf8f5;
+  --cream:#f7faf8;
   --warm-white:#ffffff;
-  --ink:#1a1612;
-  --ink-2:#4a4540;
-  --ink-3:#8a857f;
-  --line:rgba(26,22,18,.08);
-  --line-mid:rgba(26,22,18,.12);
+  --ink:#111827;
+  --ink-2:#334155;
+  --ink-3:#64748b;
+  --line:rgba(15,23,42,.09);
+  --line-mid:rgba(15,23,42,.15);
   --font-display:'Cormorant Garamond',Georgia,serif;
   --font-body:'DM Sans',sans-serif;
   --radius:16px;
   --radius-sm:10px;
-  --shadow:0 2px 20px rgba(26,22,18,.07);
-  --shadow-md:0 8px 40px rgba(26,22,18,.11);
+  --shadow:0 2px 20px rgba(15,23,42,.07);
+  --shadow-md:0 10px 40px rgba(15,23,42,.12);
   --transition:.22s cubic-bezier(.4,0,.2,1);
-  --acc:#e8f5e9;
-  --acc-mid:#a5d6a7;
-  --acc-deep:#388e3c;
-  --acc-text:#1b5e20;
-  --acc-dark:#1b5e20;
+  --acc:#e8f7ee;
+  --acc-mid:#8ed4a6;
+  --acc-deep:#18864b;
+  --acc-text:#16643a;
+  --acc-dark:#0d4f2e;
+  --cta-from:#21a45d;
+  --cta-to:#0f6b3e;
 }
 html{scroll-behavior:smooth}
 body{
@@ -59,7 +61,7 @@ a{text-decoration:none;color:inherit}
 
 nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(250,248,245,.92);
+  background:rgba(247,250,248,.96);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
@@ -88,13 +90,13 @@ nav{
   background:var(--warm-white);
   color:var(--ink);
   transition:all var(--transition);
-  box-shadow:0 1px 4px rgba(26,22,18,.06);
+  box-shadow:0 1px 4px rgba(15,23,42,.06);
 }
 .nav__cta-pill:hover{background:var(--ink);color:var(--warm-white);border-color:var(--ink)}
 
 .spec-hero{
-  background:var(--acc);
-  padding:80px 32px 64px;
+  background:linear-gradient(135deg,var(--acc),#f8fffb);
+  padding:64px 32px 56px;
   border-bottom:1px solid var(--acc-mid);
 }
 .spec-hero__inner{max-width:760px;margin:0 auto}
@@ -121,17 +123,17 @@ nav{
 }
 .spec-hero__h1{
   font-family:var(--font-display);
-  font-size:clamp(2.4rem,5vw,3.6rem);
-  font-weight:400;line-height:1.1;
+  font-size:clamp(2.2rem,5vw,3.4rem);
+  font-weight:500;line-height:1.15;
   color:var(--acc-dark);
-  margin-bottom:20px;
-  letter-spacing:-.01em;
+  margin-bottom:16px;
+  letter-spacing:0;
 }
-.spec-hero__h1 em{font-style:italic;font-weight:300}
+.spec-hero__h1 em{font-style:italic;font-weight:500}
 .spec-hero__desc{
-  font-size:1.05rem;font-weight:300;
+  font-size:.95rem;font-weight:300;
   color:var(--acc-text);
-  line-height:1.8;max-width:560px;
+  line-height:1.75;max-width:540px;
 }
 .spec-hero__pills{
   display:flex;flex-wrap:wrap;gap:10px;
@@ -150,11 +152,11 @@ nav{
   transition:all var(--transition);
 }
 .hero-cta--primary{
-  background:var(--acc-dark);
+  background:linear-gradient(135deg,var(--cta-from),var(--cta-to));
   color:#fff;
-  box-shadow:0 10px 22px rgba(27,94,32,.25);
+  box-shadow:0 10px 22px rgba(24,134,75,.25);
 }
-.hero-cta--primary:hover{transform:translateY(-2px);box-shadow:0 14px 26px rgba(27,94,32,.3)}
+.hero-cta--primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(24,134,75,.32)}
 .hero-cta--ghost{
   background:rgba(255,255,255,.75);
   border-color:rgba(27,94,32,.18);
@@ -195,12 +197,13 @@ nav{
 }
 .section-title{
   font-family:var(--font-display);
-  font-size:clamp(1.8rem,3vw,2.4rem);
-  font-weight:400;line-height:1.2;
-  margin-bottom:48px;
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:500;line-height:1.2;
+  margin-bottom:14px;
   color:var(--ink);
 }
 .section-title em{font-style:italic}
+.section-sub{font-size:.9rem;font-weight:300;color:var(--ink-2);line-height:1.65;max-width:620px;margin-bottom:30px}
 hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 auto}
 
 .doctors-grid{
@@ -288,15 +291,15 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 .doctor-card__btn{
   display:inline-flex;align-items:center;gap:8px;
   padding:13px 24px;
-  background:var(--acc-dark);
+  background:linear-gradient(135deg,var(--cta-from),var(--cta-to));
   color:#fff;
   border:none;border-radius:var(--radius-sm);
   font-size:.88rem;font-weight:700;
   cursor:pointer;
   transition:all var(--transition);
-  box-shadow:0 8px 18px rgba(27,94,32,.2);
+  box-shadow:0 8px 18px rgba(24,134,75,.22);
 }
-.doctor-card__btn:hover{background:#14521c;transform:translateY(-2px);box-shadow:0 12px 22px rgba(27,94,32,.28)}
+.doctor-card__btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(24,134,75,.32)}
 .doctor-card__btn svg{transition:transform var(--transition)}
 .doctor-card__btn:hover svg{transform:translateX(4px)}
 
@@ -337,7 +340,7 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
   font-size:1rem;font-weight:600;
   transition:all var(--transition);
 }
-.cta-bottom__btn:hover{background:var(--acc-mid);transform:translateY(-3px);box-shadow:0 8px 24px rgba(56,142,60,.4)}
+.cta-bottom__btn:hover{background:var(--acc-dark);transform:translateY(-3px);box-shadow:0 8px 24px rgba(24,134,75,.34)}
 
 footer{
   text-align:center;
@@ -348,7 +351,7 @@ footer{
 
 .modal-overlay{
   position:fixed;inset:0;
-  background:rgba(26,22,18,.6);
+  background:rgba(15,23,42,.5);
   backdrop-filter:blur(6px);
   z-index:200;
   display:none;align-items:center;justify-content:center;
@@ -397,15 +400,15 @@ footer{
 .slot-btn.disabled{opacity:.4;cursor:not-allowed}
 .modal__cta{
   width:100%;padding:16px;
-  background:var(--acc-deep);color:#fff;border:none;border-radius:12px;
+  background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;border:none;border-radius:12px;
   font-size:1rem;font-weight:700;cursor:pointer;transition:all var(--transition)
 }
-.modal__cta:hover{background:var(--acc-dark)}
+.modal__cta:hover{filter:brightness(.98);transform:translateY(-1px)}
 .modal__cta:disabled{opacity:.35;cursor:not-allowed;filter:grayscale(.4)}
-.modal__cta:not(:disabled){opacity:1;box-shadow:0 6px 18px rgba(27,94,32,.3)}
-.modal__cta.is-ready:not(:disabled){background:#1b5e20;box-shadow:0 10px 26px rgba(27,94,32,.4)}
+.modal__cta:not(:disabled){opacity:1;box-shadow:0 6px 18px rgba(24,134,75,.3)}
+.modal__cta.is-ready:not(:disabled){background:linear-gradient(135deg,var(--cta-from),var(--cta-to));box-shadow:0 10px 26px rgba(24,134,75,.4)}
 .cta-confirmar{transition:all var(--transition)}
-.cta-confirmar.cta-enabled{background:#1b5e20 !important;color:#fff !important;box-shadow:0 10px 26px rgba(27,94,32,.4) !important}
+.cta-confirmar.cta-enabled{background:linear-gradient(135deg,var(--cta-from),var(--cta-to)) !important;color:#fff !important;box-shadow:0 10px 26px rgba(24,134,75,.4) !important}
 .cta-confirmar:not(.cta-enabled){background:#c9ced6 !important;color:#6b7280 !important;box-shadow:none !important}
 .cta-confirmar.cta-enabled:hover{transform:translateY(-1px);filter:brightness(.98)}
 .modal__cta svg{vertical-align:middle;margin-left:8px}
@@ -464,7 +467,7 @@ footer{
 .cartao-field label{display:block;font-size:.72rem;font-weight:600;color:var(--ink-3);margin-bottom:6px}
 .cartao-field input{width:100%;padding:12px;border:1px solid var(--line-mid);border-radius:10px;font-size:.9rem}
 .cartao-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn-pagar{width:100%;padding:16px;background:var(--acc-deep);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px}
+.btn-pagar{width:100%;padding:16px;background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px}
 .btn-pagar:hover{background:var(--acc-dark)}
 .whatsapp-widget{
   position:fixed;
@@ -493,7 +496,7 @@ footer{
   border:1px solid var(--line-mid);
   border-radius:14px;
   padding:14px;
-  box-shadow:0 18px 30px rgba(26,22,18,.14);
+  box-shadow:0 18px 30px rgba(15,23,42,.14);
   display:none;
 }
 .whatsapp-widget.open .whatsapp-widget__panel{display:block;animation:whatsIn .2s ease both}
@@ -529,7 +532,7 @@ footer{
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
     Especialidades
   </a>
-  <a href="/consulta/" class="nav__cta-pill">Consulta imediata →</a>
+  <a href="/consulta/" class="nav__cta-pill">Consulta 24h →</a>
 </nav>
 
 <div class="spec-hero">
@@ -541,10 +544,10 @@ footer{
     </div>
     <div class="spec-hero__tag reveal">
       <span class="spec-hero__tag-dot"></span>
-      Especialidade disponível
+      Endocrinologistas com CRM
     </div>
-    <h1 class="spec-hero__h1 reveal">Endocrinologista online para emagrecimento, tireoide e diabetes</h1>
-    <p class="spec-hero__desc reveal">Atendimento médico especializado por vídeo, com prescrição quando indicada e plano personalizado. Cuidado seguro, rápido e 100% privado para você começar hoje.</p>
+    <h1 class="spec-hero__h1 reveal">Endocrinologista online: escolha o médico e veja horários</h1>
+    <p class="spec-hero__desc reveal">Consulta por vídeo para tireoide, diabetes, metabolismo e acompanhamento hormonal. Você vê horário e valor antes de pagar.</p>
     <div class="spec-hero__pills reveal">
       <span class="spec-hero__pill">Diabetes</span>
       <span class="spec-hero__pill">Obesidade</span>
@@ -553,20 +556,21 @@ footer{
       <span class="spec-hero__pill">Metabolismo</span>
     </div>
     <div class="spec-hero__actions reveal">
-      <a class="hero-cta hero-cta--primary" href="#doctorsGrid">Agendar consulta agora</a>
-      <a class="hero-cta hero-cta--ghost" href="/consulta/">Iniciar consulta agora</a>
+      <a class="hero-cta hero-cta--primary" href="#doctorsGrid">Ver horários disponíveis</a>
+      <a class="hero-cta hero-cta--ghost" href="/consulta/">Consulta clínica 24h</a>
     </div>
     <div class="trust-strip reveal">
-      <div class="trust-item"><span class="trust-item__icon">🔒</span><span>Cuidado 100% online e privado</span></div>
-      <div class="trust-item"><span class="trust-item__icon">👩‍⚕️</span><span>Profissionais médicos qualificados</span></div>
-      <div class="trust-item"><span class="trust-item__icon">⚡</span><span>Atendimento rápido, sem espera</span></div>
+      <div class="trust-item"><span class="trust-item__icon">🔒</span><span>Consulta online privada e sigilosa</span></div>
+      <div class="trust-item"><span class="trust-item__icon">🩺</span><span>CRM verificado antes do agendamento</span></div>
+      <div class="trust-item"><span class="trust-item__icon">💳</span><span>Valor visível antes do pagamento</span></div>
     </div>
   </div>
 </div>
 
 <section class="section">
   <div class="section-label reveal">Profissionais disponíveis</div>
-  <h2 class="section-title reveal">Escolha seu <em>médico</em></h2>
+  <h2 class="section-title reveal">Escolha seu <em>endocrinologista</em> e veja horários</h2>
+  <p class="section-sub reveal">Compare médicos disponíveis, valor da consulta e próximos horários antes de confirmar o pagamento.</p>
   <div class="doctors-grid reveal" id="doctorsGrid">
     <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Carregando profissionais...</div>
   </div>
@@ -590,9 +594,9 @@ footer{
 </section>
 
 <section class="cta-bottom">
-  <h2 class="cta-bottom__h">Precisa de atendimento<br><em>imediato?</em></h2>
-  <p class="cta-bottom__sub">Consulta com clínico geral disponível agora, sem agendamento. R$ 49,90 via PIX.</p>
-  <a href="/consulta/" class="cta-bottom__btn">Consulta imediata →</a>
+  <h2 class="cta-bottom__h">Não encontrou<br><em>horário?</em></h2>
+  <p class="cta-bottom__sub">Se for algo mais simples ou urgente, a consulta clínica 24h continua disponível por R$ 49,90.</p>
+  <a href="/consulta/" class="cta-bottom__btn">Consulta clínica 24h →</a>
 </section>
 
 <footer>
@@ -601,7 +605,7 @@ footer{
     <a href="/termos.html">Termos de Uso</a> &nbsp;·&nbsp;
     <a href="/privacy.html">Política de Privacidade</a>
   </p>
-  <p style="margin-top:12px;font-size:.7rem;color:#b0a89f">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
+  <p style="margin-top:12px;font-size:.7rem;color:#94a3b8">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
 </footer>
 
 <div class="whatsapp-widget" id="whatsappWidget">
@@ -619,7 +623,7 @@ footer{
 <div class="modal-overlay" id="modalOverlay" onclick="fecharModalOverlay(event)">
   <div class="modal" id="modal" onclick="event.stopPropagation()">
     <div class="modal__header">
-      <div class="modal__title">Agendar consulta</div>
+      <div class="modal__title">Escolher horário</div>
       <button class="modal__close" onclick="fecharModal()">✕</button>
     </div>
     <div class="modal__doctor" id="modalDoctor">—</div>
@@ -629,7 +633,7 @@ footer{
       <div class="modal__slots-label">Horários disponíveis</div>
       <div class="slots-grid" id="slotsGrid"></div>
       <button class="modal__cta" id="btnProximo" onclick="irParaDados()" disabled>
-        Continuar
+        Continuar com este horário
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
     </div>
@@ -660,7 +664,7 @@ footer{
       <div style="display:flex;gap:10px">
         <button onclick="voltarParaHorario()" style="flex:1;padding:14px;border:1px solid var(--line-mid);border-radius:12px;background:#fff;cursor:pointer;font-size:.9rem;font-weight:500">← Voltar</button>
         <button id="modalCta" class="cta-confirmar" onclick="confirmarAgendamento()" style="flex:2;padding:14px;border:none;border-radius:12px;background:var(--acc-deep);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
-          Confirmar →
+          Continuar para pagamento →
         </button>
       </div>
     </div>
@@ -682,7 +686,7 @@ footer{
       </div>
       <div style="display:flex;gap:10px">
         <button onclick="voltarParaDados()" style="flex:1;padding:14px;border:1px solid var(--line-mid);border-radius:12px;background:#fff;cursor:pointer;font-size:.9rem;font-weight:500">← Voltar</button>
-        <button onclick="processarPagamento()" style="flex:2;padding:14px;border:none;border-radius:12px;background:var(--acc-deep);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+        <button onclick="processarPagamento()" style="flex:2;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
           Pagar →
         </button>
       </div>
@@ -763,7 +767,7 @@ footer{
 </div>
 
 <!-- PiP: Login / Cadastro do paciente -->
-<div id="pip-overlay" style="display:none;position:fixed;inset:0;background:rgba(26,22,18,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:20px">
+<div id="pip-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:20px">
   <div id="pip-modal" style="background:#fff;border-radius:20px;width:100%;max-width:400px;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:pipSlide .3s ease">
     <div style="text-align:center;margin-bottom:24px">
       <div style="font-family:var(--font-display,Georgia);font-size:1.4rem;font-weight:500;color:var(--ink)">Entre ou crie sua conta</div>
@@ -894,7 +898,7 @@ async function carregarEspecialistas() {
           '<div class="doctor-card__footer">'+
             '<div><span class="doctor-card__price-label">Consulta online</span><span class="doctor-card__price">R$ '+valorFormatado+'</span></div>'+
             '<button class="doctor-card__btn" data-id="'+(esp.id || '')+'" data-nome="'+nome+'" data-valor="'+(Number.isFinite(valorConsulta) ? valorConsulta : 0)+'" data-disponibilidade=\''+JSON.stringify(disponibilidade).replace(/'/g, '&#39;')+'\'>'+
-              'Agendar consulta agora'+
+              'Ver horários'+
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>'+
             '</button>'+
           '</div>'+
@@ -992,7 +996,7 @@ function normalizarDisponibilidade(disponibilidade) {
 function abrirHorarios(medico) {
   medicoSelecionado = medico;
   slotSelecionado = null;
-  document.getElementById('modalDoctor').innerHTML = 'Dr(a). '+escHtml(medico.nome)+' — R$ '+medico.valor.toFixed(2).replace('.',',');
+  document.getElementById('modalDoctor').innerHTML = escHtml(medico.nome)+' · Endocrinologia · R$ '+medico.valor.toFixed(2).replace('.',',');
   
   var grid = document.getElementById('slotsGrid');
   var disponibilidade = normalizarDisponibilidade(medico.disponibilidade);
@@ -1229,7 +1233,7 @@ async function confirmarAgendamento() {
     document.getElementById('passo-pagamento').style.display = 'block';
   } catch(e) {
     err.style.display = 'block'; err.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao criar agendamento');
-    btn.disabled = false; btn.textContent = 'Confirmar →';
+    btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
     atualizarBotaoConfirmacaoDados();
   }
 }
@@ -1419,7 +1423,7 @@ async function gerarPix() {
     if (!pixData.qrText && !pixData.qrImage) throw new Error('PIX gerado sem QR Code válido. Tente novamente em instantes.');
     
     espState.pixOrderId = pixData.orderId;
-    document.getElementById('pix-resumo').textContent = 'Dr(a). ' + medicoSelecionado.nome;
+    document.getElementById('pix-resumo').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
     var valorPix = getPixAmount(pixData.amount, medicoSelecionado.valor);
     document.getElementById('pix-valor').textContent = 'R$ ' + valorPix.toFixed(2).replace('.', ',');
     document.getElementById('pix-qr-img').src = pixData.qrImage || (pixData.qrText ? 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(pixData.qrText) : '');
