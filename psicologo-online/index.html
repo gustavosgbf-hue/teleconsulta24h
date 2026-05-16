@@ -90,12 +90,20 @@ nav{position:sticky;top:0;z-index:200;background:rgba(248,246,242,.96);backdrop-
 .hero-sub{font-size:1.05rem;font-weight:300;color:var(--ink-2);line-height:1.7;max-width:480px;margin:0 auto 16px;}
 .hero-price{font-size:.85rem;font-weight:500;color:var(--ink-3);margin-bottom:36px;}
 .hero-price strong{color:var(--ink);font-weight:600}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-b);font-size:.95rem;font-weight:600;padding:17px 36px;border-radius:999px;background:linear-gradient(135deg,#26508e,#1a3d72);color:var(--white);border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 24px rgba(38,80,142,.38),0 0 0 0 rgba(38,80,142,.3);position:relative;overflow:hidden;}
 .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);pointer-events:none;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(38,80,142,.46),0 0 0 6px rgba(38,80,142,.08);}
 .btn-primary:active{transform:translateY(0)}
+.btn-secondary{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-b);font-size:.88rem;font-weight:600;padding:15px 24px;border-radius:999px;background:var(--white);color:var(--psi-dark);border:1px solid rgba(38,80,142,.18);cursor:pointer;transition:all var(--ease);box-shadow:var(--sh)}
+.btn-secondary:hover{transform:translateY(-1px);border-color:rgba(38,80,142,.32);box-shadow:var(--sh-md)}
 .hero-micro{margin-top:14px;font-size:.72rem;color:var(--ink-3);display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
 .hero-micro span{display:flex;align-items:center;gap:4px}
+.hero-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:26px auto 0;max-width:650px;text-align:left;box-shadow:var(--sh)}
+.hero-step{background:rgba(255,255,255,.84);padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+.hero-step-n{width:23px;height:23px;border-radius:999px;background:var(--psi);color:var(--psi-dark);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hero-step strong{display:block;font-size:.78rem;color:var(--ink);line-height:1.25}
+.hero-step span{display:block;font-size:.7rem;color:var(--ink-3);line-height:1.35;margin-top:2px}
 
 /* PROOF TICKER */
 .proof-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);overflow:hidden;}
@@ -170,8 +178,11 @@ nav{position:sticky;top:0;z-index:200;background:rgba(248,246,242,.96);backdrop-
 .result-other-link a{color:var(--psi-acc);font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 
 /* REAL PROFESSIONALS SECTION */
-.real-pros{padding:0 40px 72px;max-width:1000px;margin:0 auto}
+.real-pros{padding:56px 40px 72px;max-width:1000px;margin:0 auto}
 .real-pros-header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.real-pros-kicker{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+.real-pros-kicker span,.real-pros-kicker a{font-size:.73rem;font-weight:500;color:var(--ink-2);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:7px 12px}
+.real-pros-kicker a{color:var(--psi-acc);cursor:pointer;text-decoration:none}
 .real-pros-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .real-pro-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--sh);transition:transform var(--ease),box-shadow var(--ease),border-color var(--ease)}
 .real-pro-card:hover{transform:translateY(-2px);box-shadow:var(--sh-md);border-color:rgba(38,80,142,.25)}
@@ -189,6 +200,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(248,246,242,.96);backdrop-
 .real-pro-avail-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.14);flex-shrink:0}
 .real-pro-cta{display:inline-flex;align-items:center;justify-content:center;gap:5px;font-family:var(--font-b);font-size:.82rem;font-weight:600;padding:11px 16px;border-radius:999px;background:var(--psi-acc);color:#fff;border:none;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 12px rgba(38,80,142,.25);margin-top:auto}
 .real-pro-cta:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(38,80,142,.36)}
+.section-cta{margin-top:24px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
 .real-pros.is-highlighted .real-pros-grid{animation:flashBorder 1.1s ease}
 @keyframes flashBorder{0%{box-shadow:0 0 0 0 rgba(38,80,142,.0)}30%{box-shadow:0 0 0 8px rgba(38,80,142,.14)}100%{box-shadow:0 0 0 0 rgba(38,80,142,0)}}
 
@@ -259,7 +271,7 @@ footer a{color:var(--ink-2)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 @media(max-width:900px){.how-grid{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr}.real-pros-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.val-grid{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:600px){.val-grid{grid-template-columns:1fr!important}}
-@media(max-width:768px){nav{padding:0 20px}.nav-phone{display:none}.hero{padding:52px 20px 48px}.quiz-wrap{padding:40px 20px}.real-pros,.how-section,.trust-section,.testimonials,.recognition{padding:48px 20px}.cta-bottom{padding:60px 20px}footer{padding:20px}.recognition-list{grid-template-columns:1fr}.sticky-cta{display:block}.wa-btn{bottom:84px}}
+@media(max-width:768px){nav{padding:0 20px}.nav-phone{display:none}.hero{padding:52px 20px 42px}.hero-actions{flex-direction:column}.hero-actions .btn-primary,.hero-actions .btn-secondary{width:100%;justify-content:center}.hero-steps{grid-template-columns:1fr;margin-top:22px}.quiz-wrap{padding:40px 20px}.real-pros,.how-section,.trust-section,.testimonials,.recognition{padding:48px 20px}.cta-bottom{padding:60px 20px}footer{padding:20px}.recognition-list{grid-template-columns:1fr}.sticky-cta{display:block}.wa-btn{bottom:84px}}
 @media(max-width:480px){.hero-h1{font-size:2.3rem}.quiz-body,.quiz-nav,.result-step{padding:20px}.result-card{flex-direction:column}.real-pros-grid{grid-template-columns:1fr}}
 
 /* ── BOOKING MODAL ────────────────────────────────────────────── */
@@ -303,7 +315,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <nav>
   <div class="nav-logo">ConsultaJá<em>24h</em></div>
   <div class="nav-actions">
-    <a class="nav-btn" href="#real-professionals-section">Ver profissionais →</a>
+    <a class="nav-btn" href="#real-professionals-section">Ver horários →</a>
   </div>
 </nav>
 
@@ -312,14 +324,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-badge"><span class="badge-dot"></span>Psicólogos com CRP ativo verificados · Sessões completas de 50 minutos</div>
   </div>
   <div class="fade-up">
-<h1 class="hero-h1">Psicólogo online<br><em>escolha o seu</em></h1>
-    <p class="hero-sub">Sessão de 50 min com CRP verificado. Você escolhe o psicólogo, mantém o mesmo profissional.</p>
+    <h1 class="hero-h1">Escolha seu psicólogo online<br><em>e agende sua sessão</em></h1>
+    <p class="hero-sub">Compare perfis reais com CRP ativo, veja horários disponíveis e faça sua sessão de 50 minutos por vídeo.</p>
     <p class="hero-price" id="hero-price-line">Sessões de 50 min, <strong>a partir de R$130</strong></p>
   </div>
   <div class="fade-up">
-    <button class="btn-primary" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver profissionais disponíveis</button>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver psicólogos e horários</button>
+      <button class="btn-secondary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">Me indicar um perfil</button>
+    </div>
     <div class="result-guarantee" style="margin-top:16px;">
       <span><strong>Sem assinatura.</strong> Você escolhe o profissional, paga sessão a sessão e decide com calma se quer continuar.</span>
+    </div>
+    <div class="hero-steps" aria-label="Como agendar">
+      <div class="hero-step"><div class="hero-step-n">1</div><div><strong>Escolha o psicólogo</strong><span>perfil, abordagem e CRP</span></div></div>
+      <div class="hero-step"><div class="hero-step-n">2</div><div><strong>Veja os horários</strong><span>agenda real disponível</span></div></div>
+      <div class="hero-step"><div class="hero-step-n">3</div><div><strong>Pague e receba o link</strong><span>Pix ou cartão, sem app</span></div></div>
     </div>
   </div>
 </section>
@@ -346,6 +366,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </div>
+
+<section class="real-pros reveal" id="real-professionals-section">
+  <div class="real-pros-header">
+    <div>
+      <div class="sec-label">Profissionais disponíveis</div>
+      <h2 class="sec-title">Escolha o psicólogo e <em>veja os horários</em></h2>
+      <p class="sec-sub" style="margin-bottom:0;max-width:680px">Perfis reais com CRP ativo, valor por sessão e disponibilidade. Toque em "Ver horários" para escolher o melhor horário antes de pagar.</p>
+      <div class="real-pros-kicker">
+        <span>Sessão de 50 min</span>
+        <span>Sem assinatura</span>
+        <span>Pix ou cartão</span>
+        <a onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">Não sabe escolher? Faça o quiz</a>
+      </div>
+    </div>
+  </div>
+  <div class="real-pros-grid" id="real-pros-grid"></div>
+</section>
 
 <!-- SEÇÃO IDENTIFICAÇÃO -->
 <section style="padding:56px 40px;max-width:700px;margin:0 auto;text-align:center" class="reveal">
@@ -419,14 +456,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="font-size:.8rem;font-weight:300;color:var(--ink-2);line-height:1.6">Agende sem triagem, sem formulário</div>
     </div>
   </div>
+  <div class="section-cta">
+    <button class="btn-primary" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver horários disponíveis</button>
+    <button class="btn-secondary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">Quero uma indicação</button>
+  </div>
 </section>
 
 <div id="quiz-section" class="quiz-wrap">
-  <p style="text-align:center;font-size:.78rem;color:var(--ink-3);margin-bottom:12px;margin-top:-12px">Leva menos de 1 minuto</p>
+  <p style="text-align:center;font-size:.78rem;color:var(--ink-3);margin-bottom:12px;margin-top:-12px">Opcional · leva menos de 1 minuto</p>
   <div class="quiz-card">
     <div class="quiz-header">
-      <div class="quiz-header-label">Encontre seu psicólogo ideal</div>
-      <div class="quiz-header-title" id="quiz-header-title">Três perguntas para indicar o profissional certo para você</div>
+      <div class="quiz-header-label">Se quiser ajuda para escolher</div>
+      <div class="quiz-header-title" id="quiz-header-title">Três perguntas para indicar um perfil compatível com você</div>
     </div>
     <div class="quiz-progress-wrap">
       <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:33%"></div></div>
@@ -479,7 +520,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="result-card" id="result-card"></div>
       <div class="result-guarantee">
         <span>🛡️</span>
-        <span><strong>Atendimento de qualidade garantido.</strong> Profissionais verificados, sigilo total e suporte em todas as etapas do seu cuidado.</span>
+        <span><strong>Antes de pagar, você vê o perfil, horário e valor.</strong> Profissionais verificados, sigilo total e suporte em todas as etapas.</span>
       </div>
       <div class="result-other-link">
         Prefere ver outros profissionais? <a onclick="verTodosPsi()">Ver todos os disponíveis</a>
@@ -488,17 +529,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div>
 
-<section class="real-pros reveal" id="real-professionals-section">
-  <div class="real-pros-header">
-    <div>
-      <div class="sec-label">Profissionais reais disponíveis</div>
-      <h2 class="sec-title">Escolha entre psicólogos <em>verificados na plataforma</em></h2>
-      <p class="sec-sub" style="margin-bottom:0;max-width:680px">O quiz recomenda o melhor match para você, mas você também pode comparar outros perfis reais com CRP ativo, valor por sessão e disponibilidade atual.</p>
-    </div>
-  </div>
-  <div class="real-pros-grid" id="real-pros-grid"></div>
-</section>
-
 <hr style="border:none;border-top:1px solid var(--line);max-width:1000px;margin:0 auto"/>
 <div class="how-section-wrap">
 <section class="how-section reveal">
@@ -506,8 +536,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h2 class="sec-title">Do perfil ao <em>primeiro encontro</em></h2>
   <p class="sec-sub">Três passos. Sem formulário longo. Sem criar conta antes de pagar.</p>
   <div class="how-grid">
-    <div class="how-step"><div class="how-n">01</div><div class="how-title">Diga o que você busca</div><div class="how-desc">Responda três perguntas rápidas e veja o psicólogo mais compatível com o seu momento. Ou explore os perfis diretamente.</div></div>
-    <div class="how-step"><div class="how-n">02</div><div class="how-title">Escolha o horário e confirme</div><div class="how-desc">Veja a agenda real do profissional, escolha o horário e pague, PIX ou cartão. Nome, e-mail e CPF. Sem criar senha antes.</div></div>
+    <div class="how-step"><div class="how-n">01</div><div class="how-title">Escolha um perfil</div><div class="how-desc">Compare abordagem, foco, CRP, valor e horários. Se preferir, responda o quiz para receber uma indicação.</div></div>
+    <div class="how-step"><div class="how-n">02</div><div class="how-title">Confirme o horário</div><div class="how-desc">Você escolhe um horário real na agenda do psicólogo e paga por PIX ou cartão. Nome, e-mail e CPF. Sem criar senha antes.</div></div>
     <div class="how-step"><div class="how-n">03</div><div class="how-title">Sessão de 50 min por vídeo</div><div class="how-desc">O link chega por e-mail. Acesse de qualquer dispositivo, sem instalar nada. Sua sessão começa no horário combinado.</div></div>
   </div>
 </section>
@@ -530,7 +560,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span><strong style="color:var(--ink);font-weight:600">Sem assinatura ou plano mensal.</strong> Você decide com calma se quer continuar, sem cobrança automática, sem pressão.</span>
     </div>
     <br>
-    <button class="btn-primary" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver profissionais disponíveis →</button>
+    <button class="btn-primary" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver psicólogos e horários →</button>
   </div>
 </div>
 
@@ -563,7 +593,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="font-family:var(--font-d);font-size:1.1rem;font-weight:400;color:var(--ink);line-height:1.5">Sessões a partir de <strong>R$130</strong>, o valor varia por profissional e fica visível no perfil antes de você agendar. Sem surpresas.</div>
       <div style="margin-top:10px;font-size:.8rem;color:var(--ink-3);font-weight:300">R$130 por sessão = menos de R$5 por dia · Sem assinatura · Sem cobrança automática · Você paga sessão a sessão</div>
     </div>
-    <button class="btn-primary" style="white-space:nowrap;flex-shrink:0" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">Ver profissionais →</button>
+    <button class="btn-primary" style="white-space:nowrap;flex-shrink:0" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver horários →</button>
   </div>
 </section>
 
@@ -595,7 +625,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="cta-bottom reveal">
   <h2 class="cta-bottom-h">O psicólogo certo<br><em>para você</em></h2>
   <p class="cta-bottom-sub">Escolha o profissional pelo perfil, mantenha o mesmo ao longo do processo.<br><strong>Sem assinatura, sem cobrança automática: você decide se continua.</strong></p>
-  <button class="btn-light" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver profissionais disponíveis</button>
+  <button class="btn-light" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver psicólogos e horários</button>
   <div class="cta-reassurance">CRP verificado · Sigilo garantido por lei · Sem cobrança recorrente · Você decide se continua</div>
 </div>
 
@@ -605,7 +635,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <div class="sticky-cta">
-  <button class="sticky-cta-btn" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver profissionais</button>
+  <button class="sticky-cta-btn" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver horários disponíveis</button>
   <div class="sticky-cta-note">Sessão de 50 min · A partir de R$130 · Sem assinatura</div>
 </div>
 
@@ -627,17 +657,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Step 1: Horário -->
     <div id="bk-step-horario" class="bk-inner" style="display:none">
       <div class="bk-title">Escolha um horário</div>
-      <p style="font-size:.8rem;color:var(--ink-3);margin:-10px 0 16px">Todos os horários são para sessões de 50 minutos.</p>
+      <p style="font-size:.8rem;color:var(--ink-3);margin:-10px 0 16px">Você só paga depois de escolher o horário. Todas as sessões duram 50 minutos.</p>
       <div id="bk-perfil"></div>
       <div class="bk-section-label">Horários disponíveis</div>
       <div id="bk-slots-grid"></div>
-      <button class="bk-btn" id="bk-btn-confirmar" onclick="bkConfirmarHorario()" disabled>Confirmar horário →</button>
+      <button class="bk-btn" id="bk-btn-confirmar" onclick="bkConfirmarHorario()" disabled>Continuar com este horário →</button>
     </div>
 
     <!-- Step 2: Checkout rápido (sem login) -->
     <div id="bk-step-auth" class="bk-inner" style="display:none">
       <div class="bk-title">Seus dados</div>
-      <p style="font-size:.82rem;color:var(--ink-2);margin-bottom:18px;line-height:1.55">Preencha rapidinho para confirmar o horário. Nenhuma senha necessária.</p>
+      <p style="font-size:.82rem;color:var(--ink-2);margin-bottom:18px;line-height:1.55">Preencha rapidinho para seguir ao pagamento. Nenhuma senha necessária.</p>
 
       <!-- Slot selecionado resumido -->
       <div id="bk-checkout-slot-info" style="background:var(--psi);border:1px solid rgba(38,80,142,.18);border-radius:12px;padding:12px 14px;margin-bottom:18px;font-size:.82rem;color:var(--psi-dark);font-weight:500;display:flex;align-items:center;gap:8px">
@@ -913,7 +943,7 @@ function syncHeroPrice() {
   const min = Math.min(...valores);
   const pd  = Math.round(min / 30);
   const el  = document.getElementById('hero-price-line');
-  if (el) el.innerHTML = `A partir de <strong>R$${min}</strong> · ≈ R$${pd} por dia`;
+  if (el) el.innerHTML = `Sessões de 50 min, <strong>a partir de R$${min}</strong> · ≈ R$${pd} por dia`;
 }
 
 /* ----------------------------------------------------------------
@@ -1078,7 +1108,7 @@ function renderResultCard(psi) {
           ${psi.valor_sessao > 0 ? `<div class="per-day">≈ R$${perDay} por dia</div>` : ''}
         </div>
         <button class="btn-result" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">
-          Agendar sessão →
+          Ver horários →
         </button>
       </div>
     </div>`;
@@ -1147,7 +1177,7 @@ function renderRealProfessionalsGrid() {
         <div class="real-pro-price"><small>Sessão de 50 min</small>${psi.valor_sessao > 0 ? 'R$' + psi.valor_sessao : 'Consultar valor'}</div>
         <div class="real-pro-avail"><span class="real-pro-avail-dot"></span>${esc(psi.disponibilidade)}</div>
       </div>
-      <button class="real-pro-cta" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">Agendar com ${esc(firstName)} →</button>`;
+      <button class="real-pro-cta" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">Ver horários de ${esc(firstName)} →</button>`;
 
     container.appendChild(card);
   });
@@ -1169,7 +1199,7 @@ function agendarComPsiEl(btn) {
 }
 
 function agendarComPsi(id, nome) {
-  gtag('event', 'cta_click', { event_category: 'conversion', professional_id: id, professional_name: nome });
+  gtag('event', 'schedule_slots_click', { event_category: 'conversion', professional_id: id, professional_name: nome });
   openModal(id);
 }
 
