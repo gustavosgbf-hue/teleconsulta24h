@@ -71,10 +71,12 @@ body{
 }
 .nav__in{
   display:flex;align-items:center;justify-content:space-between;
+  gap:14px;
   padding:12px 20px;max-width:960px;margin:0 auto;
 }
 .nav__brand{display:flex;align-items:center;gap:8px;text-decoration:none}
 .nav__actions{display:flex;align-items:center;gap:10px}
+.nav__links{display:flex;align-items:center;gap:8px}
 .live-dot{
   width:7px;height:7px;border-radius:50%;
   background:var(--g2);flex-shrink:0;
@@ -122,11 +124,17 @@ body{
 }
 .nav__rx-link:hover{color:rgba(255,255,255,.78);border-color:rgba(180,224,90,.18)}
 .nav__rx-link::after{display:none}
+.nav__rx-link--subtle{
+  border-color:rgba(255,255,255,.105);
+  color:rgba(255,255,255,.62);
+}
+.nav__rx-link--subtle:hover{color:rgba(255,255,255,.82);border-color:rgba(94,224,160,.2)}
 .nav__rx-new{
   display:none;align-items:center;justify-content:center;
   padding:2px 6px;border-radius:999px;background:#061409;color:#b4e05a;
   font-size:.58rem;font-weight:700;line-height:1;text-transform:uppercase;
 }
+.nav__link-short{display:none}
 
 /* ─── HERO ─── */
 .hero{
@@ -625,14 +633,18 @@ footer a:hover{color:var(--g2)}
 hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
-  .nav__in{padding:10px 14px}
+  .nav__in{padding:10px 14px;flex-wrap:wrap;gap:8px}
   .nav__cta-link{padding:10px 14px;font-size:.72rem;font-weight:800;white-space:nowrap;border-radius:15px}
   .nav__cta-full{display:none}
   .nav__cta-short{display:inline}
-  .nav__actions{gap:7px}
-  .nav__rx-link{padding:9px 10px;font-size:.7rem;gap:5px;border-radius:15px}
+  .nav__actions{gap:8px;flex:1 0 100%;order:2;justify-content:space-between}
+  .nav__links{gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none}
+  .nav__links::-webkit-scrollbar{display:none}
+  .nav__rx-link{padding:8px 9px;font-size:.68rem;gap:5px;border-radius:14px;white-space:nowrap}
   .nav__rx-new{display:none}
   .nav__rx-text{max-width:102px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav__link-full{display:none}
+  .nav__link-short{display:inline}
   .hero{padding:34px 20px 40px}
   .hero__h1{font-size:clamp(2.05rem,8.9vw,2.62rem);line-height:1.1;margin-bottom:14px}
   .hero__sub{font-size:.9rem;margin-bottom:22px}
@@ -1152,11 +1164,21 @@ whatsappSend.addEventListener('click', function() {
       </span>
     </a>
     <div class="nav__actions">
-      <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link" aria-label="Renovar receita médica">
-        <span class="nav__rx-new">Novo</span>
-        <span>💊</span>
-        <span class="nav__rx-text">Renovar receita</span>
-      </a>
+      <div class="nav__links" aria-label="Outros atendimentos">
+        <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link" aria-label="Renovar receita médica">
+          <span class="nav__rx-new">Novo</span>
+          <span>💊</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Renovar receita</span><span class="nav__link-short">Receita</span></span>
+        </a>
+        <a href="https://consultaja24h.com.br/especialistas" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver especialistas online">
+          <span>🩺</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Especialistas</span><span class="nav__link-short">Especial.</span></span>
+        </a>
+        <a href="https://consultaja24h.com.br/psicologo-online" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver psicologia online">
+          <span>🧠</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Psicologia</span><span class="nav__link-short">Psico</span></span>
+        </a>
+      </div>
       <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()"><span class="nav__cta-full">Iniciar consulta</span><span class="nav__cta-short">Consulta</span></a>
     </div>
   </div>
