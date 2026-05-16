@@ -880,7 +880,7 @@ async function carregarEspecialistas() {
       var rqe = escHtml(esp.rqe || '');
       var uf = escHtml(esp.uf || '--');
       var bio = escHtml(esp.bio || 'Atendimento especializado em endocrinologia.');
-      var crmDisplay = crm + (rqe ? ' | RQE ' + rqe : '');
+      var crmDisplay = crm + (rqe ? '-' + uf + ' · RQE ' + rqe : ' · ' + uf);
       var valorConsulta = Number(esp.valor_consulta);
       var valorFormatado = Number.isFinite(valorConsulta) ? valorConsulta.toFixed(0) : '—';
       return '<div class="doctor-card">'+
@@ -889,7 +889,7 @@ async function carregarEspecialistas() {
         '</div>'+
         '<div class="doctor-card__body">'+
           '<div class="doctor-card__name">'+nome+'</div>'+
-          '<div class="doctor-card__crm">CRM '+crmDisplay+' · '+uf+'</div>'+
+          '<div class="doctor-card__crm">CRM '+crmDisplay+'</div>'+
           '<span class="doctor-card__spec">'+ESPECIALIDADE+'</span>'+
           '<p class="doctor-card__bio">'+bio+'</p>'+
           '<div class="doctor-card__meta">'+
