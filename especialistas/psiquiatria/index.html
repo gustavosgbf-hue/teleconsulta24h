@@ -875,9 +875,11 @@ function renderEspecialistas() {
     var disponibilidade = normalizarDisponibilidade(espec.disponibilidade);
     var nome = escHtml(espec.nome_exibicao || 'Especialista');
     var crm = escHtml(espec.crm || 'CRM não informado');
+    var rqe = escHtml(espec.rqe || '');
     var uf = escHtml(espec.uf || '--');
     var bio = escHtml(espec.bio || '');
     var valorConsulta = Number(espec.valor_consulta);
+    var crmDisplay = crm + (rqe ? ' · RQE ' + rqe : '');
     var valorFormatado = Number.isFinite(valorConsulta) ? valorConsulta.toFixed(2).replace('.', ',') : '—';
     var card = document.createElement('div');
     card.className = 'doctor-card fade-up';
@@ -889,7 +891,7 @@ function renderEspecialistas() {
       '<div class="doctor-card__photo">' + fotoHtml + '</div>' +
         '<div class="doctor-card__body">' +
         '<div class="doctor-card__name">' + nome + '</div>' +
-        '<div class="doctor-card__crm">CRM ' + crm + ' · ' + uf + '</div>' +
+        '<div class="doctor-card__crm">CRM ' + crmDisplay + ' · ' + uf + '</div>' +
         '<span class="doctor-card__spec">Psiquiatria</span>' +
         '<p class="doctor-card__bio">' + bio + '</p>' +
         '<div class="doctor-card__meta">' +
