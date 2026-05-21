@@ -19,9 +19,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Médico Online Agora · ConsultaJá24h</title>
-<template id="__bundler_thumbnail" data-bg-color="#002017">
+<template id="__bundler_thumbnail" data-bg-color="#030706">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="800" fill="#002017"/>
+    <rect width="1200" height="800" fill="#030706"/>
     <g transform="translate(600 400)" fill="none" stroke="#b4e05a" stroke-width="14" stroke-linecap="round">
       <circle r="120" stroke-opacity=".25"/>
       <path d="M-60 0 H60 M0 -60 V60"/>
@@ -37,40 +37,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 html{scroll-behavior:smooth}
 body{
   font-family:'Outfit',sans-serif;
-  background:#002017;
+  background:#030706;
   color:rgba(255,255,255,.92);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 :root{
-  --g1:#b4e05a;
-  --g2:#5ee0a0;
-  --line:rgba(255,255,255,.09);
-  --muted:rgba(255,255,255,.55);
+  --g1:#9bea45;
+  --g2:#43df7e;
+  --ink:#030706;
+  --panel:#070d0c;
+  --line:rgba(255,255,255,.105);
+  --muted:rgba(255,255,255,.58);
 }
 
 /* ─── AMBIENT GLOW ─── */
 .bg-glow{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 80vw 60vh at 20% -5%,rgba(180,224,90,.09) 0%,transparent 55%),
-    radial-gradient(ellipse 55vw 45vh at 85% 15%,rgba(94,224,160,.07) 0%,transparent 50%);
+    radial-gradient(ellipse 64vw 52vh at 86% 22%,rgba(67,223,126,.13) 0%,rgba(67,223,126,.045) 35%,transparent 68%),
+    radial-gradient(ellipse 58vw 48vh at 6% 48%,rgba(155,234,69,.075) 0%,transparent 64%),
+    linear-gradient(180deg,#020404 0%,#04100c 46%,#030706 100%);
 }
 
 /* ─── NAV ─── */
 .nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(6,13,11,.92);
+  background:rgba(3,7,6,.86);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  box-shadow:0 1px 0 rgba(67,223,126,.05),0 14px 40px rgba(0,0,0,.24);
 }
 .nav__in{
   display:flex;align-items:center;justify-content:space-between;
+  gap:14px;
   padding:12px 20px;max-width:960px;margin:0 auto;
 }
 .nav__brand{display:flex;align-items:center;gap:8px;text-decoration:none}
 .nav__actions{display:flex;align-items:center;gap:10px}
+.nav__links{display:flex;align-items:center;gap:8px}
 .live-dot{
   width:7px;height:7px;border-radius:50%;
   background:var(--g2);flex-shrink:0;
@@ -95,43 +101,66 @@ body{
   color:rgba(255,255,255,.35);-webkit-text-fill-color:rgba(255,255,255,.35);
 }
 .nav__cta-link{
-  padding:7px 14px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:transparent;
-  color:rgba(255,255,255,.4);font-family:'Outfit',sans-serif;
-  font-weight:500;font-size:.74rem;
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:11px 18px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(145deg,#a8f04a 0%,#44dd78 88%);
+  color:#061409;font-family:'Outfit',sans-serif;
+  font-weight:800;font-size:.78rem;
   text-decoration:none;
-  transition:color .15s,border-color .15s;
+  box-shadow:0 12px 26px rgba(67,223,126,.24),0 0 0 1px rgba(255,255,255,.18) inset;
+  transition:transform .15s,box-shadow .15s;
 }
-.nav__cta-link:hover{color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.22)}
+.nav__cta-link:hover{transform:translateY(-1px);box-shadow:0 16px 34px rgba(67,223,126,.32),0 0 0 1px rgba(255,255,255,.2) inset}
+.nav__cta-short{display:none}
 .nav__rx-link{
   display:inline-flex;align-items:center;gap:7px;
-  padding:9px 15px;border-radius:999px;
-  background:linear-gradient(160deg,#6abf3d 0%,#2d9659 100%);
-  color:#061409;text-decoration:none;
-  font-size:.78rem;font-weight:700;
-  box-shadow:0 4px 12px rgba(53,196,110,.2),0 0 0 1px rgba(255,255,255,.08) inset;
+  padding:10px 14px;border-radius:16px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.78);text-decoration:none;
+  font-size:.74rem;font-weight:600;
   position:relative;overflow:hidden;
 }
-.nav__rx-link::after{
-  content:'';position:absolute;top:-60%;bottom:-60%;width:28px;left:-36px;
-  background:rgba(255,255,255,.2);transform:rotate(18deg);
+.nav__rx-link:hover{color:rgba(255,255,255,.78);border-color:rgba(180,224,90,.18)}
+.nav__rx-link::after{display:none}
+.nav__rx-link--subtle{
+  border-color:rgba(255,255,255,.105);
+  color:rgba(255,255,255,.62);
 }
+.nav__rx-link--subtle:hover{color:rgba(255,255,255,.82);border-color:rgba(94,224,160,.2)}
 .nav__rx-new{
-  display:inline-flex;align-items:center;justify-content:center;
+  display:none;align-items:center;justify-content:center;
   padding:2px 6px;border-radius:999px;background:#061409;color:#b4e05a;
   font-size:.58rem;font-weight:700;line-height:1;text-transform:uppercase;
 }
+.nav__link-short{display:none}
 
 /* ─── HERO ─── */
 .hero{
   position:relative;z-index:1;
-  padding:20px 20px 52px;
+  padding:44px 20px 54px;
   text-align:center;
   display:flex;flex-direction:column;align-items:center;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;z-index:-1;
+  width:min(560px,100vw);height:420px;
+  left:50%;top:34%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse at center,rgba(67,223,126,.085) 0%,rgba(67,223,126,.028) 42%,transparent 72%);
+  filter:blur(8px);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;z-index:-1;
+  inset:auto -16% 0 -16%;height:52%;
+  background:linear-gradient(90deg,transparent,rgba(67,223,126,.024),transparent);
+  pointer-events:none;
 }
 @media(max-width:600px){
-  .hero{padding-top:52px}
+  .hero{padding-top:40px}
 }
 
 /* ─── DOCTOR CARD (prova real) ─── */
@@ -165,21 +194,6 @@ body{
 .doc-card__name{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.92);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .doc-card__meta{font-size:.66rem;color:rgba(94,224,160,.75);font-weight:500;letter-spacing:.01em}
 
-/* ─── CHIPS DE DOCUMENTOS (hero) ─── */
-.hero__chips{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:7px;
-  margin-top:14px;
-  animation:fadeUp .5s ease both .36s;
-}
-.hero__chip{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:6px 11px;border-radius:999px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.1);
-  font-size:.72rem;font-weight:500;
-  color:rgba(255,255,255,.78);
-}
-.hero__chip svg{color:var(--g2);flex-shrink:0;opacity:.85}
 #heroReviewProof{
   cursor:pointer;
   transition:color .15s,opacity .15s,transform .15s;
@@ -209,24 +223,26 @@ body{
 }
 .hero__h1{
   font-family:'Outfit',sans-serif;
-  font-size:clamp(2rem,6.5vw,3.2rem);
+  font-size:clamp(2.28rem,7vw,3.65rem);
   font-weight:800;line-height:1.12;
-  letter-spacing:-.03em;
+  letter-spacing:0;
   margin-bottom:18px;
+  text-shadow:0 14px 44px rgba(0,0,0,.55);
   animation:fadeUp .5s ease both .12s;
 }
 .hero__h1 em{
   font-style:normal;
-  background:linear-gradient(135deg,#b4e05a,#5ee0a0);
+  background:linear-gradient(135deg,#a8f04a 8%,#43df7e 92%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-shadow:none;
 }
 .hero__sub{
   font-size:clamp(.95rem,2.5vw,1.05rem);
   font-weight:400;
-  color:rgba(255,255,255,.6);
+  color:rgba(255,255,255,.68);
   line-height:1.6;
-  max-width:440px;
-  margin-bottom:34px;
+  max-width:520px;
+  margin-bottom:32px;
   animation:fadeUp .5s ease both .2s;
 }
 .hero__sub-mode{
@@ -239,16 +255,16 @@ body{
 /* ─── CTA BUTTON ─── */
 .btn-primary{
   display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  padding:19px 36px;
-  border-radius:14px;border:none;
-  background:linear-gradient(160deg,#8fd44a 0%,#35c46e 100%);
+  padding:21px 38px;
+  border-radius:17px;border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(140deg,#a8f04a 0%,#42df7b 82%);
   color:#061409;
-  font-family:'Outfit',sans-serif;font-weight:800;font-size:1.05rem;
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:1.08rem;
   cursor:pointer;text-decoration:none;
-  box-shadow:0 8px 22px rgba(53,196,110,.28),0 1px 0 rgba(255,255,255,.14) inset;
+  box-shadow:0 16px 38px rgba(67,223,126,.22),0 0 0 1px rgba(255,255,255,.18) inset,0 0 38px rgba(67,223,126,.1);
   transition:transform .18s,box-shadow .22s;
   position:relative;overflow:hidden;
-  width:100%;max-width:400px;
+  width:100%;max-width:430px;
   animation:fadeUp .5s ease both .28s;
 }
 .btn-primary::after{
@@ -258,7 +274,7 @@ body{
 }
 .btn-primary:hover{
   transform:translateY(-2px);
-  box-shadow:0 14px 30px rgba(53,196,110,.38),0 1px 0 rgba(255,255,255,.14) inset;
+  box-shadow:0 20px 48px rgba(67,223,126,.3),0 0 0 1px rgba(255,255,255,.2) inset,0 0 52px rgba(67,223,126,.15);
 }
 .btn-primary:active{transform:scale(.975) translateY(1px)}
 .btn-primary.clicked{animation:ctaClick .22s ease}
@@ -298,7 +314,23 @@ body{
 .hero__social-stars{color:#d4aa30;font-size:.78rem;letter-spacing:1px;flex-shrink:0;opacity:.9}
 .hero__social-txt{font-size:.7rem;font-weight:400;color:rgba(255,255,255,.42);line-height:1.4}
 .hero__social-txt strong{color:rgba(255,255,255,.68);font-weight:600}
-
+.hero__proof-list{
+  width:100%;
+  max-width:500px;
+  display:grid;
+  gap:9px;
+  margin-top:14px;
+  text-align:left;
+  animation:fadeUp .5s ease both .32s;
+}
+.hero__proof-row{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  color:rgba(255,255,255,.64);
+  font-size:.8rem;font-weight:500;line-height:1.35;
+}
+.hero__proof-row svg{width:17px;height:17px;color:var(--g2);flex-shrink:0;filter:drop-shadow(0 0 10px rgba(67,223,126,.2))}
+.hero__proof-row strong{color:var(--g1);font-weight:800}
+.hero__proof-row s{color:rgba(255,255,255,.34);text-decoration-color:rgba(255,255,255,.34)}
 .dot-green{
   width:6px;height:6px;border-radius:50%;
   background:#5ee0a0;flex-shrink:0;
@@ -352,39 +384,33 @@ section{position:relative;z-index:1}
 .steps{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:28px;margin-top:40px;position:relative;
+  gap:14px;margin-top:32px;position:relative;
 }
-.step{text-align:center;padding:0 8px}
+.step{
+  text-align:left;padding:18px 16px 17px;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.022));
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:14px;
+}
 .step__num{
-  width:52px;height:52px;border-radius:50%;
-  background:#0c1a12;
+  width:44px;height:44px;border-radius:14px;
+  background:rgba(12,26,18,.95);
   border:1px solid rgba(180,224,90,.4);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;
-  font-size:1.15rem;font-weight:700;color:var(--g1);
-  margin:0 auto 16px;
+  font-size:1.08rem;color:var(--g1);
+  margin:0 0 14px;
   box-shadow:0 0 0 4px rgba(180,224,90,.07),0 0 16px rgba(94,224,160,.12);
   transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
   cursor:default;
 }
+.step__num svg{width:18px;height:18px;flex-shrink:0}
 .step__num:hover{
   transform:scale(1.12);
   border-color:rgba(180,224,90,.85);
   box-shadow:0 0 0 6px rgba(180,224,90,.12),0 0 28px rgba(94,224,160,.3);
 }
-/* linha conectora entre os passos */
-.steps::before{
-  content:'';
-  position:absolute;
-  top:26px;
-  left:16.66%;
-  right:16.66%;
-  height:1px;
-  background:linear-gradient(90deg,rgba(180,224,90,.35),rgba(94,224,160,.35));
-  pointer-events:none;
-  z-index:0;
-}
-.step{text-align:center;padding:0 8px;position:relative;z-index:1}
+.steps::before{display:none}
+.step{position:relative;z-index:1}
 #heroBadge   { order:1 }
 #heroTitle   { order:2 }
 #heroSub     { order:3 }
@@ -393,9 +419,8 @@ section{position:relative;z-index:1}
 #heroUrgency { order:6 }
 #heroPriceAnchor { order:7 }
 #heroReviewProof { order:8 }
-#heroChips   { order:9 }
-#heroSpecialtyLinks { order:10 }
-#heroSecurity{ order:11 }
+#heroSpecialtyLinks { order:9 }
+#heroSecurity{ order:10 }
 @media(max-width:600px){
   #heroBadge   { display:none }
   #heroTitle   { order:1 }
@@ -405,13 +430,49 @@ section{position:relative;z-index:1}
   #heroUrgency { order:5 }
   #heroPriceAnchor { order:6 }
   #heroReviewProof { order:7 }
-  #heroChips   { order:8 }
-  #heroSpecialtyLinks { order:9 }
-  #heroSecurity{ order:10 }
+  #heroSpecialtyLinks { order:8 }
+  #heroSecurity{ order:9 }
   .steps::before{display:none}
 }
-.step h3{font-size:.9rem;font-weight:700;margin-bottom:7px}
+.step h3{font-size:.94rem;font-weight:800;margin-bottom:7px}
 .step p{font-size:.8rem;font-weight:400;color:var(--muted);line-height:1.6}
+.renewal-card{
+  margin:28px auto 0;
+  max-width:640px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:14px;
+  padding:18px;
+  background:linear-gradient(180deg,rgba(94,224,160,.075),rgba(255,255,255,.025));
+  border:1px solid rgba(94,224,160,.16);
+  border-radius:16px;
+  text-align:left;
+}
+.renewal-card__icon{
+  width:42px;height:42px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(94,224,160,.09);
+  color:var(--g2);
+  flex-shrink:0;
+}
+.renewal-card h3{font-size:.98rem;font-weight:800;margin-bottom:4px}
+.renewal-card p{font-size:.78rem;line-height:1.55;color:rgba(255,255,255,.58)}
+.renewal-card__btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 14px;border-radius:999px;
+  border:1px solid rgba(180,224,90,.3);
+  background:rgba(180,224,90,.08);
+  color:var(--g1);
+  text-decoration:none;
+  font-size:.76rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+@media(max-width:640px){
+  .renewal-card{grid-template-columns:auto 1fr;gap:12px;padding:16px;margin-top:24px}
+  .renewal-card__btn{grid-column:1 / -1;width:100%;padding:12px 14px}
+}
 
 /* ─── PREÇO BOX ─── */
 .price-section{padding:64px 20px;border-top:1px solid var(--line)}
@@ -572,16 +633,22 @@ footer a:hover{color:var(--g2)}
 hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
-  .nav__in{padding:10px 14px}
-  .nav__cta-link{padding:7px 11px;color:rgba(180,224,90,.9);border-color:rgba(180,224,90,.28);background:rgba(180,224,90,.055);font-size:.7rem}
-  .nav__actions{gap:7px}
-  .nav__rx-link{padding:8px 10px;font-size:.7rem;gap:5px}
+  .nav__in{padding:10px 14px;flex-wrap:wrap;gap:8px}
+  .nav__cta-link{padding:10px 14px;font-size:.72rem;font-weight:800;white-space:nowrap;border-radius:15px}
+  .nav__cta-full{display:none}
+  .nav__cta-short{display:inline}
+  .nav__actions{gap:8px;flex:1 0 100%;order:2;justify-content:space-between}
+  .nav__links{gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none}
+  .nav__links::-webkit-scrollbar{display:none}
+  .nav__rx-link{padding:8px 9px;font-size:.68rem;gap:5px;border-radius:14px;white-space:nowrap}
   .nav__rx-new{display:none}
-  .nav__rx-text{max-width:92px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .hero{padding:28px 20px 38px}
-  .hero__h1{font-size:clamp(1.72rem,7.4vw,2.26rem);line-height:1.08;margin-bottom:14px}
+  .nav__rx-text{max-width:102px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav__link-full{display:none}
+  .nav__link-short{display:inline}
+  .hero{padding:34px 20px 40px}
+  .hero__h1{font-size:clamp(2.05rem,8.9vw,2.62rem);line-height:1.1;margin-bottom:14px}
   .hero__sub{font-size:.9rem;margin-bottom:22px}
-  .btn-primary{padding:17px 22px;font-size:1rem;border-radius:13px}
+  .btn-primary{padding:18px 20px;font-size:1rem;border-radius:15px}
   .pain-grid{grid-template-columns:repeat(2,1fr)}
   .price-box{padding:32px 20px}
   .price-num{font-size:3rem}
@@ -744,6 +811,26 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 .mautofill.err{color:rgba(255,160,140,.85)}
 
 .mtrust{font-size:.62rem;color:rgba(255,255,255,.42);text-align:center;line-height:1.7}
+
+.mo-exit{
+  display:none;padding:18px 16px 20px;flex-direction:column;gap:10px;
+  border-top:1px solid rgba(255,255,255,.06);
+  background:linear-gradient(180deg,rgba(94,224,160,.035),rgba(255,255,255,.015));
+}
+.mo-exit.on{display:flex}
+.mo-exit__badge{
+  align-self:flex-start;padding:5px 9px;border-radius:999px;
+  background:rgba(94,224,160,.08);border:1px solid rgba(94,224,160,.18);
+  color:rgba(94,224,160,.88);font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+}
+.mo-exit__title{font-size:1.05rem;font-weight:800;color:rgba(255,255,255,.94);line-height:1.25}
+.mo-exit__text{font-size:.78rem;color:rgba(255,255,255,.58);line-height:1.6;margin-bottom:2px}
+.mwhats{
+  width:100%;padding:12px;border-radius:12px;border:1px solid rgba(37,211,102,.3);
+  background:rgba(37,211,102,.1);color:#73e69c;font-family:'Outfit',sans-serif;
+  font-size:.9rem;font-weight:700;cursor:pointer;transition:border-color .15s,background .15s;
+}
+.mwhats:hover{border-color:rgba(37,211,102,.48);background:rgba(37,211,102,.14)}
 
 .mconf{text-align:center;padding:24px 16px 22px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .mconf-icon{
@@ -985,7 +1072,7 @@ var whatsappSend = document.getElementById('whatsappSend');
 var whatsappMessage = document.getElementById('whatsappMessage');
 
 window.addEventListener('scroll', function() {
-  if (window.scrollY > 300) {
+  if (window.scrollY > 1600) {
     whatsappBtn.classList.add('visible');
   } else {
     whatsappBtn.classList.remove('visible');
@@ -994,7 +1081,7 @@ window.addEventListener('scroll', function() {
 
 whatsappBtn.addEventListener('click', function() {
   whatsappModal.classList.add('open');
-  whatsappMessage.value = 'Olá, gostaria de iniciar uma consulta médica online.';
+  whatsappMessage.value = 'Olá, tive dúvida para finalizar minha consulta médica online.';
   whatsappMessage.focus();
 });
 
@@ -1019,12 +1106,12 @@ whatsappSend.addEventListener('click', function() {
 <style>
   .livebar{
     position:sticky;top:0;z-index:101;
-    background:linear-gradient(90deg,#0c4a30 0%,#125e3d 50%,#0c4a30 100%);
-    border-bottom:1px solid rgba(180,224,90,.35);
-    box-shadow:0 1px 0 rgba(180,224,90,.08), 0 4px 18px -8px rgba(0,0,0,.5);
+    background:linear-gradient(90deg,rgba(7,12,12,.98) 0%,rgba(13,22,20,.98) 50%,rgba(7,12,12,.98) 100%);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    box-shadow:0 1px 0 rgba(67,223,126,.1),0 12px 32px rgba(0,0,0,.28);
     color:#fff;
-    font-size:.78rem;font-weight:600;
-    padding:9px 14px;
+    font-size:.8rem;font-weight:500;
+    padding:10px 14px;
     text-align:center;
     overflow:hidden;
     letter-spacing:.01em;
@@ -1036,7 +1123,7 @@ whatsappSend.addEventListener('click', function() {
   .livebar__item{display:inline-flex;align-items:center;gap:6px}
   .livebar__item .live-dot{width:7px;height:7px}
   .livebar__num{color:#c5ee6b;font-weight:800}
-  .livebar__sep{color:rgba(255,255,255,.28)}
+  .livebar__sep{color:rgba(255,255,255,.2)}
   @media(max-width:600px){
     .livebar{padding:8px 10px;font-size:.74rem}
     .livebar__inner{gap:10px}
@@ -1077,12 +1164,22 @@ whatsappSend.addEventListener('click', function() {
       </span>
     </a>
     <div class="nav__actions">
-      <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link" aria-label="Renovar receita médica">
-        <span class="nav__rx-new">Novo</span>
-        <span>💊</span>
-        <span class="nav__rx-text">Renovar receita</span>
-      </a>
-      <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()">Começar atendimento →</a>
+      <div class="nav__links" aria-label="Outros atendimentos">
+        <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link" aria-label="Renovar receita médica">
+          <span class="nav__rx-new">Novo</span>
+          <span>💊</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Renovar receita</span><span class="nav__link-short">Receita</span></span>
+        </a>
+        <a href="https://consultaja24h.com.br/especialistas" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver especialistas online">
+          <span>🩺</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Especialistas</span><span class="nav__link-short">Especial.</span></span>
+        </a>
+        <a href="https://consultaja24h.com.br/psicologo-online" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver psicologia online">
+          <span>🧠</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Psicologia</span><span class="nav__link-short">Psico</span></span>
+        </a>
+      </div>
+      <a href="#" class="nav__cta-link" onclick="event.preventDefault();moAbrir()"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Consulta</span></a>
     </div>
   </div>
 </nav>
@@ -1092,13 +1189,13 @@ whatsappSend.addEventListener('click', function() {
 <section class="hero">
   <!-- Prova de disponibilidade: discreta para não competir com o CTA -->
   <style>
-    .doc-card--carousel{overflow:hidden;padding:0;background:transparent;border:0;width:100%;max-width:430px;margin:0 auto 16px;animation:fadeUp .5s ease both .08s;position:relative}
+    .doc-card--carousel{overflow:hidden;padding:0;background:transparent;border:0;width:100%;max-width:520px;margin:0 auto 10px;animation:fadeUp .5s ease both .08s;position:relative}
     .doc-track{display:flex;transition:transform .55s cubic-bezier(.4,0,.2,1);will-change:transform}
-    .doc-slide{flex:0 0 100%;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 8px;min-height:24px;color:rgba(255,255,255,.56)}
-    .doc-slide__status{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;white-space:nowrap}
-    .doc-slide__dot{width:7px;height:7px;border-radius:50%;background:#5ee0a0;box-shadow:0 0 0 4px rgba(94,224,160,.08),0 0 12px rgba(94,224,160,.25);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+    .doc-slide{flex:0 0 100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 8px;min-height:24px;color:rgba(255,255,255,.62)}
+    .doc-slide__status{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;white-space:nowrap}
+    .doc-slide__dot{width:7px;height:7px;border-radius:50%;background:#43df7e;box-shadow:0 0 0 4px rgba(67,223,126,.08),0 0 14px rgba(67,223,126,.28);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
     .doc-slide__sep{color:rgba(255,255,255,.18);font-size:.7rem;line-height:1}
-    .doc-slide__meta{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.68rem;color:rgba(94,224,160,.82);font-weight:600;letter-spacing:.01em}
+    .doc-slide__meta{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.72rem;color:rgba(67,223,126,.9);font-weight:700;letter-spacing:.01em}
     @media(max-width:600px){
       .doc-card--carousel{max-width:340px;margin-top:2px;margin-bottom:8px}
       .doc-slide{gap:6px;padding:0 4px}
@@ -1156,46 +1253,37 @@ whatsappSend.addEventListener('click', function() {
     ★★★★★ 5,0 · +2.000 atendimentos
   </div>
   <h1 class="hero__h1" id="heroTitle">
-    Precisa de receita, atestado ou atendimento médico?<br>
-    <em>Fale com um médico online em até 5 minutos.</em>
+    Fale com um médico online<br>
+    <em>em até 5 minutos.</em>
   </h1>
-  <p class="hero__sub" id="heroSub" style="line-height:1.7;color:rgba(255,255,255,.78)">
-    Pelo navegador. Sem app, sem criar conta. Médicos brasileiros com CRM ativo.
+  <p class="hero__sub" id="heroSub" style="line-height:1.65;color:rgba(255,255,255,.68)">
+    Consulta por chat ou vídeo, sem app. Receita, atestado e exames quando indicados.
   </p>
   <!-- heroUrgency removido: não promete tempo de vaga (só mostra info estática na livebar) -->
   <p id="heroUrgency" style="display:none"></p>
   <a href="#" class="btn-primary" id="heroCTA" onclick="event.preventDefault();try{window.moAbrir()}catch(e){console.error(e)}">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
-    <span>Iniciar consulta</span>
+    <span>Falar com médico agora</span>
     <span style="display:inline-block;width:1px;height:18px;background:rgba(6,20,9,.25);margin:0 2px"></span>
     <span style="font-weight:800">R$ 49,90</span>
   </a>
   <!-- âncora de preço: comparação com presencial -->
-  <p id="heroPriceAnchor" style="font-size:.74rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:10px;text-align:center;animation:fadeUp .5s ease both .32s">
-    <span style="color:rgba(255,255,255,.4);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)">Consulta presencial: R$ 200+</span>
-    &nbsp;<span style="color:var(--g1);font-weight:700">75% de economia</span>
-  </p>
-  <a id="heroReviewProof" href="https://maps.app.goo.gl/bXMaD9GugXdfYmXv7" target="_blank" rel="noopener noreferrer" aria-label="Ver avaliações da ConsultaJá24h no Google" title="Ver avaliações no Google" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:11px;padding:4px 2px;color:rgba(255,255,255,.58);font-size:.72rem;font-weight:600;text-decoration:none;animation:fadeUp .5s ease both .34s">
-    <svg width="13" height="13" viewBox="0 0 48 48" aria-label="Google" style="flex-shrink:0"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg>
-    <span>5,0 no Google · <strong>Ver avaliações</strong></span>
-  </a>
-  <!-- Chips: o que você recebe (resolve o medo "vai dar em nada") -->
-  <div id="heroChips" style="display:flex;flex-wrap:nowrap;gap:6px;margin-top:14px;justify-content:center;animation:fadeUp .5s ease both .36s">
-    <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Receita se indicada</span>
-    <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Atestado se indicado</span>
-    <span class="hero__chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Exames se indicados</span>
-  </div>
-  <div id="heroSpecialtyLinks" style="margin-top:12px;animation:fadeUp .5s ease both .38s;max-width:430px;width:100%">
-    <p style="font-size:.66rem;color:rgba(255,255,255,.36);font-weight:500;margin-bottom:7px">Procura uma área específica?</p>
-    <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center">
-      <a href="https://consultaja24h.com.br/especialistas/psiquiatria" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:.7rem;font-weight:600;text-decoration:none">Psiquiatra</a>
-      <a href="https://consultaja24h.com.br/psicologo-online/" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:.7rem;font-weight:600;text-decoration:none">Psicólogo</a>
-      <a href="https://consultaja24h.com.br/especialistas/endocrinologia" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:.7rem;font-weight:600;text-decoration:none">Endócrino</a>
-      <a href="https://consultaja24h.com.br/especialistas" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:.7rem;font-weight:600;text-decoration:none">Outras especialidades</a>
+  <div id="heroPriceAnchor" class="hero__proof-list">
+    <div class="hero__proof-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg>
+      <span>Pagamento único · sem mensalidade · sem taxa extra</span>
+    </div>
+    <div class="hero__proof-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82Z"></path><path d="M7.5 7.5h.01"></path></svg>
+      <span>Consulta presencial: <s>R$ 200+</s> · <strong>75% de economia</strong></span>
     </div>
   </div>
+  <a id="heroReviewProof" href="#reviewsSection" aria-label="Ver avaliações da ConsultaJá24h" title="Ver avaliações abaixo" style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:13px;padding:4px 2px;color:rgba(255,255,255,.6);font-size:.76rem;font-weight:600;text-decoration:none;animation:fadeUp .5s ease both .34s">
+    <svg width="13" height="13" viewBox="0 0 48 48" aria-label="Google" style="flex-shrink:0"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg>
+    <span>5,0 no Google · <strong>Ver avaliações</strong> · +2.000 atendimentos</span>
+  </a>
   <!-- segurança -->
-  <p id="heroSecurity" style="font-size:.68rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:14px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
+  <p id="heroSecurity" style="font-size:.72rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:18px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);display:inline;vertical-align:middle;margin-right:3px;position:relative;top:-1px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Pagamento seguro · Empresa verificada: JG FONSECA SERVIÇOS MÉDICOS LTDA
   </p>
 </section>
@@ -1203,18 +1291,18 @@ whatsappSend.addEventListener('click', function() {
 
 <!-- ════════ COM QUE PODEMOS AJUDAR ════════ -->
 <!-- ════════ DOCTORS STRIP ════════ -->
-<section style="padding:20px 0 8px;border-top:1px solid rgba(255,255,255,.04)">
+<section class="doctor-strip" style="padding:30px 0 12px;border-top:1px solid rgba(255,255,255,.065);background:linear-gradient(180deg,rgba(255,255,255,.018),transparent)">
   <div style="text-align:center;padding:0 20px;margin-bottom:14px">
-    <div style="display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:500;color:rgba(180,224,90,.85);letter-spacing:.02em;margin-bottom:6px"><span class="live-dot"></span>Quem vai te atender</div>
+    <div style="display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:800;color:rgba(155,234,69,.92);letter-spacing:.02em;margin-bottom:7px"><span class="live-dot"></span>Quem vai te atender</div>
     <p style="font-size:.78rem;color:rgba(255,255,255,.55);font-weight:400;line-height:1.5">Médicos brasileiros com CRM ativo · disponíveis agora</p>
   </div>
   <div style="display:flex;gap:10px;padding:4px 16px 16px;flex-wrap:wrap;justify-content:center;max-width:1100px;margin:0 auto">
     <style>
-      .dstrip-card{flex:0 0 auto;width:148px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 10px 14px;text-align:center;transition:border-color .25s,transform .25s}
-      .dstrip-card:hover{border-color:rgba(180,224,90,.28);transform:translateY(-2px)}
-      .dstrip-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#b4e05a;margin:0 auto 10px;background-size:cover;background-position:center top;background-repeat:no-repeat;box-sizing:border-box;position:relative;overflow:visible}
-      .dstrip-av.has-photo{color:transparent;box-shadow:0 6px 16px rgba(0,0,0,.35),0 0 0 2px rgba(180,224,90,.55),0 0 0 5px rgba(180,224,90,.1)}
-      .dstrip-av.has-photo::after{content:'';position:absolute;right:0;bottom:1px;width:14px;height:14px;border-radius:50%;background:#5ee0a0;border:2.5px solid #002017;animation:pulse 2s ease-in-out infinite;z-index:2}
+      .dstrip-card{flex:0 0 auto;width:158px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.022));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px 12px 15px;text-align:center;transition:border-color .25s,transform .25s,box-shadow .25s;box-shadow:0 18px 44px rgba(0,0,0,.22)}
+      .dstrip-card:hover{border-color:rgba(155,234,69,.35);transform:translateY(-2px);box-shadow:0 20px 48px rgba(0,0,0,.3),0 0 30px rgba(67,223,126,.08)}
+      .dstrip-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#b4e05a;margin:0 auto 12px;background-size:cover;background-position:center top;background-repeat:no-repeat;box-sizing:border-box;position:relative;overflow:visible}
+      .dstrip-av.has-photo{color:transparent;box-shadow:0 8px 18px rgba(0,0,0,.42),0 0 0 3px rgba(155,234,69,.55),0 0 0 7px rgba(155,234,69,.09)}
+      .dstrip-av.has-photo::after{content:'';position:absolute;right:0;bottom:1px;width:16px;height:16px;border-radius:50%;background:#43df7e;border:3px solid #030706;animation:pulse 2s ease-in-out infinite;z-index:2}
     </style>
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-julia-fonseca.png')">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-paulo-almeida.png')">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
@@ -1222,7 +1310,7 @@ whatsappSend.addEventListener('click', function() {
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-martins.png')">MM</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Martins</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 32814-DF</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-raquel-lima.png')">RL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Raquel Lima</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 14300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-carolina-amate.png')">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
-    <div class="dstrip-card" style="background:rgba(180,224,90,.06);border-color:rgba(180,224,90,.2)"><div class="dstrip-av" style="background:rgba(180,224,90,.18);color:#b4e05a;font-size:1rem;width:64px;height:64px">+12</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 12 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
+    <div class="dstrip-card dstrip-more" style="background:rgba(155,234,69,.055);border-color:rgba(155,234,69,.22)"><div class="dstrip-av" style="background:rgba(155,234,69,.16);color:#b4e05a;font-size:1rem;width:72px;height:72px">+12</div><div style="font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 12 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
   </div>
 </section>
 
@@ -1270,7 +1358,7 @@ whatsappSend.addEventListener('click', function() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M9 13h6M9 17h4"></path></svg>
         Atestado
       </a>
-      <a class="pain-item" href="#" onclick="event.preventDefault();moAbrir('receita médica')">
+      <a class="pain-item" href="https://consultaja24h.com.br/renovacao-de-receita">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5a5 5 0 0 1-7-7l10-10a5 5 0 0 1 7 7z"></path><path d="M8.5 8.5l7 7"></path></svg>
         Renovação de receita
       </a>
@@ -1278,6 +1366,18 @@ whatsappSend.addEventListener('click', function() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
         Check-up
       </a>
+    </div>
+  </div>
+</section>
+
+<section class="reveal visible" style="padding:0 20px 34px">
+  <div class="section-inner" style="text-align:center;max-width:620px">
+    <p style="font-size:.72rem;color:rgba(255,255,255,.36);font-weight:500;margin-bottom:10px">Procura uma área específica?</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+      <a href="https://consultaja24h.com.br/especialistas/psiquiatria" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Psiquiatra</a>
+      <a href="https://consultaja24h.com.br/psicologo-online" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Psicólogo</a>
+      <a href="https://consultaja24h.com.br/especialistas/endocrinologia" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Endócrino</a>
+      <a href="https://consultaja24h.com.br/especialistas" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;text-decoration:none;cursor:pointer">Outras especialidades</a>
     </div>
   </div>
 </section>
@@ -1310,20 +1410,36 @@ whatsappSend.addEventListener('click', function() {
     <p class="section-sub" style="margin:0 auto 0">Sem app, sem criar conta.</p>
     <div class="steps reveal-group" style="margin-top:40px">
       <div class="step">
-        <div class="step__num">1</div>
+        <div class="step__num">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
         <h3>Informe seus dados</h3>
-        <p>Telefone para localizar seu cadastro e enviar documentos por SMS. Tudo protegido por sigilo médico.</p>
+        <p>Preencha nome e WhatsApp para iniciar o atendimento com segurança.</p>
       </div>
       <div class="step">
-        <div class="step__num">2</div>
-        <h3>Conte o que está sentindo</h3>
-        <p>Perguntas rápidas para o médico entender seu caso antes de começar.</p>
+        <div class="step__num">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+        </div>
+        <h3>Faça a triagem médica</h3>
+        <p>Responda perguntas rápidas para o médico entender seu caso.</p>
       </div>
       <div class="step">
-        <div class="step__num">3</div>
-        <h3>Médico entra em contato</h3>
-        <p>O médico inicia a consulta na plataforma em até 5 minutos, por chat ou vídeo.</p>
+        <div class="step__num">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
+        </div>
+        <h3>Fale com o médico</h3>
+        <p>Após o pagamento, você conversa com um médico com CRM ativo. Receita, atestado ou exames só são emitidos quando indicados.</p>
       </div>
+    </div>
+    <div class="renewal-card">
+      <div class="renewal-card__icon">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 11h3"/></svg>
+      </div>
+      <div>
+        <h3>Renovar receita médica</h3>
+        <p>Usa medicação contínua? Solicite avaliação médica para renovação de receita. A emissão depende da indicação do médico.</p>
+      </div>
+      <a class="renewal-card__btn" href="https://consultaja24h.com.br/renovacao-de-receita">Solicitar renovação</a>
     </div>
     <div style="margin-top:40px">
       <a href="#" class="btn-primary" style="margin:0 auto;animation:none;opacity:1;transform:none" onclick="event.preventDefault();try{window.moAbrir()}catch(e){console.error(e)}">
@@ -1759,6 +1875,15 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       <button class="mo-x" onclick="moFechar()">✕</button>
     </div>
 
+    <div class="mo-exit" id="moExitPrompt">
+      <div class="mo-exit__badge">Antes de sair</div>
+      <div class="mo-exit__title">Quer ajuda para finalizar?</div>
+      <p class="mo-exit__text">Se o Pix ou cartão travou, nossa equipe continua com você pelo WhatsApp. A consulta só abre após a confirmação do pagamento.</p>
+      <button class="mcta" onclick="moContinuarCheckout()">Continuar pagamento</button>
+      <button class="mwhats" onclick="moAbrirWhatsAppRecuperacao()">Falar no WhatsApp</button>
+      <button class="mghost" onclick="moSairMesmo()">Sair mesmo</button>
+    </div>
+
     <!-- STEP 0: Escolha de modalidade -->
     <div class="mo-step on" id="moStep0">
       <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Chat por texto ou vídeo, você escolhe.</p>
@@ -1791,8 +1916,19 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
           <div id="moModoDesc" style="font-size:.68rem;color:rgba(255,255,255,.5);font-weight:400;line-height:1.35;margin-top:1px">Texto e envio de fotos, direto no navegador</div>
         </div>
       </div>
+      <div id="moContextPill" style="display:none;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;background:rgba(180,224,90,.07);border:1px solid rgba(180,224,90,.18);color:rgba(255,255,255,.72);font-size:.69rem;font-weight:500;line-height:1.35">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="color:var(--g1);flex-shrink:0"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>Vamos iniciar: <strong id="moContextText" style="color:#fff;font-weight:700"></strong></span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;background:rgba(180,224,90,.07);border:1px solid rgba(180,224,90,.2);border-radius:13px;margin:8px 0 6px">
+        <div style="font-size:.74rem;color:rgba(255,255,255,.68);line-height:1.35">
+          <strong style="display:block;color:#fff;font-size:.82rem;margin-bottom:1px">Consulta médica online</strong>
+          Pagamento único · sem app · começa após confirmação
+        </div>
+        <div style="font-size:1rem;font-weight:800;color:#b4e05a;white-space:nowrap">R$ 49,90</div>
+      </div>
       <p style="font-size:.86rem;color:rgba(255,255,255,.78);font-weight:500;line-height:1.55;margin-bottom:2px;margin-top:4px">Qual seu telefone?</p>
-      <p style="font-size:.74rem;color:rgba(255,255,255,.42);font-weight:300;line-height:1.55">Usamos seu telefone para localizar seu cadastro e enviar receita, atestado ou pedido de exames por SMS via <strong style="color:rgba(255,255,255,.78);font-weight:600">Memed</strong>.</p>
+      <p style="font-size:.74rem;color:rgba(255,255,255,.42);font-weight:300;line-height:1.55">Usamos seu telefone para localizar seu atendimento e avisar quando o médico assumir. Sem criar conta.</p>
       <div>
         <label class="ml">Telefone com DDD</label>
         <input class="mi" id="moTel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" oninput="moMascaraTel(this)" onkeydown="if(event.key==='Enter')moAvancarStep1()" autocomplete="tel-national">
@@ -1807,7 +1943,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <input class="mi" id="moNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="moMascaraNasc(this)">
       </div>
       <div class="mautofill" id="moAutofill"></div>
-      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar →</button>
+      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar para pagamento seguro →</button>
       <!-- toggle discreto: chat é default, oferece vídeo como secundário -->
       <div id="moModoPill" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:7px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto;border-radius:999px">
         <span id="moModoToggleLabel" style="font-size:.7rem;color:rgba(255,255,255,.5);font-weight:400">Prefere atendimento por <strong>vídeo</strong>?</span>
@@ -1834,7 +1970,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       <div class="mprice">
         <div>
           <div style="font-size:.63rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:3px">Consulta médica online</div>
-          <div style="font-size:.69rem;color:rgba(255,255,255,.36);font-weight:300">Consulta completa · Receita e atestado quando indicados · Sem taxas extras</div>
+          <div style="font-size:.69rem;color:rgba(255,255,255,.36);font-weight:300">Pagamento único · Sem mensalidade · Sem taxa extra</div>
         </div>
         <div class="mpriceval">R$49<span style="font-size:.95rem">,90</span></div>
       </div>
@@ -1855,14 +1991,14 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <div class="mcard-err" id="moCardErr"></div>
       </div>
 
-      <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>. Para gerar o PIX, o CPF é necessário para pagamento e emissão dos documentos médicos.</div>
-      <div id="moPixCpfWrap" style="display:none">
+      <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, razão social da ConsultaJá24h. O CPF é solicitado apenas para gerar o pagamento, localizar seu atendimento e permitir a emissão de documentos médicos quando indicados.</div>
+      <div id="moPixCpfWrap" style="display:block">
         <label class="ml">CPF do pagador</label>
         <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this);moPixCpfDetectar(this)">
-        <div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Necessário para gerar o PIX e emitir seus documentos médicos.</div>
+        <div style="font-size:.63rem;color:rgba(255,255,255,.34);margin-top:5px;line-height:1.45">Necessário para gerar o Pix com segurança pelo PagBank e localizar seu atendimento. Seus dados são protegidos por sigilo médico e LGPD.</div>
       </div>
-      <button class="mcta" id="moBtnPagar" onclick="moPagar()">Continuar para atendimento →</button>
-      <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.28)">Após o pagamento, um médico assume seu caso em até 5 minutos.</div>
+      <button class="mcta" id="moBtnPagar" onclick="moPagar()">Gerar Pix de R$ 49,90</button>
+      <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.34);line-height:1.45">Após o pagamento, você será direcionado para a triagem médica. Sem mensalidade, fidelidade ou cobrança extra.</div>
       <div class="mqr-wrap" id="moQrWrap">
         <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Escaneie ou use Pix Copia e Cola</div>
         <img class="mqr-img" id="moQrImg" alt="QR Code PIX">
@@ -1889,7 +2025,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--g2)"><polyline points="20 6 9 17 4 12"></polyline></svg>
       </div>
       <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;text-align:center;margin-bottom:2px">Pagamento confirmado!</div>
-      <p style="font-size:.8rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.6;text-align:center;margin-bottom:10px">Precisamos de mais alguns dados para emitir receita e atestado.</p>
+      <p style="font-size:.8rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.6;text-align:center;margin-bottom:10px">Falta só confirmar seus dados para abrir a triagem médica.</p>
       <div id="moPosNomeWrap">
         <label class="ml">Nome completo</label>
         <input class="mi" id="moCpfPosNome" type="text" placeholder="Seu nome completo" autocomplete="name" onkeydown="if(event.key==='Enter')document.getElementById('moCpfPosNasc').focus()">
@@ -1898,7 +2034,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <label class="ml">Data de nascimento</label>
         <input class="mi" id="moCpfPosNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="moMascaraNasc(this)" onkeydown="if(event.key==='Enter')document.getElementById('moCpfPos').focus()">
       </div>
-      <div>
+      <div id="moPosCpfWrap">
         <label class="ml">CPF</label>
         <input class="mi" id="moCpfPos" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)" onkeydown="if(event.key==='Enter')moIniciarTriagem()">
         <div style="font-size:.66rem;color:rgba(255,255,255,.42);margin-top:5px;line-height:1.5">
@@ -1925,17 +2061,145 @@ var MO_API='https://triagem-api.onrender.com';
 var moTelVal='',moNomeVal='',moNascVal='',moCPFVal='',moEmailVal='';
 var moAtendimentoId=null,moOrderId=null,moMetodoAtual='pix';
 var moPoller=null,moJaTimer=null,moCardProcessando=false;
+var moPagamentoConfirmado=false;
 var moTipoConsulta='chat'; // 'chat' ou 'video'
 var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
+var MO_WHATSAPP_NUMBER='5598989272727';
+var moStepAtual=0;
+var moStepAntesSaida=1,moTentouRecuperarSaida=false;
 
 // contexto pré-selecionado do pain-grid
 var moPreContexto = '';
 
+function moGetCheckoutSessionId(){
+  try {
+    var id=sessionStorage.getItem('mo_checkout_session_id');
+    if(!id){
+      id='cj_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,9);
+      sessionStorage.setItem('mo_checkout_session_id',id);
+    }
+    return id;
+  } catch(e) {
+    return 'cj_sem_storage';
+  }
+}
+
+function moStepNome(n){
+  return ({0:'modalidade',1:'telefone',2:'pagamento',3:'confirmado_dados'})[n]||'desconhecido';
+}
+
+function moErroSeguro(msg){
+  return String(msg||'erro_desconhecido').replace(/\s+/g,' ').slice(0,140);
+}
+
 function moTrack(eventName, data){
   try {
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(Object.assign({event:eventName}, data || {}));
+    window.dataLayer.push(Object.assign({
+      event:eventName,
+      checkout_session_id:moGetCheckoutSessionId(),
+      atendimento_id:moAtendimentoId||'',
+      tipo_consulta:moTipoConsulta||'chat',
+      contexto:moPreContexto||'geral',
+      payment_method:moMetodoAtual||'pix',
+      checkout_step:moStepAtual,
+      checkout_step_name:moStepNome(moStepAtual)
+    }, data || {}));
   } catch(e) {}
+}
+
+function moChavePassagemConfirmado(id){
+  return 'cj_passou_confirmado_' + String(id || '');
+}
+
+function moJaPassouPorConfirmado(id){
+  try{ return !!(id && sessionStorage.getItem(moChavePassagemConfirmado(id)) === '1'); }catch(e){ return false; }
+}
+
+function moAdsParamPermitido(chave){
+  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
+}
+
+function moSalvarAdsParamsAtuais(){
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    var salvos = {};
+    origem.forEach(function(valor,chave){
+      if(moAdsParamPermitido(chave) && valor) salvos[chave] = valor;
+    });
+    if(Object.keys(salvos).length){
+      var json = JSON.stringify(salvos);
+      sessionStorage.setItem('cj_ads_params', json);
+      localStorage.setItem('cj_ads_params', json);
+    }
+  }catch(e){}
+}
+
+function moAplicarAdsParamsSalvos(params){
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    var salvos = JSON.parse(raw);
+    Object.keys(salvos || {}).forEach(function(chave){
+      if(moAdsParamPermitido(chave) && salvos[chave] && !params.has(chave)) params.set(chave, salvos[chave]);
+    });
+  }catch(e){}
+}
+
+function moAdsAttributionPayload(){
+  var out = {};
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    out = JSON.parse(raw) || {};
+  }catch(e){ out = {}; }
+  try{
+    var atual = new URLSearchParams(window.location.search);
+    atual.forEach(function(valor,chave){
+      if(moAdsParamPermitido(chave) && valor) out[chave] = valor;
+    });
+  }catch(e){}
+  out.landing_url = location.href;
+  out.referrer = document.referrer || '';
+  out.checkout_session_id = moGetCheckoutSessionId();
+  out.user_agent = navigator.userAgent || '';
+  return out;
+}
+
+function moMontarUrlConfirmado(id,tipo){
+  var params = new URLSearchParams();
+  if(id) params.set('consulta', String(id));
+  params.set('tipo', tipo || moTipoConsulta || 'chat');
+  if(moPreContexto) params.set('motivo', moPreContexto);
+  moAplicarAdsParamsSalvos(params);
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    origem.forEach(function(valor,chave){
+      if(moAdsParamPermitido(chave)){
+        params.set(chave, valor);
+      }
+    });
+  }catch(e){}
+  return 'https://consultaja24h.com.br/confirmado?' + params.toString();
+}
+
+moSalvarAdsParamsAtuais();
+
+function moRedirecionarConfirmadoObrigatorio(id,tipo,metodo,origem){
+  if(!id) return false;
+  var tipoFinal = tipo || moTipoConsulta || 'chat';
+  console.log('PAGAMENTO_CONFIRMADO_REDIRECT_CONFIRMADO', {
+    consultaId:String(id),
+    tipo:tipoFinal,
+    metodo:metodo || moMetodoAtual || 'desconhecido',
+    origem:origem || ''
+  });
+  moTrack('pagamento_confirmado_redirect_confirmado', {
+    atendimento_id:id,
+    tipo_consulta:tipoFinal,
+    payment_method:metodo || moMetodoAtual || 'desconhecido',
+    origem:origem || ''
+  });
+  window.location.href = moMontarUrlConfirmado(id,tipoFinal);
+  return true;
 }
 
 function moTrackOnce(key, eventName, data){
@@ -1946,15 +2210,226 @@ function moTrackOnce(key, eventName, data){
   moTrack(eventName, data);
 }
 
-function moAbrir(contexto){
+function moFetchComTimeout(url, options, ms){
+  options = options || {};
+  ms = ms || 8000;
+  if(typeof AbortController==='undefined') return fetch(url, options);
+  var ctrl = new AbortController();
+  var timer = setTimeout(function(){ ctrl.abort(); }, ms);
+  var opts = Object.assign({}, options, {signal: ctrl.signal});
+  return fetch(url, opts)
+    .then(function(res){ clearTimeout(timer); return res; })
+    .catch(function(err){ clearTimeout(timer); throw err; });
+}
+
+function moResumoTriagem(){
+  return moPreContexto
+    ? '(aguardando pagamento) - interesse: ' + moPreContexto
+    : '(aguardando pagamento)';
+}
+
+function moNomeValido(nome){
+  var n=String(nome||'').trim().replace(/\s+/g,' ');
+  var k=n.toLowerCase();
+  return !!(n&&n.length>1&&k!=='-'&&k!=='paciente'&&k!=='paciente whatsapp');
+}
+
+function moNomeParaCadastro(){
+  return moNomeValido(moNomeVal) ? moNomeVal.trim().replace(/\s+/g,' ') : 'Paciente';
+}
+
+function moPayloadAtendimento(extra){
+  return Object.assign({
+    nome:moNomeParaCadastro(),
+    tel:moTelVal,
+    cpf:moCPFVal,
+    triagem:moResumoTriagem(),
+    tipo:moTipoConsulta,
+    data_nascimento:moNascVal||'',
+    email:moEmailVal||'',
+    contexto:moPreContexto||'',
+    ads:moAdsAttributionPayload()
+  }, extra||{});
+}
+
+function moSalvarCheckoutSessao(){
+  if(!moAtendimentoId) return;
+  try {
+    var snap = {
+      atendimentoId:moAtendimentoId,
+      tipoConsulta:moTipoConsulta,
+      pacienteNome:moNomeVal||'',
+      pacienteTel:moTelVal||'',
+      pacienteCPF:moCPFVal||'',
+      pacienteEmail:moEmailVal||'',
+      pagbankOrderId:moOrderId||null,
+      checkoutSessionId:moGetCheckoutSessionId(),
+      paymentMethod:moMetodoAtual||'pix',
+      pagamentoConfirmado:!!moPagamentoConfirmado,
+      ts:Date.now()
+    };
+    localStorage.setItem('cj_sessao', JSON.stringify(snap));
+    sessionStorage.setItem('mo_checkout_sessao', JSON.stringify(snap));
+  } catch(e) {}
+}
+
+async function moRetomarSessaoAtiva(){
+  var sessao=null;
+  try{ sessao=JSON.parse(localStorage.getItem('cj_sessao')||'null'); }catch(e){ sessao=null; }
+  if(!sessao||!sessao.atendimentoId) return false;
+  var id=String(sessao.atendimentoId);
+  var tipo=sessao.tipoConsulta||'chat';
+  var destino='/triagem.html?consulta='+encodeURIComponent(id)+'&tipo='+encodeURIComponent(tipo);
+  try{
+    var res=await moFetchComTimeout(MO_API+'/api/atendimento/status/'+encodeURIComponent(id),{},5000);
+    var data=await res.json();
+    if(!data.ok||!data.atendimento) return false;
+    var a=data.atendimento;
+    if(a.status==='encerrado'){
+      localStorage.removeItem('cj_sessao');
+      sessionStorage.removeItem('mo_checkout_sessao');
+      return false;
+    }
+    if(a.tipo){
+      tipo=a.tipo;
+      destino='/triagem.html?consulta='+encodeURIComponent(id)+'&tipo='+encodeURIComponent(a.tipo);
+    }
+    if((a.pagamento_status==='confirmado'||sessao.pagamentoConfirmado) && !moJaPassouPorConfirmado(id)){
+      moTrack('resume_existing_session', {
+        atendimento_id:id,
+        resume_reason:'pagamento_confirmado_redirect_confirmado',
+        destino:'confirmado'
+      });
+      moRedirecionarConfirmadoObrigatorio(id,tipo,'confirmado_backend','consulta_retomar_sessao_confirmada');
+      return true;
+    }
+    if(a.pagamento_status==='confirmado'||sessao.pagamentoConfirmado){
+      moTrack('resume_existing_session', {
+        atendimento_id:id,
+        resume_reason:'pagamento_confirmado',
+        destino:destino
+      });
+      window.location.href=destino;
+      return true;
+    }
+    if(a.pagamento_status==='pendente'||a.pagbank_order_id||sessao.pagbankOrderId){
+      moTrack('resume_existing_session_ignored', {
+        atendimento_id:id,
+        resume_reason:'pagamento_pendente_fica_na_landing',
+        destino:'consulta'
+      });
+      try{
+        var limpo = Object.assign({}, sessao, {pagbankOrderId:null, pagamentoConfirmado:false});
+        localStorage.setItem('cj_sessao', JSON.stringify(limpo));
+        sessionStorage.setItem('mo_checkout_sessao', JSON.stringify(limpo));
+      }catch(_e){}
+      return false;
+    }
+  }catch(e){
+    if(sessao.pagamentoConfirmado && !moJaPassouPorConfirmado(id)){
+      moTrack('resume_existing_session', {
+        atendimento_id:id,
+        resume_reason:'status_indisponivel_pagamento_confirmado_redirect_confirmado',
+        destino:'confirmado'
+      });
+      moRedirecionarConfirmadoObrigatorio(id,tipo,'sessao_local','consulta_retomar_sessao_confirmada_fallback');
+      return true;
+    }
+    if(sessao.pagamentoConfirmado){
+      moTrack('resume_existing_session', {
+        atendimento_id:id,
+        resume_reason:'status_indisponivel_sessao_confirmada',
+        destino:destino
+      });
+      window.location.href=destino;
+      return true;
+    }
+    if(sessao.pagbankOrderId){
+      moTrack('resume_existing_session_ignored', {
+        atendimento_id:id,
+        resume_reason:'status_indisponivel_pagamento_pendente_fica_na_landing',
+        destino:'consulta'
+      });
+      try{
+        var limpoFallback = Object.assign({}, sessao, {pagbankOrderId:null, pagamentoConfirmado:false});
+        localStorage.setItem('cj_sessao', JSON.stringify(limpoFallback));
+        sessionStorage.setItem('mo_checkout_sessao', JSON.stringify(limpoFallback));
+      }catch(_e2){}
+      return false;
+    }
+  }
+  return false;
+}
+
+async function moGarantirAtendimentoAntesDaTriagem(){
+  if(!moAtendimentoId){
+    var res = await moFetchComTimeout(MO_API+'/api/notify',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(moPayloadAtendimento())
+    },15000);
+    var data = await res.json();
+    if(!data || !data.atendimentoId){
+      throw new Error((data&&data.error)||'Não foi possível abrir sua triagem. Tente novamente.');
+    }
+    moAtendimentoId = data.atendimentoId;
+  } else {
+    moPostConfiavel('/api/notify', moPayloadAtendimento({atendimentoId:moAtendimentoId}));
+  }
+
+  moSalvarCheckoutSessao();
+
+  var pendencias = [];
+  if(moAtendimentoId && moOrderId){
+    pendencias.push(moFetchComTimeout(MO_API+'/api/atendimento/vincular-order',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})
+    },6000).then(function(){ moSalvarCheckoutSessao(); }).catch(function(e){
+      console.warn('[MO] vínculo do pagamento pendente:', e.message);
+    }));
+  }
+
+  if(moAtendimentoId && moCPFVal){
+    pendencias.push(moFetchComTimeout(MO_API+'/api/atendimento/atualizar-cpf',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({atendimentoId:moAtendimentoId,cpf:moCPFVal})
+    },6000).catch(function(e){ console.warn('[MO] CPF pendente:', e.message); }));
+  }
+
+  if(pendencias.length) await Promise.all(pendencias);
+  moSalvarCheckoutSessao();
+
+  return moAtendimentoId;
+}
+
+function moAtualizarContexto(){
+  var pill=document.getElementById('moContextPill');
+  var text=document.getElementById('moContextText');
+  if(!pill||!text) return;
+  if(moPreContexto){
+    text.textContent=moPreContexto;
+    pill.style.display='flex';
+  } else {
+    text.textContent='';
+    pill.style.display='none';
+  }
+}
+
+async function moAbrir(contexto){
   moPreContexto = contexto || '';
-  moTrack('modal_open');
+  if(await moRetomarSessaoAtiva()) return;
+  moTentouRecuperarSaida=false;
+  moStepAntesSaida=1;
+  moTrack('modal_open', {contexto:moPreContexto||'geral'});
   document.getElementById('moOverlay').classList.add('open');
   document.body.style.overflow='hidden';
   // pula direto pro telefone — escolha chat/vídeo vira opcional no proprio step 1
   moTipoConsulta='chat';
   moSelecionarTipo('chat');
   moAtualizarToggleModo();
+  moAtualizarContexto();
   moIrStep(1);
   setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
 }
@@ -2074,14 +2549,91 @@ function moReenviarPendentes(){
 setTimeout(moReenviarPendentes, 4000);
 
 function moFechar(){
+  var overlay=document.getElementById('moOverlay');
+  var exit=document.getElementById('moExitPrompt');
+  if(exit&&exit.classList.contains('on')){
+    moSairMesmo();
+    return;
+  }
+  if(overlay&&overlay.classList.contains('open')){
+    moTrack('checkout_close', {
+      close_step:moStepAtual,
+      close_step_name:moStepNome(moStepAtual),
+      has_atendimento:!!moAtendimentoId,
+      has_order:!!moOrderId,
+      pagamento_confirmado:!!moPagamentoConfirmado,
+      qr_visible:!!(document.getElementById('moQrWrap')&&document.getElementById('moQrWrap').classList.contains('show'))
+    });
+  }
+  if(moDeveMostrarRecuperacao()){
+    moMostrarRecuperacaoSaida();
+    return;
+  }
+  moSairMesmo();
+}
+
+function moDeveMostrarRecuperacao(){
+  var exit=document.getElementById('moExitPrompt');
+  if(exit&&exit.classList.contains('on')) return false;
+  if(moPagamentoConfirmado||moTentouRecuperarSaida) return false;
+  return moStepAtual>=2 || !!moOrderId;
+}
+
+function moMostrarRecuperacaoSaida(){
+  moTentouRecuperarSaida=true;
+  moStepAntesSaida=moStepAtual||2;
+  document.querySelectorAll('.mo-step').forEach(function(s){ s.classList.remove('on'); });
+  var exit=document.getElementById('moExitPrompt');
+  if(exit) exit.classList.add('on');
+  document.getElementById('moTitle').textContent='Ainda precisa de ajuda?';
+  moTrack('checkout_recovery_view', {
+    recovery_step:moStepAntesSaida,
+    recovery_step_name:moStepNome(moStepAntesSaida),
+    has_order:!!moOrderId
+  });
+}
+
+function moContinuarCheckout(){
+  var exit=document.getElementById('moExitPrompt');
+  if(exit) exit.classList.remove('on');
+  moTrack('checkout_recovery_continue', {recovery_step:moStepAntesSaida});
+  moIrStep(moStepAntesSaida||2);
+}
+
+function moAbrirWhatsAppRecuperacao(){
+  var msg='Olá, comecei uma consulta médica online no ConsultaJá24h e preciso de ajuda para finalizar o pagamento.';
+  if(moAtendimentoId) msg+=' Atendimento #'+moAtendimentoId+'.';
+  moTrack('checkout_recovery_whatsapp', {
+    recovery_step:moStepAntesSaida,
+    has_atendimento:!!moAtendimentoId,
+    has_order:!!moOrderId
+  });
+  window.open('https://wa.me/'+MO_WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+  moSairMesmo(true);
+}
+
+function moSairMesmo(semEventoRecuperacao){
+  var exit=document.getElementById('moExitPrompt');
+  if(!semEventoRecuperacao&&exit&&exit.classList.contains('on')){
+    moTrack('checkout_recovery_dismiss', {
+      recovery_step:moStepAntesSaida||moStepAtual,
+      has_atendimento:!!moAtendimentoId,
+      has_order:!!moOrderId
+    });
+  }
   if(moPoller){ clearInterval(moPoller); moPoller=null; }
   if(moJaTimer){ clearTimeout(moJaTimer); moJaTimer=null; }
-  document.getElementById('moOverlay').classList.remove('open');
+  if(exit) exit.classList.remove('on');
+  var overlay=document.getElementById('moOverlay');
+  overlay.classList.remove('open');
   document.body.style.overflow='';
 }
 document.getElementById('moOverlay').addEventListener('click',function(e){ if(e.target===this) moFechar(); });
 
 function moIrStep(n){
+  var exit=document.getElementById('moExitPrompt');
+  if(exit) exit.classList.remove('on');
+  moStepAtual=n;
   document.querySelectorAll('.mo-step').forEach(function(s){ s.classList.remove('on'); });
   document.getElementById('moStep'+n).classList.add('on');
   document.getElementById('moBox').scrollTop=0;
@@ -2089,6 +2641,10 @@ function moIrStep(n){
   document.getElementById('moTitle').textContent=titles[n]||'';
   var x=document.querySelector('.mo-x');
   if(x) x.style.display=n===3?'none':'';
+  moTrackOnce('checkout_step_'+moGetCheckoutSessionId()+'_'+n,'checkout_step_view',{
+    step_number:n,
+    step_name:moStepNome(n)
+  });
 }
 
 function moMascaraTel(el){
@@ -2173,7 +2729,7 @@ async function moAvancarStep1(){
     return;
   }
   moTelVal=tel;
-  moTrackOnce('tel_valid_'+tel, 'telefone_valido', {tipo:moTipoConsulta});
+  moTrackOnce('tel_valid_'+moGetCheckoutSessionId(), 'telefone_valido', {tipo:moTipoConsulta});
   var btn=document.getElementById('moBtnStep1');
   btn.disabled=true; btn.textContent='Verificando...';
   var autofill=document.getElementById('moAutofill');
@@ -2187,26 +2743,27 @@ async function moAvancarStep1(){
     if(data.ok&&data.paciente&&data.paciente.nome&&data.paciente.nome.trim().split(/\s+/).length>=2){
       var p=data.paciente;
       moNomeVal=p.nome; moNascVal=p.data_nascimento||'';
+      moTrack('patient_lookup_result', {result:'found'});
       autofill.textContent='Cadastro encontrado. Continuando...';
       autofill.className='mautofill show';
       fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
       moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
-      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar'; moIrPagamento(); },700);
+      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar para pagamento seguro →'; moIrPagamento(); },700);
       return;
     } else {
-      autofill.textContent='Falta só seu nome para finalizar.';
+      moTrack('patient_lookup_result', {result:'not_found'});
+      autofill.textContent='Tudo certo. Vamos gerar seu Pix com segurança.';
       autofill.className='mautofill show';
     }
   } catch(e) {
     clearTimeout(timeoutId);
-    autofill.textContent='Informe seu nome abaixo para continuar.';
+    moTrack('patient_lookup_result', {result:'error',error_message:moErroSeguro(e.message||'timeout')});
+    autofill.textContent='Tudo certo. Vamos seguir para o pagamento.';
     autofill.className='mautofill show';
   }
-  document.getElementById('moNomeWrap').style.display='block';
-  document.getElementById('moNascWrap').style.display='block';
-  document.getElementById('moNome').focus();
-  btn.disabled=false; btn.textContent='Continuar';
-  btn.onclick=moConfirmarComNome;
+  document.getElementById('moNomeWrap').style.display='none';
+  document.getElementById('moNascWrap').style.display='none';
+  moIrPagamento();
 }
 
 function moConfirmarComNome(){
@@ -2228,13 +2785,16 @@ async function moIrPagamento(){
   var btn=document.getElementById('moBtnStep1');
   btn.disabled=true; btn.textContent='Preparando...';
   try {
-    var res=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||'',ads:moAdsAttributionPayload()})});
+    var res=await moFetchComTimeout(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(moPayloadAtendimento())},6500);
     var data=await res.json();
-    if(data.ok&&data.atendimentoId) moAtendimentoId=data.atendimentoId;
-    moTrack('lead_pre_pagamento', {tipo:moTipoConsulta});
+    if(data.ok&&data.atendimentoId){
+      moAtendimentoId=data.atendimentoId;
+      moSalvarCheckoutSessao();
+    }
   } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
-  btn.disabled=false; btn.textContent='Continuar';
+  moTrack('lead_pre_pagamento', {tipo:moTipoConsulta,contexto:moPreContexto||'geral',atendimento_id:moAtendimentoId||''});
+  btn.disabled=false; btn.textContent='Continuar para pagamento seguro →';
   btn.onclick=moAvancarStep1;
   moMetodo('pix');
   moIrStep(2);
@@ -2247,15 +2807,19 @@ function moMetodo(m){
   document.getElementById('moTabCard').className='mtab'+(m==='cartao'?' card':'');
   document.getElementById('moCardFields').className='mcard-fields'+(m==='cartao'?' show':'');
   document.getElementById('moPixAlert').style.display=m==='pix'?'block':'none';
-  document.getElementById('moPixCpfWrap').style.display='none';
+  document.getElementById('moPixCpfWrap').style.display=m==='pix'?'block':'none';
   document.getElementById('moQrWrap').classList.remove('show');
   var btn=document.getElementById('moBtnPagar');
-  btn.style.display='block'; btn.textContent='Continuar para atendimento'; btn.disabled=false;
+  btn.style.display='block'; btn.textContent=m==='pix'?'Gerar Pix de R$ 49,90':'Pagar com cartão'; btn.disabled=false;
 }
 
 function moPixCpfDetectar(el){
   var cpf=el.value.replace(/\D/g,'');
   var statusEl=document.getElementById('moPixStatus');
+  if(cpf.length<11){
+    if(statusEl&&statusEl.classList.contains('err')) statusEl.style.display='none';
+    return;
+  }
   if(cpf.length===11){
     if(!validarCPF(cpf)){
       el.style.borderColor='rgba(255,95,87,.7)';
@@ -2264,28 +2828,34 @@ function moPixCpfDetectar(el){
       return;
     }
     moCPFVal=cpf;
-    moTrackOnce('cpf_pix_'+cpf, 'cpf_informado', {method:'pix'});
-    moGerarPix();
+    moTrackOnce('cpf_pix_'+moGetCheckoutSessionId(), 'cpf_informado', {method:'pix'});
+    if(statusEl&&statusEl.classList.contains('err')) statusEl.style.display='none';
   }
 }
 
 async function moPagar(){
   if(moMetodoAtual==='pix'){
-    if(moCPFVal && moCPFVal.length===11){
-      await moGerarPix();
-    } else {
-      var cpfWrap=document.getElementById('moPixCpfWrap');
-      cpfWrap.style.display='block';
-      document.getElementById('moBtnPagar').style.display='none';
-      setTimeout(function(){ var el=document.getElementById('moPixCPF'); if(el) el.focus(); },100);
+    var cpfEl=document.getElementById('moPixCPF');
+    var cpf=(cpfEl.value||'').replace(/\D/g,'');
+    var statusEl=document.getElementById('moPixStatus');
+    if(!cpf||cpf.length!==11||!validarCPF(cpf)){
+      moTrack('pix_error', {error_stage:'cpf_validation',error_message:'cpf_invalido'});
+      if(statusEl){ statusEl.textContent='⚠️ Informe um CPF válido para gerar o Pix.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
+      cpfEl.focus();
+      cpfEl.style.borderColor='rgba(255,95,87,.7)';
+      setTimeout(function(){ cpfEl.style.borderColor=''; },1800);
+      return;
     }
+    moCPFVal=cpf;
+    moTrackOnce('cpf_pix_'+moGetCheckoutSessionId(), 'cpf_informado', {method:'pix'});
+    moTrack('pix_generate_click', {contexto:moPreContexto||'geral'});
+    await moGerarPix();
   } else {
     await moPagarCartao();
   }
 }
 
 async function moGerarPix(){
-  // CPF coletado após pagamento, na triagem , não bloqueamos o PIX aqui
   var btn=document.getElementById('moBtnPagar');
   btn.disabled=true; btn.textContent='Gerando PIX...';
   var statusEl=document.getElementById('moPixStatus');
@@ -2293,27 +2863,33 @@ async function moGerarPix(){
   statusEl.textContent='Gerando código PIX...';
   var _reset=setTimeout(function(){
     if(btn.disabled){ btn.disabled=false; btn.textContent='Tentar novamente';
-      statusEl.textContent='Servidor demorou. Clique novamente.'; statusEl.className='mstatus err'; }
+      statusEl.textContent='Servidor demorou. Clique novamente.'; statusEl.className='mstatus err';
+      moTrack('pix_error', {error_stage:'timeout',error_message:'servidor_demorou'}); }
   },25000);
   try {
     if(!validarCPF(moCPFVal)){
       var statusEl=document.getElementById('moPixStatus');
       if(statusEl){ statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
-      btn.disabled=false; btn.textContent='Pagar com PIX';
+      btn.disabled=false; btn.textContent='Gerar Pix de R$ 49,90';
       clearTimeout(_reset);
+      moTrack('pix_error', {error_stage:'cpf_validation_late',error_message:'cpf_invalido'});
       return;
     }
-    var _nomeEnvio=(moNomeVal&&moNomeVal.trim().length>1)?moNomeVal.trim():'Paciente';
-    var res=await fetch(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({atendimentoId:moAtendimentoId||undefined,nome:_nomeEnvio,cpf:moCPFVal,email:undefined,ads:moAdsAttributionPayload()})});
+    await moGarantirAtendimentoAntesDaTriagem();
+    if(!moAtendimentoId) throw new Error('Não foi possível abrir seu atendimento. Tente novamente.');
+    var res=await moFetchComTimeout(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({atendimentoId:moAtendimentoId,nome:moNomeParaCadastro(),cpf:moCPFVal,email:undefined,ads:moAdsAttributionPayload()})},23000);
     var data=await res.json();
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
     moOrderId=data.order_id;
     var pixText=data.qr_code_text||'';
     if(moAtendimentoId&&moOrderId){
-      fetch(MO_API+'/api/atendimento/vincular-order',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})}).catch(function(){});
+      var vinculoRes=await moFetchComTimeout(MO_API+'/api/atendimento/vincular-order',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})},8000);
+      var vinculoData=await vinculoRes.json();
+      if(!vinculoData.ok) throw new Error(vinculoData.error||'Não foi possível associar o PIX ao atendimento.');
     }
+    moSalvarCheckoutSessao();
     var img=document.getElementById('moQrImg');
     if(pixText){
       img.onload=function(){ img.style.display='block'; };
@@ -2325,22 +2901,23 @@ async function moGerarPix(){
     clearTimeout(_reset);
     statusEl.textContent='Aguardando confirmação do pagamento...';
     statusEl.className='mstatus'; statusEl.style.display='block';
+    moTrack('pix_qr_visible', {contexto:moPreContexto||'geral'});
     // [TRACKING] Dispara gerou_pix apenas 1x por order — flag evita duplicação
     (function(){
       var chavePixGerado = 'pix_gerado_' + (moOrderId || Date.now());
       if(!sessionStorage.getItem(chavePixGerado)){
         sessionStorage.setItem(chavePixGerado, '1');
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({event:'gerou_pix', value:49.90, currency:'BRL'});
+        moTrack('gerou_pix', {value:49.90,currency:'BRL'});
         console.log('[TRACKING] gerou_pix disparado', chavePixGerado);
       }
     })();
     moIniciarPolling();
   } catch(e) {
     clearTimeout(_reset);
-    btn.disabled=false; btn.textContent='Continuar para atendimento';
+    btn.disabled=false; btn.textContent='Gerar Pix de R$ 49,90';
     statusEl.textContent='Erro ao gerar PIX: '+(e.message||'Tente novamente.');
     statusEl.className='mstatus err'; statusEl.style.display='block';
+    moTrack('pix_error', {error_stage:'order_create',error_message:moErroSeguro(e.message)});
   }
 }
 
@@ -2363,32 +2940,32 @@ function moIniciarPolling(){
 }
 
 async function moVerificarManual(){
+  moTrack('manual_payment_check', {result:'clicked'});
   var btn=document.getElementById('moJaBtn');
   btn.disabled=true; btn.textContent='Verificando...';
   try {
     var r=await fetch(MO_API+'/api/pagbank/order/'+moOrderId);
     var d=await r.json();
-    if(d.ok&&d.pago){ clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return; }
+    if(d.ok&&d.pago){ moTrack('manual_payment_check_result', {result:'paid_pagbank'}); clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return; }
     if(moAtendimentoId){
       var r2=await fetch(MO_API+'/api/atendimento/status/'+moAtendimentoId);
       var d2=await r2.json();
       if(d2.ok&&d2.atendimento&&d2.atendimento.pagamento_status==='confirmado'){
+        moTrack('manual_payment_check_result', {result:'paid_backend'});
         clearInterval(moPoller); clearTimeout(moJaTimer); moConfirmarPagamento(); return;
       }
     }
+    moTrack('manual_payment_check_result', {result:'pending'});
     document.getElementById('moPixStatus').textContent='Pagamento ainda não identificado.';
     btn.disabled=false; btn.textContent='Já paguei, verificar novamente';
-  } catch(e){ btn.disabled=false; btn.textContent='Já paguei, verificar novamente'; }
-}
-
-function dispararConversao(_tentativa, _onComplete){
-  var onComplete = _onComplete || function(){};
-  console.log('[TRACKING] conversão centralizada em /confirmado; seguindo para redirect obrigatório');
-  setTimeout(onComplete, 0);
+  } catch(e){ moTrack('manual_payment_check_result', {result:'error',error_message:moErroSeguro(e.message)}); btn.disabled=false; btn.textContent='Já paguei, verificar novamente'; }
 }
 
 function moConfirmarPagamento(){
   console.log('[TRACKING] pagamento confirmado detectado');
+  moPagamentoConfirmado=true;
+  moSalvarCheckoutSessao();
+  moTrack('checkout_payment_detected', {payment_detected_method:moMetodoAtual||'pix'});
   document.getElementById('moJaWrap').style.display='none';
   document.getElementById('moPixStatus').textContent='Pagamento confirmado!';
   document.getElementById('moPixStatus').className='mstatus ok';
@@ -2398,23 +2975,25 @@ function moConfirmarPagamento(){
   var nascEl=document.getElementById('moCpfPosNasc');
   var nomeWrap=document.getElementById('moPosNomeWrap');
   var nascWrap=document.getElementById('moPosNascWrap');
+  var cpfWrap=document.getElementById('moPosCpfWrap');
+  var cpfEl=document.getElementById('moCpfPos');
+  var precisaAbrirAtendimento = !moAtendimentoId;
+  var temNomeReal = moNomeValido(moNomeVal);
   // Se nome já foi coletado (autofill ou Step 1), esconde o campo
-  if(moNomeVal){ nomeEl.value=moNomeVal; nomeWrap.style.display='none'; } else { nomeWrap.style.display='block'; }
-  // Se nascimento já foi coletado, esconde
-  if(moNascVal){ nascWrap.style.display='none'; } else { nascWrap.style.display='block'; }
-
-  // Se já temos CPF (pagamento por cartão), aguarda conversão antes de redirecionar
-  if(moCPFVal && moCPFVal.length===11){
-    console.log('[TRACKING] aguardando conversão antes do redirect');
-    dispararConversao(0, function(){
-      setTimeout(function(){
-        console.log('[TRACKING] redirecionando para triagem após conversão');
-        moEnviarCpfEIr();
-      }, 300);
-    });
+  if(temNomeReal){ nomeEl.value=moNomeVal.trim().replace(/\s+/g,' '); nomeWrap.style.display='none'; } else { nomeWrap.style.display='block'; }
+  // Nascimento só entra aqui quando já vamos pedir nome; não bloqueia compras de retorno.
+  if(moNascVal||temNomeReal){ nascWrap.style.display='none'; } else { nascWrap.style.display='block'; }
+  if(moCPFVal&&moCPFVal.length===11){
+    cpfEl.value=moCPFVal;
+    cpfWrap.style.display=precisaAbrirAtendimento?'block':'none';
   } else {
-    // PIX: vai para Step 3 para coletar CPF (e nome/nascimento se necessário)
-    dispararConversao();
+    cpfWrap.style.display='block';
+  }
+
+  // A conversão de compra dispara na página /confirmado. A landing apenas redireciona.
+  var precisaDados = precisaAbrirAtendimento || !temNomeReal || !(moCPFVal && moCPFVal.length===11);
+  if(precisaDados){
+    moTrack('post_payment_details_view', {contexto:moPreContexto||'geral'});
     moIrStep(3);
     setTimeout(function(){
       // Focar no primeiro campo visível
@@ -2422,10 +3001,12 @@ function moConfirmarPagamento(){
       else if(nascWrap.style.display!=='none'){ var el=document.getElementById('moCpfPosNasc'); if(el) el.focus(); }
       else { var el=document.getElementById('moCpfPos'); if(el) el.focus(); }
     },320);
+  } else {
+    setTimeout(function(){ moEnviarCpfEIr(); }, 300);
   }
 }
 
-function moIniciarTriagem(){
+async function moIniciarTriagem(){
   var errEl=document.getElementById('moCpfPosErr');
   errEl.style.display='none';
 
@@ -2451,9 +3032,11 @@ function moIniciarTriagem(){
     if(nb&&nb.length===10) moNascVal=moConverterNasc(nb);
   }
 
+  var cpfWrap=document.getElementById('moPosCpfWrap');
   var cpfEl=document.getElementById('moCpfPos');
-  var cpf=cpfEl.value.replace(/\D/g,'');
-  if(!cpf||cpf.length!==11){
+  var cpf=(cpfEl.value||moCPFVal||'').replace(/\D/g,'');
+  if(cpfWrap&&cpfWrap.style.display==='none'&&moCPFVal) cpf=moCPFVal;
+  if(!cpf||cpf.length!==11||!validarCPF(cpf)){
     errEl.textContent='Informe um CPF válido para continuar.';
     errEl.style.display='block';
     cpfEl.focus(); cpfEl.style.borderColor='rgba(255,95,87,.5)';
@@ -2464,88 +3047,44 @@ function moIniciarTriagem(){
 
   // Atualizar nome/nascimento no registro se coletados aqui
   if(moAtendimentoId && (moNomeVal||moNascVal)){
-    fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({atendimentoId:moAtendimentoId,nome:moNomeVal,tel:moTelVal,cpf:moCPFVal,data_nascimento:moNascVal||'',triagem:'(aguardando pagamento)',tipo:moTipoConsulta})}).catch(function(){});
+    moPostConfiavel('/api/notify',moPayloadAtendimento({atendimentoId:moAtendimentoId}));
   }
 
   var btn=document.getElementById('moBtnTriagem');
   btn.disabled=true; btn.textContent='Entrando...';
-  moEnviarCpfEIr();
+  await moEnviarCpfEIr();
 }
 
-function moAdsParamPermitido(chave){
-  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
-}
-
-function moSalvarAdsParamsAtuais(){
-  try{
-    var origem = new URLSearchParams(window.location.search);
-    var salvos = {};
-    origem.forEach(function(valor,chave){
-      if(moAdsParamPermitido(chave) && valor) salvos[chave] = valor;
-    });
-    if(Object.keys(salvos).length){
-      var json = JSON.stringify(salvos);
-      sessionStorage.setItem('cj_ads_params', json);
-      localStorage.setItem('cj_ads_params', json);
+async function moEnviarCpfEIr(){
+  var btn=document.getElementById('moBtnTriagem');
+  var errEl=document.getElementById('moCpfPosErr');
+  var statusEl=document.getElementById('moPixStatus');
+  try {
+    if(btn){ btn.disabled=true; btn.textContent='Abrindo triagem...'; }
+    if(errEl) errEl.style.display='none';
+    if(statusEl && !moAtendimentoId){
+      statusEl.textContent='Abrindo sua triagem médica...';
+      statusEl.className='mstatus';
+      statusEl.style.display='block';
     }
-  }catch(e){}
-}
-
-function moAdicionarAdsParamsConfirmado(params){
-  try{
-    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
-    var salvos = JSON.parse(raw);
-    Object.keys(salvos || {}).forEach(function(chave){
-      if(moAdsParamPermitido(chave) && salvos[chave]) params.set(chave, salvos[chave]);
-    });
-    var origem = new URLSearchParams(window.location.search);
-    origem.forEach(function(valor,chave){
-      if(moAdsParamPermitido(chave) && valor) params.set(chave, valor);
-    });
-  }catch(e){}
-}
-
-function moAdsAttributionPayload(){
-  var out = {};
-  try{
-    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
-    out = JSON.parse(raw) || {};
-  }catch(e){ out = {}; }
-  try{
-    var atual = new URLSearchParams(window.location.search);
-    atual.forEach(function(valor,chave){
-      if(moAdsParamPermitido(chave) && valor) out[chave] = valor;
-    });
-  }catch(e){}
-  out.landing_url = location.href;
-  out.referrer = document.referrer || '';
-  out.user_agent = navigator.userAgent || '';
-  return out;
-}
-
-moSalvarAdsParamsAtuais();
-
-function moEnviarCpfEIr(){
-  // Atualiza CPF no registro (Sheets/Memed/prontuário)
-  if(moAtendimentoId && moCPFVal){
-    fetch(MO_API+'/api/atendimento/atualizar-cpf',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({atendimentoId:moAtendimentoId,cpf:moCPFVal})}).catch(function(){});
+    await moGarantirAtendimentoAntesDaTriagem();
+  } catch(e) {
+    var msg=e.message||'Não foi possível abrir sua triagem. Tente novamente.';
+    moTrack('triage_open_error', {error_message:moErroSeguro(msg)});
+    if(errEl){
+      errEl.textContent=msg;
+      errEl.style.display='block';
+    }
+    if(statusEl){
+      statusEl.textContent=msg;
+      statusEl.className='mstatus err';
+      statusEl.style.display='block';
+    }
+    if(btn){ btn.disabled=false; btn.textContent='Tentar abrir triagem novamente'; }
+    return false;
   }
-  var url='https://consultaja24h.com.br/confirmado';
-  var params=new URLSearchParams();
-  if(moAtendimentoId) params.set('consulta', String(moAtendimentoId));
-  params.set('tipo', moTipoConsulta || 'chat');
-  moAdicionarAdsParamsConfirmado(params);
-  url+='?'+params.toString();
-
-  console.log('PAGAMENTO_CONFIRMADO_REDIRECT_CONFIRMADO', {
-    consultaId:String(moAtendimentoId || ''),
-    tipo:moTipoConsulta || 'chat',
-    metodo:moMetodoAtual || 'desconhecido',
-    origem:'index_pagamento_confirmado'
-  });
-  window.location.href = url;
+  moTrack('triage_redirect_start', {destino:'confirmado'});
+  moRedirecionarConfirmadoObrigatorio(moAtendimentoId,moTipoConsulta,moMetodoAtual||'pix','consulta_pagamento_confirmado');
 }
 
 function moDetectarBandeira(n){
@@ -2566,28 +3105,35 @@ async function moPagarCartao(){
   var valCF=document.getElementById('moCfValidade').value.trim();
   var cvv=document.getElementById('moCfCvv').value.trim();
   var errEl=document.getElementById('moCardErr');
-  function err(msg){ errEl.textContent=msg; errEl.style.display='block'; }
+  function err(msg,campo){
+    errEl.textContent=msg; errEl.style.display='block';
+    moTrack('card_error', {error_stage:'validation',field:campo||'',error_message:moErroSeguro(msg)});
+  }
   errEl.style.display='none';
-  if(!nome){ document.getElementById('moPayNome').focus(); return; }
-  if(!cpfNum||cpfNum.length!==11){ err('CPF inválido.'); document.getElementById('moPayCPF').focus(); return; }
-  if(!validarCPF(cpfNum)){ err('CPF inválido. Verifique os números e tente novamente.'); document.getElementById('moPayCPF').focus(); return; }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('E-mail inválido.'); document.getElementById('moCardEmail').focus(); return; }
-  if(numero.length<13){ err('Número do cartão invalido.'); return; }
-  if(!nomeCF){ err('Informe o nome no cartão.'); return; }
+  if(!nome){ moTrack('card_error', {error_stage:'validation',field:'nome',error_message:'nome_vazio'}); document.getElementById('moPayNome').focus(); return; }
+  if(!cpfNum||cpfNum.length!==11){ err('CPF inválido.','cpf'); document.getElementById('moPayCPF').focus(); return; }
+  if(!validarCPF(cpfNum)){ err('CPF inválido. Verifique os números e tente novamente.','cpf'); document.getElementById('moPayCPF').focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('E-mail inválido.','email'); document.getElementById('moCardEmail').focus(); return; }
+  if(numero.length<13){ err('Número do cartão invalido.','numero'); return; }
+  if(!nomeCF){ err('Informe o nome no cartão.','nome_cartao'); return; }
   var partes=valCF.split('/');
-  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ err('Validade inválida. Use MM/AAAA.'); return; }
-  if(!cvv||cvv.length<3){ err('CVV inválido.'); return; }
+  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ err('Validade inválida. Use MM/AAAA.','validade'); return; }
+  if(!cvv||cvv.length<3){ err('CVV inválido.','cvv'); return; }
   moCardProcessando=true;
-  moTrackOnce('cpf_card_'+cpfNum, 'cpf_informado', {method:'cartao'});
+  moTrackOnce('cpf_card_'+moGetCheckoutSessionId(), 'cpf_informado', {method:'cartao'});
+  moTrack('card_attempt', {installments:1});
   var btn=document.getElementById('moBtnPagar');
   btn.disabled=true; btn.textContent='Processando...';
   moNomeVal=nome; moCPFVal=cpfNum; moEmailVal=email;
   try {
     if(!moAtendimentoId){
       var rPre=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({nome:nome,tel:moTelVal,cpf:cpfNum,triagem:'(aguardando pagamento)',tipo:moTipoConsulta,data_nascimento:moNascVal||'',email:email,ads:moAdsAttributionPayload()})});
+        body:JSON.stringify(moPayloadAtendimento({nome:nome,cpf:cpfNum,email:email}))});
       var dPre=await rPre.json();
-      if(dPre&&dPre.atendimentoId) moAtendimentoId=dPre.atendimentoId;
+      if(dPre&&dPre.atendimentoId){
+        moAtendimentoId=dPre.atendimentoId;
+        moSalvarCheckoutSessao();
+      }
     }
     if(typeof EfiPay==='undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
     var tokenResult=await EfiPay.CreditCard
@@ -2600,13 +3146,14 @@ async function moPagarCartao(){
       body:JSON.stringify({payment_token:tokenResult.payment_token,nome:nome,cpf:cpfNum,email:email,telefone:moTelVal,parcelas:1,atendimentoId:moAtendimentoId||undefined,ads:moAdsAttributionPayload()})});
     var d=await r.json();
     var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
-    if(ok){ setTimeout(function(){ moConfirmarPagamento(); }, 800); }
+    if(ok){ moTrack('card_approved', {status:d.status||'approved'}); setTimeout(function(){ moConfirmarPagamento(); }, 800); }
     else throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
   } catch(e) {
     document.getElementById('moCardErr').textContent=e.message||'Erro ao processar. Tente novamente.';
     document.getElementById('moCardErr').style.display='block';
+    moTrack('card_error', {error_stage:'processing',error_message:moErroSeguro(e.message)});
   } finally {
-    moCardProcessando=false; btn.disabled=false; btn.textContent='Continuar para atendimento';
+    moCardProcessando=false; btn.disabled=false; btn.textContent='Pagar com cartão';
   }
 }
 
@@ -2626,7 +3173,7 @@ function moFallbackCopy(text){
 function moReiniciar(){
   clearInterval(moPoller); clearTimeout(moJaTimer);
   moPoller=null; moJaTimer=null; moOrderId=null; moAtendimentoId=null;
-  moTelVal=''; moNomeVal=''; moNascVal=''; moCPFVal=''; moEmailVal=''; moCardProcessando=false;
+  moTelVal=''; moNomeVal=''; moNascVal=''; moCPFVal=''; moEmailVal=''; moCardProcessando=false; moPagamentoConfirmado=false;
   ['moTel','moNome','moNasc','moPayNome','moPayCPF','moCardEmail','moCfNumero','moCfNome','moCfValidade','moCfCvv','moPixCPF','moCpfPos','moCpfPosNome','moCpfPosNasc'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value='';
   });
@@ -2642,13 +3189,21 @@ function moReiniciar(){
   document.getElementById('moPixStatus').style.display='none';
   document.getElementById('moCardErr').style.display='none';
   var btn=document.getElementById('moBtnStep1');
-  btn.disabled=false; btn.textContent='Continuar'; btn.onclick=moAvancarStep1;
+  btn.disabled=false; btn.textContent='Continuar para pagamento seguro →'; btn.onclick=moAvancarStep1;
   moTipoConsulta='chat';
   moSelecionarTipo('chat');
   moIrStep(0);
 }
 
 document.addEventListener('DOMContentLoaded',function(){
+  try{
+    var triagemRedirect=sessionStorage.getItem('cj_triagem_redirected');
+    if(triagemRedirect){
+      sessionStorage.removeItem('cj_triagem_redirected');
+      moTrack('triagem_invalid_entry_redirected', JSON.parse(triagemRedirect));
+    }
+  }catch(e){}
+
   document.querySelectorAll('a[href*="triagem.html"],.btn-primary,.sticky-cta a,.nav__cta-link').forEach(function(el){
     el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); moAbrir(); });
   });
