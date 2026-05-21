@@ -558,7 +558,12 @@ footer{
   .decision-visual{min-height:auto;padding:28px 22px}
   .decision-copy{padding:28px 22px}
   .hero-cta{width:100%;justify-content:center}
-  .doctor-card__footer{flex-direction:column;align-items:flex-start;gap:14px}
+  .doctor-card{display:flex;flex-direction:row;align-items:stretch}
+  .doctor-card__photo{width:130px;height:auto;min-height:190px;flex-shrink:0;border-radius:var(--radius) 0 0 var(--radius)}
+  .doctor-card__body{flex:1;min-width:0;padding:20px 16px}
+  .doctor-card__name{font-size:1.05rem}
+  .doctor-card__bio{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .doctor-card__footer{flex-direction:column;align-items:flex-start;gap:10px}
   .doctor-card__btn{width:100%;justify-content:center}
   .whatsapp-widget{right:12px;bottom:12px}
   .whatsapp-widget__toggle{width:52px;height:52px}
