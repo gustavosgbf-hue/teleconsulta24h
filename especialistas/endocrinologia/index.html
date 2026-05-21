@@ -313,6 +313,43 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 .condition-item__dot{
   width:8px;height:8px;border-radius:50%;background:var(--acc-mid);flex-shrink:0
 }
+.decision-panel{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:stretch;
+  background:linear-gradient(135deg,#072015,#103d27 48%,#e8f6ee 48.2%,#f8fffb);
+  border:1px solid rgba(24,134,75,.16);
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 24px 70px rgba(15,23,42,.08);
+}
+.decision-visual{
+  position:relative;padding:34px;color:#fff;min-height:360px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.decision-visual::before{
+  content:'';position:absolute;inset:auto -70px -90px auto;width:260px;height:260px;
+  background:radial-gradient(circle,rgba(98,211,145,.42),transparent 68%);
+  pointer-events:none;
+}
+.decision-kicker{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.62);margin-bottom:12px}
+.decision-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.7rem);line-height:1.08;font-weight:500;letter-spacing:0;max-width:420px}
+.decision-title em{font-style:italic;color:#a7f3c3}
+.decision-path{display:grid;gap:12px;margin-top:28px;position:relative;z-index:1}
+.decision-step{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px}
+.decision-step b{display:block;font-size:.88rem;margin-bottom:3px}
+.decision-step span{font-size:.78rem;line-height:1.45;color:rgba(255,255,255,.7)}
+.decision-n{width:26px;height:26px;border-radius:50%;background:#a7f3c3;color:#072015;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;flex-shrink:0}
+.decision-copy{padding:34px;display:flex;flex-direction:column;justify-content:center}
+.decision-copy h3{font-family:var(--font-display);font-size:1.75rem;font-weight:500;line-height:1.15;margin-bottom:14px;color:var(--ink)}
+.decision-copy p{font-size:.92rem;line-height:1.72;color:var(--ink-2);margin-bottom:18px}
+.decision-list{display:grid;gap:10px}
+.decision-list div{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid rgba(24,134,75,.12);border-radius:14px;padding:13px 14px;font-size:.86rem;line-height:1.45;color:var(--ink-2)}
+.decision-list strong{color:var(--ink)}
+.decision-check{color:var(--acc-deep);font-weight:800;flex-shrink:0}
+.modalidade-box{margin-bottom:14px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.modalidade-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:8px}
+.modalidade-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.modalidade-option{border:1px solid var(--line-mid);border-radius:12px;padding:10px;cursor:pointer;background:#fff;transition:all var(--transition);font-size:.82rem;color:var(--ink-2)}
+.modalidade-option input{margin-right:6px;accent-color:var(--acc-deep)}
+.modalidade-option:has(input:checked){border-color:var(--acc-deep);background:rgba(56,142,60,.08);color:var(--ink)}
 
 .cta-bottom{
   background:var(--ink);
@@ -515,6 +552,9 @@ footer{
   .doctors-grid{grid-template-columns:1fr}
   .metodo-pagto{grid-template-columns:1fr}
   .trust-strip{grid-template-columns:1fr}
+  .decision-panel{grid-template-columns:1fr;background:linear-gradient(180deg,#082016,#123c28 0 50%,#f8fffb 50%)}
+  .decision-visual{min-height:auto;padding:28px 22px}
+  .decision-copy{padding:28px 22px}
   .hero-cta{width:100%;justify-content:center}
   .doctor-card__footer{flex-direction:column;align-items:flex-start;gap:14px}
   .doctor-card__btn{width:100%;justify-content:center}
@@ -546,26 +586,61 @@ footer{
       <span class="spec-hero__tag-dot"></span>
       Endocrinologistas com CRM
     </div>
-    <h1 class="spec-hero__h1 reveal">Endocrinologista online: escolha o médico e veja horários</h1>
-    <p class="spec-hero__desc reveal">Consulta por vídeo para tireoide, diabetes, metabolismo e acompanhamento hormonal. Você vê horário e valor antes de pagar.</p>
+    <h1 class="spec-hero__h1 reveal">Endocrinologista online para tireoide, diabetes, obesidade e hormônios</h1>
+    <p class="spec-hero__desc reveal">Consulta por vídeo ou chat com endocrinologista. Você escolhe o médico, vê horário e valor antes de pagar, e recebe orientação especializada para o seu caso.</p>
     <div class="spec-hero__pills reveal">
       <span class="spec-hero__pill">Diabetes</span>
       <span class="spec-hero__pill">Obesidade</span>
       <span class="spec-hero__pill">Tireoide</span>
       <span class="spec-hero__pill">Hormônios</span>
       <span class="spec-hero__pill">Metabolismo</span>
+      <span class="spec-hero__pill">GLP-1 e GIP</span>
     </div>
     <div class="spec-hero__actions reveal">
       <a class="hero-cta hero-cta--primary" href="#doctorsGrid">Ver horários disponíveis</a>
       <a class="hero-cta hero-cta--ghost" href="/consulta/">Consulta clínica 24h</a>
     </div>
     <div class="trust-strip reveal">
-      <div class="trust-item"><span class="trust-item__icon">🔒</span><span>Consulta online privada e sigilosa</span></div>
+      <div class="trust-item"><span class="trust-item__icon">🔒</span><span>Consulta privada por vídeo ou chat</span></div>
       <div class="trust-item"><span class="trust-item__icon">🩺</span><span>CRM verificado antes do agendamento</span></div>
       <div class="trust-item"><span class="trust-item__icon">💳</span><span>Valor visível antes do pagamento</span></div>
     </div>
   </div>
 </div>
+
+<section class="section">
+  <div class="decision-panel reveal">
+    <div class="decision-visual">
+      <div>
+        <div class="decision-kicker">Consulta especializada</div>
+        <h2 class="decision-title">Quando vale falar com <em>endocrino</em></h2>
+      </div>
+      <div class="decision-path">
+        <div class="decision-step reveal">
+          <div class="decision-n">1</div>
+          <div><b>Você chega com contexto</b><span>Queixa, exames, medicamentos em uso e objetivo do atendimento.</span></div>
+        </div>
+        <div class="decision-step reveal">
+          <div class="decision-n">2</div>
+          <div><b>O médico avalia com foco</b><span>Diabetes, tireoide, peso, hormônios, resistência à insulina e tratamento em andamento.</span></div>
+        </div>
+        <div class="decision-step reveal">
+          <div class="decision-n">3</div>
+          <div><b>Plano claro para seguir</b><span>Orientações, exames e prescrição quando houver indicação médica.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="decision-copy">
+      <h3>Não é uma consulta genérica de 5 minutos.</h3>
+      <p>O valor é maior porque você está escolhendo um especialista para olhar um problema específico, com mais contexto e continuidade.</p>
+      <div class="decision-list">
+        <div><span class="decision-check">✓</span><span><strong>GLP-1/GIP:</strong> avaliação médica para uso, ajuste, efeitos colaterais e acompanhamento quando indicado.</span></div>
+        <div><span class="decision-check">✓</span><span><strong>Exames alterados:</strong> glicemia, TSH/T4, colesterol, resistência à insulina e metabolismo.</span></div>
+        <div><span class="decision-check">✓</span><span><strong>Vídeo ou chat:</strong> escolha a forma mais confortável antes de confirmar o pagamento.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="section-label reveal">Profissionais disponíveis</div>
@@ -589,6 +664,7 @@ footer{
     <div class="condition-item"><span class="condition-item__dot"></span>Alterações hormonais</div>
     <div class="condition-item"><span class="condition-item__dot"></span>Metabolismo lento</div>
     <div class="condition-item"><span class="condition-item__dot"></span>Resistência à insulina</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Acompanhamento com GLP-1/GIP</div>
     <div class="condition-item"><span class="condition-item__dot"></span>Exames e laudos</div>
   </div>
 </section>
@@ -642,6 +718,13 @@ footer{
     <div id="passo-dados" style="display:none">
       <div class="passo-titulo">Seus dados</div>
       <div style="margin-bottom:14px;font-size:.85rem;color:var(--ink-2)">Horário: <strong id="horarioEscolhido"></strong></div>
+      <div class="modalidade-box">
+        <div class="modalidade-label">Como prefere ser atendido?</div>
+        <div class="modalidade-options">
+          <label class="modalidade-option"><input type="radio" name="modalidade" value="video" checked/> Vídeo</label>
+          <label class="modalidade-option"><input type="radio" name="modalidade" value="chat"/> Chat</label>
+        </div>
+      </div>
       <div class="dados-grid">
         <div class="dados-field">
           <label>Nome completo *</label>
@@ -893,7 +976,7 @@ async function carregarEspecialistas() {
           '<span class="doctor-card__spec">'+ESPECIALIDADE+'</span>'+
           '<p class="doctor-card__bio">'+bio+'</p>'+
           '<div class="doctor-card__meta">'+
-            '<span class="doctor-card__meta-chip">Atendimento online</span>'+
+            '<span class="doctor-card__meta-chip">Vídeo ou chat</span>'+
             '<span class="doctor-card__meta-chip">Plano personalizado</span>'+
             '<span class="doctor-card__meta-chip">Retorno contínuo</span>'+
           '</div>'+
@@ -1159,6 +1242,11 @@ function atualizarBotaoConfirmacaoDados() {
   btn.style.cursor = habilitado ? 'pointer' : 'not-allowed';
 }
 
+function getModalidadeSelecionada() {
+  var checked = document.querySelector('input[name="modalidade"]:checked');
+  return checked && checked.value === 'chat' ? 'chat' : 'video';
+}
+
 function bindDadosListeners() {
   ['inp-nome','inp-email','inp-cpf'].forEach(function(id) {
     var el = document.getElementById(id);
@@ -1226,7 +1314,8 @@ async function confirmarAgendamento() {
         paciente_nome: nome,
         paciente_email: email,
         paciente_tel: tel,
-        paciente_cpf: cpf
+        paciente_cpf: cpf,
+        modalidade: getModalidadeSelecionada()
       })
     });
     var parsed = await safeJsonFromResponse(res);

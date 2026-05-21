@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 
-  <!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -14,15 +14,15 @@
   
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Psiquiatria Online · ConsultaJá24h</title>
+<title>Dermatologia Online · ConsultaJá24h</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.gerencianet.com.br/javascript/build/toCreditCard.bundle.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#f7f9fc;
+  --cream:#fbf8f6;
   --warm-white:#ffffff;
   --ink:#111827;
   --ink-2:#334155;
@@ -36,13 +36,13 @@
   --shadow:0 2px 20px rgba(15,23,42,.07);
   --shadow-md:0 10px 40px rgba(15,23,42,.12);
   --transition:.22s cubic-bezier(.4,0,.2,1);
-  --acc:#eaf2ff;
-  --acc-mid:#9cc3f5;
-  --acc-deep:#1d5fbf;
-  --acc-text:#164b96;
-  --acc-dark:#0f2f5f;
-  --cta-from:#2268d1;
-  --cta-to:#123f85;
+  --acc:#f8eee8;
+  --acc-mid:#d9a88a;
+  --acc-deep:#b56b3f;
+  --acc-text:#7c3f25;
+  --acc-dark:#5d2d1b;
+  --cta-from:#c47a4d;
+  --cta-to:#8d4b2b;
 }
 html{scroll-behavior:smooth}
 body{
@@ -54,14 +54,14 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 a{text-decoration:none;color:inherit}
+
 /* Scroll reveal */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.4,0,.2,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ── NAV ── */
 nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(247,249,252,.96);
+  background:rgba(247,250,248,.96);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
@@ -94,9 +94,8 @@ nav{
 }
 .nav__cta-pill:hover{background:var(--ink);color:var(--warm-white);border-color:var(--ink)}
 
-/* ── HERO ESPECIALIDADE ── */
 .spec-hero{
-  background:linear-gradient(135deg,var(--acc),#f8fbff);
+  background:linear-gradient(135deg,var(--acc),#f8fffb);
   padding:64px 32px 56px;
   border-bottom:1px solid var(--acc-mid);
 }
@@ -110,8 +109,8 @@ nav{
 .spec-hero__breadcrumb a:hover{opacity:1}
 .spec-hero__tag{
   display:inline-flex;align-items:center;gap:6px;
-  background:rgba(29,95,191,.1);
-  border:1px solid rgba(29,95,191,.18);
+  background:rgba(56,142,60,.12);
+  border:1px solid rgba(56,142,60,.2);
   border-radius:999px;
   padding:4px 12px;
   font-size:.72rem;font-weight:500;
@@ -134,59 +133,64 @@ nav{
 .spec-hero__desc{
   font-size:.95rem;font-weight:300;
   color:var(--acc-text);
-  line-height:1.75;max-width:520px;
+  line-height:1.75;max-width:540px;
 }
 .spec-hero__pills{
-  display:flex;flex-wrap:wrap;gap:8px;
-  margin-top:28px;
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-top:32px;
 }
 .spec-hero__actions{
   display:flex;flex-wrap:wrap;gap:12px;
-  margin-top:24px;
+  margin-top:28px;
 }
 .hero-cta{
   display:inline-flex;align-items:center;gap:8px;
+  padding:14px 24px;
   border-radius:999px;
-  padding:13px 22px;
-  font-size:.86rem;font-weight:700;
+  border:1px solid transparent;
+  font-size:.9rem;font-weight:700;
   transition:all var(--transition);
 }
 .hero-cta--primary{
   background:linear-gradient(135deg,var(--cta-from),var(--cta-to));
   color:#fff;
-  box-shadow:0 10px 22px rgba(29,95,191,.25);
+  box-shadow:0 10px 22px rgba(24,134,75,.25);
 }
-.hero-cta--primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(29,95,191,.32)}
+.hero-cta--primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(24,134,75,.32)}
 .hero-cta--ghost{
-  border:1px solid rgba(29,95,191,.18);
   background:rgba(255,255,255,.75);
+  border-color:rgba(27,94,32,.18);
   color:var(--acc-dark);
 }
 .hero-cta--ghost:hover{background:#fff;transform:translateY(-2px)}
 .trust-strip{
-  margin-top:22px;
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
 }
 .trust-item{
-  background:rgba(255,255,255,.6);
-  border:1px solid rgba(29,95,191,.14);
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(255,255,255,.62);
+  border:1px solid rgba(27,94,32,.12);
   border-radius:12px;
   padding:10px;
-  display:flex;gap:8px;align-items:flex-start;
-  font-size:.73rem;line-height:1.45;color:var(--acc-dark);
+  font-size:.76rem;
+  line-height:1.45;
+  color:var(--acc-dark);
 }
 .trust-item__icon{font-size:.95rem;line-height:1}
 .spec-hero__pill{
-  background:rgba(255,255,255,.6);
-  border:1px solid rgba(29,95,191,.18);
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(56,142,60,.15);
   border-radius:999px;
-  padding:5px 14px;
-  font-size:.75rem;
+  padding:6px 16px;
+  font-size:.78rem;
   color:var(--acc-text);
+  font-weight:500;
 }
 
-/* ── SECTION ── */
-.section{padding:64px 32px;max-width:1080px;margin:0 auto}
+.section{padding:80px 32px;max-width:1080px;margin:0 auto}
 .section-label{
   font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
   color:var(--ink-3);margin-bottom:14px;
@@ -202,11 +206,10 @@ nav{
 .section-sub{font-size:.9rem;font-weight:300;color:var(--ink-2);line-height:1.65;max-width:620px;margin-bottom:30px}
 hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 auto}
 
-/* ── MÉDICOS ── */
 .doctors-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:24px;
 }
 .doctor-card{
   background:var(--warm-white);
@@ -216,222 +219,129 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
   box-shadow:var(--shadow);
   transition:all var(--transition);
 }
-.doctor-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.doctor-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
 .doctor-card__photo{
   width:100%;height:260px;
-  background:var(--acc);
+  background:linear-gradient(135deg,var(--acc) 0%,var(--acc-mid) 100%);
   display:flex;align-items:center;justify-content:center;
   position:relative;
   overflow:hidden;
 }
 .doctor-card__photo img{
-  width:100%;height:100%;object-fit:cover;object-position:center 15%;
+  width:100%;height:100%;object-fit:contain;object-position:center top;
   transition:transform var(--transition);
   display:block;
+  padding:8px 8px 0;
 }
-.doctor-card:hover .doctor-card__photo img{transform:scale(1.03)}
+.doctor-card:hover .doctor-card__photo img{transform:scale(1.05)}
 .doctor-card__photo-placeholder{
-  font-size:3.5rem;
-  opacity:.35;
+  font-size:4rem;
+  opacity:.4;
 }
-.doctor-card__body{padding:24px}
+.doctor-card__body{padding:28px}
 .doctor-card__name{
   font-family:var(--font-display);
-  font-size:1.25rem;font-weight:500;
-  color:var(--ink);margin-bottom:4px;
+  font-size:1.35rem;font-weight:500;
+  color:var(--ink);margin-bottom:6px;
 }
 .doctor-card__crm{
-  font-size:.73rem;color:var(--ink-3);
-  margin-bottom:12px;
+  font-size:.75rem;color:var(--ink-3);
+  margin-bottom:16px;
 }
 .doctor-card__spec{
   display:inline-block;
   background:var(--acc);
   color:var(--acc-text);
   border-radius:999px;
-  padding:3px 10px;
-  font-size:.72rem;font-weight:500;
-  margin-bottom:16px;
+  padding:4px 12px;
+  font-size:.72rem;font-weight:600;
+  margin-bottom:18px;
+  text-transform:capitalize;
 }
 .doctor-card__bio{
-  font-size:.82rem;font-weight:300;
-  color:var(--ink-2);line-height:1.65;
-  margin-bottom:14px;
+  font-size:.9rem;color:var(--ink-2);
+  line-height:1.75;margin-bottom:14px;
+  min-height:3.5em;
 }
 .doctor-card__meta{
-  display:flex;flex-wrap:wrap;gap:6px;
-  margin-bottom:16px;
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:20px;
 }
 .doctor-card__meta-chip{
-  font-size:.66rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.05em;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
   color:var(--acc-dark);
-  background:rgba(29,95,191,.1);
-  border:1px solid rgba(29,95,191,.18);
+  background:rgba(56,142,60,.11);
+  border:1px solid rgba(56,142,60,.18);
   border-radius:999px;
-  padding:3px 9px;
+  padding:4px 10px;
 }
 .doctor-card__footer{
   display:flex;align-items:center;justify-content:space-between;
-  padding-top:16px;
-  border-top:1px solid var(--line);
-}
-.doctor-card__price{
-  font-family:var(--font-display);
-  font-size:1.75rem;font-weight:700;
-  color:var(--acc-dark);
+  padding-top:20px;border-top:1px solid var(--line);
 }
 .doctor-card__price-label{
-  font-size:.68rem;color:var(--ink-3);
-  display:block;line-height:1.2;
+  display:block;font-size:.68rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.doctor-card__price{
+  font-family:var(--font-display);
+  font-size:1.85rem;font-weight:700;color:var(--acc-dark);
 }
 .doctor-card__btn{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:.78rem;font-weight:700;
-  padding:11px 18px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 24px;
   background:linear-gradient(135deg,var(--cta-from),var(--cta-to));
   color:#fff;
-  transition:all var(--transition);
-  border:none;cursor:pointer;
-  box-shadow:0 8px 18px rgba(29,95,191,.24);
-}
-.doctor-card__btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(29,95,191,.32)}
-
-/* ── HORÁRIOS MODAL ── */
-.modal-overlay{
-  position:fixed;inset:0;z-index:200;
-  background:rgba(15,23,42,.44);
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-  display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;pointer-events:none;
-  transition:opacity var(--transition);
-}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal{
-  background:var(--warm-white);
-  border-radius:24px 24px 0 0;
-  padding:32px;
-  width:100%;max-width:520px;
-  transform:translateY(20px);
-  transition:transform var(--transition);
-  max-height:90vh;overflow-y:auto;
-}
-.modal-overlay.open .modal{transform:translateY(0)}
-.modal__header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:8px;
-}
-.modal__title{
-  font-family:var(--font-display);
-  font-size:1.4rem;font-weight:500;
-  color:var(--ink);
-}
-.modal__close{
-  width:32px;height:32px;border-radius:50%;
-  border:1px solid var(--line);background:transparent;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--ink-2);
-  transition:all var(--transition);
-  font-size:1rem;
-}
-.modal__close:hover{background:var(--line);color:var(--ink)}
-.modal__doctor{
-  font-size:.8rem;color:var(--ink-3);
-  margin-bottom:28px;
-}
-.modal__slots-label{
-  font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink-3);margin-bottom:14px;
-}
-.slots-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:8px;margin-bottom:28px;
-}
-.slot{
-  border:1px solid var(--line);
-  border-radius:var(--radius-sm);
-  padding:12px 8px;
-  text-align:center;
+  border:none;border-radius:var(--radius-sm);
+  font-size:.88rem;font-weight:700;
   cursor:pointer;
   transition:all var(--transition);
-  background:var(--cream);
+  box-shadow:0 8px 18px rgba(24,134,75,.22);
 }
-.slot:hover,.slot.selected{
-  background:var(--acc);
-  border-color:var(--acc-deep);
-}
-.slot.selected{box-shadow:0 0 0 2px var(--acc-deep)}
-.slot__day{font-size:.65rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.slot__time{font-size:.9rem;font-weight:500;color:var(--ink)}
-.modal__cta{
-  width:100%;padding:14px;border-radius:999px;
-  background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;
-  font-family:var(--font-body);font-size:.88rem;font-weight:500;
-  border:none;cursor:pointer;
-  transition:all var(--transition);
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.modal__cta:hover{background:var(--acc-dark);transform:translateY(-1px)}
-.modal__cta:disabled{opacity:1;cursor:not-allowed;transform:none;background:#c8c8c8;color:#888;box-shadow:none}
-.modal__cta:not(:disabled){background:linear-gradient(135deg,var(--cta-from),var(--cta-to));box-shadow:0 6px 18px rgba(29,95,191,.32)}
-.modal__cta.is-ready:not(:disabled){background:linear-gradient(135deg,var(--cta-from),var(--cta-to));box-shadow:0 10px 26px rgba(29,95,191,.42)}
-.cta-confirmar{transition:all var(--transition)}
-.cta-confirmar.cta-enabled{background:linear-gradient(135deg,var(--cta-from),var(--cta-to)) !important;color:#fff !important;box-shadow:0 10px 26px rgba(29,95,191,.4) !important}
-.cta-confirmar:not(.cta-enabled){background:#c9ced6 !important;color:#6b7280 !important;box-shadow:none !important}
-.cta-confirmar.cta-enabled:hover{transform:translateY(-1px);filter:brightness(.98)}
-.modal__note{
-  font-size:.72rem;color:var(--ink-3);
-  text-align:center;margin-top:12px;line-height:1.5;
-}
+.doctor-card__btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(24,134,75,.32)}
+.doctor-card__btn svg{transition:transform var(--transition)}
+.doctor-card__btn:hover svg{transform:translateX(4px)}
 
-/* ── O QUE TRATAR ── */
 .conditions-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:12px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px 32px;
 }
 .condition-item{
-  background:var(--warm-white);
-  border:1px solid var(--line);
-  border-radius:var(--radius-sm);
-  padding:16px 18px;
-  display:flex;align-items:center;gap:10px;
-  font-size:.84rem;color:var(--ink-2);
+  display:flex;align-items:center;gap:12px;
+  font-size:.92rem;color:var(--ink-2);
 }
 .condition-item__dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--acc-deep);flex-shrink:0;
+  width:8px;height:8px;border-radius:50%;background:var(--acc-mid);flex-shrink:0
 }
 .decision-panel{
   display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:stretch;
-  background:linear-gradient(135deg,#07162e,#173b72 48%,#eef5ff 48.2%,#f8fbff);
-  border:1px solid rgba(29,95,191,.16);
+  background:linear-gradient(135deg,#072015,#103d27 48%,#e8f6ee 48.2%,#f8fffb);
+  border:1px solid rgba(24,134,75,.16);
   border-radius:28px;
   overflow:hidden;
   box-shadow:0 24px 70px rgba(15,23,42,.08);
 }
 .decision-visual{
-  position:relative;padding:34px;color:#fff;min-height:350px;display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;padding:34px;color:#fff;min-height:360px;display:flex;flex-direction:column;justify-content:space-between;
 }
 .decision-visual::before{
   content:'';position:absolute;inset:auto -70px -90px auto;width:260px;height:260px;
-  background:radial-gradient(circle,rgba(147,197,253,.42),transparent 68%);
+  background:radial-gradient(circle,rgba(98,211,145,.42),transparent 68%);
   pointer-events:none;
 }
 .decision-kicker{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.62);margin-bottom:12px}
 .decision-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.7rem);line-height:1.08;font-weight:500;letter-spacing:0;max-width:420px}
-.decision-title em{font-style:italic;color:#bfdbfe}
+.decision-title em{font-style:italic;color:#a7f3c3}
 .decision-path{display:grid;gap:12px;margin-top:28px;position:relative;z-index:1}
 .decision-step{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px}
 .decision-step b{display:block;font-size:.88rem;margin-bottom:3px}
 .decision-step span{font-size:.78rem;line-height:1.45;color:rgba(255,255,255,.7)}
-.decision-n{width:26px;height:26px;border-radius:50%;background:#bfdbfe;color:#07162e;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;flex-shrink:0}
+.decision-n{width:26px;height:26px;border-radius:50%;background:#a7f3c3;color:#072015;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;flex-shrink:0}
 .decision-copy{padding:34px;display:flex;flex-direction:column;justify-content:center}
 .decision-copy h3{font-family:var(--font-display);font-size:1.75rem;font-weight:500;line-height:1.15;margin-bottom:14px;color:var(--ink)}
 .decision-copy p{font-size:.92rem;line-height:1.72;color:var(--ink-2);margin-bottom:18px}
 .decision-list{display:grid;gap:10px}
-.decision-list div{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid rgba(29,95,191,.12);border-radius:14px;padding:13px 14px;font-size:.86rem;line-height:1.45;color:var(--ink-2)}
+.decision-list div{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid rgba(24,134,75,.12);border-radius:14px;padding:13px 14px;font-size:.86rem;line-height:1.45;color:var(--ink-2)}
 .decision-list strong{color:var(--ink)}
 .decision-check{color:var(--acc-deep);font-weight:800;flex-shrink:0}
 .modalidade-box{margin-bottom:14px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff}
@@ -439,58 +349,163 @@ hr.divider{border:none;border-top:1px solid var(--line);max-width:1080px;margin:
 .modalidade-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .modalidade-option{border:1px solid var(--line-mid);border-radius:12px;padding:10px;cursor:pointer;background:#fff;transition:all var(--transition);font-size:.82rem;color:var(--ink-2)}
 .modalidade-option input{margin-right:6px;accent-color:var(--acc-deep)}
-.modalidade-option:has(input:checked){border-color:var(--acc-deep);background:rgba(58,124,191,.1);color:var(--ink)}
+.modalidade-option:has(input:checked){border-color:var(--acc-deep);background:rgba(56,142,60,.08);color:var(--ink)}
 
-/* ── CTA BOTTOM ── */
 .cta-bottom{
-  background:var(--acc-dark);
-  color:var(--warm-white);
-  padding:72px 32px;
+  background:var(--ink);
+  padding:80px 32px;
   text-align:center;
+  color:var(--warm-white);
 }
 .cta-bottom__h{
   font-family:var(--font-display);
-  font-size:clamp(1.7rem,3.5vw,2.6rem);
-  font-weight:500;line-height:1.2;
-  margin-bottom:14px;
+  font-size:clamp(2rem,4vw,2.8rem);
+  font-weight:400;line-height:1.2;
+  margin-bottom:20px;
 }
-.cta-bottom__h em{font-style:italic}
+.cta-bottom__h em{font-style:italic;color:var(--acc-mid)}
 .cta-bottom__sub{
-  font-size:.85rem;font-weight:300;
-  color:rgba(255,255,255,.5);
+  font-size:1rem;color:rgba(255,255,255,.7);
   margin-bottom:32px;
 }
 .cta-bottom__btn{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:.88rem;font-weight:500;
-  padding:12px 28px;border-radius:999px;
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.2);
+  display:inline-block;
+  padding:16px 40px;
+  background:var(--acc-deep);
   color:#fff;
+  border-radius:999px;
+  font-size:1rem;font-weight:600;
   transition:all var(--transition);
 }
-.cta-bottom__btn:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+.cta-bottom__btn:hover{background:var(--acc-dark);transform:translateY(-3px);box-shadow:0 8px 24px rgba(24,134,75,.34)}
 
-/* ── FOOTER ── */
 footer{
-  border-top:1px solid var(--line);
-  padding:28px 32px;
   text-align:center;
-  font-size:.75rem;color:var(--ink-3);
-  background:var(--cream);
+  padding:40px;
+  font-size:.8rem;color:var(--ink-3);
+  border-top:1px solid var(--line);
 }
-footer a{color:var(--ink-2);transition:color var(--transition)}
-footer a:hover{color:var(--ink)}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(14px)}
-  to{opacity:1;transform:translateY(0)}
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(15,23,42,.5);
+  backdrop-filter:blur(6px);
+  z-index:200;
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
 }
-.fade-up{opacity:0;animation:fadeUp .55s ease forwards}
-.fade-up:nth-child(1){animation-delay:.05s}
-.fade-up:nth-child(2){animation-delay:.15s}
-.fade-up:nth-child(3){animation-delay:.25s}
+.modal-overlay.open{display:flex}
+.modal{
+  background:var(--warm-white);
+  border-radius:var(--radius);
+  width:100%;max-width:480px;
+  max-height:90vh;
+  overflow-y:auto;
+  box-shadow:var(--shadow-md);
+  padding:32px;
+}
+.modal__header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:24px;
+}
+.modal__title{
+  font-family:var(--font-display);
+  font-size:1.5rem;font-weight:500;
+}
+.modal__close{
+  background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink-3);padding:4px;line-height:1
+}
+.modal__close:hover{color:var(--ink)}
+.modal__doctor{
+  font-size:.9rem;color:var(--ink-2);
+  margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--line);
+}
+.modal__slots-label{
+  font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:16px
+}
+.slots-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px
+}
+.slot-btn{
+  padding:14px 10px;
+  border:1px solid var(--line-mid);border-radius:10px;
+  background:#fff;font-size:.82rem;text-align:center;
+  cursor:pointer;transition:all .15s
+}
+.slot-btn:hover{border-color:var(--acc-deep);background:rgba(56,142,60,.08)}
+.slot-btn.selected{border-color:var(--acc-deep);background:var(--acc-deep);color:#fff}
+.slot-btn.disabled{opacity:.4;cursor:not-allowed}
+.modal__cta{
+  width:100%;padding:16px;
+  background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;border:none;border-radius:12px;
+  font-size:1rem;font-weight:700;cursor:pointer;transition:all var(--transition)
+}
+.modal__cta:hover{filter:brightness(.98);transform:translateY(-1px)}
+.modal__cta:disabled{opacity:.35;cursor:not-allowed;filter:grayscale(.4)}
+.modal__cta:not(:disabled){opacity:1;box-shadow:0 6px 18px rgba(24,134,75,.3)}
+.modal__cta.is-ready:not(:disabled){background:linear-gradient(135deg,var(--cta-from),var(--cta-to));box-shadow:0 10px 26px rgba(24,134,75,.4)}
+.cta-confirmar{transition:all var(--transition)}
+.cta-confirmar.cta-enabled{background:linear-gradient(135deg,var(--cta-from),var(--cta-to)) !important;color:#fff !important;box-shadow:0 10px 26px rgba(24,134,75,.4) !important}
+.cta-confirmar:not(.cta-enabled){background:#c9ced6 !important;color:#6b7280 !important;box-shadow:none !important}
+.cta-confirmar.cta-enabled:hover{transform:translateY(-1px);filter:brightness(.98)}
+.modal__cta svg{vertical-align:middle;margin-left:8px}
+
+.passo-titulo{
+  font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:16px
+}
+.dados-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:20px}
+.dados-field label{
+  display:block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:6px
+}
+.dados-field input{
+  width:100%;padding:12px 14px;border:1px solid var(--line-mid);border-radius:10px;
+  font-size:.9rem;box-sizing:border-box;transition:border-color var(--transition)
+}
+.dados-field input:focus{border-color:var(--acc-deep);outline:none}
+.erro-box{
+  display:none;color:#b91c1c;font-size:.82rem;margin-bottom:12px;padding:12px 16px;
+  background:#fef2f2;border-radius:10px;border:1px solid #fecaca
+}
+
+.metodo-pagto{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px
+}
+.metodo-opcao{
+  padding:20px 16px;border:2px solid var(--line-mid);border-radius:12px;
+  text-align:center;cursor:pointer;transition:all .2s
+}
+.metodo-opcao:hover{border-color:var(--acc-deep)}
+.metodo-opcao.selected{border-color:var(--acc-deep);background:rgba(56,142,60,.08)}
+.metodo-opcao-icon{font-size:2rem;margin-bottom:8px}
+.metodo-opcao-label{font-weight:600;font-size:.9rem;color:var(--ink)}
+.metodo-opcao-desc{font-size:.72rem;color:var(--ink-3);margin-top:4px}
+
+.pagto-pix,.pagto-cartao{display:none;text-align:center}
+.pagto-pix.active,.pagto-cartao.active{display:block}
+.pix-loading{padding:32px 0;color:var(--ink-3);font-size:.9rem}
+.pix-qr-wrap{display:none}
+.pix-qr-wrap.active{display:block}
+.pix-resumo{font-size:.9rem;font-weight:600;margin-bottom:6px;color:var(--ink-2)}
+.pix-valor{font-size:1.6rem;font-weight:700;color:var(--acc-deep);margin-bottom:20px}
+.pix-qr-img{width:200px;height:200px;border-radius:14px;border:3px solid #e5e7eb;display:block;margin:0 auto 16px}
+.pix-copia-label{font-size:.72rem;color:var(--ink-3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.pix-copia-row{display:flex;gap:8px;margin-bottom:20px}
+.pix-copia-input{flex:1;padding:10px 12px;border:1px solid var(--line-mid);border-radius:8px;font-size:.75rem;background:#f9f9f9;min-width:0}
+.pix-copia-btn{padding:10px 16px;border:1px solid var(--line-mid);border-radius:8px;background:#fff;cursor:pointer;font-size:.8rem}
+.pix-status{font-size:.8rem;color:var(--ink-3);padding:12px;background:#f9f9f9;border-radius:10px;margin-bottom:16px}
+.pix-confirmado{display:none;margin-top:16px;padding:20px;background:#f0fdf4;border:1px solid #86efac;border-radius:12px}
+.pix-confirmado.active{display:block}
+.pix-confirmado-emoji{font-size:1.6rem;margin-bottom:8px}
+.pix-confirmado-titulo{font-weight:700;color:#15803d;margin-bottom:6px}
+.pix-confirmado-detalhe{font-size:.85rem;color:#166534}
+
+.cartao-form{padding:0 20px}
+.cartao-field{margin-bottom:16px}
+.cartao-field label{display:block;font-size:.72rem;font-weight:600;color:var(--ink-3);margin-bottom:6px}
+.cartao-field input{width:100%;padding:12px;border:1px solid var(--line-mid);border-radius:10px;font-size:.9rem}
+.cartao-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-pagar{width:100%;padding:16px;background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px}
+.btn-pagar:hover{background:var(--acc-dark)}
 .whatsapp-widget{
   position:fixed;
   right:18px;
@@ -531,31 +546,21 @@ footer a:hover{color:var(--ink)}
 }
 @keyframes whatsIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  nav{padding:0 20px}
-  .spec-hero{padding:48px 20px 40px}
-  .section{padding:48px 20px}
+@media(max-width:600px){
+  .spec-hero{padding:60px 20px 48px}
+  .section{padding:60px 20px}
   .doctors-grid{grid-template-columns:1fr}
-  .conditions-grid{grid-template-columns:1fr 1fr}
-  .decision-panel{grid-template-columns:1fr;background:linear-gradient(180deg,#07162e,#173b72 0 50%,#f8fbff 50%)}
+  .metodo-pagto{grid-template-columns:1fr}
+  .trust-strip{grid-template-columns:1fr}
+  .decision-panel{grid-template-columns:1fr;background:linear-gradient(180deg,#082016,#123c28 0 50%,#f8fffb 50%)}
   .decision-visual{min-height:auto;padding:28px 22px}
   .decision-copy{padding:28px 22px}
-  .trust-strip{grid-template-columns:1fr}
   .hero-cta{width:100%;justify-content:center}
-  .doctor-card__footer{flex-direction:column;align-items:flex-start;gap:12px}
+  .doctor-card__footer{flex-direction:column;align-items:flex-start;gap:14px}
   .doctor-card__btn{width:100%;justify-content:center}
-  .cta-bottom{padding:52px 20px}
-  footer{padding:24px 20px}
-  .modal{padding:24px 20px}
-  .slots-grid{grid-template-columns:repeat(2,1fr)}
   .whatsapp-widget{right:12px;bottom:12px}
   .whatsapp-widget__toggle{width:52px;height:52px}
   .whatsapp-widget__panel{width:min(250px,calc(100vw - 24px))}
-}
-@media(max-width:400px){
-  .conditions-grid{grid-template-columns:1fr}
-  .slots-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -570,26 +575,25 @@ footer a:hover{color:var(--ink)}
   <a href="/consulta/" class="nav__cta-pill">Consulta 24h →</a>
 </nav>
 
-<!-- HERO ESPECIALIDADE -->
 <div class="spec-hero">
   <div class="spec-hero__inner">
     <div class="spec-hero__breadcrumb reveal">
       <a href="/especialistas">Especialistas</a>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      Psiquiatria
+      Dermatologia
     </div>
     <div class="spec-hero__tag reveal">
       <span class="spec-hero__tag-dot"></span>
-      Psiquiatras com CRM
+      Dermatologistas com CRM
     </div>
-    <h1 class="spec-hero__h1 reveal">Psiquiatra online com CRM para ansiedade, insônia, TDAH e humor</h1>
-    <p class="spec-hero__desc reveal">Consulta por vídeo ou chat com psiquiatra, sigilo médico e prescrição quando indicada. Você escolhe o médico, vê horário e valor antes de pagar.</p>
+    <h1 class="spec-hero__h1 reveal">Dermatologista online para acne, manchas, queda de cabelo e pele sensível</h1>
+    <p class="spec-hero__desc reveal">Consulta por vídeo ou chat com dermatologista. Você escolhe o médico, vê horário e valor antes de pagar, e recebe orientação especializada para pele, cabelo e unhas.</p>
     <div class="spec-hero__pills reveal">
-      <span class="spec-hero__pill">Ansiedade</span>
-      <span class="spec-hero__pill">Depressão</span>
-      <span class="spec-hero__pill">Insônia</span>
-      <span class="spec-hero__pill">Transtorno de humor</span>
-      <span class="spec-hero__pill">TDAH no adulto</span>
+      <span class="spec-hero__pill">Acne</span>
+      <span class="spec-hero__pill">Manchas</span>
+      <span class="spec-hero__pill">Dermatite</span>
+      <span class="spec-hero__pill">Queda de cabelo</span>
+      <span class="spec-hero__pill">Unhas</span>
     </div>
     <div class="spec-hero__actions reveal">
       <a class="hero-cta hero-cta--primary" href="#doctorsGrid">Ver horários disponíveis</a>
@@ -608,67 +612,61 @@ footer a:hover{color:var(--ink)}
     <div class="decision-visual">
       <div>
         <div class="decision-kicker">Consulta especializada</div>
-        <h2 class="decision-title">Quando vale falar com <em>psiquiatra</em></h2>
+        <h2 class="decision-title">Quando vale falar com <em>dermato</em></h2>
       </div>
       <div class="decision-path">
         <div class="decision-step reveal">
           <div class="decision-n">1</div>
-          <div><b>Você não precisa se expor em vídeo</b><span>Escolha chat se estiver mais confortável. O atendimento continua com sigilo médico.</span></div>
+          <div><b>Você mostra o problema com calma</b><span>Fotos, tempo de evolução, tratamentos já usados e sintomas associados.</span></div>
         </div>
         <div class="decision-step reveal">
           <div class="decision-n">2</div>
-          <div><b>Avaliação focada no sintoma</b><span>Ansiedade, sono, humor, TDAH, uso de medicação e impacto na rotina.</span></div>
+          <div><b>O médico avalia com foco</b><span>Pele, cabelo, unhas, alergias, manchas, acne, dermatite e necessidade de prescrição.</span></div>
         </div>
         <div class="decision-step reveal">
           <div class="decision-n">3</div>
-          <div><b>Conduta médica clara</b><span>Orientação, acompanhamento e prescrição quando houver indicação clínica.</span></div>
+          <div><b>Conduta prática</b><span>Orientações de cuidado, sinais de alerta e prescrição quando houver indicação médica.</span></div>
         </div>
       </div>
     </div>
     <div class="decision-copy">
-      <h3>É para quem precisa de avaliação médica, não só conversa rápida.</h3>
-      <p>O valor da consulta reflete atendimento com psiquiatra, análise clínica e possibilidade de plano terapêutico com segurança.</p>
+      <h3>Mais preciso que tentar resolver pela internet.</h3>
+      <p>O valor é maior porque você escolhe um médico especialista para avaliar lesões, histórico e tratamentos com segurança.</p>
       <div class="decision-list">
-        <div><span class="decision-check">✓</span><span><strong>Medicação:</strong> revisão, início ou ajuste apenas quando indicado pelo médico.</span></div>
-        <div><span class="decision-check">✓</span><span><strong>Privacidade:</strong> atendimento por vídeo ou chat, sem app e com sigilo.</span></div>
-        <div><span class="decision-check">✓</span><span><strong>Continuidade:</strong> escolha o profissional e mantenha acompanhamento quando fizer sentido.</span></div>
+        <div><span class="decision-check">✓</span><span><strong>Acne e manchas:</strong> avaliação do padrão e orientação para tratamento individualizado.</span></div>
+        <div><span class="decision-check">✓</span><span><strong>Queda de cabelo:</strong> análise clínica e solicitação de exames quando fizer sentido.</span></div>
+        <div><span class="decision-check">✓</span><span><strong>Vídeo ou chat:</strong> escolha a forma mais confortável antes de confirmar o pagamento.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MÉDICOS -->
 <section class="section">
   <div class="section-label reveal">Profissionais disponíveis</div>
-  <h2 class="section-title reveal">Escolha seu <em>psiquiatra</em> e veja horários</h2>
+  <h2 class="section-title reveal">Escolha seu <em>dermatologista</em> e veja horários</h2>
   <p class="section-sub reveal">Compare médicos disponíveis, valor da consulta e próximos horários antes de confirmar o pagamento.</p>
-
   <div class="doctors-grid reveal" id="doctorsGrid">
-    <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Carregando médicos...</div>
+    <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Carregando profissionais...</div>
   </div>
 </section>
 
 <hr class="divider"/>
 
-<!-- O QUE TRATAMOS -->
 <section class="section">
   <div class="section-label reveal">Condições atendidas</div>
-  <h2 class="section-title reveal">O que o psiquiatra <em>pode ajudar</em></h2>
+  <h2 class="section-title reveal">O que o dermatologista <em>pode ajudar</em></h2>
   <div class="conditions-grid reveal">
-    <div class="condition-item"><span class="condition-item__dot"></span>Ansiedade e ataques de pânico</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>Depressão e baixa disposição</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>Insônia e distúrbios do sono</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>Burnout e esgotamento mental</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>TDAH no adulto</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>Transtorno bipolar</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>TOC e comportamentos repetitivos</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>Fobia social</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>Avaliação e diagnóstico psiquiátrico</div>
-    <div class="condition-item"><span class="condition-item__dot"></span>Revisão e ajuste de medicação</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Acne e oleosidade</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Manchas e melasma</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Dermatite e alergias na pele</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Queda de cabelo</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Rosácea e pele sensível</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Micose e alterações nas unhas</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Lesões que precisam de orientação</div>
+    <div class="condition-item"><span class="condition-item__dot"></span>Rotina de tratamento da pele</div>
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta-bottom">
   <h2 class="cta-bottom__h">Não encontrou<br><em>horário?</em></h2>
   <p class="cta-bottom__sub">Se for algo mais simples ou urgente, a consulta clínica 24h continua disponível por R$ 49,90.</p>
@@ -676,12 +674,12 @@ footer a:hover{color:var(--ink)}
 </section>
 
 <footer>
-  <p style="margin-bottom:6px"><strong style="color:var(--ink-2);font-weight:500">ConsultaJá24h</strong> — JG Fonseca Serviços Médicos LTDA</p>
+  <p style="margin-bottom:8px"><strong style="color:var(--ink-2);font-weight:500">ConsultaJá24h</strong> — JG Fonseca Serviços Médicos LTDA</p>
   <p>
     <a href="/termos.html">Termos de Uso</a> &nbsp;·&nbsp;
     <a href="/privacy.html">Política de Privacidade</a>
   </p>
-  <p style="margin-top:10px;font-size:.68rem;color:#94a3b8">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
+  <p style="margin-top:12px;font-size:.7rem;color:#94a3b8">CFM 2.314/2022 · Telemedicina regulamentada · LGPD</p>
 </footer>
 
 <div class="whatsapp-widget" id="whatsappWidget">
@@ -695,28 +693,29 @@ footer a:hover{color:var(--ink)}
   </div>
 </div>
 
-<!-- MODAL DE HORÁRIOS + DADOS DO PACIENTE -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="fecharModalOverlay(event)">
-  <div class="modal" id="modal">
+  <div class="modal" id="modal" onclick="event.stopPropagation()">
     <div class="modal__header">
       <div class="modal__title">Escolher horário</div>
       <button class="modal__close" onclick="fecharModal()">✕</button>
     </div>
     <div class="modal__doctor" id="modalDoctor">—</div>
 
-    <!-- PASSO 1: escolha de horário -->
+    <!-- PASSO 1: HORÁRIO -->
     <div id="passo-horario">
       <div class="modal__slots-label">Horários disponíveis</div>
       <div class="slots-grid" id="slotsGrid"></div>
       <button class="modal__cta" id="btnProximo" onclick="irParaDados()" disabled>
-        Continuar com este horário →
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        Continuar com este horário
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
     </div>
 
-    <!-- PASSO 2: dados do paciente -->
+    <!-- PASSO 2: DADOS PESSOAIS -->
     <div id="passo-dados" style="display:none">
-      <div style="margin-bottom:16px;font-size:.82rem;color:#888">Horário: <strong id="horarioEscolhido"></strong></div>
+      <div class="passo-titulo">Seus dados</div>
+      <div style="margin-bottom:14px;font-size:.85rem;color:var(--ink-2)">Horário: <strong id="horarioEscolhido"></strong></div>
       <div class="modalidade-box">
         <div class="modalidade-label">Como prefere ser atendido?</div>
         <div class="modalidade-options">
@@ -724,118 +723,121 @@ footer a:hover{color:var(--ink)}
           <label class="modalidade-option"><input type="radio" name="modalidade" value="chat"/> Chat</label>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
-        <div>
-          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">Nome completo *</label>
-          <input id="inp-nome" type="text" placeholder="Seu nome completo" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+      <div class="dados-grid">
+        <div class="dados-field">
+          <label>Nome completo *</label>
+          <input id="inp-nome" type="text" placeholder="Seu nome completo"/>
         </div>
-        <div>
-          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">E-mail *</label>
-          <input id="inp-email" type="email" placeholder="seu@email.com" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        <div class="dados-field">
+          <label>E-mail *</label>
+          <input id="inp-email" type="email" placeholder="seu@email.com"/>
         </div>
-        <div>
-          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">WhatsApp (com DDD)</label>
-          <input id="inp-tel" type="tel" placeholder="98999990000" inputmode="numeric" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        <div class="dados-field">
+          <label>WhatsApp (com DDD)</label>
+          <input id="inp-tel" type="tel" placeholder="11999990000" inputmode="numeric"/>
         </div>
-        <div>
-          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">CPF (para emissão de documentos)</label>
-          <input id="inp-cpf" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        <div class="dados-field">
+          <label>CPF (para documentos)</label>
+          <input id="inp-cpf" type="text" placeholder="000.000.000-00" maxlength="14"/>
         </div>
       </div>
-      <div id="esp-err" style="display:none;color:#b91c1c;font-size:.8rem;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-radius:8px;border:1px solid #fca5a5"></div>
-      <div style="display:flex;gap:8px">
-        <button onclick="voltarParaHorario()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
-        <button id="modalCta" class="cta-confirmar" onclick="confirmarAgendamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:var(--acc,#1a7a4a);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+      <div id="esp-err" class="erro-box"></div>
+      <div style="display:flex;gap:10px">
+        <button onclick="voltarParaHorario()" style="flex:1;padding:14px;border:1px solid var(--line-mid);border-radius:12px;background:#fff;cursor:pointer;font-size:.9rem;font-weight:500">← Voltar</button>
+        <button id="modalCta" class="cta-confirmar" onclick="confirmarAgendamento()" style="flex:2;padding:14px;border:none;border-radius:12px;background:var(--acc-deep);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
           Continuar para pagamento →
         </button>
       </div>
     </div>
 
-    <!-- PASSO 3: Escolha de pagamento -->
+    <!-- PASSO 3: ESCOLHA PAGAMENTO -->
     <div id="passo-pagamento" style="display:none">
-      <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;margin-bottom:16px">Forma de pagamento</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
-        <div class="metodo-opcao selected" id="op-pix" onclick="selecionarMetodo('pix')" style="padding:20px;border:2px solid var(--line-mid);border-radius:12px;text-align:center;cursor:pointer">
-          <div style="font-size:1.8rem;margin-bottom:6px">📱</div>
-          <div style="font-weight:600;font-size:.9rem">PIX</div>
-          <div style="font-size:.72rem;color:#888">Instantâneo</div>
+      <div class="passo-titulo">Forma de pagamento</div>
+      <div class="metodo-pagto">
+        <div class="metodo-opcao selected" id="op-pix" onclick="selecionarMetodo('pix')">
+          <div class="metodo-opcao-icon">📱</div>
+          <div class="metodo-opcao-label">PIX</div>
+          <div class="metodo-opcao-desc">Instantâneo</div>
         </div>
-        <div class="metodo-opcao" id="op-cartao" onclick="selecionarMetodo('cartao')" style="padding:20px;border:2px solid var(--line);border-radius:12px;text-align:center;cursor:pointer">
-          <div style="font-size:1.8rem;margin-bottom:6px">💳</div>
-          <div style="font-weight:600;font-size:.9rem">Cartão</div>
-          <div style="font-size:.72rem;color:#888">Crédito/Débito</div>
+        <div class="metodo-opcao" id="op-cartao" onclick="selecionarMetodo('cartao')">
+          <div class="metodo-opcao-icon">💳</div>
+          <div class="metodo-opcao-label">Cartão</div>
+          <div class="metodo-opcao-desc">Crédito/Débito</div>
         </div>
       </div>
-      <div style="display:flex;gap:8px">
-        <button onclick="voltarParaDados()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
-        <button onclick="processarPagamento()" style="flex:2;padding:12px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
+      <div style="display:flex;gap:10px">
+        <button onclick="voltarParaDados()" style="flex:1;padding:14px;border:1px solid var(--line-mid);border-radius:12px;background:#fff;cursor:pointer;font-size:.9rem;font-weight:500">← Voltar</button>
+        <button onclick="processarPagamento()" style="flex:2;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
           Pagar →
         </button>
       </div>
     </div>
 
-    <!-- PASSO 4: PIX -->
-    <div id="passo-pix" style="display:none;text-align:center">
-      <div id="pix-loading" style="padding:24px 0;color:#666;font-size:.88rem">⏳ Gerando PIX...</div>
-      <div id="pix-qr-wrap" style="display:none">
-        <div style="font-size:.88rem;font-weight:600;margin-bottom:4px" id="pix-resumo"></div>
-        <div style="font-size:1.4rem;font-weight:700;color:var(--acc,#1a7a4a);margin-bottom:16px" id="pix-valor"></div>
-        <img id="pix-qr-img" src="" alt="QR Code PIX" style="width:200px;height:200px;border-radius:12px;border:2px solid #e5e7eb;display:block;margin:0 auto 12px"/>
-        <div style="font-size:.72rem;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Pix Copia e Cola</div>
-        <div style="display:flex;gap:6px;margin-bottom:16px">
-          <input id="pix-codigo" readonly style="flex:1;padding:8px 10px;border:1px solid #ddd;border-radius:8px;font-size:.72rem;background:#f9f9f9;min-width:0" onclick="this.select()"/>
-          <button id="btn-copiar-pix" onclick="copiarPixEsp()" style="padding:8px 12px;border:1px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;font-size:.78rem;white-space:nowrap">📋 Copiar</button>
+    <!-- PAGAMENTO PIX -->
+    <div id="pagto-pix" class="pagto-pix" style="display:none">
+      <div class="pix-loading" id="pix-loading">⏳ Gerando pagamento...</div>
+      <div class="pix-qr-wrap" id="pix-qr-wrap">
+        <div class="pix-resumo" id="pix-resumo"></div>
+        <div class="pix-valor" id="pix-valor"></div>
+        <img id="pix-qr-img" class="pix-qr-img" src="" alt="QR Code"/>
+        <div class="pix-copia-label">PIX Copia e Cola</div>
+        <div class="pix-copia-row">
+          <input id="pix-codigo" class="pix-copia-input" readonly onclick="this.select()"/>
+          <button class="pix-copia-btn" onclick="copiarPix()">📋 Copiar</button>
         </div>
-        <div id="pix-status" style="font-size:.78rem;color:#888;padding:8px;background:#f9f9f9;border-radius:8px">⏳ Aguardando confirmação do pagamento...</div>
-        <div id="pix-confirmado" style="display:none;margin-top:12px;padding:16px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px">
-          <div style="font-size:1.3rem;margin-bottom:6px">✅</div>
-          <div style="font-weight:700;color:#15803d;margin-bottom:4px">Pagamento confirmado!</div>
-          <div style="font-size:.82rem;color:#166534" id="pix-confirmado-detalhe"></div>
+        <div class="pix-status" id="pix-status">⏳ Aguardando confirmação do pagamento...</div>
+        <div class="pix-confirmado" id="pix-confirmado">
+          <div class="pix-confirmado-emoji">✅</div>
+          <div class="pix-confirmado-titulo">Pagamento confirmado!</div>
+          <div class="pix-confirmado-detalhe" id="pix-confirmado-detalhe"></div>
         </div>
       </div>
     </div>
 
-    <!-- PASSO 5: CARTÃO -->
-    <div id="passo-cartao" style="display:none">
-      <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;margin-bottom:16px">Dados do cartão</div>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px">
-        <div>
-          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">Nome no cartão *</label>
-          <input id="cartao-nome" type="text" placeholder="Nome como no cartão" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+    <!-- PAGAMENTO CARTÃO -->
+    <div id="pagto-cartao" class="pagto-cartao" style="display:none;text-align:left">
+      <div class="passo-titulo">Dados do cartão</div>
+      <div class="cartao-form" id="cartao-form">
+        <div class="cartao-field">
+          <label>Nome completo</label>
+          <input id="cartao-nome" type="text" placeholder="Nome no cartão"/>
         </div>
-        <div>
-          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">Número do cartão *</label>
-          <input id="cartao-numero" type="text" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        <div class="cartao-field">
+          <label>Número do cartão</label>
+          <input id="cartao-numero" type="text" placeholder="0000 0000 0000 0000" maxlength="19"/>
         </div>
-        <div style="display:flex;gap:10px">
-          <div style="flex:1">
-            <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">Validade *</label>
-            <input id="cartao-validade" type="text" placeholder="MM/AA" maxlength="5" inputmode="numeric" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        <div class="cartao-row">
+          <div class="cartao-field">
+            <label>Validade</label>
+            <input id="cartao-validade" type="text" placeholder="MM/AA" maxlength="5"/>
           </div>
-          <div style="flex:1">
-            <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">CVV *</label>
-            <input id="cartao-cvv" type="text" placeholder="123" maxlength="4" inputmode="numeric" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+          <div class="cartao-field">
+            <label>CVV</label>
+            <input id="cartao-cvv" type="text" placeholder="123" maxlength="4"/>
           </div>
         </div>
-        <div>
-          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">CPF do titular *</label>
-          <input id="cartao-cpf" type="text" placeholder="000.000.000-00" maxlength="14" inputmode="numeric" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        <div class="cartao-field">
+          <label>CPF do titular</label>
+          <input id="cartao-cpf" type="text" placeholder="000.000.000-00" maxlength="14"/>
         </div>
-        <div>
-          <label style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;display:block;margin-bottom:4px">Nascimento *</label>
-          <input id="cartao-nascimento" type="text" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box"/>
+        <div class="cartao-field">
+          <label>E-mail *</label>
+          <input id="cartao-email" type="email" placeholder="seu@email.com"/>
         </div>
-      </div>
-      <div id="cartao-err" style="display:none;color:#b91c1c;font-size:.8rem;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-radius:8px;border:1px solid #fca5a5"></div>
-      <div style="display:flex;gap:8px">
-        <button onclick="voltarParaPagamento()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:.88rem">← Voltar</button>
-        <button id="btnPagarCartao" onclick="processarCartao()" style="flex:2;padding:12px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--cta-from),var(--cta-to));color:#fff;font-weight:700;font-size:.95rem;cursor:pointer">
-          Pagar com Cartão →
-        </button>
+        <div class="cartao-field">
+          <label>Telefone (com DDD) *</label>
+          <input id="cartao-tel" type="tel" placeholder="11999990000" inputmode="numeric"/>
+        </div>
+        <div class="cartao-field">
+          <label>Data de nascimento *</label>
+          <input id="cartao-nascimento" type="text" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric"/>
+        </div>
+        <div id="cartao-err" style="display:none;color:#b91c1c;font-size:.82rem;margin-bottom:8px;padding:12px 16px;background:#fef2f2;border-radius:10px;border:1px solid #fecaca"></div>
+        <button class="btn-pagar" id="btnPagarCartao" onclick="processarCartao()">Pagar agora</button>
       </div>
     </div>
 
-    <!-- PASSO 6: CARTÃO CONFIRMADO -->
+    <!-- CARTÃO CONFIRMADO -->
     <div id="passo-cartao-confirmado" style="display:none;text-align:center;padding:24px 0">
       <div style="font-size:2.5rem;margin-bottom:12px">✅</div>
       <div style="font-weight:700;font-size:1.1rem;color:#15803d;margin-bottom:8px">Pagamento confirmado!</div>
@@ -859,9 +861,9 @@ footer a:hover{color:var(--ink)}
       <div style="margin-bottom:16px">
         <input id="pip-senha" type="password" placeholder="Sua senha" style="width:100%;padding:14px;border:1px solid var(--line-mid);border-radius:10px;font-size:.95rem;box-sizing:border-box"/>
       </div>
-      <button id="pip-btn-login" onclick="pipLogin()" style="width:100%;padding:14px;background:var(--acc,#1a7a4a);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer">Entrar</button>
+      <button id="pip-btn-login" onclick="pipLogin()" style="width:100%;padding:14px;background:var(--acc-deep);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer">Entrar</button>
       <div style="text-align:center;margin-top:16px;font-size:.85rem;color:var(--ink-3)">
-        Não tem conta? <a href="#" onclick="pipTrocarModo('cadastro');return false" style="color:var(--acc,#1a7a4a);text-decoration:none;font-weight:500">Criar agora</a>
+        Não tem conta? <a href="#" onclick="pipTrocarModo('cadastro');return false" style="color:var(--acc-deep);text-decoration:none;font-weight:500">Criar agora</a>
       </div>
     </div>
     <div id="pip-modo-cadastro" style="display:none">
@@ -877,9 +879,9 @@ footer a:hover{color:var(--ink)}
       <div style="margin-bottom:16px">
         <input id="pip-cad-senha" type="password" placeholder="Crie uma senha" style="width:100%;padding:14px;border:1px solid var(--line-mid);border-radius:10px;font-size:.95rem;box-sizing:border-box"/>
       </div>
-      <button id="pip-btn-cadastro" onclick="pipCadastrar()" style="width:100%;padding:14px;background:var(--acc,#1a7a4a);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer">Criar conta</button>
+      <button id="pip-btn-cadastro" onclick="pipCadastrar()" style="width:100%;padding:14px;background:var(--acc-deep);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer">Criar conta</button>
       <div style="text-align:center;margin-top:16px;font-size:.85rem;color:var(--ink-3)">
-        Já tem conta? <a href="#" onclick="pipTrocarModo('login');return false" style="color:var(--acc,#1a7a4a);text-decoration:none;font-weight:500">Entrar</a>
+        Já tem conta? <a href="#" onclick="pipTrocarModo('login');return false" style="color:var(--acc-deep);text-decoration:none;font-weight:500">Entrar</a>
       </div>
     </div>
     <div id="pip-erro" style="display:none;margin-top:16px;padding:12px;background:#fef2f2;border-radius:8px;font-size:.85rem;color:#b91c1c;text-align:center"></div>
@@ -892,7 +894,7 @@ footer a:hover{color:var(--ink)}
 
 <script>
 var API = 'https://triagem-api.onrender.com';
-var ESPECIALIDADE = 'psiquiatria';
+var ESPECIALIDADE = 'dermatologia';
 var WHATSAPP_NUMBER = '559898272727';
 
 function toggleWhatsAppWidget() {
@@ -912,20 +914,30 @@ function initWhatsAppWidget() {
 }
 
 
-var medicoSelecionado = null; // { id, nome, valor }
-var slotSelecionado   = null; // { dia, hora, iso }
+var medicoSelecionado = null;
+var slotSelecionado = null;
+var metodoPagamento = 'pix';
 var espState = { agendamentoId: null, pixOrderId: null, pixInterval: null };
+var PIX_CONFIRMED_STATES = ['confirmado', 'pago', 'paid', 'approved'];
 var especialistasData = [];
-var LOADING_HTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Carregando médicos...</div>';
-var EMPTY_HTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Nenhum médico disponível no momento.</div>';
-var ERROR_HTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--ink-3)">Erro ao carregar médicos. <button type="button" onclick="carregarEspecialistas()" style="color:var(--acc-deep);background:none;border:none;cursor:pointer;text-decoration:underline">Tentar novamente</button></div>';
+var LOADING_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Carregando profissionais...</div>';
+var EMPTY_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Dermatologistas em cadastramento. Em breve os horários aparecem aqui.</div>';
+var ERROR_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Não foi possível carregar os profissionais. <button type="button" onclick="carregarEspecialistas()" style="color:var(--acc-deep);border:none;background:none;cursor:pointer;text-decoration:underline">Tentar novamente</button></div>';
+
+function init() {
+  observeReveal();
+  initWhatsAppWidget();
+  carregarEspecialistas();
+  bindDadosListeners();
+  atualizarBotaoConfirmacaoDados();
+}
 
 function observeReveal() {
   var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 }
 
@@ -936,120 +948,60 @@ async function carregarEspecialistas() {
     var res = await fetch(API + '/api/especialistas/' + ESPECIALIDADE);
     if (!res.ok) throw new Error('Falha na API');
     var data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Erro ao carregar médicos');
+    if (!data.ok) throw new Error(data.error || 'Erro ao carregar especialistas');
     especialistasData = data.especialistas || [];
-    renderEspecialistas();
+    if (!especialistasData.length) {
+      grid.innerHTML = EMPTY_HTML;
+      return;
+    }
+    grid.innerHTML = especialistasData.map(function(esp) {
+      var disponibilidade = normalizarDisponibilidade(esp.disponibilidade);
+      var nome = escHtml(esp.nome_exibicao || 'Especialista');
+      var crm = escHtml(esp.crm || 'CRM não informado');
+      var rqe = escHtml(esp.rqe || '');
+      var uf = escHtml(esp.uf || '--');
+      var bio = escHtml(esp.bio || 'Atendimento especializado em dermatologia.');
+      var crmDisplay = crm + (rqe ? '-' + uf + ' · RQE ' + rqe : ' · ' + uf);
+      var valorConsulta = Number(esp.valor_consulta);
+      var valorFormatado = Number.isFinite(valorConsulta) ? valorConsulta.toFixed(0) : '—';
+      return '<div class="doctor-card">'+
+        '<div class="doctor-card__photo">'+
+          (esp.foto_url ? '<img src="'+escHtml(esp.foto_url)+'" alt="'+nome+'"/>' : '<div class="doctor-card__photo-placeholder">👩‍⚕️</div>')+
+        '</div>'+
+        '<div class="doctor-card__body">'+
+          '<div class="doctor-card__name">'+nome+'</div>'+
+          '<div class="doctor-card__crm">CRM '+crmDisplay+'</div>'+
+          '<span class="doctor-card__spec">'+ESPECIALIDADE+'</span>'+
+          '<p class="doctor-card__bio">'+bio+'</p>'+
+          '<div class="doctor-card__meta">'+
+            '<span class="doctor-card__meta-chip">Vídeo ou chat</span>'+
+            '<span class="doctor-card__meta-chip">Plano personalizado</span>'+
+            '<span class="doctor-card__meta-chip">Retorno contínuo</span>'+
+          '</div>'+
+          '<div class="doctor-card__footer">'+
+            '<div><span class="doctor-card__price-label">Consulta online</span><span class="doctor-card__price">R$ '+valorFormatado+'</span></div>'+
+            '<button class="doctor-card__btn" data-id="'+(esp.id || '')+'" data-nome="'+nome+'" data-valor="'+(Number.isFinite(valorConsulta) ? valorConsulta : 0)+'" data-disponibilidade=\''+JSON.stringify(disponibilidade).replace(/'/g, '&#39;')+'\'>'+
+              'Ver horários'+
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>'+
+            '</button>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
   } catch(e) {
     especialistasData = [];
     grid.innerHTML = ERROR_HTML;
   }
 }
 
-function renderEspecialistas() {
-  var grid = document.getElementById('doctorsGrid');
-  if (especialistasData.length === 0) {
-    grid.innerHTML = EMPTY_HTML;
-    return;
-  }
-  grid.innerHTML = '';
-  especialistasData.forEach(function(espec, idx) {
-    var disponibilidade = normalizarDisponibilidade(espec.disponibilidade);
-    var nome = escHtml(espec.nome_exibicao || 'Especialista');
-    var crm = escHtml(espec.crm || 'CRM não informado');
-    var rqe = escHtml(espec.rqe || '');
-    var uf = escHtml(espec.uf || '--');
-    var bio = escHtml(espec.bio || '');
-    var valorConsulta = Number(espec.valor_consulta);
-    var crmDisplay = crm + (rqe ? ' · RQE ' + rqe : '');
-    var valorFormatado = Number.isFinite(valorConsulta) ? valorConsulta.toFixed(2).replace('.', ',') : '—';
-    var card = document.createElement('div');
-    card.className = 'doctor-card fade-up';
-    card.style.animationDelay = (idx * 0.1) + 's';
-    var fotoHtml = espec.foto_url
-      ? '<img src="' + escHtml(espec.foto_url) + '" alt="' + nome + '"/>'
-      : '<div class="doctor-card__photo-placeholder">👨‍⚕️</div>';
-    card.innerHTML = 
-      '<div class="doctor-card__photo">' + fotoHtml + '</div>' +
-        '<div class="doctor-card__body">' +
-        '<div class="doctor-card__name">' + nome + '</div>' +
-        '<div class="doctor-card__crm">CRM ' + crmDisplay + ' · ' + uf + '</div>' +
-        '<span class="doctor-card__spec">Psiquiatria</span>' +
-        '<p class="doctor-card__bio">' + bio + '</p>' +
-        '<div class="doctor-card__meta">' +
-          '<span class="doctor-card__meta-chip">Sigilo médico</span>' +
-          '<span class="doctor-card__meta-chip">Vídeo ou chat</span>' +
-          '<span class="doctor-card__meta-chip">Acompanhamento</span>' +
-        '</div>' +
-        '<div class="doctor-card__footer">' +
-          '<div>' +
-            '<span class="doctor-card__price-label">Consulta online</span>' +
-            '<span class="doctor-card__price">R$ ' + valorFormatado + '</span>' +
-          '</div>' +
-          '<button class="doctor-card__btn"' +
-            ' data-id="' + (espec.id || '') + '"' +
-            ' data-nome="' + nome + '"' +
-          ' data-valor="' + (Number.isFinite(valorConsulta) ? valorConsulta : 0) + '"' +
-            " data-disponibilidade='" + JSON.stringify(disponibilidade).replace(/'/g, '&#39;') + "'" +
-          '>' +
-            'Ver horários' +
-            '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>' +
-          '</button>' +
-        '</div>' +
-      '</div>';
-    grid.appendChild(card);
-  });
-}
-
 function escHtml(s) {
   if (s === null || s === undefined) return '';
   return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
     .replace(/'/g, '&#39;');
-}
-
-function abrirHorarios(medico) {
-  medicoSelecionado = medico; // { id, nome, valor, disponibilidade }
-  slotSelecionado = null;
-  document.getElementById('modalDoctor').textContent = medico.nome + ' · Psiquiatria · R$ ' + parseFloat(medico.valor).toFixed(2).replace('.', ',');
-  document.getElementById('btnProximo').disabled = true;
-  var btnConfirmar = document.getElementById('modalCta');
-  if (btnConfirmar) {
-    btnConfirmar.disabled = true;
-    btnConfirmar.style.opacity = '.55';
-    btnConfirmar.style.cursor = 'not-allowed';
-  }
-  mostrarPasso('passo-horario');
-  renderSlots(normalizarDisponibilidade(medico.disponibilidade));
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function renderSlots(disponibilidade) {
-  var grid = document.getElementById('slotsGrid');
-  grid.innerHTML = '';
-  
-  if (!disponibilidade || disponibilidade.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--ink-3)">Nenhum horário disponível.</div>';
-    return;
-  }
-  
-  disponibilidade.forEach(function(s) {
-    var el = document.createElement('div');
-    el.className = 'slot';
-    el.innerHTML = '<div class="slot__day">'+s.dia+'</div><div class="slot__time">'+s.hora+'</div>';
-    el.onclick = function() {
-      document.querySelectorAll('.slot').forEach(function(x){ x.classList.remove('selected'); });
-      el.classList.add('selected');
-      slotSelecionado = s;
-      var btnProximo = document.getElementById('btnProximo');
-      btnProximo.disabled = false;
-      btnProximo.classList.add('is-ready');
-    };
-    grid.appendChild(el);
-  });
 }
 
 function normalizarDisponibilidade(disponibilidade) {
@@ -1124,33 +1076,63 @@ function normalizarDisponibilidade(disponibilidade) {
 }
 
 
+function abrirHorarios(medico) {
+  medicoSelecionado = medico;
+  slotSelecionado = null;
+  document.getElementById('modalDoctor').innerHTML = escHtml(medico.nome)+' · Dermatologia · R$ '+medico.valor.toFixed(2).replace('.',',');
+  
+  var grid = document.getElementById('slotsGrid');
+  var disponibilidade = normalizarDisponibilidade(medico.disponibilidade);
+  if (!disponibilidade.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--ink-3)">Nenhum horário disponível no momento.</div>';
+  } else {
+    grid.innerHTML = disponibilidade.map(function(s) {
+      return '<div class="slot-btn" onclick="selecionarSlot(this,\''+s.iso+'\')"><div style="font-weight:600">'+escHtml(s.dia || 'Disponível')+'</div><div style="font-size:.8rem;color:var(--ink-3)">'+escHtml(s.hora || '')+'</div></div>';
+    }).join('');
+  }
+  
+  document.getElementById('btnProximo').disabled = true;
+  var btnConfirmar = document.getElementById('modalCta');
+  if (btnConfirmar) {
+    btnConfirmar.disabled = true;
+    btnConfirmar.style.opacity = '.55';
+    btnConfirmar.style.cursor = 'not-allowed';
+  }
+  document.getElementById('passo-horario').style.display = 'block';
+  document.getElementById('passo-dados').style.display = 'none';
+  document.getElementById('passo-pagamento').style.display = 'none';
+  document.getElementById('pagto-pix').style.display = 'none';
+  document.getElementById('pagto-cartao').style.display = 'none';
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function selecionarSlot(el, iso) {
+  document.querySelectorAll('.slot-btn').forEach(function(b) { b.classList.remove('selected'); });
+  el.classList.add('selected');
+  var diaEl = el.querySelector('div');
+  var horaEl = el.querySelectorAll('div')[1];
+  slotSelecionado = { 
+    dia: diaEl ? diaEl.innerText : '', 
+    hora: horaEl ? horaEl.innerText : iso, 
+    iso: iso 
+  };
+  var btnProximo = document.getElementById('btnProximo');
+  btnProximo.disabled = false;
+  btnProximo.classList.add('is-ready');
+}
+
 function irParaDados() {
-  if (!slotSelecionado) return;
-  document.getElementById('horarioEscolhido').textContent = slotSelecionado.dia + ' às ' + slotSelecionado.hora;
-  mostrarPasso('passo-dados');
-  document.getElementById('esp-err').style.display = 'none';
+  if (!medicoSelecionado || !slotSelecionado) return;
+  document.getElementById('passo-horario').style.display = 'none';
+  document.getElementById('passo-dados').style.display = 'block';
+  document.getElementById('horarioEscolhido').innerText = slotSelecionado.dia + (slotSelecionado.hora ? ' às ' + slotSelecionado.hora : '');
   atualizarBotaoConfirmacaoDados();
 }
 
 function voltarParaHorario() {
-  mostrarPasso('passo-horario');
+  document.getElementById('passo-dados').style.display = 'none';
+  document.getElementById('passo-horario').style.display = 'block';
 }
-
-function voltarParaDados() {
-  mostrarPasso('passo-dados');
-  atualizarBotaoConfirmacaoDados();
-}
-
-function mostrarPasso(id) {
-  var passos = ['passo-horario','passo-dados','passo-pagamento','passo-pix','passo-cartao','passo-cartao-confirmado'];
-  passos.forEach(function(p){
-    var el = document.getElementById(p);
-    if (el) el.style.display = p === id ? 'block' : 'none';
-  });
-}
-
-var metodoPagamento27 = 'pix';
-var PIX_CONFIRMED_STATES = ['confirmado', 'pago', 'paid', 'approved'];
 
 async function safeJsonFromResponse(res) {
   var status = res && typeof res.status === 'number' ? res.status : 0;
@@ -1233,10 +1215,10 @@ function resetPixUI() {
   var confirmado = document.getElementById('pix-confirmado');
   var qrImg = document.getElementById('pix-qr-img');
   var codigo = document.getElementById('pix-codigo');
-  if (loading) { loading.style.display = 'block'; loading.textContent = '⏳ Gerando PIX...'; loading.style.color = ''; }
-  if (qrWrap) qrWrap.style.display = 'none';
+  if (loading) { loading.style.display = 'block'; loading.textContent = '⏳ Gerando pagamento...'; loading.style.color = ''; }
+  if (qrWrap) qrWrap.classList.remove('active');
   if (status) { status.style.display = 'block'; status.textContent = '⏳ Aguardando confirmação do pagamento...'; }
-  if (confirmado) confirmado.style.display = 'none';
+  if (confirmado) confirmado.classList.remove('active');
   if (qrImg) qrImg.src = '';
   if (codigo) codigo.value = '';
 }
@@ -1274,29 +1256,97 @@ function bindDadosListeners() {
 }
 
 function selecionarMetodo(m) {
-  metodoPagamento27 = m;
-  var opPix = document.getElementById('op-pix');
-  var opCartao = document.getElementById('op-cartao');
-  if (opPix) {
-    opPix.style.borderColor = m === 'pix' ? 'var(--acc-deep)' : '';
-    opPix.style.background = m === 'pix' ? 'rgba(58,124,191,.1)' : '';
-  }
-  if (opCartao) {
-    opCartao.style.borderColor = m === 'cartao' ? 'var(--acc-deep)' : '';
-    opCartao.style.background = m === 'cartao' ? 'rgba(58,124,191,.1)' : '';
-  }
+  metodoPagamento = m;
+  document.getElementById('op-pix').classList.toggle('selected', m === 'pix');
+  document.getElementById('op-cartao').classList.toggle('selected', m === 'cartao');
 }
 
 function voltarParaPagamento() {
   clearPixPolling();
-  mostrarPasso('passo-pagamento');
+  document.getElementById('passo-pagamento').style.display = 'block';
+  document.getElementById('passo-dados').style.display = 'none';
+  document.getElementById('pagto-pix').style.display = 'none';
+  document.getElementById('pagto-cartao').style.display = 'none';
+  resetPixUI();
+}
+
+function fecharModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  clearPixPolling();
+  resetPixUI();
+}
+
+function fecharModalOverlay(e) {
+  if (e.target.id === 'modalOverlay') fecharModal();
+}
+
+async function confirmarAgendamento() {
+  var nome = document.getElementById('inp-nome').value.trim();
+  var email = document.getElementById('inp-email').value.trim();
+  var tel = document.getElementById('inp-tel').value.trim();
+  var cpf = document.getElementById('inp-cpf').value.trim();
+  var err = document.getElementById('esp-err');
+  
+  if (!nome || !email) {
+    err.style.display = 'block'; err.textContent = 'Nome e e-mail são obrigatórios'; return;
+  }
+  if (!cpf || cpf.replace(/\D/g,'').length !== 11) {
+    err.style.display = 'block'; err.textContent = 'Informe um CPF válido'; return;
+  }
+  err.style.display = 'none';
+  
+  var btn = document.getElementById('modalCta');
+  btn.disabled = true; btn.textContent = 'Aguarde...';
+  
+  try {
+    var reqHeaders = { 'Content-Type': 'application/json' };
+    var pacToken = localStorage.getItem('pac_token');
+    if (pacToken) reqHeaders['Authorization'] = 'Bearer ' + pacToken;
+
+    var res = await fetch(API + '/api/especialistas/agendamento/criar', {
+      method: 'POST',
+      headers: reqHeaders,
+      body: JSON.stringify({
+        especialistaId: medicoSelecionado.id,
+        horario_agendado: slotSelecionado.iso,
+        paciente_nome: nome,
+        paciente_email: email,
+        paciente_tel: tel,
+        paciente_cpf: cpf,
+        modalidade: getModalidadeSelecionada()
+      })
+    });
+    var parsed = await safeJsonFromResponse(res);
+    var data = parsed.payload || {};
+    if (!res.ok || !parsed.isJson || !data.ok) throw new Error(extractErrorMessage(data, 'Erro ao criar agendamento'));
+    
+    espState.agendamentoId = data.agendamentoId || data.agendamento_id || null;
+    if (!espState.agendamentoId) throw new Error('Agendamento criado sem identificador');
+    document.getElementById('passo-dados').style.display = 'none';
+    document.getElementById('passo-pagamento').style.display = 'block';
+  } catch(e) {
+    err.style.display = 'block'; err.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao criar agendamento');
+    btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
+    atualizarBotaoConfirmacaoDados();
+  }
+}
+
+function voltarParaDados() {
+  clearPixPolling();
+  document.getElementById('passo-pagamento').style.display = 'none';
+  document.getElementById('passo-dados').style.display = 'block';
+  document.getElementById('pagto-pix').style.display = 'none';
+  document.getElementById('pagto-cartao').style.display = 'none';
+  resetPixUI();
+  atualizarBotaoConfirmacaoDados();
 }
 
 function processarPagamento() {
   clearPixPolling();
-  if (metodoPagamento27 === 'cartao') {
-    mostrarPasso('passo-cartao');
-    // formatar campos do cartão
+  if (metodoPagamento === 'cartao') {
+    document.getElementById('passo-pagamento').style.display = 'none';
+    document.getElementById('pagto-cartao').style.display = 'block';
+    // Mascarar campos
     var numInput = document.getElementById('cartao-numero');
     if (numInput && !numInput._mascarado) {
       numInput._mascarado = true;
@@ -1334,7 +1384,8 @@ function processarPagamento() {
     }
     return;
   }
-  mostrarPasso('passo-pix');
+  document.getElementById('passo-pagamento').style.display = 'none';
+  document.getElementById('pagto-pix').style.display = 'block';
   resetPixUI();
   gerarPix();
 }
@@ -1345,9 +1396,9 @@ async function processarCartao() {
   var validade = (document.getElementById('cartao-validade').value || '').trim();
   var cvv = (document.getElementById('cartao-cvv').value || '').trim();
   var cpf = (document.getElementById('cartao-cpf').value || '').replace(/\D/g,'');
+  var email = (document.getElementById('cartao-email').value || '').trim();
+  var tel = (document.getElementById('cartao-tel').value || '').replace(/\D/g,'');
   var nascimento = (document.getElementById('cartao-nascimento').value || '').trim();
-  var email = (document.getElementById('inp-email').value || '').trim();
-  var tel = (document.getElementById('inp-tel').value || '').replace(/\D/g,'');
 
   var errEl = document.getElementById('cartao-err');
   errEl.style.display = 'none';
@@ -1357,20 +1408,21 @@ async function processarCartao() {
   if (!validade || validade.length < 5) { errEl.textContent = 'Informe a validade (MM/AA).'; errEl.style.display='block'; return; }
   if (!cvv || cvv.length < 3) { errEl.textContent = 'CVV inválido.'; errEl.style.display='block'; return; }
   if (!cpf || cpf.length < 11) { errEl.textContent = 'Informe o CPF do titular.'; errEl.style.display='block'; return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Informe um e-mail válido.'; errEl.style.display='block'; return; }
+  if (!tel) { errEl.textContent = 'Informe o telefone.'; errEl.style.display='block'; return; }
   if (!nascimento || nascimento.length < 10) { errEl.textContent = 'Informe a data de nascimento (DD/MM/AAAA).'; errEl.style.display='block'; return; }
 
   var btn = document.getElementById('btnPagarCartao');
   btn.disabled = true; btn.textContent = 'Processando...';
 
   try {
-    // Tokenizar via SDK Efí
     var partes = validade.split('/');
     var mesStr = partes[0] || '';
     var anoStr = (partes[1] || '').length === 2 ? '20' + partes[1] : (partes[1] || '');
 
     var tokenData = await new Promise(function(resolve, reject) {
       if (typeof window.$efi === 'undefined' || typeof window.$efi.generateToken !== 'function') {
-        reject(new Error('SDK Efí não carregado. Tente novamente em instantes.'));
+        reject(new Error('SDK Efí não carregado. Tente novamente.'));
         return;
       }
       window.$efi.generateToken({
@@ -1386,7 +1438,6 @@ async function processarCartao() {
       });
     });
 
-    // Converter nascimento DD/MM/AAAA → AAAA-MM-DD
     var nascParts = nascimento.split('/');
     var nascIso = (nascParts[2]||'') + '-' + (nascParts[1]||'') + '-' + (nascParts[0]||'');
 
@@ -1410,18 +1461,18 @@ async function processarCartao() {
       throw new Error(extractErrorMessage(data, 'Não foi possível processar o pagamento com cartão.'));
     }
 
-    var horFmt = slotSelecionado.dia + ' às ' + slotSelecionado.hora;
+    document.getElementById('pagto-cartao').style.display = 'none';
+    document.getElementById('passo-cartao-confirmado').style.display = 'block';
     if (isPaymentConfirmed(data) || data.confirmed === true) {
-      document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + horFmt;
+      document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
     } else {
       document.getElementById('cartao-confirmado-detalhe').textContent = 'Pagamento em análise. Esta tela atualiza automaticamente assim que a Efí confirmar.';
-      iniciarPollingEsp(espState.agendamentoId);
+      espState.pixInterval = setInterval(verificarPagamento, 10000);
     }
-    mostrarPasso('passo-cartao-confirmado');
   } catch(e) {
     errEl.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao processar pagamento com cartão.');
     errEl.style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Pagar com Cartão →';
+    btn.disabled = false; btn.textContent = 'Pagar agora';
   }
 }
 
@@ -1439,15 +1490,14 @@ function detectarBandeira(numero) {
 }
 
 async function gerarPix() {
+  var loading = document.getElementById('pix-loading');
+  var qrWrap = document.getElementById('pix-qr-wrap');
   var nome = (document.getElementById('inp-nome').value || '').trim();
   var email = (document.getElementById('inp-email').value || '').trim();
   var cpf = (document.getElementById('inp-cpf').value || '').trim().replace(/\D/g,'');
-  var loading = document.getElementById('pix-loading');
-  var qrWrap = document.getElementById('pix-qr-wrap');
-
   resetPixUI();
   clearPixPolling();
-
+  
   try {
     var pixPayload = {
       agendamentoId: espState.agendamentoId,
@@ -1457,158 +1507,68 @@ async function gerarPix() {
     if (email) pixPayload.email = email;
     if (cpf) pixPayload.cpf = cpf;
 
-    var resPix = await fetch(API + '/api/especialistas/pagbank/order', {
+    var res = await fetch(API + '/api/especialistas/pagbank/order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(pixPayload)
     });
-    var parsed = await safeJsonFromResponse(resPix);
-    var dadosPix = parsed.payload || {};
-    if (!resPix.ok || !parsed.isJson || !dadosPix || dadosPix.ok === false) {
-      throw new Error(extractErrorMessage(dadosPix, 'Não foi possível gerar o PIX. Tente novamente.'));
+    var parsed = await safeJsonFromResponse(res);
+    var data = parsed.payload || {};
+    if (!res.ok || !parsed.isJson || !data || data.ok === false) {
+      throw new Error(extractErrorMessage(data, 'Não foi possível gerar o PIX. Tente novamente.'));
     }
-    var pixData = extractPixPayload(dadosPix);
+    var pixData = extractPixPayload(data);
     if (!pixData.qrText && !pixData.qrImage) throw new Error('PIX gerado sem QR Code válido. Tente novamente em instantes.');
-
+    
     espState.pixOrderId = pixData.orderId;
-
-    loading.style.display = 'none';
-    qrWrap.style.display = 'block';
     document.getElementById('pix-resumo').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
     var valorPix = getPixAmount(pixData.amount, medicoSelecionado.valor);
     document.getElementById('pix-valor').textContent = 'R$ ' + valorPix.toFixed(2).replace('.', ',');
     document.getElementById('pix-qr-img').src = pixData.qrImage || (pixData.qrText ? 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(pixData.qrText) : '');
     document.getElementById('pix-codigo').value = pixData.qrText || '';
-
-    iniciarPollingEsp(espState.agendamentoId);
+    
+    loading.style.display = 'none'; qrWrap.classList.add('active');
+    
+    espState.pixInterval = setInterval(verificarPagamento, 10000);
   } catch(e) {
-    if (loading) {
-      loading.style.display = 'block';
-      loading.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao gerar PIX. Verifique sua conexão e tente novamente.');
-      loading.style.color = '#b91c1c';
-    }
-    if (qrWrap) qrWrap.style.display = 'none';
+    loading.style.display = 'block';
+    loading.style.color = '#b91c1c';
+    loading.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao gerar PIX. Verifique sua conexão e tente novamente.');
+    qrWrap.classList.remove('active');
   }
 }
 
-function fecharModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-  clearPixPolling();
-}
-
-function fecharModalOverlay(e) {
-  if (e.target === document.getElementById('modalOverlay')) fecharModal();
-}
-
-async function confirmarAgendamento() {
-  var nome  = (document.getElementById('inp-nome').value || '').trim();
-  var email = (document.getElementById('inp-email').value || '').trim();
-  var tel   = (document.getElementById('inp-tel').value || '').trim().replace(/\D/g,'');
-  var cpf   = (document.getElementById('inp-cpf').value || '').trim().replace(/\D/g,'');
-
-  var errEl = document.getElementById('esp-err');
-  if (!nome) { errEl.textContent = 'Informe seu nome.'; errEl.style.display='block'; return; }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Informe um e-mail válido.'; errEl.style.display='block'; return; }
-  if (!cpf || cpf.length !== 11) { errEl.textContent = 'Informe um CPF válido.'; errEl.style.display='block'; return; }
-  errEl.style.display = 'none';
-
-  var btn = document.getElementById('modalCta');
-  btn.disabled = true;
-  btn.textContent = 'Criando agendamento...';
-
-  // Lead (não bloqueia)
-  fetch(API + '/api/lead/registrar', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      nome: nome, email: email, tel: tel,
-      especialidade: ESPECIALIDADE,
-      profissional: medicoSelecionado.nome,
-      horario: slotSelecionado.dia + ' ' + slotSelecionado.hora,
-      modulo: 'especialistas'
-    })
-  }).catch(function(){});
-
+async function verificarPagamento() {
+  if (!espState.agendamentoId) return;
   try {
-    // Passa token se paciente já está logado — vincula conta universal
-    var reqHeaders = { 'Content-Type': 'application/json' };
-    var pacToken = localStorage.getItem('pac_token');
-    if (pacToken) reqHeaders['Authorization'] = 'Bearer ' + pacToken;
-
-    var resAg = await fetch(API + '/api/especialistas/agendamento/criar', {
-      method: 'POST',
-      headers: reqHeaders,
-      body: JSON.stringify({
-        especialistaId:   medicoSelecionado.id,
-        horario_agendado: slotSelecionado.iso,
-        paciente_nome:    nome,
-        paciente_email:   email,
-        paciente_tel:     tel,
-        paciente_cpf:     cpf,
-        modalidade:       getModalidadeSelecionada()
-      })
-    });
-    var parsedAg = await safeJsonFromResponse(resAg);
-    var dadosAg = parsedAg.payload || {};
-    if (!resAg.ok || !parsedAg.isJson || !dadosAg.ok) {
-      errEl.textContent = extractErrorMessage(dadosAg, 'Erro ao criar agendamento.');
-      errEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
-      atualizarBotaoConfirmacaoDados();
-      return;
+    var res = await fetch(API + '/api/especialistas/agendamento/' + espState.agendamentoId + '/status');
+    var parsed = await safeJsonFromResponse(res);
+    var data = parsed.payload || {};
+    if (res.ok && parsed.isJson && isPaymentConfirmed(data)) {
+      clearPixPolling();
+      document.getElementById('pix-status').style.display = 'none';
+      var confirmado = document.getElementById('pix-confirmado');
+      confirmado.classList.add('active');
+      var ag = data.agendamento || {};
+      var detalhe = ag.especialista_nome ? ag.especialista_nome : 'Consulta agendada';
+      detalhe += ' · ' + slotSelecionado.dia + (slotSelecionado.hora ? ' às ' + slotSelecionado.hora : '');
+      document.getElementById('pix-confirmado-detalhe').textContent = detalhe;
+      var cartaoDetalhe = document.getElementById('cartao-confirmado-detalhe');
+      if (cartaoDetalhe) cartaoDetalhe.textContent = detalhe;
     }
-    espState.agendamentoId = dadosAg.agendamentoId;
-
-    mostrarPasso('passo-pagamento');
-  } catch(e) {
-    errEl.textContent = 'Erro de conexão. Tente novamente.';
-    errEl.style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
-    atualizarBotaoConfirmacaoDados();
-    mostrarPasso('passo-dados');
-  }
+  } catch(e) {}
 }
 
-function copiarPixEsp() {
-  var code = document.getElementById('pix-codigo').value;
-  if (!code) return;
-  navigator.clipboard.writeText(code).then(function() {
-    var btn = document.getElementById('btn-copiar-pix');
-    btn.textContent = '✅ Copiado!';
-    setTimeout(function(){ btn.textContent = '📋 Copiar'; }, 2500);
-  }).catch(function(){
-    document.getElementById('pix-codigo').select();
-  });
+function copiarPix() {
+  var input = document.getElementById('pix-codigo');
+  input.select();
+  document.execCommand('copy');
+  var btn = document.querySelector('.pix-copia-btn');
+  btn.textContent = '✅ Copiado!';
+  setTimeout(function() { btn.textContent = '📋 Copiar'; }, 2000);
 }
 
-function iniciarPollingEsp(agendamentoId) {
-  clearPixPolling();
-  var tentativas = 0;
-  espState.pixInterval = setInterval(async function() {
-    tentativas++;
-    if (tentativas > 60) { clearPixPolling(); return; }
-    try {
-      var res  = await fetch(API + '/api/especialistas/agendamento/' + agendamentoId + '/status');
-      var parsed = await safeJsonFromResponse(res);
-      var data = parsed.payload || {};
-      if (res.ok && parsed.isJson && isPaymentConfirmed(data)) {
-        clearPixPolling();
-        var ag = data.agendamento || {};
-        var horFmt = new Date(ag.horario_agendado).toLocaleString('pt-BR', {
-          timeZone: 'America/Fortaleza', weekday: 'long', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit'
-        });
-        document.getElementById('pix-status').style.display = 'none';
-        document.getElementById('pix-confirmado').style.display = 'block';
-        document.getElementById('pix-confirmado-detalhe').textContent = ag.especialista_nome + ' · ' + horFmt;
-        var cartaoDetalhe = document.getElementById('cartao-confirmado-detalhe');
-        if (cartaoDetalhe) cartaoDetalhe.textContent = ag.especialista_nome + ' · ' + horFmt;
-      }
-    } catch(e) {}
-  }, 10000);
-}
-
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
+document.addEventListener('DOMContentLoaded', init);
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('.doctor-card__btn');
   if (!btn) return;
@@ -1620,14 +1580,12 @@ document.addEventListener('click', function(e) {
     disponibilidade = [];
   }
 
-  var medico = {
+  abrirHorarios({
     id: parseInt(btn.dataset.id, 10),
     nome: btn.dataset.nome || '',
     valor: parseFloat(btn.dataset.valor || '0'),
     disponibilidade: normalizarDisponibilidade(disponibilidade)
-  };
-
-  abrirHorarios(medico);
+  });
 });
 
 // --- PiP: Login / Cadastro do paciente ---
@@ -1635,7 +1593,6 @@ function pipAbrir() {
   var overlay = document.getElementById('pip-overlay');
   var err = document.getElementById('pip-erro');
   err.style.display = 'none';
-  // Preenche email se já digitou nos dados
   var emailDigitado = document.getElementById('inp-email').value.trim();
   if (emailDigitado) document.getElementById('pip-email').value = emailDigitado;
   overlay.style.display = 'flex';
@@ -1676,7 +1633,6 @@ async function pipLogin() {
     
     localStorage.setItem('pac_token', data.token);
     pipFechar();
-    // Continua fluxo automaticamente
     document.getElementById('inp-nome').value = data.paciente?.nome || '';
     document.getElementById('inp-email').value = data.paciente?.email || email;
     document.getElementById('inp-tel').value = data.paciente?.tel || '';
@@ -1710,7 +1666,6 @@ async function pipCadastrar() {
     
     localStorage.setItem('pac_token', data.token);
     pipFechar();
-    // Continua fluxo automaticamente
     document.getElementById('inp-nome').value = nome;
     document.getElementById('inp-email').value = email;
     document.getElementById('inp-tel').value = tel;
@@ -1722,10 +1677,9 @@ async function pipCadastrar() {
   }
 }
 
-// Modificar irParaDados para verificar login
 var irParaDadosOriginal = irParaDados;
 irParaDados = function() {
-  if (!slotSelecionado) return;
+  if (!medicoSelecionado || !slotSelecionado) return;
   var pacToken = localStorage.getItem('pac_token');
   if (!pacToken) {
     pipAbrir();
@@ -1733,13 +1687,6 @@ irParaDados = function() {
   }
   irParaDadosOriginal();
 };
-
-// Carregar especialistas ao iniciar
-observeReveal();
-initWhatsAppWidget();
-carregarEspecialistas();
-bindDadosListeners();
-atualizarBotaoConfirmacaoDados();
 </script>
 </body>
 </html>
