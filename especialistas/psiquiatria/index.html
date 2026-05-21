@@ -1325,7 +1325,12 @@ async function processarCartao() {
     }
 
     var horFmt = slotSelecionado.dia + ' às ' + slotSelecionado.hora;
-    document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + horFmt;
+    if (isPaymentConfirmed(data) || data.confirmed === true) {
+      document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + horFmt;
+    } else {
+      document.getElementById('cartao-confirmado-detalhe').textContent = 'Pagamento em análise. Esta tela atualiza automaticamente assim que a Efí confirmar.';
+      iniciarPollingEsp(espState.agendamentoId);
+    }
     mostrarPasso('passo-cartao-confirmado');
   } catch(e) {
     errEl.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao processar pagamento com cartão.');
@@ -1509,6 +1514,8 @@ function iniciarPollingEsp(agendamentoId) {
         document.getElementById('pix-status').style.display = 'none';
         document.getElementById('pix-confirmado').style.display = 'block';
         document.getElementById('pix-confirmado-detalhe').textContent = ag.especialista_nome + ' · ' + horFmt;
+        var cartaoDetalhe = document.getElementById('cartao-confirmado-detalhe');
+        if (cartaoDetalhe) cartaoDetalhe.textContent = ag.especialista_nome + ' · ' + horFmt;
       }
     } catch(e) {}
   }, 10000);
@@ -1586,7 +1593,9 @@ async function pipLogin() {
     document.getElementById('inp-nome').value = data.paciente?.nome || '';
     document.getElementById('inp-email').value = data.paciente?.email || email;
     document.getElementById('inp-tel').value = data.paciente?.tel || '';
-    confirmarAgendamento();
+    if (data.paciente?.cpf) document.getElementById('inp-cpf').value = data.paciente.cpf;
+    irParaDadosOriginal();
+    atualizarBotaoConfirmacaoDados();
   } catch(e) {
     pipErro('Erro de conexão');
     btn.disabled = false; btn.textContent = 'Entrar';
@@ -1604,7 +1613,7 @@ async function pipCadastrar() {
   btn.disabled = true; btn.textContent = 'Criando conta...';
   
   try {
-    var res = await fetch(API + '/api/paciente/cadastrar', {
+    var res = await fetch(API + '/api/paciente/cadastro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome: nome, email: email, tel: tel, senha: senha })
@@ -1618,7 +1627,8 @@ async function pipCadastrar() {
     document.getElementById('inp-nome').value = nome;
     document.getElementById('inp-email').value = email;
     document.getElementById('inp-tel').value = tel;
-    confirmarAgendamento();
+    irParaDadosOriginal();
+    atualizarBotaoConfirmacaoDados();
   } catch(e) {
     pipErro('Erro de conexão');
     btn.disabled = false; btn.textContent = 'Criar conta';

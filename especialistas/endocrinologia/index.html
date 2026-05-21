@@ -1213,9 +1213,13 @@ async function confirmarAgendamento() {
   btn.disabled = true; btn.textContent = 'Aguarde...';
   
   try {
+    var reqHeaders = { 'Content-Type': 'application/json' };
+    var pacToken = localStorage.getItem('pac_token');
+    if (pacToken) reqHeaders['Authorization'] = 'Bearer ' + pacToken;
+
     var res = await fetch(API + '/api/especialistas/agendamento/criar', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: reqHeaders,
       body: JSON.stringify({
         especialistaId: medicoSelecionado.id,
         horario_agendado: slotSelecionado.iso,
@@ -1372,7 +1376,12 @@ async function processarCartao() {
 
     document.getElementById('pagto-cartao').style.display = 'none';
     document.getElementById('passo-cartao-confirmado').style.display = 'block';
-    document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
+    if (isPaymentConfirmed(data) || data.confirmed === true) {
+      document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
+    } else {
+      document.getElementById('cartao-confirmado-detalhe').textContent = 'Pagamento em análise. Esta tela atualiza automaticamente assim que a Efí confirmar.';
+      espState.pixInterval = setInterval(verificarPagamento, 10000);
+    }
   } catch(e) {
     errEl.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao processar pagamento com cartão.');
     errEl.style.display = 'block';
@@ -1457,6 +1466,8 @@ async function verificarPagamento() {
       var detalhe = ag.especialista_nome ? ag.especialista_nome : 'Consulta agendada';
       detalhe += ' · ' + slotSelecionado.dia + (slotSelecionado.hora ? ' às ' + slotSelecionado.hora : '');
       document.getElementById('pix-confirmado-detalhe').textContent = detalhe;
+      var cartaoDetalhe = document.getElementById('cartao-confirmado-detalhe');
+      if (cartaoDetalhe) cartaoDetalhe.textContent = detalhe;
     }
   } catch(e) {}
 }
@@ -1538,7 +1549,9 @@ async function pipLogin() {
     document.getElementById('inp-nome').value = data.paciente?.nome || '';
     document.getElementById('inp-email').value = data.paciente?.email || email;
     document.getElementById('inp-tel').value = data.paciente?.tel || '';
-    confirmarAgendamento();
+    if (data.paciente?.cpf) document.getElementById('inp-cpf').value = data.paciente.cpf;
+    irParaDadosOriginal();
+    atualizarBotaoConfirmacaoDados();
   } catch(e) {
     pipErro('Erro de conexão');
     btn.disabled = false; btn.textContent = 'Entrar';
@@ -1556,7 +1569,7 @@ async function pipCadastrar() {
   btn.disabled = true; btn.textContent = 'Criando conta...';
   
   try {
-    var res = await fetch(API + '/api/paciente/cadastrar', {
+    var res = await fetch(API + '/api/paciente/cadastro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome: nome, email: email, tel: tel, senha: senha })
@@ -1569,7 +1582,8 @@ async function pipCadastrar() {
     document.getElementById('inp-nome').value = nome;
     document.getElementById('inp-email').value = email;
     document.getElementById('inp-tel').value = tel;
-    confirmarAgendamento();
+    irParaDadosOriginal();
+    atualizarBotaoConfirmacaoDados();
   } catch(e) {
     pipErro('Erro de conexão');
     btn.disabled = false; btn.textContent = 'Criar conta';
