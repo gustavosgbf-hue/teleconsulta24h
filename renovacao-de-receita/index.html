@@ -857,9 +857,14 @@ async function pagarCartao(){
     if(!tokenResult||!tokenResult.payment_token)throw new Error('Falha ao tokenizar cartão.');
     const r=await fetch(API+'/api/renovacao/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({payment_token:tokenResult.payment_token,nome:document.getElementById('iNome').value.trim(),cpf:cpf,email:document.getElementById('iEmail').value.trim(),telefone:document.getElementById('iTel').value.replace(/\D/g,''),nascimento:document.getElementById('iNasc').value,parcelas:1,atendimentoId:SOLIC.atendimentoId})});
     const d=await r.json();
-    if(d.ok||d.status==='paid'||d.status==='approved'||d.status==='waiting'){
+    if(d.ok&&(d.status==='paid'||d.status==='approved'||d.confirmed)){
       setPayStatus('Pagamento recebido. Finalizando...','info');
       setTimeout(finalizarPagamento,700);
+      return;
+    }
+    if(d.ok&&d.status==='waiting'){
+      setPayStatus('Pagamento em análise. Aguarde a confirmação automática antes de fechar.','info');
+      iniciarPolling();
       return;
     }
     throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
