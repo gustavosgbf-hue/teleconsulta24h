@@ -1132,28 +1132,11 @@ whatsappSend.addEventListener('click', function() {
 </style>
 <div class="livebar" id="liveBar">
   <div class="livebar__inner">
-    <span class="livebar__item"><span class="live-dot"></span><span id="lbDocs" class="livebar__num">4</span>&nbsp;médicos online agora</span>
+    <span class="livebar__item"><span class="live-dot"></span>Médicos online agora</span>
     <span class="livebar__sep">·</span>
     <span class="livebar__item">atendimento em <span class="livebar__num">~5 min</span></span>
   </div>
 </div>
-<script>
-  // Contador de médicos online: variação suave entre 2 e 6
-  (function(){
-    var docs = 3 + Math.floor(Math.random()*3); // 3-5
-    var elDocs=document.getElementById('lbDocs');
-    function render(){
-      if(elDocs) elDocs.textContent = docs;
-    }
-    render();
-    setInterval(function(){
-      var delta = Math.random()<.5 ? -1 : 1;
-      docs = Math.max(2, Math.min(6, docs + delta));
-      render();
-    }, 18000);
-  })();
-</script>
-
 <!-- ════════ NAV ════════ -->
 <nav class="nav">
   <div class="nav__in">
@@ -1706,7 +1689,7 @@ whatsappSend.addEventListener('click', function() {
   <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
     <div style="display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:999px;background:rgba(180,224,90,.08);border:1px solid rgba(180,224,90,.22);font-size:.72rem;font-weight:600;color:#b4e05a">
       <span class="live-dot"></span>
-      <span id="ctaFinalOnline">3 médicos online agora</span>
+      <span id="ctaFinalOnline">Médicos online agora</span>
     </div>
     <a href="#" class="btn-primary" style="animation:none;opacity:1;transform:none;background:#b4e05a;color:#051208;padding:22px 48px;font-size:1.12rem;max-width:460px;box-shadow:0 10px 32px rgba(180,224,90,.35)" onclick="event.preventDefault();try{window.moAbrir()}catch(e){console.error(e)}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
@@ -1935,7 +1918,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <input class="mi" id="moNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="moMascaraNasc(this)">
       </div>
       <div class="mautofill" id="moAutofill"></div>
-      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar para pagamento seguro →</button>
+      <button class="mcta" id="moBtnStep1" onclick="moAvancarStep1()">Continuar atendimento →</button>
       <!-- toggle discreto: chat é default, oferece vídeo como secundário -->
       <div id="moModoPill" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:7px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto;border-radius:999px">
         <span id="moModoToggleLabel" style="font-size:.7rem;color:rgba(255,255,255,.5);font-weight:400">Prefere atendimento por <strong>vídeo</strong>?</span>
@@ -2740,7 +2723,7 @@ async function moAvancarStep1(){
       autofill.className='mautofill show';
       fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
       moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
-      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar para pagamento seguro →'; moIrPagamento(); },700);
+      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar atendimento →'; moIrPagamento(); },700);
       return;
     } else {
       moTrack('patient_lookup_result', {result:'not_found'});
@@ -2786,7 +2769,7 @@ async function moIrPagamento(){
     }
   } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
   moTrack('lead_pre_pagamento', {tipo:moTipoConsulta,contexto:moPreContexto||'geral',atendimento_id:moAtendimentoId||''});
-  btn.disabled=false; btn.textContent='Continuar para pagamento seguro →';
+  btn.disabled=false; btn.textContent='Continuar atendimento →';
   btn.onclick=moAvancarStep1;
   moMetodo('pix');
   moIrStep(2);
@@ -3181,7 +3164,7 @@ function moReiniciar(){
   document.getElementById('moPixStatus').style.display='none';
   document.getElementById('moCardErr').style.display='none';
   var btn=document.getElementById('moBtnStep1');
-  btn.disabled=false; btn.textContent='Continuar para pagamento seguro →'; btn.onclick=moAvancarStep1;
+  btn.disabled=false; btn.textContent='Continuar atendimento →'; btn.onclick=moAvancarStep1;
   moTipoConsulta='chat';
   moSelecionarTipo('chat');
   moIrStep(0);
@@ -3207,12 +3190,7 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 
-  // Contador de médicos online no CTA final (varia entre 2 e 5 para parecer real)
-  var onlineEl = document.getElementById('ctaFinalOnline');
-  if(onlineEl){
-    var n = Math.floor(Math.random()*4)+2; // 2–5
-    onlineEl.textContent = n + ' médico' + (n>1?'s':'') + ' online agora';
-  }
+  // CTA final fica estático para reforçar disponibilidade sem número artificial.
 });
 </script>
 
