@@ -2246,6 +2246,22 @@ function moAdsAttributionPayload(){
   return out;
 }
 
+function moLimparParametrosAntigosDaTriagem(){
+  try{
+    var url = new URL(window.location.href);
+    var mudou = false;
+    ['consulta','tipo'].forEach(function(chave){
+      if(url.searchParams.has(chave)){
+        url.searchParams.delete(chave);
+        mudou = true;
+      }
+    });
+    if(mudou){
+      history.replaceState(null, document.title, url.pathname + (url.search ? url.search : '') + url.hash);
+    }
+  }catch(e){}
+}
+
 function moMontarUrlConfirmado(id,tipo){
   var params = new URLSearchParams();
   if(id) params.set('consulta', String(id));
@@ -2264,6 +2280,7 @@ function moMontarUrlConfirmado(id,tipo){
 }
 
 moSalvarAdsParamsAtuais();
+moLimparParametrosAntigosDaTriagem();
 
 function moRedirecionarConfirmadoObrigatorio(id,tipo,metodo,origem){
   if(!id) return false;
@@ -2502,6 +2519,8 @@ function moAtualizarContexto(){
 async function moAbrir(contexto){
   moPreContexto = contexto || '';
   if(await moRetomarSessaoAtiva()) return;
+  moReiniciar();
+  moPreContexto = contexto || '';
   moTentouRecuperarSaida=false;
   moStepAntesSaida=1;
   moTrack('modal_open', {contexto:moPreContexto||'geral'});
