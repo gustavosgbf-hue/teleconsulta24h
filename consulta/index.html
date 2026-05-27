@@ -1250,7 +1250,10 @@ whatsappSend.addEventListener('click', function() {
       {initials:'MM', name:'Dra. Mariana Martins',  crm:'CRM 32814-DF'},
       {initials:'IA', name:'Dra. Isadora Araujo',   crm:'CRM 17420'},
       {initials:'KG', name:'Dra. Karina Guisard',   crm:'CRM 280473'},
-      {initials:'CC', name:'Dra. Clara Costa',      crm:'CRM 19374'}
+      {initials:'CC', name:'Dra. Clara Costa',      crm:'CRM 19374'},
+      {initials:'SP', name:'Dra. Sarah Paulino',    crm:'CRM 281779-SP'},
+      {initials:'EN', name:'Dr. Everton Neres',     crm:'CRM 48578-BA'},
+      {initials:'KD', name:'Dra. Kalina Dominik',   crm:'CRM 107977-MG'}
     ];
     function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
     var online = shuffle(pool.slice()).slice(0,3);
@@ -1355,7 +1358,10 @@ whatsappSend.addEventListener('click', function() {
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-martins.png')">MM</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Martins</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 32814-DF</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-raquel-lima.png')">RL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Raquel Lima</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 14300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-carolina-amate.png')">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
-    <div class="dstrip-card dstrip-more" style="background:rgba(155,234,69,.055);border-color:rgba(155,234,69,.22)"><div class="dstrip-av" style="background:rgba(155,234,69,.16);color:#b4e05a;font-size:1rem;width:72px;height:72px">+12</div><div style="font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 12 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">SP</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Sarah Paulino</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 281779-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Geral</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">EN</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Everton Neres</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 48578-BA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Generalista</div></div>
+    <div class="dstrip-card"><div class="dstrip-av">KD</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Kalina Dominik</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 107977-MG</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Geral</div></div>
+    <div class="dstrip-card dstrip-more" style="background:rgba(155,234,69,.055);border-color:rgba(155,234,69,.22)"><div class="dstrip-av" style="background:rgba(155,234,69,.16);color:#b4e05a;font-size:1rem;width:72px;height:72px">+15</div><div style="font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 15 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
   </div>
 </section>
 
@@ -1667,6 +1673,27 @@ whatsappSend.addEventListener('click', function() {
         <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Gabriel Souza</div>
         <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 16420-MA</div>
         <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">SP</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Sarah Paulino</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 281779-SP</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Geral</a></div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">EN</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Everton Neres</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 48578-BA</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Generalista</a></div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">KD</div>
+        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Kalina Dominik</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 107977-MG</div>
+        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Geral</a></div>
       </div>
 
     </div>
