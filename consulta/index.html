@@ -3079,7 +3079,17 @@ function moConfirmarPagamento(){
   }
 
   // A conversão de compra dispara na página /confirmado. A landing apenas redireciona.
-  var precisaDados = precisaAbrirAtendimento || !temNomeReal || !(moCPFVal && moCPFVal.length===11);
+  if(moAtendimentoId && moCPFVal && moCPFVal.length===11){
+    moPostConfiavel('/api/notify',moPayloadAtendimento({atendimentoId:moAtendimentoId}));
+    moPostConfiavel('/api/atendimento/atualizar-cpf',{atendimentoId:moAtendimentoId,cpf:moCPFVal});
+    moTrack('triage_redirect_start', {destino:'confirmado', origem:'landing_pagamento_confirmado'});
+    setTimeout(function(){
+      moRedirecionarConfirmadoObrigatorio(moAtendimentoId,moTipoConsulta,moMetodoAtual||'pix','consulta_pagamento_confirmado_imediato');
+    }, 250);
+    return;
+  }
+
+  var precisaDados = !(moCPFVal && moCPFVal.length===11);
   if(precisaDados){
     moTrack('post_payment_details_view', {contexto:moPreContexto||'geral'});
     moIrStep(3);
