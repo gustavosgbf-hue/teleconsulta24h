@@ -1,0 +1,2679 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NN2WKSD6');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8"/>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>ConsultaJá24h · Consulta Médica Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- SDK Efí: tokenização de cartão no frontend -->
+<!-- Google Ads + GA4 config -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17964942771');
+  gtag('config', 'GT-M6QMH9CH');
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+:root{--g1:#b4e05a;--g2:#5ee0a0;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.5);--bg:#060d0b;--card:rgba(255,255,255,.04)}
+
+/* ── GLOW bg ── */
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80vw 60vh at 20% 0%,rgba(94,224,160,.1) 0%,transparent 60%),
+             radial-gradient(ellipse 60vw 40vh at 85% 90%,rgba(180,224,90,.07) 0%,transparent 55%)}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;
+  background:rgba(6,13,11,.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 16px;gap:12px}
+.nav__brand{display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav__brand span{font-family:'Playfair Display',serif;font-style:italic;font-size:.9rem;font-weight:700}
+.c1{color:rgba(255,255,255,.9)}
+.c2{background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tag24{font-family:'Outfit',sans-serif;font-style:normal;font-size:.65rem;font-weight:500;color:rgba(255,255,255,.35);-webkit-text-fill-color:rgba(255,255,255,.35);background:none;-webkit-background-clip:unset;background-clip:unset;margin-left:1px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
+
+/* ── SCREEN SYSTEM — app-like, no scroll ── */
+.screen-wrap{
+  position:fixed;top:52px;left:0;right:0;
+  bottom:0;z-index:1;
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+}
+.screen-wrap.active{display:flex}
+
+/* Screens that need scroll (triage chat, PIX waiting) */
+.screen-wrap.scrollable{overflow-y:auto;-webkit-overflow-scrolling:touch}
+
+/* ── SCREEN INNER — centered card layout ── */
+.s-inner{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));
+  min-height:0;
+}
+.s-card{
+  width:100%;max-width:420px;
+  border:1px solid var(--line);border-radius:20px;
+  background:rgba(255,255,255,.025);
+  overflow:hidden;
+}
+/* Payment card: não cortar o QR que cresce após gerar PIX */
+#s-payment .s-card{ overflow:visible; }
+
+/* ── FIELDS ── */
+.f-label{font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px;display:block}
+.f-input{
+  width:100%;padding:13px 14px;border-radius:11px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  font-family:'Outfit',sans-serif;font-size:max(.95rem,16px);font-weight:300;color:#fff;
+  outline:none;transition:border-color .2s;-webkit-appearance:none;
+}
+.f-input::placeholder{color:rgba(255,255,255,.22)}
+.f-input:focus{border-color:rgba(94,224,160,.4)}
+
+/* ── PRIMARY CTA ── */
+.cta{
+  width:100%;padding:15px;border-radius:13px;border:none;
+  background:linear-gradient(135deg,#b4e05a,#5ee0a0);
+  color:#051208;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;
+  cursor:pointer;-webkit-appearance:none;
+  box-shadow:0 6px 28px rgba(180,224,90,.28);
+  transition:transform .12s,box-shadow .2s,opacity .15s;
+}
+.cta:hover{transform:translateY(-1px);box-shadow:0 10px 36px rgba(180,224,90,.4)}
+.cta:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.cta-ghost{
+  width:100%;padding:11px;border-radius:11px;border:1px solid rgba(255,255,255,.1);
+  background:transparent;color:rgba(255,255,255,.5);
+  font-family:'Outfit',sans-serif;font-size:.88rem;cursor:pointer;
+  transition:border-color .15s,color .15s;-webkit-appearance:none;
+}
+.cta-ghost:hover{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.8)}
+
+/* ── FB FEEDBACK ── */
+.fb{display:flex;align-items:center;gap:5px;font-size:.7rem;color:rgba(94,224,160,.85);
+  margin-top:4px;opacity:0;transform:translateY(-3px);transition:opacity .2s,transform .2s;pointer-events:none}
+.fb.show{opacity:1;transform:translateY(0)}
+
+/* ── AUTOFILL STATUS ── */
+.autofill-status{font-size:.74rem;color:rgba(94,224,160,.85);margin-top:6px;display:none;line-height:1.5}
+.autofill-status.show{display:block}
+.autofill-status.err{color:rgba(255,130,120,.85)}
+
+/* ── TRUST STRIP ── */
+.trust-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;padding:10px 14px;
+  background:rgba(255,255,255,.025);border-top:1px solid rgba(255,255,255,.06)}
+.trust-strip span{font-size:.68rem;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:4px}
+
+/* ── TCLE INLINE ── */
+.tcle{font-size:.68rem;color:rgba(255,255,255,.32);line-height:1.6;text-align:center;padding:0 4px}
+.tcle a{color:rgba(94,224,160,.65);text-decoration:none}
+
+/* ── SCREEN 1: WhatsApp ── */
+#s-whatsapp .s-header{padding:22px 22px 16px;border-bottom:1px solid var(--line)}
+#s-whatsapp .s-header .headline{
+  font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:500;
+  line-height:1.3;margin-bottom:6px;letter-spacing:-.01em}
+#s-whatsapp .s-header .subline{font-size:.82rem;color:var(--muted);font-weight:300;line-height:1.5}
+#s-whatsapp .s-body{padding:16px 22px;display:flex;flex-direction:column;gap:12px}
+#s-whatsapp .pill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:5px 12px;border-radius:999px;
+  background:rgba(94,224,160,.09);border:1px solid rgba(94,224,160,.2);
+  font-size:.67rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--g2);
+  margin-bottom:8px;align-self:flex-start}
+
+/* ── SCREEN 2: CHECKOUT REDIRECT ── */
+#s-payment .s-header{padding:14px 18px 12px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:12px}
+.pay-icon-wrap{width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,rgba(180,224,90,.18),rgba(94,224,160,.12));
+  border:1px solid rgba(180,224,90,.28);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.pay-header-text h2{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;margin-bottom:2px}
+.pay-header-text p{font-size:.73rem;color:var(--muted);font-weight:300}
+#s-payment .s-body{padding:14px 18px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1}
+#s-payment .price-row,
+#s-payment .method-tabs,
+#s-payment #card-fields,
+#s-payment #pix-section,
+#s-payment #card-form,
+#s-payment .pay-trust{display:none!important}
+.checkout-redirect-note{
+  padding:16px;border-radius:14px;text-align:center;line-height:1.55;
+  background:rgba(94,224,160,.07);border:1px solid rgba(94,224,160,.2);
+  color:rgba(255,255,255,.72);font-size:.82rem}
+.checkout-redirect-note strong{display:block;color:#fff;font-size:.95rem;margin-bottom:5px}
+
+.price-row{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;border-radius:14px;
+  background:rgba(180,224,90,.08);border:1px solid rgba(180,224,90,.2);
+  box-shadow:0 0 24px rgba(180,224,90,.07)}
+.price-label{font-size:.67rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:2px}
+.price-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b4e05a;line-height:1;
+  text-shadow:0 0 20px rgba(180,224,90,.25)}
+.price-sub{font-size:.7rem;color:rgba(255,255,255,.4);font-weight:300;margin-top:1px}
+
+.method-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.m-tab{padding:11px 8px;border-radius:11px;border:2px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.03);color:rgba(255,255,255,.55);
+  font-family:'Outfit',sans-serif;font-size:.83rem;font-weight:600;
+  cursor:pointer;transition:all .18s;text-align:center;-webkit-appearance:none;line-height:1.4}
+.m-tab:hover{border-color:rgba(94,224,160,.25);color:#fff}
+.m-tab.sel-pix{border-color:rgba(94,224,160,.55);background:rgba(94,224,160,.08);color:var(--g2)}
+.m-tab.sel-card{border-color:rgba(180,224,90,.55);background:rgba(180,224,90,.07);color:#b4e05a}
+
+/* ── CARD FIELDS: hidden until card selected ── */
+#card-fields{display:none}
+#card-fields.show{display:flex;flex-direction:column;gap:10px}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ── PIX ALERT ── */
+.pix-alert{padding:9px 12px;border-radius:10px;
+  background:rgba(255,189,46,.05);border:1px solid rgba(255,189,46,.15);
+  font-size:.7rem;color:rgba(255,189,46,.7);line-height:1.6;
+  display:flex;align-items:flex-start;gap:7px}
+.pix-alert span:first-child{flex-shrink:0;margin-top:1px}
+
+/* ── PIX QR section ── */
+#pix-qr-wrap{display:none;text-align:center;padding:4px 0}
+#pix-qr-wrap.show{display:block}
+#pay-qr-img{width:160px;height:160px;border-radius:12px;border:2px solid rgba(180,224,90,.3);
+  background:#fff;padding:6px;display:none;margin:0 auto 8px;image-rendering:pixelated;
+  box-shadow:0 0 20px rgba(180,224,90,.1)}
+#pay-qr-fallback{display:none;width:160px;height:160px;border-radius:12px;
+  border:2px solid rgba(180,224,90,.12);background:rgba(255,255,255,.02);
+  margin:0 auto 8px;align-items:center;justify-content:center;
+  flex-direction:column;gap:6px;font-size:.78rem;color:rgba(255,255,255,.4)}
+.pix-copy-row{display:flex;align-items:center;gap:8px}
+#pixChaveInput{flex:1;min-width:0;background:rgba(255,255,255,.05);
+  border:1px solid rgba(180,224,90,.18);border-radius:9px;
+  padding:9px 11px;color:#fff;font-family:'Outfit',sans-serif;font-size:.73rem;
+  outline:none;-webkit-user-select:all;user-select:all;cursor:pointer}
+.pay-copy-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;
+  border-radius:9px;border:1px solid rgba(180,224,90,.28);background:rgba(180,224,90,.07);
+  color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;
+  cursor:pointer;-webkit-appearance:none;transition:background .15s;white-space:nowrap;flex-shrink:0}
+.pay-copy-btn:hover{background:rgba(180,224,90,.14)}
+.pay-polling-status{margin-top:8px;font-size:.78rem;color:rgba(255,255,255,.38);font-weight:300;
+  line-height:1.7;text-align:center;padding:9px 12px;border-radius:9px;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06)}
+.pay-polling-status.ok{color:#5ee0a0}
+.pay-polling-status.err{color:#ff8080}
+
+.card-err{font-size:.76rem;color:#ff8080;margin-top:4px;display:none;
+  line-height:1.5;padding:8px 11px;background:rgba(255,80,80,.06);
+  border-radius:8px;border:1px solid rgba(255,80,80,.18)}
+.card-processing{display:none;text-align:center;padding:12px 0 4px;
+  font-size:.83rem;color:rgba(255,255,255,.5)}
+
+/* ── SCREEN 2b: CPF after PIX ── */
+#s-cpf .s-body{padding:24px 22px;display:flex;flex-direction:column;gap:14px}
+#s-dados .s-body{padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+
+/* ── SCREEN 3: TRIAGE ── */
+#s-triage{overflow:hidden}
+.triage-wrap{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.progress-bar{height:3px;background:rgba(255,255,255,.06);flex-shrink:0}
+.progress-fill{height:100%;background:linear-gradient(90deg,#b4e05a,#5ee0a0);transition:width .5s ease;width:0%}
+.ia-banner{background:rgba(255,189,46,.06);border-bottom:1px solid rgba(255,189,46,.15);
+  padding:9px 16px;display:flex;align-items:center;gap:10px;
+  font-size:.75rem;color:rgba(255,189,46,.9);flex-shrink:0}
+.chat-area{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;
+  gap:12px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.08) transparent;
+  -webkit-overflow-scrolling:touch;min-height:0}
+.chat-area::-webkit-scrollbar{width:3px}
+.chat-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:3px}
+.msg{display:flex;gap:8px;align-items:flex-end;animation:fadeUp .22s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.msg--bot{align-self:flex-start;max-width:86%}
+.msg--user{align-self:flex-end;flex-direction:row-reverse;max-width:86%}
+.msg__av{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.05);
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;flex-shrink:0}
+.msg__bubble{padding:10px 14px;border-radius:15px;font-size:.875rem;font-weight:300;line-height:1.65}
+.msg--bot .msg__bubble{background:rgba(255,255,255,.06);border:1px solid var(--line);
+  border-bottom-left-radius:4px;color:rgba(255,255,255,.88)}
+.msg--user .msg__bubble{background:linear-gradient(135deg,#b4e05a,#6ed49a);
+  color:#051208;font-weight:500;border-bottom-right-radius:4px}
+.typing{display:flex;gap:4px;padding:10px 13px;align-items:center}
+.typing span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);animation:typDot 1.2s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes typDot{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-5px);opacity:1}}
+.quick-replies{display:flex;flex-wrap:wrap;gap:7px;padding:8px 16px;flex-shrink:0}
+.qr{padding:7px 14px;border-radius:999px;border:1px solid rgba(180,224,90,.28);
+  background:rgba(180,224,90,.06);color:var(--g1);font-family:'Outfit',sans-serif;
+  font-size:.78rem;font-weight:500;cursor:pointer;transition:background .15s;-webkit-appearance:none}
+.qr:hover{background:rgba(180,224,90,.14)}
+.input-bar{padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
+  border-top:1px solid var(--line);background:rgba(6,13,11,.92);
+  display:flex;gap:9px;align-items:flex-end;flex-shrink:0}
+.input-bar textarea{flex:1;padding:10px 13px;border-radius:12px;
+  background:rgba(255,255,255,.07);border:1px solid var(--line);color:#fff;
+  font-family:'Outfit',sans-serif;font-size:max(.875rem,16px);font-weight:300;
+  resize:none;outline:none;min-height:42px;max-height:108px;line-height:1.5;
+  transition:border-color .2s;-webkit-appearance:none}
+.input-bar textarea::placeholder{color:rgba(255,255,255,.25)}
+.input-bar textarea:focus{border-color:rgba(94,224,160,.35)}
+.send-btn{width:42px;height:42px;border-radius:50%;border:none;
+  background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;cursor:pointer;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:transform .12s;box-shadow:0 4px 14px rgba(180,224,90,.28);-webkit-appearance:none}
+.send-btn:hover{transform:scale(1.08)}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* ── SCREEN 4: MODALITY ── */
+#s-modality .s-body{padding:20px 20px;display:flex;flex-direction:column;gap:14px}
+.modal-cards{display:flex;flex-direction:column;gap:10px}
+.modal-card{border:2px solid var(--line);border-radius:16px;
+  background:rgba(255,255,255,.025);padding:14px 16px;cursor:pointer;
+  transition:all .18s;display:flex;align-items:center;gap:14px;position:relative}
+.modal-card:hover{border-color:rgba(94,224,160,.3)}
+.modal-card.selected.chat{border-color:rgba(37,211,102,.5);background:rgba(37,211,102,.06)}
+.modal-card.selected.video{border-color:rgba(94,224,160,.45);background:rgba(94,224,160,.05)}
+.mc-icon{font-size:1.6rem;flex-shrink:0}
+.mc-info{flex:1}
+.mc-title{font-size:.92rem;font-weight:600;margin-bottom:2px}
+.mc-desc{font-size:.75rem;color:var(--muted);font-weight:300;line-height:1.4}
+.mc-badge{font-size:.62rem;font-weight:700;padding:2px 8px;border-radius:999px;
+  letter-spacing:.06em;text-transform:uppercase;margin-top:4px;display:inline-block}
+.modal-card.chat .mc-badge{background:rgba(37,211,102,.12);color:#25d366}
+.modal-card.video .mc-badge{background:rgba(94,224,160,.12);color:var(--g2)}
+.mc-check{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#b4e05a,#5ee0a0);
+  display:none;align-items:center;justify-content:center;flex-shrink:0}
+.mc-check svg{width:11px;height:11px;color:#051208}
+.modal-card.selected .mc-check{display:flex}
+
+/* ── SCREEN 5: ESPERA / CONSULTA ── */
+#s-espera .s-inner{justify-content:flex-start;padding-top:24px;overflow-y:auto}
+.espera-box{width:100%;max-width:460px;text-align:center}
+.espera-anim{width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(180,224,90,.14),rgba(94,224,160,.1));
+  border:1px solid rgba(94,224,160,.22);display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;position:relative;transition:background .5s}
+.espera-anim::before{content:'';position:absolute;inset:-8px;border-radius:50%;
+  border:2px solid rgba(94,224,160,.12);animation:ring 2s ease-in-out infinite}
+.espera-anim::after{content:'';position:absolute;inset:-16px;border-radius:50%;
+  border:1px solid rgba(94,224,160,.06);animation:ring 2s ease-in-out infinite .4s}
+@keyframes ring{0%{transform:scale(.88);opacity:.7}100%{transform:scale(1.12);opacity:0}}
+.espera-titulo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:8px}
+.espera-sub{font-size:.83rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.espera-info{font-size:.76rem;color:rgba(255,255,255,.32);font-weight:300;
+  margin-bottom:20px;padding:9px 14px;border-radius:10px;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);
+  display:flex;flex-direction:column;gap:4px;text-align:left}
+.espera-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;
+  border-radius:999px;font-size:.8rem;font-weight:600;margin-bottom:18px}
+.espera-badge.chat{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.22);color:#25d366}
+.espera-badge.video{background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.22);color:var(--g2)}
+.espera-status{font-size:.75rem;color:rgba(255,255,255,.28);font-weight:300;margin-bottom:24px}
+
+/* CHAT CONSULTA */
+.chat-consulta{width:100%;display:none;text-align:left;max-width:460px}
+.chat-consulta.ativo{display:flex;flex-direction:column}
+.medico-entrou-banner{display:flex;align-items:center;gap:10px;padding:11px 14px;
+  background:rgba(94,224,160,.07);border:1px solid rgba(94,224,160,.18);
+  border-radius:12px;margin-bottom:12px;font-size:.83rem;color:rgba(255,255,255,.85);font-weight:500}
+.chat-header-box{text-align:center;margin-bottom:12px;padding:12px 16px;
+  background:rgba(37,211,102,.05);border:1px solid rgba(37,211,102,.14);border-radius:12px}
+.chat-header-box h3{font-size:.9rem;font-weight:600;margin-bottom:2px;
+  display:flex;align-items:center;justify-content:center;gap:7px}
+.chat-header-box p{font-size:.73rem;color:var(--muted);font-weight:300}
+.online-dot{width:6px;height:6px;border-radius:50%;background:var(--g2);animation:pulse 2s ease-in-out infinite}
+.chat-msgs{overflow-y:auto;display:flex;flex-direction:column;gap:14px;
+  padding:18px 14px;min-height:260px;max-height:50vh;
+  background:#060d0b;border:1px solid rgba(255,255,255,.06);
+  border-radius:14px 14px 0 0;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.08) transparent;
+  scroll-behavior:smooth}
+.chat-msgs::-webkit-scrollbar{width:3px}
+.chat-msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+.chat-input-row{display:flex;gap:9px;padding:11px 12px;
+  background:#0d1f14;border:1px solid rgba(255,255,255,.06);border-top:none;
+  border-radius:0 0 14px 14px;align-items:flex-end}
+.chat-input-row textarea{flex:1;padding:10px 16px;border-radius:999px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#fff;
+  font-family:'Outfit',sans-serif;font-size:max(.875rem,16px);font-weight:300;
+  resize:none;outline:none;min-height:40px;max-height:96px;line-height:1.5;-webkit-appearance:none;
+  transition:border-color .15s}
+.chat-input-row textarea:focus{border-color:rgba(94,224,160,.35)}
+.chat-input-row textarea::placeholder{color:rgba(255,255,255,.22)}
+.chat-input-row textarea:disabled{opacity:.4;cursor:not-allowed}
+.chat-send{width:40px;height:40px;border-radius:999px;border:none;
+  background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform .12s;-webkit-appearance:none}
+.chat-send:hover{transform:scale(1.08)}
+.chat-send:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.chat-clip-btn{width:36px;height:36px;border-radius:999px;border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);color:rgba(255,255,255,.45);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;align-self:center;
+  transition:all .15s;-webkit-appearance:none;flex-shrink:0}
+.chat-clip-btn:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.15)}
+.chat-preview-wrap{padding:8px 12px;background:rgba(180,224,90,.04);
+  border:1px solid rgba(180,224,90,.1);border-bottom:none;border-radius:14px 14px 0 0;
+  display:none;align-items:center;gap:9px}
+.chat-preview-wrap.visivel{display:flex}
+.chat-preview-img{width:42px;height:42px;border-radius:7px;object-fit:cover;border:1px solid rgba(255,255,255,.08)}
+.chat-preview-nome{flex:1;font-size:.76rem;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-preview-cancel{width:20px;height:20px;border-radius:5px;border:none;background:rgba(255,95,87,.14);color:#ff5f57;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.msg-arquivo-img{max-width:220px;max-height:200px;border-radius:10px;display:block;margin-top:6px;cursor:pointer;transition:opacity .15s}
+.msg-arquivo-img:hover{opacity:.88}
+.msg-arquivo-pdf{display:flex;align-items:center;gap:12px;margin-top:6px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);color:#eaeaea;font-size:.88rem;font-weight:500;text-decoration:none;transition:background .15s,border-color .15s,transform .1s;min-width:0;max-width:100%}
+.msg-arquivo-pdf:hover{background:rgba(255,255,255,.06);border-color:rgba(94,224,160,.25)}
+.msg-arquivo-pdf:active{transform:scale(.995)}
+.msg-arquivo-pdf .pdf-ico{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:rgba(94,224,160,.08);display:flex;align-items:center;justify-content:center;color:var(--g2)}
+.msg-arquivo-pdf .pdf-meta{min-width:0;flex:1;display:flex;flex-direction:column}
+.msg-arquivo-pdf .pdf-nome{font-size:.88rem;font-weight:500;color:#eaeaea;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.msg-arquivo-pdf .pdf-sub{font-size:.7rem;color:rgba(255,255,255,.3);font-weight:400;margin-top:2px}
+.msg-arquivo-pdf .pdf-arrow{flex-shrink:0;color:var(--g2);opacity:.75}
+/* [UX] Bolhas premium — paleta da marca */
+.cmsg{display:flex;gap:8px;align-items:flex-end;animation:fadeUp .22s ease;max-width:78%}
+.cmsg.medico{align-self:flex-start}
+.cmsg.paciente{align-self:flex-end}
+/* [UX v2] Sem avatares/sender — layout limpo */
+.cmsg .av{display:none}
+.cmsg .sender{display:none}
+.cmsg .bwrap{display:flex;flex-direction:column;min-width:0;flex:1 1 auto}
+.cmsg.paciente .bwrap{align-items:flex-end}
+.cmsg .bub{padding:11px 15px;border-radius:16px;font-size:.9rem;font-weight:300;line-height:1.55;word-break:break-word;overflow-wrap:anywhere}
+/* Médico (outro): cinza escuro translúcido à esquerda */
+.cmsg.medico .bub{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-bottom-left-radius:4px;color:rgba(255,255,255,.92)}
+/* Paciente (eu): verde escuro sólido com borda verde clara à direita */
+.cmsg.paciente .bub{background:#0d3d28;border:1px solid rgba(94,224,160,.4);border-bottom-right-radius:4px;color:#d5f5e6;font-weight:400}
+.cmsg .bub a{color:#b4e05a}
+.cmsg .ts{font-size:.6rem;color:rgba(255,255,255,.28);margin-top:4px;padding:0 4px;display:flex;align-items:center;gap:4px}
+.cmsg.paciente .ts{justify-content:flex-end}
+.cmsg.paciente .ts::after{content:'✓✓';color:var(--g2);font-size:.7rem}
+/* [UX] Indicador "médico digitando" — aparece entre mensagens do médico */
+.typing-indicator{display:none;align-self:flex-start;align-items:center;gap:8px;padding:2px 0;animation:fadeUp .2s ease}
+.typing-indicator.visivel{display:flex}
+.typing-indicator .av{display:none}
+.typing-indicator .typ-bub{padding:10px 14px;border-radius:16px;border-bottom-left-radius:4px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;gap:4px;align-items:center}
+.typing-indicator .typ-bub span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45);animation:typDot 1.2s ease-in-out infinite}
+.typing-indicator .typ-bub span:nth-child(2){animation-delay:.2s}
+.typing-indicator .typ-bub span:nth-child(3){animation-delay:.4s}
+
+/* MEET */
+.meet-wrap{display:none}
+.meet-wrap.ativo{display:block;text-align:center;max-width:460px;width:100%}
+.meet-aguardando{padding:18px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:14px;margin-bottom:16px}
+.meet-aguardando p{font-size:.83rem;color:var(--muted);font-weight:300;line-height:1.6}
+.btn-meet{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:13px;border:none;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(66,133,244,.28);transition:transform .12s,box-shadow .2s}
+.btn-meet:not(.disabled):hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(66,133,244,.42)}
+.btn-meet.disabled{opacity:.4;pointer-events:none}
+
+/* ── ENCERRADO ── */
+#s-encerrado .s-inner{text-align:center}
+.enc-icon{font-size:2.8rem;margin-bottom:16px}
+.enc-titulo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:8px;color:var(--g2)}
+.enc-sub{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:24px}
+
+/* ── LOADING ── */
+.loading-overlay{position:fixed;inset:0;z-index:999;background:#060d0b;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+.loading-overlay.hide{display:none}
+.loading-spinner{width:38px;height:38px;border:3px solid rgba(255,255,255,.07);
+  border-top-color:var(--g2);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-txt{font-size:.83rem;color:rgba(255,255,255,.38);font-weight:300}
+
+/* ── TRANSITION ── */
+@keyframes screenIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.screen-wrap.active{animation:screenIn .2s ease forwards}
+
+/* ── BACK BTN ── */
+.back-btn{background:none;border:none;color:rgba(255,255,255,.32);font-family:'Outfit',sans-serif;
+  font-size:.76rem;cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;
+  transition:color .15s;-webkit-appearance:none;margin-bottom:10px}
+.back-btn:hover{color:rgba(255,255,255,.65)}
+
+/* ── NIGHT NOTICE ── */
+.night-notice{padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);font-size:.72rem;color:rgba(255,255,255,.4);
+  line-height:1.6;text-align:center;font-weight:300;display:none}
+
+/* ── DISPONIBILIDADE inline ── */
+.disp-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;
+  border-radius:999px;font-size:.8rem;font-weight:600;margin:8px auto}
+.disp-badge.verde{background:rgba(94,224,160,.1);border:1px solid rgba(94,224,160,.22);color:var(--g2)}
+.disp-badge.amarelo{background:rgba(255,189,46,.1);border:1px solid rgba(255,189,46,.22);color:#ffbd2e}
+.disp-badge.vermelho{background:rgba(255,95,87,.1);border:1px solid rgba(255,95,87,.22);color:#ff8080}
+.disp-dot{width:7px;height:7px;border-radius:50%}
+.disp-badge.verde .disp-dot{background:var(--g2);animation:pulse 2s infinite}
+.disp-badge.amarelo .disp-dot{background:#ffbd2e}
+.disp-badge.vermelho .disp-dot{background:#ff8080}
+
+/* ── EFI card bandeira ── */
+.card-brand{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:4px;min-height:16px}
+
+/* ── KEYBOARD SAFETY: prevent card clip on small iPhones when keyboard opens ── */
+/* Applied via JS class on focus — only for screens that are vertically centered  */
+.s-inner.kb-open{justify-content:flex-start !important}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NN2WKSD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="bg-glow" aria-hidden="true"></div>
+<div class="loading-overlay" id="loading-overlay"><div class="loading-spinner"></div><div class="loading-txt">Verificando sessão...</div></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav__brand">
+    <div class="live-dot"></div>
+    <span><span class="c1">Consulta</span><span class="c2">Já</span><span class="tag24">24h</span></span>
+  </a>
+  <span id="nav-step" style="font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3)"></span>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 1 — WhatsApp (única ação: telefone)
+═══════════════════════════════════════════════════════ -->
+<div id="s-whatsapp" class="screen-wrap">
+  <div class="s-inner">
+    <div class="s-card">
+      <div class="s-header" style="padding:20px 20px 14px;border-bottom:1px solid var(--line)">
+        <div class="pill"><div class="live-dot" style="width:6px;height:6px"></div>Médicos disponíveis agora</div>
+        <div class="headline">Precisa de médico agora?</div>
+        <div class="subline">Fale com um médico real em minutos. R$&nbsp;49,90 · consulta única.</div>
+      </div>
+      <div class="s-body">
+        <div>
+          <label class="f-label" for="wppTel">Seu WhatsApp</label>
+          <input class="f-input" id="wppTel" type="tel" placeholder="(DD) 99999-0000" inputmode="numeric" autocomplete="tel"
+            oninput="feedbackWpp(this)" onkeydown="if(event.key==='Enter')avancarWhatsapp()"/>
+          <div class="fb" id="fb-wpp">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            WhatsApp válido
+          </div>
+          <div class="autofill-status" id="autofill-status"></div>
+        </div>
+        <!-- Nome: escondido até buscar cadastro — necessário para identify + notify -->
+        <div id="nome-wrap" style="display:none">
+          <label class="f-label" for="wppNome">Nome completo</label>
+          <input class="f-input" id="wppNome" type="text" placeholder="Nome e sobrenome" autocomplete="name"/>
+        </div>
+        <!-- Data de nascimento: necessário para Memed e prontuário -->
+        <div id="nasc-wrap" style="display:none">
+          <label class="f-label" for="wppNasc">Data de nascimento <span style="text-transform:none;letter-spacing:0;font-weight:300;color:rgba(255,255,255,.3)">(para o médico)</span></label>
+          <input class="f-input" id="wppNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraNasc(this)"/>
+          <div class="fb" id="fb-nasc">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Data válida
+          </div>
+        </div>
+        <button class="cta" id="btnWpp" onclick="avancarWhatsapp()">Iniciar atendimento agora →</button>
+        <p class="tcle">Ao continuar, você concorda com os <a href="termos.html" target="_blank">Termos de Uso</a> e <a href="privacy.html" target="_blank">Política de Privacidade</a></p>
+      </div>
+      <div class="trust-strip">
+        <span>🩺 Médico com CRM</span>
+        <span>🔒 Sigilo médico</span>
+        <span>📋 Receita e atestado</span>
+        <span>⚡ Início imediato</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 2 — Checkout redirecionado para /consulta
+═══════════════════════════════════════════════════════ -->
+<div id="s-payment" class="screen-wrap scrollable">
+  <div class="s-inner" style="justify-content:flex-start;padding-top:12px">
+    <div class="s-card" style="max-width:420px">
+      <div class="s-header">
+        <div class="pay-icon-wrap">⚡</div>
+        <div class="pay-header-text">
+          <h2>Pagamento pela consulta</h2>
+          <p id="pay-subtitulo">A triagem abre após o pagamento confirmado</p>
+        </div>
+      </div>
+      <div class="s-body">
+        <button class="back-btn" onclick="abrirCheckoutConsulta('triagem_checkout_link_topo')">Ir para /consulta</button>
+        <div class="checkout-redirect-note">
+          <strong>Pagamento agora é feito na página da consulta.</strong>
+          Se você chegou por um link antigo, toque no botão abaixo para iniciar ou refazer o pagamento pelo fluxo atual.
+        </div>
+        <button class="cta" onclick="abrirCheckoutConsulta('triagem_checkout_link_card')">Abrir página de consulta →</button>
+
+        <!-- Disponibilidade inline badge -->
+        <div style="display:flex;justify-content:center">
+          <div class="disp-badge verde" id="disp-badge-pay">
+            <div class="disp-dot"></div><span id="disp-txt-pay">Online agora</span>
+          </div>
+        </div>
+
+        <!-- Aviso horário noturno — aparece só quando status vermelho -->
+        <div id="aviso-horario-pay" style="display:none;text-align:center;font-size:.72rem;
+          color:rgba(255,255,255,.38);font-weight:300;line-height:1.6;
+          margin:-4px 0 4px;padding:0 4px">
+          Atendimento disponível. Neste horário o médico pode demorar alguns minutos para assumir, fique na página após o pagamento.
+        </div>
+
+        <!-- Preço -->
+        <div class="price-row">
+          <div>
+            <div class="price-label">Atendimento médico online</div>
+            <div class="price-sub">Único · início imediato após pagamento</div>
+          </div>
+          <div class="price-val">R$&nbsp;49,90</div>
+        </div>
+
+        <!-- Método -->
+        <div>
+          <label class="f-label" style="margin-bottom:7px">Forma de pagamento</label>
+          <div class="method-tabs">
+            <button class="m-tab sel-pix" id="tabPix" onclick="selecionarMetodo('pix')">
+              🏦 PIX<br><span style="font-size:.68rem;font-weight:400;opacity:.75">Aprovação imediata</span>
+            </button>
+            <button class="m-tab" id="tabCard" onclick="selecionarMetodo('cartao')">
+              💳 Cartão<br><span style="font-size:.68rem;font-weight:400;opacity:.75">Visa · Master · Elo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CAMPOS CONDICIONAIS — CARTÃO APENAS -->
+        <div id="card-fields">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div>
+              <label class="f-label">Nome completo</label>
+              <input class="f-input" id="payNome" type="text" placeholder="Como no cartão ou CPF" autocomplete="name"/>
+            </div>
+            <div>
+              <label class="f-label">CPF</label>
+              <input class="f-input" id="payCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"/>
+            </div>
+            <div>
+              <label class="f-label">E-mail</label>
+              <input class="f-input" id="cardEmailInput" type="email" placeholder="seu@email.com" autocomplete="email" inputmode="email" oninput="onCardEmailInput(this)"/>
+              <div style="font-size:.7rem;color:rgba(255,160,150,.85);margin-top:4px;display:none" id="card-email-hint">E-mail obrigatório para pagamento no cartão.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PIX: alerta e botão -->
+        <div id="pix-section">
+          <!-- CPF: necessário para o gateway PagBank -->
+          <div id="pix-cpf-wrap">
+            <label class="f-label">CPF</label>
+            <input class="f-input" id="pixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14"
+              onkeydown="if(event.key==='Enter')gerarPagamento()"/>
+            <div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:4px;line-height:1.5">🏥 Obrigatório para emissão de receita e prontuário</div>
+          </div>
+          <div class="pix-alert">
+            <span>⚠️</span>
+            <span>O pagamento aparece como <strong style="color:rgba(255,189,46,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong> — empresa médica registrada.</span>
+          </div>
+          <button class="cta" id="payBtn" onclick="gerarPagamento()" style="margin-top:4px">Continuar para atendimento →</button>
+          <div style="margin-top:8px;text-align:center;font-size:.7rem;color:rgba(255,255,255,.4)">Aprovação automática. Sem redirecionamento.</div>
+
+
+          <!-- QR Code — aparece após gerar -->
+          <div id="pix-qr-wrap">
+            <div style="font-size:.85rem;font-weight:600;color:rgba(255,255,255,.9);margin:12px 0 4px">Escaneie ou use Pix Copia e Cola</div>
+            <img id="pay-qr-img" alt="QR Code PIX"/>
+            <div id="pay-qr-fallback"><div style="font-size:2rem">📋</div><div>Use Pix Copia e Cola abaixo</div></div>
+            <div class="pix-copy-row">
+              <input id="pixChaveInput" readonly type="text" value="" onclick="this.select();copiarPix()"/>
+              <button class="pay-copy-btn" id="payCopyBtn" onclick="copiarPix()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copiar
+              </button>
+            </div>
+            <div style="font-size:.68rem;color:rgba(255,255,255,.28);text-align:center;margin-top:6px;line-height:1.6">
+              <strong style="color:rgba(255,255,255,.42)">JG FONSECA SERVICOS MEDICOS LTDA</strong><br>Válido por 30 min
+            </div>
+            <div class="pay-polling-status" id="pay-polling-status">⏳ Aguardando confirmação do pagamento…</div>
+
+            <!-- Botão "já paguei" — aparece após 2 min de espera -->
+            <div id="ja-paguei-wrap" style="display:none;text-align:center;margin-top:10px">
+              <button onclick="verificarPagamentoManual()" id="ja-paguei-btn"
+                style="padding:10px 20px;border-radius:11px;border:1px solid rgba(180,224,90,.25);
+                background:rgba(180,224,90,.06);color:#b4e05a;font-family:'Outfit',sans-serif;
+                font-size:.82rem;font-weight:600;cursor:pointer;width:100%">
+                ✓ Já paguei, verificar agora
+              </button>
+              <div style="font-size:.65rem;color:rgba(255,255,255,.22);margin-top:5px">
+                Clique se o pagamento já foi debitado e a tela não avançou
+              </div>
+            </div>
+
+            <div style="text-align:center;margin-top:12px">
+              <button onclick="novaConsulta()" style="background:none;border:none;color:rgba(255,255,255,.2);font-family:'Outfit',sans-serif;font-size:.7rem;cursor:pointer;text-decoration:underline">← recomeçar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARTÃO: form Efí -->
+        <div id="card-form" style="display:none">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div>
+              <label class="f-label">Número do cartão</label>
+              <input class="f-input" id="cfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="cfMascaraNumero(this)"/>
+              <div class="card-brand" id="card-brand-txt"></div>
+            </div>
+            <div>
+              <label class="f-label">Nome no cartão</label>
+              <input class="f-input" id="cfNome" type="text" placeholder="Como aparece no cartão" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"/>
+            </div>
+            <div class="cf-row">
+              <div>
+                <label class="f-label">Validade</label>
+                <input class="f-input" id="cfValidade" type="text" placeholder="MM/AAAA" inputmode="numeric" maxlength="7" oninput="cfMascaraValidade(this)"/>
+              </div>
+              <div>
+                <label class="f-label">CVV</label>
+                <input class="f-input" id="cfCvv" type="text" placeholder="123" inputmode="numeric" maxlength="4"/>
+              </div>
+            </div>
+            <div>
+              <label class="f-label">Parcelas</label>
+              <select class="f-input" id="cfParcelas" style="cursor:pointer">
+                <option value="1">1x de R$ 49,90 (sem juros)</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-err" id="cardErrMsg"></div>
+          <button class="cta" id="btnPagarCard" onclick="pagarCartao()" style="margin-top:12px">Continuar para atendimento →</button>
+          <div class="card-processing" id="cardProcessing">⏳ Processando pagamento…</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:10px;font-size:.68rem;color:rgba(255,255,255,.28)">
+            🔒 Dados tokenizados pelo SDK Efí — nunca passam pelo nosso servidor
+          </div>
+        </div>
+
+        <div class="pay-trust" style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.3)">
+          🔒 Pagamento seguro · CNPJ verificado · PIX via PagBank · Cartão via Efí
+        </div>
+        <div class="pay-trust" style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.22)">
+          ★ 5.0 · +2000 atendimentos · Médicos com CRM ativo
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 2b — CPF pós-PIX (light screen)
+═══════════════════════════════════════════════════════ -->
+<div id="s-cpf" class="screen-wrap">
+  <div class="s-inner">
+    <div class="s-card">
+      <div style="padding:20px 20px 14px;border-bottom:1px solid var(--line);text-align:center">
+        <div style="font-size:1.8rem;margin-bottom:10px">✅</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:6px">Pagamento confirmado ✅</div>
+        <div style="font-size:.82rem;color:var(--muted);font-weight:300;line-height:1.5">Falta só um passo rápido antes de falar com o médico</div>
+      </div>
+      <div class="s-body" style="padding:18px 20px;gap:12px">
+        <div>
+          <label class="f-label">CPF</label>
+          <input class="f-input" id="cpfPosPix" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" onkeydown="if(event.key==='Enter')confirmarCpfPosPix()"/>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:5px;line-height:1.5">🏥 Necessário para receita, atestado e prontuário</div>
+        </div>
+        <button class="cta" onclick="confirmarCpfPosPix()">Continuar →</button>
+        <button class="cta-ghost" onclick="pularCpfPosPix()">Pular por enquanto</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 2c — Dados do paciente quando sessão antiga veio incompleta
+═══════════════════════════════════════════════════════ -->
+<div id="s-dados" class="screen-wrap">
+  <div class="s-inner">
+    <div class="s-card">
+      <div style="padding:20px 20px 14px;border-bottom:1px solid var(--line);text-align:center">
+        <div style="font-size:1.6rem;margin-bottom:10px">🩺</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:6px">Confirme seus dados</div>
+        <div style="font-size:.82rem;color:var(--muted);font-weight:300;line-height:1.5">Precisamos do seu nome real para o médico receber o atendimento corretamente.</div>
+      </div>
+      <div class="s-body">
+        <div>
+          <label class="f-label" for="dadosNome">Nome completo</label>
+          <input class="f-input" id="dadosNome" type="text" placeholder="Nome e sobrenome" autocomplete="name" onkeydown="if(event.key==='Enter')confirmarDadosPaciente()"/>
+        </div>
+        <div>
+          <label class="f-label" for="dadosNasc">Data de nascimento <span style="text-transform:none;letter-spacing:0;font-weight:300;color:rgba(255,255,255,.3)">(opcional)</span></label>
+          <input class="f-input" id="dadosNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="mascaraNasc(this)" onkeydown="if(event.key==='Enter')confirmarDadosPaciente()"/>
+        </div>
+        <div class="card-err" id="dadosErr"></div>
+        <button class="cta" id="btnDadosPaciente" onclick="confirmarDadosPaciente()">Continuar →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 3 — Triagem (OpenAI)
+═══════════════════════════════════════════════════════ -->
+<div id="s-triage" class="screen-wrap">
+  <div class="triage-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="ia-banner">
+      <span style="font-size:1rem">🤖</span>
+      <div>
+        <strong>Pagamento confirmado.</strong>
+        <span style="font-size:.7rem;color:rgba(255,189,46,.7);font-weight:300"> Responda às perguntas para o médico entender seu caso.</span>
+      </div>
+    </div>
+    <div class="chat-area" id="triageChat"></div>
+    <div class="quick-replies" id="quickReplies"></div>
+    <div class="input-bar">
+      <textarea id="triageInput" placeholder="Digite sua resposta..." rows="1"></textarea>
+      <button class="send-btn" id="triageSend" aria-label="Enviar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 4 — Modalidade (chat/vídeo) — APÓS triagem
+═══════════════════════════════════════════════════════ -->
+<div id="s-modality" class="screen-wrap">
+  <div class="s-inner">
+    <div class="s-card">
+      <div style="padding:18px 20px 14px;border-bottom:1px solid var(--line)">
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:5px">Como você prefere ser atendido?</div>
+        <div style="font-size:.8rem;color:var(--muted);font-weight:300">Escolha como quer falar com o médico agora</div>
+      </div>
+      <div class="s-body">
+        <div class="modal-cards">
+          <div class="modal-card chat selected" id="cardChat" onclick="selecionarModalidade('chat',this)">
+            <span class="mc-icon">💬</span>
+            <div class="mc-info">
+              <div class="mc-title">Chat com médico</div>
+              <div class="mc-desc">Mensagens em tempo real. Discreto e rápido.</div>
+              <span class="mc-badge">Mais rápido</span>
+            </div>
+            <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+          <div class="modal-card video" id="cardVideo" onclick="selecionarModalidade('video',this)">
+            <span class="mc-icon">🎥</span>
+            <div class="mc-info">
+              <div class="mc-title">Videochamada</div>
+              <div class="mc-desc">Consulta face a face via Google Meet.</div>
+              <span class="mc-badge">Vídeo</span>
+            </div>
+            <div class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+        </div>
+        <button class="cta on" id="btnModalCont" onclick="confirmarModalidade()">Continuar →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 5 — Espera / Consulta
+═══════════════════════════════════════════════════════ -->
+<div id="s-espera" class="screen-wrap scrollable">
+  <div class="s-inner" style="justify-content:flex-start;padding-top:20px">
+    <div class="espera-box">
+      <div class="espera-anim" id="esperaAnim"><span style="font-size:1.8rem" id="esperaIcon">⏳</span></div>
+      <div class="espera-titulo" id="esperaTitulo">Médico sendo notificado</div>
+      <p class="espera-sub" id="esperaSub">Fique nesta página. O médico assume em instantes.</p>
+      <div class="espera-info">
+        <span>✅ Pagamento confirmado. Caso enviado ao médico.</span>
+        <span>⏱ Tempo médio de espera: poucos minutos.</span>
+        <span>🔒 Sigilo médico garantido por lei.</span>
+      </div>
+      <div class="espera-badge" id="esperaBadge"><span id="esperaBadgeIcon">💬</span> <span id="esperaBadgeText">Consulta por chat</span></div>
+      <p class="espera-status" id="esperaStatusTxt">Verificando… <span id="esperaContador"></span></p>
+      <!-- [UX] Posição na fila: só aparece se houver mais de 1 paciente aguardando -->
+      <div id="esperaFila" style="display:none;margin:6px 0 10px;padding:9px 14px;border-radius:999px;background:rgba(180,224,90,.06);border:1px solid rgba(180,224,90,.18);color:var(--g1);font-size:.78rem;font-weight:500">
+        <span id="esperaFilaTxt">Você é o próximo da fila</span>
+      </div>
+      <!-- [UX] Mensagem de reasseguramento após 5min sem atendimento -->
+      <div id="esperaDemora" style="display:none;margin:6px 0 10px;padding:10px 14px;border-radius:12px;background:rgba(255,189,46,.05);border:1px solid rgba(255,189,46,.2);color:rgba(255,189,46,.92);font-size:.8rem;font-weight:400;line-height:1.5">
+        ⏳ Seu médico está finalizando outro atendimento e já vai te chamar. Continue aqui.
+      </div>
+      <div id="aviso-horario-espera" class="night-notice" style="display:none;margin-bottom:12px">
+        ⚠️ Neste horário pode haver uma leve demora até o médico assumir. <strong>Continue nesta página</strong>, você será avisado quando ele entrar.
+      </div>
+
+      <!-- Link de retorno — aparece após atendimentoId disponível -->
+      <div id="link-retorno-box" style="display:none;margin-bottom:16px;padding:10px 14px;
+        background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+        border-radius:11px;text-align:left">
+        <div style="font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+          color:rgba(255,255,255,.3);margin-bottom:6px">🔗 Salve o link do seu atendimento</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input id="link-retorno-input" readonly type="text"
+            style="flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+            border-radius:8px;padding:8px 10px;color:rgba(255,255,255,.55);
+            font-family:'Outfit',sans-serif;font-size:.72rem;outline:none;cursor:pointer"
+            onclick="this.select()" value=""/>
+          <button onclick="copiarLinkRetorno()" id="btn-copiar-link"
+            style="padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);
+            background:rgba(255,255,255,.04);color:rgba(255,255,255,.5);
+            font-family:'Outfit',sans-serif;font-size:.72rem;cursor:pointer;white-space:nowrap;
+            flex-shrink:0">Copiar</button>
+        </div>
+        <div style="font-size:.62rem;color:rgba(255,255,255,.22);margin-top:5px;line-height:1.5">
+          Cole nas suas notas. Se sair da página, use este link para retornar ao atendimento.
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <button onclick="confirmarSairConsulta()" style="background:none;border:none;color:rgba(255,255,255,.22);font-family:'Outfit',sans-serif;font-size:.7rem;cursor:pointer;text-decoration:underline">Iniciar nova consulta</button>
+      </div>
+
+      <!-- CHAT CONSULTA -->
+      <div class="chat-consulta" id="chatConsulta">
+        <div class="medico-entrou-banner" id="medicoEntrou" style="display:none">
+          <span>👨‍⚕️</span>
+          <div><strong id="medicoNomeBanner">Dr. Médico</strong> entrou na consulta.<br>
+          <span style="font-size:.75rem;font-weight:300;color:rgba(255,255,255,.45)">Você está falando com um médico.</span></div>
+        </div>
+        <div class="chat-header-box">
+          <h3><div class="online-dot"></div> Consulta iniciada</h3>
+          <p id="chatMedicoLabel">Médico disponível, pode enviar sua mensagem</p>
+        </div>
+        <div class="chat-msgs" id="chatMsgs"><div class="typing-indicator" id="typingIndicator"><div class="av">🩺</div><div class="typ-bub"><span></span><span></span><span></span></div></div></div>
+        <div class="chat-preview-wrap" id="chat-preview-wrap">
+          <img class="chat-preview-img" id="chat-preview-img" src="" style="display:none"/>
+          <span class="chat-preview-nome" id="chat-preview-nome"></span>
+          <button class="chat-preview-cancel" onclick="cancelarArquivoTriagem()">✕</button>
+        </div>
+        <div class="chat-input-row">
+          <input type="file" id="chat-file-input" accept="image/*,.pdf" style="display:none" onchange="onArquivoTriagemSelecionado(this)"/>
+          <button class="chat-clip-btn" onclick="document.getElementById('chat-file-input').click()" title="Anexar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+          <textarea id="chatInputPaciente" placeholder="Digite sua mensagem..." rows="1"></textarea>
+          <button class="chat-send" id="chatSendBtn" onclick="enviarMensagemChat()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+        <!-- [UX v2] Rodapé de segurança -->
+        <div style="padding:7px 12px;text-align:center;font-size:.66rem;color:rgba(255,255,255,.25);background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.04);border-radius:0 0 14px 14px">🔒 Conversa segura e criptografada</div>
+      </div>
+
+      <!-- VIDEOCHAMADA -->
+      <div class="meet-wrap" id="meetWrap">
+        <div class="medico-entrou-banner" id="medicoEntrouVideo" style="display:none">
+          <span>👨‍⚕️</span>
+          <div><strong id="medicoNomeBannerVideo">Dr. Médico</strong> está pronto para a videochamada.</div>
+        </div>
+        <div class="meet-aguardando" id="meetAguardando"><p>⏳ O médico está se preparando.<br>O link aparecerá aqui em instantes.</p></div>
+        <a href="#" id="btnMeetLink" class="btn-meet disabled" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          Entrar na videochamada
+        </a>
+        <p style="margin-top:8px;font-size:.7rem;color:rgba(255,255,255,.22)">Link gerado pelo médico via Google Meet</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCREEN 6 — Encerrado
+═══════════════════════════════════════════════════════ -->
+<div id="s-encerrado" class="screen-wrap">
+  <div class="s-inner">
+    <div style="text-align:center;max-width:380px">
+      <div class="enc-icon" id="encerrado-icon">⭐</div>
+      <div class="enc-titulo" id="encerrado-titulo">Como foi sua consulta?</div>
+      <p class="enc-sub" id="encerrado-sub">Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Menos de 1 minuto.</span></p>
+      <a href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
+        style="display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:13px;
+               background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;
+               font-family:'Outfit',sans-serif;font-weight:700;font-size:.9rem;
+               cursor:pointer;text-decoration:none;box-shadow:0 6px 24px rgba(180,224,90,.26);margin-bottom:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Avaliar no Google
+      </a>
+      <div>
+        <button onclick="novaConsulta()" style="background:none;border:none;color:rgba(255,255,255,.28);font-size:.76rem;font-family:'Outfit',sans-serif;cursor:pointer;padding:4px 0">
+          Pular e iniciar nova consulta
+        </button>
+      </div>
+      <div style="margin-top:16px;font-size:.68rem;color:rgba(255,255,255,.18)">ConsultaJá24h · Atendimento médico online 24h</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── GLOBALS ────────────────────────────────────────────────────────────────
+var API = 'https://triagem-api.onrender.com';
+
+// ─── EVENTOS DE FUNIL DA TRIAGEM ────────────────────────────────────────────
+// A conversão de compra fica centralizada em /confirmado. Aqui medimos apenas uso
+// da triagem/atendimento para não duplicar conversões no Google Ads.
+function trackTriagemEvento(nomeEvento){
+  try{
+    var id = String(atendimentoId || '');
+    var chave = 'triagem_evt_' + nomeEvento + '_' + id;
+    if(id && sessionStorage.getItem(chave)) return;
+    if(id) sessionStorage.setItem(chave, '1');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: nomeEvento,
+      atendimento_id: id,
+      tipo_consulta: tipoConsulta || 'chat'
+    });
+  }catch(e){
+    console.warn('[TRIAGEM] tracking falhou:', e.message);
+  }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '',
+    pacienteNascimento = '', pacienteEmail = '', tipoConsulta = 'chat';
+var atendimentoId = null;
+var paymentId = null, pagbankOrderId = null, paymentPoller = null;
+var dispData = null;
+var pagamentoConfirmadoLocal = false;
+
+// ─── SESSION ────────────────────────────────────────────────────────────────
+function salvarSessao(){
+  if(!atendimentoId) return;
+  localStorage.setItem('cj_sessao', JSON.stringify({
+    atendimentoId, tipoConsulta, pacienteNome, pacienteTel,
+    pacienteCPF, pacienteEmail, pagbankOrderId: pagbankOrderId||null,
+    pagamentoConfirmado: !!pagamentoConfirmadoLocal,
+    ts: Date.now()
+  }));
+}
+function limparSessao(){ localStorage.removeItem('cj_sessao'); }
+function carregarSessao(){
+  try{ return JSON.parse(localStorage.getItem('cj_sessao')||'null'); }catch(e){ return null; }
+}
+function sessaoPodeRetomarTriagem(sessao){
+  return !!(sessao && sessao.atendimentoId && sessao.pagamentoConfirmado);
+}
+function normalizarNomePacienteLocal(nome){
+  var n = String(nome||'').trim().replace(/\s+/g,' ');
+  var k = n.toLowerCase();
+  if(!n || k==='-' || k==='paciente' || k==='paciente whatsapp') return '';
+  return n;
+}
+function nomePacienteValido(nome){
+  var n = normalizarNomePacienteLocal(nome);
+  return !!(n && n.split(/\s+/).length >= 2);
+}
+function nomePacientePreferido(a, sessao){
+  return normalizarNomePacienteLocal(a && a.nome) ||
+         normalizarNomePacienteLocal(sessao && sessao.pacienteNome) ||
+         '';
+}
+function formatarNascimentoTela(val){
+  val = String(val||'').trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(val)) return val.slice(8,10)+'/'+val.slice(5,7)+'/'+val.slice(0,4);
+  return val;
+}
+function montarDestinoLandingConsulta(){
+  var qs = location.search || '';
+  var hash = location.hash || '';
+  if(location.protocol === 'file:'){
+    return new URL('consulta/index.html' + qs + hash, location.href).href;
+  }
+  return '/consulta/' + qs + hash;
+}
+function redirecionarPagamentoPendenteParaLanding(origem){
+  try{
+    var sessao = carregarSessao();
+    if(sessao){
+      sessao.pagbankOrderId = null;
+      sessao.pagamentoConfirmado = false;
+      localStorage.setItem('cj_sessao', JSON.stringify(sessao));
+    }
+    sessionStorage.setItem('cj_triagem_payment_redirected', JSON.stringify({
+      origem:origem||'',
+      atendimentoId:atendimentoId||'',
+      ts:Date.now()
+    }));
+  }catch(e){}
+  window.location.replace(montarDestinoLandingConsulta());
+}
+function abrirCheckoutConsulta(origem){
+  try{
+    var sessao = carregarSessao();
+    if(sessao && !sessao.pagamentoConfirmado){
+      sessao.pagbankOrderId = null;
+      sessao.pagamentoConfirmado = false;
+      localStorage.setItem('cj_sessao', JSON.stringify(sessao));
+    }
+    sessionStorage.setItem('cj_triagem_checkout_link', JSON.stringify({
+      origem:origem||'',
+      atendimentoId:atendimentoId||'',
+      ts:Date.now()
+    }));
+  }catch(e){}
+  window.location.href = montarDestinoLandingConsulta();
+}
+function chavePassagemConfirmado(id){
+  return 'cj_passou_confirmado_' + String(id || '');
+}
+function jaPassouPorConfirmado(id){
+  try{ return !!(id && sessionStorage.getItem(chavePassagemConfirmado(id)) === '1'); }catch(e){ return false; }
+}
+function adsParamPermitido(chave){
+  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
+}
+function salvarAdsParamsAtuais(){
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    var salvos = {};
+    origem.forEach(function(valor,chave){
+      if(adsParamPermitido(chave) && valor) salvos[chave] = valor;
+    });
+    if(Object.keys(salvos).length){
+      var json = JSON.stringify(salvos);
+      sessionStorage.setItem('cj_ads_params', json);
+      localStorage.setItem('cj_ads_params', json);
+    }
+  }catch(e){}
+}
+function aplicarAdsParamsSalvos(params){
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    var salvos = JSON.parse(raw);
+    Object.keys(salvos || {}).forEach(function(chave){
+      if(adsParamPermitido(chave) && salvos[chave] && !params.has(chave)) params.set(chave, salvos[chave]);
+    });
+  }catch(e){}
+}
+function adsAttributionPayload(){
+  var out = {};
+  try{
+    var raw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    out = JSON.parse(raw) || {};
+  }catch(e){ out = {}; }
+  try{
+    var atual = new URLSearchParams(window.location.search);
+    atual.forEach(function(valor,chave){
+      if(adsParamPermitido(chave) && valor) out[chave] = valor;
+    });
+  }catch(e){}
+  out.landing_url = location.href;
+  out.referrer = document.referrer || '';
+  out.user_agent = navigator.userAgent || '';
+  return out;
+}
+function montarUrlConfirmadoObrigatorio(id, tipo){
+  var params = new URLSearchParams();
+  params.set('consulta', String(id || ''));
+  params.set('tipo', tipo || 'chat');
+  aplicarAdsParamsSalvos(params);
+  try{
+    var origem = new URLSearchParams(window.location.search);
+    origem.forEach(function(valor,chave){
+      if(adsParamPermitido(chave)){
+        params.set(chave, valor);
+      }
+    });
+  }catch(e){}
+  var base = location.protocol === 'file:' ? 'https://consultaja24h.com.br/confirmado' : '/confirmado';
+  return base + '?' + params.toString();
+}
+salvarAdsParamsAtuais();
+function redirecionarConfirmadoObrigatorio(metodo, origem){
+  if(!atendimentoId || jaPassouPorConfirmado(atendimentoId)) return false;
+  var tipo = tipoConsulta || 'chat';
+  console.log('PAGAMENTO_CONFIRMADO_REDIRECT_CONFIRMADO', {
+    consultaId:String(atendimentoId),
+    tipo:tipo,
+    metodo:metodo || 'desconhecido',
+    origem:origem || ''
+  });
+  window.location.href = montarUrlConfirmadoObrigatorio(atendimentoId, tipo);
+  return true;
+}
+
+// ─── FLOW STATE MACHINE ──────────────────────────────────────────────────────
+// Tracks the current logical step. Screens can only advance forward.
+// Prevents modality from reappearing after atendimento starts/ends.
+var FLOW_STATES = ['whatsapp','payment','cpf','dados','modality','triage','waiting','atendimento','final'];
+var flowState = 'whatsapp';
+
+function setFlowState(s){
+  flowState = s;
+  // Persist so page reload can restore correct position
+  try{ sessionStorage.setItem('cj_flow', s); }catch(e){}
+}
+function getPersistedFlowState(){
+  try{ return sessionStorage.getItem('cj_flow') || 'whatsapp'; }catch(e){ return 'whatsapp'; }
+}
+function flowStateIndex(s){ return FLOW_STATES.indexOf(s); }
+function flowHasPassed(s){ return flowStateIndex(flowState) > flowStateIndex(s); }
+function resetFlowState(){
+  flowState = 'whatsapp';
+  try{ sessionStorage.removeItem('cj_flow'); }catch(e){}
+}
+
+// ─── SCREEN SYSTEM ──────────────────────────────────────────────────────────
+function showScreen(n){
+  document.querySelectorAll('.screen-wrap').forEach(function(s){ s.classList.remove('active'); });
+  var el = document.getElementById('s-'+n);
+  if(el){ el.classList.add('active'); el.scrollTop = 0; }
+}
+
+var proximoAposDadosPaciente = 'modality';
+function pedirDadosPacienteAntesDe(proximo){
+  proximoAposDadosPaciente = proximo || 'modality';
+  setFlowState('dados');
+  showScreen('dados');
+  setNavLabel('DADOS');
+  var nomeEl = document.getElementById('dadosNome');
+  var nascEl = document.getElementById('dadosNasc');
+  var errEl = document.getElementById('dadosErr');
+  if(errEl){ errEl.style.display='none'; errEl.textContent=''; }
+  if(nomeEl) nomeEl.value = nomePacienteValido(pacienteNome) ? normalizarNomePacienteLocal(pacienteNome) : '';
+  if(nascEl) nascEl.value = pacienteNascimento ? formatarNascimentoTela(pacienteNascimento) : '';
+  setTimeout(function(){ if(nomeEl && !nomeEl.value) nomeEl.focus(); }, 180);
+}
+
+async function confirmarDadosPaciente(){
+  var nomeEl = document.getElementById('dadosNome');
+  var nascEl = document.getElementById('dadosNasc');
+  var errEl = document.getElementById('dadosErr');
+  var btn = document.getElementById('btnDadosPaciente');
+  var nome = normalizarNomePacienteLocal(nomeEl ? nomeEl.value : '');
+  if(!nome || nome.split(/\s+/).length < 2){
+    if(errEl){ errEl.textContent='Informe nome e sobrenome para o médico identificar o atendimento.'; errEl.style.display='block'; }
+    if(nomeEl){ nomeEl.focus(); nomeEl.style.borderColor='rgba(255,95,87,.5)'; setTimeout(function(){ nomeEl.style.borderColor=''; },1500); }
+    return;
+  }
+  pacienteNome = nome;
+  if(nascEl && nascEl.value.trim()) pacienteNascimento = converterNascimento(nascEl.value.trim());
+  salvarSessao();
+  if(btn){ btn.disabled=true; btn.textContent='Salvando...'; }
+  try{
+    if(atendimentoId){
+      var r = await fetch(API+'/api/notify',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          atendimentoId:atendimentoId,
+          nome:pacienteNome,
+          tel:pacienteTel,
+          tel_documentos:pacienteTelDoc||pacienteTel,
+          cpf:pacienteCPF,
+          tipo:tipoConsulta,
+          data_nascimento:pacienteNascimento,
+          email:pacienteEmail||'',
+          triagem:'(triagem em andamento)'
+        })
+      });
+      var d = await r.json();
+      if(!d.ok) throw new Error(d.error||'Não foi possível salvar seus dados.');
+    }
+    if(proximoAposDadosPaciente === 'triage') irParaTriagem();
+    else if(proximoAposDadosPaciente === 'finalizar'){
+      setFlowState('triage');
+      showScreen('triage');
+      setNavLabel('TRIAGEM MÉDICA');
+      finalizarTriagem();
+    }
+    else if(proximoAposDadosPaciente === 'waiting') mostrarSalaEspera();
+    else mostrarModalidade();
+  }catch(e){
+    if(errEl){ errEl.textContent=e.message||'Não foi possível salvar. Verifique a conexão e tente novamente.'; errEl.style.display='block'; }
+    if(btn){ btn.disabled=false; btn.textContent='Tentar novamente →'; }
+  }
+}
+
+// ─── LOADING ────────────────────────────────────────────────────────────────
+function esconderLoading(){ document.getElementById('loading-overlay').classList.add('hide'); }
+
+// ─── NAV LABEL ──────────────────────────────────────────────────────────────
+function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt; }
+
+// ─── INIT ───────────────────────────────────────────────────────────────────
+(async function init(){
+  var url = new URL(location.href);
+  var idParam = url.searchParams.get('consulta');
+  var sessao = carregarSessao();
+  if(!idParam && !sessaoPodeRetomarTriagem(sessao)){
+    try{
+      sessionStorage.setItem('cj_triagem_redirected', JSON.stringify({
+        from_path:location.pathname||'/triagem',
+        has_query:!!location.search,
+        utm_source:url.searchParams.get('utm_source')||'',
+        utm_campaign:url.searchParams.get('utm_campaign')||'',
+        gclid_present:!!url.searchParams.get('gclid')
+      }));
+    }catch(e){}
+    window.location.replace(montarDestinoLandingConsulta());
+    return;
+  }
+  var idParaRestaurar = idParam || (sessao && sessao.atendimentoId);
+
+  // Restore persisted flow state — prevents modality from showing on reload
+  // after waiting/atendimento/final
+  var persistedFlow = getPersistedFlowState();
+  if(persistedFlow && flowStateIndex(persistedFlow) > flowStateIndex('triage')){
+    // If page reloads while in waiting/atendimento/final, honour that
+    flowState = persistedFlow;
+  }
+
+  if(idParaRestaurar){
+    try{
+      var ctrl = new AbortController();
+      var toid = setTimeout(function(){ ctrl.abort(); }, 10000);
+      var res  = await fetch(API+'/api/atendimento/status/'+idParaRestaurar, {signal: ctrl.signal});
+      clearTimeout(toid);
+      var data = await res.json();
+      if(data.ok && data.atendimento){
+        var a = data.atendimento;
+
+        // ── Encerrado: vai direto para final, sem passar por modality
+        if(a.status === 'encerrado'){
+          atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+          pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
+          pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
+          setFlowState('final');
+          esconderLoading(); showScreen('encerrado'); setNavLabel('ENCERRADO'); return;
+        }
+
+        // ── Pagamento pendente: a landing concentra o checkout.
+        // A triagem só continua depois de pagamento confirmado.
+        if(a.pagamento_status === 'pendente'){
+          if(jaPassouPorConfirmado(a.id) || (sessao && sessao.pagamentoConfirmado)){
+            atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+            pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
+            pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
+            pagamentoConfirmadoLocal = true; salvarSessao();
+            esconderLoading();
+            if(!nomePacienteValido(pacienteNome)){ pedirDadosPacienteAntesDe('triage'); return; }
+            setFlowState('triage');
+            irParaTriagem();
+            return;
+          }
+          var orderIdLocal = (sessao && sessao.pagbankOrderId) || null;
+          if(orderIdLocal){
+            try{
+              var pbRes  = await fetch(API+'/api/pagbank/order/'+orderIdLocal);
+              var pbData = await pbRes.json();
+              if(pbData.ok && pbData.pago){
+                atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+                pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
+                pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
+                pagamentoConfirmadoLocal = true; salvarSessao();
+                esconderLoading();
+                if(redirecionarConfirmadoObrigatorio('pix','triagem_init_pagbank_paid')) return;
+                if(!nomePacienteValido(pacienteNome)){ pedirDadosPacienteAntesDe('modality'); return; }
+                mostrarModalidade(); return;
+              }
+            }catch(e){}
+          }
+          atendimentoId  = a.id; tipoConsulta = a.tipo || 'chat';
+          redirecionarPagamentoPendenteParaLanding('triagem_status_pagamento_pendente');
+          return;
+        }
+
+        // ── Triagem em andamento: modalidade já foi selecionada (novo fluxo: modality → triage)
+        if(a.status === 'triagem'){
+          atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+          pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
+          pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
+          pagamentoConfirmadoLocal = a.pagamento_status === 'confirmado';
+          salvarSessao();
+          if(pagamentoConfirmadoLocal && redirecionarConfirmadoObrigatorio('confirmado_backend','triagem_init_status_triagem')) return;
+          if(!nomePacienteValido(pacienteNome)){
+            esconderLoading(); pedirDadosPacienteAntesDe('triage'); return;
+          }
+          // Avançar flowState além de modality para impedir reexibição
+          setFlowState('triage');
+          esconderLoading(); irParaTriagem(); return;
+        }
+
+        // ── Aguardando / assumido: modality já foi concluída — skip direto para espera
+        // Força flowState para 'waiting' ou superior antes de mostrarSalaEspera,
+        // assim mostrarModalidade nunca pode ser chamada neste ciclo.
+        atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+        pacienteNome  = nomePacientePreferido(a, sessao);
+        pacienteTel   = a.tel   || (sessao && sessao.pacienteTel)  || '';
+        pacienteCPF   = a.cpf   || (sessao && sessao.pacienteCPF)  || '';
+        pacienteEmail = a.email || (sessao && sessao.pacienteEmail) || '';
+        pagamentoConfirmadoLocal = a.pagamento_status === 'confirmado';
+        salvarSessao();
+        if(pagamentoConfirmadoLocal && redirecionarConfirmadoObrigatorio('confirmado_backend','triagem_init_status_waiting')) return;
+        // Advance flow past modality so the guard in mostrarModalidade blocks it
+        if(flowStateIndex(flowState) <= flowStateIndex('modality')){
+          setFlowState('waiting');
+        }
+        if(!nomePacienteValido(pacienteNome)){
+          esconderLoading(); pedirDadosPacienteAntesDe('waiting'); return;
+        }
+        esconderLoading(); mostrarSalaEspera(); return;
+      }
+    }catch(e){}
+
+    // Fallback local: nunca joga direto para a fila sem confirmação do backend.
+    // A landing salva sessão antes do pagamento; se a restauração falhar,
+    // retomamos o pagamento/triagem em vez de mostrar "aguardando médico" sem triagem.
+    if(sessao && sessao.atendimentoId){
+      atendimentoId  = sessao.atendimentoId;
+      tipoConsulta   = sessao.tipoConsulta  || 'chat';
+      pacienteNome   = normalizarNomePacienteLocal(sessao.pacienteNome);
+      pacienteTel    = sessao.pacienteTel   || '';
+      pacienteCPF    = sessao.pacienteCPF   || '';
+      pacienteEmail  = sessao.pacienteEmail || '';
+      pagbankOrderId = sessao.pagbankOrderId || null;
+      pagamentoConfirmadoLocal = !!sessao.pagamentoConfirmado;
+      esconderLoading();
+      if(pagbankOrderId && !pagamentoConfirmadoLocal){
+        redirecionarPagamentoPendenteParaLanding('triagem_fallback_pagbank_pendente');
+        return;
+      }
+      if(pagamentoConfirmadoLocal){
+        if(redirecionarConfirmadoObrigatorio('sessao_local','triagem_fallback_local_confirmado')) return;
+        if(!nomePacienteValido(pacienteNome)){
+          pedirDadosPacienteAntesDe('modality');
+          return;
+        }
+        mostrarModalidade();
+        return;
+      }
+    }
+  }
+
+  if(idParaRestaurar){
+    redirecionarPagamentoPendenteParaLanding('triagem_consulta_invalida_ou_indisponivel');
+    return;
+  }
+
+  esconderLoading();
+  showScreen('whatsapp');
+  setNavLabel('');
+})();
+
+function preencherHorario(){
+  var h = new Date().getHours();
+  // Fallback local — backend confirma via avisoHorario no /api/disponibilidade
+  if(h>=23||h<7){ var el=document.getElementById('aviso-horario'); if(el) el.style.display='block'; }
+}
+
+function aplicarAvisoHorario(avisoHorario){
+  // Exibe aviso tanto na tela de pagamento quanto na sala de espera
+  ['aviso-horario','aviso-horario-espera'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.style.display = avisoHorario ? 'block' : 'none';
+  });
+}
+
+// ─── SCREEN 1: WhatsApp ─────────────────────────────────────────────────────
+function feedbackWpp(el){
+  var fb = document.getElementById('fb-wpp');
+  var d = el.value.replace(/\D/g,'');
+  if(d.length>11&&d.startsWith('55')) d=d.slice(2);
+  fb.classList.toggle('show', d.length>=10&&d.length<=11);
+}
+
+async function avancarWhatsapp(){
+  var telEl = document.getElementById('wppTel');
+  var tel = telEl.value.replace(/\D/g,'');
+  if(tel.length>11&&tel.startsWith('55')) tel=tel.slice(2);
+  if(tel.length>12&&tel.startsWith('55')) tel=tel.slice(2);
+  if(!tel||tel.length<10){ telEl.focus(); telEl.style.borderColor='rgba(255,95,87,.5)'; setTimeout(function(){telEl.style.borderColor='';},1500); return; }
+
+  pacienteTel = tel;
+
+  // Tentar buscar cadastro anterior
+  var nomeWrap = document.getElementById('nome-wrap');
+  var nomeEl   = document.getElementById('wppNome');
+  var status   = document.getElementById('autofill-status');
+  var btn      = document.getElementById('btnWpp');
+  btn.disabled = true; btn.textContent = 'Verificando...';
+
+  try{
+    var res  = await fetch(API+'/api/paciente/buscar?tel='+encodeURIComponent(tel));
+    var data = await res.json();
+    if(data.ok && data.paciente){
+      var p = data.paciente;
+      pacienteNome        = normalizarNomePacienteLocal(p.nome);
+      pacienteTelDoc      = p.tel_doc     || tel;
+      pacienteNascimento  = p.data_nascimento || '';
+      pacienteEmail       = p.email       || '';
+      pacienteCPF         = p.cpf         || '';
+      // Pre-fill nascimento field if available
+      if(pacienteNascimento){ var nascEl = document.getElementById('wppNasc'); if(nascEl) nascEl.value = pacienteNascimento; }
+      status.textContent = '✔ Cadastro encontrado. Continuando...';
+      status.className   = 'autofill-status show';
+      // Se tem nome, prosseguir direto — mas se falta data de nascimento, pedir antes
+      if(nomePacienteValido(pacienteNome)){
+        if(!pacienteNascimento){
+          // Retornante sem data de nascimento cadastrada — mostrar só o campo de data
+          document.getElementById('nasc-wrap').style.display = 'block';
+          status.textContent = '✔ Cadastro encontrado. Informe sua data de nascimento para continuar.';
+          btn.disabled = false; btn.textContent = 'Iniciar atendimento agora →';
+          // Reatribuir onclick para coletar a data antes de avançar
+          btn.onclick = function(){
+            pacienteNascimento = converterNascimento(document.getElementById('wppNasc').value);
+            fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel})}).catch(function(){});
+            fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel,versao:'termos-v1.0'})}).catch(function(){});
+            irParaPagamento();
+          };
+          return;
+        }
+        // log identify + consent inline
+        fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel})}).catch(function(){});
+        fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel,versao:'termos-v1.0'})}).catch(function(){});
+        await esperar(600);
+        btn.disabled = false; btn.textContent = 'Iniciar atendimento agora →';
+        irParaPagamento();
+        return;
+      }
+    } else {
+      status.textContent = 'Número novo. Informe seu nome para continuar.';
+      status.className   = 'autofill-status show';
+    }
+  }catch(e){
+    status.textContent = 'Não foi possível verificar. Informe seu nome abaixo.';
+    status.className   = 'autofill-status show';
+  }
+
+  // Mostrar campos nome + nascimento
+  nomeWrap.style.display = 'block';
+  document.getElementById('nasc-wrap').style.display = 'block';
+  nomeEl.focus();
+  btn.disabled = false; btn.textContent = 'Iniciar atendimento agora →';
+  // Reatribuir onclick para etapa com nome
+  btn.onclick = confirmarWhatsappComNome;
+}
+
+function confirmarWhatsappComNome(){
+  var nomeEl = document.getElementById('wppNome');
+  var nome   = nomeEl.value.trim();
+  if(!nome){ nomeEl.focus(); return; }
+  if(nome.split(/\s+/).length < 2){
+    nomeEl.style.borderColor='rgba(255,95,87,.5)';
+    setTimeout(function(){nomeEl.style.borderColor='';},1500);
+    nomeEl.focus(); return;
+  }
+  pacienteNome      = nome;
+  pacienteTelDoc    = pacienteTel;
+  pacienteNascimento = converterNascimento(document.getElementById('wppNasc').value);
+  fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,tel:pacienteTel})}).catch(function(){});
+  fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,tel:pacienteTel,versao:'termos-v1.0'})}).catch(function(){});
+  irParaPagamento();
+}
+
+function voltarParaWhatsapp(){
+  showScreen('whatsapp'); setNavLabel('');
+}
+
+// ─── SCREEN 2: Pagamento ────────────────────────────────────────────────────
+var metodoPagamento = 'pix';
+
+async function irParaPagamento(){
+  abrirCheckoutConsulta('triagem_ir_para_pagamento');
+}
+
+function selecionarMetodo(metodo){
+  metodoPagamento = metodo;
+  document.getElementById('tabPix').className  = 'm-tab' + (metodo==='pix'    ? ' sel-pix'  : '');
+  document.getElementById('tabCard').className = 'm-tab' + (metodo==='cartao' ? ' sel-card' : '');
+  document.getElementById('pix-section').style.display  = metodo==='pix'    ? 'block' : 'none';
+  document.getElementById('card-form').style.display    = metodo==='cartao' ? 'block' : 'none';
+  document.getElementById('card-fields').className      = metodo==='cartao' ? 'show'  : '';
+  document.getElementById('cardErrMsg').style.display   = 'none';
+  // Reset polling status — hide until relevant
+  var statusEl = document.getElementById('pay-polling-status');
+  statusEl.style.display = 'none';
+  statusEl.className = 'pay-polling-status';
+  if(metodo==='pix'){
+    // Pre-fill CPF field if already collected (e.g. returned user)
+    var pixCpfEl = document.getElementById('pixCPF');
+    if(pixCpfEl && pacienteCPF) pixCpfEl.value = pacienteCPF;
+  }
+  if(metodo==='cartao'){
+    var emailOk = pacienteEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(pacienteEmail);
+    document.getElementById('btnPagarCard').disabled = !emailOk;
+    if(pacienteNome)  document.getElementById('payNome').value = pacienteNome;
+    if(pacienteCPF)   document.getElementById('payCPF').value  = pacienteCPF;
+    if(pacienteEmail) document.getElementById('cardEmailInput').value = pacienteEmail;
+  }
+}
+
+function onCardEmailInput(el){
+  var val = el.value.trim();
+  var ok  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  document.getElementById('card-email-hint').style.display = ok ? 'none' : 'block';
+  document.getElementById('btnPagarCard').disabled = !ok;
+  if(ok) pacienteEmail = val;
+}
+
+function cfMascaraNumero(el){
+  var v = el.value.replace(/\D/g,'').slice(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+  document.getElementById('card-brand-txt').textContent = detectarBandeira(v) !== 'visa' ? detectarBandeira(v).toUpperCase() : '';
+}
+function cfMascaraValidade(el){
+  var v = el.value.replace(/\D/g,'').slice(0,6);
+  if(v.length>2) v = v.slice(0,2)+'/'+v.slice(2);
+  el.value = v;
+}
+
+
+// ─── VALIDAÇÃO CPF ───────────────────────────────────────────────────────────
+function validarCPF(cpf){
+  cpf = cpf.replace(/\D/g,'');
+  if(cpf.length!==11 || /^(\d)\1{10}$/.test(cpf)) return false;
+  var s=0, r;
+  for(var i=0;i<9;i++) s+=parseInt(cpf[i])*(10-i);
+  r=(s*10)%11; if(r===10) r=0;
+  if(r!==parseInt(cpf[9])) return false;
+  s=0;
+  for(var i=0;i<10;i++) s+=parseInt(cpf[i])*(11-i);
+  r=(s*10)%11; if(r===10) r=0;
+  return r===parseInt(cpf[10]);
+}
+
+async function gerarPagamento(){
+  abrirCheckoutConsulta('triagem_gerar_pagamento_desativado');
+  return;
+  var nome = nomePacienteValido(pacienteNome) ? normalizarNomePacienteLocal(pacienteNome) : 'Paciente';
+  var tel  = pacienteTel;
+  // Ler CPF do campo PIX (obrigatório para PagBank)
+  var cpfInput = document.getElementById('pixCPF');
+  var cpfParaPix = (cpfInput ? cpfInput.value.replace(/\D/g,'') : '') || pacienteCPF || '';
+  if(!cpfParaPix || cpfParaPix.length !== 11){
+    if(cpfInput){ cpfInput.focus(); cpfInput.style.borderColor='rgba(255,95,87,.5)'; setTimeout(function(){cpfInput.style.borderColor='';},1500); }
+    var statusEl = document.getElementById('pay-polling-status');
+    statusEl.textContent='⚠️ Informe seu CPF para gerar o PIX.';
+    statusEl.className='pay-polling-status err';
+    statusEl.style.display='block';
+    return;
+  }
+  if(!validarCPF(cpfParaPix)){
+    if(cpfInput){ cpfInput.focus(); cpfInput.style.borderColor='rgba(255,95,87,.5)'; setTimeout(function(){cpfInput.style.borderColor='';},1500); }
+    var statusEl = document.getElementById('pay-polling-status');
+    statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.';
+    statusEl.className='pay-polling-status err';
+    statusEl.style.display='block';
+    return;
+  }
+  pacienteCPF = cpfParaPix; // persiste para uso posterior
+
+  var btn = document.getElementById('payBtn');
+  btn.disabled=true; btn.textContent='Gerando PIX...';
+
+  // Timeout de 25s — se o Render estiver em cold start e demorar demais,
+  // reabilita o botão para o paciente poder clicar de novo
+  var _btnResetTimer = setTimeout(function(){
+    if(btn.disabled){
+      btn.disabled=false;
+      btn.textContent='Tentar novamente →';
+      var st=document.getElementById('pay-polling-status');
+      if(st){st.textContent='⏱ O servidor demorou para responder. Clique novamente.';st.className='pay-polling-status err';st.style.display='block';}
+    }
+  }, 25000);
+
+  try{
+    if(!atendimentoId){
+      var rPre = await fetch(API+'/api/notify',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({nome:nome||'-',tel,tel_documentos:pacienteTelDoc||tel,
+          cpf:cpfParaPix,triagem:'(aguardando pagamento)',tipo:tipoConsulta,
+          data_nascimento:pacienteNascimento,email:pacienteEmail||'',ads:adsAttributionPayload()})
+      });
+      var dPre = await rPre.json();
+      if(!dPre||!dPre.atendimentoId) throw new Error(dPre&&dPre.error?dPre.error:'Não foi possível iniciar o atendimento.');
+      atendimentoId=dPre.atendimentoId; salvarSessao();
+      if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
+    }
+
+    var res = await fetch(API+'/api/pagbank/order',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({atendimentoId,nome:nome||'-',cpf:cpfParaPix,email:pacienteEmail||undefined,ads:adsAttributionPayload()})
+    });
+    var data = await res.json();
+    if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
+
+    pagbankOrderId = data.order_id;
+    var pixText    = data.qr_code_text || data.qr_code || '';
+    var qrBase64   = data.qr_code_base64 || '';
+
+    if(atendimentoId && pagbankOrderId){
+      try{
+        var vinculoRes = await fetch(API+'/api/atendimento/vincular-order',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({atendimentoId,orderId:pagbankOrderId})
+        });
+        var vinculoData = await vinculoRes.json();
+        if(!vinculoData.ok) throw new Error(vinculoData.error||'Falha ao vincular order');
+        salvarSessao();
+      }catch(e){ throw new Error('Não foi possível associar o pagamento. Tente novamente.'); }
+    }
+
+    var imgEl = document.getElementById('pay-qr-img');
+    var fbEl  = document.getElementById('pay-qr-fallback');
+    if(imgEl){
+      imgEl.onload  = function(){ imgEl.style.display='block'; };
+      imgEl.onerror = function(){ imgEl.style.display='none'; if(fbEl) fbEl.style.display='flex'; };
+      if(qrBase64) imgEl.src = qrBase64.startsWith('data:image')?qrBase64:'data:image/png;base64,'+qrBase64;
+      else if(data.qr_code_url) imgEl.src = data.qr_code_url;
+      else if(pixText) imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data='+encodeURIComponent(pixText);
+      else { imgEl.style.display='none'; if(fbEl) fbEl.style.display='flex'; }
+    }
+    var inputChave = document.getElementById('pixChaveInput');
+    if(inputChave) inputChave.value = pixText || '';
+    document.getElementById('pix-qr-wrap').classList.add('show');
+    btn.style.display = 'none';
+    clearTimeout(_btnResetTimer);
+    iniciarPollingPagamento();
+
+  }catch(e){
+    clearTimeout(_btnResetTimer);
+    btn.disabled=false; btn.textContent='Continuar para atendimento →';
+    var statusEl = document.getElementById('pay-polling-status');
+    statusEl.textContent='❌ '+(e.message||'Erro ao gerar PIX. Tente novamente.');
+    statusEl.className='pay-polling-status err';
+    statusEl.style.display='block';
+    console.error('Erro gerarPagamento:',e);
+  }
+}
+
+function iniciarPollingPagamento(){
+  clearInterval(paymentPoller);
+  var tentativas = 0, MAX = 600;
+  var statusEl = document.getElementById('pay-polling-status');
+  statusEl.textContent='⏳ Aguardando confirmação do pagamento…';
+  statusEl.className='pay-polling-status';
+  statusEl.style.display='block';
+  iniciarTimerJaPaguei(); // mostra botão "já paguei" após 2 min
+  paymentPoller = setInterval(async function(){
+    tentativas++;
+    if(tentativas>MAX){
+      clearInterval(paymentPoller);
+      statusEl.textContent='⏰ QR Code expirado. Recarregue a página.';
+      statusEl.className='pay-polling-status err';
+      return;
+    }
+    if(!pagbankOrderId) return;
+    try{
+      var r = await fetch(API+'/api/pagbank/order/'+pagbankOrderId);
+      var d = await r.json();
+      if(d.ok&&d.pago){
+        clearInterval(paymentPoller);
+        clearTimeout(_jaPagTimer);
+        var jpw = document.getElementById('ja-paguei-wrap');
+        if(jpw) jpw.style.display = 'none';
+        pagamentoConfirmadoLocal = true;
+        salvarSessao();
+        statusEl.textContent='✅ Pagamento confirmado! Redirecionando...';
+        statusEl.className='pay-polling-status ok';
+        await esperar(800);
+        if(redirecionarConfirmadoObrigatorio('pix','triagem_pix_polling')) return;
+        // Após PIX confirmado → pedir CPF (light screen)
+        mostrarCpfPosPix();
+      }
+    }catch(e){}
+  },3000);
+}
+
+function copiarPix(){
+  var chave = (document.getElementById('pixChaveInput')||{}).value||'';
+  if(!chave) return;
+  function ok(){
+    var b=document.getElementById('payCopyBtn');
+    var prev=b.innerHTML;
+    b.textContent='✓ Copiado!';
+    setTimeout(function(){ b.innerHTML=prev; },2000);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(chave).then(ok).catch(function(){fallbackCopy(chave);ok();});
+  else{ fallbackCopy(chave); ok(); }
+}
+function fallbackCopy(text){
+  var el=document.createElement('textarea');el.value=text;el.style.position='fixed';el.style.opacity='0';
+  document.body.appendChild(el);el.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(el);
+}
+
+// ─── SCREEN 2b: CPF pós-PIX ─────────────────────────────────────────────────
+function mostrarCpfPosPix(){
+  // Se CPF já foi coletado no campo PIX desta sessão, pular tela direto para modalidade
+  if(pacienteCPF && pacienteCPF.length === 11){
+    if(!nomePacienteValido(pacienteNome)){
+      pedirDadosPacienteAntesDe('modality');
+      return;
+    }
+    mostrarModalidade();
+    return;
+  }
+  setFlowState('cpf');
+  showScreen('cpf');
+  setNavLabel('');
+}
+async function confirmarCpfPosPix(){
+  var val = document.getElementById('cpfPosPix').value.replace(/\D/g,'');
+  if(!val || val.length!==11 || !validarCPF(val)){
+    var hintEl = document.getElementById('cpfPosPix');
+    hintEl.style.borderColor='rgba(255,95,87,.5)';
+    setTimeout(function(){hintEl.style.borderColor='';},1500);
+    // show hint if element exists
+    var hintMsg = document.getElementById('cpfPosPixHint');
+    if(hintMsg){ hintMsg.textContent = val.length===11 ? '⚠️ CPF inválido. Verifique os números.' : '⚠️ CPF incompleto.'; hintMsg.style.display='block'; setTimeout(function(){if(hintMsg)hintMsg.style.display='none';},3000); }
+    return;
+  }
+  pacienteCPF = val;
+  // Atualizar CPF no atendimento — best-effort, não bloqueia o fluxo.
+  // REQUER endpoint POST /api/atendimento/atualizar-cpf no backend.
+  // Se não existir, apenas loga aviso e continua normalmente.
+  if(atendimentoId){
+    try{
+      var cpfRes = await fetch(API+'/api/atendimento/atualizar-cpf',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({atendimentoId,cpf:val})
+      });
+      if(!cpfRes.ok) console.warn('[CPF-POS-PIX] Endpoint retornou status '+cpfRes.status+'. CPF salvo apenas localmente.');
+    }catch(e){
+      console.warn('[CPF-POS-PIX] Endpoint /api/atendimento/atualizar-cpf não disponível. CPF salvo apenas na sessão local.',e.message);
+    }
+  }
+  salvarSessao();
+  if(!nomePacienteValido(pacienteNome)){
+    pedirDadosPacienteAntesDe('modality');
+    return;
+  }
+  mostrarModalidade();
+}
+function pularCpfPosPix(){
+  if(!nomePacienteValido(pacienteNome)){
+    pedirDadosPacienteAntesDe('modality');
+    return;
+  }
+  mostrarModalidade();
+}
+
+// ─── SCREEN 3: Triagem ──────────────────────────────────────────────────────
+function irParaTriagem(){
+  if(!nomePacienteValido(pacienteNome)){
+    pedirDadosPacienteAntesDe('triage');
+    return;
+  }
+  setFlowState('triage');
+  showScreen('triage');
+  setNavLabel('TRIAGEM MÉDICA');
+  trackTriagemEvento('triagem_iniciada');
+  startTriage();
+}
+
+var triageHistory=[], anamnesis={}, step=0, pending=false;
+var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados. NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo, responda SOMENTE com JSON: {"done":true,"summary":"[resumo formatado]"}';
+
+function startTriage(){
+  triageHistory=[]; anamnesis={}; step=0;
+  document.getElementById('triageChat').innerHTML='';
+  document.getElementById('quickReplies').innerHTML='';
+  document.getElementById('progressFill').style.width='0%';
+  var primeiroNome = nomePacienteValido(pacienteNome) ? pacienteNome.split(' ')[0] : '';
+  addMsg('triageChat','bot','Olá'+(primeiroNome?', '+primeiroNome:'')+'! Sou o assistente de triagem da ConsultaJá24h.\nVou fazer algumas perguntas rápidas para ajudar o médico a entender melhor seu caso.\n\nQual é o problema que está sentindo?');
+  step=1; updateProgress(1);
+}
+function addMsg(id,tipo,texto){
+  var chat=document.getElementById(id); var div=document.createElement('div');
+  div.className='msg msg--'+tipo;
+  var safe=String(texto||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  var av=tipo==='bot'?'<div class="msg__av">&#x1F916;</div>':'<div class="msg__av">&#x1F464;</div>';
+  var bub='<div class="msg__bubble">'+safe+'</div>';
+  div.innerHTML=tipo==='bot'?av+bub:bub+av; chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
+}
+function showTyping(id){
+  var chat=document.getElementById(id); var div=document.createElement('div');
+  div.className='msg msg--bot'; div.id=id+'-typ';
+  div.innerHTML='<div class="msg__av">&#x1F916;</div><div class="msg__bubble"><div class="typing"><span></span><span></span><span></span></div></div>';
+  chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
+}
+function removeTyping(id){ var el=document.getElementById(id+'-typ'); if(el) el.remove(); }
+function updateProgress(s){ document.getElementById('progressFill').style.width=Math.min(Math.round(s/6*100),100)+'%'; }
+function setQR(opts){
+  var box=document.getElementById('quickReplies'); box.innerHTML='';
+  if(!opts||!opts.length) return;
+  opts.forEach(function(o){ var b=document.createElement('button'); b.className='qr'; b.textContent=o; b.onclick=function(){ sendTriage(o); box.innerHTML=''; }; box.appendChild(b); });
+}
+async function sendTriage(text){
+  if(!text||pending) return;
+  pending=true; document.getElementById('triageSend').disabled=true;
+  addMsg('triageChat','user',text);
+  document.getElementById('triageInput').value=''; document.getElementById('triageInput').style.height='auto';
+  setQR([]); step++; updateProgress(step); showTyping('triageChat');
+  var reply=await callAPI('/api/triage',SYSTEM_TRIAGE,triageHistory,text);
+  removeTyping('triageChat');
+  try{
+    var clean=String(reply).replace(/```[a-zA-Z0-9_-]*\n?/g,'').replace(/```/g,'').trim();
+    var parsed=null;
+    try{ parsed=JSON.parse(clean); }catch(e){}
+    if(!parsed){ var match=clean.match(/\{[\s\S]*?"done"\s*:\s*true[\s\S]*?\}/); if(match){ try{ parsed=JSON.parse(match[0]); }catch(e){} } }
+    if(parsed&&parsed.done&&parsed.summary){
+      anamnesis.summary=parsed.summary; updateProgress(6);
+      addMsg('triageChat','bot','Triagem concluída! ✓\nAguarde enquanto você entra na fila.');
+      await esperar(1200); finalizarTriagem();
+      pending=false; document.getElementById('triageSend').disabled=false; return;
+    }
+  }catch(e){}
+  addMsg('triageChat','bot',reply);
+  if(step===2) setQR(['Masculino','Feminino','Prefiro não dizer']);
+  if(step===3) setQR(['Sim, tenho febre','Não tenho febre']);
+  if(step===4) setQR(['Não tenho','Sim, tenho']);
+  if(step===5) setQR(['Apenas atestado','Apenas receita','Ambos','Nenhum']);
+  pending=false; document.getElementById('triageSend').disabled=false;
+}
+async function finalizarTriagem(){
+  addMsg('triageChat','bot','Conectando você ao médico...');
+  try{
+    if(!atendimentoId) throw new Error('Sessão perdida. Recarregue a página.');
+    var r=await fetch(API+'/api/atendimento/atualizar-triagem',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        atendimentoId,
+        triagem:anamnesis.summary||'',
+        nome:pacienteNome,
+        tel:pacienteTel,
+        cpf:pacienteCPF,
+        data_nascimento:pacienteNascimento,
+        email:pacienteEmail||''
+      })});
+    var d=await r.json();
+    if(!d.ok){
+      if(d.error === 'nome_paciente_obrigatorio'){
+        pedirDadosPacienteAntesDe('finalizar');
+        return;
+      }
+      throw new Error(d.error||'Erro ao registrar triagem');
+    }
+    salvarSessao();
+    trackTriagemEvento('triagem_concluida');
+    // Triagem concluída — vai direto para sala de espera (modalidade já foi selecionada antes)
+    mostrarSalaEspera();
+  }catch(e){
+    console.error('finalizarTriagem error:',e);
+    var chat=document.getElementById('triageChat');
+    var last=chat.lastElementChild; if(last) last.remove();
+    addMsg('triageChat','bot','❌ Não conseguimos registrar seu atendimento. Verifique sua conexão e tente novamente.');
+    var div=document.createElement('div'); div.style='padding:0 14px 14px';
+    div.innerHTML='<button onclick="finalizarTriagem()" style="width:100%;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;font-family:Outfit,sans-serif;font-weight:700;font-size:.9rem;cursor:pointer">Tentar novamente</button>';
+    chat.appendChild(div); chat.scrollTop=chat.scrollHeight;
+  }
+}
+
+// ─── SCREEN 4: Modalidade ───────────────────────────────────────────────────
+function mostrarModalidade(){
+  // Guard: only allowed once, immediately after triage.
+  // If flow already passed modality (waiting/atendimento/final), skip straight to waiting.
+  if(flowHasPassed('modality')){
+    console.warn('[FLOW] mostrarModalidade bloqueada — estado atual: '+flowState);
+    mostrarSalaEspera();
+    return;
+  }
+  setFlowState('modality');
+  showScreen('modality');
+  setNavLabel('MODALIDADE');
+  // Chat preselected by default already in HTML
+}
+function selecionarModalidade(tipo, el){
+  document.querySelectorAll('.modal-card').forEach(function(c){ c.classList.remove('selected'); });
+  el.classList.add('selected'); tipoConsulta=tipo;
+  var btn = document.getElementById('btnModalCont');
+  btn.textContent = 'Continuar →';
+}
+async function confirmarModalidade(){
+  // Persistir modalidade no backend antes de iniciar a triagem.
+  // Best-effort: não bloqueia o fluxo se falhar.
+  if(atendimentoId){
+    try{
+      var r = await fetch(API+'/api/atendimento/atualizar-modalidade',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({atendimentoId:atendimentoId, tipo:tipoConsulta})
+      });
+      if(!r.ok) console.warn('[MODALIDADE] Endpoint retornou status '+r.status);
+    }catch(e){
+      console.warn('[MODALIDADE] Falha ao persistir modalidade:',e.message);
+    }
+  }
+  irParaTriagem();
+}
+
+// ─── SCREEN 5: Espera / Consulta ────────────────────────────────────────────
+var tentativas=0, esperaPoller=null, chatPoller=null, meetPoller=null, encerradoPoller=null, chatAtivo=false, ultimaMsgId=0;
+
+function mostrarTelaEspera(){
+  setFlowState('waiting');
+  showScreen('espera'); setNavLabel('AGUARDANDO MÉDICO');
+  mostrarLinkRetorno();
+  var badge=document.getElementById('esperaBadge'); badge.className='espera-badge '+tipoConsulta;
+  document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
+  document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
+  tentativas=0;
+}
+function mostrarSalaEspera(){
+  mostrarTelaEspera();
+  // Aplica aviso noturno na sala de espera usando dado já carregado na tela de pagamento
+  if(dispData && typeof dispData.avisoHorario !== 'undefined'){
+    aplicarAvisoHorario(dispData.avisoHorario);
+  } else {
+    // Fallback: busca disponibilidade se ainda não tiver (ex: restauração de sessão)
+    fetch(API+'/api/disponibilidade')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ dispData=d; aplicarAvisoHorario(d.avisoHorario); })
+      .catch(function(){});
+  }
+  verificarStatus(); esperaPoller=setInterval(verificarStatus,5000);
+}
+async function verificarStatus(){
+  if(!atendimentoId){ atualizarContador(); return; }
+  try{
+    var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+    var data=await res.json(); if(!data.ok) return;
+    atualizarContador(); var a=data.atendimento;
+    // [UX] Posição na fila — só mostra se estiver aguardando e houver mais gente
+    _atualizarFilaUI(data.fila, a.status);
+    // [UX] Após 5min aguardando, mostra mensagem de reasseguramento
+    _atualizarDemoraUI(a.status);
+    if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
+    if(a.status==='cancelado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); mostrarPagamentoCancelado(); return; }
+    if(a.status==='aguardando_aprovacao') return;
+    if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')&&!encerradoPoller){ clearInterval(esperaPoller); medicoAssumiu(a); }
+  }catch(e){}
+}
+// [UX] Atualiza bloco de posição na fila
+function _atualizarFilaUI(fila, status){
+  var box=document.getElementById('esperaFila'); if(!box) return;
+  if(status!=='aguardando'||!fila||!fila.posicao||fila.total<=1){ box.style.display='none'; return; }
+  var txt=document.getElementById('esperaFilaTxt');
+  if(fila.posicao===1) txt.textContent='Você é o próximo da fila';
+  else txt.textContent='Você é o '+fila.posicao+'º da fila · '+fila.total+' aguardando';
+  box.style.display='inline-block';
+}
+// [UX] Mostra aviso de demora após 5min (tentativas*5s >= 300s)
+function _atualizarDemoraUI(status){
+  var box=document.getElementById('esperaDemora'); if(!box) return;
+  if(status!=='aguardando'){ box.style.display='none'; return; }
+  box.style.display=(tentativas*5>=300)?'block':'none';
+}
+function atualizarContador(){
+  tentativas++; var total=tentativas*5; var mins=Math.floor(total/60); var secs=total%60;
+  var el=document.getElementById('esperaContador');
+  if(el) el.textContent=(mins>0?mins+'min ':'')+secs+'s';
+}
+function medicoAssumiu(a){
+  setFlowState('atendimento');
+  document.getElementById('esperaTitulo').textContent='Médico disponível!';
+  document.getElementById('esperaSub').textContent='O médico assumiu seu atendimento.';
+  document.getElementById('esperaIcon').textContent='✓';
+  document.getElementById('esperaStatusTxt').textContent='';
+  document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(94,224,160,.2),rgba(180,224,90,.15))';
+  encerradoPoller=setInterval(async function(){
+    try{
+      var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+      var data=await res.json();
+      if(!data.ok||!data.atendimento){ clearInterval(encerradoPoller); return; }
+      var at=data.atendimento;
+      if(at.status==='encerrado'){ clearInterval(encerradoPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
+      if(tipoConsulta==='video'&&at.meet_link&&meetPoller){ clearInterval(meetPoller); meetPoller=null; ativarLinkMeet(at.meet_link); }
+    }catch(e){}
+  },8000);
+  if(tipoConsulta==='chat') iniciarChatConsulta(a);
+  else iniciarVideoConsulta(a);
+}
+function iniciarChatConsulta(atendimento){
+  if(atendimento.medico_nome){
+    window._medicoNomeAtual=atendimento.medico_nome; // [UX] usado em renderMsgChat
+    document.getElementById('chatMedicoLabel').textContent='Seu m\u00e9dico \u00e9 '+atendimento.medico_nome+'. Pode enviar sua mensagem.';
+    document.getElementById('medicoNomeBanner').textContent=atendimento.medico_nome;
+    document.getElementById('medicoEntrou').style.display='flex';
+  }
+  document.getElementById('chatConsulta').classList.add('ativo');
+  carregarHistoricoChat().then(function(){ chatAtivo=true; if(!chatPoller) chatPoller=setInterval(buscarMensagensNovas,3000); });
+  var inp=document.getElementById('chatInputPaciente');
+  // [UX] Flag anti-duplicação de listeners (iniciarVideoConsulta também chama isso agora)
+  if(inp && !inp._init){
+    inp._init=true;
+    inp.addEventListener('input',function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
+    inp.addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensagemChat(); } });
+  }
+}
+async function carregarHistoricoChat(){
+  if(!atendimentoId) return;
+  try{
+    var res=await fetch(API+'/api/chat/'+atendimentoId); var data=await res.json();
+    if(!data.ok) return;
+    var msgs=data.mensagens||[];
+    if(msgs.length>0){ msgs.forEach(function(m){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); ultimaMsgId=m.id; }); }
+  }catch(e){}
+}
+async function buscarMensagensNovas(){
+  if(!atendimentoId||!chatAtivo) return;
+  try{
+    var res=await fetch(API+'/api/chat/'+atendimentoId); var data=await res.json();
+    if(!data.ok) return;
+    var viuMedico=false;
+    (data.mensagens||[]).forEach(function(m){ if(m.id>ultimaMsgId){ if(m.autor==='medico'){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); viuMedico=true; } ultimaMsgId=m.id; } });
+    // [UX] Quando chega msg nova do médico, pulsa o "digitando..." por 2s — sinaliza presença ativa
+    if(viuMedico) _pulsarTyping();
+  }catch(e){}
+}
+async function enviarMensagemChat(){
+  if(arquivoTriagem){ await enviarArquivoTriagem(); return; }
+  var inp=document.getElementById('chatInputPaciente'); var texto=inp.value.trim();
+  if(!texto||!atendimentoId) return;
+  inp.value=''; inp.style.height='auto';
+  renderMsgChat('paciente',texto,new Date().toISOString());
+  try{
+    var r=await fetch(API+'/api/chat/enviar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({atendimentoId,autor:'paciente',texto})});
+    var d=await r.json(); if(d.ok&&d.mensagem&&d.mensagem.id>ultimaMsgId) ultimaMsgId=d.mensagem.id;
+  }catch(e){}
+}
+// [UX] Helper: pulsa indicador "médico digitando" por ~2s quando médico envia nova msg
+var _typingTimer=null;
+function _pulsarTyping(){
+  var tip=document.getElementById('typingIndicator'); if(!tip) return;
+  tip.classList.add('visivel');
+  var msgs=document.getElementById('chatMsgs'); if(msgs) msgs.scrollTop=msgs.scrollHeight;
+  clearTimeout(_typingTimer);
+  _typingTimer=setTimeout(function(){ tip.classList.remove('visivel'); },2200);
+}
+function renderMsgChat(autor,texto,timestamp,arquivoUrl,arquivoTipo,arquivoNome){
+  var msgs=document.getElementById('chatMsgs'); var div=document.createElement('div');
+  div.className='cmsg '+autor;
+  var hora=''; try{ hora=new Date(timestamp).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }catch(e){}
+  var safe=String(texto||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  var arquivoHtml='';
+  if(arquivoUrl&&arquivoTipo==='imagem'){
+    arquivoHtml='<a href="'+arquivoUrl+'" target="_blank"><img class="msg-arquivo-img" src="'+arquivoUrl+'" alt="imagem"/></a>';
+  } else if(arquivoUrl&&arquivoTipo==='pdf'){
+    // [UX v3] Card PDF minimalista: ícone + nome real + "PDF" + seta
+    var nomeArq=String(arquivoNome||'documento.pdf').slice(0,80).replace(/[<>"']/g,'');
+    arquivoHtml='<a class="msg-arquivo-pdf" href="'+arquivoUrl+'" target="_blank"><span class="pdf-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><span class="pdf-meta"><span class="pdf-nome">'+nomeArq+'</span><span class="pdf-sub">PDF</span></span><svg class="pdf-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>';
+  }
+  // [UX v3] Sem avatar/sender. Anexo fica fora da bub (card standalone).
+  if(arquivoUrl){
+    div.innerHTML='<div class="bwrap">'+arquivoHtml+'<div class="ts">'+hora+'</div></div>';
+  } else {
+    div.innerHTML='<div class="bwrap"><div class="bub">'+safe+'</div><div class="ts">'+hora+'</div></div>';
+  }
+  // Insere ANTES do indicador "digitando"
+  var tip=document.getElementById('typingIndicator');
+  if(tip&&tip.parentNode===msgs) msgs.insertBefore(div,tip); else msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+var arquivoTriagem=null;
+function onArquivoTriagemSelecionado(input){
+  var file=input.files[0]; if(!file) return;
+  arquivoTriagem=file;
+  var wrap=document.getElementById('chat-preview-wrap');
+  var nome=document.getElementById('chat-preview-nome');
+  var img=document.getElementById('chat-preview-img');
+  nome.textContent=file.name;
+  wrap.classList.add('visivel');
+  if(file.type.startsWith('image/')){ img.style.display='block'; img.src=URL.createObjectURL(file); }
+  else { img.style.display='none'; }
+  input.value='';
+}
+function cancelarArquivoTriagem(){
+  arquivoTriagem=null;
+  document.getElementById('chat-preview-wrap').classList.remove('visivel');
+  document.getElementById('chat-preview-img').src='';
+  document.getElementById('chat-preview-nome').textContent='';
+}
+async function enviarArquivoTriagem(){
+  if(!arquivoTriagem||!atendimentoId) return;
+  var file=arquivoTriagem; cancelarArquivoTriagem();
+  var fd=new FormData();
+  fd.append('arquivo',file); fd.append('atendimentoId',atendimentoId); fd.append('autor','paciente');
+  try{
+    var res=await fetch(API+'/api/chat/upload',{method:'POST',body:fd});
+    var data=await res.json();
+    if(data.ok&&data.mensagem){ var m=data.mensagem; renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); if(m.id>ultimaMsgId) ultimaMsgId=m.id; }
+  }catch(e){}
+}
+function iniciarVideoConsulta(atendimento){
+  if(atendimento.medico_nome){ document.getElementById('medicoNomeBannerVideo').textContent=atendimento.medico_nome; document.getElementById('medicoEntrouVideo').style.display='flex'; }
+  document.getElementById('meetWrap').classList.add('ativo');
+  // [UX] Em vídeo, ATIVA o chat também — paciente precisa poder anexar exames/fotos/receitas.
+  // O chat aparece abaixo do botão do Meet e compartilha toda a lógica já existente.
+  iniciarChatConsulta(atendimento);
+  if(atendimento.meet_link){ ativarLinkMeet(atendimento.meet_link); }
+  else{
+    meetPoller=setInterval(async function(){
+      try{
+        var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+        var data=await res.json();
+        if(!data.ok||!data.atendimento){ clearInterval(meetPoller); meetPoller=null; return; }
+        var at=data.atendimento;
+        if(at.status==='encerrado'){ clearInterval(meetPoller); meetPoller=null; encerrarConsultaPaciente(); return; }
+        if(at.meet_link){ clearInterval(meetPoller); meetPoller=null; ativarLinkMeet(at.meet_link); }
+      }catch(e){}
+    },4000);
+  }
+}
+function ativarLinkMeet(link){
+  var btn=document.getElementById('btnMeetLink'); btn.href=link; btn.classList.remove('disabled');
+  document.getElementById('meetAguardando').style.display='none';
+}
+function encerrarConsultaPaciente(){
+  setFlowState('final');
+  chatAtivo=false; clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
+  var inp=document.getElementById('chatInputPaciente'); var sendBtn=document.getElementById('chatSendBtn');
+  if(inp){ inp.disabled=true; inp.placeholder='Consulta encerrada'; }
+  if(sendBtn) sendBtn.disabled=true;
+  limparSessao(); mostrarTelaEncerrado();
+}
+function mostrarTelaEncerrado(){ setFlowState('final'); showScreen('encerrado'); setNavLabel('CONSULTA ENCERRADA'); }
+function mostrarPagamentoCancelado(){
+  setFlowState('final');
+  clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
+  showScreen('encerrado'); setNavLabel('PAGAMENTO');
+  document.getElementById('encerrado-icon').textContent='💳';
+  document.getElementById('encerrado-titulo').textContent='Pagamento não confirmado';
+  document.getElementById('encerrado-sub').innerHTML='Não conseguimos validar seu pagamento.<br>Gere um novo PIX para continuar.';
+  limparSessao();
+}
+
+// ─── CARD PAYMENT (Efí) ─────────────────────────────────────────────────────
+var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
+var _cardProcessando=false;
+
+async function pagarCartao(){
+  abrirCheckoutConsulta('triagem_cartao_desativado');
+  return;
+  if(_cardProcessando) return;
+  var nome       = document.getElementById('payNome').value.trim();
+  var tel        = pacienteTel;
+  var cpf        = document.getElementById('payCPF').value.trim();
+  var cpfNum     = cpf.replace(/\D/g,'');
+  var numero     = document.getElementById('cfNumero').value.replace(/\s/g,'');
+  var nomeCF     = document.getElementById('cfNome').value.trim();
+  var validade   = document.getElementById('cfValidade').value.trim();
+  var cvv        = document.getElementById('cfCvv').value.trim();
+  var parcelas   = parseInt(document.getElementById('cfParcelas').value)||1;
+  var errEl      = document.getElementById('cardErrMsg');
+  function mostrarErroCard(msg){ errEl.textContent=msg; errEl.style.display='block'; }
+  errEl.style.display='none';
+  if(!nomePacienteValido(nome)){ document.getElementById('payNome').focus(); mostrarErroCard('Informe nome e sobrenome.'); return; }
+  if(!cpfNum||cpfNum.length!==11){ document.getElementById('payCPF').focus(); mostrarErroCard('CPF inválido.'); return; }
+  if(numero.length<13){ mostrarErroCard('Número do cartão inválido.'); return; }
+  if(!nomeCF){ mostrarErroCard('Informe o nome como aparece no cartão.'); return; }
+  var partes=validade.split('/');
+  if(partes.length!==2||partes[0].length!==2||partes[1].length!==4){ mostrarErroCard('Validade inválida. Use MM/AAAA.'); return; }
+  if(!cvv||cvv.length<3){ mostrarErroCard('CVV inválido.'); return; }
+  if(!pacienteEmail||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(pacienteEmail)){ mostrarErroCard('E-mail inválido. Informe acima.'); return; }
+  var mes=partes[0]; var ano=partes[1];
+  _cardProcessando=true;
+  var btnCard=document.getElementById('btnPagarCard');
+  btnCard.disabled=true; btnCard.textContent='Processando...';
+  document.getElementById('cardProcessing').style.display='block';
+  pacienteNome=normalizarNomePacienteLocal(nome); pacienteCPF=cpfNum;
+  try{
+    if(!atendimentoId){
+      var rPre=await fetch(API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({nome,tel,tel_documentos:pacienteTelDoc||tel,cpf:cpfNum,
+          triagem:'(aguardando pagamento)',tipo:tipoConsulta,data_nascimento:pacienteNascimento,email:pacienteEmail||'',ads:adsAttributionPayload()})});
+      var dPre=await rPre.json();
+      if(!dPre||!dPre.atendimentoId) throw new Error(dPre&&dPre.error?dPre.error:'Não foi possível iniciar o atendimento.');
+      atendimentoId=dPre.atendimentoId; salvarSessao();
+      if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
+    }
+    if(typeof EfiPay==='undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
+    var tokenResult=await EfiPay.CreditCard.setAccount(EFI_PAYEE_CODE).setEnvironment('production').setCreditCardData({
+      brand:detectarBandeira(numero),number:numero,cvv,expirationMonth:mes,expirationYear:ano,holderName:nomeCF,holderDocument:cpfNum,reuse:false
+    }).getPaymentToken();
+    if(!tokenResult||!tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão. Verifique os dados.');
+    var r=await fetch(API+'/api/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({payment_token:tokenResult.payment_token,nome,cpf:cpfNum,email:pacienteEmail,telefone:tel,parcelas,atendimentoId:atendimentoId||undefined,ads:adsAttributionPayload()})});
+    var d=await r.json();
+    var cardOk=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.status==='succeeded'||d.transaction_id||d.transactionId));
+    if(cardOk){
+      pagamentoConfirmadoLocal = true;
+      salvarSessao();
+      document.getElementById('cardProcessing').textContent='✅ Pagamento aceito! Redirecionando...';
+      await esperar(900);
+      if(redirecionarConfirmadoObrigatorio('cartao','triagem_cartao_aprovado')) return;
+      // Cartão: CPF já coletado → ir para modalidade
+      mostrarModalidade();
+    } else { throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.'); }
+  }catch(e){
+    document.getElementById('cardErrMsg').textContent='❌ '+(e.message||'Erro ao processar. Tente novamente.');
+    document.getElementById('cardErrMsg').style.display='block';
+    document.getElementById('cardProcessing').style.display='none';
+    console.error('[CARTAO]',e);
+  }finally{
+    _cardProcessando=false; btnCard.disabled=false; btnCard.textContent='Continuar para atendimento →';
+  }
+}
+function detectarBandeira(numero){
+  var n=numero.replace(/\D/g,'');
+  if(/^4/.test(n)) return 'visa';
+  if(/^5[1-5]/.test(n)) return 'mastercard';
+  if(/^3[47]/.test(n)) return 'amex';
+  if(/^(636368|438935|504175|451416|636297|5067|4576|4011)/.test(n)) return 'elo';
+  if(/^(6062|3841)/.test(n)) return 'hipercard';
+  if(/^301|^36|^38/.test(n)) return 'diners';
+  return 'visa';
+}
+
+// ─── RESTAURAR PIX APÓS RETORNO ─────────────────────────────────────────────
+// Chamado quando o paciente volta à tela de pagamento com um orderId já gerado.
+// Reconstrói o QR a partir da chave salva (ou apenas retoma o polling se não tiver).
+function restaurarPixAposRetorno(orderId){
+  abrirCheckoutConsulta('triagem_restaurar_pix_desativado');
+  return;
+  if(!orderId) return;
+  pagbankOrderId = orderId;
+
+  // Mostrar seção QR
+  var qrWrap = document.getElementById('pix-qr-wrap');
+  if(qrWrap) qrWrap.classList.add('show');
+
+  // Esconder botão gerar
+  var btn = document.getElementById('payBtn');
+  if(btn) btn.style.display = 'none';
+
+  // Mostrar status de aguardando
+  var statusEl = document.getElementById('pay-polling-status');
+  if(statusEl){
+    statusEl.textContent = '⏳ Aguardando confirmação do pagamento…';
+    statusEl.className = 'pay-polling-status';
+    statusEl.style.display = 'block';
+  }
+
+  // Regenerar QR via API qrserver se temos a chave salva no input
+  var chaveInput = document.getElementById('pixChaveInput');
+  var chave = chaveInput ? chaveInput.value : '';
+  if(!chave){
+    // Tenta buscar status do backend — se já pago, avança; se não, só retoma polling
+    fetch(API+'/api/pagbank/order/'+orderId)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d.ok && d.pago){
+          clearInterval(paymentPoller);
+          if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
+          pagamentoConfirmadoLocal = true;
+          salvarSessao();
+          if(redirecionarConfirmadoObrigatorio('pix','triagem_restaurar_pix_pago')) return;
+          setTimeout(mostrarCpfPosPix, 800);
+        } else {
+          iniciarPollingPagamento();
+        }
+      })
+      .catch(function(){ iniciarPollingPagamento(); });
+    return;
+  }
+
+  // Tem a chave — exibir QR novamente
+  var imgEl = document.getElementById('pay-qr-img');
+  if(imgEl && !imgEl.src){
+    imgEl.onload  = function(){ imgEl.style.display='block'; };
+    imgEl.onerror = function(){ imgEl.style.display='none'; var fb=document.getElementById('pay-qr-fallback'); if(fb) fb.style.display='flex'; };
+    imgEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data='+encodeURIComponent(chave);
+  }
+
+  iniciarPollingPagamento();
+}
+
+// ─── AVISO DE SAÍDA / TROCA DE TELA ──────────────────────────────────────────
+// Estados que merecem aviso antes de sair (o paciente perderia a posição na fila)
+var ESTADOS_CRITICOS = ['triage','waiting','atendimento'];
+
+function estadoCritico(){
+  return ESTADOS_CRITICOS.indexOf(flowState) !== -1;
+}
+
+// beforeunload: avisa se tentar fechar/recarregar durante estados críticos
+window.addEventListener('beforeunload', function(e){
+  if(!estadoCritico()) return;
+  var msg = 'Você está em atendimento. Sair pode fazer você perder sua posição na fila.';
+  e.preventDefault();
+  e.returnValue = msg;
+  return msg;
+});
+
+// visibilitychange: avisa quando paciente sai da tela durante PIX aguardando pagamento
+// Não bloqueia — apenas exibe banner de alerta quando volta
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden) return; // saiu — não faz nada
+
+  // Voltou à tela
+  var statusPix = flowState === 'payment' && pagbankOrderId;
+  var statusEspera = flowState === 'waiting' || flowState === 'triage';
+
+  if(statusPix){
+    // Paciente voltou durante aguardo do PIX — verificar se já pagou
+    if(!paymentPoller){
+      var statusEl = document.getElementById('pay-polling-status');
+      if(statusEl){ statusEl.textContent='⏳ Verificando pagamento...'; statusEl.className='pay-polling-status'; statusEl.style.display='block'; }
+      fetch(API+'/api/pagbank/order/'+pagbankOrderId)
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if(d.ok && d.pago){
+            if(statusEl){ statusEl.textContent='✅ Pagamento confirmado!'; statusEl.className='pay-polling-status ok'; }
+            pagamentoConfirmadoLocal = true;
+            salvarSessao();
+            if(redirecionarConfirmadoObrigatorio('pix','triagem_visibility_pix_pago')) return;
+            setTimeout(mostrarCpfPosPix, 800);
+          } else {
+            iniciarPollingPagamento(); // retoma polling
+          }
+        })
+        .catch(function(){ iniciarPollingPagamento(); });
+    }
+  }
+
+  if(statusEspera && atendimentoId){
+    // Paciente voltou durante espera — força verificação imediata de status
+    verificarStatus();
+  }
+});
+
+// ─── CONFIRMAR SAÍDA DA CONSULTA ─────────────────────────────────────────────
+// Chamado pelo botão "Iniciar nova consulta" na sala de espera.
+// Se há pagamento confirmado e consulta ativa, pede confirmação antes de descartar.
+function confirmarSairConsulta(){
+  // Só bloqueia se há atendimento ativo com pagamento
+  if(!atendimentoId || !estadoCritico()){
+    novaConsulta();
+    return;
+  }
+
+  // Criar modal de confirmação inline
+  var overlay = document.createElement('div');
+  overlay.id = 'confirm-sair-overlay';
+  overlay.style.cssText = [
+    'position:fixed','inset:0','z-index:9999',
+    'background:rgba(6,13,11,.88)','backdrop-filter:blur(8px)',
+    'display:flex','align-items:center','justify-content:center','padding:20px'
+  ].join(';');
+
+  overlay.innerHTML = [
+    '<div style="background:#0d1a14;border:1px solid rgba(255,255,255,.1);border-radius:18px;',
+    'max-width:360px;width:100%;padding:28px 24px;text-align:center">',
+    '<div style="font-size:2rem;margin-bottom:12px">⚠️</div>',
+    '<div style="font-family:Outfit,sans-serif;font-size:1rem;font-weight:600;',
+    'color:#fff;margin-bottom:10px">Tem certeza que deseja sair?</div>',
+    '<p style="font-size:.82rem;font-weight:300;color:rgba(255,255,255,.5);',
+    'line-height:1.65;margin-bottom:22px">',
+    'Você já pagou e está na fila de atendimento. Se sair, perderá sua posição.<br>',
+    '<strong style="color:rgba(255,255,255,.75)">Você pode retornar a esta mesma página</strong> ',
+    'para recuperar o atendimento.',
+    '</p>',
+    '<button id="confirm-sair-sim" style="width:100%;padding:13px;border-radius:11px;border:none;',
+    'background:rgba(255,95,87,.15);border:1px solid rgba(255,95,87,.3);',
+    'color:#ff8080;font-family:Outfit,sans-serif;font-size:.88rem;font-weight:600;',
+    'cursor:pointer;margin-bottom:10px">Sair mesmo assim</button>',
+    '<button id="confirm-sair-nao" style="width:100%;padding:13px;border-radius:11px;border:none;',
+    'background:linear-gradient(135deg,#b4e05a,#5ee0a0);',
+    'color:#051208;font-family:Outfit,sans-serif;font-size:.88rem;font-weight:700;',
+    'cursor:pointer">Continuar aguardando</button>',
+    '</div>'
+  ].join('');
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('confirm-sair-sim').onclick = function(){
+    document.body.removeChild(overlay);
+    novaConsulta();
+  };
+  document.getElementById('confirm-sair-nao').onclick = function(){
+    document.body.removeChild(overlay);
+  };
+  // Fechar clicando fora
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) document.body.removeChild(overlay);
+  });
+}
+
+// ─── NOVA CONSULTA ──────────────────────────────────────────────────────────
+function novaConsulta(){
+  resetFlowState();
+  // Limpar todos os pollers ativos antes de qualquer outra coisa
+  clearInterval(paymentPoller);
+  clearInterval(esperaPoller);
+  clearInterval(chatPoller);
+  clearInterval(meetPoller);
+  clearInterval(encerradoPoller);
+  paymentPoller=null; esperaPoller=null; chatPoller=null; meetPoller=null; encerradoPoller=null;
+
+  limparSessao();
+  // Limpar marcador de conversão GTM para nova consulta poder disparar evento
+  // conv agora usa localStorage com chave por atendimentoId — não precisa limpar (é por atendimento)
+
+  // Resetar estado global
+  atendimentoId=null; tipoConsulta='chat';
+  chatAtivo=false; ultimaMsgId=0; tentativas=0;
+  paymentId=null; pagbankOrderId=null;
+  pacienteNome=''; pacienteTel=''; pacienteCPF=''; pacienteEmail=''; pacienteTelDoc=''; pacienteNascimento='';
+
+  // Resetar form whatsapp
+  document.getElementById('wppTel').value='';
+  document.getElementById('wppNome').value='';
+  document.getElementById('wppNasc').value='';
+  document.getElementById('nome-wrap').style.display='none';
+  document.getElementById('nasc-wrap').style.display='none';
+  document.getElementById('autofill-status').className='autofill-status';
+  document.getElementById('fb-wpp').classList.remove('show');
+  document.getElementById('btnWpp').onclick=avancarWhatsapp;
+  document.getElementById('btnWpp').textContent='Iniciar atendimento agora →';
+
+  // Resetar campos de pagamento
+  var pixCpfEl = document.getElementById('pixCPF');
+  if(pixCpfEl) pixCpfEl.value='';
+  var cpfPosEl = document.getElementById('cpfPosPix');
+  if(cpfPosEl) cpfPosEl.value='';
+
+  // Resetar modalidade (chat pré-selecionado)
+  var cardChat=document.getElementById('cardChat'); var cardVideo=document.getElementById('cardVideo');
+  if(cardChat){ cardChat.classList.add('selected'); } if(cardVideo){ cardVideo.classList.remove('selected'); }
+  document.getElementById('btnModalCont').textContent='Continuar →';
+
+  // Resetar DOM da sala de espera para estado inicial
+  var esperaTitulo=document.getElementById('esperaTitulo');
+  var esperaSub=document.getElementById('esperaSub');
+  var esperaIcon=document.getElementById('esperaIcon');
+  var esperaStatusTxt=document.getElementById('esperaStatusTxt');
+  var esperaContador=document.getElementById('esperaContador');
+  var esperaAnim=document.getElementById('esperaAnim');
+  if(esperaTitulo) esperaTitulo.textContent='Médico sendo notificado';
+  if(esperaSub) esperaSub.textContent='Fique nesta página. O médico assume em instantes.';
+  if(esperaIcon) esperaIcon.textContent='⏳';
+  if(esperaStatusTxt) esperaStatusTxt.textContent='';
+  if(esperaContador) esperaContador.textContent='';
+  if(esperaAnim) esperaAnim.style.background='';
+
+  // Resetar chat da consulta
+  var chatConsulta=document.getElementById('chatConsulta');
+  if(chatConsulta){ chatConsulta.classList.remove('ativo'); }
+  var medicoEntrou=document.getElementById('medicoEntrou');
+  if(medicoEntrou) medicoEntrou.style.display='none';
+  var chatMsgs=document.getElementById('chatMsgs');
+  if(chatMsgs) chatMsgs.innerHTML='';
+  var chatInp=document.getElementById('chatInputPaciente');
+  if(chatInp){ chatInp.disabled=false; chatInp.placeholder='Digite sua mensagem...'; chatInp.value=''; chatInp.style.height='auto'; }
+  var chatSend=document.getElementById('chatSendBtn');
+  if(chatSend) chatSend.disabled=false;
+
+  // Resetar videochamada
+  var meetWrap=document.getElementById('meetWrap');
+  if(meetWrap) meetWrap.classList.remove('ativo');
+  var meetAguardando=document.getElementById('meetAguardando');
+  if(meetAguardando) meetAguardando.style.display='block';
+  var btnMeet=document.getElementById('btnMeetLink');
+  if(btnMeet){ btnMeet.href='#'; btnMeet.classList.add('disabled'); }
+  var medicoEntrouVideo=document.getElementById('medicoEntrouVideo');
+  if(medicoEntrouVideo) medicoEntrouVideo.style.display='none';
+
+  history.replaceState(null,'','/triagem.html');
+  showScreen('whatsapp'); setNavLabel('');
+}
+
+// ─── UTILS ──────────────────────────────────────────────────────────────────
+async function callAPI(endpoint,system,history,userMsg){
+  history.push({role:'user',content:userMsg});
+  try{
+    var ctrl=new AbortController(); var t=setTimeout(function(){ ctrl.abort(); },35000);
+    var res=await fetch(API+endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system,messages:history}),signal:ctrl.signal});
+    clearTimeout(t); if(!res.ok) throw new Error('HTTP '+res.status);
+    var data=await res.json(); var text=data.text||'';
+    if(!text) throw new Error('vazia');
+    history.push({role:'assistant',content:text}); return text;
+  }catch(e){
+    history.pop();
+    if(e.name==='AbortError') return 'O servidor demorou demais. Aguarde 30s e tente novamente.';
+    return 'Erro de conexão. Verifique sua internet.';
+  }
+}
+function esperar(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+
+function mascaraNasc(el){
+  var v=el.value.replace(/\D/g,'');
+  if(v.length>8) v=v.slice(0,8);
+  if(v.length>4) v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+  else if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
+  el.value=v;
+  var fb=document.getElementById('fb-nasc');
+  if(fb){ var ok=(v.length===10); fb.classList.toggle('show',ok); }
+}
+// Converte DD/MM/AAAA → AAAA-MM-DD para o backend (Memed espera ISO)
+function converterNascimento(val){
+  if(!val||val.length!==10) return val||'';
+  var p=val.split('/');
+  if(p.length!==3) return val;
+  return p[2]+'-'+p[1]+'-'+p[0];
+}
+
+// ─── VERIFICAR PAGAMENTO MANUAL ─────────────────────────────────────────────
+var _jaPagTimer = null;
+
+function iniciarTimerJaPaguei(){
+  // Mostra o botão "já paguei" após 2 minutos sem confirmação
+  clearTimeout(_jaPagTimer);
+  var wrap = document.getElementById('ja-paguei-wrap');
+  if(wrap) wrap.style.display = 'none';
+  _jaPagTimer = setTimeout(function(){
+    var w = document.getElementById('ja-paguei-wrap');
+    if(w) w.style.display = 'block';
+  }, 2 * 60 * 1000);
+}
+
+async function verificarPagamentoManual(){
+  abrirCheckoutConsulta('triagem_verificar_pagamento_desativado');
+  return;
+  if(!pagbankOrderId) return;
+  var btn = document.getElementById('ja-paguei-btn');
+  var statusEl = document.getElementById('pay-polling-status');
+  btn.disabled = true;
+  btn.textContent = 'Verificando...';
+  statusEl.textContent = '🔍 Verificando seu pagamento...';
+  statusEl.className = 'pay-polling-status';
+  statusEl.style.display = 'block';
+  try{
+    var r = await fetch(API+'/api/pagbank/order/'+pagbankOrderId);
+    var d = await r.json();
+    if(d.ok && d.pago){
+      clearInterval(paymentPoller);
+      clearTimeout(_jaPagTimer);
+      statusEl.textContent = '✅ Pagamento confirmado! Avançando...';
+      statusEl.className = 'pay-polling-status ok';
+      document.getElementById('ja-paguei-wrap').style.display = 'none';
+      await esperar(800);
+      pagamentoConfirmadoLocal = true;
+      salvarSessao();
+      if(redirecionarConfirmadoObrigatorio('pix','triagem_manual_pix_pago')) return;
+      mostrarCpfPosPix();
+    } else {
+      // Também tenta pelo atendimentoId direto (cobre caso onde orderId não bateu)
+      if(atendimentoId){
+        var r2 = await fetch(API+'/api/atendimento/status/'+atendimentoId);
+        var d2 = await r2.json();
+        if(d2.ok && d2.atendimento && d2.atendimento.pagamento_status === 'confirmado'){
+          clearInterval(paymentPoller);
+          clearTimeout(_jaPagTimer);
+          statusEl.textContent = '✅ Pagamento confirmado! Avançando...';
+          statusEl.className = 'pay-polling-status ok';
+          document.getElementById('ja-paguei-wrap').style.display = 'none';
+          await esperar(800);
+          pagamentoConfirmadoLocal = true;
+          salvarSessao();
+          if(redirecionarConfirmadoObrigatorio('confirmado_backend','triagem_manual_backend_confirmado')) return;
+          mostrarCpfPosPix();
+          return;
+        }
+      }
+      statusEl.textContent = '⏳ Pagamento ainda não identificado. Aguarde mais alguns instantes.';
+      statusEl.className = 'pay-polling-status';
+      btn.disabled = false;
+      btn.textContent = '✓ Já paguei, verificar novamente';
+    }
+  } catch(e){
+    statusEl.textContent = '⚠️ Erro ao verificar. Tente novamente.';
+    statusEl.className = 'pay-polling-status err';
+    btn.disabled = false;
+    btn.textContent = '✓ Já paguei, verificar novamente';
+  }
+}
+
+// ─── LINK RETORNO ───────────────────────────────────────────────────────────
+function mostrarLinkRetorno(){
+  if(!atendimentoId) return;
+  var box = document.getElementById('link-retorno-box');
+  var inp = document.getElementById('link-retorno-input');
+  if(!box || !inp) return;
+  var link = location.origin + '/triagem.html?consulta=' + atendimentoId;
+  inp.value = link;
+  box.style.display = 'block';
+}
+
+function copiarLinkRetorno(){
+  var inp = document.getElementById('link-retorno-input');
+  if(!inp || !inp.value) return;
+  var btn = document.getElementById('btn-copiar-link');
+  function ok(){ btn.textContent = '✓ Copiado!'; setTimeout(function(){ btn.textContent = 'Copiar'; }, 2000); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(inp.value).then(ok).catch(function(){ fallbackCopy(inp.value); ok(); });
+  } else { fallbackCopy(inp.value); ok(); }
+}
+
+// ─── TRIAGE INPUT EVENTS ────────────────────────────────────────────────────
+(function(){
+  var ta=document.getElementById('triageInput');
+  ta.addEventListener('input',function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,110)+'px'; });
+  ta.addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendTriage(this.value.trim()); } });
+  document.getElementById('triageSend').addEventListener('click',function(){ sendTriage(document.getElementById('triageInput').value.trim()); });
+})();
+
+// ─── KEYBOARD SAFETY: s-whatsapp + s-cpf ────────────────────────────────────
+// When input is focused on vertically-centered screens, shift card to top
+// to prevent it being clipped behind the keyboard on small iPhones.
+(function(){
+  var screens = ['s-whatsapp','s-cpf','s-dados'];
+  screens.forEach(function(screenId){
+    var screen = document.getElementById(screenId);
+    if(!screen) return;
+    var inner = screen.querySelector('.s-inner');
+    if(!inner) return;
+    screen.addEventListener('focusin', function(e){
+      if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){
+        inner.classList.add('kb-open');
+      }
+    });
+    screen.addEventListener('focusout', function(){
+      // Small delay so layout doesn't jump while switching inputs
+      setTimeout(function(){ inner.classList.remove('kb-open'); }, 150);
+    });
+  });
+})();
+
+// ─── CHAT INPUT AUTO-RESIZE ─────────────────────────────────────────────────
+(function(){
+  var ta=document.getElementById('chatInputPaciente');
+  if(ta) ta.addEventListener('input',function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
+})();
+
+</script>
+</body>
+</html>
