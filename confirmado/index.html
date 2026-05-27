@@ -147,10 +147,10 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
     }catch(e){}
     console.log('[CONFIRMADO] Redirecionando sem CPF na URL');
     if(!consultaId){
-      window.location.href = '/triagem.html';
+      window.location.href = '/triagem';
       return;
     }
-    window.location.href = '/triagem.html?' + params.toString();
+    window.location.href = '/triagem?' + params.toString();
   }
 
   if(emDebug || !sessionStorage.getItem(chave)){
