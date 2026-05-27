@@ -2519,8 +2519,6 @@ function moAtualizarContexto(){
 async function moAbrir(contexto){
   moPreContexto = contexto || '';
   if(await moRetomarSessaoAtiva()) return;
-  moReiniciar();
-  moPreContexto = contexto || '';
   moTentouRecuperarSaida=false;
   moStepAntesSaida=1;
   moTrack('modal_open', {contexto:moPreContexto||'geral'});
@@ -3321,7 +3319,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }
   }catch(e){}
 
-  document.querySelectorAll('a[href*="triagem.html"],.btn-primary,.sticky-cta a,.nav__cta-link').forEach(function(el){
+  document.querySelectorAll('a[href*="triagem.html"]').forEach(function(el){
     el.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); moAbrir(); });
   });
 
