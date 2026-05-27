@@ -1284,6 +1284,17 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         // ── Pagamento pendente: a landing concentra o checkout.
         // A triagem só continua depois de pagamento confirmado.
         if(a.pagamento_status === 'pendente'){
+          if(jaPassouPorConfirmado(a.id) || (sessao && sessao.pagamentoConfirmado)){
+            atendimentoId = a.id; tipoConsulta = a.tipo || 'chat';
+            pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
+            pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
+            pagamentoConfirmadoLocal = true; salvarSessao();
+            esconderLoading();
+            if(!nomePacienteValido(pacienteNome)){ pedirDadosPacienteAntesDe('triage'); return; }
+            setFlowState('triage');
+            irParaTriagem();
+            return;
+          }
           var orderIdLocal = (sessao && sessao.pagbankOrderId) || null;
           if(orderIdLocal){
             try{
