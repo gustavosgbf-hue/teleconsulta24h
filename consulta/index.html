@@ -729,7 +729,7 @@ footer a:hover{color:var(--g2)}
 hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
-  body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
   .nav__in{padding:10px 14px;flex-wrap:wrap;gap:8px}
   .nav{border-bottom-color:rgba(67,223,126,.13)}
   .nav__brand{min-width:126px}
@@ -765,11 +765,15 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   .steps{gap:36px}
   .sticky-cta{
     position:fixed;left:0;right:0;bottom:0;z-index:95;display:block;
-    padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
+    padding:9px 14px calc(9px + env(safe-area-inset-bottom,0px));
     background:linear-gradient(180deg,rgba(3,7,6,0),rgba(3,7,6,.82) 16%,rgba(3,7,6,.96) 100%);
     border-top:1px solid rgba(255,255,255,.08);
     backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    opacity:0;pointer-events:none;transform:translateY(18px);
+    transition:opacity .18s ease,transform .18s ease;
   }
+  .sticky-cta.is-visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+  .sticky-cta__meta{display:none}
   body.mo-open .sticky-cta{display:none}
 }
 
@@ -1895,7 +1899,6 @@ whatsappSend.addEventListener('click', function() {
     <span>Iniciar consulta</span>
     <span class="sticky-cta__price">R$ 49,90</span>
   </a>
-  <div class="sticky-cta__meta"><span class="live-dot"></span>Chat ou vídeo · pagamento único</div>
 </div>
 
 <script>
@@ -1917,6 +1920,38 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
     // Google Ads: conversão disparada via dataLayer (gerou_pix) após PIX gerado com sucesso
   });
 });
+
+// ── Mobile sticky CTA: aparece só depois do CTA principal sair da tela ──
+(function(){
+  function setupStickyCta(){
+    var sticky=document.querySelector('.sticky-cta');
+    var heroCta=document.getElementById('heroCTA');
+    if(!sticky||!heroCta) return;
+
+    function setVisible(show){
+      sticky.classList.toggle('is-visible', !!show);
+    }
+
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          setVisible(!entry.isIntersecting);
+        });
+      },{threshold:0.01,rootMargin:'0px 0px -18px 0px'});
+      io.observe(heroCta);
+      return;
+    }
+
+    function fallback(){
+      setVisible(window.scrollY>520);
+    }
+    window.addEventListener('scroll',fallback,{passive:true});
+    fallback();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',setupStickyCta);
+  else setupStickyCta();
+})();
 
 // ── Scroll reveal ──
 (function(){
