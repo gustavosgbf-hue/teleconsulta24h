@@ -688,6 +688,22 @@ footer a:hover{color:var(--g2)}
 
 /* ─── STICKY CTA MOBILE ─── */
 .sticky-cta{display:none}
+.sticky-cta__button{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;min-height:56px;padding:15px 18px;border-radius:18px;
+  background:linear-gradient(135deg,#a8f04a 0%,#35df7d 100%);
+  color:#061409;text-decoration:none;font-weight:900;font-size:.98rem;
+  box-shadow:0 18px 42px rgba(67,223,126,.32),0 0 0 1px rgba(255,255,255,.22) inset;
+  -webkit-tap-highlight-color:transparent;
+}
+.sticky-cta__price{
+  padding-left:10px;border-left:1px solid rgba(6,20,9,.24);
+  font-weight:950;white-space:nowrap;
+}
+.sticky-cta__meta{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  margin-top:7px;color:rgba(255,255,255,.62);font-size:.68rem;font-weight:700;
+}
 
 /* ─── ANIMATIONS ─── */
 @keyframes fadeUp{
@@ -713,7 +729,10 @@ footer a:hover{color:var(--g2)}
 hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
+  body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
   .nav__in{padding:10px 14px;flex-wrap:wrap;gap:8px}
+  .nav{border-bottom-color:rgba(67,223,126,.13)}
+  .nav__brand{min-width:126px}
   .nav__cta-link{padding:10px 14px;font-size:.72rem;font-weight:800;white-space:nowrap;border-radius:15px}
   .nav__cta-full{display:none}
   .nav__cta-short{display:inline}
@@ -725,18 +744,33 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   .nav__rx-text{max-width:102px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .nav__link-full{display:none}
   .nav__link-short{display:inline}
-  .hero{padding:34px 20px 40px}
+  .hero{padding:30px 20px 38px}
   .hero__h1{font-size:clamp(2.05rem,8.9vw,2.62rem);line-height:1.1;margin-bottom:14px}
   .hero__sub{font-size:.9rem;margin-bottom:22px}
   .hero__intent{margin-top:16px;max-width:350px}
   .hero__intent-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-  .hero__intent-btn{min-height:42px;padding:8px 9px;font-size:.69rem;border-radius:13px}
-  .btn-primary{padding:18px 20px;font-size:1rem;border-radius:15px}
+  .hero__intent-title{font-size:.75rem;margin-bottom:9px;color:rgba(255,255,255,.56)}
+  .hero__intent-btn{
+    min-height:46px;padding:10px 9px;font-size:.72rem;border-radius:15px;
+    box-shadow:0 10px 26px rgba(0,0,0,.12),0 0 0 1px rgba(255,255,255,.03) inset;
+  }
+  .btn-primary{padding:18px 20px;font-size:1rem;border-radius:17px}
+  #heroCTA{width:min(100%,520px);min-height:62px}
+  #heroPriceAnchor{max-width:350px;margin-top:18px}
+  #heroSecurity{max-width:350px}
   .pain-grid{grid-template-columns:repeat(2,1fr)}
   .price-box{padding:32px 20px}
   .price-num{font-size:3rem}
   .trust-sep{display:none}
   .steps{gap:36px}
+  .sticky-cta{
+    position:fixed;left:0;right:0;bottom:0;z-index:95;display:block;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
+    background:linear-gradient(180deg,rgba(3,7,6,0),rgba(3,7,6,.82) 16%,rgba(3,7,6,.96) 100%);
+    border-top:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  }
+  body.mo-open .sticky-cta{display:none}
 }
 
 /* ── MODAL ── */
@@ -1856,6 +1890,14 @@ whatsappSend.addEventListener('click', function() {
   </div>
 </footer>
 
+<div class="sticky-cta" aria-label="Iniciar consulta médica online">
+  <a href="#" class="sticky-cta__button" onclick="return moCliqueAbrir(event)">
+    <span>Iniciar consulta</span>
+    <span class="sticky-cta__price">R$ 49,90</span>
+  </a>
+  <div class="sticky-cta__meta"><span class="live-dot"></span>Chat ou vídeo · pagamento único</div>
+</div>
+
 <script>
 // ── FAQ toggle ──
 function toggleFaq(btn){
@@ -2554,6 +2596,7 @@ async function moAbrir(contexto){
   moStepAntesSaida=1;
   moTrack('modal_open', {contexto:moPreContexto||'geral'});
   document.getElementById('moOverlay').classList.add('open');
+  document.body.classList.add('mo-open');
   document.body.style.overflow='hidden';
   // pula direto pro telefone — escolha chat/vídeo vira opcional no proprio step 1
   moTipoConsulta='chat';
@@ -2774,6 +2817,7 @@ function moSairMesmo(semEventoRecuperacao){
   if(exit) exit.classList.remove('on');
   var overlay=document.getElementById('moOverlay');
   overlay.classList.remove('open');
+  document.body.classList.remove('mo-open');
   document.body.style.overflow='';
 }
 document.getElementById('moOverlay').addEventListener('click',function(e){ if(e.target===this) moFechar(); });
