@@ -1805,16 +1805,17 @@ function irParaTriagem(){
   startTriage();
 }
 
-var triageHistory=[], anamnesis={}, step=0, pending=false;
-var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados. NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo, responda SOMENTE com JSON: {"done":true,"summary":"[resumo formatado]"}';
+var triageHistory=[], triageAnswers=[], ultimaPerguntaTriagem='', anamnesis={}, step=0, pending=false;
+var SYSTEM_TRIAGE='Você é um assistente de triagem do ConsultaJá24h. Nome e WhatsApp já coletados. NÃO peça novamente.\n\nConduza a anamnese em NO MÁXIMO 4 perguntas, uma por vez, em português brasileiro:\n\n1. Qual o problema principal\n2. Há quanto tempo, intensidade (0-10) e se tem febre\n3. Doenças crônicas, alergias, medicamentos em uso\n4. Precisa de atestado ou receita?\n\nRegras: UMA pergunta por vez. Linguagem simples e empática. Não invente, corrija, interprete ou complete informações que o paciente não forneceu. Preserve as palavras do paciente nos campos do resumo e escreva "Não informado" quando faltar algum dado. Se emergência (dor no peito, falta de ar grave, desmaio), oriente pronto-socorro.\nQuando coletar tudo, responda SOMENTE com JSON válido: {"done":true,"summary":"Queixa principal: ...\\nTempo de evolução/intensidade/febre: ...\\nDoenças crônicas: ...\\nAlergias: ...\\nMedicações em uso: ...\\nSolicitações: ..."}';
 
 function startTriage(){
-  triageHistory=[]; anamnesis={}; step=0;
+  triageHistory=[]; triageAnswers=[]; anamnesis={}; step=0;
   document.getElementById('triageChat').innerHTML='';
   document.getElementById('quickReplies').innerHTML='';
   document.getElementById('progressFill').style.width='0%';
   var primeiroNome = nomePacienteValido(pacienteNome) ? pacienteNome.split(' ')[0] : '';
-  addMsg('triageChat','bot','Olá'+(primeiroNome?', '+primeiroNome:'')+'! Sou o assistente de triagem da ConsultaJá24h.\nVou fazer algumas perguntas rápidas para ajudar o médico a entender melhor seu caso.\n\nQual é o problema que está sentindo?');
+  ultimaPerguntaTriagem='Qual é o problema que está sentindo?';
+  addMsg('triageChat','bot','Olá'+(primeiroNome?', '+primeiroNome:'')+'! Sou o assistente de triagem da ConsultaJá24h.\nVou fazer algumas perguntas rápidas para ajudar o médico a entender melhor seu caso.\n\n'+ultimaPerguntaTriagem);
   step=1; updateProgress(1);
 }
 function addMsg(id,tipo,texto){
@@ -1840,30 +1841,50 @@ function setQR(opts){
 }
 async function sendTriage(text){
   if(!text||pending) return;
+  var respostaLiteral=String(text).trim();
+  triageAnswers.push({
+    pergunta:String(ultimaPerguntaTriagem||'Pergunta da triagem').trim(),
+    resposta:respostaLiteral
+  });
   pending=true; document.getElementById('triageSend').disabled=true;
-  addMsg('triageChat','user',text);
+  addMsg('triageChat','user',respostaLiteral);
   document.getElementById('triageInput').value=''; document.getElementById('triageInput').style.height='auto';
   setQR([]); step++; updateProgress(step); showTyping('triageChat');
-  var reply=await callAPI('/api/triage',SYSTEM_TRIAGE,triageHistory,text);
+  var reply=await callAPI('/api/triage',SYSTEM_TRIAGE,triageHistory,respostaLiteral);
   removeTyping('triageChat');
+  if(reply==='O servidor demorou demais. Aguarde 30s e tente novamente.'||reply==='Erro de conexão. Verifique sua internet.'){
+    triageAnswers.pop();
+    step=Math.max(1,step-1); updateProgress(step);
+    addMsg('triageChat','bot',reply);
+    pending=false; document.getElementById('triageSend').disabled=false; return;
+  }
   try{
     var clean=String(reply).replace(/```[a-zA-Z0-9_-]*\n?/g,'').replace(/```/g,'').trim();
     var parsed=null;
     try{ parsed=JSON.parse(clean); }catch(e){}
     if(!parsed){ var match=clean.match(/\{[\s\S]*?"done"\s*:\s*true[\s\S]*?\}/); if(match){ try{ parsed=JSON.parse(match[0]); }catch(e){} } }
     if(parsed&&parsed.done&&parsed.summary){
-      anamnesis.summary=parsed.summary; updateProgress(6);
+      anamnesis.summary=montarTriagemCompleta(parsed.summary); updateProgress(6);
       addMsg('triageChat','bot','Triagem concluída! ✓\nAguarde enquanto você entra na fila.');
       await esperar(1200); finalizarTriagem();
       pending=false; document.getElementById('triageSend').disabled=false; return;
     }
   }catch(e){}
   addMsg('triageChat','bot',reply);
-  if(step===2) setQR(['Masculino','Feminino','Prefiro não dizer']);
-  if(step===3) setQR(['Sim, tenho febre','Não tenho febre']);
-  if(step===4) setQR(['Não tenho','Sim, tenho']);
-  if(step===5) setQR(['Apenas atestado','Apenas receita','Ambos','Nenhum']);
+  ultimaPerguntaTriagem=String(reply||'').trim();
+  var perguntaNorm=ultimaPerguntaTriagem.toLowerCase();
+  if(/atestado|receita/.test(perguntaNorm)) setQR(['Apenas atestado','Apenas receita','Ambos','Nenhum']);
+  else if(/alerg|doen|comorb|medicaç|medicac|medicamento/.test(perguntaNorm)) setQR(['Não tenho','Sim, tenho']);
+  else if(/febre/.test(perguntaNorm)) setQR(['Não tenho febre','Sim, tenho febre']);
   pending=false; document.getElementById('triageSend').disabled=false;
+}
+function montarTriagemCompleta(resumoIA){
+  var literal=['RELATO COMPLETO DO PACIENTE (PALAVRAS ORIGINAIS)'];
+  triageAnswers.forEach(function(item,i){
+    literal.push((i+1)+'. Pergunta: '+item.pergunta);
+    literal.push('Resposta: '+item.resposta);
+  });
+  return literal.join('\n')+'\n\nDADOS ORGANIZADOS PELA TRIAGEM\n'+String(resumoIA||'').trim();
 }
 async function finalizarTriagem(){
   addMsg('triageChat','bot','Conectando você ao médico...');
