@@ -1880,9 +1880,9 @@ async function sendTriage(text){
 }
 function montarTriagemCompleta(resumoIA){
   var literal=['RELATO COMPLETO DO PACIENTE (PALAVRAS ORIGINAIS)'];
-  triageAnswers.forEach(function(item,i){
-    literal.push((i+1)+'. Pergunta: '+item.pergunta);
-    literal.push('Resposta: '+item.resposta);
+  triageAnswers.forEach(function(item){
+    var resposta=String(item.resposta||'').replace(/\s+/g,' ').trim();
+    if(resposta) literal.push(resposta);
   });
   return literal.join('\n')+'\n\nDADOS ORGANIZADOS PELA TRIAGEM\n'+String(resumoIA||'').trim();
 }
