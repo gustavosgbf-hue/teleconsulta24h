@@ -1879,7 +1879,14 @@ async function sendTriage(text){
   pending=false; document.getElementById('triageSend').disabled=false;
 }
 function montarTriagemCompleta(resumoIA){
-  return String(resumoIA||'').trim();
+  var resumo=String(resumoIA||'').trim();
+  var respostas=triageAnswers
+    .map(function(item){ return String(item&&item.resposta||'').replace(/\s+/g,' ').trim(); })
+    .filter(Boolean)
+    .map(function(texto){ return /[.!?…]$/.test(texto)?texto:texto+'.'; })
+    .join(' ');
+  if(!respostas) return resumo;
+  return resumo+'\n\nRELATO DO PACIENTE (RESPOSTAS ORIGINAIS)\n'+respostas;
 }
 async function finalizarTriagem(){
   addMsg('triageChat','bot','Conectando você ao médico...');
