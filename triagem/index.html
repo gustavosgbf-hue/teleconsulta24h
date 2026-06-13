@@ -421,6 +421,16 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .enc-icon{font-size:2.8rem;margin-bottom:16px}
 .enc-titulo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:8px;color:var(--g2)}
 .enc-sub{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.enc-documentos{display:none;text-align:left;margin:0 0 22px;padding:15px;border:1px solid rgba(94,224,160,.18);border-radius:14px;background:rgba(94,224,160,.045)}
+.enc-documentos.show{display:block}
+.enc-documentos__titulo{font-size:.76rem;font-weight:700;color:var(--g2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.enc-documentos__sub{font-size:.72rem;color:rgba(255,255,255,.42);line-height:1.45;margin-bottom:10px}
+.enc-documentos__lista{display:flex;flex-direction:column;gap:8px}
+.enc-documento{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:11px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);color:#eaeaea;text-decoration:none}
+.enc-documento__icone{flex:0 0 34px;width:34px;height:34px;border-radius:9px;background:rgba(94,224,160,.09);display:flex;align-items:center;justify-content:center;color:var(--g2)}
+.enc-documento__texto{min-width:0;flex:1}
+.enc-documento__nome{display:block;font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.enc-documento__acao{display:block;font-size:.67rem;color:rgba(255,255,255,.38);margin-top:2px}
 
 /* ── LOADING ── */
 .loading-overlay{position:fixed;inset:0;z-index:999;background:#060d0b;
@@ -930,6 +940,11 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div class="enc-icon" id="encerrado-icon">⭐</div>
       <div class="enc-titulo" id="encerrado-titulo">Como foi sua consulta?</div>
       <p class="enc-sub" id="encerrado-sub">Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Menos de 1 minuto.</span></p>
+      <div class="enc-documentos" id="encerrado-documentos">
+        <div class="enc-documentos__titulo">Seus documentos</div>
+        <div class="enc-documentos__sub">Eles continuam disponíveis após o encerramento da consulta.</div>
+        <div class="enc-documentos__lista" id="encerrado-documentos-lista"></div>
+      </div>
       <a href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
         style="display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:13px;
                background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;
@@ -1278,7 +1293,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
           pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
           pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
           setFlowState('final');
-          esconderLoading(); showScreen('encerrado'); setNavLabel('ENCERRADO'); return;
+          esconderLoading(); mostrarTelaEncerrado(); return;
         }
 
         // ── Pagamento pendente: a landing concentra o checkout.
@@ -2188,7 +2203,46 @@ function encerrarConsultaPaciente(){
   if(sendBtn) sendBtn.disabled=true;
   limparSessao(); mostrarTelaEncerrado();
 }
-function mostrarTelaEncerrado(){ setFlowState('final'); showScreen('encerrado'); setNavLabel('CONSULTA ENCERRADA'); }
+async function carregarDocumentosEncerrados(){
+  var box=document.getElementById('encerrado-documentos');
+  var lista=document.getElementById('encerrado-documentos-lista');
+  if(!box||!lista||!atendimentoId) return;
+  box.classList.remove('show');
+  lista.innerHTML='';
+  try{
+    var res=await fetch(API+'/api/chat/'+atendimentoId);
+    var data=await res.json();
+    if(!data.ok) return;
+    var vistos={};
+    var documentos=(data.mensagens||[]).filter(function(m){
+      if(m.autor!=='medico'||m.arquivo_tipo!=='pdf'||!m.arquivo_url||vistos[m.arquivo_url]) return false;
+      vistos[m.arquivo_url]=true;
+      return true;
+    });
+    documentos.forEach(function(m){
+      var url;
+      try{
+        url=new URL(m.arquivo_url,location.origin);
+        if(url.protocol!=='https:'&&url.protocol!=='http:') return;
+      }catch(e){ return; }
+      var link=document.createElement('a');
+      link.className='enc-documento';
+      link.href=url.href;
+      link.target='_blank';
+      link.rel='noopener noreferrer';
+      link.innerHTML='<span class="enc-documento__icone"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><span class="enc-documento__texto"><span class="enc-documento__nome"></span><span class="enc-documento__acao">Abrir documento PDF</span></span><span aria-hidden="true">›</span>';
+      link.querySelector('.enc-documento__nome').textContent=String(m.arquivo_nome||'Documento médico').slice(0,100);
+      lista.appendChild(link);
+    });
+    if(lista.children.length) box.classList.add('show');
+  }catch(e){}
+}
+function mostrarTelaEncerrado(){
+  setFlowState('final');
+  showScreen('encerrado');
+  setNavLabel('CONSULTA ENCERRADA');
+  carregarDocumentosEncerrados();
+}
 function mostrarPagamentoCancelado(){
   setFlowState('final');
   clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
@@ -2196,6 +2250,8 @@ function mostrarPagamentoCancelado(){
   document.getElementById('encerrado-icon').textContent='💳';
   document.getElementById('encerrado-titulo').textContent='Pagamento não confirmado';
   document.getElementById('encerrado-sub').innerHTML='Não conseguimos validar seu pagamento.<br>Gere um novo PIX para continuar.';
+  var docsEncerrado=document.getElementById('encerrado-documentos');
+  if(docsEncerrado) docsEncerrado.classList.remove('show');
   limparSessao();
 }
 
