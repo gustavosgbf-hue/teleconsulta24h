@@ -167,130 +167,6 @@ body{
 }
 .nav__link-short{display:none}
 
-/* ─── SPECIALTY DOCK ─── */
-.specialty-dock{
-  position:relative;
-  z-index:4;
-  padding:12px 16px 0;
-  background:linear-gradient(180deg,rgba(3,7,6,.94),rgba(3,7,6,.74) 68%,rgba(3,7,6,0));
-}
-.specialty-dock__inner{
-  max-width:960px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:auto minmax(0,1fr);
-  align-items:center;
-  gap:12px;
-  padding:10px 12px;
-  border:1px solid rgba(255,255,255,.085);
-  border-radius:20px;
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),
-    radial-gradient(ellipse 45% 130% at 18% 0%,rgba(180,224,90,.08),transparent 58%);
-  box-shadow:0 18px 48px rgba(0,0,0,.22),0 1px 0 rgba(255,255,255,.05) inset;
-  overflow:hidden;
-}
-.specialty-dock__label{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:7px 10px;
-  border-radius:999px;
-  color:rgba(255,255,255,.72);
-  font-size:.68rem;
-  font-weight:800;
-  letter-spacing:.02em;
-  white-space:nowrap;
-}
-.specialty-dock__label svg{width:15px;height:15px;color:var(--g1);filter:drop-shadow(0 0 10px rgba(180,224,90,.18))}
-.specialty-rail{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  -webkit-overflow-scrolling:touch;
-  mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%);
-  padding:1px 4px;
-}
-.specialty-rail::-webkit-scrollbar{display:none}
-.specialty-chip{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  min-height:38px;
-  padding:9px 13px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.105);
-  background:rgba(255,255,255,.032);
-  color:rgba(255,255,255,.72);
-  text-decoration:none;
-  font-size:.72rem;
-  font-weight:800;
-  white-space:nowrap;
-  overflow:hidden;
-  transition:transform .18s ease,border-color .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease;
-}
-.specialty-chip::after{
-  content:'';
-  position:absolute;
-  inset:-1px;
-  background:linear-gradient(110deg,transparent 0%,rgba(255,255,255,.12) 36%,transparent 72%);
-  transform:translateX(-120%);
-  animation:chipSheen 6s ease-in-out infinite;
-  pointer-events:none;
-}
-.specialty-chip:nth-child(2)::after{animation-delay:.35s}
-.specialty-chip:nth-child(3)::after{animation-delay:.7s}
-.specialty-chip:nth-child(4)::after{animation-delay:1.05s}
-.specialty-chip:nth-child(5)::after{animation-delay:1.4s}
-.specialty-chip:hover{
-  transform:translateY(-1px);
-  border-color:rgba(180,224,90,.28);
-  background:rgba(180,224,90,.075);
-  color:#fff;
-  box-shadow:0 12px 28px rgba(0,0,0,.2),0 0 26px rgba(67,223,126,.08);
-}
-.specialty-chip--primary{
-  border-color:rgba(180,224,90,.3);
-  background:linear-gradient(135deg,rgba(180,224,90,.16),rgba(67,223,126,.1));
-  color:rgba(231,255,191,.98);
-}
-.specialty-chip--soft{
-  color:rgba(255,255,255,.6);
-}
-@keyframes chipSheen{
-  0%,72%{transform:translateX(-130%);opacity:0}
-  78%{opacity:1}
-  92%,100%{transform:translateX(130%);opacity:0}
-}
-@media(max-width:760px){
-  .specialty-dock{padding:9px 10px 0}
-  .specialty-dock__inner{
-    grid-template-columns:1fr;
-    gap:6px;
-    padding:9px 8px 10px;
-    border-radius:18px;
-  }
-  .specialty-dock__label{
-    padding:2px 8px 4px;
-    color:rgba(255,255,255,.56);
-    font-size:.64rem;
-  }
-  .specialty-rail{
-    gap:7px;
-    padding:1px 4px 2px;
-    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 22px),transparent 100%);
-  }
-  .specialty-chip{
-    min-height:36px;
-    padding:8px 12px;
-    font-size:.69rem;
-  }
-}
-
 /* ─── HERO ─── */
 .hero{
   position:relative;z-index:1;
@@ -1392,28 +1268,25 @@ whatsappSend.addEventListener('click', function() {
       </span>
     </a>
     <div class="nav__actions">
+      <div class="nav__links" aria-label="Outros atendimentos">
+        <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link" aria-label="Renovar receita médica">
+          <span class="nav__rx-new">Novo</span>
+          <span>💊</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Renovar receita</span><span class="nav__link-short">Renovar receita</span></span>
+        </a>
+        <a href="https://consultaja24h.com.br/especialistas" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver especialistas online">
+          <span>🩺</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Especialistas</span><span class="nav__link-short">Especialista</span></span>
+        </a>
+        <a href="https://consultaja24h.com.br/psicologo-online" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver psicologia online">
+          <span>🧠</span>
+          <span class="nav__rx-text"><span class="nav__link-full">Psicologia</span><span class="nav__link-short">Psico</span></span>
+        </a>
+      </div>
       <a href="#" class="nav__cta-link" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Consulta</span></a>
     </div>
   </div>
 </nav>
-
-<section class="specialty-dock" aria-label="Escolha o tipo de atendimento">
-  <div class="specialty-dock__inner">
-    <div class="specialty-dock__label">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"/><path d="M2 12h20"/><path d="M7 7h10v10H7z"/></svg>
-      Especialidades e serviços
-    </div>
-    <div class="specialty-rail">
-      <a class="specialty-chip specialty-chip--primary" href="#" onclick="return moCliqueAbrir(event,'consulta clínica 24h','chat')">⚡ Consulta 24h</a>
-      <a class="specialty-chip" href="https://consultaja24h.com.br/renovacao-de-receita">💊 Renovar receita</a>
-      <a class="specialty-chip" href="https://consultaja24h.com.br/especialistas/psiquiatria">🧠 Psiquiatria</a>
-      <a class="specialty-chip" href="https://consultaja24h.com.br/especialistas/endocrinologia">🩺 Endocrino</a>
-      <a class="specialty-chip" href="https://consultaja24h.com.br/especialistas/dermatologia">✨ Dermatologia</a>
-      <a class="specialty-chip" href="https://consultaja24h.com.br/psicologo-online">💬 Psicologia</a>
-      <a class="specialty-chip specialty-chip--soft" href="https://consultaja24h.com.br/especialistas">Ver todas</a>
-    </div>
-  </div>
-</section>
 
 
 <!-- ════════ HERO ════════ -->
