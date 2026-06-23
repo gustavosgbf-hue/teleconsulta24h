@@ -777,6 +777,515 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   body.mo-open .sticky-cta{display:none}
 }
 
+/* ─── APP HERO 2026 ─── */
+.nav{
+  position:relative;
+  top:auto;
+  z-index:7;
+  background:rgba(3,7,6,.78);
+}
+.nav__in{max-width:1120px;padding:18px 24px}
+.nav__logo{font-size:1.15rem}
+.nav__cta-link{border-radius:999px}
+.livebar{position:relative;top:auto;z-index:8}
+.livebar__inner{max-width:1120px}
+.livebar__item--desktop{display:inline-flex}
+.specialty-dock{
+  z-index:6;
+  padding:0 20px 8px;
+  background:rgba(3,7,6,.78);
+}
+.specialty-dock__inner{
+  max-width:1120px;
+  display:block;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  overflow:visible;
+}
+.specialty-dock__label{display:none}
+.specialty-rail{
+  gap:10px;
+  padding:2px 2px 10px;
+  mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 22px),transparent 100%);
+}
+.specialty-chip{
+  min-height:54px;
+  padding:12px 18px;
+  border-radius:24px;
+  background:rgba(255,255,255,.035);
+  border-color:rgba(255,255,255,.14);
+  color:rgba(255,255,255,.78);
+  font-size:.86rem;
+  box-shadow:0 14px 34px rgba(0,0,0,.18),0 1px 0 rgba(255,255,255,.05) inset;
+}
+.specialty-chip--primary{
+  background:linear-gradient(135deg,rgba(155,234,69,.25),rgba(67,223,126,.15));
+  border-color:rgba(155,234,69,.58);
+  color:#edffd9;
+  box-shadow:0 0 0 1px rgba(155,234,69,.16) inset,0 16px 38px rgba(67,223,126,.16),0 0 34px rgba(155,234,69,.12);
+}
+.hero{
+  display:block;
+  max-width:1120px;
+  margin:0 auto;
+  padding:28px 20px 54px;
+  text-align:left;
+}
+.hero::before,.hero::after{display:none}
+.hero-shell{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(360px,.86fr);
+  gap:28px;
+  align-items:stretch;
+  overflow:hidden;
+  min-height:620px;
+  padding:42px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:34px;
+  background:
+    linear-gradient(135deg,rgba(7,18,16,.96),rgba(2,8,7,.9) 54%,rgba(4,22,13,.92)),
+    radial-gradient(ellipse 58% 70% at 74% 44%,rgba(67,223,126,.22),transparent 62%);
+  box-shadow:0 26px 80px rgba(0,0,0,.34),0 1px 0 rgba(255,255,255,.06) inset;
+}
+.hero-shell::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(3,7,6,.28),transparent 42%),
+    radial-gradient(circle at 78% 38%,rgba(155,234,69,.12),transparent 28%);
+  pointer-events:none;
+}
+.hero-copy{
+  position:relative;
+  z-index:2;
+  align-self:center;
+  max-width:600px;
+  min-width:0;
+  box-sizing:border-box;
+}
+.hero-visual{
+  position:relative;
+  z-index:1;
+  min-height:540px;
+  border-radius:30px;
+  overflow:hidden;
+  align-self:stretch;
+  background:#09120f;
+  box-shadow:0 24px 70px rgba(0,0,0,.34),0 0 0 1px rgba(255,255,255,.08) inset;
+}
+.hero-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:57% center;
+  display:block;
+  filter:saturate(1.04) contrast(1.02);
+}
+.hero-visual::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(3,7,6,.72),rgba(3,7,6,.08) 32%,transparent 62%),
+    linear-gradient(180deg,transparent 58%,rgba(3,7,6,.76) 100%);
+  pointer-events:none;
+  z-index:1;
+}
+.hero-visual::after{
+  content:'';
+  position:absolute;
+  right:9%;
+  top:17%;
+  width:58%;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:2px solid rgba(67,223,126,.55);
+  box-shadow:0 0 60px rgba(67,223,126,.22),inset 0 0 50px rgba(67,223,126,.08);
+  transform:rotate(-10deg);
+  z-index:2;
+  pointer-events:none;
+}
+.hero__badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  width:auto;
+  padding:9px 13px;
+  margin:0 0 22px;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.16);
+  color:rgba(255,255,255,.84);
+  text-transform:none;
+  letter-spacing:0;
+  animation:fadeUp .5s ease both .05s;
+}
+.hero__h1,
+.hero__h1-new{
+  max-width:620px;
+  margin-bottom:18px;
+  font-size:clamp(3.15rem,5.8vw,5.4rem);
+  line-height:.98;
+  letter-spacing:0;
+  font-weight:950;
+  color:#fff;
+}
+.hero__h1-new em{
+  display:inline-block;
+  font-style:normal;
+  background:linear-gradient(135deg,#a8f04a,#35df7d);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero__sub,
+.hero__sub-new{
+  max-width:560px;
+  margin-bottom:24px;
+  font-size:clamp(1.02rem,1.7vw,1.32rem);
+  color:rgba(255,255,255,.76);
+  line-height:1.45;
+}
+.hero-mini-feats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  margin:0 0 30px;
+  color:rgba(255,255,255,.78);
+}
+.hero-mini-feats span{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.86rem;
+  font-weight:750;
+}
+.hero-mini-feat{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:.86rem;
+  font-weight:700;
+}
+.hero-mini-feat svg{
+  width:18px;
+  height:18px;
+  color:var(--g1);
+  filter:drop-shadow(0 0 10px rgba(155,234,69,.18));
+}
+.hero-cta-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:18px;
+  box-sizing:border-box;
+  width:100%;
+  max-width:720px;
+  margin:0 0 14px;
+  padding:16px 18px 16px 26px;
+  border-radius:25px;
+  background:linear-gradient(135deg,#a8f04a 0%,#35df7d 100%);
+  color:#051208;
+  box-shadow:0 20px 54px rgba(67,223,126,.28),0 0 0 1px rgba(255,255,255,.22) inset;
+  text-decoration:none;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.hero-cta-row:hover{transform:translateY(-2px);box-shadow:0 24px 66px rgba(67,223,126,.36),0 0 0 1px rgba(255,255,255,.24) inset}
+.hero-cta-main{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  min-width:0;
+}
+.hero-cta-label{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-width:122px;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.24);
+  color:#061409;
+  font-size:.66rem;
+  font-weight:950;
+  line-height:1.2;
+  text-align:center;
+}
+.hero-cta-text{font-size:1.28rem;font-weight:950;white-space:nowrap}
+.hero-cta-arrow{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.58);
+  box-shadow:0 10px 24px rgba(0,0,0,.13);
+}
+.hero-cta-price{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  padding-left:16px;
+  border-left:1px solid rgba(6,20,9,.22);
+  white-space:nowrap;
+  font-size:1.55rem;
+  font-weight:950;
+}
+.hero-cta-price small{font-size:.8rem}
+.hero-safe-line{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  max-width:720px;
+  color:rgba(255,255,255,.55);
+  font-size:.82rem;
+  font-weight:650;
+  text-align:center;
+}
+.hero-intent-panel{
+  position:relative;
+  z-index:3;
+  max-width:1120px;
+  margin:18px auto 0;
+}
+.hero__intent{
+  max-width:none;
+  margin:0;
+  animation:fadeUp .5s ease both .44s;
+}
+.hero__intent-title{display:none}
+.hero__intent-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.hero__intent-btn{
+  justify-content:space-between;
+  min-height:78px;
+  padding:17px 20px;
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  border-color:rgba(255,255,255,.12);
+  color:rgba(255,255,255,.88);
+  font-size:1rem;
+  text-align:left;
+}
+.hero__intent-btn::after{
+  content:'›';
+  color:rgba(255,255,255,.45);
+  font-size:1.45rem;
+  line-height:1;
+}
+.hero__intent-btn i{display:none}
+.hero__intent-btn--primary{
+  background:linear-gradient(135deg,rgba(155,234,69,.18),rgba(67,223,126,.075));
+  border-color:rgba(155,234,69,.26);
+  color:#efffde;
+}
+.hero-visual-card{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:22px;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(3,7,6,.72);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  color:#fff;
+}
+.hero-visual-card strong{font-size:1.05rem}
+.hero-visual-card span{color:var(--g1);font-weight:950}
+.hero-trust-strip{
+  position:relative;
+  z-index:3;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  max-width:1120px;
+  margin:18px auto 0;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;
+  background:rgba(255,255,255,.04);
+  overflow:hidden;
+}
+.hero-trust-item,
+.hero-trust-strip > *{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:76px;
+  padding:14px;
+  color:rgba(255,255,255,.78);
+  font-size:.88rem;
+  font-weight:750;
+  text-align:center;
+  border-right:1px solid rgba(255,255,255,.08);
+  text-decoration:none;
+}
+.hero-trust-item:last-child,
+.hero-trust-strip > *:last-child{border-right:0}
+.hero-trust-item svg{width:24px;height:24px;color:var(--g1);flex-shrink:0}
+.hero-trust-strip span{font-size:1.24rem;line-height:1}
+#heroBadge,#heroTitle,#heroSub,#heroUrgency,#heroCTAOld,#heroPriceAnchor,#heroReviewProof,#heroSpecialtyLinks,#heroSecurity,#heroDocCard,.hero > .hero__intent{display:none!important}
+@media(max-width:900px){
+  .hero{padding:16px 12px 38px}
+  .hero-shell{
+    grid-template-columns:1fr;
+    min-height:0;
+    padding:24px;
+    border-radius:30px;
+  }
+  .hero-copy{max-width:none}
+  .hero-visual{
+    min-height:360px;
+  }
+  .hero__h1,.hero__h1-new{font-size:clamp(2.55rem,10.5vw,4rem)}
+  .hero__sub,.hero__sub-new{font-size:1rem}
+  .hero-cta-row{max-width:none}
+}
+@media(max-width:640px){
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  .livebar__item--desktop{display:none}
+  .nav__in{display:flex;flex-wrap:nowrap;padding:13px 16px}
+  .nav__actions{flex:0 0 auto;order:0}
+  .nav__brand{min-width:0}
+  .nav__logo{font-size:1.08rem}
+  .specialty-dock{padding:0 12px 8px}
+  .specialty-chip{
+    min-height:46px;
+    padding:10px 14px;
+    border-radius:20px;
+    font-size:.78rem;
+  }
+  .hero{
+    padding:10px 10px 32px;
+    text-align:left;
+  }
+  .hero-shell{
+    padding:0;
+    border-radius:28px;
+    overflow:hidden;
+    background:linear-gradient(180deg,rgba(5,17,13,.98),rgba(3,7,6,.96));
+  }
+  .hero-visual{
+    min-height:220px;
+    border-radius:0;
+    box-shadow:none;
+  }
+  .hero-visual img{
+    object-position:63% center;
+  }
+  .hero-visual::before{
+    background:
+      linear-gradient(90deg,rgba(3,7,6,.18),transparent 36%),
+      linear-gradient(180deg,transparent 38%,rgba(3,7,6,.92) 100%);
+  }
+  .hero-visual::after{
+    width:62%;
+    right:6%;
+    top:16%;
+    opacity:.7;
+  }
+  .hero-visual-card{
+    left:14px;
+    right:14px;
+    bottom:14px;
+    padding:11px 12px;
+    border-radius:15px;
+  }
+  .hero-visual-card strong{font-size:.92rem}
+  .hero-visual-card small{font-size:.7rem}
+  .hero-copy{width:100%;padding:24px 20px 22px}
+  .hero__badge{
+    margin-bottom:16px;
+    padding:7px 11px;
+    font-size:.68rem!important;
+  }
+  .hero__h1,
+  .hero__h1-new{
+    font-size:clamp(2.38rem,12vw,3.45rem);
+    line-height:1.02;
+    margin-bottom:14px;
+  }
+  .hero__sub,
+  .hero__sub-new{
+    max-width:310px;
+    margin-bottom:18px;
+    font-size:.94rem;
+  }
+  .hero-mini-feats{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:9px;
+    margin-bottom:18px;
+  }
+  .hero-mini-feat{font-size:.78rem}
+  .hero-cta-row{
+    grid-template-columns:1fr;
+    gap:12px;
+    width:calc(100% - 28px);
+    padding:15px;
+    border-radius:21px;
+  }
+  #heroCTA.hero-cta-row{width:calc(100% - 28px)}
+  .hero-cta-main{
+    justify-content:center;
+    gap:10px;
+  }
+  .hero-cta-label{display:none}
+  .hero-cta-text{font-size:1.08rem}
+  .hero-cta-arrow{display:none}
+  .hero-cta-price{
+    justify-content:center;
+    padding:12px 0 0;
+    border-left:0;
+    border-top:1px solid rgba(6,20,9,.18);
+    font-size:1.38rem;
+  }
+  .hero-safe-line{width:calc(100% - 28px);flex-wrap:wrap;padding:0 10px;font-size:.72rem;line-height:1.4}
+  .hero-intent-panel{margin-top:12px}
+  .hero__intent-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .hero__intent-btn{
+    min-height:62px;
+    padding:14px;
+    border-radius:18px;
+    font-size:.82rem;
+  }
+  .hero-trust-strip{
+    grid-template-columns:1fr 1fr;
+    margin-top:12px;
+    border-radius:20px;
+  }
+  .hero-trust-item,
+  .hero-trust-strip > *{
+    min-height:64px;
+    padding:11px 8px;
+    font-size:.72rem;
+    border-right:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .hero-trust-item:nth-child(2n),
+  .hero-trust-strip > *:nth-child(2n){border-right:0}
+  .hero-trust-item:nth-child(n+3),
+  .hero-trust-strip > *:nth-child(n+3){border-bottom:0}
+  .hero-trust-item svg{width:20px;height:20px}
+}
+
 /* ── MODAL ── */
 .mo{
   position:fixed;inset:0;z-index:9999;
@@ -1256,6 +1765,8 @@ whatsappSend.addEventListener('click', function() {
     <span class="livebar__item"><span class="live-dot"></span>Médicos online agora</span>
     <span class="livebar__sep">·</span>
     <span class="livebar__item">atendimento em <span class="livebar__num">~5 min</span></span>
+    <span class="livebar__sep livebar__item--desktop">·</span>
+    <span class="livebar__item livebar__item--desktop">CRM ativo</span>
   </div>
 </div>
 <!-- ════════ NAV ════════ -->
@@ -1291,6 +1802,82 @@ whatsappSend.addEventListener('click', function() {
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
+  <div class="hero-shell">
+    <div class="hero-copy">
+      <div class="hero__badge">
+        <span class="live-dot"></span>
+        Médicos online agora
+      </div>
+      <h1 class="hero__h1-new">
+        Médico online<br>
+        <em>em minutos</em>
+      </h1>
+      <p class="hero__sub-new">
+        Atendimento por chat ou vídeo, com orientação médica segura quando você precisar.
+      </p>
+
+      <div class="hero-mini-feats" aria-label="Vantagens da consulta online">
+        <span>💬 Chat ou vídeo</span>
+        <span>📱 Sem app</span>
+        <span>💳 Pagamento único</span>
+      </div>
+
+      <a href="#" class="hero-cta-row" id="heroCTA" onclick="return moCliqueAbrir(event)">
+        <span class="hero-cta-main">
+          <span class="hero-cta-label">PREÇO FIXO<br>SEM MENSALIDADE</span>
+          <span class="hero-cta-text">Iniciar consulta</span>
+          <span class="hero-cta-arrow" aria-hidden="true">→</span>
+        </span>
+        <span class="hero-cta-price"><small>R$</small>49,90</span>
+      </a>
+
+      <p class="hero-safe-line">🔒 Ambiente seguro e sigiloso · médicos com CRM ativo</p>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <img src="./hero-medica-online.jpg" alt="">
+      <div class="hero-visual-card">
+        <div>
+          <strong>+2.000 pacientes</strong><br>
+          <small>atendidos com avaliação 5★</small>
+        </div>
+        <span>5★</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-intent-panel">
+    <div class="hero__intent" aria-label="Escolha sua necessidade">
+      <div class="hero__intent-grid">
+        <a class="hero__intent-btn hero__intent-btn--primary" href="https://consultaja24h.com.br/renovacao-de-receita">
+          <span>💊</span><strong>Renovar receita</strong><i>›</i>
+        </a>
+        <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'atestado médico','chat')">
+          <span>📄</span><strong>Atestado médico</strong><i>›</i>
+        </a>
+        <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'sintomas ou orientação','chat')">
+          <span>🤒</span><strong>Sintomas e orientação</strong><i>›</i>
+        </a>
+        <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'exames de check-up','chat')">
+          <span>🧪</span><strong>Exames de check-up</strong><i>›</i>
+        </a>
+        <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta por chat','chat')">
+          <span>💬</span><strong>Chat com médico</strong><i>›</i>
+        </a>
+        <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta por vídeo','video')">
+          <span>📹</span><strong>Consulta por vídeo</strong><i>›</i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-trust-strip" aria-label="Confiança e segurança">
+    <div><span>🛡️</span><strong>Médicos com CRM ativo</strong></div>
+    <a href="#reviewsSection"><span>⭐</span><strong>5,0 no Google</strong></a>
+    <div><span>👥</span><strong>+2.000 atendimentos</strong></div>
+    <div><span>📱</span><strong>100% online</strong></div>
+  </div>
+
   <!-- Prova de disponibilidade: discreta para não competir com o CTA -->
   <style>
     .doc-card--carousel{overflow:hidden;padding:0;background:transparent;border:0;width:100%;max-width:520px;margin:0 auto 10px;animation:fadeUp .5s ease both .08s;position:relative}
@@ -1367,7 +1954,7 @@ whatsappSend.addEventListener('click', function() {
   </p>
   <!-- heroUrgency removido: não promete tempo de vaga (só mostra info estática na livebar) -->
   <p id="heroUrgency" style="display:none"></p>
-  <a href="#" class="btn-primary" id="heroCTA" onclick="return moCliqueAbrir(event)">
+  <a href="#" class="btn-primary" id="heroCTAOld" onclick="return moCliqueAbrir(event)">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"></path></svg>
     <span>Iniciar consulta</span>
     <span style="display:inline-block;width:1px;height:18px;background:rgba(6,20,9,.25);margin:0 2px"></span>
