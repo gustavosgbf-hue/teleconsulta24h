@@ -146,20 +146,57 @@ body{
 .nav__cta-short{display:none}
 .nav__rx-link{
   display:inline-flex;align-items:center;gap:7px;
+  min-height:42px;
   padding:10px 14px;border-radius:16px;
   background:rgba(255,255,255,.025);
   border:1px solid rgba(255,255,255,.2);
   color:rgba(255,255,255,.78);text-decoration:none;
-  font-size:.74rem;font-weight:600;
-  position:relative;overflow:hidden;
+  font-size:.74rem;font-weight:700;
+  position:relative;overflow:visible;
+  transition:transform .16s,border-color .18s,background .18s,color .18s,box-shadow .18s;
 }
-.nav__rx-link:hover{color:rgba(255,255,255,.78);border-color:rgba(180,224,90,.18)}
-.nav__rx-link::after{display:none}
+.nav__rx-link:hover{transform:translateY(-1px);color:rgba(255,255,255,.88);border-color:rgba(180,224,90,.22)}
+.nav__rx-icon,.hero__intent-icon{
+  width:16px;height:16px;display:inline-block;flex:0 0 auto;
+  color:rgba(180,224,90,.95);
+  stroke:currentColor;fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 10px rgba(67,223,126,.18));
+}
+.nav__rx-link--active{
+  color:#071309;
+  background:linear-gradient(145deg,#a8f04a 0%,#43df7e 88%);
+  border-color:rgba(255,255,255,.18);
+  box-shadow:0 12px 28px rgba(67,223,126,.2),0 0 0 1px rgba(255,255,255,.16) inset;
+}
+.nav__rx-link--active .nav__rx-icon{color:#071309;filter:none}
+.nav__rx-link--featured{
+  color:rgba(222,255,178,.96);
+  background:linear-gradient(145deg,rgba(180,224,90,.11),rgba(67,223,126,.045));
+  border-color:rgba(180,224,90,.34);
+  box-shadow:0 0 0 1px rgba(180,224,90,.07) inset,0 0 22px rgba(180,224,90,.08);
+  animation:rxBreath 3.4s ease-in-out infinite;
+}
+.nav__rx-link--featured::after{
+  content:'Mais pedido';
+  position:absolute;right:8px;top:-10px;
+  padding:2px 7px;border-radius:999px;
+  background:rgba(6,20,9,.96);
+  border:1px solid rgba(180,224,90,.26);
+  color:#dfff9e;
+  font-size:.52rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:0 8px 20px rgba(0,0,0,.28);
+  pointer-events:none;
+}
+@keyframes rxBreath{
+  0%,100%{box-shadow:0 0 0 1px rgba(180,224,90,.07) inset,0 0 18px rgba(180,224,90,.065)}
+  50%{box-shadow:0 0 0 1px rgba(180,224,90,.16) inset,0 0 28px rgba(180,224,90,.15)}
+}
 .nav__rx-link--subtle{
   border-color:rgba(255,255,255,.105);
   color:rgba(255,255,255,.62);
 }
 .nav__rx-link--subtle:hover{color:rgba(255,255,255,.82);border-color:rgba(94,224,160,.2)}
+.nav__rx-link--subtle .nav__rx-icon{color:rgba(180,224,90,.72)}
 .nav__rx-new{
   display:none;align-items:center;justify-content:center;
   padding:2px 6px;border-radius:999px;background:#061409;color:#b4e05a;
@@ -267,6 +304,7 @@ body{
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   text-shadow:none;
 }
+.hero__mobile-break{display:none}
 .hero__sub{
   font-size:clamp(.95rem,2.5vw,1.05rem);
   font-weight:400;
@@ -398,6 +436,7 @@ body{
   box-shadow:0 10px 26px rgba(0,0,0,.16);
   transition:transform .16s,border-color .18s,background .18s,color .18s;
 }
+.hero__intent-btn .hero__intent-icon{width:17px;height:17px}
 .hero__intent-btn:hover{
   transform:translateY(-1px);
   border-color:rgba(180,224,90,.25);
@@ -408,6 +447,19 @@ body{
   border-color:rgba(180,224,90,.24);
   background:rgba(180,224,90,.09);
   color:rgba(218,255,158,.95);
+}
+.hero__intent-btn--primary{
+  position:relative;
+  box-shadow:0 12px 30px rgba(180,224,90,.13),0 0 0 1px rgba(180,224,90,.06) inset;
+}
+.hero__intent-btn--primary::after{
+  content:'Mais pedido';
+  position:absolute;right:9px;top:-9px;
+  padding:2px 7px;border-radius:999px;
+  background:rgba(6,20,9,.96);
+  border:1px solid rgba(180,224,90,.28);
+  color:#dfff9e;
+  font-size:.5rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
 }
 .dot-green{
   width:6px;height:6px;border-radius:50%;
@@ -606,14 +658,14 @@ section{position:relative;z-index:1}
 .trust-sep{width:1px;height:28px;background:rgba(255,255,255,.08);flex-shrink:0}
 
 /* ─── REVIEWS ─── */
-.reviews-section{padding:60px 20px;border-top:1px solid var(--line)}
+.reviews-section{padding:60px 20px;border-top:1px solid var(--line);overflow:hidden}
 .car-outer{
   margin-top:28px;border:1px solid rgba(255,255,255,.09);
   border-radius:18px;overflow:hidden;background:rgba(255,255,255,.04);
   max-width:600px;margin-left:auto;margin-right:auto;
 }
-.car-vp{overflow:hidden}
-.car-tk{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.car-vp{overflow:hidden;contain:layout paint}
+.car-tk{display:flex;width:100%;transition:transform .5s cubic-bezier(.4,0,.2,1)}
 .rcard{flex:0 0 100%;padding:28px 28px 24px}
 .rcard__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .rcard__name{font-size:.9rem;font-weight:700}
@@ -730,22 +782,25 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 
 @media(max-width:640px){
   body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
-  .nav__in{padding:10px 14px;flex-wrap:wrap;gap:8px}
+  .nav__in{padding:10px 14px;flex-wrap:wrap;gap:10px 8px}
   .nav{border-bottom-color:rgba(67,223,126,.13)}
-  .nav__brand{min-width:126px}
+  .nav__brand{flex:0 0 100%;min-width:0}
   .nav__cta-link{padding:10px 14px;font-size:.72rem;font-weight:800;white-space:nowrap;border-radius:15px}
   .nav__cta-full{display:none}
   .nav__cta-short{display:inline}
-  .nav__actions{gap:8px;flex:1 0 100%;order:2;justify-content:space-between}
-  .nav__links{gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none}
+  .nav__actions{gap:8px;flex:0 0 100%;width:100%;max-width:100%;order:2;justify-content:space-between}
+  .nav__links{gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
   .nav__links::-webkit-scrollbar{display:none}
-  .nav__rx-link{padding:8px 9px;font-size:.68rem;gap:5px;border-radius:14px;white-space:nowrap}
+  .nav__rx-link{min-height:38px;padding:8px 10px;font-size:.68rem;gap:5px;border-radius:14px;white-space:nowrap}
+  .nav__rx-link--featured::after{display:none}
+  .nav__rx-icon{width:14px;height:14px}
   .nav__rx-new{display:none}
-  .nav__rx-text{max-width:102px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav__rx-text{max-width:112px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .nav__link-full{display:none}
   .nav__link-short{display:inline}
   .hero{padding:30px 20px 38px}
-  .hero__h1{font-size:clamp(2.05rem,8.9vw,2.62rem);line-height:1.1;margin-bottom:14px}
+  .hero__h1{font-size:clamp(2rem,8.6vw,2.35rem);line-height:1.08;margin-bottom:14px;max-width:350px}
+  .hero__mobile-break{display:block}
   .hero__sub{font-size:.9rem;margin-bottom:22px}
   .hero__intent{margin-top:16px;max-width:350px}
   .hero__intent-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
@@ -754,11 +809,18 @@ hr.divider{border:none;border-top:1px solid var(--line)}
     min-height:46px;padding:10px 9px;font-size:.72rem;border-radius:15px;
     box-shadow:0 10px 26px rgba(0,0,0,.12),0 0 0 1px rgba(255,255,255,.03) inset;
   }
+  .hero__intent-btn--primary::after{right:8px;top:-8px;font-size:.46rem;padding:1px 6px}
   .btn-primary{padding:18px 20px;font-size:1rem;border-radius:17px}
-  #heroCTA{width:min(100%,520px);min-height:62px}
+  #heroCTA{width:100%;max-width:340px;min-height:62px}
   #heroPriceAnchor{max-width:350px;margin-top:18px}
   #heroSecurity{max-width:350px}
   .pain-grid{grid-template-columns:repeat(2,1fr)}
+  .doc-card--carousel .doc-track{display:block!important;transform:none!important;width:100%!important}
+  .doc-card--carousel .doc-slide{display:none!important}
+  .doc-card--carousel .doc-slide:first-child{display:flex!important}
+  .reviews-section .car-tk{display:block!important;transform:none!important;width:100%!important}
+  .reviews-section .rcard{display:none}
+  .reviews-section .rcard:first-child{display:block}
   .price-box{padding:32px 20px}
   .price-num{font-size:3rem}
   .trust-sep{display:none}
@@ -1269,18 +1331,21 @@ whatsappSend.addEventListener('click', function() {
     </a>
     <div class="nav__actions">
       <div class="nav__links" aria-label="Outros atendimentos">
-        <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link" aria-label="Renovar receita médica">
-          <span class="nav__rx-new">Novo</span>
-          <span>💊</span>
+        <a href="#" class="nav__rx-link nav__rx-link--active" onclick="return moCliqueAbrir(event)" aria-label="Iniciar consulta médica online">
+          <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"/><path d="M8 10.5h8M8 14h5"/></svg>
+          <span class="nav__rx-text">Consulta</span>
+        </a>
+        <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link nav__rx-link--featured" aria-label="Renovar receita médica">
+          <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h4"/><path d="M8.5 12h4.2a2 2 0 0 1 0 4H8.5v-4Z"/><path d="m12.3 16 3.2 4"/></svg>
           <span class="nav__rx-text"><span class="nav__link-full">Renovar receita</span><span class="nav__link-short">Renovar receita</span></span>
         </a>
         <a href="https://consultaja24h.com.br/especialistas" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver especialistas online">
-          <span>🩺</span>
+          <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v5a4 4 0 0 0 8 0V3"/><path d="M12 12v3a5 5 0 0 0 10 0v-2"/><path d="M4 3h4M16 3h4"/><circle cx="22" cy="11" r="1.6"/></svg>
           <span class="nav__rx-text"><span class="nav__link-full">Especialistas</span><span class="nav__link-short">Especialista</span></span>
         </a>
         <a href="https://consultaja24h.com.br/psicologo-online" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver psicologia online">
-          <span>🧠</span>
-          <span class="nav__rx-text"><span class="nav__link-full">Psicologia</span><span class="nav__link-short">Psico</span></span>
+          <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4a3 3 0 0 0-3 3v.4A3.5 3.5 0 0 0 4 10.6c0 1.3.7 2.5 1.8 3.1A3.3 3.3 0 0 0 9 18h1V4H9Z"/><path d="M15 4a3 3 0 0 1 3 3v.4a3.5 3.5 0 0 1 2 3.2c0 1.3-.7 2.5-1.8 3.1A3.3 3.3 0 0 1 15 18h-1V4h1Z"/><path d="M10 9H7M14 9h3M10 13H7.5M14 13h2.5"/></svg>
+          <span class="nav__rx-text">Psicólogo</span>
         </a>
       </div>
       <a href="#" class="nav__cta-link" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Consulta</span></a>
@@ -1359,8 +1424,8 @@ whatsappSend.addEventListener('click', function() {
     ★★★★★ 5,0 · +2.000 atendimentos
   </div>
   <h1 class="hero__h1" id="heroTitle">
-    Médico online agora<br>
-    <em>por chat ou vídeo.</em>
+    Médico online <span class="hero__mobile-break"></span>agora<br>
+    <em>por chat ou <span class="hero__mobile-break"></span>vídeo.</em>
   </h1>
   <p class="hero__sub" id="heroSub" style="line-height:1.65;color:rgba(255,255,255,.68)">
     Atendimento em poucos minutos. Receita, atestado e exames de check-up quando indicados.
@@ -1395,12 +1460,30 @@ whatsappSend.addEventListener('click', function() {
   <div class="hero__intent" aria-label="Escolha sua necessidade">
     <div class="hero__intent-title">O que você precisa hoje?</div>
     <div class="hero__intent-grid">
-      <a class="hero__intent-btn hero__intent-btn--primary" href="https://consultaja24h.com.br/renovacao-de-receita">💊 Renovar receita</a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'atestado médico','chat')">📄 Atestado médico</a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'sintomas ou mal-estar','chat')">🤒 Sintomas</a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'exames de check-up','chat')">🧪 Exames de check-up</a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta por chat','chat')">💬 Chat</a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta por vídeo','video')">📹 Vídeo</a>
+      <a class="hero__intent-btn hero__intent-btn--primary" href="https://consultaja24h.com.br/renovacao-de-receita">
+        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h4"/><path d="M8.5 12h4.2a2 2 0 0 1 0 4H8.5v-4Z"/><path d="m12.3 16 3.2 4"/></svg>
+        Renovar receita
+      </a>
+      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'atestado médico','chat')">
+        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h4"/><path d="M8 13h8M8 17h5"/><path d="M10 8h3M11.5 6.5v3"/></svg>
+        Atestado médico
+      </a>
+      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'sintomas ou mal-estar','chat')">
+        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01M8.5 15.5c1.9-1.5 5.1-1.5 7 0"/></svg>
+        Sintomas
+      </a>
+      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'exames de check-up','chat')">
+        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6l1 2h3v15H5V6h3l1-2Z"/><path d="M9 12l2 2 4-4"/><path d="M8 18h8"/></svg>
+        Exames de check-up
+      </a>
+      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta por chat','chat')">
+        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"/><path d="M8 10.5h8M8 14h5"/></svg>
+        Chat com médico
+      </a>
+      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta por vídeo','video')">
+        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H4V7Z"/><path d="m17 11 4-3v8l-4-3"/></svg>
+        Consulta por vídeo
+      </a>
     </div>
   </div>
 </section>
