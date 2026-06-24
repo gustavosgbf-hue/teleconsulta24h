@@ -999,6 +999,29 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 .mautofill{font-size:.7rem;color:rgba(94,224,160,.85);margin-top:2px;display:none;line-height:1.5}
 .mautofill.show{display:block}
 .mautofill.err{color:rgba(255,160,140,.85)}
+.mpatient-choice{
+  padding:10px 11px;border-radius:12px;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);
+}
+.mpatient-choice__title{font-size:.74rem;font-weight:700;color:rgba(255,255,255,.82);margin-bottom:7px}
+.mpatient-choice__options{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.mpatient-choice__btn{
+  min-height:38px;padding:8px 10px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);
+  color:rgba(255,255,255,.58);font-family:'Outfit',sans-serif;font-size:.74rem;font-weight:700;
+  cursor:pointer;transition:border-color .16s,background .16s,color .16s;
+}
+.mpatient-choice__btn.active{
+  border-color:rgba(94,224,160,.34);background:rgba(94,224,160,.09);
+  color:#8be9b3;box-shadow:0 0 0 1px rgba(94,224,160,.05) inset;
+}
+.mpatient-choice__note{font-size:.63rem;color:rgba(255,255,255,.38);line-height:1.45;margin-top:7px}
+.mdependent-fields{
+  display:none;flex-direction:column;gap:9px;
+  padding:10px 11px;border-radius:12px;
+  background:rgba(180,224,90,.035);border:1px solid rgba(180,224,90,.12);
+}
+.mdependent-fields.show{display:flex}
 
 .mtrust{font-size:.62rem;color:rgba(255,255,255,.42);text-align:center;line-height:1.7}
 
@@ -2210,6 +2233,29 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <input class="mi" id="moTel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" oninput="moMascaraTel(this)" onkeydown="if(event.key==='Enter')moAvancarStep1()" autocomplete="tel-national">
         <div class="mfb" id="moFbTel">✓ Número válido</div>
       </div>
+      <div class="mpatient-choice">
+        <div class="mpatient-choice__title">A consulta é para você?</div>
+        <div class="mpatient-choice__options">
+          <button type="button" class="mpatient-choice__btn active" id="moPacienteEu" onclick="moSelecionarPaciente(false)">Sim, para mim</button>
+          <button type="button" class="mpatient-choice__btn" id="moPacienteOutro" onclick="moSelecionarPaciente(true)">Outra pessoa</button>
+        </div>
+        <div class="mpatient-choice__note">Cada pagamento corresponde ao atendimento individual de uma pessoa.</div>
+      </div>
+      <div class="mdependent-fields" id="moDependenteFields">
+        <div>
+          <label class="ml">Nome completo do paciente</label>
+          <input class="mi" id="moDependenteNome" type="text" placeholder="Quem será atendido" autocomplete="off">
+        </div>
+        <div>
+          <label class="ml">CPF do paciente</label>
+          <input class="mi" id="moDependenteCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)">
+        </div>
+        <div>
+          <label class="ml">Data de nascimento do paciente</label>
+          <input class="mi" id="moDependenteNasc" type="text" placeholder="DD/MM/AAAA" inputmode="numeric" maxlength="10" oninput="moMascaraNasc(this)">
+        </div>
+        <div class="mfb err" id="moDependenteErro"></div>
+      </div>
       <div id="moNomeWrap" style="display:none">
         <label class="ml">Nome completo</label>
         <input class="mi" id="moNome" type="text" placeholder="Seu nome completo" autocomplete="name" onkeydown="if(event.key==='Enter')moConfirmarComNome()">
@@ -2255,8 +2301,8 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <button class="mtab" id="moTabCard" onclick="moMetodo('cartao')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:3px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg><br>Cartão<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Visa · Master · Elo</span></button>
       </div>
       <div class="mcard-fields" id="moCardFields">
-        <div><label class="ml">Nome completo</label><input class="mi" id="moPayNome" type="text" placeholder="Como no CPF" autocomplete="name"></div>
-        <div><label class="ml">CPF do pagador</label><input class="mi" id="moPayCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)"><div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Necessário para pagamento e emissão dos documentos médicos.</div></div>
+        <div><label class="ml">Nome do pagador</label><input class="mi" id="moPayNome" type="text" placeholder="Como no CPF" autocomplete="name"></div>
+        <div><label class="ml">CPF do pagador</label><input class="mi" id="moPayCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)"><div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Usado somente para processar o pagamento. Os documentos usam os dados do paciente.</div></div>
         <div><label class="ml">E-mail</label><input class="mi" id="moCardEmail" type="email" placeholder="seu@email.com" inputmode="email"></div>
         <div><label class="ml">Número do cartão</label><input class="mi" id="moCfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="moCfMascaraNumero(this)"></div>
         <div><label class="ml">Nome no cartão</label><input class="mi" id="moCfNome" type="text" placeholder="Como aparece no cartão" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"></div>
@@ -2267,11 +2313,15 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <div class="mcard-err" id="moCardErr"></div>
       </div>
 
-      <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, razão social da ConsultaJá24h. O CPF é solicitado apenas para gerar o pagamento, localizar seu atendimento e permitir a emissão de documentos médicos quando indicados.</div>
+      <div class="mpix-alert" id="moPixAlert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--g2)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> O pagamento aparece como <strong style="color:rgba(94,224,160,.9)">JG FONSECA SERVIÇOS MÉDICOS LTDA</strong>, razão social da ConsultaJá24h. Os dados do pagador são usados somente na cobrança e ficam separados do cadastro médico do paciente.</div>
       <div id="moPixCpfWrap" style="display:block">
+        <div id="moPixPagadorNomeWrap" style="display:none;margin-bottom:9px">
+          <label class="ml">Nome do responsável pelo pagamento</label>
+          <input class="mi" id="moPixPagadorNome" type="text" placeholder="Nome completo do pagador" autocomplete="name">
+        </div>
         <label class="ml">CPF do pagador</label>
         <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this);moPixCpfDetectar(this)">
-        <div style="font-size:.63rem;color:rgba(255,255,255,.34);margin-top:5px;line-height:1.45">Necessário para gerar o Pix com segurança pelo PagBank e localizar seu atendimento. Seus dados são protegidos por sigilo médico e LGPD.</div>
+        <div style="font-size:.63rem;color:rgba(255,255,255,.34);margin-top:5px;line-height:1.45">Usado somente para gerar o pagamento. Os documentos médicos serão emitidos com os dados do paciente informado anteriormente.</div>
       </div>
       <button class="mcta" id="moBtnPagar" onclick="moPagar()">Gerar Pix de R$ 49,90</button>
       <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.34);line-height:1.45">Após o pagamento, você será direcionado para a triagem médica. Sem mensalidade, fidelidade ou cobrança extra.</div>
@@ -2335,6 +2385,8 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
 <script>
 var MO_API='https://triagem-api.onrender.com';
 var moTelVal='',moNomeVal='',moNascVal='',moCPFVal='',moEmailVal='';
+var moPagadorNomeVal='',moPagadorCPFVal='',moPagadorEmailVal='';
+var moAtendimentoTerceiro=false;
 var moAtendimentoId=null,moOrderId=null,moMetodoAtual='pix';
 var moPoller=null,moJaTimer=null,moCardProcessando=false;
 var moPagamentoConfirmado=false;
@@ -2540,6 +2592,10 @@ function moPayloadAtendimento(extra){
     tipo:moTipoConsulta,
     data_nascimento:moNascVal||'',
     email:moEmailVal||'',
+    atendimento_para_terceiro:!!moAtendimentoTerceiro,
+    pagador_nome:moPagadorNomeVal||'',
+    pagador_cpf:moPagadorCPFVal||'',
+    pagador_email:moPagadorEmailVal||'',
     contexto:moPreContexto||'',
     ads:moAdsAttributionPayload()
   }, extra||{});
@@ -2555,6 +2611,10 @@ function moSalvarCheckoutSessao(){
       pacienteTel:moTelVal||'',
       pacienteCPF:moCPFVal||'',
       pacienteEmail:moEmailVal||'',
+      atendimentoParaTerceiro:!!moAtendimentoTerceiro,
+      pagadorNome:moPagadorNomeVal||'',
+      pagadorCPF:moPagadorCPFVal||'',
+      pagadorEmail:moPagadorEmailVal||'',
       pagbankOrderId:moOrderId||null,
       checkoutSessionId:moGetCheckoutSessionId(),
       paymentMethod:moMetodoAtual||'pix',
@@ -3025,6 +3085,59 @@ function moConverterNasc(val){
   return p[2]+'-'+p[1]+'-'+p[0];
 }
 
+function moSelecionarPaciente(terceiro){
+  moAtendimentoTerceiro=!!terceiro;
+  document.getElementById('moPacienteEu').classList.toggle('active',!moAtendimentoTerceiro);
+  document.getElementById('moPacienteOutro').classList.toggle('active',moAtendimentoTerceiro);
+  document.getElementById('moDependenteFields').classList.toggle('show',moAtendimentoTerceiro);
+  document.getElementById('moPixPagadorNomeWrap').style.display=moAtendimentoTerceiro?'block':'none';
+  document.getElementById('moAutofill').className='mautofill';
+  document.getElementById('moAutofill').textContent='';
+  if(moAtendimentoTerceiro){
+    moNomeVal='';
+    moNascVal='';
+    moCPFVal='';
+    setTimeout(function(){
+      var el=document.getElementById('moDependenteNome');
+      if(el) el.focus();
+    },80);
+  }
+  moTrack('patient_recipient_selected',{recipient:moAtendimentoTerceiro?'other':'self'});
+}
+
+function moValidarPacienteTerceiro(){
+  if(!moAtendimentoTerceiro) return true;
+  var nomeEl=document.getElementById('moDependenteNome');
+  var cpfEl=document.getElementById('moDependenteCPF');
+  var nascEl=document.getElementById('moDependenteNasc');
+  var erroEl=document.getElementById('moDependenteErro');
+  var nome=(nomeEl.value||'').trim().replace(/\s+/g,' ');
+  var cpf=(cpfEl.value||'').replace(/\D/g,'');
+  var nasc=(nascEl.value||'').trim();
+  erroEl.classList.add('show');
+  if(!nome||nome.split(/\s+/).length<2){
+    erroEl.textContent='Informe o nome completo de quem será atendido.';
+    nomeEl.focus();
+    return false;
+  }
+  if(!validarCPF(cpf)){
+    erroEl.textContent='Informe um CPF válido para o paciente.';
+    cpfEl.focus();
+    return false;
+  }
+  if(!/^\d{2}\/\d{2}\/\d{4}$/.test(nasc)){
+    erroEl.textContent='Informe a data de nascimento do paciente.';
+    nascEl.focus();
+    return false;
+  }
+  moNomeVal=nome;
+  moCPFVal=cpf;
+  moNascVal=moConverterNasc(nasc);
+  erroEl.textContent='';
+  erroEl.classList.remove('show');
+  return true;
+}
+
 async function moAvancarStep1(){
   var telEl=document.getElementById('moTel');
   var fb=document.getElementById('moFbTel');
@@ -3042,10 +3155,20 @@ async function moAvancarStep1(){
     return;
   }
   moTelVal=tel;
+  if(!moValidarPacienteTerceiro()) return;
   moTrackOnce('tel_valid_'+moGetCheckoutSessionId(), 'telefone_valido', {tipo:moTipoConsulta});
   var btn=document.getElementById('moBtnStep1');
   btn.disabled=true; btn.textContent='Verificando...';
   var autofill=document.getElementById('moAutofill');
+  if(moAtendimentoTerceiro){
+    moTrack('patient_lookup_result',{result:'skipped_dependent'});
+    fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
+    moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
+    autofill.textContent='Paciente identificado. Os dados do pagamento ficarão separados.';
+    autofill.className='mautofill show';
+    await moIrPagamento();
+    return;
+  }
   // timeout de 4s pra nao travar UI se servidor estiver dormindo (Render free)
   var ctrl = (typeof AbortController!=='undefined') ? new AbortController() : null;
   var timeoutId = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 4000);
@@ -3140,7 +3263,8 @@ function moPixCpfDetectar(el){
       if(statusEl){ statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
       return;
     }
-    moCPFVal=cpf;
+    moPagadorCPFVal=cpf;
+    if(!moAtendimentoTerceiro&&!moCPFVal) moCPFVal=cpf;
     moTrackOnce('cpf_pix_'+moGetCheckoutSessionId(), 'cpf_informado', {method:'pix'});
     if(statusEl&&statusEl.classList.contains('err')) statusEl.style.display='none';
   }
@@ -3150,7 +3274,14 @@ async function moPagar(){
   if(moMetodoAtual==='pix'){
     var cpfEl=document.getElementById('moPixCPF');
     var cpf=(cpfEl.value||'').replace(/\D/g,'');
+    var pagadorNomeEl=document.getElementById('moPixPagadorNome');
+    var pagadorNome=(pagadorNomeEl.value||'').trim().replace(/\s+/g,' ');
     var statusEl=document.getElementById('moPixStatus');
+    if(moAtendimentoTerceiro&&(!pagadorNome||pagadorNome.split(/\s+/).length<2)){
+      if(statusEl){ statusEl.textContent='Informe o nome completo do responsável pelo pagamento.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
+      pagadorNomeEl.focus();
+      return;
+    }
     if(!cpf||cpf.length!==11||!validarCPF(cpf)){
       moTrack('pix_error', {error_stage:'cpf_validation',error_message:'cpf_invalido'});
       if(statusEl){ statusEl.textContent='⚠️ Informe um CPF válido para gerar o Pix.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
@@ -3159,7 +3290,9 @@ async function moPagar(){
       setTimeout(function(){ cpfEl.style.borderColor=''; },1800);
       return;
     }
-    moCPFVal=cpf;
+    moPagadorNomeVal=pagadorNome||(moNomeValido(moNomeVal)?moNomeVal:'Paciente');
+    moPagadorCPFVal=cpf;
+    if(!moAtendimentoTerceiro&&!moCPFVal) moCPFVal=cpf;
     moTrackOnce('cpf_pix_'+moGetCheckoutSessionId(), 'cpf_informado', {method:'pix'});
     moTrack('pix_generate_click', {contexto:moPreContexto||'geral'});
     await moGerarPix();
@@ -3180,7 +3313,7 @@ async function moGerarPix(){
       moTrack('pix_error', {error_stage:'timeout',error_message:'servidor_demorou'}); }
   },25000);
   try {
-    if(!validarCPF(moCPFVal)){
+    if(!validarCPF(moPagadorCPFVal)){
       var statusEl=document.getElementById('moPixStatus');
       if(statusEl){ statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
       btn.disabled=false; btn.textContent='Gerar Pix de R$ 49,90';
@@ -3190,8 +3323,18 @@ async function moGerarPix(){
     }
     await moGarantirAtendimentoAntesDaTriagem();
     if(!moAtendimentoId) throw new Error('Não foi possível abrir seu atendimento. Tente novamente.');
+    moPostConfiavel('/api/notify',moPayloadAtendimento({atendimentoId:moAtendimentoId}));
     var res=await moFetchComTimeout(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({atendimentoId:moAtendimentoId,nome:moNomeParaCadastro(),cpf:moCPFVal,email:undefined,ads:moAdsAttributionPayload()})},23000);
+      body:JSON.stringify({
+        atendimentoId:moAtendimentoId,
+        nome:moPagadorNomeVal||moNomeParaCadastro(),
+        cpf:moPagadorCPFVal,
+        email:moPagadorEmailVal||undefined,
+        paciente_nome:moNomeParaCadastro(),
+        paciente_cpf:moCPFVal||'',
+        atendimento_para_terceiro:!!moAtendimentoTerceiro,
+        ads:moAdsAttributionPayload()
+      })},23000);
     var data=await res.json();
     if(!data.ok) throw new Error(data.error||'Erro ao gerar PIX');
     moOrderId=data.order_id;
@@ -3304,7 +3447,7 @@ function moConfirmarPagamento(){
   }
 
   // A conversão de compra dispara na página /confirmado. A landing apenas redireciona.
-  if(moAtendimentoId && moCPFVal && moCPFVal.length===11){
+  if(moAtendimentoId && temNomeReal && moCPFVal && moCPFVal.length===11){
     moPostConfiavel('/api/notify',moPayloadAtendimento({atendimentoId:moAtendimentoId}));
     moPostConfiavel('/api/atendimento/atualizar-cpf',{atendimentoId:moAtendimentoId,cpf:moCPFVal});
     moTrack('triage_redirect_start', {destino:'confirmado', origem:'landing_pagamento_confirmado'});
@@ -3314,7 +3457,7 @@ function moConfirmarPagamento(){
     return;
   }
 
-  var precisaDados = !(moCPFVal && moCPFVal.length===11);
+  var precisaDados = !(temNomeReal && moCPFVal && moCPFVal.length===11);
   if(precisaDados){
     moTrack('post_payment_details_view', {contexto:moPreContexto||'geral'});
     moIrStep(3);
@@ -3447,11 +3590,18 @@ async function moPagarCartao(){
   moTrack('card_attempt', {installments:1});
   var btn=document.getElementById('moBtnPagar');
   btn.disabled=true; btn.textContent='Processando...';
-  moNomeVal=nome; moCPFVal=cpfNum; moEmailVal=email;
+  moPagadorNomeVal=nome;
+  moPagadorCPFVal=cpfNum;
+  moPagadorEmailVal=email;
+  if(!moAtendimentoTerceiro){
+    if(!moNomeValido(moNomeVal)) moNomeVal=nome;
+    if(!moCPFVal) moCPFVal=cpfNum;
+    if(!moEmailVal) moEmailVal=email;
+  }
   try {
     if(!moAtendimentoId){
       var rPre=await fetch(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(moPayloadAtendimento({nome:nome,cpf:cpfNum,email:email}))});
+        body:JSON.stringify(moPayloadAtendimento())});
       var dPre=await rPre.json();
       if(dPre&&dPre.atendimentoId){
         moAtendimentoId=dPre.atendimentoId;
@@ -3466,7 +3616,19 @@ async function moPagarCartao(){
       .getPaymentToken();
     if(!tokenResult||!tokenResult.payment_token) throw new Error('Falha ao tokenizar cartão.');
     var r=await fetch(MO_API+'/api/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({payment_token:tokenResult.payment_token,nome:nome,cpf:cpfNum,email:email,telefone:moTelVal,parcelas:1,atendimentoId:moAtendimentoId||undefined,ads:moAdsAttributionPayload()})});
+      body:JSON.stringify({
+        payment_token:tokenResult.payment_token,
+        nome:nome,
+        cpf:cpfNum,
+        email:email,
+        telefone:moTelVal,
+        parcelas:1,
+        atendimentoId:moAtendimentoId||undefined,
+        paciente_nome:moNomeParaCadastro(),
+        paciente_cpf:moCPFVal||'',
+        atendimento_para_terceiro:!!moAtendimentoTerceiro,
+        ads:moAdsAttributionPayload()
+      })});
     var d=await r.json();
     var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
     if(ok){ moTrack('card_approved', {status:d.status||'approved'}); setTimeout(function(){ moConfirmarPagamento(); }, 800); }
@@ -3496,10 +3658,15 @@ function moFallbackCopy(text){
 function moReiniciar(){
   clearInterval(moPoller); clearTimeout(moJaTimer);
   moPoller=null; moJaTimer=null; moOrderId=null; moAtendimentoId=null;
-  moTelVal=''; moNomeVal=''; moNascVal=''; moCPFVal=''; moEmailVal=''; moCardProcessando=false; moPagamentoConfirmado=false;
-  ['moTel','moNome','moNasc','moPayNome','moPayCPF','moCardEmail','moCfNumero','moCfNome','moCfValidade','moCfCvv','moPixCPF','moCpfPos','moCpfPosNome','moCpfPosNasc'].forEach(function(id){
+  moTelVal=''; moNomeVal=''; moNascVal=''; moCPFVal=''; moEmailVal='';
+  moPagadorNomeVal=''; moPagadorCPFVal=''; moPagadorEmailVal=''; moAtendimentoTerceiro=false;
+  moCardProcessando=false; moPagamentoConfirmado=false;
+  ['moTel','moNome','moNasc','moDependenteNome','moDependenteCPF','moDependenteNasc','moPixPagadorNome','moPayNome','moPayCPF','moCardEmail','moCfNumero','moCfNome','moCfValidade','moCfCvv','moPixCPF','moCpfPos','moCpfPosNome','moCpfPosNasc'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value='';
   });
+  moSelecionarPaciente(false);
+  document.getElementById('moDependenteErro').textContent='';
+  document.getElementById('moDependenteErro').classList.remove('show');
   document.getElementById('moFbTel').classList.remove('show');
   document.getElementById('moNomeWrap').style.display='none';
   document.getElementById('moNascWrap').style.display='none';
