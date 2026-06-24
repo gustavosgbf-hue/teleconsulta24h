@@ -791,7 +791,7 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   .nav__actions{gap:8px;flex:0 0 100%;width:100%;max-width:100%;order:2;justify-content:space-between}
   .nav__links{gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
   .nav__links::-webkit-scrollbar{display:none}
-  .nav__rx-link{min-height:38px;padding:8px 10px;font-size:.68rem;gap:5px;border-radius:14px;white-space:nowrap}
+  .nav__rx-link{min-height:35px;padding:6px 10px;font-size:.68rem;gap:5px;border-radius:14px;white-space:nowrap}
   .nav__rx-link--featured::after{display:none}
   .nav__rx-icon{width:14px;height:14px}
   .nav__rx-new{display:none}
@@ -809,7 +809,14 @@ hr.divider{border:none;border-top:1px solid var(--line)}
     min-height:46px;padding:10px 9px;font-size:.72rem;border-radius:15px;
     box-shadow:0 10px 26px rgba(0,0,0,.12),0 0 0 1px rgba(255,255,255,.03) inset;
   }
-  .hero__intent-btn--primary::after{right:8px;top:-8px;font-size:.46rem;padding:1px 6px}
+  .hero__intent-btn--primary::after{
+    right:8px;top:-8px;
+    padding:1px 6px;
+    border-color:rgba(180,224,90,.18);
+    color:rgba(223,255,158,.78);
+    font-size:.44rem;
+    opacity:.82;
+  }
   .btn-primary{padding:18px 20px;font-size:1rem;border-radius:17px}
   #heroCTA{width:100%;max-width:340px;min-height:62px}
   #heroPriceAnchor{max-width:350px;margin-top:18px}
