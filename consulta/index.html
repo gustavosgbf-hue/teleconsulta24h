@@ -791,7 +791,7 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   .nav__actions{gap:8px;flex:0 0 100%;width:100%;max-width:100%;order:2;justify-content:space-between}
   .nav__links{gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
   .nav__links::-webkit-scrollbar{display:none}
-  .nav__rx-link{min-height:35px;padding:6px 10px;font-size:.68rem;gap:5px;border-radius:14px;white-space:nowrap}
+  .nav__rx-link{min-height:33px;padding:5px 9px;font-size:.67rem;gap:5px;border-radius:13px;white-space:nowrap}
   .nav__rx-link--featured::after{display:none}
   .nav__rx-icon{width:14px;height:14px}
   .nav__rx-new{display:none}
@@ -799,9 +799,9 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   .nav__link-full{display:none}
   .nav__link-short{display:inline}
   .hero{padding:30px 20px 38px}
-  .hero__h1{font-size:clamp(1.84rem,7.85vw,2.18rem);line-height:1.08;margin-bottom:14px;max-width:340px}
+  .hero__h1{font-size:clamp(1.74rem,7.35vw,2.08rem);line-height:1.07;margin-bottom:13px;max-width:330px}
   .hero__mobile-break{display:block}
-  .hero__sub{font-size:.9rem;margin-bottom:22px}
+  .hero__sub{font-size:.88rem;margin-bottom:20px;max-width:340px}
   .hero__intent{margin-top:16px;max-width:350px}
   .hero__intent-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
   .hero__intent-title{font-size:.75rem;margin-bottom:9px;color:rgba(255,255,255,.56)}
@@ -810,12 +810,12 @@ hr.divider{border:none;border-top:1px solid var(--line)}
     box-shadow:0 10px 26px rgba(0,0,0,.12),0 0 0 1px rgba(255,255,255,.03) inset;
   }
   .hero__intent-btn--primary::after{
-    right:8px;top:-8px;
+    right:8px;top:-7px;
     padding:1px 6px;
-    border-color:rgba(180,224,90,.18);
-    color:rgba(223,255,158,.78);
-    font-size:.44rem;
-    opacity:.82;
+    border-color:rgba(180,224,90,.14);
+    color:rgba(223,255,158,.68);
+    font-size:.42rem;
+    opacity:.72;
   }
   .btn-primary{padding:18px 20px;font-size:1rem;border-radius:17px}
   #heroCTA{width:100%;max-width:340px;min-height:62px}
@@ -1454,7 +1454,7 @@ whatsappSend.addEventListener('click', function() {
     <em>por chat ou <span class="hero__mobile-break"></span>vídeo.</em>
   </h1>
   <p class="hero__sub" id="heroSub" style="line-height:1.65;color:rgba(255,255,255,.68)">
-    Atendimento em poucos minutos. Receita, atestado e exames de check-up quando indicados.
+    Fale com um médico em poucos minutos. Por chat, sem câmera, ou por vídeo se preferir. Receita, atestado e exames quando indicados.
   </p>
   <!-- heroUrgency removido: não promete tempo de vaga (só mostra info estática na livebar) -->
   <p id="heroUrgency" style="display:none"></p>
@@ -1468,7 +1468,7 @@ whatsappSend.addEventListener('click', function() {
   <div id="heroPriceAnchor" class="hero__proof-list">
     <div class="hero__proof-row">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg>
-      <span>Por chat ou vídeo · sem app · pagamento único</span>
+      <span>Por chat, sem câmera · vídeo opcional · pagamento único</span>
     </div>
     <div class="hero__proof-row">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82Z"></path><path d="M7.5 7.5h.01"></path></svg>
@@ -2185,8 +2185,8 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
 
     <!-- STEP 0: Escolha de modalidade -->
     <div class="mo-step on" id="moStep0">
-      <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Chat por texto ou vídeo, você escolhe.</p>
-      <p style="font-size:.74rem;color:rgba(255,255,255,.38);font-weight:300;margin-top:-4px">Os dois funcionam direto na plataforma, sem baixar nada.</p>
+      <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Chat por texto, sem câmera. Vídeo se preferir.</p>
+      <p style="font-size:.74rem;color:rgba(255,255,255,.38);font-weight:300;margin-top:-4px">Tudo direto na plataforma, sem baixar nada.</p>
       <div class="mmode-grid">
         <button class="mmode-btn selected" id="moBtnChat" onclick="moSelecionarTipo('chat')">
           <span class="mmode-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
