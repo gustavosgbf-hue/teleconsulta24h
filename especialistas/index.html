@@ -43,6 +43,10 @@
   --endo-mid:#7ec697;
   --endo-acc:#257a40;
   --endo-dark:#0f4422;
+  --geria:#eee8f5;
+  --geria-mid:#b7a2ce;
+  --geria-acc:#74538f;
+  --geria-dark:#3e2851;
   --clin:#e8f4f0;
   --clin-mid:#7dbfae;
   --clin-acc:#1a7a62;
@@ -295,6 +299,7 @@ hr.div{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 au
 .spec-card--psiq .spec-card-accent{background:var(--psiq-acc)}
 .spec-card--derm .spec-card-accent{background:var(--derm-acc)}
 .spec-card--endo .spec-card-accent{background:var(--endo-acc)}
+.spec-card--geria .spec-card-accent{background:var(--geria-acc)}
 .spec-card-head{display:flex;align-items:flex-start;gap:14px}
 .spec-card-icon{
   width:46px;height:46px;border-radius:12px;
@@ -305,6 +310,7 @@ hr.div{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 au
 .spec-card--psiq .spec-card-icon{background:var(--psiq)}
 .spec-card--derm .spec-card-icon{background:var(--derm)}
 .spec-card--endo .spec-card-icon{background:var(--endo)}
+.spec-card--geria .spec-card-icon{background:var(--geria);color:var(--geria-dark)}
 .spec-card-name{
   font-family:var(--font-d);
   font-size:1.4rem;font-weight:500;
@@ -327,6 +333,7 @@ hr.div{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 au
 .spec-card--psiq .spec-card-avail{color:var(--psiq-acc)}
 .spec-card--derm .spec-card-avail{color:var(--derm-acc)}
 .spec-card--endo .spec-card-avail{color:var(--endo-acc)}
+.spec-card--geria .spec-card-avail{color:var(--geria-acc)}
 .avail-dot{
   width:6px;height:6px;border-radius:50%;flex-shrink:0;
   animation:pulse 2s ease-in-out infinite;
@@ -335,6 +342,7 @@ hr.div{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 au
 .spec-card--psiq .avail-dot{background:var(--psiq-acc);box-shadow:0 0 0 3px rgba(31,111,186,.15)}
 .spec-card--derm .avail-dot{background:var(--derm-acc);box-shadow:0 0 0 3px rgba(181,107,63,.15)}
 .spec-card--endo .avail-dot{background:var(--endo-acc);box-shadow:0 0 0 3px rgba(37,122,64,.15)}
+.spec-card--geria .avail-dot{background:var(--geria-acc);box-shadow:0 0 0 3px rgba(116,83,143,.15)}
 .spec-card-footer{
   padding:16px 28px;
   border-top:1px solid var(--line);
@@ -363,6 +371,7 @@ hr.div{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 au
 .spec-card--psiq .spec-cta{background:var(--psiq-acc);color:#fff}
 .spec-card--derm .spec-cta{background:var(--derm-acc);color:#fff}
 .spec-card--endo .spec-cta{background:var(--endo-acc);color:#fff}
+.spec-card--geria .spec-cta{background:var(--geria-acc);color:#fff}
 .spec-cta:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.18)}
 .spec-cta:active{transform:translateY(0)}
 
@@ -682,6 +691,30 @@ footer a:hover{color:var(--ink)}
         </span>
       </div>
     </a>
+
+    <!-- GERIATRIA -->
+    <article class="spec-card spec-card--geria spec-card--disabled fade-up reveal reveal-delay-3" aria-label="Geriatria, em breve">
+      <div class="spec-card-accent"></div>
+      <div class="spec-card-top">
+        <div class="spec-card-head">
+          <div class="spec-card-icon">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3"/><path d="M7 21v-3a5 5 0 0 1 10 0v3M18 10l2 2-2 2"/></svg>
+          </div>
+          <div>
+            <div class="spec-card-name">Geriatria</div>
+            <div class="spec-card-crm">Atendimento por vídeo ou chat</div>
+          </div>
+        </div>
+        <p class="spec-card-desc">Avaliação integral da pessoa idosa, revisão de medicamentos, memória e acompanhamento da saúde.</p>
+        <div class="spec-card-avail">
+          <span class="avail-dot avail-dot--inativo"></span>
+          Novos horários em preparação
+        </div>
+      </div>
+      <div class="spec-card-footer">
+        <span class="spec-cta spec-cta--disabled">Em breve</span>
+      </div>
+    </article>
 
   </div>
 </section>
