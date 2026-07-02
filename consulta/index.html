@@ -1054,35 +1054,21 @@ hr.divider{border:none;border-top:1px solid var(--line)}
 }
 .mja-wrap{display:none;text-align:center;margin-top:5px}
 
-/* ── Step 0: escolha do atendimento ── */
-.mservice-intro{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:1px}
-.mservice-list{display:flex;flex-direction:column;gap:8px}
-.mservice-btn{
-  width:100%;display:grid;grid-template-columns:38px minmax(0,1fr) auto;
-  align-items:center;gap:10px;padding:11px 12px;border-radius:13px;
-  border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);
-  color:#fff;font-family:'Outfit',sans-serif;text-align:left;cursor:pointer;
-  transition:border-color .16s,background .16s,transform .16s;-webkit-appearance:none;
+/* ── Step 0: escolha de modalidade ── */
+.mmode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0}
+.mmode-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;padding:18px 10px;border-radius:14px;
+  border:2px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);
+  color:rgba(255,255,255,.55);font-family:'Outfit',sans-serif;
+  cursor:pointer;transition:all .2s;text-align:center;-webkit-appearance:none;
 }
-.mservice-btn:hover{border-color:rgba(94,224,160,.3);background:rgba(94,224,160,.05);transform:translateY(-1px)}
-.mservice-btn.primary{
-  border-color:rgba(94,224,160,.38);
-  background:linear-gradient(135deg,rgba(94,224,160,.11),rgba(180,224,90,.055));
-  box-shadow:0 8px 22px rgba(0,0,0,.12);
-}
-.mservice-icon{
-  width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  color:var(--g2);background:rgba(94,224,160,.08);border:1px solid rgba(94,224,160,.14);
-}
-.mservice-copy{min-width:0}
-.mservice-name{display:block;font-size:.83rem;font-weight:750;line-height:1.25;color:rgba(255,255,255,.94)}
-.mservice-meta{display:block;margin-top:2px;font-size:.64rem;font-weight:400;line-height:1.35;color:rgba(255,255,255,.4)}
-.mservice-price{font-size:.82rem;font-weight:800;color:#b4e05a;white-space:nowrap}
-.mservice-note{
-  padding:9px 10px;border-radius:10px;background:rgba(255,255,255,.02);
-  border:1px solid rgba(255,255,255,.055);font-size:.63rem;line-height:1.45;
-  color:rgba(255,255,255,.38);text-align:center;
-}
+.mmode-btn:hover{border-color:rgba(94,224,160,.3);color:#fff;background:rgba(94,224,160,.05)}
+.mmode-btn.selected{border-color:rgba(94,224,160,.7);background:rgba(94,224,160,.09);color:#fff}
+.mmode-btn .mmode-icon{display:flex;align-items:center;justify-content:center;color:var(--g2)}
+.mmode-btn .mmode-label{font-size:.88rem;font-weight:700;line-height:1.2}
+.mmode-btn .mmode-sub{font-size:.66rem;font-weight:400;color:rgba(255,255,255,.38);line-height:1.4}
+.mmode-btn.selected .mmode-sub{color:rgba(94,224,160,.7)}
 
 /* Extensão compacta do agendamento com especialistas */
 .specialty-bridge{padding:8px 20px 40px}
@@ -2288,32 +2274,24 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       <button class="mghost" onclick="moSairMesmo()">Sair mesmo</button>
     </div>
 
-    <!-- STEP 0: Escolha do atendimento -->
+    <!-- STEP 0: Escolha de modalidade -->
     <div class="mo-step on" id="moStep0">
-      <p class="mservice-intro">Escolha entre atendimento clínico ou uma especialidade disponível agora.</p>
-      <div class="mservice-list">
-        <button type="button" class="mservice-btn primary" onclick="moSelecionarProduto('')">
-          <span class="mservice-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
-          <span class="mservice-copy"><span class="mservice-name">Clínico geral</span><span class="mservice-meta">Para sintomas, atestado e orientação médica</span></span>
-          <span class="mservice-price">R$ 49,90</span>
+      <p style="font-size:.84rem;color:rgba(255,255,255,.72);font-weight:500;line-height:1.5">Chat por texto, sem câmera. Vídeo se preferir.</p>
+      <p style="font-size:.74rem;color:rgba(255,255,255,.38);font-weight:300;margin-top:-4px">Tudo direto na plataforma, sem baixar nada.</p>
+      <div class="mmode-grid">
+        <button class="mmode-btn selected" id="moBtnChat" onclick="moSelecionarTipo('chat')">
+          <span class="mmode-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
+          <span class="mmode-label">Chat com médico</span>
+          <span class="mmode-sub">Texto e envio de fotos</span>
         </button>
-        <button type="button" class="mservice-btn" onclick="moSelecionarProduto('pediatria')">
-          <span class="mservice-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path><path d="M18 5h4M20 3v4"></path></svg></span>
-          <span class="mservice-copy"><span class="mservice-name">Pediatria</span><span class="mservice-meta">Atendimento com profissional da área</span></span>
-          <span class="mservice-price">R$ 99,90</span>
-        </button>
-        <button type="button" class="mservice-btn" onclick="moSelecionarProduto('geriatria')">
-          <span class="mservice-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="5" r="3"></circle><path d="M6 21v-6a3 3 0 0 1 3-3h2"></path><path d="M14 10l2 3 3 1"></path><path d="M15 21l1-8"></path><path d="M19 14l2 7"></path></svg></span>
-          <span class="mservice-copy"><span class="mservice-name">Geriatria</span><span class="mservice-meta">Cuidado médico para a pessoa idosa</span></span>
-          <span class="mservice-price">R$ 99,90</span>
-        </button>
-        <button type="button" class="mservice-btn" onclick="moSelecionarProduto('psiquiatria')">
-          <span class="mservice-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 4.5A3.5 3.5 0 0 0 6 8v1a3 3 0 0 0-2 2.8A3.2 3.2 0 0 0 7.2 15H9"></path><path d="M14.5 4.5A3.5 3.5 0 0 1 18 8v1a3 3 0 0 1 2 2.8A3.2 3.2 0 0 1 16.8 15H15"></path><path d="M9 4.5v15M15 4.5v15M9 12h6"></path></svg></span>
-          <span class="mservice-copy"><span class="mservice-name">Psiquiatria</span><span class="mservice-meta">Avaliação em saúde mental</span></span>
-          <span class="mservice-price">R$ 99,90</span>
+        <button class="mmode-btn" id="moBtnVideo" onclick="moSelecionarTipo('video')">
+          <span class="mmode-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></span>
+          <span class="mmode-label">Vídeo, se preferir</span>
+          <span class="mmode-sub">Consulta por vídeo</span>
         </button>
       </div>
-      <div class="mservice-note">Chat é o padrão e você pode trocar para vídeo na próxima etapa. Especialidades têm reserva exclusiva por 10 minutos.</div>
+      <button class="mcta" id="moBtnStep0" onclick="moAvancarStep0()">Continuar →</button>
+      <p class="mtrust">Começa em menos de 1 minuto · médico disponível agora</p>
     </div>
 
     <!-- STEP 1: Telefone -->
@@ -2577,7 +2555,7 @@ function moGetCheckoutSessionId(){
 }
 
 function moStepNome(n){
-  return ({0:'tipo_atendimento',1:'telefone',2:'pagamento',3:'confirmado_dados'})[n]||'desconhecido';
+  return ({0:'modalidade',1:'telefone',2:'pagamento',3:'confirmado_dados'})[n]||'desconhecido';
 }
 
 function moErroSeguro(msg){
@@ -2946,8 +2924,7 @@ function moAtualizarContexto(){
 
 async function moAbrir(contexto,especialidade){
   moPreContexto = contexto || '';
-  var especialidadeDireta=MO_ESPECIALIDADES_IMEDIATAS[especialidade]?especialidade:'';
-  moEspecialidadeSolicitada=especialidadeDireta;
+  moEspecialidadeSolicitada=MO_ESPECIALIDADES_IMEDIATAS[especialidade]?especialidade:'';
   if(await moRetomarSessaoAtiva()) return;
   moTentouRecuperarSaida=false;
   moStepAntesSaida=1;
@@ -2955,36 +2932,16 @@ async function moAbrir(contexto,especialidade){
   document.getElementById('moOverlay').classList.add('open');
   document.body.classList.add('mo-open');
   document.body.style.overflow='hidden';
-  // Chat é padrão; a troca para vídeo continua disponível na etapa seguinte.
+  // pula direto pro telefone — escolha chat/vídeo vira opcional no proprio step 1
   moTipoConsulta='chat';
   moSelecionarTipo('chat');
   moAtualizarToggleModo();
   moAtualizarContexto();
   moAtualizarProdutoCheckout();
-  moIrStep(especialidadeDireta?1:0);
-  if(especialidadeDireta){
-    setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
-  }
+  moIrStep(1);
+  setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
 }
 window.moAbrir = moAbrir;
-
-function moSelecionarProduto(especialidade){
-  moEspecialidadeSolicitada=MO_ESPECIALIDADES_IMEDIATAS[especialidade]?especialidade:'';
-  if(moEspecialidadeSolicitada){
-    moPreContexto='consulta de '+MO_ESPECIALIDADES_IMEDIATAS[moEspecialidadeSolicitada].toLowerCase();
-  }
-  moAtualizarContexto();
-  moAtualizarProdutoCheckout();
-  moTrack('service_selected',{
-    service_type:moEspecialidadeSolicitada?'especialista':'clinico',
-    especialidade:moEspecialidadeSolicitada||'',
-    value:moValorCentavos()/100,
-    currency:'BRL'
-  });
-  moIrStep(1);
-  setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },250);
-}
-window.moSelecionarProduto=moSelecionarProduto;
 
 function moCliqueEspecialidade(evento,especialidade){
   if(evento){
@@ -3218,7 +3175,7 @@ function moIrStep(n){
   document.querySelectorAll('.mo-step').forEach(function(s){ s.classList.remove('on'); });
   document.getElementById('moStep'+n).classList.add('on');
   document.getElementById('moBox').scrollTop=0;
-  var titles={0:'Escolha seu atendimento',1:'Iniciar atendimento',2:'Pagamento',3:'Confirmado'};
+  var titles={0:'Como prefere ser atendido?',1:'Iniciar atendimento',2:'Pagamento',3:'Confirmado'};
   document.getElementById('moTitle').textContent=titles[n]||'';
   var x=document.querySelector('.mo-x');
   if(x) x.style.display=n===3?'none':'';
