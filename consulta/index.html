@@ -1087,7 +1087,7 @@ hr.divider{border:none;border-top:1px solid var(--line)}
   color:#9bea45;font-size:.73rem;font-weight:700;text-decoration:none;
 }
 .specialty-bridge__all svg{width:14px;height:14px}
-.specialty-bridge__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.specialty-bridge__grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
 .specialty-mini{
   min-width:0;padding:14px 13px;border-radius:12px;
   border:1px solid rgba(255,255,255,.085);background:rgba(3,10,7,.5);
@@ -1646,7 +1646,7 @@ whatsappSend.addEventListener('click', function() {
   <div class="specialty-bridge__inner">
     <div class="specialty-bridge__head">
       <div>
-        <div class="specialty-bridge__eyebrow">Consulta com hora marcada</div>
+        <div class="specialty-bridge__eyebrow">Atendimento agora ou com hora marcada</div>
         <h2 class="specialty-bridge__title" id="specialtyBridgeTitle">Precisa de acompanhamento especializado?</h2>
         <p class="specialty-bridge__sub">Agende com especialistas de CRM ativo e RQE quando aplicável.</p>
       </div>
@@ -1656,6 +1656,14 @@ whatsappSend.addEventListener('click', function() {
       </a>
     </div>
     <div class="specialty-bridge__grid">
+      <a class="specialty-mini" href="/consulta/?especialidade=pediatria" onclick="return moCliqueEspecialidade(event,'pediatria')">
+        <div class="specialty-mini__top">
+          <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><path d="M9 12a3 3 0 1 0 6 0"/><path d="M12 3v3M5 8l2 2M19 8l-2 2"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/><circle cx="12" cy="12" r="8"/></svg></span>
+          <span class="specialty-mini__status">Agora</span>
+        </div>
+        <div class="specialty-mini__name">Pediatria</div>
+        <div class="specialty-mini__meta">Especialista online · R$ 99,90</div>
+      </a>
       <a class="specialty-mini" href="/especialistas/endocrinologia">
         <div class="specialty-mini__top">
           <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M8 15h8"/></svg></span>
@@ -1664,13 +1672,13 @@ whatsappSend.addEventListener('click', function() {
         <div class="specialty-mini__name">Endocrinologia</div>
         <div class="specialty-mini__meta">Tireoide, diabetes e hormônios</div>
       </a>
-      <a class="specialty-mini" href="/especialistas/psiquiatria">
+      <a class="specialty-mini" href="/consulta/?especialidade=psiquiatria" onclick="return moCliqueEspecialidade(event,'psiquiatria')">
         <div class="specialty-mini__top">
           <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><path d="M9.5 4.5A3.5 3.5 0 0 0 6 8v.3A3.5 3.5 0 0 0 4 11.5 3.5 3.5 0 0 0 7.5 15H9v5"/><path d="M14.5 4.5A3.5 3.5 0 0 1 18 8v.3a3.5 3.5 0 0 1 2 3.2 3.5 3.5 0 0 1-3.5 3.5H15v5M12 3v18M8 9h4M12 13h4"/></svg></span>
-          <span class="specialty-mini__status">Agendar</span>
+          <span class="specialty-mini__status">Agora</span>
         </div>
         <div class="specialty-mini__name">Psiquiatria</div>
-        <div class="specialty-mini__meta">Ansiedade, sono e acompanhamento</div>
+        <div class="specialty-mini__meta">Especialista online · R$ 99,90</div>
       </a>
       <a class="specialty-mini" href="/especialistas/dermatologia">
         <div class="specialty-mini__top">
@@ -1680,14 +1688,14 @@ whatsappSend.addEventListener('click', function() {
         <div class="specialty-mini__name">Dermatologia</div>
         <div class="specialty-mini__meta">Pele, acne e queda de cabelo</div>
       </a>
-      <div class="specialty-mini specialty-mini--soon" aria-label="Geriatria, em breve">
+      <a class="specialty-mini" href="/consulta/?especialidade=geriatria" onclick="return moCliqueEspecialidade(event,'geriatria')">
         <div class="specialty-mini__top">
           <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M7 21v-3a5 5 0 0 1 10 0v3M18 10l2 2-2 2"/></svg></span>
-          <span class="specialty-mini__status">Em breve</span>
+          <span class="specialty-mini__status">Agora</span>
         </div>
         <div class="specialty-mini__name">Geriatria</div>
-        <div class="specialty-mini__meta">Cuidado integral da pessoa idosa</div>
-      </div>
+        <div class="specialty-mini__meta">Especialista online · R$ 99,90</div>
+      </a>
     </div>
   </div>
 </section>
@@ -2304,10 +2312,13 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;background:rgba(180,224,90,.07);border:1px solid rgba(180,224,90,.2);border-radius:13px;margin:8px 0 6px">
         <div style="font-size:.74rem;color:rgba(255,255,255,.68);line-height:1.35">
-          <strong style="display:block;color:#fff;font-size:.82rem;margin-bottom:1px">Consulta médica online</strong>
+          <strong id="moResumoProduto" style="display:block;color:#fff;font-size:.82rem;margin-bottom:1px">Consulta médica online</strong>
           Pagamento único · sem app · começa após confirmação
         </div>
-        <div style="font-size:1rem;font-weight:800;color:#b4e05a;white-space:nowrap">R$ 49,90</div>
+        <div id="moResumoPreco" style="font-size:1rem;font-weight:800;color:#b4e05a;white-space:nowrap">R$ 49,90</div>
+      </div>
+      <div id="moRegraPediatriaInicio" style="display:none;margin:0 0 8px;padding:9px 11px;border-radius:10px;background:rgba(94,224,160,.045);border:1px solid rgba(94,224,160,.13);font-size:.67rem;line-height:1.45;color:rgba(255,255,255,.5)">
+        <span id="moRegraEspecialistaTexto">O valor reserva o especialista por 10 minutos.</span> Se ninguém assumir, nada muda sem sua escolha: você poderá seguir com um clínico e receber R$ 50 de volta ou pedir reembolso integral.
       </div>
       <p style="font-size:.86rem;color:rgba(255,255,255,.78);font-weight:500;line-height:1.55;margin-bottom:2px;margin-top:4px">Qual seu telefone?</p>
       <p style="font-size:.74rem;color:rgba(255,255,255,.42);font-weight:300;line-height:1.55">Usamos seu telefone para localizar seu atendimento e avisar quando o médico assumir. Sem criar conta.</p>
@@ -2374,10 +2385,13 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
     <div class="mo-step" id="moStep2">
       <div class="mprice">
         <div>
-          <div style="font-size:.63rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:3px">Consulta médica online</div>
+          <div id="moPagamentoProduto" style="font-size:.63rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:3px">Consulta médica online</div>
           <div style="font-size:.69rem;color:rgba(255,255,255,.36);font-weight:300">Pagamento único · Sem mensalidade · Sem taxa extra</div>
         </div>
-        <div class="mpriceval">R$49<span style="font-size:.95rem">,90</span></div>
+        <div class="mpriceval" id="moPagamentoPreco">R$49<span style="font-size:.95rem">,90</span></div>
+      </div>
+      <div id="moRegraPediatriaPagamento" style="display:none;margin:-2px 0 10px;padding:9px 11px;border-radius:10px;background:rgba(94,224,160,.045);border:1px solid rgba(94,224,160,.13);font-size:.67rem;line-height:1.45;color:rgba(255,255,255,.5)">
+        Reserva exclusiva de <span id="moRegraEspecialistaNome">especialista</span> por 10 minutos. Depois disso, você escolhe entre clínico com devolução de R$ 50 ou reembolso integral.
       </div>
       <div class="mtabs">
         <button class="mtab pix" id="moTabPix" onclick="moMetodo('pix')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:3px"><path d="M12 3l3.5 3.5L12 10 8.5 6.5 12 3z"/><path d="M21 12l-3.5 3.5L14 12l3.5-3.5L21 12z"/><path d="M12 21l-3.5-3.5L12 14l3.5 3.5L12 21z"/><path d="M3 12l3.5-3.5L10 12l-3.5 3.5L3 12z"/></svg><br>PIX<br><span style="font-size:.67rem;font-weight:400;opacity:.8">Aprovação instantânea</span></button>
@@ -2481,6 +2495,51 @@ var moStepAntesSaida=1,moTentouRecuperarSaida=false;
 
 // contexto pré-selecionado do pain-grid
 var moPreContexto = '';
+var moEspecialidadeSolicitada = '';
+var MO_ESPECIALIDADES_IMEDIATAS={
+  pediatria:'Pediatria',
+  geriatria:'Geriatria',
+  psiquiatria:'Psiquiatria'
+};
+
+function moNomeEspecialidade(){
+  return MO_ESPECIALIDADES_IMEDIATAS[moEspecialidadeSolicitada]||'';
+}
+
+function moValorCentavos(){
+  return moNomeEspecialidade() ? 9990 : 4990;
+}
+function moValorFormatado(){
+  return moNomeEspecialidade() ? 'R$ 99,90' : 'R$ 49,90';
+}
+function moAtualizarProdutoCheckout(){
+  var nomeEspecialidade=moNomeEspecialidade();
+  var especialista=!!nomeEspecialidade;
+  var produto=especialista?'Consulta de '+nomeEspecialidade+' online':'Consulta médica online';
+  var preco=moValorFormatado();
+  var resumoProduto=document.getElementById('moResumoProduto');
+  var resumoPreco=document.getElementById('moResumoPreco');
+  var pagamentoProduto=document.getElementById('moPagamentoProduto');
+  var pagamentoPreco=document.getElementById('moPagamentoPreco');
+  var regraInicio=document.getElementById('moRegraPediatriaInicio');
+  var regraPagamento=document.getElementById('moRegraPediatriaPagamento');
+  var regraTexto=document.getElementById('moRegraEspecialistaTexto');
+  var regraNome=document.getElementById('moRegraEspecialistaNome');
+  if(resumoProduto) resumoProduto.textContent=produto;
+  if(resumoPreco) resumoPreco.textContent=preco;
+  if(pagamentoProduto) pagamentoProduto.textContent=produto;
+  if(pagamentoPreco) pagamentoPreco.innerHTML=especialista
+    ? 'R$99<span style="font-size:.95rem">,90</span>'
+    : 'R$49<span style="font-size:.95rem">,90</span>';
+  if(regraTexto) regraTexto.textContent='O valor reserva '+nomeEspecialidade+' por 10 minutos.';
+  if(regraNome) regraNome.textContent=nomeEspecialidade||'especialista';
+  if(regraInicio) regraInicio.style.display=especialista?'block':'none';
+  if(regraPagamento) regraPagamento.style.display=especialista?'block':'none';
+  var btnPagar=document.getElementById('moBtnPagar');
+  if(btnPagar&&moMetodoAtual==='pix'&&!document.getElementById('moQrWrap').classList.contains('show')){
+    btnPagar.textContent='Gerar Pix de '+preco;
+  }
+}
 
 function moGetCheckoutSessionId(){
   try {
@@ -2680,6 +2739,7 @@ function moPayloadAtendimento(extra){
     pagador_cpf:moPagadorCPFVal||'',
     pagador_email:moPagadorEmailVal||'',
     contexto:moPreContexto||'',
+    especialidade_solicitada:moEspecialidadeSolicitada||'',
     ads:moAdsAttributionPayload()
   }, extra||{});
 }
@@ -2702,6 +2762,7 @@ function moSalvarCheckoutSessao(){
       checkoutSessionId:moGetCheckoutSessionId(),
       paymentMethod:moMetodoAtual||'pix',
       pagamentoConfirmado:!!moPagamentoConfirmado,
+      especialidadeSolicitada:moEspecialidadeSolicitada||'',
       ts:Date.now()
     };
     localStorage.setItem('cj_sessao', JSON.stringify(snap));
@@ -2727,6 +2788,7 @@ async function moRetomarSessaoAtiva(){
   moCPFVal=sessao.pacienteCPF||'';
   moEmailVal=sessao.pacienteEmail||'';
   moAtendimentoTerceiro=!!sessao.atendimentoParaTerceiro;
+  moEspecialidadeSolicitada=sessao.especialidadeSolicitada||'';
   moPagadorNomeVal=sessao.pagadorNome||'';
   moPagadorCPFVal=sessao.pagadorCPF||'';
   moPagadorEmailVal=sessao.pagadorEmail||'';
@@ -2860,8 +2922,9 @@ function moAtualizarContexto(){
   }
 }
 
-async function moAbrir(contexto){
+async function moAbrir(contexto,especialidade){
   moPreContexto = contexto || '';
+  moEspecialidadeSolicitada=MO_ESPECIALIDADES_IMEDIATAS[especialidade]?especialidade:'';
   if(await moRetomarSessaoAtiva()) return;
   moTentouRecuperarSaida=false;
   moStepAntesSaida=1;
@@ -2874,10 +2937,22 @@ async function moAbrir(contexto){
   moSelecionarTipo('chat');
   moAtualizarToggleModo();
   moAtualizarContexto();
+  moAtualizarProdutoCheckout();
   moIrStep(1);
   setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },300);
 }
 window.moAbrir = moAbrir;
+
+function moCliqueEspecialidade(evento,especialidade){
+  if(evento){
+    evento.preventDefault();
+    evento.stopPropagation();
+  }
+  var nome=MO_ESPECIALIDADES_IMEDIATAS[especialidade]||'especialista';
+  moAbrir('consulta de '+nome.toLowerCase(),especialidade);
+  return false;
+}
+window.moCliqueEspecialidade=moCliqueEspecialidade;
 
 async function moAbrirIntencao(contexto,tipo){
   await moAbrir(contexto);
@@ -3363,7 +3438,7 @@ function moMetodo(m){
   document.getElementById('moPixCpfWrap').style.display=m==='pix'?'block':'none';
   document.getElementById('moQrWrap').classList.remove('show');
   var btn=document.getElementById('moBtnPagar');
-  btn.style.display='block'; btn.textContent=m==='pix'?'Gerar Pix de R$ 49,90':'Pagar com cartão'; btn.disabled=false;
+  btn.style.display='block'; btn.textContent=m==='pix'?'Gerar Pix de '+moValorFormatado():'Pagar com cartão'; btn.disabled=false;
 }
 
 function moPixCpfDetectar(el){
@@ -3433,7 +3508,7 @@ async function moGerarPix(){
     if(!validarCPF(moPagadorCPFVal)){
       var statusEl=document.getElementById('moPixStatus');
       if(statusEl){ statusEl.textContent='⚠️ CPF inválido. Verifique os números e tente novamente.'; statusEl.className='mstatus err'; statusEl.style.display='block'; }
-      btn.disabled=false; btn.textContent='Gerar Pix de R$ 49,90';
+      btn.disabled=false; btn.textContent='Gerar Pix de '+moValorFormatado();
       clearTimeout(_reset);
       moTrack('pix_error', {error_stage:'cpf_validation_late',error_message:'cpf_invalido'});
       return;
@@ -3480,14 +3555,14 @@ async function moGerarPix(){
       var chavePixGerado = 'pix_gerado_' + (moOrderId || Date.now());
       if(!sessionStorage.getItem(chavePixGerado)){
         sessionStorage.setItem(chavePixGerado, '1');
-        moTrack('gerou_pix', {value:49.90,currency:'BRL'});
+        moTrack('gerou_pix', {value:moValorCentavos()/100,currency:'BRL'});
         console.log('[TRACKING] gerou_pix disparado', chavePixGerado);
       }
     })();
     moIniciarPolling();
   } catch(e) {
     clearTimeout(_reset);
-    btn.disabled=false; btn.textContent='Gerar Pix de R$ 49,90';
+    btn.disabled=false; btn.textContent='Gerar Pix de '+moValorFormatado();
     statusEl.textContent='Erro ao gerar PIX: '+(e.message||'Tente novamente.');
     statusEl.className='mstatus err'; statusEl.style.display='block';
     moTrack('pix_error', {error_stage:'order_create',error_message:moErroSeguro(e.message)});
@@ -3777,6 +3852,7 @@ function moReiniciar(){
   moPoller=null; moJaTimer=null; moOrderId=null; moAtendimentoId=null;
   moTelVal=''; moNomeVal=''; moNascVal=''; moCPFVal=''; moEmailVal='';
   moPagadorNomeVal=''; moPagadorCPFVal=''; moPagadorEmailVal=''; moAtendimentoTerceiro=false;
+  moEspecialidadeSolicitada='';
   moCardProcessando=false; moPagamentoConfirmado=false;
   ['moTel','moNome','moNasc','moDependenteNome','moDependenteCPF','moDependenteNasc','moPixPagadorNome','moPayNome','moPayCPF','moCardEmail','moCfNumero','moCfNome','moCfValidade','moCfCvv','moPixCPF','moCpfPos','moCpfPosNome','moCpfPosNasc'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value='';
@@ -3799,6 +3875,7 @@ function moReiniciar(){
   btn.disabled=false; btn.textContent='Continuar atendimento →'; btn.onclick=moAvancarStep1;
   moTipoConsulta='chat';
   moSelecionarTipo('chat');
+  moAtualizarProdutoCheckout();
   moIrStep(0);
 }
 
@@ -3808,6 +3885,15 @@ document.addEventListener('DOMContentLoaded',function(){
     if(triagemRedirect){
       sessionStorage.removeItem('cj_triagem_redirected');
       moTrack('triagem_invalid_entry_redirected', JSON.parse(triagemRedirect));
+    }
+  }catch(e){}
+
+  try{
+    var especialidadeUrl=new URL(window.location.href).searchParams.get('especialidade');
+    if(MO_ESPECIALIDADES_IMEDIATAS[especialidadeUrl]){
+      setTimeout(function(){
+        moAbrir('consulta de '+MO_ESPECIALIDADES_IMEDIATAS[especialidadeUrl].toLowerCase(),especialidadeUrl);
+      },250);
     }
   }catch(e){}
 

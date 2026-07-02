@@ -853,6 +853,15 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       <div id="esperaDemora" style="display:none;margin:6px 0 10px;padding:10px 14px;border-radius:12px;background:rgba(255,189,46,.05);border:1px solid rgba(255,189,46,.2);color:rgba(255,189,46,.92);font-size:.8rem;font-weight:400;line-height:1.5">
         ⏳ Seu médico está finalizando outro atendimento e já vai te chamar. Continue aqui.
       </div>
+      <div id="especialistaFallback" style="display:none;margin:8px 0 14px;padding:14px;border-radius:12px;background:rgba(94,224,160,.055);border:1px solid rgba(94,224,160,.2);text-align:left">
+        <div id="especialistaFallbackTitulo" style="font-size:.84rem;font-weight:700;color:#fff;margin-bottom:5px">O especialista ainda não assumiu</div>
+        <div id="especialistaFallbackTexto" style="font-size:.73rem;color:rgba(255,255,255,.56);line-height:1.5;margin-bottom:11px">Você decide como prefere continuar.</div>
+        <div id="especialistaFallbackAcoes" style="display:grid;gap:8px">
+          <button id="btnFallbackClinico" onclick="decidirFallbackEspecialista('clinico')" style="padding:11px 12px;border-radius:9px;border:1px solid rgba(94,224,160,.32);background:rgba(94,224,160,.1);color:#8be9b3;font-family:'Outfit',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer">Continuar com clínico · recebe R$ 50 de volta</button>
+          <button id="btnFallbackReembolso" onclick="decidirFallbackEspecialista('reembolso')" style="padding:10px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.11);background:transparent;color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer">Prefiro reembolso integral</button>
+        </div>
+        <div id="especialistaFallbackStatus" style="display:none;font-size:.72rem;line-height:1.5;margin-top:9px"></div>
+      </div>
       <div id="aviso-horario-espera" class="night-notice" style="display:none;margin-bottom:12px">
         ⚠️ Neste horário pode haver uma leve demora até o médico assumir. <strong>Continue nesta página</strong>, você será avisado quando ele entrar.
       </div>
@@ -989,6 +998,9 @@ function trackTriagemEvento(nomeEvento){
 // ─────────────────────────────────────────────────────────────────────────────
 var pacienteNome = '', pacienteTel = '', pacienteTelDoc = '', pacienteCPF = '',
     pacienteNascimento = '', pacienteEmail = '', tipoConsulta = 'chat';
+var especialidadeSolicitada = '', fallbackDecisao = '';
+var ESPECIALIDADES_IMEDIATAS_TELA={pediatria:'Pediatria',geriatria:'Geriatria',psiquiatria:'Psiquiatria'};
+function nomeEspecialidadeTela(valor){ return ESPECIALIDADES_IMEDIATAS_TELA[valor]||''; }
 var atendimentoId = null;
 var paymentId = null, pagbankOrderId = null, paymentPoller = null;
 var dispData = null;
@@ -1000,6 +1012,7 @@ function salvarSessao(){
   localStorage.setItem('cj_sessao', JSON.stringify({
     atendimentoId, tipoConsulta, pacienteNome, pacienteTel,
     pacienteCPF, pacienteEmail, pagbankOrderId: pagbankOrderId||null,
+    especialidadeSolicitada: especialidadeSolicitada||'',
     pagamentoConfirmado: !!pagamentoConfirmadoLocal,
     ts: Date.now()
   }));
@@ -1286,6 +1299,8 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
       var data = await res.json();
       if(data.ok && data.atendimento){
         var a = data.atendimento;
+        especialidadeSolicitada = a.especialidade_solicitada || (sessao && sessao.especialidadeSolicitada) || '';
+        fallbackDecisao = a.fallback_decisao || '';
 
         // ── Encerrado: vai direto para final, sem passar por modality
         if(a.status === 'encerrado'){
@@ -1987,7 +2002,14 @@ function mostrarTelaEspera(){
   mostrarLinkRetorno();
   var badge=document.getElementById('esperaBadge'); badge.className='espera-badge '+tipoConsulta;
   document.getElementById('esperaBadgeIcon').textContent=tipoConsulta==='video'?'🎥':'💬';
-  document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
+  var nomeEspecialidade=nomeEspecialidadeTela(especialidadeSolicitada);
+  document.getElementById('esperaBadgeText').textContent=nomeEspecialidade
+    ? nomeEspecialidade+' · especialista · '+(tipoConsulta==='video'?'vídeo':'chat')
+    : (tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat');
+  if(nomeEspecialidade){
+    document.getElementById('esperaTitulo').textContent='Especialista sendo notificado';
+    document.getElementById('esperaSub').textContent='Seu atendimento está reservado a um profissional de '+nomeEspecialidade+'.';
+  }
   tentativas=0;
 }
 function mostrarSalaEspera(){
@@ -2010,15 +2032,79 @@ async function verificarStatus(){
     var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
     var data=await res.json(); if(!data.ok) return;
     atualizarContador(); var a=data.atendimento;
+    especialidadeSolicitada=a.especialidade_solicitada||especialidadeSolicitada;
+    fallbackDecisao=a.fallback_decisao||'';
+    _atualizarFallbackEspecialista(a);
     // [UX] Posição na fila — só mostra se estiver aguardando e houver mais gente
     _atualizarFilaUI(data.fila, a.status);
     // [UX] Após 5min aguardando, mostra mensagem de reasseguramento
     _atualizarDemoraUI(a.status);
     if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
+    if(a.status==='cancelado'&&a.fallback_decisao==='reembolso'){ clearInterval(esperaPoller); mostrarReembolsoEspecialista(); return; }
     if(a.status==='cancelado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); mostrarPagamentoCancelado(); return; }
     if(a.status==='aguardando_aprovacao') return;
     if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')&&!encerradoPoller){ clearInterval(esperaPoller); medicoAssumiu(a); }
   }catch(e){}
+}
+function _atualizarFallbackEspecialista(a){
+  var box=document.getElementById('especialistaFallback');
+  if(!box) return;
+  var nomeEspecialidade=nomeEspecialidadeTela(a.especialidade_solicitada);
+  if(!nomeEspecialidade||a.status!=='aguardando'){
+    box.style.display='none';
+    return;
+  }
+  if(a.fallback_decisao==='clinico'){
+    box.style.display='block';
+    document.getElementById('especialistaFallbackTitulo').textContent='Atendimento clínico solicitado';
+    document.getElementById('especialistaFallbackTexto').textContent='A equipe clínica foi avisada. A devolução de R$ 50 foi solicitada pelo mesmo meio de pagamento.';
+    document.getElementById('especialistaFallbackAcoes').style.display='none';
+    return;
+  }
+  if(!a.fallback_disponivel){
+    box.style.display='block';
+    document.getElementById('especialistaFallbackTitulo').textContent='Atendimento reservado à '+nomeEspecialidade;
+    document.getElementById('especialistaFallbackTexto').textContent='Se o especialista não assumir em até 10 minutos, você poderá escolher um clínico com devolução da diferença ou pedir reembolso integral.';
+    document.getElementById('especialistaFallbackAcoes').style.display='none';
+    return;
+  }
+  box.style.display='block';
+  document.getElementById('especialistaFallbackTitulo').textContent='O especialista ainda não assumiu';
+  document.getElementById('especialistaFallbackTexto').textContent='Você decide como prefere continuar.';
+  document.getElementById('especialistaFallbackAcoes').style.display='grid';
+}
+async function decidirFallbackEspecialista(decisao){
+  if(!atendimentoId) return;
+  var acoes=document.getElementById('especialistaFallbackAcoes');
+  var status=document.getElementById('especialistaFallbackStatus');
+  var botoes=acoes.querySelectorAll('button');
+  botoes.forEach(function(btn){ btn.disabled=true; });
+  status.style.display='block';
+  status.style.color='rgba(255,255,255,.62)';
+  status.textContent=decisao==='clinico'?'Devolvendo a diferença e avisando a equipe clínica...':'Solicitando o reembolso integral...';
+  try{
+    var res=await fetch(API+'/api/atendimento/'+atendimentoId+'/fallback-especialista',{
+      method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({decisao:decisao})
+    });
+    var data=await res.json();
+    if(!data.ok) throw new Error(data.error||'Não foi possível concluir agora.');
+    status.style.color='#8be9b3';
+    status.textContent=decisao==='clinico'
+      ? 'Pronto. A equipe clínica foi avisada e a devolução de R$ 50 foi solicitada.'
+      : 'Reembolso integral solicitado com sucesso.';
+    verificarStatus();
+  }catch(e){
+    status.style.color='#ff9b96';
+    status.textContent=e.message||'Não foi possível concluir agora. Tente novamente.';
+    botoes.forEach(function(btn){ btn.disabled=false; });
+  }
+}
+function mostrarReembolsoEspecialista(){
+  document.getElementById('esperaTitulo').textContent='Reembolso solicitado';
+  document.getElementById('esperaSub').textContent='A devolução integral foi solicitada pelo mesmo meio de pagamento.';
+  document.getElementById('esperaIcon').textContent='✓';
+  document.getElementById('esperaStatusTxt').textContent='';
+  document.getElementById('especialistaFallback').style.display='none';
 }
 // [UX] Atualiza bloco de posição na fila
 function _atualizarFilaUI(fila, status){
@@ -2042,7 +2128,7 @@ function atualizarContador(){
 }
 function medicoAssumiu(a){
   setFlowState('atendimento');
-  document.getElementById('esperaTitulo').textContent='Médico disponível!';
+  document.getElementById('esperaTitulo').textContent=nomeEspecialidadeTela(a.especialidade_solicitada)&&a.fallback_decisao!=='clinico'?'Especialista disponível!':'Médico disponível!';
   document.getElementById('esperaSub').textContent='O médico assumiu seu atendimento.';
   document.getElementById('esperaIcon').textContent='✓';
   document.getElementById('esperaStatusTxt').textContent='';

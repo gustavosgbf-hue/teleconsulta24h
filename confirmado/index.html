@@ -106,6 +106,15 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   try {
     sessao = JSON.parse(sessionStorage.getItem('mo_checkout_sessao') || localStorage.getItem('cj_sessao') || 'null');
   } catch(e) {}
+  var nomesEspecialidades = {pediatria:'Pediatria',geriatria:'Geriatria',psiquiatria:'Psiquiatria'};
+  var especialidadeCompra = sessao && nomesEspecialidades[sessao.especialidadeSolicitada]
+    ? sessao.especialidadeSolicitada
+    : '';
+  var valorCompra = especialidadeCompra ? 99.90 : 49.90;
+  var itemId = especialidadeCompra ? 'consulta_'+especialidadeCompra+'_online' : 'consulta_online';
+  var itemNome = especialidadeCompra
+    ? 'Consulta de '+nomesEspecialidades[especialidadeCompra]+' online'
+    : 'Consulta médica online';
   if(!consultaId){
     if(sessao && sessao.atendimentoId){
       consultaId = String(sessao.atendimentoId);
@@ -160,7 +169,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
     window.dataLayer = window.dataLayer || [];
     var eventoCompra = {
       event: 'pagamento_confirmado',
-      value: 49.90,
+      value: valorCompra,
       currency: 'BRL',
       transaction_id: String(txId),
       atendimento_id: String(consultaId || ''),
@@ -173,12 +182,12 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       event: 'purchase',
       ecommerce: {
         transaction_id: String(txId),
-        value: 49.90,
+        value: valorCompra,
         currency: 'BRL',
         items: [{
-          item_id: 'consulta_online',
-          item_name: 'Consulta médica online',
-          price: 49.90,
+          item_id: itemId,
+          item_name: itemNome,
+          price: valorCompra,
           quantity: 1
         }]
       }
@@ -193,7 +202,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       }
       gtag('event', 'conversion', {
         send_to: 'AW-17964942771/AT3gCPTl0PsbELOLrfZC',
-        value: 49.90,
+        value: valorCompra,
         currency: 'BRL',
         transaction_id: String(txId),
         event_callback: seguirDepoisDaTag,
