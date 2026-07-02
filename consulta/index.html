@@ -3309,6 +3309,7 @@ function moConfirmarComNome(){
 
 async function moIrPagamento(){
   var btn=document.getElementById('moBtnStep1');
+  var autofill=document.getElementById('moAutofill');
   btn.disabled=true; btn.textContent='Preparando...';
   try {
     var res=await moFetchComTimeout(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -3319,6 +3320,32 @@ async function moIrPagamento(){
       moSalvarCheckoutSessao();
     }
   } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
+  if(moAtendimentoId){
+    try {
+      var elegibilidadeRes=await moFetchComTimeout(MO_API+'/api/pagamento/elegibilidade/'+moAtendimentoId,{},6500);
+      var elegibilidade=await elegibilidadeRes.json();
+      if(elegibilidadeRes.status===429&&elegibilidade.code==='limite_atendimentos_recentes'){
+        var mensagemLimite=elegibilidade.error||'Não foi possível liberar um novo pagamento. Fale com nosso suporte.';
+        if(elegibilidade.liberado_em){
+          var liberacao=new Date(elegibilidade.liberado_em);
+          if(!isNaN(liberacao.getTime())){
+            mensagemLimite+=' Novo atendimento disponível em '+liberacao.toLocaleString('pt-BR',{
+              timeZone:'America/Fortaleza',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'
+            })+'.';
+          }
+        }
+        autofill.textContent=mensagemLimite;
+        autofill.className='mautofill show';
+        btn.disabled=true;
+        btn.textContent='Pagamento indisponível';
+        moTrack('payment_eligibility_blocked',{code:elegibilidade.code||'indisponivel'});
+        return;
+      }
+      if(!elegibilidadeRes.ok) throw new Error(elegibilidade.error||'Verificação indisponível');
+    } catch(e){
+      console.warn('[MO] elegibilidade indisponível, backend validará no pagamento');
+    }
+  }
   moTrack('lead_pre_pagamento', {tipo:moTipoConsulta,contexto:moPreContexto||'geral',atendimento_id:moAtendimentoId||''});
   btn.disabled=false; btn.textContent='Continuar atendimento →';
   btn.onclick=moAvancarStep1;
