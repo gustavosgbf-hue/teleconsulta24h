@@ -1090,6 +1090,17 @@ function chavePassagemConfirmado(id){
 function jaPassouPorConfirmado(id){
   try{ return !!(id && sessionStorage.getItem(chavePassagemConfirmado(id)) === '1'); }catch(e){ return false; }
 }
+function retomarAtendimentoPagoBackend(data){
+  if(!data||!data.pagamentoConfirmado||!data.atendimentoId) return false;
+  atendimentoId=data.atendimentoId;
+  tipoConsulta=data.tipo||tipoConsulta||'chat';
+  pagamentoConfirmadoLocal=true;
+  try{ sessionStorage.setItem(chavePassagemConfirmado(atendimentoId),'1'); }catch(e){}
+  salvarSessao();
+  window.location.href='/triagem.html?consulta='+encodeURIComponent(atendimentoId)
+    +'&tipo='+encodeURIComponent(tipoConsulta);
+  return true;
+}
 function adsParamPermitido(chave){
   return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
 }
@@ -1656,6 +1667,7 @@ async function gerarPagamento(){
       });
       var dPre = await rPre.json();
       if(!dPre||!dPre.atendimentoId) throw new Error(dPre&&dPre.error?dPre.error:'Não foi possível iniciar o atendimento.');
+      if(retomarAtendimentoPagoBackend(dPre)) return;
       atendimentoId=dPre.atendimentoId; salvarSessao();
       if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
     }
@@ -2382,6 +2394,7 @@ async function pagarCartao(){
           triagem:'(aguardando pagamento)',tipo:tipoConsulta,data_nascimento:pacienteNascimento,email:pacienteEmail||'',ads:adsAttributionPayload()})});
       var dPre=await rPre.json();
       if(!dPre||!dPre.atendimentoId) throw new Error(dPre&&dPre.error?dPre.error:'Não foi possível iniciar o atendimento.');
+      if(retomarAtendimentoPagoBackend(dPre)) return;
       atendimentoId=dPre.atendimentoId; salvarSessao();
       if(dPre.linkRetorno) history.replaceState(null,'',dPre.linkRetorno);
     }

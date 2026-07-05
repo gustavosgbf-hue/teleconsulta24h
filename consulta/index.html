@@ -2487,6 +2487,7 @@ var moAtendimentoTerceiro=false;
 var moAtendimentoId=null,moOrderId=null,moMetodoAtual='pix';
 var moPoller=null,moJaTimer=null,moCardProcessando=false;
 var moPagamentoConfirmado=false;
+var moRetomadaPagoEmCurso=false;
 var moTipoConsulta='chat'; // 'chat' ou 'video'
 var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
 var MO_WHATSAPP_NUMBER='5598989272727';
@@ -2770,6 +2771,27 @@ function moSalvarCheckoutSessao(){
   } catch(e) {}
 }
 
+function moRetomarAtendimentoPago(data,origem){
+  if(!data||!data.pagamentoConfirmado||!data.atendimentoId) return false;
+  moAtendimentoId=data.atendimentoId;
+  moTipoConsulta=data.tipo||moTipoConsulta||'chat';
+  moPagamentoConfirmado=true;
+  moRetomadaPagoEmCurso=true;
+  try{
+    sessionStorage.setItem(moChavePassagemConfirmado(moAtendimentoId),'1');
+  }catch(e){}
+  moSalvarCheckoutSessao();
+  moTrack('paid_appointment_resumed',{
+    atendimento_id:moAtendimentoId,
+    origem:origem||'backend_identity_match',
+    status:data.status||''
+  });
+  var destino='/triagem.html?consulta='+encodeURIComponent(moAtendimentoId)
+    +'&tipo='+encodeURIComponent(moTipoConsulta);
+  window.location.href=destino;
+  return true;
+}
+
 async function moRetomarSessaoAtiva(){
   var sessao=null;
   try{ sessao=JSON.parse(localStorage.getItem('cj_sessao')||'null'); }catch(e){ sessao=null; }
@@ -2877,6 +2899,7 @@ async function moGarantirAtendimentoAntesDaTriagem(){
     if(!data || !data.atendimentoId){
       throw new Error((data&&data.error)||'Não foi possível abrir sua triagem. Tente novamente.');
     }
+    if(moRetomarAtendimentoPago(data,'garantir_atendimento')) return data.atendimentoId;
     moAtendimentoId = data.atendimentoId;
   } else {
     moPostConfiavel('/api/notify', moPayloadAtendimento({atendimentoId:moAtendimentoId}));
@@ -3392,6 +3415,7 @@ async function moIrPagamento(){
     var data=await res.json();
     if(data.ok&&data.atendimentoId){
       moAtendimentoId=data.atendimentoId;
+      if(moRetomarAtendimentoPago(data,'antes_pagamento')) return;
       moSalvarCheckoutSessao();
     }
   } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
@@ -3514,6 +3538,7 @@ async function moGerarPix(){
       return;
     }
     await moGarantirAtendimentoAntesDaTriagem();
+    if(moRetomadaPagoEmCurso) return;
     if(!moAtendimentoId) throw new Error('Não foi possível abrir seu atendimento. Tente novamente.');
     moPostConfiavel('/api/notify',moPayloadAtendimento({atendimentoId:moAtendimentoId}));
     var res=await moFetchComTimeout(MO_API+'/api/pagbank/order',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -3797,6 +3822,7 @@ async function moPagarCartao(){
       var dPre=await rPre.json();
       if(dPre&&dPre.atendimentoId){
         moAtendimentoId=dPre.atendimentoId;
+        if(moRetomarAtendimentoPago(dPre,'cartao_antes_cobranca')) return;
         moSalvarCheckoutSessao();
       }
     }
@@ -3854,6 +3880,7 @@ function moReiniciar(){
   moPagadorNomeVal=''; moPagadorCPFVal=''; moPagadorEmailVal=''; moAtendimentoTerceiro=false;
   moEspecialidadeSolicitada='';
   moCardProcessando=false; moPagamentoConfirmado=false;
+  moRetomadaPagoEmCurso=false;
   ['moTel','moNome','moNasc','moDependenteNome','moDependenteCPF','moDependenteNasc','moPixPagadorNome','moPayNome','moPayCPF','moCardEmail','moCfNumero','moCfNome','moCfValidade','moCfCvv','moPixCPF','moCpfPos','moCpfPosNome','moCpfPosNasc'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value='';
   });
