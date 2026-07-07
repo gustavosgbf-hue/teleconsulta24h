@@ -2052,7 +2052,7 @@ async function verificarStatus(){
     // [UX] Após 5min aguardando, mostra mensagem de reasseguramento
     _atualizarDemoraUI(a.status);
     if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
-    if(a.status==='cancelado'&&a.fallback_decisao==='reembolso'){ clearInterval(esperaPoller); mostrarReembolsoEspecialista(); return; }
+    if(a.status==='cancelado'&&(a.fallback_decisao==='reembolso'||a.pagamento_status==='reembolsado'||a.reembolso_status==='concluido')){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); mostrarReembolsoEspecialista(); return; }
     if(a.status==='cancelado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); mostrarPagamentoCancelado(); return; }
     if(a.status==='aguardando_aprovacao') return;
     if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')&&!encerradoPoller){ clearInterval(esperaPoller); medicoAssumiu(a); }
