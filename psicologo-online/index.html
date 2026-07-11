@@ -859,25 +859,39 @@ async function loadProfessionals() {
   }
   /* Priority 2: API fetch */
   if (CONFIG.apiUrl) {
-    try {
-      const ctrl = new AbortController();
-      const timeout = setTimeout(() => ctrl.abort(), 5000);
-      const res = await fetch(CONFIG.apiUrl + '/api/psicologos', {
-        headers: { 'Accept': 'application/json' },
-        signal: ctrl.signal
-      });
-      clearTimeout(timeout);
-      if (res.ok) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const ctrl = new AbortController();
+        const timeout = setTimeout(() => ctrl.abort(), 18000);
+        const res = await fetch(CONFIG.apiUrl + '/api/psicologos', {
+          headers: { 'Accept': 'application/json' },
+          signal: ctrl.signal
+        });
+        clearTimeout(timeout);
+        if (!res.ok) throw new Error('Falha ao carregar profissionais');
         const json = await res.json();
         const list = json.psicologos || json.data || json.results || (Array.isArray(json) ? json : null);
         if (Array.isArray(list) && list.length) {
+          try { localStorage.setItem('consultaja_psicologos_cache', JSON.stringify(list)); } catch (_) {}
           allProfessionals = list.map(normalizeApiProfessional);
           syncHeroPrice();
           renderRealProfessionalsGrid();
           return;
         }
+      } catch (_) {
+        if (attempt === 0) await new Promise(resolve => setTimeout(resolve, 900));
       }
-    } catch (_) { /* fall through */ }
+    }
+
+    try {
+      const cached = JSON.parse(localStorage.getItem('consultaja_psicologos_cache') || '[]');
+      if (Array.isArray(cached) && cached.length) {
+        allProfessionals = cached.map(normalizeApiProfessional);
+        syncHeroPrice();
+        renderRealProfessionalsGrid();
+        return;
+      }
+    } catch (_) {}
   }
   /* No real data available, show empty state. Do NOT use fake/invented data. */
   allProfessionals = [];
