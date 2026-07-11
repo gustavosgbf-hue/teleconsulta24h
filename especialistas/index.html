@@ -77,8 +77,7 @@ a{text-decoration:none;color:inherit}
 body::before{
   content:'';
   position:fixed;inset:0;z-index:0;
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
+  background:rgba(255,255,255,.34);
   pointer-events:none;
 }
 body > *{position:relative;z-index:1}
@@ -358,6 +357,7 @@ hr.div{border:none;border-top:1px solid var(--line);max-width:1080px;margin:0 au
   display:block;font-size:.68rem;color:var(--ink-3);
   font-family:var(--font-b);font-weight:300;margin-bottom:2px;
 }
+.spec-card-price strong{font-family:var(--font-b);font-size:.7rem;font-weight:500;color:var(--ink-3)}
 .spec-cta{
   display:inline-flex;align-items:center;gap:6px;
   font-size:.8rem;font-weight:600;
@@ -452,7 +452,10 @@ footer a:hover{color:var(--ink)}
 @media(max-width:768px){
   nav{padding:0 20px}
   .nav-links{display:none}
-  .hero{padding:60px 20px 56px}
+  .hero{padding:42px 20px 44px}
+  .hero-h1{font-size:2.45rem;line-height:1.04}
+  .hero-sub{font-size:.96rem;line-height:1.55;margin-bottom:24px}
+  .urgency-strip{white-space:nowrap;overflow-x:auto;justify-content:flex-start}
   .proof{padding:20px}
   .section{padding:52px 20px}
   .urgency-strip{padding:10px 20px;gap:12px}
@@ -469,8 +472,8 @@ footer a:hover{color:var(--ink)}
 
 /* ── SCROLL FADE (Apple-style) ── */
 .reveal{
-  opacity:0;
-  transform:translateY(28px);
+  opacity:1;
+  transform:none;
   transition:opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
 }
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -518,29 +521,29 @@ footer a:hover{color:var(--ink)}
     <a href="/especialistas" class="nav-link" style="font-weight:500;color:var(--ink)">Especialistas</a>
     <a href="/consulta/" class="nav-link">Consulta imediata</a>
   </div>
-  <a href="/consulta/" class="nav-btn">Agendar consulta em minutos →</a>
+  <a href="/consulta/" class="nav-btn">Consulta clínica 24h →</a>
 </nav>
 
 <!-- URGENCY STRIP -->
 <div class="urgency-strip reveal">
-  <span><span class="urgency-dot"></span><b>Horários disponíveis agora</b> · Agenda atualizada em tempo real</span>
+  <span><span class="urgency-dot"></span><b>Agenda e valores transparentes</b> · escolha antes de pagar</span>
   <span style="color:rgba(255,255,255,.35)">|</span>
-  <span>Agendamento em menos de 2 minutos · sem burocracia</span>
+  <span>Consulta por vídeo ou chat · sem mensalidade</span>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-badge reveal">
     <span class="badge-dot"></span>
-    Especialistas online · CRM ativo · Agendamento imediato
+    Consultas online com hora marcada
   </div>
 
   <h1 class="hero-h1 reveal reveal-delay-1">
-    Resolva sua consulta com<br><em>especialista em minutos</em>
+    Escolha a especialidade,<br><em>o profissional e o horário</em>
   </h1>
 
   <p class="hero-sub reveal reveal-delay-2">
-    Escolha o especialista, veja horários em tempo real e confirme sem burocracia.<br><strong>Atendimento no mesmo dia para os próximos horários.</strong>
+    Compare áreas, valores e agendas antes de pagar. A consulta acontece por vídeo ou chat, no horário escolhido.
   </p>
 
   <div class="hero-cta-group reveal reveal-delay-3">
@@ -554,7 +557,7 @@ footer a:hover{color:var(--ink)}
   <div class="hero-note reveal reveal-delay-3">
     <span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Confirmação imediata
+      Pagamento único
     </span>
     <span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -584,7 +587,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="proof-item">
         <div class="proof-icon">⚡</div>
-        <div class="proof-text"><strong>Resposta inicial</strong><span>em 3–5 minutos</span></div>
+        <div class="proof-text"><strong>Pagamento único</strong><span>sem assinatura</span></div>
       </div>
     </div>
     <!-- Duplicado para loop contínuo -->
@@ -602,7 +605,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="proof-item">
         <div class="proof-icon">⚡</div>
-        <div class="proof-text"><strong>Resposta inicial</strong><span>em 3–5 minutos</span></div>
+        <div class="proof-text"><strong>Pagamento único</strong><span>sem assinatura</span></div>
       </div>
     </div>
   </div>
@@ -611,8 +614,8 @@ footer a:hover{color:var(--ink)}
 <!-- ESPECIALIDADES -->
 <section class="section" id="especialidades">
   <div class="sec-label reveal">Especialidades disponíveis</div>
-  <h2 class="sec-title reveal reveal-delay-1">Seu especialista está<br><em>disponível hoje</em></h2>
-  <p class="sec-sub reveal reveal-delay-2">Confira os horários disponíveis e escolha o melhor para você.</p>
+  <h2 class="sec-title reveal reveal-delay-1">Escolha pela sua<br><em>necessidade de saúde</em></h2>
+  <p class="sec-sub reveal reveal-delay-2">Veja o valor inicial de cada área e consulte a agenda do profissional.</p>
 
   <div class="specs-grid">
 
@@ -631,12 +634,13 @@ footer a:hover{color:var(--ink)}
         <p class="spec-card-desc">Ansiedade, depressão, insônia, TDAH. Avaliação completa e acompanhamento com psiquiatra.</p>
         <div class="spec-card-avail">
           <span class="avail-dot"></span>
-          Ver horários disponíveis
+          Consulta a partir de R$ 350
         </div>
       </div>
       <div class="spec-card-footer">
+        <span class="spec-card-price"><small>Consulta online</small>R$ 350</span>
         <span class="spec-cta">
-          Ver horários disponíveis
+          Escolher horário
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
       </div>
@@ -656,12 +660,13 @@ footer a:hover{color:var(--ink)}
         <p class="spec-card-desc">Diabetes, tireoide, obesidade e alterações hormonais. Acompanhamento completo para o seu caso.</p>
         <div class="spec-card-avail">
           <span class="avail-dot"></span>
-          Ver horários disponíveis
+          Consulta a partir de R$ 250
         </div>
       </div>
       <div class="spec-card-footer">
+        <span class="spec-card-price"><small>Consulta online</small>R$ 250</span>
         <span class="spec-cta">
-          Ver horários disponíveis
+          Escolher horário
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
       </div>
@@ -681,12 +686,13 @@ footer a:hover{color:var(--ink)}
         <p class="spec-card-desc">Acne, manchas, dermatite, queda de cabelo. Diagnóstico e orientação com dermatologista especialista.</p>
         <div class="spec-card-avail">
           <span class="avail-dot"></span>
-          Ver horários disponíveis
+          Consulta a partir de R$ 220
         </div>
       </div>
       <div class="spec-card-footer">
+        <span class="spec-card-price"><small>Consulta online</small>R$ 220</span>
         <span class="spec-cta">
-          Ver horários disponíveis
+          Escolher horário
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
       </div>
@@ -724,7 +730,7 @@ footer a:hover{color:var(--ink)}
 <!-- COMO FUNCIONA -->
 <section class="section">
   <div class="sec-label reveal">Simples assim</div>
-  <h2 class="sec-title reveal reveal-delay-1">Do clique à consulta<br><em>em minutos</em></h2>
+  <h2 class="sec-title reveal reveal-delay-1">Do agendamento à consulta<br><em>em três passos</em></h2>
 
   <div class="how-grid reveal reveal-delay-2">
     <div class="how-step">

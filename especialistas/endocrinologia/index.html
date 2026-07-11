@@ -56,7 +56,7 @@ body{
 a{text-decoration:none;color:inherit}
 
 /* Scroll reveal */
-.reveal{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.4,0,.2,1)}
+.reveal{opacity:1;transform:none;transition:all .6s cubic-bezier(.4,0,.2,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 nav{
@@ -135,6 +135,8 @@ nav{
   color:var(--acc-text);
   line-height:1.75;max-width:540px;
 }
+.spec-hero__price{margin-top:16px;font-size:.86rem;font-weight:500;color:var(--acc-dark)}
+.spec-hero__price strong{font-size:1.08rem}
 .spec-hero__pills{
   display:flex;flex-wrap:wrap;gap:10px;
   margin-top:32px;
@@ -549,6 +551,7 @@ footer{
 @keyframes whatsIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:600px){
+  .nav__logo{display:none}
   .spec-hero{padding:60px 20px 48px}
   .section{padding:60px 20px}
   .doctors-grid{grid-template-columns:1fr}
@@ -569,6 +572,7 @@ footer{
   .whatsapp-widget__toggle{width:52px;height:52px}
   .whatsapp-widget__panel{width:min(250px,calc(100vw - 24px))}
 }
+@media(max-width:420px){.doctor-card{flex-direction:column}.doctor-card__photo{width:100%;height:200px;min-height:0;border-radius:var(--radius) var(--radius) 0 0}}
 </style>
 </head>
 <body>
@@ -595,6 +599,7 @@ footer{
     </div>
     <h1 class="spec-hero__h1 reveal">Endocrinologista online para tireoide, diabetes, obesidade e hormônios</h1>
     <p class="spec-hero__desc reveal">Consulta por vídeo ou chat com endocrinologista. Você escolhe o médico, vê horário e valor antes de pagar, e recebe orientação especializada para o seu caso.</p>
+    <p class="spec-hero__price reveal">Consulta online por <strong>R$ 250</strong> · pagamento único</p>
     <div class="spec-hero__pills reveal">
       <span class="spec-hero__pill">Diabetes</span>
       <span class="spec-hero__pill">Obesidade</span>
@@ -902,6 +907,8 @@ footer{
 </style>
 
 <script>
+  var doctorsSection = document.getElementById('doctorsGrid').closest('section');
+  document.querySelector('.spec-hero').after(doctorsSection);
 var API = 'https://triagem-api.onrender.com';
 var ESPECIALIDADE = 'endocrinologia';
 var WHATSAPP_NUMBER = '559898272727';

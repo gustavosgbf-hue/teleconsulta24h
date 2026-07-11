@@ -269,11 +269,11 @@ footer a{color:var(--ink-2)}
 .fade-up:nth-child(2){animation-delay:.13s}
 .fade-up:nth-child(3){animation-delay:.22s}
 .fade-up:nth-child(4){animation-delay:.31s}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1)}
+.reveal{opacity:1;transform:none;transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 @media(max-width:900px){.how-grid{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr}.real-pros-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.val-grid{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:600px){.val-grid{grid-template-columns:1fr!important}}
-@media(max-width:768px){nav{padding:0 20px}.nav-phone{display:none}.hero{padding:52px 20px 42px}.hero-actions{flex-direction:column}.hero-actions .btn-primary,.hero-actions .btn-secondary{width:100%;justify-content:center}.hero-steps{grid-template-columns:1fr;margin-top:22px}.quiz-wrap{padding:40px 20px}.real-pros,.how-section,.trust-section,.testimonials,.recognition{padding:48px 20px}.cta-bottom{padding:60px 20px}footer{padding:20px}.recognition-list{grid-template-columns:1fr}.sticky-cta{display:block}.wa-btn{bottom:84px}}
+@media(max-width:768px){nav{padding:0 20px}.nav-phone{display:none}.hero{padding:38px 20px 28px}.hero-badge{margin-bottom:18px}.hero-sub{line-height:1.55;margin-bottom:10px}.hero-price{margin-bottom:22px}.hero-actions{flex-direction:column}.hero-actions .btn-primary,.hero-actions .btn-secondary{width:100%;justify-content:center}.hero-steps{grid-template-columns:repeat(3,1fr);margin-top:18px}.hero-step{padding:11px 8px;gap:6px}.hero-step span{display:none}.quiz-wrap{padding:40px 20px}.real-pros,.how-section,.trust-section,.testimonials,.recognition{padding:38px 20px}.real-pros-header{margin-bottom:16px}.testimonials [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important}.cta-bottom{padding:60px 20px}footer{padding:20px}.recognition-list{grid-template-columns:1fr}.sticky-cta{display:block}.wa-btn{bottom:84px}}
 @media(max-width:480px){.hero-h1{font-size:2.3rem}.quiz-body,.quiz-nav,.result-step{padding:20px}.result-card{flex-direction:column}.real-pros-grid{grid-template-columns:1fr}}
 
 /* ── BOOKING MODAL ────────────────────────────────────────────── */
@@ -326,14 +326,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-badge"><span class="badge-dot"></span>Psicólogos com CRP ativo · 50 minutos · escolha por perfil e abordagem</div>
   </div>
   <div class="fade-up">
-    <h1 class="hero-h1">Psicólogo online para começar com calma<br><em>e continuar com a mesma pessoa</em></h1>
-    <p class="hero-sub">Sessão de 50 minutos por vídeo, com psicólogo de CRP ativo. Você escolhe o profissional antes de pagar e não entra em assinatura.</p>
+    <h1 class="hero-h1">Psicólogo online<br><em>escolhido por você</em></h1>
+    <p class="hero-sub">Veja profissionais, abordagens, valores e horários antes de pagar. Sessão individual de 50 minutos por vídeo.</p>
     <p class="hero-price" id="hero-price-line">Sessões individuais de 50 min, <strong>a partir de R$130</strong></p>
   </div>
   <div class="fade-up">
     <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Escolher psicólogo</button>
-      <button class="btn-secondary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">Encontrar perfil ideal</button>
+      <button class="btn-primary" onclick="document.getElementById('real-professionals-section').scrollIntoView({behavior:'smooth'})">Ver psicólogos e horários</button>
+      <button class="btn-secondary" onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})">Preciso de ajuda para escolher</button>
     </div>
     <div class="result-guarantee" style="margin-top:16px;">
       <span><strong>Sem assinatura.</strong> Pague sessão a sessão, mantenha o mesmo psicólogo e decida com calma se quer continuar.</span>
@@ -859,25 +859,39 @@ async function loadProfessionals() {
   }
   /* Priority 2: API fetch */
   if (CONFIG.apiUrl) {
-    try {
-      const ctrl = new AbortController();
-      const timeout = setTimeout(() => ctrl.abort(), 5000);
-      const res = await fetch(CONFIG.apiUrl + '/api/psicologos', {
-        headers: { 'Accept': 'application/json' },
-        signal: ctrl.signal
-      });
-      clearTimeout(timeout);
-      if (res.ok) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const ctrl = new AbortController();
+        const timeout = setTimeout(() => ctrl.abort(), 18000);
+        const res = await fetch(CONFIG.apiUrl + '/api/psicologos', {
+          headers: { 'Accept': 'application/json' },
+          signal: ctrl.signal
+        });
+        clearTimeout(timeout);
+        if (!res.ok) throw new Error('Falha ao carregar profissionais');
         const json = await res.json();
         const list = json.psicologos || json.data || json.results || (Array.isArray(json) ? json : null);
         if (Array.isArray(list) && list.length) {
+          try { localStorage.setItem('consultaja_psicologos_cache', JSON.stringify(list)); } catch (_) {}
           allProfessionals = list.map(normalizeApiProfessional);
           syncHeroPrice();
           renderRealProfessionalsGrid();
           return;
         }
+      } catch (_) {
+        if (attempt === 0) await new Promise(resolve => setTimeout(resolve, 900));
       }
-    } catch (_) { /* fall through */ }
+    }
+
+    try {
+      const cached = JSON.parse(localStorage.getItem('consultaja_psicologos_cache') || '[]');
+      if (Array.isArray(cached) && cached.length) {
+        allProfessionals = cached.map(normalizeApiProfessional);
+        syncHeroPrice();
+        renderRealProfessionalsGrid();
+        return;
+      }
+    } catch (_) {}
   }
   /* No real data available, show empty state. Do NOT use fake/invented data. */
   allProfessionals = [];
@@ -923,6 +937,11 @@ function normalizeApiProfessional(p) {
     ? (crpRaw.toUpperCase().startsWith('CRP') ? crpRaw : 'CRP ' + crpRaw)
     : '';
 
+  let structuredAvailability = p.disponibilidade;
+  if (typeof structuredAvailability === 'string') {
+    try { structuredAvailability = JSON.parse(structuredAvailability); } catch (_) { structuredAvailability = null; }
+  }
+
   return {
     id:              p.id || String(Math.random()),
     nome:            p.nome_exibicao || p.nome || 'Profissional',
@@ -932,6 +951,8 @@ function normalizeApiProfessional(p) {
     bio:             p.apresentacao || p.bio || p.descricao || '',
     valor_sessao:    valor,
     disponibilidade: disp,
+    disponibilidade_raw: p.disponibilidade,
+    agenda_estruturada: !!structuredAvailability && typeof structuredAvailability === 'object' && !Array.isArray(structuredAvailability),
     disponivel_agora: /agora|hoje|imediato/i.test(disp),
     genero:          p.genero || (String(p.sexo || '').toLowerCase().startsWith('f') ? 'F' : 'M'),
     foto_url:        p.foto_url || p.avatar_url || null
@@ -1050,7 +1071,8 @@ async function showResult() {
 
   /* Gender filter */
   const genderPref = quizData.step3;
-  let pool = [...allProfessionals];
+  let pool = allProfessionals.filter(p => p.agenda_estruturada);
+  if (!pool.length) pool = [...allProfessionals];
   if (genderPref === 'mulher') pool = pool.filter(p => p.genero === 'F');
   else if (genderPref === 'homem') pool = pool.filter(p => p.genero === 'M');
   if (!pool.length) pool = [...allProfessionals];
@@ -1151,7 +1173,7 @@ function renderRealProfessionalsGrid() {
     return;
   }
 
-  const sorted = [...allProfessionals].sort((a, b) => {
+  const sorted = allProfessionals.filter(p => p.agenda_estruturada).sort((a, b) => {
     if (a.disponivel_agora && !b.disponivel_agora) return -1;
     if (!a.disponivel_agora && b.disponivel_agora) return 1;
     return a.valor_sessao - b.valor_sessao;
@@ -1269,10 +1291,13 @@ function parseFocos(raw) {
 }
 
 function bkBuildSlots() {
-  const disp = bk.psi.disponibilidade;
+  const disp = bk.psi.disponibilidade_raw;
   let dispObj = disp;
   if (typeof disp === 'string') { try { dispObj = JSON.parse(disp); } catch(_) { dispObj = {}; } }
-  if (!dispObj || typeof dispObj !== 'object') { bk.slots = []; return; }
+  if (!dispObj || typeof dispObj !== 'object') {
+    bk.slots = [];
+    return;
+  }
   const slots = [];
   const now = new Date();
   for (let d = 0; d < 28; d++) {
