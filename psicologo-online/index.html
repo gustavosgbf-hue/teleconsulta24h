@@ -1291,7 +1291,9 @@ function parseFocos(raw) {
 }
 
 function bkBuildSlots() {
-  const disp = bk.psi.disponibilidade_raw;
+  const disp = bk.psi.disponibilidade_raw !== undefined
+    ? bk.psi.disponibilidade_raw
+    : bk.psi.disponibilidade;
   let dispObj = disp;
   if (typeof disp === 'string') { try { dispObj = JSON.parse(disp); } catch(_) { dispObj = {}; } }
   if (!dispObj || typeof dispObj !== 'object') {
