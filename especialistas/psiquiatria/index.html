@@ -55,7 +55,7 @@ body{
 }
 a{text-decoration:none;color:inherit}
 /* Scroll reveal */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ── NAV ── */
@@ -136,6 +136,8 @@ nav{
   color:var(--acc-text);
   line-height:1.75;max-width:520px;
 }
+.spec-hero__price{margin-top:16px;font-size:.86rem;font-weight:500;color:var(--acc-dark)}
+.spec-hero__price strong{font-size:1.08rem}
 .spec-hero__pills{
   display:flex;flex-wrap:wrap;gap:8px;
   margin-top:28px;
@@ -562,6 +564,9 @@ footer a:hover{color:var(--ink)}
   .whatsapp-widget__panel{width:min(250px,calc(100vw - 24px))}
 }
 @media(max-width:400px){
+  .nav__logo{display:none}
+  .doctor-card{flex-direction:column}
+  .doctor-card__photo{width:100%;height:200px;min-height:0;border-radius:var(--radius) var(--radius) 0 0}
   .conditions-grid{grid-template-columns:1fr}
   .slots-grid{grid-template-columns:repeat(2,1fr)}
 }
@@ -592,6 +597,7 @@ footer a:hover{color:var(--ink)}
     </div>
     <h1 class="spec-hero__h1 reveal">Psiquiatra online com CRM para ansiedade, insônia, TDAH e humor</h1>
     <p class="spec-hero__desc reveal">Consulta por vídeo ou chat com psiquiatra, sigilo médico e prescrição quando indicada. Você escolhe o médico, vê horário e valor antes de pagar.</p>
+    <p class="spec-hero__price reveal">Consulta online por <strong>R$ 350</strong> · pagamento único</p>
     <div class="spec-hero__pills reveal">
       <span class="spec-hero__pill">Ansiedade</span>
       <span class="spec-hero__pill">Depressão</span>
@@ -899,6 +905,8 @@ footer a:hover{color:var(--ink)}
 </style>
 
 <script>
+  var doctorsSection = document.getElementById('doctorsGrid').closest('section');
+  document.querySelector('.spec-hero').after(doctorsSection);
 var API = 'https://triagem-api.onrender.com';
 var ESPECIALIDADE = 'psiquiatria';
 var WHATSAPP_NUMBER = '559898272727';
