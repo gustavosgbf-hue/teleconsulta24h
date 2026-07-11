@@ -314,6 +314,28 @@ body{
   margin-bottom:32px;
   animation:fadeUp .5s ease both .2s;
 }
+.resume-care{
+  display:none;align-items:center;justify-content:space-between;gap:14px;
+  width:100%;max-width:430px;margin:-12px 0 20px;padding:12px 14px;
+  border:1px solid rgba(94,224,160,.28);border-radius:14px;
+  background:rgba(94,224,160,.075);box-shadow:0 12px 30px rgba(0,0,0,.2);
+  text-align:left;animation:fadeUp .35s ease both;
+}
+.resume-care.show{display:flex}
+.resume-care__copy{min-width:0}
+.resume-care__title{display:block;font-size:.78rem;font-weight:800;color:rgba(255,255,255,.94)}
+.resume-care__meta{display:block;margin-top:2px;font-size:.66rem;color:rgba(255,255,255,.55)}
+.resume-care__btn{
+  flex:0 0 auto;border:0;border-radius:10px;padding:9px 12px;
+  background:linear-gradient(145deg,#a8f04a,#43df7e);color:#061409;
+  font:800 .7rem 'Outfit',sans-serif;cursor:pointer;
+}
+#heroDocCard,#heroBadge{display:none!important}
+.trust-review{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:0 20px 28px}
+.trust-review__card{padding:17px 18px;border:1px solid rgba(255,255,255,.11);border-radius:16px;background:rgba(255,255,255,.035);box-shadow:0 16px 36px rgba(0,0,0,.18)}
+.trust-review__stars{color:#f5c518;font-size:.72rem;letter-spacing:1px}
+.trust-review__quote{margin-top:8px;font-size:.82rem;line-height:1.55;color:rgba(255,255,255,.78)}
+.trust-review__author{margin-top:8px;font-size:.66rem;color:rgba(255,255,255,.42)}
 .hero__sub-mode{
   font-size:.88rem;
   font-weight:400;
@@ -1390,9 +1412,9 @@ whatsappSend.addEventListener('click', function() {
 </style>
 <div class="livebar" id="liveBar">
   <div class="livebar__inner">
-    <span class="livebar__item"><span class="live-dot"></span>Médicos online agora</span>
+    <span class="livebar__item"><span class="live-dot"></span>Atendimento médico 24h</span>
     <span class="livebar__sep">·</span>
-    <span class="livebar__item">atendimento em <span class="livebar__num">~5 min</span></span>
+    <span class="livebar__item"><span class="livebar__num">chat ou vídeo</span></span>
   </div>
 </div>
 <!-- ════════ NAV ════════ -->
@@ -1501,6 +1523,13 @@ whatsappSend.addEventListener('click', function() {
   <p class="hero__sub" id="heroSub" style="line-height:1.65;color:rgba(255,255,255,.68)">
     Fale com um médico em poucos minutos. Por chat, sem câmera, ou por vídeo se preferir. Receita, atestado e exames quando indicados.
   </p>
+  <div class="resume-care" id="resumeCare" role="status">
+    <span class="resume-care__copy">
+      <span class="resume-care__title">Você tem um atendimento em andamento</span>
+      <span class="resume-care__meta">Continue de onde parou, sem pagar novamente.</span>
+    </span>
+    <button class="resume-care__btn" id="resumeCareBtn" type="button">Retomar</button>
+  </div>
   <!-- heroUrgency removido: não promete tempo de vaga (só mostra info estática na livebar) -->
   <p id="heroUrgency" style="display:none"></p>
   <a href="#" class="btn-primary" id="heroCTA" onclick="return moCliqueAbrir(event)">
@@ -1517,7 +1546,7 @@ whatsappSend.addEventListener('click', function() {
     </div>
     <div class="hero__proof-row">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82Z"></path><path d="M7.5 7.5h.01"></path></svg>
-      <span>Consulta presencial: <s>R$ 200+</s> · <strong>75% de economia</strong></span>
+      <span>PIX ou cartão · sem mensalidade · ambiente seguro</span>
     </div>
   </div>
   <a id="heroReviewProof" href="#reviewsSection" aria-label="Ver avaliações da ConsultaJá24h" title="Ver avaliações abaixo" style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:13px;padding:4px 2px;color:rgba(255,255,255,.6);font-size:.76rem;font-weight:600;text-decoration:none;animation:fadeUp .5s ease both .34s">
@@ -1559,13 +1588,21 @@ whatsappSend.addEventListener('click', function() {
   </div>
 </section>
 
+<section class="trust-review" aria-label="Avaliação real no Google">
+  <div class="trust-review__card">
+    <div class="trust-review__stars" aria-label="5 estrelas">★★★★★</div>
+    <p class="trust-review__quote">“O médico é muito atencioso e a consulta foi imediata após o Pix. É uma ótima solução para quem está doente e não pode sair de casa.”</p>
+    <p class="trust-review__author">Débora V. · avaliação no Google</p>
+  </div>
+</section>
+
 
 <!-- ════════ COM QUE PODEMOS AJUDAR ════════ -->
 <!-- ════════ DOCTORS STRIP ════════ -->
 <section class="doctor-strip" style="padding:30px 0 12px;border-top:1px solid rgba(255,255,255,.065);background:linear-gradient(180deg,rgba(255,255,255,.018),transparent)">
   <div style="text-align:center;padding:0 20px;margin-bottom:14px">
     <div style="display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:800;color:rgba(155,234,69,.92);letter-spacing:.02em;margin-bottom:7px"><span class="live-dot"></span>Quem vai te atender</div>
-    <p style="font-size:.78rem;color:rgba(255,255,255,.55);font-weight:400;line-height:1.5">Médicos brasileiros com CRM ativo · disponíveis agora</p>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.55);font-weight:400;line-height:1.5">Médicos brasileiros que integram a plataforma · CRM verificável</p>
   </div>
   <div style="display:flex;gap:10px;padding:4px 16px 16px;flex-wrap:wrap;justify-content:center;max-width:1100px;margin:0 auto">
     <style>
@@ -1573,7 +1610,7 @@ whatsappSend.addEventListener('click', function() {
       .dstrip-card:hover{border-color:rgba(155,234,69,.35);transform:translateY(-2px);box-shadow:0 20px 48px rgba(0,0,0,.3),0 0 30px rgba(67,223,126,.08)}
       .dstrip-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#b4e05a;margin:0 auto 12px;background-size:cover;background-position:center top;background-repeat:no-repeat;box-sizing:border-box;position:relative;overflow:visible}
       .dstrip-av.has-photo{color:transparent;box-shadow:0 8px 18px rgba(0,0,0,.42),0 0 0 3px rgba(155,234,69,.55),0 0 0 7px rgba(155,234,69,.09)}
-      .dstrip-av.has-photo::after{content:'';position:absolute;right:0;bottom:1px;width:16px;height:16px;border-radius:50%;background:#43df7e;border:3px solid #030706;animation:pulse 2s ease-in-out infinite;z-index:2}
+      .dstrip-av.has-photo::after{display:none}
     </style>
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-julia-fonseca.png')">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
     <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-paulo-almeida.png')">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
@@ -1780,7 +1817,7 @@ whatsappSend.addEventListener('click', function() {
       <div class="price-label">Tudo incluso na consulta</div>
       <div class="price-num"><sup>R$</sup>49<span style="font-size:1.9rem">,90</span></div>
       <p class="price-desc">Atendimento com médico registrado no CRM<br><span style="font-size:.74rem;color:rgba(255,255,255,.28)">Sem taxa, sem mensalidade, sem letra miúda</span></p>
-      <p class="price-badge">Início imediato · Sem fila · Sem sair de casa</p>
+      <p class="price-badge">Atendimento após a confirmação · Sem sair de casa</p>
       <div class="price-feats reveal-group">
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Chat com médico ou vídeo, você escolhe</div>
         <div class="price-feat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Médico com CRM ativo, de verdade</div>
@@ -1995,7 +2032,7 @@ whatsappSend.addEventListener('click', function() {
           Como funciona o pagamento?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         </button>
-        <div class="faq-a"><p>Você paga R$&nbsp;49,90 via PIX ou cartão de crédito. Após a confirmação, você é direcionado ao atendimento na plataforma em até 5 minutos. A cobrança aparece como <strong>JG Fonseca Serviços Médicos LTDA</strong>, que é a razão social da ConsultaJá24h.</p></div>
+        <div class="faq-a"><p>Você paga R$&nbsp;49,90 via PIX ou cartão de crédito. Após a confirmação, você é direcionado ao atendimento na plataforma. A cobrança aparece como <strong>JG Fonseca Serviços Médicos LTDA</strong>, que é a razão social da ConsultaJá24h.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -2016,7 +2053,7 @@ whatsappSend.addEventListener('click', function() {
           Quanto tempo demora para ser atendido?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         </button>
-        <div class="faq-a"><p>O tempo médio de espera é de 4 minutos e 23 segundos. Em horários de maior demanda pode levar até 5 minutos. Você recebe uma notificação assim que o médico assumir seu caso.</p></div>
+        <div class="faq-a"><p>A maioria dos atendimentos começa em poucos minutos. Em períodos de maior procura, a espera pode ser maior; você recebe uma notificação assim que o médico assumir seu caso.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -2046,7 +2083,7 @@ whatsappSend.addEventListener('click', function() {
   <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
     <div style="display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:999px;background:rgba(180,224,90,.08);border:1px solid rgba(180,224,90,.22);font-size:.72rem;font-weight:600;color:#b4e05a">
       <span class="live-dot"></span>
-      <span id="ctaFinalOnline">Médicos online agora</span>
+      <span id="ctaFinalOnline">Atendimento médico 24h</span>
     </div>
     <a href="#" class="btn-primary" style="animation:none;opacity:1;transform:none;background:#b4e05a;color:#051208;padding:22px 48px;font-size:1.12rem;max-width:460px;box-shadow:0 10px 32px rgba(180,224,90,.35)" onclick="return moCliqueAbrir(event)">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"></path><path d="M8 10.5h8"></path><path d="M8 14h5"></path></svg>
@@ -2886,6 +2923,33 @@ async function moRetomarSessaoAtiva(){
     }
   }
   return false;
+}
+
+async function moExibirRetomadaConfirmada(){
+  var box=document.getElementById('resumeCare');
+  var btn=document.getElementById('resumeCareBtn');
+  if(!box||!btn) return;
+  var sessao=null;
+  try{ sessao=JSON.parse(localStorage.getItem('cj_sessao')||'null'); }catch(e){ sessao=null; }
+  if(!sessao||!sessao.atendimentoId) return;
+  try{
+    var res=await moFetchComTimeout(MO_API+'/api/atendimento/status/'+encodeURIComponent(sessao.atendimentoId),{},5000);
+    var data=await res.json();
+    var a=data&&data.atendimento;
+    var encerrado=!a||['encerrado','cancelado','expirado','arquivado'].indexOf(a.status)>=0;
+    if(!data.ok||encerrado||a.pagamento_status!=='confirmado') return;
+    box.classList.add('show');
+    btn.onclick=async function(){
+      btn.disabled=true;
+      btn.textContent='Abrindo...';
+      if(!await moRetomarSessaoAtiva()){
+        btn.disabled=false;
+        btn.textContent='Retomar';
+        box.classList.remove('show');
+      }
+    };
+    moTrack('resume_banner_view',{atendimento_id:String(sessao.atendimentoId)});
+  }catch(e){}
 }
 
 async function moGarantirAtendimentoAntesDaTriagem(){
@@ -3907,6 +3971,7 @@ function moReiniciar(){
 }
 
 document.addEventListener('DOMContentLoaded',function(){
+  moExibirRetomadaConfirmada();
   try{
     var triagemRedirect=sessionStorage.getItem('cj_triagem_redirected');
     if(triagemRedirect){
