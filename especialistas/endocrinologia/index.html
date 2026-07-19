@@ -912,6 +912,29 @@ footer{
 var API = 'https://triagem-api.onrender.com';
 var ESPECIALIDADE = 'endocrinologia';
 var WHATSAPP_NUMBER = '559898272727';
+var CJ_FUNIL_SESSION_KEY = 'cj_funil_sid';
+var cjFunilFallbackSid = 's-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+
+function cjFunilSessionId() {
+  try {
+    var sid = sessionStorage.getItem(CJ_FUNIL_SESSION_KEY);
+    if (!sid) {
+      sid = window.crypto && typeof window.crypto.randomUUID === 'function' ? window.crypto.randomUUID() : cjFunilFallbackSid;
+      sessionStorage.setItem(CJ_FUNIL_SESSION_KEY, sid);
+    }
+    return sid;
+  } catch (_) { return cjFunilFallbackSid; }
+}
+
+function cjFunil(evento, extra) {
+  var dados = extra || {};
+  fetch(API + '/api/funil/evento', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+    body: JSON.stringify({ modulo: 'especialistas', evento: evento, pagina: location.pathname,
+      profissional_id: dados.profissional_id || null, session_id: cjFunilSessionId(),
+      metadata: Object.assign({ especialidade: ESPECIALIDADE }, dados.metadata || {}) })
+  }).catch(function() {});
+}
 
 function toggleWhatsAppWidget() {
   var widget = document.getElementById('whatsappWidget');
@@ -941,6 +964,7 @@ var EMPTY_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20
 var ERROR_HTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3);font-size:.95rem">Não foi possível carregar os profissionais. <button type="button" onclick="carregarEspecialistas()" style="color:var(--acc-deep);border:none;background:none;cursor:pointer;text-decoration:underline">Tentar novamente</button></div>';
 
 function init() {
+  cjFunil('page_view');
   observeReveal();
   initWhatsAppWidget();
   carregarEspecialistas();
@@ -996,8 +1020,8 @@ async function carregarEspecialistas() {
           '</div>'+
           '<div class="doctor-card__footer">'+
             '<div><span class="doctor-card__price-label">Consulta online</span><span class="doctor-card__price">R$ '+valorFormatado+'</span></div>'+
-            '<button class="doctor-card__btn" data-id="'+(esp.id || '')+'" data-nome="'+nome+'" data-valor="'+(Number.isFinite(valorConsulta) ? valorConsulta : 0)+'" data-disponibilidade=\''+JSON.stringify(disponibilidade).replace(/'/g, '&#39;')+'\'>'+
-              'Ver horários'+
+            '<button class="doctor-card__btn" data-id="'+(esp.id || '')+'" data-nome="'+nome+'" data-valor="'+(Number.isFinite(valorConsulta) ? valorConsulta : 0)+'" data-sem-agenda="'+(!disponibilidade.length ? '1' : '0')+'" data-disponibilidade=\''+JSON.stringify(disponibilidade).replace(/'/g, '&#39;')+'\'>'+
+              (disponibilidade.length ? 'Ver horários' : 'Consultar disponibilidade')+
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>'+
             '</button>'+
           '</div>'+
@@ -1132,6 +1156,7 @@ function selecionarSlot(el, iso) {
     hora: horaEl ? horaEl.innerText : iso, 
     iso: iso 
   };
+  cjFunil('slot_selected', { profissional_id: medicoSelecionado && medicoSelecionado.id });
   var btnProximo = document.getElementById('btnProximo');
   btnProximo.disabled = false;
   btnProximo.classList.add('is-ready');
@@ -1338,9 +1363,11 @@ async function confirmarAgendamento() {
     
     espState.agendamentoId = data.agendamentoId || data.agendamento_id || null;
     if (!espState.agendamentoId) throw new Error('Agendamento criado sem identificador');
+    cjFunil('booking_created', { profissional_id: medicoSelecionado && medicoSelecionado.id });
     document.getElementById('passo-dados').style.display = 'none';
     document.getElementById('passo-pagamento').style.display = 'block';
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: medicoSelecionado && medicoSelecionado.id, metadata: { etapa: 'agendamento' } });
     err.style.display = 'block'; err.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao criar agendamento');
     btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
     atualizarBotaoConfirmacaoDados();
@@ -1359,6 +1386,7 @@ function voltarParaDados() {
 
 function processarPagamento() {
   clearPixPolling();
+  cjFunil('payment_started', { profissional_id: medicoSelecionado && medicoSelecionado.id, metadata: { metodo: metodoPagamento } });
   if (metodoPagamento === 'cartao') {
     document.getElementById('passo-pagamento').style.display = 'none';
     document.getElementById('pagto-cartao').style.display = 'block';
@@ -1480,12 +1508,14 @@ async function processarCartao() {
     document.getElementById('pagto-cartao').style.display = 'none';
     document.getElementById('passo-cartao-confirmado').style.display = 'block';
     if (isPaymentConfirmed(data) || data.confirmed === true) {
+      cjFunil('payment_confirmed', { profissional_id: medicoSelecionado && medicoSelecionado.id });
       document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + slotSelecionado.dia + ' às ' + slotSelecionado.hora;
     } else {
       document.getElementById('cartao-confirmado-detalhe').textContent = 'Pagamento em análise. Esta tela atualiza automaticamente assim que a Efí confirmar.';
       espState.pixInterval = setInterval(verificarPagamento, 10000);
     }
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: medicoSelecionado && medicoSelecionado.id, metadata: { metodo: 'cartao' } });
     errEl.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao processar pagamento com cartão.');
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Pagar agora';
@@ -1547,6 +1577,7 @@ async function gerarPix() {
     
     espState.pixInterval = setInterval(verificarPagamento, 10000);
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: medicoSelecionado && medicoSelecionado.id, metadata: { metodo: 'pix' } });
     loading.style.display = 'block';
     loading.style.color = '#b91c1c';
     loading.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao gerar PIX. Verifique sua conexão e tente novamente.');
@@ -1562,6 +1593,7 @@ async function verificarPagamento() {
     var data = parsed.payload || {};
     if (res.ok && parsed.isJson && isPaymentConfirmed(data)) {
       clearPixPolling();
+      cjFunil('payment_confirmed', { profissional_id: medicoSelecionado && medicoSelecionado.id });
       document.getElementById('pix-status').style.display = 'none';
       var confirmado = document.getElementById('pix-confirmado');
       confirmado.classList.add('active');
@@ -1588,6 +1620,13 @@ document.addEventListener('DOMContentLoaded', init);
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('.doctor-card__btn');
   if (!btn) return;
+  cjFunil('profile_opened', { profissional_id: btn.dataset.id });
+  if (btn.dataset.semAgenda === '1') {
+    cjFunil('availability_contact', { profissional_id: btn.dataset.id });
+    var mensagem = 'Olá! Gostaria de consultar a disponibilidade para ' + ESPECIALIDADE + ' online com ' + (btn.dataset.nome || 'o especialista') + '.';
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(mensagem), '_blank', 'noopener');
+    return;
+  }
 
   var disponibilidade = [];
   try {
@@ -1696,11 +1735,6 @@ async function pipCadastrar() {
 var irParaDadosOriginal = irParaDados;
 irParaDados = function() {
   if (!medicoSelecionado || !slotSelecionado) return;
-  var pacToken = localStorage.getItem('pac_token');
-  if (!pacToken) {
-    pipAbrir();
-    return;
-  }
   irParaDadosOriginal();
 };
 </script>

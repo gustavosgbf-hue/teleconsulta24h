@@ -910,6 +910,29 @@ footer a:hover{color:var(--ink)}
 var API = 'https://triagem-api.onrender.com';
 var ESPECIALIDADE = 'psiquiatria';
 var WHATSAPP_NUMBER = '559898272727';
+var CJ_FUNIL_SESSION_KEY = 'cj_funil_sid';
+var cjFunilFallbackSid = 's-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+
+function cjFunilSessionId() {
+  try {
+    var sid = sessionStorage.getItem(CJ_FUNIL_SESSION_KEY);
+    if (!sid) {
+      sid = window.crypto && typeof window.crypto.randomUUID === 'function' ? window.crypto.randomUUID() : cjFunilFallbackSid;
+      sessionStorage.setItem(CJ_FUNIL_SESSION_KEY, sid);
+    }
+    return sid;
+  } catch (_) { return cjFunilFallbackSid; }
+}
+
+function cjFunil(evento, extra) {
+  var dados = extra || {};
+  fetch(API + '/api/funil/evento', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+    body: JSON.stringify({ modulo: 'especialistas', evento: evento, pagina: location.pathname,
+      profissional_id: dados.profissional_id || null, session_id: cjFunilSessionId(),
+      metadata: Object.assign({ especialidade: ESPECIALIDADE }, dados.metadata || {}) })
+  }).catch(function() {});
+}
 
 function toggleWhatsAppWidget() {
   var widget = document.getElementById('whatsappWidget');
@@ -1005,9 +1028,10 @@ function renderEspecialistas() {
             ' data-id="' + (espec.id || '') + '"' +
             ' data-nome="' + nome + '"' +
           ' data-valor="' + (Number.isFinite(valorConsulta) ? valorConsulta : 0) + '"' +
+            ' data-sem-agenda="' + (!disponibilidade.length ? '1' : '0') + '"' +
             " data-disponibilidade='" + JSON.stringify(disponibilidade).replace(/'/g, '&#39;') + "'" +
           '>' +
-            'Ver horários' +
+            (disponibilidade.length ? 'Ver horários' : 'Consultar disponibilidade') +
             '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>' +
           '</button>' +
         '</div>' +
@@ -1060,6 +1084,7 @@ function renderSlots(disponibilidade) {
       document.querySelectorAll('.slot').forEach(function(x){ x.classList.remove('selected'); });
       el.classList.add('selected');
       slotSelecionado = s;
+      cjFunil('slot_selected', { profissional_id: medicoSelecionado && medicoSelecionado.id });
       var btnProximo = document.getElementById('btnProximo');
       btnProximo.disabled = false;
       btnProximo.classList.add('is-ready');
@@ -1310,6 +1335,7 @@ function voltarParaPagamento() {
 
 function processarPagamento() {
   clearPixPolling();
+  cjFunil('payment_started', { profissional_id: medicoSelecionado && medicoSelecionado.id, metadata: { metodo: metodoPagamento27 } });
   if (metodoPagamento27 === 'cartao') {
     mostrarPasso('passo-cartao');
     // formatar campos do cartão
@@ -1428,6 +1454,7 @@ async function processarCartao() {
 
     var horFmt = slotSelecionado.dia + ' às ' + slotSelecionado.hora;
     if (isPaymentConfirmed(data) || data.confirmed === true) {
+      cjFunil('payment_confirmed', { profissional_id: medicoSelecionado && medicoSelecionado.id });
       document.getElementById('cartao-confirmado-detalhe').textContent = medicoSelecionado.nome + ' · ' + horFmt;
     } else {
       document.getElementById('cartao-confirmado-detalhe').textContent = 'Pagamento em análise. Esta tela atualiza automaticamente assim que a Efí confirmar.';
@@ -1435,6 +1462,7 @@ async function processarCartao() {
     }
     mostrarPasso('passo-cartao-confirmado');
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: medicoSelecionado && medicoSelecionado.id, metadata: { metodo: 'cartao' } });
     errEl.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao processar pagamento com cartão.');
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Pagar com Cartão →';
@@ -1498,6 +1526,7 @@ async function gerarPix() {
 
     iniciarPollingEsp(espState.agendamentoId);
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: medicoSelecionado && medicoSelecionado.id, metadata: { metodo: 'pix' } });
     if (loading) {
       loading.style.display = 'block';
       loading.textContent = extractErrorMessage(e && e.message ? e.message : e, 'Erro ao gerar PIX. Verifique sua conexão e tente novamente.');
@@ -1575,9 +1604,11 @@ async function confirmarAgendamento() {
       return;
     }
     espState.agendamentoId = dadosAg.agendamentoId;
+    cjFunil('booking_created', { profissional_id: medicoSelecionado && medicoSelecionado.id });
 
     mostrarPasso('passo-pagamento');
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: medicoSelecionado && medicoSelecionado.id, metadata: { etapa: 'agendamento' } });
     errEl.textContent = 'Erro de conexão. Tente novamente.';
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
@@ -1610,6 +1641,7 @@ function iniciarPollingEsp(agendamentoId) {
       var data = parsed.payload || {};
       if (res.ok && parsed.isJson && isPaymentConfirmed(data)) {
         clearPixPolling();
+        cjFunil('payment_confirmed', { profissional_id: medicoSelecionado && medicoSelecionado.id });
         var ag = data.agendamento || {};
         var horFmt = new Date(ag.horario_agendado).toLocaleString('pt-BR', {
           timeZone: 'America/Fortaleza', weekday: 'long', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit'
@@ -1628,6 +1660,13 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharMod
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('.doctor-card__btn');
   if (!btn) return;
+  cjFunil('profile_opened', { profissional_id: btn.dataset.id });
+  if (btn.dataset.semAgenda === '1') {
+    cjFunil('availability_contact', { profissional_id: btn.dataset.id });
+    var mensagem = 'Olá! Gostaria de consultar a disponibilidade para psiquiatria online com ' + (btn.dataset.nome || 'o especialista') + '.';
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(mensagem), '_blank', 'noopener');
+    return;
+  }
 
   var disponibilidade = [];
   try {
@@ -1742,15 +1781,11 @@ async function pipCadastrar() {
 var irParaDadosOriginal = irParaDados;
 irParaDados = function() {
   if (!slotSelecionado) return;
-  var pacToken = localStorage.getItem('pac_token');
-  if (!pacToken) {
-    pipAbrir();
-    return;
-  }
   irParaDadosOriginal();
 };
 
 // Carregar especialistas ao iniciar
+cjFunil('page_view');
 observeReveal();
 initWhatsAppWidget();
 carregarEspecialistas();

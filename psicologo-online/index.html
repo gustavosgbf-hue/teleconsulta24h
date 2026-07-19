@@ -1131,9 +1131,9 @@ function renderResultCard(psi) {
           ${psi.valor_sessao > 0 ? 'R$' + psi.valor_sessao : 'Consultar valor'}
           ${psi.valor_sessao > 0 ? `<div class="per-day">≈ R$${perDay} por dia</div>` : ''}
         </div>
-        <button class="btn-result" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">
-          Ver horários →
-        </button>
+        ${psi.agenda_estruturada
+          ? `<button class="btn-result" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">Ver horários →</button>`
+          : `<button class="btn-result" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="consultarDisponibilidadePsiEl(this)">Consultar disponibilidade →</button>`}
       </div>
     </div>`;
 }
@@ -1173,7 +1173,9 @@ function renderRealProfessionalsGrid() {
     return;
   }
 
-  const sorted = allProfessionals.filter(p => p.agenda_estruturada).sort((a, b) => {
+  const sorted = [...allProfessionals].sort((a, b) => {
+    if (a.agenda_estruturada && !b.agenda_estruturada) return -1;
+    if (!a.agenda_estruturada && b.agenda_estruturada) return 1;
     if (a.disponivel_agora && !b.disponivel_agora) return -1;
     if (!a.disponivel_agora && b.disponivel_agora) return 1;
     return a.valor_sessao - b.valor_sessao;
@@ -1201,7 +1203,9 @@ function renderRealProfessionalsGrid() {
         <div class="real-pro-price"><small>Sessão de 50 min</small>${psi.valor_sessao > 0 ? 'R$' + psi.valor_sessao : 'Consultar valor'}</div>
         <div class="real-pro-avail"><span class="real-pro-avail-dot"></span>${esc(psi.disponibilidade)}</div>
       </div>
-      <button class="real-pro-cta" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">Ver horários de ${esc(firstName)} →</button>`;
+      ${psi.agenda_estruturada
+        ? `<button class="real-pro-cta" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="agendarComPsiEl(this)">Ver horários de ${esc(firstName)} →</button>`
+        : `<button class="real-pro-cta" data-psi-id="${esc(String(psi.id))}" data-psi-nome="${esc(psi.nome)}" onclick="consultarDisponibilidadePsiEl(this)">Consultar disponibilidade →</button>`}`;
 
     container.appendChild(card);
   });
@@ -1210,6 +1214,39 @@ function renderRealProfessionalsGrid() {
 
 /* ── BOOKING MODAL ─────────────────────────────────────────────── */
 const API = 'https://triagem-api.onrender.com';
+const CJ_FUNIL_SESSION_KEY = 'cj_funil_sid';
+const cjFunilFallbackSid = 's-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+
+function cjFunilSessionId() {
+  try {
+    let sid = sessionStorage.getItem(CJ_FUNIL_SESSION_KEY);
+    if (!sid) {
+      sid = (window.crypto && typeof window.crypto.randomUUID === 'function')
+        ? window.crypto.randomUUID()
+        : cjFunilFallbackSid;
+      sessionStorage.setItem(CJ_FUNIL_SESSION_KEY, sid);
+    }
+    return sid;
+  } catch (_) { return cjFunilFallbackSid; }
+}
+
+function cjFunil(evento, extra) {
+  const dados = extra || {};
+  fetch(API + '/api/funil/evento', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    keepalive: true,
+    body: JSON.stringify({
+      modulo: 'psicologia',
+      evento,
+      pagina: location.pathname,
+      profissional_id: dados.profissional_id || null,
+      session_id: cjFunilSessionId(),
+      metadata: dados.metadata || {}
+    })
+  }).catch(() => {});
+}
+
 const bk = {
   psi: null, slots: [], selSlot: null,
   agendamentoId: null, orderId: null, pollingTimer: null, countdownTimer: null,
@@ -1223,8 +1260,17 @@ function agendarComPsiEl(btn) {
 }
 
 function agendarComPsi(id, nome) {
+  cjFunil('profile_opened', { profissional_id: id });
   gtag('event', 'schedule_slots_click', { event_category: 'conversion', professional_id: id, professional_name: nome });
   openModal(id);
+}
+
+function consultarDisponibilidadePsiEl(btn) {
+  const id = btn.getAttribute('data-psi-id') || '';
+  const nome = btn.getAttribute('data-psi-nome') || 'o profissional';
+  cjFunil('availability_contact', { profissional_id: id });
+  const mensagem = 'Olá! Gostaria de consultar a disponibilidade para psicologia online com ' + nome + '.';
+  window.open('https://wa.me/5598989272727?text=' + encodeURIComponent(mensagem), '_blank', 'noopener');
 }
 
 function openModal(psId) {
@@ -1356,6 +1402,7 @@ function bkRenderPerfil() {
       document.querySelectorAll('.bk-slot-btn').forEach(b => b.classList.remove('sel'));
       btn.classList.add('sel');
       bk.selSlot = sl;
+      cjFunil('slot_selected', { profissional_id: bk.psi && bk.psi.id });
       document.getElementById('bk-btn-confirmar').disabled = false;
     };
     sg.appendChild(btn);
@@ -1459,6 +1506,7 @@ async function bkCriarAgendamento() {
 
     bk.agendamentoId = d.agendamentoId;
     bk.valorSessao = d.valor || bk.psi.valor_sessao;
+    cjFunil('booking_created', { profissional_id: bk.psi.id });
     document.getElementById('bk-pay-valor').textContent = 'R$' + bk.valorSessao;
     bkShowStep('bk-step-pagamento');
 
@@ -1468,6 +1516,7 @@ async function bkCriarAgendamento() {
       value: bk.valorSessao
     });
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: bk.psi && bk.psi.id, metadata: { etapa: 'agendamento' } });
     bkShowStep('bk-step-auth');
     document.getElementById('bk-co-err').textContent = 'Erro: ' + e.message + '. Verifique os dados e tente novamente.';
   }
@@ -1486,6 +1535,7 @@ async function bkGerarPix(valor) {
   }
 
   bkShowStep('bk-loading');
+  cjFunil('payment_started', { profissional_id: bk.psi && bk.psi.id, metadata: { metodo: 'pix' } });
   try {
     const r = await fetch(API + '/api/psicologia/pagbank/order', {
       method:'POST',
@@ -1511,6 +1561,7 @@ async function bkGerarPix(valor) {
       value: d.valor || valor
     });
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: bk.psi && bk.psi.id, metadata: { metodo: 'pix' } });
     bkShowStep('bk-step-pagamento');
     alert('Erro ao gerar PIX: ' + e.message);
   }
@@ -1544,6 +1595,7 @@ async function bkPagarCartao() {
   const btnPagar = document.getElementById('bk-cc-btn');
   btnPagar.disabled = true;
   btnPagar.textContent = 'Processando…';
+  cjFunil('payment_started', { profissional_id: bk.psi && bk.psi.id, metadata: { metodo: 'cartao' } });
 
   try {
     if (typeof EfiPay === 'undefined') throw new Error('SDK Efí não carregou. Verifique sua conexão.');
@@ -1589,6 +1641,7 @@ async function bkPagarCartao() {
 
     bkShowConfirmado();
   } catch(e) {
+    cjFunil('payment_failed', { profissional_id: bk.psi && bk.psi.id, metadata: { metodo: 'cartao' } });
     err.textContent = '❌ ' + (e.message || 'Erro ao processar. Tente novamente.');
     btnPagar.disabled = false;
     btnPagar.textContent = 'Pagar com cartão →';
@@ -1665,6 +1718,7 @@ function bkShowConfirmado() {
   if (el1) el1.textContent = psiNome;
   if (el2) el2.textContent = slotLabel;
   bkShowStep('bk-step-ok');
+  cjFunil('payment_confirmed', { profissional_id: bk.psi && bk.psi.id });
 
   gtag('event', 'purchase_confirmed', {
     event_category: 'conversion',
@@ -1764,6 +1818,7 @@ if (stickyEl) {
 /* ----------------------------------------------------------------
    INIT
    ---------------------------------------------------------------- */
+cjFunil('page_view');
 loadProfessionals();
 </script>
 </body>
