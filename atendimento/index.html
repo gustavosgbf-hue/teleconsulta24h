@@ -952,16 +952,16 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <div id="s-encerrado" class="screen-wrap scrollable">
   <div class="s-inner">
     <div class="enc-content">
-      <div class="enc-icon" id="encerrado-icon">⭐</div>
-      <div class="enc-titulo" id="encerrado-titulo">Como foi sua consulta?</div>
-      <p class="enc-sub" id="encerrado-sub">Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Menos de 1 minuto.</span></p>
+      <div class="enc-icon" id="encerrado-icon">✓</div>
+      <div class="enc-titulo" id="encerrado-titulo">Consulta encerrada</div>
+      <p class="enc-sub" id="encerrado-sub">Seu histórico e seus documentos continuam disponíveis abaixo.</p>
       <div class="enc-documentos" id="encerrado-documentos">
         <div class="enc-documentos__titulo">Seus documentos</div>
         <div class="enc-documentos__sub">Eles continuam disponíveis após o encerramento da consulta.</div>
         <div class="enc-documentos__lista" id="encerrado-documentos-lista"></div>
       </div>
       <a id="btn-avaliar-google" href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
-        style="display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:13px;
+        style="display:none;align-items:center;gap:9px;padding:13px 26px;border-radius:13px;
                background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;
                font-family:'Outfit',sans-serif;font-weight:700;font-size:.9rem;
                cursor:pointer;text-decoration:none;box-shadow:0 6px 24px rgba(180,224,90,.26);margin-bottom:14px">
@@ -975,7 +975,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
       </div>
       <div>
         <button onclick="novaConsulta()" style="background:none;border:none;color:rgba(255,255,255,.28);font-size:.76rem;font-family:'Outfit',sans-serif;cursor:pointer;padding:4px 0">
-          Pular e iniciar nova consulta
+          Iniciar nova consulta
         </button>
       </div>
       <div style="margin-top:16px;font-size:.68rem;color:rgba(255,255,255,.18)">ConsultaJá24h · Atendimento médico online 24h</div>
@@ -986,7 +986,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <script>
 // ─── GLOBALS ────────────────────────────────────────────────────────────────
 var API = 'https://triagem-api.onrender.com';
-var mostrarAvaliacaoGoogleEncerrada = true;
+var mostrarAvaliacaoGoogleEncerrada = false;
 
 // ─── EVENTOS DE FUNIL DA TRIAGEM ────────────────────────────────────────────
 // A conversão de compra fica centralizada em /confirmado. Aqui medimos apenas uso
@@ -2617,7 +2617,7 @@ function novaConsulta(){
   // Resetar estado global
   atendimentoId=null; tipoConsulta='chat';
   chatAtivo=false; ultimaMsgId=0; tentativas=0;
-  mostrarAvaliacaoGoogleEncerrada=true;
+  mostrarAvaliacaoGoogleEncerrada=false;
   paymentId=null; pagbankOrderId=null;
   pacienteNome=''; pacienteTel=''; pacienteCPF=''; pacienteEmail=''; pacienteTelDoc=''; pacienteNascimento='';
 
