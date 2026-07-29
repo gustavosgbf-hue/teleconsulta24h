@@ -417,7 +417,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .btn-meet.disabled{opacity:.4;pointer-events:none}
 
 /* ── ENCERRADO ── */
-#s-encerrado .s-inner{text-align:center}
+#s-encerrado .s-inner{justify-content:flex-start;text-align:center;padding-top:28px}
 .enc-icon{font-size:2.8rem;margin-bottom:16px}
 .enc-titulo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:8px;color:var(--g2)}
 .enc-sub{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:24px}
@@ -431,6 +431,21 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 .enc-documento__texto{min-width:0;flex:1}
 .enc-documento__nome{display:block;font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .enc-documento__acao{display:block;font-size:.67rem;color:rgba(255,255,255,.38);margin-top:2px}
+.enc-content{width:100%;max-width:560px;margin:0 auto;text-align:center}
+.enc-chat{display:none;text-align:left;margin:0 0 22px;padding:15px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.025)}
+.enc-chat.show{display:block}
+.enc-chat__titulo{font-size:.76rem;font-weight:700;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.enc-chat__sub{font-size:.72rem;color:rgba(255,255,255,.4);line-height:1.45;margin-bottom:12px}
+.enc-chat__lista{display:flex;flex-direction:column;gap:9px;max-height:360px;overflow-y:auto;padding:2px 3px 2px 0}
+.enc-chat__msg{display:flex;flex-direction:column;max-width:88%}
+.enc-chat__msg.medico{align-self:flex-start}
+.enc-chat__msg.paciente{align-self:flex-end;align-items:flex-end}
+.enc-chat__bub{padding:9px 12px;border-radius:13px;font-size:.8rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.enc-chat__msg.medico .enc-chat__bub{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);border-bottom-left-radius:4px}
+.enc-chat__msg.paciente .enc-chat__bub{background:#0d3d28;border:1px solid rgba(94,224,160,.28);border-bottom-right-radius:4px;color:#d5f5e6}
+.enc-chat__hora{font-size:.59rem;color:rgba(255,255,255,.27);padding:3px 3px 0}
+.enc-chat__arquivo{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#eaeaea;text-decoration:none;font-size:.76rem;overflow-wrap:anywhere}
+.enc-chat__imagem{display:block;max-width:220px;max-height:220px;border-radius:11px;border:1px solid rgba(255,255,255,.1)}
 
 /* ── LOADING ── */
 .loading-overlay{position:fixed;inset:0;z-index:999;background:#060d0b;
@@ -934,9 +949,9 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <!-- ═══════════════════════════════════════════════════════
      SCREEN 6 — Encerrado
 ═══════════════════════════════════════════════════════ -->
-<div id="s-encerrado" class="screen-wrap">
+<div id="s-encerrado" class="screen-wrap scrollable">
   <div class="s-inner">
-    <div style="text-align:center;max-width:380px">
+    <div class="enc-content">
       <div class="enc-icon" id="encerrado-icon">⭐</div>
       <div class="enc-titulo" id="encerrado-titulo">Como foi sua consulta?</div>
       <p class="enc-sub" id="encerrado-sub">Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Menos de 1 minuto.</span></p>
@@ -945,7 +960,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <div class="enc-documentos__sub">Eles continuam disponíveis após o encerramento da consulta.</div>
         <div class="enc-documentos__lista" id="encerrado-documentos-lista"></div>
       </div>
-      <a href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
+      <a id="btn-avaliar-google" href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
         style="display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:13px;
                background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;
                font-family:'Outfit',sans-serif;font-weight:700;font-size:.9rem;
@@ -953,6 +968,11 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         Avaliar no Google
       </a>
+      <div class="enc-chat" id="encerrado-chat">
+        <div class="enc-chat__titulo">Histórico da conversa</div>
+        <div class="enc-chat__sub">A consulta foi encerrada. Você ainda pode consultar as mensagens e os arquivos enviados.</div>
+        <div class="enc-chat__lista" id="encerrado-chat-lista"></div>
+      </div>
       <div>
         <button onclick="novaConsulta()" style="background:none;border:none;color:rgba(255,255,255,.28);font-size:.76rem;font-family:'Outfit',sans-serif;cursor:pointer;padding:4px 0">
           Pular e iniciar nova consulta
@@ -966,6 +986,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <script>
 // ─── GLOBALS ────────────────────────────────────────────────────────────────
 var API = 'https://triagem-api.onrender.com';
+var mostrarAvaliacaoGoogleEncerrada = true;
 
 // ─── EVENTOS DE FUNIL DA TRIAGEM ────────────────────────────────────────────
 // A conversão de compra fica centralizada em /confirmado. Aqui medimos apenas uso
@@ -1293,7 +1314,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
           pacienteNome  = nomePacientePreferido(a, sessao); pacienteTel = a.tel || '';
           pacienteCPF   = a.cpf  || ''; pacienteEmail = a.email || '';
           setFlowState('final');
-          esconderLoading(); mostrarTelaEncerrado(); return;
+          esconderLoading(); mostrarTelaEncerrado(a); return;
         }
 
         // ── Pagamento pendente: a landing concentra o checkout.
@@ -2014,7 +2035,7 @@ async function verificarStatus(){
     _atualizarFilaUI(data.fila, a.status);
     // [UX] Após 5min aguardando, mostra mensagem de reasseguramento
     _atualizarDemoraUI(a.status);
-    if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
+    if(a.status==='encerrado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(a); return; }
     if(a.status==='cancelado'){ clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); mostrarPagamentoCancelado(); return; }
     if(a.status==='aguardando_aprovacao') return;
     if(a.status==='assumido'&&!chatAtivo&&!document.getElementById('meetWrap').classList.contains('ativo')&&!encerradoPoller){ clearInterval(esperaPoller); medicoAssumiu(a); }
@@ -2053,7 +2074,7 @@ function medicoAssumiu(a){
       var data=await res.json();
       if(!data.ok||!data.atendimento){ clearInterval(encerradoPoller); return; }
       var at=data.atendimento;
-      if(at.status==='encerrado'){ clearInterval(encerradoPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(); return; }
+      if(at.status==='encerrado'){ clearInterval(encerradoPoller); clearInterval(chatPoller); clearInterval(meetPoller); encerrarConsultaPaciente(at); return; }
       if(tipoConsulta==='video'&&at.meet_link&&meetPoller){ clearInterval(meetPoller); meetPoller=null; ativarLinkMeet(at.meet_link); }
     }catch(e){}
   },8000);
@@ -2185,7 +2206,7 @@ function iniciarVideoConsulta(atendimento){
         var data=await res.json();
         if(!data.ok||!data.atendimento){ clearInterval(meetPoller); meetPoller=null; return; }
         var at=data.atendimento;
-        if(at.status==='encerrado'){ clearInterval(meetPoller); meetPoller=null; encerrarConsultaPaciente(); return; }
+        if(at.status==='encerrado'){ clearInterval(meetPoller); meetPoller=null; encerrarConsultaPaciente(at); return; }
         if(at.meet_link){ clearInterval(meetPoller); meetPoller=null; ativarLinkMeet(at.meet_link); }
       }catch(e){}
     },4000);
@@ -2195,13 +2216,16 @@ function ativarLinkMeet(link){
   var btn=document.getElementById('btnMeetLink'); btn.href=link; btn.classList.remove('disabled');
   document.getElementById('meetAguardando').style.display='none';
 }
-function encerrarConsultaPaciente(){
+function encerrarConsultaPaciente(atendimento){
+  if(atendimento&&typeof atendimento.mostrar_avaliacao_google==='boolean'){
+    mostrarAvaliacaoGoogleEncerrada=atendimento.mostrar_avaliacao_google;
+  }
   setFlowState('final');
   chatAtivo=false; clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
   var inp=document.getElementById('chatInputPaciente'); var sendBtn=document.getElementById('chatSendBtn');
   if(inp){ inp.disabled=true; inp.placeholder='Consulta encerrada'; }
   if(sendBtn) sendBtn.disabled=true;
-  limparSessao(); mostrarTelaEncerrado();
+  limparSessao(); mostrarTelaEncerrado(atendimento);
 }
 async function carregarDocumentosEncerrados(){
   var box=document.getElementById('encerrado-documentos');
@@ -2237,11 +2261,75 @@ async function carregarDocumentosEncerrados(){
     if(lista.children.length) box.classList.add('show');
   }catch(e){}
 }
-function mostrarTelaEncerrado(){
+async function carregarChatEncerrado(){
+  var box=document.getElementById('encerrado-chat');
+  var lista=document.getElementById('encerrado-chat-lista');
+  if(!box||!lista||!atendimentoId) return;
+  box.classList.remove('show');
+  lista.innerHTML='';
+  try{
+    var res=await fetch(API+'/api/chat/'+atendimentoId);
+    var data=await res.json();
+    if(!data.ok) return;
+    (data.mensagens||[]).forEach(function(m){
+      var item=document.createElement('div');
+      item.className='enc-chat__msg '+(m.autor==='paciente'?'paciente':'medico');
+      if(m.arquivo_url){
+        var url;
+        try{
+          url=new URL(m.arquivo_url,location.origin);
+          if(url.protocol!=='https:'&&url.protocol!=='http:') return;
+        }catch(e){ return; }
+        if(m.arquivo_tipo==='imagem'){
+          var linkImagem=document.createElement('a');
+          linkImagem.href=url.href; linkImagem.target='_blank'; linkImagem.rel='noopener noreferrer';
+          var imagem=document.createElement('img');
+          imagem.className='enc-chat__imagem'; imagem.src=url.href; imagem.alt='Imagem enviada na consulta';
+          linkImagem.appendChild(imagem); item.appendChild(linkImagem);
+        }else{
+          var linkArquivo=document.createElement('a');
+          linkArquivo.className='enc-chat__arquivo'; linkArquivo.href=url.href;
+          linkArquivo.target='_blank'; linkArquivo.rel='noopener noreferrer';
+          linkArquivo.textContent='Documento: '+String(m.arquivo_nome||'Abrir arquivo').slice(0,100);
+          item.appendChild(linkArquivo);
+        }
+      }else if(m.texto){
+        var bolha=document.createElement('div');
+        bolha.className='enc-chat__bub'; bolha.textContent=String(m.texto);
+        item.appendChild(bolha);
+      }
+      if(!item.children.length) return;
+      var hora=document.createElement('div');
+      hora.className='enc-chat__hora';
+      try{ hora.textContent=new Date(m.criado_em).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }catch(e){}
+      item.appendChild(hora); lista.appendChild(item);
+    });
+    if(lista.children.length){
+      box.classList.add('show');
+      lista.scrollTop=lista.scrollHeight;
+    }
+  }catch(e){}
+}
+function mostrarTelaEncerrado(atendimento){
+  if(atendimento&&typeof atendimento.mostrar_avaliacao_google==='boolean'){
+    mostrarAvaliacaoGoogleEncerrada=atendimento.mostrar_avaliacao_google;
+  }
   setFlowState('final');
   showScreen('encerrado');
   setNavLabel('CONSULTA ENCERRADA');
+  var btnAvaliacao=document.getElementById('btn-avaliar-google');
+  if(btnAvaliacao) btnAvaliacao.style.display=mostrarAvaliacaoGoogleEncerrada?'inline-flex':'none';
+  if(mostrarAvaliacaoGoogleEncerrada){
+    document.getElementById('encerrado-icon').textContent='⭐';
+    document.getElementById('encerrado-titulo').textContent='Como foi sua consulta?';
+    document.getElementById('encerrado-sub').innerHTML='Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Menos de 1 minuto.</span>';
+  }else{
+    document.getElementById('encerrado-icon').textContent='✓';
+    document.getElementById('encerrado-titulo').textContent='Consulta encerrada';
+    document.getElementById('encerrado-sub').textContent='Seu histórico e seus documentos continuam disponíveis abaixo.';
+  }
   carregarDocumentosEncerrados();
+  carregarChatEncerrado();
 }
 function mostrarPagamentoCancelado(){
   setFlowState('final');
@@ -2252,6 +2340,10 @@ function mostrarPagamentoCancelado(){
   document.getElementById('encerrado-sub').innerHTML='Não conseguimos validar seu pagamento.<br>Gere um novo PIX para continuar.';
   var docsEncerrado=document.getElementById('encerrado-documentos');
   if(docsEncerrado) docsEncerrado.classList.remove('show');
+  var chatEncerrado=document.getElementById('encerrado-chat');
+  if(chatEncerrado) chatEncerrado.classList.remove('show');
+  var btnAvaliacao=document.getElementById('btn-avaliar-google');
+  if(btnAvaliacao) btnAvaliacao.style.display='none';
   limparSessao();
 }
 
@@ -2525,6 +2617,7 @@ function novaConsulta(){
   // Resetar estado global
   atendimentoId=null; tipoConsulta='chat';
   chatAtivo=false; ultimaMsgId=0; tentativas=0;
+  mostrarAvaliacaoGoogleEncerrada=true;
   paymentId=null; pagbankOrderId=null;
   pacienteNome=''; pacienteTel=''; pacienteCPF=''; pacienteEmail=''; pacienteTelDoc=''; pacienteNascimento='';
 
