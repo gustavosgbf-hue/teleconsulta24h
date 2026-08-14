@@ -779,8 +779,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div style="font-size:.85rem;color:var(--ink-2)">⏱ Sessão de 50 minutos</div>
         </div>
       </div>
-      <p style="font-size:.85rem;color:var(--ink-2);font-weight:300;line-height:1.65;margin-bottom:8px">O link da sessão será enviado para o seu e-mail. Qualquer dúvida, fale conosco pelo WhatsApp.</p>
-      <p style="font-size:.77rem;color:var(--ink-3);margin-bottom:18px">💡 Você pode criar uma senha depois para acompanhar todas as suas sessões pela área do paciente.</p>
+      <p style="font-size:.85rem;color:var(--ink-2);font-weight:300;line-height:1.65;margin-bottom:12px">Crie seu acesso agora para acompanhar o agendamento e abrir o link da sessão no horário marcado.</p>
+      <button id="bk-access-btn" class="bk-btn" onclick="bkAbrirAcessoPaciente()">Criar ou acessar minha conta →</button>
+      <button id="bk-resend-btn" class="bk-btn bk-btn-sec" style="margin-top:8px" onclick="bkReenviarAcesso()">Reenviar acesso por e-mail</button>
+      <div id="bk-access-msg" style="min-height:18px;font-size:.76rem;color:var(--ink-3);margin:8px 0 10px"></div>
       <a href="https://wa.me/5598989272727?text=Confirmar%20meu%20agendamento" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;background:#25d366;color:#fff;font-weight:600;font-size:.88rem;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,.35)">💬 Falar com suporte</a>
       <button class="bk-btn" style="margin-top:10px" onclick="closeModal()">Fechar</button>
     </div>
@@ -1725,6 +1727,52 @@ function bkShowConfirmado() {
     value: bk.valorSessao,
     currency: 'BRL'
   });
+}
+
+async function bkAbrirAcessoPaciente() {
+  const btn = document.getElementById('bk-access-btn');
+  const msg = document.getElementById('bk-access-msg');
+  if (!bk.agendamentoId || !bk.paciente) return;
+  btn.disabled = true;
+  btn.textContent = 'Preparando acesso…';
+  msg.textContent = '';
+  try {
+    const r = await fetch(API + '/api/psicologia/agendamento/' + bk.agendamentoId + '/acesso-paciente', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email: bk.paciente.email, cpf: bk.paciente.cpf })
+    });
+    const d = await r.json();
+    if (!r.ok || !d.ok || !d.url) throw new Error(d.error || 'Acesso indisponível');
+    window.location.href = d.url;
+  } catch (e) {
+    msg.textContent = e.message + '. Use o reenvio por e-mail ou fale com o suporte.';
+    btn.disabled = false;
+    btn.textContent = 'Tentar novamente';
+  }
+}
+
+async function bkReenviarAcesso() {
+  const btn = document.getElementById('bk-resend-btn');
+  const msg = document.getElementById('bk-access-msg');
+  if (!bk.agendamentoId || !bk.paciente) return;
+  btn.disabled = true;
+  btn.textContent = 'Enviando…';
+  try {
+    const r = await fetch(API + '/api/psicologia/agendamento/' + bk.agendamentoId + '/reenviar-acesso', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email: bk.paciente.email, cpf: bk.paciente.cpf })
+    });
+    const d = await r.json();
+    if (!r.ok || !d.ok) throw new Error(d.error || 'Falha no reenvio');
+    msg.textContent = d.conta_existente ? 'Sua conta já está ativa. Use o botão acima para entrar.' : 'Acesso reenviado. Confira também o spam.';
+  } catch (e) {
+    msg.textContent = e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Reenviar acesso por e-mail';
+  }
 }
 
 /* PIX countdown, 10 minutos (600 s) */

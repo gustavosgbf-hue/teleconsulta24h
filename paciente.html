@@ -258,6 +258,19 @@ nav{position:sticky;top:0;z-index:100;background:rgba(242,240,236,.96);backdrop-
 
 <div class="toast" id="toast"></div>
 
+<div id="guest-password-overlay" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(22,18,14,.64);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px">
+  <div style="width:100%;max-width:420px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 22px 70px rgba(0,0,0,.22)">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:500;margin-bottom:7px">Crie seu acesso</div>
+    <p style="font-size:.84rem;line-height:1.55;color:var(--ink-3);margin-bottom:18px">Defina uma senha para acompanhar seu agendamento e acessar a sessão.</p>
+    <label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink-2);margin-bottom:6px">Nova senha</label>
+    <input id="guest-new-password" type="password" minlength="6" autocomplete="new-password" placeholder="Mínimo de 6 caracteres" style="width:100%;padding:13px 14px;border:1px solid var(--line-mid);border-radius:10px;font:inherit;margin-bottom:10px">
+    <label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink-2);margin-bottom:6px">Confirmar senha</label>
+    <input id="guest-confirm-password" type="password" minlength="6" autocomplete="new-password" placeholder="Repita a senha" style="width:100%;padding:13px 14px;border:1px solid var(--line-mid);border-radius:10px;font:inherit;margin-bottom:8px">
+    <div id="guest-password-error" style="min-height:20px;color:var(--err);font-size:.78rem;margin-bottom:8px"></div>
+    <button id="guest-password-btn" onclick="ativarContaGuest()" style="width:100%;padding:13px;border:0;border-radius:10px;background:var(--psi-acc);color:#fff;font:inherit;font-weight:600;cursor:pointer">Criar senha e acessar</button>
+  </div>
+</div>
+
 <script src="./api-config.js"></script>
 <script>
 const API = window.API_BASE_URL || 'https://triagem-api.onrender.com';
@@ -304,6 +317,39 @@ function fmtData(iso) {
   return new Date(iso).toLocaleString('pt-BR', { timeZone: 'America/Fortaleza', weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 function fmtValor(v) { return 'R$ ' + parseFloat(String(v||'0').replace(',','.')).toFixed(2).replace('.',','); }
+
+const guestPasswordToken = new URLSearchParams(location.search).get('criar_senha');
+
+async function ativarContaGuest() {
+  const senha = document.getElementById('guest-new-password').value;
+  const confirmar = document.getElementById('guest-confirm-password').value;
+  const err = document.getElementById('guest-password-error');
+  const btn = document.getElementById('guest-password-btn');
+  err.textContent = '';
+  if (senha.length < 6) { err.textContent = 'A senha deve ter ao menos 6 caracteres.'; return; }
+  if (senha !== confirmar) { err.textContent = 'As senhas não coincidem.'; return; }
+  btn.disabled = true;
+  btn.textContent = 'Criando acesso…';
+  try {
+    const res = await fetch(API + '/api/paciente/ativar-conta-guest', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ token: guestPasswordToken, senha })
+    });
+    const data = await safeJson(res);
+    if (!res.ok || !data.ok) throw new Error(data.error || 'Não foi possível criar a senha');
+    localStorage.setItem('pac_token', data.token);
+    localStorage.setItem('pac_dados', JSON.stringify(data.paciente));
+    history.replaceState({}, '', location.pathname);
+    document.getElementById('guest-password-overlay').style.display = 'none';
+    entrarApp(data.paciente);
+    mostrarToast('Acesso criado com sucesso!', 'success');
+  } catch (e) {
+    err.textContent = e.message;
+    btn.disabled = false;
+    btn.textContent = 'Criar senha e acessar';
+  }
+}
 
 // ── ABAS LOGIN/CADASTRO ───────────────────────────────────────────────────────
 function trocarAba(aba) {
@@ -534,6 +580,10 @@ async function cancelarAgendamento(id, btn, endpoint) {
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 (function init() {
+  if (guestPasswordToken) {
+    document.getElementById('guest-password-overlay').style.display = 'flex';
+    return;
+  }
   const token = getToken();
   if (!token) return;
   apiFetch('/api/paciente/me').then(d => {
