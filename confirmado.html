@@ -15,6 +15,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NN2WKSD6');
 </script>
+<!-- Meta Pixel: dataset ConsultaJa24h -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','936397675417976');
+fbq('track','PageView');
+</script>
+<!-- End Meta Pixel -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pagamento confirmado · ConsultaJá24h</title>
@@ -106,6 +117,18 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   try {
     sessao = JSON.parse(sessionStorage.getItem('mo_checkout_sessao') || localStorage.getItem('cj_sessao') || 'null');
   } catch(e) {}
+  var nomesEspecialidades = {pediatria:'Pediatria',geriatria:'Geriatria',psiquiatria:'Psiquiatria'};
+  var especialidadeCompra = sessao && nomesEspecialidades[sessao.especialidadeSolicitada]
+    ? sessao.especialidadeSolicitada
+    : '';
+  var valorSessaoCentavos = Number(sessao && sessao.valorCentavos);
+  var valorClinico = valorSessaoCentavos === 5990 ? 59.90 : 49.90;
+  var valorCompra = especialidadeCompra ? 99.90 : valorClinico;
+  var precoVariante = especialidadeCompra ? '' : ((sessao && sessao.precoVariante) || 'controle_4990');
+  var itemId = especialidadeCompra ? 'consulta_'+especialidadeCompra+'_online' : 'consulta_online';
+  var itemNome = especialidadeCompra
+    ? 'Consulta de '+nomesEspecialidades[especialidadeCompra]+' online'
+    : 'Consulta médica online';
   if(!consultaId){
     if(sessao && sessao.atendimentoId){
       consultaId = String(sessao.atendimentoId);
@@ -124,6 +147,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       tipo: params.get('tipo') || (sessao && sessao.tipoConsulta) || '',
       paymentMethod: (sessao && sessao.paymentMethod) || '',
       checkoutSessionId: (sessao && sessao.checkoutSessionId) || '',
+      precoVariante: precoVariante,
       gclid: params.get('gclid') || '',
       gbraid: params.get('gbraid') || '',
       wbraid: params.get('wbraid') || '',
@@ -160,29 +184,41 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
     window.dataLayer = window.dataLayer || [];
     var eventoCompra = {
       event: 'pagamento_confirmado',
-      value: 49.90,
+      value: valorCompra,
       currency: 'BRL',
       transaction_id: String(txId),
       atendimento_id: String(consultaId || ''),
       checkout_session_id: (sessao && sessao.checkoutSessionId) || '',
       tipo_consulta: (sessao && sessao.tipoConsulta) || params.get('tipo') || '',
-      payment_method: (sessao && sessao.paymentMethod) || ''
+      payment_method: (sessao && sessao.paymentMethod) || '',
+      preco_variante: precoVariante
     };
     window.dataLayer.push(eventoCompra);
     window.dataLayer.push({
       event: 'purchase',
       ecommerce: {
         transaction_id: String(txId),
-        value: 49.90,
+        value: valorCompra,
         currency: 'BRL',
         items: [{
-          item_id: 'consulta_online',
-          item_name: 'Consulta médica online',
-          price: 49.90,
+          item_id: itemId,
+          item_name: itemNome,
+          item_variant: precoVariante,
+          price: valorCompra,
           quantity: 1
         }]
       }
     });
+    if(typeof window.fbq === 'function'){
+      window.fbq('track','Purchase',{
+        value: valorCompra,
+        currency: 'BRL',
+        content_type: 'product',
+        content_ids: ['consulta_online'],
+        contents: [{id:'consulta_online',quantity:1,item_price:valorCompra}],
+        num_items: 1
+      },{eventID:'purchase_'+String(txId)});
+    }
 
     if(typeof gtag === 'function'){
       var callbackChamado = false;
@@ -193,7 +229,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       }
       gtag('event', 'conversion', {
         send_to: 'AW-17964942771/AT3gCPTl0PsbELOLrfZC',
-        value: 49.90,
+        value: valorCompra,
         currency: 'BRL',
         transaction_id: String(txId),
         event_callback: seguirDepoisDaTag,
