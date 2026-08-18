@@ -2571,7 +2571,7 @@ function moJaPassouPorConfirmado(id){
 }
 
 function moAdsParamPermitido(chave){
-  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
+  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','fbclid','debug_tag','force_tag'].indexOf(chave)>=0);
 }
 
 function moSalvarAdsParamsAtuais(){
