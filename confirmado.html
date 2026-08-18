@@ -136,6 +136,23 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       if(sessao.tipoConsulta && !params.get('tipo')) params.set('tipo', sessao.tipoConsulta);
     }
   }
+
+  // Fallback de atribuicao: a landing ja persiste UTMs/IDs em cj_ads_params.
+  // Se algum redirect intermediario remover a query string, restaura antes do ping ao backend.
+  try{
+    var adsRaw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    var adsSalvos = JSON.parse(adsRaw);
+    Object.keys(adsSalvos || {}).forEach(function(chaveAds){
+      if((/^utm_/i.test(chaveAds) || /^gtm_/i.test(chaveAds) || ['gclid','gbraid','wbraid','fbclid'].indexOf(chaveAds) >= 0) && adsSalvos[chaveAds] && !params.has(chaveAds)){
+        params.set(chaveAds, String(adsSalvos[chaveAds]));
+      }
+    });
+    if(window.history && typeof window.history.replaceState === 'function'){
+      var qsAtualizada = params.toString();
+      window.history.replaceState(null, '', location.pathname + (qsAtualizada ? '?' + qsAtualizada : '') + location.hash);
+    }
+  }catch(e){}
+
   var txId = consultaId || ('sem_id_' + Date.now());
   var chave = 'conv_confirmado_' + txId;
   var emDebug = params.has('debug_tag') || params.has('force_tag');
@@ -151,6 +168,12 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       gclid: params.get('gclid') || '',
       gbraid: params.get('gbraid') || '',
       wbraid: params.get('wbraid') || '',
+      fbclid: params.get('fbclid') || '',
+      utm_source: params.get('utm_source') || '',
+      utm_medium: params.get('utm_medium') || '',
+      utm_campaign: params.get('utm_campaign') || '',
+      utm_term: params.get('utm_term') || '',
+      utm_content: params.get('utm_content') || '',
       href: location.href,
       referrer: document.referrer || ''
     };
