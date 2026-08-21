@@ -16,17 +16,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NN2WKSD6');</script>
 <!-- End Google Tag Manager -->
-<!-- Meta Pixel: dataset ConsultaJa24h -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','966589106441907');
-fbq('track','PageView');
-</script>
-<!-- End Meta Pixel -->
 <script>
 (function(w){
   var tentativas=0;
@@ -56,31 +45,6 @@ fbq('track','PageView');
   w.__moCliqueAbrirBootstrap=bootstrap;
   w.moCliqueAbrir=bootstrap;
   w.__moFlushOpenPendente=flush;
-})(window);
-</script>
-<script>
-(function(w){
-  var chave='cj_consulta_preco_v1';
-  var variantes={
-    controle_4990:{id:'controle_4990',centavos:4990,formatado:'R$ 49,90'},
-    teste_5990:{id:'teste_5990',centavos:5990,formatado:'R$ 59,90'}
-  };
-  var id='';
-  try { id=localStorage.getItem(chave)||''; } catch(e) {}
-  if(!variantes[id]){
-    var sorteio;
-    try {
-      var aleatorio=new Uint32Array(1);
-      crypto.getRandomValues(aleatorio);
-      sorteio=aleatorio[0]/4294967296;
-    } catch(e) {
-      sorteio=Math.random();
-    }
-    id=sorteio<0.5?'controle_4990':'teste_5990';
-    try { localStorage.setItem(chave,id); } catch(e) {}
-  }
-  w.CJ_CONSULTA_PRECO=variantes[id];
-  document.documentElement.setAttribute('data-consulta-preco-variante',id);
 })(window);
 </script>
 <meta charset="utf-8">
@@ -1650,7 +1614,7 @@ whatsappSend.addEventListener('click', function() {
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"></path><path d="M8 10.5h8"></path><path d="M8 14h5"></path></svg>
     <span>Iniciar consulta</span>
     <span style="display:inline-block;width:1px;height:18px;background:rgba(6,20,9,.25);margin:0 2px"></span>
-    <span style="font-weight:800" data-consulta-preco>R$ 49,90</span>
+    <span style="font-weight:800">R$ 49,90</span>
   </a>
   <!-- âncora de preço: comparação com presencial -->
   <div id="heroPriceAnchor" class="hero__proof-list">
@@ -1841,7 +1805,7 @@ whatsappSend.addEventListener('click', function() {
     <div class="how-summary" aria-label="Preço e formas de pagamento">
       <span>Pagamento único</span>
       <span class="how-summary__sep">·</span>
-      <strong data-consulta-preco>R$ 49,90</strong>
+      <strong>R$ 49,90</strong>
       <span class="how-summary__sep">·</span>
       <span>PIX ou cartão</span>
     </div>
@@ -2041,7 +2005,7 @@ whatsappSend.addEventListener('click', function() {
           Como funciona o pagamento?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         </button>
-        <div class="faq-a"><p>Você paga <span data-consulta-preco>R$ 49,90</span> via PIX ou cartão de crédito. Após a confirmação, você é direcionado ao atendimento na plataforma. A cobrança aparece como <strong>JG Fonseca Serviços Médicos LTDA</strong>, que é a razão social da ConsultaJá24h.</p></div>
+        <div class="faq-a"><p>Você paga R$&nbsp;49,90 via PIX ou cartão de crédito. Após a confirmação, você é direcionado ao atendimento na plataforma. A cobrança aparece como <strong>JG Fonseca Serviços Médicos LTDA</strong>, que é a razão social da ConsultaJá24h.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -2077,7 +2041,7 @@ whatsappSend.addEventListener('click', function() {
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"></path><path d="M8 10.5h8"></path><path d="M8 14h5"></path></svg>
       Falar com médico agora
     </a>
-    <p style="font-size:.72rem;color:rgba(255,255,255,.45)"><span data-consulta-preco>R$ 49,90</span> · PIX ou cartão · sem criar conta</p>
+    <p style="font-size:.72rem;color:rgba(255,255,255,.45)">R$&nbsp;49,90 · PIX ou cartão · sem criar conta</p>
     <p style="font-size:.7rem;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:5px;justify-content:center">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
       Sigilo médico garantido · CRM ativo · LGPD · CFM 2.314/2022
@@ -2122,7 +2086,7 @@ whatsappSend.addEventListener('click', function() {
 <div class="sticky-cta" aria-label="Iniciar consulta médica online">
   <a href="#" class="sticky-cta__button" onclick="return moCliqueAbrir(event)">
     <span>Iniciar consulta</span>
-    <span class="sticky-cta__price" data-consulta-preco>R$ 49,90</span>
+    <span class="sticky-cta__price">R$ 49,90</span>
   </a>
 </div>
 
@@ -2526,31 +2490,11 @@ function moNomeEspecialidade(){
   return MO_ESPECIALIDADES_IMEDIATAS[moEspecialidadeSolicitada]||'';
 }
 
-function moExperimentoPreco(){
-  var experimento=window.CJ_CONSULTA_PRECO||{};
-  if((experimento.id==='controle_4990'&&experimento.centavos===4990)||
-     (experimento.id==='teste_5990'&&experimento.centavos===5990)) return experimento;
-  return {id:'controle_4990',centavos:4990,formatado:'R$ 49,90'};
-}
-
-function moAplicarPrecoExperimento(){
-  var preco=moExperimentoPreco().formatado;
-  document.querySelectorAll('[data-consulta-preco]').forEach(function(el){
-    el.textContent=preco;
-  });
-}
-
 function moValorCentavos(){
-  return moNomeEspecialidade() ? 9990 : moExperimentoPreco().centavos;
+  return moNomeEspecialidade() ? 9990 : 4990;
 }
 function moValorFormatado(){
-  return moNomeEspecialidade() ? 'R$ 99,90' : moExperimentoPreco().formatado;
-}
-function moValorHtml(){
-  var centavos=moValorCentavos();
-  var inteiro=Math.floor(centavos/100);
-  var decimal=String(centavos%100).padStart(2,'0');
-  return 'R$'+inteiro+'<span style="font-size:.95rem">,'+decimal+'</span>';
+  return moNomeEspecialidade() ? 'R$ 99,90' : 'R$ 49,90';
 }
 function moAtualizarProdutoCheckout(){
   var nomeEspecialidade=moNomeEspecialidade();
@@ -2568,7 +2512,9 @@ function moAtualizarProdutoCheckout(){
   if(resumoProduto) resumoProduto.textContent=produto;
   if(resumoPreco) resumoPreco.textContent=preco;
   if(pagamentoProduto) pagamentoProduto.textContent=produto;
-  if(pagamentoPreco) pagamentoPreco.innerHTML=moValorHtml();
+  if(pagamentoPreco) pagamentoPreco.innerHTML=especialista
+    ? 'R$99<span style="font-size:.95rem">,90</span>'
+    : 'R$49<span style="font-size:.95rem">,90</span>';
   if(regraTexto) regraTexto.textContent='O valor reserva '+nomeEspecialidade+' por 10 minutos.';
   if(regraNome) regraNome.textContent=nomeEspecialidade||'especialista';
   if(regraInicio) regraInicio.style.display=especialista?'block':'none';
@@ -2625,7 +2571,7 @@ function moJaPassouPorConfirmado(id){
 }
 
 function moAdsParamPermitido(chave){
-  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','debug_tag','force_tag'].indexOf(chave)>=0);
+  return !!chave && chave.toLowerCase() !== 'cpf' && (/^utm_/i.test(chave)||/^gtm_/i.test(chave)||['gclid','gbraid','wbraid','fbclid','debug_tag','force_tag'].indexOf(chave)>=0);
 }
 
 function moSalvarAdsParamsAtuais(){
@@ -2735,16 +2681,6 @@ function moTrackOnce(key, eventName, data){
   moTrack(eventName, data);
 }
 
-function moMetaTrackOnce(key, eventName, data){
-  try {
-    if(sessionStorage.getItem(key)) return;
-    sessionStorage.setItem(key, '1');
-  } catch(e) {}
-  try {
-    if(typeof window.fbq === 'function') window.fbq('track', eventName, data || {});
-  } catch(e) {}
-}
-
 function moFetchComTimeout(url, options, ms){
   options = options || {};
   ms = ms || 8000;
@@ -2788,7 +2724,6 @@ function moPayloadAtendimento(extra){
     pagador_email:moPagadorEmailVal||'',
     contexto:moPreContexto||'',
     especialidade_solicitada:moEspecialidadeSolicitada||'',
-    preco_variante:moNomeEspecialidade()?'':moExperimentoPreco().id,
     ads:moAdsAttributionPayload()
   }, extra||{});
 }
@@ -2812,8 +2747,6 @@ function moSalvarCheckoutSessao(){
       paymentMethod:moMetodoAtual||'pix',
       pagamentoConfirmado:!!moPagamentoConfirmado,
       especialidadeSolicitada:moEspecialidadeSolicitada||'',
-      precoVariante:moNomeEspecialidade()?'':moExperimentoPreco().id,
-      valorCentavos:moValorCentavos(),
       ts:Date.now()
     };
     localStorage.setItem('cj_sessao', JSON.stringify(snap));
@@ -3527,14 +3460,6 @@ async function moIrPagamento(){
   btn.onclick=moAvancarStep1;
   moMetodo('pix');
   moIrStep(2);
-  moMetaTrackOnce('meta_checkout_'+moGetCheckoutSessionId(),'InitiateCheckout',{
-    value:moValorCentavos()/100,
-    currency:'BRL',
-    content_type:'product',
-    content_ids:['consulta_online'],
-    contents:[{id:'consulta_online',quantity:1,item_price:moValorCentavos()/100}],
-    num_items:1
-  });
 }
 
 function moMetodo(m){
@@ -3992,7 +3917,6 @@ function moReiniciar(){
 }
 
 document.addEventListener('DOMContentLoaded',function(){
-  moAplicarPrecoExperimento();
   moExibirRetomadaConfirmada();
   try{
     var triagemRedirect=sessionStorage.getItem('cj_triagem_redirected');
