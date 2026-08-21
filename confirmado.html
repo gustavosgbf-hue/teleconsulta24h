@@ -158,6 +158,18 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   var emDebug = params.has('debug_tag') || params.has('force_tag');
   params.forEach(function(_, chaveParam){ if(/^gtm_/i.test(chaveParam)) emDebug = true; });
 
+  function lerCookie(nome){
+    try{
+      var prefixo = nome + '=';
+      var partes = document.cookie.split(';');
+      for(var i=0;i<partes.length;i++){
+        var parte = partes[i].trim();
+        if(parte.indexOf(prefixo) === 0) return decodeURIComponent(parte.slice(prefixo.length));
+      }
+    }catch(e){}
+    return '';
+  }
+
   function pingConfirmadoView(){
     var payload = {
       consultaId: String(consultaId || ''),
@@ -184,6 +196,28 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       } else {
         fetch('https://triagem-api.onrender.com/api/tracking/confirmado-view', {method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){});
       }
+    }catch(e){}
+  }
+
+  function enviarMetaCapiPurchase(){
+    if(!/^\d+$/.test(String(consultaId || ''))) return;
+    var payload = {
+      atendimentoId: String(consultaId),
+      eventId: 'purchase_' + String(txId),
+      value: valorCompra,
+      currency: 'BRL',
+      eventSourceUrl: location.href,
+      userAgent: navigator.userAgent || '',
+      fbc: lerCookie('_fbc'),
+      fbp: lerCookie('_fbp')
+    };
+    try{
+      fetch('https://triagem-api.onrender.com/api/tracking/meta-capi-purchase', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload),
+        keepalive:true
+      }).catch(function(){});
     }catch(e){}
   }
 
@@ -242,6 +276,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
         num_items: 1
       },{eventID:'purchase_'+String(txId)});
     }
+    enviarMetaCapiPurchase();
 
     if(typeof gtag === 'function'){
       var callbackChamado = false;
