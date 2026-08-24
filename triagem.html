@@ -2013,6 +2013,7 @@ async function confirmarModalidade(){
 
 // ─── SCREEN 5: Espera / Consulta ────────────────────────────────────────────
 var tentativas=0, esperaPoller=null, chatPoller=null, meetPoller=null, encerradoPoller=null, chatAtivo=false, ultimaMsgId=0;
+var chatMsgIds=new Set();
 
 function mostrarTelaEspera(){
   setFlowState('waiting');
@@ -2181,13 +2182,28 @@ function iniciarChatConsulta(atendimento){
     inp.addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensagemChat(); } });
   }
 }
+function adicionarMensagemChat(m){
+  if(!m||!m.id) return false;
+  var key=String(m.id);
+  if(chatMsgIds.has(key)) return false;
+  chatMsgIds.add(key);
+  renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome);
+  ultimaMsgId=Math.max(ultimaMsgId,Number(m.id)||0);
+  return true;
+}
+function reconciliarMensagensChat(mensagens){
+  var novas=[];
+  (mensagens||[]).slice().sort(function(a,b){ return Number(a.id)-Number(b.id); }).forEach(function(m){
+    if(adicionarMensagemChat(m)) novas.push(m);
+  });
+  return novas;
+}
 async function carregarHistoricoChat(){
   if(!atendimentoId) return;
   try{
     var res=await fetch(API+'/api/chat/'+atendimentoId+'?_='+Date.now(),{cache:'no-store'}); var data=await res.json();
     if(!data.ok) return;
-    var msgs=data.mensagens||[];
-    if(msgs.length>0){ msgs.forEach(function(m){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); ultimaMsgId=m.id; }); }
+    reconciliarMensagensChat(data.mensagens||[]);
   }catch(e){}
 }
 async function buscarMensagensNovas(){
@@ -2195,8 +2211,8 @@ async function buscarMensagensNovas(){
   try{
     var res=await fetch(API+'/api/chat/'+atendimentoId+'?_='+Date.now(),{cache:'no-store'}); var data=await res.json();
     if(!data.ok) return;
-    var viuMedico=false;
-    (data.mensagens||[]).forEach(function(m){ if(m.id>ultimaMsgId){ if(m.autor==='medico'){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); viuMedico=true; } ultimaMsgId=m.id; } });
+    var novas=reconciliarMensagensChat(data.mensagens||[]);
+    var viuMedico=novas.some(function(m){ return m.autor==='medico'; });
     // [UX] Quando chega msg nova do médico, pulsa o "digitando..." por 2s — sinaliza presença ativa
     if(viuMedico) _pulsarTyping();
   }catch(e){}
@@ -2212,8 +2228,7 @@ async function enviarMensagemChat(){
     var d=await r.json();
     if(!r.ok||!d.ok||!d.mensagem||!d.mensagem.id) throw new Error(d.error||'Não foi possível enviar a mensagem.');
     inp.value=''; inp.style.height='auto';
-    renderMsgChat(d.mensagem.autor||'paciente',d.mensagem.texto||texto,d.mensagem.criado_em||new Date().toISOString(),d.mensagem.arquivo_url,d.mensagem.arquivo_tipo,d.mensagem.arquivo_nome);
-    if(d.mensagem.id>ultimaMsgId) ultimaMsgId=d.mensagem.id;
+    adicionarMensagemChat(d.mensagem);
     mostrarErroChatPaciente('');
   }catch(e){ mostrarErroChatPaciente(e.message||'Falha ao enviar. Sua mensagem foi mantida para tentar novamente.'); }
   finally{ inp.disabled=false; if(btn) btn.disabled=false; inp.focus(); }
@@ -2282,7 +2297,7 @@ async function enviarArquivoTriagem(){
   try{
     var res=await fetch(API+'/api/chat/upload',{method:'POST',body:fd});
     var data=await res.json();
-    if(data.ok&&data.mensagem){ var m=data.mensagem; renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); if(m.id>ultimaMsgId) ultimaMsgId=m.id; }
+    if(data.ok&&data.mensagem) adicionarMensagemChat(data.mensagem);
   }catch(e){}
 }
 function iniciarVideoConsulta(atendimento){
@@ -2639,7 +2654,7 @@ function novaConsulta(){
 
   // Resetar estado global
   atendimentoId=null; tipoConsulta='chat';
-  chatAtivo=false; ultimaMsgId=0; tentativas=0;
+  chatAtivo=false; ultimaMsgId=0; chatMsgIds.clear(); tentativas=0;
   paymentId=null; pagbankOrderId=null;
   pacienteNome=''; pacienteTel=''; pacienteCPF=''; pacienteEmail=''; pacienteTelDoc=''; pacienteNascimento='';
 
