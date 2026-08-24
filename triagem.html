@@ -924,6 +924,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
+        <div id="chatErroPaciente" role="alert" style="display:none;padding:0 14px 9px;color:#ff9a9a;font-size:.72rem;text-align:center"></div>
         <!-- [UX v2] Rodapé de segurança -->
         <div style="padding:7px 12px;text-align:center;font-size:.66rem;color:rgba(255,255,255,.25);background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.04);border-radius:0 0 14px 14px">🔒 Conversa segura e criptografada</div>
       </div>
@@ -2183,7 +2184,7 @@ function iniciarChatConsulta(atendimento){
 async function carregarHistoricoChat(){
   if(!atendimentoId) return;
   try{
-    var res=await fetch(API+'/api/chat/'+atendimentoId); var data=await res.json();
+    var res=await fetch(API+'/api/chat/'+atendimentoId+'?_='+Date.now(),{cache:'no-store'}); var data=await res.json();
     if(!data.ok) return;
     var msgs=data.mensagens||[];
     if(msgs.length>0){ msgs.forEach(function(m){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); ultimaMsgId=m.id; }); }
@@ -2192,7 +2193,7 @@ async function carregarHistoricoChat(){
 async function buscarMensagensNovas(){
   if(!atendimentoId||!chatAtivo) return;
   try{
-    var res=await fetch(API+'/api/chat/'+atendimentoId); var data=await res.json();
+    var res=await fetch(API+'/api/chat/'+atendimentoId+'?_='+Date.now(),{cache:'no-store'}); var data=await res.json();
     if(!data.ok) return;
     var viuMedico=false;
     (data.mensagens||[]).forEach(function(m){ if(m.id>ultimaMsgId){ if(m.autor==='medico'){ renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome); viuMedico=true; } ultimaMsgId=m.id; } });
@@ -2204,12 +2205,22 @@ async function enviarMensagemChat(){
   if(arquivoTriagem){ await enviarArquivoTriagem(); return; }
   var inp=document.getElementById('chatInputPaciente'); var texto=inp.value.trim();
   if(!texto||!atendimentoId) return;
-  inp.value=''; inp.style.height='auto';
-  renderMsgChat('paciente',texto,new Date().toISOString());
+  var btn=document.getElementById('chatSendBtn');
+  inp.disabled=true; if(btn) btn.disabled=true;
   try{
     var r=await fetch(API+'/api/chat/enviar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({atendimentoId,autor:'paciente',texto})});
-    var d=await r.json(); if(d.ok&&d.mensagem&&d.mensagem.id>ultimaMsgId) ultimaMsgId=d.mensagem.id;
-  }catch(e){}
+    var d=await r.json();
+    if(!r.ok||!d.ok||!d.mensagem||!d.mensagem.id) throw new Error(d.error||'Não foi possível enviar a mensagem.');
+    inp.value=''; inp.style.height='auto';
+    renderMsgChat(d.mensagem.autor||'paciente',d.mensagem.texto||texto,d.mensagem.criado_em||new Date().toISOString(),d.mensagem.arquivo_url,d.mensagem.arquivo_tipo,d.mensagem.arquivo_nome);
+    if(d.mensagem.id>ultimaMsgId) ultimaMsgId=d.mensagem.id;
+    mostrarErroChatPaciente('');
+  }catch(e){ mostrarErroChatPaciente(e.message||'Falha ao enviar. Sua mensagem foi mantida para tentar novamente.'); }
+  finally{ inp.disabled=false; if(btn) btn.disabled=false; inp.focus(); }
+}
+function mostrarErroChatPaciente(msg){
+  var el=document.getElementById('chatErroPaciente'); if(!el) return;
+  el.textContent=msg||''; el.style.display=msg?'block':'none';
 }
 // [UX] Helper: pulsa indicador "médico digitando" por ~2s quando médico envia nova msg
 var _typingTimer=null;
