@@ -2104,8 +2104,13 @@ function adicionarMensagemChat(m){
   if(!m||!m.id) return false;
   var key=String(m.id);
   if(chatMsgIds.has(key)) return false;
+  try{
+    if(!renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome)) return false;
+  }catch(e){
+    console.error('[CHAT] Falha ao exibir mensagem '+key+':',e);
+    return false;
+  }
   chatMsgIds.add(key);
-  renderMsgChat(m.autor,m.texto,m.criado_em,m.arquivo_url,m.arquivo_tipo,m.arquivo_nome);
   ultimaMsgId=Math.max(ultimaMsgId,Number(m.id)||0);
   return true;
 }
@@ -2120,9 +2125,10 @@ async function carregarHistoricoChat(){
   if(!atendimentoId) return;
   try{
     var res=await fetch(API+'/api/chat/'+atendimentoId+'?_='+Date.now(),{cache:'no-store'}); var data=await res.json();
-    if(!data.ok) return;
+    if(!res.ok||!data.ok) throw new Error(data.error||'Não foi possível carregar a conversa.');
     reconciliarMensagensChat(data.mensagens||[]);
-  }catch(e){}
+    mostrarErroChatPaciente('');
+  }catch(e){ console.error('[CHAT] Falha ao carregar histórico:',e); mostrarErroChatPaciente('Não foi possível atualizar a conversa. Tentando novamente...'); }
 }
 async function buscarMensagensNovas(){
   if(!atendimentoId||!chatAtivo) return;
@@ -2133,7 +2139,7 @@ async function buscarMensagensNovas(){
     var viuMedico=novas.some(function(m){ return m.autor==='medico'; });
     // [UX] Quando chega msg nova do médico, pulsa o "digitando..." por 2s — sinaliza presença ativa
     if(viuMedico) _pulsarTyping();
-  }catch(e){}
+  }catch(e){ console.error('[CHAT] Falha ao buscar mensagens:',e); }
 }
 async function enviarMensagemChat(){
   if(arquivoTriagem){ await enviarArquivoTriagem(); return; }
@@ -2165,7 +2171,9 @@ function _pulsarTyping(){
   _typingTimer=setTimeout(function(){ tip.classList.remove('visivel'); },2200);
 }
 function renderMsgChat(autor,texto,timestamp,arquivoUrl,arquivoTipo,arquivoNome){
-  var msgs=document.getElementById('chatMsgs'); var div=document.createElement('div');
+  var msgs=document.getElementById('chatMsgs');
+  if(!msgs) return false;
+  var div=document.createElement('div');
   div.className='cmsg '+autor;
   var hora=''; try{ hora=new Date(timestamp).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }catch(e){}
   var safe=String(texto||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
@@ -2187,6 +2195,7 @@ function renderMsgChat(autor,texto,timestamp,arquivoUrl,arquivoTipo,arquivoNome)
   var tip=document.getElementById('typingIndicator');
   if(tip&&tip.parentNode===msgs) msgs.insertBefore(div,tip); else msgs.appendChild(div);
   msgs.scrollTop=msgs.scrollHeight;
+  return true;
 }
 var arquivoTriagem=null;
 function onArquivoTriagemSelecionado(input){
