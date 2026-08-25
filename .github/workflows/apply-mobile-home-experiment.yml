@@ -1,0 +1,45 @@
+name: Apply Mobile Home Experiment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/apply-mobile-app-home-experiment.mjs'
+      - '.github/workflows/apply-mobile-home-experiment.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Apply mobile home experiment
+        run: node scripts/apply-mobile-app-home-experiment.mjs
+
+      - name: Verify only index changed
+        run: |
+          git diff --check
+          git diff -- index.html
+
+      - name: Commit experiment
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Test app-style mobile home on index"
+          git push
