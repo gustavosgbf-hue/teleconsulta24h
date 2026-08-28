@@ -1,0 +1,41 @@
+name: Temporary capability client verification
+
+on:
+  push:
+    branches: [security/paciente-lookup-no-pii]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Capability client syntax
+        run: node --check atendimento-capability.js
+      - name: Inline script syntax
+        run: |
+          python - <<'PY'
+          import re, subprocess, tempfile
+          from pathlib import Path
+          files=['index.html','consulta/index.html','atendimento/index.html','triagem/index.html','triagem.html','confirmado/index.html']
+          for f in files:
+              text=Path(f).read_text(encoding='utf-8')
+              scripts=re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>', text, flags=re.I)
+              for i,s in enumerate(scripts):
+                  if not s.strip():
+                      continue
+                  p=Path(tempfile.gettempdir())/f'cj-{Path(f).stem}-{i}.js'
+                  p.write_text(s,encoding='utf-8')
+                  r=subprocess.run(['node','--check',str(p)],capture_output=True,text=True)
+                  if r.returncode:
+                      raise SystemExit(f'{f} script {i}: {r.stderr}')
+          PY
+      - name: Diff check
+        run: git diff --check origin/main...HEAD
