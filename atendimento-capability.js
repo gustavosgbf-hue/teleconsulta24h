@@ -188,23 +188,26 @@
     return { input: input, init: nextInit };
   }
 
+  // Deliberadamente espera o clone JSON das respostas do backend antes de
+  // liberar a Promise original. Assim a capability emitida por /api/notify já
+  // está persistida quando a página dispara a próxima chamada (pagamento etc.).
   w.fetch = function capabilityFetch(input, init) {
     var url = urlOf(input);
     var attendanceId = isBackendApi(url) ? attendanceFromRequest(url, init) : '';
     var token = attendanceId ? capabilityFor(attendanceId) : '';
     var patched = addCapabilityHeader(input, init, token);
 
-    return nativeFetch(patched.input, patched.init).then(function (response) {
+    return nativeFetch(patched.input, patched.init).then(async function (response) {
+      if (!isBackendApi(url)) return response;
       try {
-        if (!isBackendApi(url)) return response;
-        response.clone().json().then(function (data) {
-          if (!data || typeof data !== 'object') return;
+        var data = await response.clone().json();
+        if (data && typeof data === 'object') {
           var responseId = positiveId(data.atendimentoId || (data.atendimento && data.atendimento.id)) || attendanceId;
           if (data.atendimentoToken && responseId) saveCapability(responseId, data.atendimentoToken);
           if (data.order_id && responseId) saveOrder(data.order_id, responseId);
           if (data.orderId && responseId) saveOrder(data.orderId, responseId);
           if (data.linkRetorno) captureFragment(data.linkRetorno);
-        }).catch(function () {});
+        }
       } catch (_) {}
       return response;
     });
