@@ -8,6 +8,7 @@
   var HEADER = 'X-Atendimento-Token';
   var MAX_AGE = 180 * 24 * 60 * 60 * 1000;
   var nativeFetch = w.fetch.bind(w);
+  var bootstrapInFlight = {};
 
   function now() { return Date.now(); }
   function positiveId(value) {
@@ -107,7 +108,6 @@
     }
   }
 
-  // Capture capability from a resume link before any third-party/navigation code runs.
   stripCurrentFragmentCapability();
 
   ['replaceState', 'pushState'].forEach(function (name) {
@@ -140,10 +140,7 @@
       }
     }
     if (typeof FormData !== 'undefined' && body instanceof FormData) {
-      return {
-        atendimentoId: body.get('atendimentoId'),
-        orderId: body.get('orderId')
-      };
+      return { atendimentoId: body.get('atendimentoId'), orderId: body.get('orderId') };
     }
     if (typeof URLSearchParams !== 'undefined' && body instanceof URLSearchParams) {
       return { atendimentoId: body.get('atendimentoId'), orderId: body.get('orderId') };
@@ -172,8 +169,7 @@
   function isBackendApi(url) {
     if (!url || !url.pathname.startsWith('/api/')) return false;
     var host = String(url.hostname || '').toLowerCase();
-    return host === w.location.hostname.toLowerCase()
-      || host === 'triagem-api.onrender.com';
+    return host === w.location.hostname.toLowerCase() || host === 'triagem-api.onrender.com';
   }
   function addCapabilityHeader(input, init, token) {
     if (!token) return { input: input, init: init };
@@ -181,41 +177,99 @@
     var headers = new Headers((init && init.headers) || (input instanceof Request ? input.headers : undefined));
     if (!headers.has(HEADER)) headers.set(HEADER, token);
     nextInit.headers = headers;
-
     if (input instanceof Request) {
       try { return { input: new Request(input, nextInit), init: undefined }; } catch (_) {}
     }
     return { input: input, init: nextInit };
   }
 
-  // Deliberadamente espera o clone JSON das respostas do backend antes de
-  // liberar a Promise original. Assim a capability emitida por /api/notify já
-  // está persistida quando a página dispara a próxima chamada (pagamento etc.).
+  function legacySessionIdentity(atendimentoId) {
+    var id = positiveId(atendimentoId);
+    if (!id) return null;
+    var candidatos = [];
+    try { candidatos.push(JSON.parse(localStorage.getItem('cj_sessao') || 'null')); } catch (_) {}
+    try { candidatos.push(JSON.parse(sessionStorage.getItem('mo_checkout_sessao') || 'null')); } catch (_) {}
+    for (var i = 0; i < candidatos.length; i += 1) {
+      var s = candidatos[i];
+      if (!s || positiveId(s.atendimentoId) !== id) continue;
+      var cpf = String(s.pacienteCPF || s.cpf || '').replace(/\D/g, '');
+      var tel = String(s.pacienteTel || s.tel || '').replace(/\D/g, '');
+      var nome = String(s.pacienteNome || s.nome || '').trim();
+      if (cpf.length === 11 && tel.length >= 10 && nome.length >= 5) {
+        return { atendimentoId: Number(id), cpf: cpf, tel: tel, nome: nome };
+      }
+    }
+    return null;
+  }
+
+  function bootstrapLegacy(atendimentoId, backendUrl) {
+    var id = positiveId(atendimentoId);
+    if (!id || capabilityFor(id)) return Promise.resolve(capabilityFor(id));
+    if (bootstrapInFlight[id]) return bootstrapInFlight[id];
+    var identity = legacySessionIdentity(id);
+    if (!identity) return Promise.resolve('');
+    var endpoint;
+    try { endpoint = new URL('/api/atendimento/capability/bootstrap', backendUrl || w.location.href); }
+    catch (_) { return Promise.resolve(''); }
+
+    bootstrapInFlight[id] = nativeFetch(endpoint.href, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(identity),
+      credentials: 'include'
+    }).then(function (r) {
+      if (!r.ok) return null;
+      return r.json().catch(function () { return null; });
+    }).then(function (data) {
+      var legacyToken = data && data.atendimentoToken ? String(data.atendimentoToken) : '';
+      if (legacyToken) saveCapability(id, legacyToken);
+      return legacyToken;
+    }).catch(function () { return ''; }).finally(function () {
+      delete bootstrapInFlight[id];
+    });
+    return bootstrapInFlight[id];
+  }
+
+  function observeResponse(response, url, attendanceId) {
+    try {
+      if (!isBackendApi(url)) return Promise.resolve(response);
+      return response.clone().json().then(function (data) {
+        if (!data || typeof data !== 'object') return response;
+        var responseId = positiveId(data.atendimentoId || (data.atendimento && data.atendimento.id)) || attendanceId;
+        if (data.atendimentoToken && responseId) saveCapability(responseId, data.atendimentoToken);
+        if (data.order_id && responseId) saveOrder(data.order_id, responseId);
+        if (data.orderId && responseId) saveOrder(data.orderId, responseId);
+        if (data.linkRetorno) captureFragment(data.linkRetorno);
+        return response;
+      }).catch(function () { return response; });
+    } catch (_) { return Promise.resolve(response); }
+  }
+
   w.fetch = function capabilityFetch(input, init) {
     var url = urlOf(input);
     var attendanceId = isBackendApi(url) ? attendanceFromRequest(url, init) : '';
     var token = attendanceId ? capabilityFor(attendanceId) : '';
     var patched = addCapabilityHeader(input, init, token);
 
-    return nativeFetch(patched.input, patched.init).then(async function (response) {
-      if (!isBackendApi(url)) return response;
-      try {
-        var data = await response.clone().json();
-        if (data && typeof data === 'object') {
-          var responseId = positiveId(data.atendimentoId || (data.atendimento && data.atendimento.id)) || attendanceId;
-          if (data.atendimentoToken && responseId) saveCapability(responseId, data.atendimentoToken);
-          if (data.order_id && responseId) saveOrder(data.order_id, responseId);
-          if (data.orderId && responseId) saveOrder(data.orderId, responseId);
-          if (data.linkRetorno) captureFragment(data.linkRetorno);
-        }
-      } catch (_) {}
-      return response;
+    return nativeFetch(patched.input, patched.init).then(function (response) {
+      if (response.status === 401 && attendanceId && !token && url
+          && url.pathname !== '/api/atendimento/capability/bootstrap') {
+        return bootstrapLegacy(attendanceId, url.href).then(function (legacyToken) {
+          if (!legacyToken) return response;
+          var retry = addCapabilityHeader(input, init, legacyToken);
+          return nativeFetch(retry.input, retry.init);
+        }).then(function (retried) {
+          return observeResponse(retried, url, attendanceId);
+        });
+      }
+      return observeResponse(response, url, attendanceId);
     });
   };
 
   w.ConsultaJaAtendimentoCapability = {
     get: capabilityFor,
     save: saveCapability,
-    currentAttendance: currentAttendance
+    currentAttendance: currentAttendance,
+    bootstrapLegacy: bootstrapLegacy
   };
 })(window);
