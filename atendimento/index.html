@@ -1472,41 +1472,9 @@ async function avancarWhatsapp(){
   try{
     var res  = await fetch(API+'/api/paciente/buscar?tel='+encodeURIComponent(tel));
     var data = await res.json();
-    if(data.ok && data.paciente){
-      var p = data.paciente;
-      pacienteNome        = normalizarNomePacienteLocal(p.nome);
-      pacienteTelDoc      = p.tel_doc     || tel;
-      pacienteNascimento  = p.data_nascimento || '';
-      pacienteEmail       = p.email       || '';
-      pacienteCPF         = p.cpf         || '';
-      // Pre-fill nascimento field if available
-      if(pacienteNascimento){ var nascEl = document.getElementById('wppNasc'); if(nascEl) nascEl.value = pacienteNascimento; }
-      status.textContent = '✔ Cadastro encontrado. Continuando...';
+    if(data.ok && data.cadastroEncontrado){
+      status.textContent = '✔ Cadastro anterior localizado. Confirme seus dados para continuar.';
       status.className   = 'autofill-status show';
-      // Se tem nome, prosseguir direto — mas se falta data de nascimento, pedir antes
-      if(nomePacienteValido(pacienteNome)){
-        if(!pacienteNascimento){
-          // Retornante sem data de nascimento cadastrada — mostrar só o campo de data
-          document.getElementById('nasc-wrap').style.display = 'block';
-          status.textContent = '✔ Cadastro encontrado. Informe sua data de nascimento para continuar.';
-          btn.disabled = false; btn.textContent = 'Iniciar atendimento agora →';
-          // Reatribuir onclick para coletar a data antes de avançar
-          btn.onclick = function(){
-            pacienteNascimento = converterNascimento(document.getElementById('wppNasc').value);
-            fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel})}).catch(function(){});
-            fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel,versao:'termos-v1.0'})}).catch(function(){});
-            irParaPagamento();
-          };
-          return;
-        }
-        // log identify + consent inline
-        fetch(API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel})}).catch(function(){});
-        fetch(API+'/api/consent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:pacienteNome,tel,versao:'termos-v1.0'})}).catch(function(){});
-        await esperar(600);
-        btn.disabled = false; btn.textContent = 'Iniciar atendimento agora →';
-        irParaPagamento();
-        return;
-      }
     } else {
       status.textContent = 'Número novo. Informe seu nome para continuar.';
       status.className   = 'autofill-status show';

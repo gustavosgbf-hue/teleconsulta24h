@@ -3387,16 +3387,10 @@ async function moAvancarStep1(){
     var res=await fetch(MO_API+'/api/paciente/buscar?tel='+encodeURIComponent(tel), ctrl?{signal:ctrl.signal}:{});
     clearTimeout(timeoutId);
     var data=await res.json();
-    if(data.ok&&data.paciente&&data.paciente.nome&&data.paciente.nome.trim().split(/\s+/).length>=2){
-      var p=data.paciente;
-      moNomeVal=p.nome; moNascVal=p.data_nascimento||'';
-      moTrack('patient_lookup_result', {result:'found'});
-      autofill.textContent='Cadastro encontrado. Continuando...';
+    if(data.ok&&data.cadastroEncontrado){
+      moTrack('patient_lookup_result', {result:'found_without_pii'});
+      autofill.textContent='Cadastro anterior localizado. Confirme seus dados após o pagamento.';
       autofill.className='mautofill show';
-      fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
-      moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
-      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar atendimento →'; moIrPagamento(); },700);
-      return;
     } else {
       moTrack('patient_lookup_result', {result:'not_found'});
       autofill.textContent='Tudo certo. Vamos gerar seu Pix com segurança.';
