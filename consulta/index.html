@@ -2488,6 +2488,7 @@ var moTipoConsulta='chat'; // 'chat' ou 'video'
 var EFI_PAYEE_CODE='b241c1c1aa59c7a663f8360ac1d05b52';
 var MO_WHATSAPP_NUMBER='5598989272727';
 var moStepAtual=0;
+var moAtendimentoPreparacaoPromise=null;
 var moStepAntesSaida=1,moTentouRecuperarSaida=false;
 
 // contexto pré-selecionado do pain-grid
@@ -2912,6 +2913,9 @@ async function moExibirRetomadaConfirmada(){
 }
 
 async function moGarantirAtendimentoAntesDaTriagem(){
+  if(!moAtendimentoId&&moAtendimentoPreparacaoPromise){
+    try{ await moAtendimentoPreparacaoPromise; }catch(e){}
+  }
   if(!moAtendimentoId){
     var res = await moFetchComTimeout(MO_API+'/api/notify',{
       method:'POST',
@@ -3368,49 +3372,54 @@ async function moAvancarStep1(){
   moTelVal=tel;
   if(!moValidarPacienteTerceiro()) return;
   moTrackOnce('tel_valid_'+moGetCheckoutSessionId(), 'telefone_valido', {tipo:moTipoConsulta});
+
   var btn=document.getElementById('moBtnStep1');
-  btn.disabled=true; btn.textContent='Verificando...';
   var autofill=document.getElementById('moAutofill');
+  btn.disabled=true;
+  btn.textContent='Abrindo pagamento...';
+
+  // Terceiros já precisam dos dados do paciente neste passo. Depois da validação,
+  // também seguem imediatamente para o pagamento.
   if(moAtendimentoTerceiro){
     moTrack('patient_lookup_result',{result:'skipped_dependent'});
-    fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
+    fetch(MO_API+'/api/identify',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome:moNomeVal,tel:moTelVal})
+    }).catch(function(){});
     moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
-    autofill.textContent='Paciente identificado. Os dados do pagamento ficarão separados.';
-    autofill.className='mautofill show';
-    await moIrPagamento();
+    moIrPagamento();
     return;
   }
-  // timeout de 4s pra nao travar UI se servidor estiver dormindo (Render free)
-  var ctrl = (typeof AbortController!=='undefined') ? new AbortController() : null;
-  var timeoutId = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 4000);
-  try {
-    var res=await fetch(MO_API+'/api/paciente/buscar?tel='+encodeURIComponent(tel), ctrl?{signal:ctrl.signal}:{});
+
+  // FAST PATH: não segura um novo paciente esperando busca cadastral/API.
+  // O checkout abre imediatamente; a identificação roda em paralelo e apenas
+  // pré-preenche dados se terminar a tempo.
+  moTrack('patient_lookup_started_background',{source:'checkout_fast_path'});
+  moIrPagamento();
+
+  var ctrl=(typeof AbortController!=='undefined')?new AbortController():null;
+  var timeoutId=setTimeout(function(){ if(ctrl) ctrl.abort(); },4000);
+  try{
+    var res=await fetch(MO_API+'/api/paciente/buscar?tel='+encodeURIComponent(tel),ctrl?{signal:ctrl.signal}:{});
     clearTimeout(timeoutId);
     var data=await res.json();
     if(data.ok&&data.paciente&&data.paciente.nome&&data.paciente.nome.trim().split(/\s+/).length>=2){
       var p=data.paciente;
-      moNomeVal=p.nome; moNascVal=p.data_nascimento||'';
-      moTrack('patient_lookup_result', {result:'found'});
-      autofill.textContent='Cadastro encontrado. Continuando...';
-      autofill.className='mautofill show';
-      fetch(MO_API+'/api/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:moNomeVal,tel:moTelVal})}).catch(function(){});
+      moNomeVal=p.nome;
+      moNascVal=p.data_nascimento||'';
+      moTrack('patient_lookup_result',{result:'found_background'});
+      fetch(MO_API+'/api/identify',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({nome:moNomeVal,tel:moTelVal})
+      }).catch(function(){});
       moPostConfiavel('/api/consent',{nome:moNomeVal,tel:moTelVal,versao:'termos-v1.0'});
-      setTimeout(function(){ btn.disabled=false; btn.textContent='Continuar atendimento →'; moIrPagamento(); },700);
-      return;
-    } else {
-      moTrack('patient_lookup_result', {result:'not_found'});
-      autofill.textContent='Tudo certo. Vamos gerar seu Pix com segurança.';
-      autofill.className='mautofill show';
+    }else{
+      moTrack('patient_lookup_result',{result:'not_found_background'});
     }
-  } catch(e) {
+  }catch(e){
     clearTimeout(timeoutId);
-    moTrack('patient_lookup_result', {result:'error',error_message:moErroSeguro(e.message||'timeout')});
-    autofill.textContent='Tudo certo. Vamos seguir para o pagamento.';
-    autofill.className='mautofill show';
+    moTrack('patient_lookup_result',{result:'error_background',error_message:moErroSeguro(e.message||'timeout')});
   }
-  document.getElementById('moNomeWrap').style.display='none';
-  document.getElementById('moNascWrap').style.display='none';
-  moIrPagamento();
 }
 
 function moConfirmarComNome(){
@@ -3428,51 +3437,71 @@ function moConfirmarComNome(){
   moIrPagamento();
 }
 
-async function moIrPagamento(){
-  var btn=document.getElementById('moBtnStep1');
-  var autofill=document.getElementById('moAutofill');
-  btn.disabled=true; btn.textContent='Preparando...';
-  try {
-    var res=await moFetchComTimeout(MO_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(moPayloadAtendimento())},6500);
-    var data=await res.json();
-    if(data.ok&&data.atendimentoId){
+function moPrepararAtendimentoBackground(){
+  if(moAtendimentoId) return Promise.resolve(moAtendimentoId);
+  if(moAtendimentoPreparacaoPromise) return moAtendimentoPreparacaoPromise;
+
+  moAtendimentoPreparacaoPromise=moFetchComTimeout(MO_API+'/api/notify',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(moPayloadAtendimento())
+  },6500)
+  .then(function(res){ return res.json(); })
+  .then(function(data){
+    if(data&&data.ok&&data.atendimentoId){
       moAtendimentoId=data.atendimentoId;
-      if(moRetomarAtendimentoPago(data,'antes_pagamento')) return;
+      if(moRetomarAtendimentoPago(data,'preparo_background')) return moAtendimentoId;
       moSalvarCheckoutSessao();
     }
-  } catch(e){ console.warn('[MO] notify falhou, continua sem ID'); }
-  if(moAtendimentoId){
-    try {
-      var elegibilidadeRes=await moFetchComTimeout(MO_API+'/api/pagamento/elegibilidade/'+moAtendimentoId,{},6500);
-      var elegibilidade=await elegibilidadeRes.json();
-      if(elegibilidadeRes.status===429&&elegibilidade.code==='limite_atendimentos_recentes'){
-        var mensagemLimite=elegibilidade.error||'Não foi possível liberar um novo pagamento. Fale com nosso suporte.';
-        if(elegibilidade.liberado_em){
-          var liberacao=new Date(elegibilidade.liberado_em);
-          if(!isNaN(liberacao.getTime())){
-            mensagemLimite+=' Novo atendimento disponível em '+liberacao.toLocaleString('pt-BR',{
-              timeZone:'America/Fortaleza',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'
-            })+'.';
-          }
-        }
-        autofill.textContent=mensagemLimite;
-        autofill.className='mautofill show';
-        btn.disabled=true;
-        btn.textContent='Pagamento indisponível';
-        moTrack('payment_eligibility_blocked',{code:elegibilidade.code||'indisponivel'});
-        return;
-      }
-      if(!elegibilidadeRes.ok) throw new Error(elegibilidade.error||'Verificação indisponível');
-    } catch(e){
-      console.warn('[MO] elegibilidade indisponível, backend validará no pagamento');
-    }
-  }
-  moTrack('lead_pre_pagamento', {tipo:moTipoConsulta,contexto:moPreContexto||'geral',atendimento_id:moAtendimentoId||''});
-  btn.disabled=false; btn.textContent='Continuar atendimento →';
+    return moAtendimentoId;
+  })
+  .catch(function(e){
+    console.warn('[MO] preparo background falhou, pagamento fará retry:',e.message);
+    return null;
+  })
+  .finally(function(){ moAtendimentoPreparacaoPromise=null; });
+
+  return moAtendimentoPreparacaoPromise;
+}
+
+async function moIrPagamento(){
+  var btn=document.getElementById('moBtnStep1');
+  btn.disabled=false;
+  btn.textContent='Continuar atendimento →';
   btn.onclick=moAvancarStep1;
+
+  // Mostra o pagamento primeiro. Criação do atendimento + elegibilidade rodam em
+  // paralelo; os endpoints de cobrança continuam sendo a barreira final de segurança.
+  moTrack('lead_pre_pagamento',{
+    tipo:moTipoConsulta,
+    contexto:moPreContexto||'geral',
+    atendimento_id:moAtendimentoId||'',
+    fast_path:true
+  });
   moMetodo('pix');
   moIrStep(2);
+
+  moPrepararAtendimentoBackground().then(async function(id){
+    if(!id||moPagamentoConfirmado) return;
+    try{
+      var elegibilidadeRes=await moFetchComTimeout(MO_API+'/api/pagamento/elegibilidade/'+id,{},6500);
+      var elegibilidade=await elegibilidadeRes.json();
+      if(elegibilidadeRes.status===429&&elegibilidade.code==='limite_atendimentos_recentes'){
+        var statusEl=document.getElementById('moPixStatus');
+        var payBtn=document.getElementById('moBtnPagar');
+        var mensagem=elegibilidade.error||'Não foi possível liberar um novo pagamento. Fale com nosso suporte.';
+        if(statusEl){
+          statusEl.textContent=mensagem;
+          statusEl.className='mstatus err';
+          statusEl.style.display='block';
+        }
+        if(payBtn){ payBtn.disabled=true; payBtn.textContent='Pagamento indisponível'; }
+        moTrack('payment_eligibility_blocked',{code:elegibilidade.code||'indisponivel',async_check:true});
+      }
+    }catch(e){
+      console.warn('[MO] elegibilidade em background indisponível; backend validará no pagamento');
+    }
+  });
 }
 
 function moMetodo(m){
@@ -3926,7 +3955,8 @@ function moReiniciar(){
   moTipoConsulta='chat';
   moSelecionarTipo('chat');
   moAtualizarProdutoCheckout();
-  moIrStep(0);
+  moIrStep(1);
+  setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },180);
 }
 
 document.addEventListener('DOMContentLoaded',function(){
