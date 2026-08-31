@@ -2418,6 +2418,10 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       </div>
       <button class="mcta" id="moBtnPagar" onclick="moPagar()">Gerar Pix de R$ 49,90</button>
       <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.34);line-height:1.45">Após o pagamento, você será direcionado para a triagem médica. Sem mensalidade, fidelidade ou cobrança extra.</div>
+      <div id="moPushRecoveryWrap" style="display:none;margin-top:10px;padding:10px 11px;border-radius:11px;border:1px solid rgba(94,224,160,.15);background:rgba(94,224,160,.045);text-align:center">
+        <button type="button" id="moPushRecoveryBtn" onclick="moAtivarPushRecuperacao()" style="border:0;background:none;color:#b4e05a;font-family:'Outfit',sans-serif;font-size:.74rem;font-weight:700;cursor:pointer;padding:2px 4px">🔔 Avisar se o pagamento não concluir</button>
+        <div id="moPushRecoveryMeta" style="font-size:.61rem;color:rgba(255,255,255,.34);margin-top:3px;line-height:1.4">Opcional · o aviso funciona mesmo se você fechar esta página.</div>
+      </div>
       <div class="mqr-wrap" id="moQrWrap">
         <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Escaneie ou use Pix Copia e Cola</div>
         <img class="mqr-img" id="moQrImg" alt="QR Code PIX">
@@ -2490,6 +2494,7 @@ var MO_WHATSAPP_NUMBER='5598989272727';
 var moStepAtual=0;
 var moAtendimentoPreparacaoPromise=null;
 var moStepAntesSaida=1,moTentouRecuperarSaida=false;
+var moWebPushRegistrando=false;
 
 // contexto pré-selecionado do pain-grid
 var moPreContexto = '';
@@ -2558,6 +2563,137 @@ function moStepNome(n){
 
 function moErroSeguro(msg){
   return String(msg||'erro_desconhecido').replace(/\s+/g,' ').slice(0,140);
+}
+
+function moUrlBase64ToUint8Array(base64String){
+  var padding='='.repeat((4-base64String.length%4)%4);
+  var base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');
+  var raw=window.atob(base64);
+  var output=new Uint8Array(raw.length);
+  for(var i=0;i<raw.length;i++) output[i]=raw.charCodeAt(i);
+  return output;
+}
+
+function moWebPushDisponivel(){
+  return !!(window.isSecureContext && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window);
+}
+
+function moMostrarPushRecuperacao(){
+  if(!moWebPushDisponivel()||!moAtendimentoId) return;
+  var wrap=document.getElementById('moPushRecoveryWrap');
+  if(!wrap) return;
+  if(Notification.permission==='denied'){ wrap.style.display='none'; return; }
+  wrap.style.display='block';
+  if(Notification.permission==='granted') moRegistrarPushRecuperacao(false);
+}
+
+async function moRegistrarPushRecuperacao(pedirPermissao){
+  if(moWebPushRegistrando||!moWebPushDisponivel()||!moAtendimentoId||!moTelVal) return false;
+  moWebPushRegistrando=true;
+  var btn=document.getElementById('moPushRecoveryBtn');
+  var meta=document.getElementById('moPushRecoveryMeta');
+  try{
+    var permission=Notification.permission;
+    if(permission==='default'&&pedirPermissao) permission=await Notification.requestPermission();
+    if(permission!=='granted'){
+      if(permission==='denied'&&meta) meta.textContent='Notificações bloqueadas neste navegador.';
+      return false;
+    }
+    if(btn){ btn.disabled=true; btn.textContent='Ativando aviso...'; }
+    var registration=await navigator.serviceWorker.register('/consulta/push-sw.js',{scope:'/consulta/'});
+    await navigator.serviceWorker.ready;
+    var keyRes=await fetch(MO_API+'/api/web-push/public-key');
+    var keyData=await keyRes.json();
+    if(!keyData.ok||!keyData.publicKey) throw new Error('push_indisponivel');
+    var subscription=await registration.pushManager.getSubscription();
+    if(!subscription){
+      subscription=await registration.pushManager.subscribe({
+        userVisibleOnly:true,
+        applicationServerKey:moUrlBase64ToUint8Array(keyData.publicKey)
+      });
+    }
+    var res=await fetch(MO_API+'/api/web-push/subscribe',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        atendimentoId:moAtendimentoId,
+        telefone:moTelVal,
+        subscription:subscription.toJSON()
+      })
+    });
+    var data=await res.json().catch(function(){return {};});
+    if(!res.ok||!data.ok) throw new Error(data.error||'push_subscribe_failed');
+    if(btn){ btn.disabled=true; btn.textContent='✓ Aviso de pagamento ativado'; }
+    if(meta) meta.textContent='Se continuar pendente, enviaremos um único lembrete em cerca de 25 minutos.';
+    moTrackOnce('webpush_optin_'+moAtendimentoId,'payment_recovery_webpush_optin',{atendimento_id:moAtendimentoId});
+    return true;
+  }catch(e){
+    if(btn){ btn.disabled=false; btn.textContent='🔔 Avisar se o pagamento não concluir'; }
+    if(meta) meta.textContent='Não foi possível ativar agora. Seu pagamento continua normalmente.';
+    moTrack('payment_recovery_webpush_error',{error_message:moErroSeguro(e.message)});
+    return false;
+  }finally{
+    moWebPushRegistrando=false;
+  }
+}
+
+function moAtivarPushRecuperacao(){
+  moTrack('payment_recovery_webpush_click',{atendimento_id:moAtendimentoId||''});
+  moRegistrarPushRecuperacao(true);
+}
+window.moAtivarPushRecuperacao=moAtivarPushRecuperacao;
+
+async function moRetomarPagamentoPorPush(){
+  var params;
+  try{ params=new URLSearchParams(window.location.search); }catch(e){ return false; }
+  var pushId=params.get('retomar_pagamento');
+  if(!pushId) return false;
+  var sessao=null;
+  try{ sessao=JSON.parse(localStorage.getItem('cj_sessao')||'null'); }catch(e){ sessao=null; }
+  if(!sessao||String(sessao.atendimentoId)!==String(pushId)) return false;
+  moAtendimentoId=sessao.atendimentoId;
+  moTipoConsulta=sessao.tipoConsulta||'chat';
+  moOrderId=sessao.pagbankOrderId||null;
+  moNomeVal=sessao.pacienteNome||'';
+  moTelVal=sessao.pacienteTel||'';
+  moCPFVal=sessao.pacienteCPF||'';
+  moEmailVal=sessao.pacienteEmail||'';
+  moAtendimentoTerceiro=!!sessao.atendimentoParaTerceiro;
+  moPagadorNomeVal=sessao.pagadorNome||'';
+  moPagadorCPFVal=sessao.pagadorCPF||'';
+  moPagadorEmailVal=sessao.pagadorEmail||'';
+  moEspecialidadeSolicitada=sessao.especialidadeSolicitada||'';
+  moMetodoAtual=sessao.paymentMethod||'pix';
+  try{
+    var r=await moFetchComTimeout(MO_API+'/api/atendimento/status/'+encodeURIComponent(pushId),{},5000);
+    var d=await r.json();
+    if(d.ok&&d.atendimento&&d.atendimento.pagamento_status==='confirmado'){
+      moTrack('payment_recovery_webpush_return',{result:'already_paid',atendimento_id:pushId});
+      moRedirecionarConfirmadoObrigatorio(pushId,moTipoConsulta,moMetodoAtual,'webpush_recovery_paid');
+      return true;
+    }
+  }catch(e){}
+  document.getElementById('moOverlay').classList.add('open');
+  document.body.classList.add('mo-open');
+  document.body.style.overflow='hidden';
+  moAtualizarProdutoCheckout();
+  moMetodo(moMetodoAtual);
+  moIrStep(2);
+  var pixCpf=document.getElementById('moPixCPF');
+  if(pixCpf&&moPagadorCPFVal) pixCpf.value=moPagadorCPFVal;
+  var payCpf=document.getElementById('moPayCPF');
+  if(payCpf&&moPagadorCPFVal) payCpf.value=moPagadorCPFVal;
+  var payNome=document.getElementById('moPayNome');
+  if(payNome&&moPagadorNomeVal) payNome.value=moPagadorNomeVal;
+  var cardEmail=document.getElementById('moCardEmail');
+  if(cardEmail&&moPagadorEmailVal) cardEmail.value=moPagadorEmailVal;
+  moMostrarPushRecuperacao();
+  moTrack('payment_recovery_webpush_return',{result:'checkout_opened',atendimento_id:pushId});
+  try{
+    params.delete('retomar_pagamento'); params.delete('src');
+    history.replaceState({},'',window.location.pathname+(params.toString()?'?'+params.toString():'')+window.location.hash);
+  }catch(e){}
+  return true;
 }
 
 function moTrack(eventName, data){
@@ -3627,6 +3763,7 @@ async function moGerarPix(){
     statusEl.textContent='Aguardando confirmação do pagamento...';
     statusEl.className='mstatus'; statusEl.style.display='block';
     moTrack('pix_qr_visible', {contexto:moPreContexto||'geral'});
+    moMostrarPushRecuperacao();
     // [TRACKING] Dispara gerou_pix apenas 1x por order — flag evita duplicação
     (function(){
       var chavePixGerado = 'pix_gerado_' + (moOrderId || Date.now());
@@ -3900,6 +4037,7 @@ async function moPagarCartao(){
         ads:moAdsAttributionPayload()
       })});
     var d=await r.json();
+    moMostrarPushRecuperacao();
     var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
     if(ok){ moTrack('card_approved', {status:d.status||'approved'}); setTimeout(function(){ moConfirmarPagamento(); }, 800); }
     else throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
@@ -3959,8 +4097,9 @@ function moReiniciar(){
   setTimeout(function(){ var el=document.getElementById('moTel'); if(el) el.focus(); },180);
 }
 
-document.addEventListener('DOMContentLoaded',function(){
-  moExibirRetomadaConfirmada();
+document.addEventListener('DOMContentLoaded',async function(){
+  var retomadoPorPush=await moRetomarPagamentoPorPush();
+  if(!retomadoPorPush) moExibirRetomadaConfirmada();
   try{
     var triagemRedirect=sessionStorage.getItem('cj_triagem_redirected');
     if(triagemRedirect){
