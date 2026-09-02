@@ -4,6 +4,32 @@
     else fn();
   }
   ready(function(){
+    function syncTrustNumbers(){
+      var heroBadge=document.getElementById('heroBadge');
+      if(heroBadge) heroBadge.textContent='★★★★★ 4,7 · +4.000 atendimentos';
+
+      var heroProof=document.querySelector('#heroReviewProof span');
+      if(heroProof) heroProof.innerHTML='4,7 no Google · <strong>Ver avaliações</strong> · +4.000 atendimentos';
+
+      var reviewsBadge=document.getElementById('reviewsBadgeTxt');
+      if(reviewsBadge){
+        reviewsBadge.innerHTML=reviewsBadge.innerHTML
+          .replace(/5,0 no Google/g,'4,7 no Google')
+          .replace(/\+2\.000 atendimentos/g,'+4.000 atendimentos')
+          .replace(/\+4\.000 atendimentos/g,'+4.000 atendimentos');
+      }
+    }
+
+    syncTrustNumbers();
+    setTimeout(syncTrustNumbers,800);
+    setTimeout(syncTrustNumbers,2200);
+    setTimeout(syncTrustNumbers,4500);
+
+    var reviewsBadge=document.getElementById('reviewsBadgeTxt');
+    if(reviewsBadge && typeof MutationObserver!=='undefined'){
+      new MutationObserver(function(){ syncTrustNumbers(); }).observe(reviewsBadge,{childList:true,subtree:true,characterData:true});
+    }
+
     var hero=document.querySelector('.hero');
     if(hero && !document.querySelector('.cj-social-proof')){
       var proof=document.createElement('a');
