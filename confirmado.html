@@ -140,7 +140,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   // Fallback de atribuicao: a landing ja persiste UTMs/IDs em cj_ads_params.
   // Se algum redirect intermediario remover a query string, restaura antes do ping ao backend.
   try{
-    var adsRaw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    var adsRaw = sessionStorage.getItem('cj_ads_last_touch') || localStorage.getItem('cj_ads_last_touch') || sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
     var adsSalvos = JSON.parse(adsRaw);
     Object.keys(adsSalvos || {}).forEach(function(chaveAds){
       if((/^utm_/i.test(chaveAds) || /^gtm_/i.test(chaveAds) || ['gclid','gbraid','wbraid','fbclid'].indexOf(chaveAds) >= 0) && adsSalvos[chaveAds] && !params.has(chaveAds)){
@@ -171,6 +171,10 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   }
 
   function pingConfirmadoView(){
+    var firstTouch = {};
+    var lastTouch = {};
+    try{ firstTouch = JSON.parse(sessionStorage.getItem('cj_ads_first_touch') || localStorage.getItem('cj_ads_first_touch') || '{}') || {}; }catch(e){}
+    try{ lastTouch = JSON.parse(sessionStorage.getItem('cj_ads_last_touch') || localStorage.getItem('cj_ads_last_touch') || '{}') || {}; }catch(e){}
     var payload = {
       consultaId: String(consultaId || ''),
       tipo: params.get('tipo') || (sessao && sessao.tipoConsulta) || '',
@@ -186,6 +190,12 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       utm_campaign: params.get('utm_campaign') || '',
       utm_term: params.get('utm_term') || '',
       utm_content: params.get('utm_content') || '',
+      firstTouchAt: firstTouch.captured_at || '',
+      firstLandingUrl: firstTouch.landing_url || '',
+      firstReferrer: firstTouch.referrer || '',
+      lastTouchAt: lastTouch.captured_at || '',
+      lastLandingUrl: lastTouch.landing_url || '',
+      lastReferrer: lastTouch.referrer || '',
       href: location.href,
       referrer: document.referrer || ''
     };
