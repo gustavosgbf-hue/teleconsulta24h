@@ -1,0 +1,63 @@
+/* ConsultaJa24h patient experience v3 — additive visual layer only */
+:root{--cj-bg:#06100d;--cj-card:#0b1713;--cj-card2:#0e1d18;--cj-line:rgba(142,255,195,.12);--cj-green:#78e6a5;--cj-text:#f2f5f3;--cj-muted:rgba(235,242,238,.52);--cj-soft:rgba(235,242,238,.28)}
+#s-espera.active{background:radial-gradient(900px 420px at 50% -100px,rgba(46,182,113,.12),transparent 70%),#06100d}
+#s-espera .s-inner{max-width:560px!important;padding:22px 18px 110px!important;margin:auto}
+#s-espera .espera-box{width:100%;max-width:520px;margin:0 auto;text-align:left;padding:0!important}
+#s-espera .espera-anim{width:58px;height:58px;margin:8px 0 18px;border:1px solid rgba(120,230,165,.22);border-radius:18px;background:linear-gradient(145deg,rgba(120,230,165,.14),rgba(120,230,165,.04));display:grid;place-items:center;box-shadow:0 18px 50px rgba(0,0,0,.24);position:relative;overflow:hidden}
+#s-espera .espera-anim:after{content:"";width:10px;height:10px;border-radius:50%;background:var(--cj-green);box-shadow:0 0 0 8px rgba(120,230,165,.08);animation:cjPulse 1.9s ease-in-out infinite}
+#s-espera .espera-anim.cj-ready:after{width:20px;height:10px;border-radius:0;background:transparent;border-left:2px solid var(--cj-green);border-bottom:2px solid var(--cj-green);transform:rotate(-45deg);box-shadow:none;animation:none;margin-top:-5px}
+#s-espera #esperaIcon{display:none!important}
+#s-espera .espera-titulo{font-family:'Outfit',sans-serif!important;font-size:1.72rem!important;font-weight:650!important;letter-spacing:-.035em!important;color:var(--cj-text)!important;margin:0 0 7px!important;text-align:left!important}
+#s-espera .espera-sub{font-size:.92rem!important;line-height:1.55!important;color:var(--cj-muted)!important;margin:0 0 18px!important;text-align:left!important;max-width:430px}
+#s-espera .espera-info{display:none!important}
+#s-espera .espera-badge{display:none!important}
+#s-espera .espera-status{display:flex;align-items:center;gap:8px;width:max-content;max-width:100%;margin:0 0 16px!important;padding:7px 10px!important;border:1px solid rgba(120,230,165,.12);border-radius:999px;background:rgba(120,230,165,.045);font-size:.7rem!important;color:rgba(215,239,225,.56)!important;letter-spacing:.02em}
+#s-espera .espera-status:before{content:"";width:6px;height:6px;border-radius:50%;background:#78e6a5;box-shadow:0 0 0 4px rgba(120,230,165,.07)}
+#s-espera #esperaFila,#s-espera #esperaDemora,#s-espera #aviso-horario-espera{border-radius:14px!important;font-size:.76rem!important;line-height:1.45!important;box-shadow:none!important}
+#s-espera #link-retorno-box{display:none!important}
+#s-espera .cj-return-link{display:flex;align-items:center;gap:10px;margin:12px 0 20px}
+#s-espera .cj-return-link button{appearance:none;border:0;background:transparent;color:rgba(230,238,234,.36);font:500 .72rem 'Outfit',sans-serif;padding:5px 0;cursor:pointer;text-decoration:none}
+#s-espera .cj-return-link button:hover{color:rgba(230,238,234,.7)}
+#s-espera .cj-return-link svg{width:14px;height:14px;opacity:.45}
+#s-espera .chat-consulta{border:1px solid rgba(255,255,255,.065)!important;background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.008))!important;border-radius:20px!important;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.22)!important}
+#s-espera .chat-header-box{padding:15px 17px!important;background:transparent!important}
+#s-espera .chat-header-box h3{font-size:.86rem!important;font-weight:620!important;letter-spacing:-.01em}
+#s-espera .chat-header-box p{font-size:.72rem!important;color:rgba(235,242,238,.38)!important}
+#s-espera .medico-entrou-banner{margin:12px 12px 0!important;border-radius:14px!important;padding:11px 12px!important;background:rgba(120,230,165,.055)!important;border:1px solid rgba(120,230,165,.12)!important}
+#s-espera .cj-doctor-mark{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(120,230,165,.09);font-size:.62rem!important}
+#s-espera .cj-continuity{display:none!important}
+#s-espera .chat-msgs{min-height:160px}
+#s-espera .chat-input-row{background:#08110e!important}
+#s-espera .chat-send,#s-espera .chat-clip-btn{border-radius:11px!important}
+#s-espera .chat-consulta>div:last-child{font-size:.61rem!important;letter-spacing:.02em!important}
+
+.cj-access-card{position:relative;margin:4px 0 16px;padding:16px;border-radius:18px;border:1px solid var(--cj-line);background:linear-gradient(145deg,rgba(120,230,165,.07),rgba(255,255,255,.018));box-shadow:0 18px 50px rgba(0,0,0,.16);overflow:hidden;animation:cjRise .35s cubic-bezier(.2,.8,.2,1) both}
+.cj-access-card:before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(120,230,165,.08);filter:blur(42px);right:-50px;top:-70px;pointer-events:none}
+.cj-access-head{display:flex;align-items:flex-start;gap:12px;position:relative}
+.cj-access-icon{width:40px;height:40px;border-radius:12px;background:#0c2118;border:1px solid rgba(120,230,165,.14);display:grid;place-items:center;flex:0 0 auto}
+.cj-access-icon svg{width:18px;height:18px;color:#87ecaf}
+.cj-access-copy{min-width:0;flex:1}.cj-access-title{font-size:.92rem;font-weight:650;color:#f1f6f3;letter-spacing:-.015em}.cj-access-sub{font-size:.73rem;line-height:1.5;color:rgba(235,242,238,.48);margin-top:4px;max-width:390px}
+.cj-access-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.cj-access-btn{appearance:none;border:1px solid rgba(120,230,165,.22);background:rgba(120,230,165,.1);color:#98efb8;border-radius:11px;padding:9px 12px;font:620 .72rem 'Outfit',sans-serif;cursor:pointer;transition:transform .15s ease,background .18s ease,border-color .18s ease}.cj-access-btn:active{transform:scale(.98)}.cj-access-btn.secondary{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.08);color:rgba(239,244,241,.65)}.cj-access-btn:disabled{opacity:.45;cursor:default}
+.cj-access-foot{margin-top:9px;font-size:.62rem;color:rgba(235,242,238,.28)}
+.cj-device-row{display:flex;gap:8px;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.055)}.cj-device-note{font-size:.64rem;line-height:1.4;color:rgba(235,242,238,.34);flex:1}.cj-device-action{appearance:none;border:0;background:transparent;color:#84e7aa;font:600 .67rem 'Outfit',sans-serif;padding:6px 0;cursor:pointer;white-space:nowrap}
+.cj-access-success .cj-access-icon{background:rgba(120,230,165,.12)}
+
+.cj-sheet{position:fixed;inset:0;z-index:10050;display:flex;align-items:flex-end;justify-content:center;padding:14px;background:rgba(0,0,0,.66);backdrop-filter:blur(12px);animation:cjFade .18s ease both}.cj-sheet-card{width:100%;max-width:450px;border:1px solid rgba(255,255,255,.08);border-radius:24px;background:#0a1511;padding:20px;box-shadow:0 28px 90px rgba(0,0,0,.55);animation:cjSheet .28s cubic-bezier(.2,.78,.2,1) both}.cj-sheet-kicker{font-size:.62rem;text-transform:uppercase;letter-spacing:.11em;color:#6fd99a;font-weight:650}.cj-sheet-title{font-size:1.08rem;font-weight:680;letter-spacing:-.025em;color:#f3f6f4;margin-top:6px}.cj-sheet-text{font-size:.76rem;line-height:1.55;color:rgba(235,242,238,.48);margin:7px 0 14px}.cj-sheet-field{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.09);background:#0d1b16;color:#fff;border-radius:12px;padding:12px 13px;font:500 .86rem 'Outfit',sans-serif;outline:none;margin:6px 0}.cj-sheet-field:focus{border-color:rgba(120,230,165,.32);box-shadow:0 0 0 3px rgba(120,230,165,.05)}.cj-sheet-code{text-align:center;letter-spacing:.28em;font-size:1.15rem;font-weight:680}.cj-sheet-primary{width:100%;border:1px solid rgba(120,230,165,.24);background:#163d2b;color:#a6f1c0;border-radius:12px;padding:12px;font:650 .8rem 'Outfit',sans-serif;cursor:pointer;margin-top:8px}.cj-sheet-secondary{width:100%;border:0;background:transparent;color:rgba(235,242,238,.42);padding:11px;font:550 .74rem 'Outfit',sans-serif;cursor:pointer}.cj-sheet-error{display:none;color:#ff9c9c;font-size:.7rem;line-height:1.4;margin-top:8px}.cj-sheet-check{display:flex;align-items:flex-start;gap:9px;margin-top:13px;padding:11px;border-radius:12px;background:rgba(255,255,255,.025);font-size:.68rem;line-height:1.45;color:rgba(235,242,238,.5)}.cj-sheet-check input{margin-top:2px;accent-color:#78e6a5}
+
+/* Make the top bar feel like an app chrome instead of a landing header */
+body>.nav{height:58px!important;padding:0 18px!important;background:rgba(5,13,10,.86)!important;border-bottom:1px solid rgba(255,255,255,.055)!important;backdrop-filter:blur(18px)}
+body>.nav .nav__brand{gap:8px!important}.nav__brand .live-dot{width:7px!important;height:7px!important;box-shadow:0 0 0 5px rgba(94,224,160,.055)!important}.nav__brand .c1,.nav__brand .c2,.nav__brand .tag24{font-size:.92rem!important}.nav__brand .c1{font-family:'Playfair Display',serif!important}.nav__brand .tag24{opacity:.38!important}.nav #nav-step{font-size:.61rem!important;letter-spacing:.07em!important;color:rgba(235,242,238,.32)!important}
+
+/* Clean legacy emoji-heavy UI states without touching their logic */
+#s-cpf .s-card>div:first-child>div:first-child{display:none!important}
+#s-cpf .s-card>div:first-child{padding-top:24px!important}
+#s-cpf .s-card>div:first-child>div:nth-child(2){font-size:1.16rem!important}
+#s-triage .ia-banner>span:first-child{display:none!important}
+#s-triage .ia-banner{gap:0!important;padding:9px 12px!important}
+#s-modality .mc-icon{font-size:0!important;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.04);position:relative}
+#s-modality .mc-icon:after{content:"";position:absolute;inset:9px;border:1.6px solid currentColor;border-radius:3px;opacity:.65}
+.trust-strip{gap:7px!important}.trust-strip span{font-size:.66rem!important}.pay-icon-wrap{font-size:0!important}.pay-icon-wrap:after{content:"";display:block;width:9px;height:9px;border-radius:50%;background:var(--g1)}
+
+@keyframes cjPulse{0%,100%{transform:scale(.92);opacity:.72}50%{transform:scale(1);opacity:1}}@keyframes cjRise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}@keyframes cjFade{from{opacity:0}to{opacity:1}}@keyframes cjSheet{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(max-width:520px){#s-espera .s-inner{padding:18px 14px 96px!important}#s-espera .espera-titulo{font-size:1.48rem!important}.cj-access-card{padding:14px;border-radius:16px}.cj-access-actions{display:grid;grid-template-columns:1fr}.cj-access-btn{width:100%}.cj-device-row{align-items:flex-start}.cj-sheet-card{padding:18px;border-radius:22px}}
+@media(prefers-reduced-motion:reduce){#s-espera .espera-anim:after,.cj-access-card,.cj-sheet,.cj-sheet-card{animation:none!important}.cj-access-btn{transition:none!important}}
