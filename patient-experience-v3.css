@@ -61,3 +61,44 @@ body>.nav .nav__brand{gap:8px!important}.nav__brand .live-dot{width:7px!importan
 @keyframes cjPulse{0%,100%{transform:scale(.92);opacity:.72}50%{transform:scale(1);opacity:1}}@keyframes cjRise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}@keyframes cjFade{from{opacity:0}to{opacity:1}}@keyframes cjSheet{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @media(max-width:520px){#s-espera .s-inner{padding:18px 14px 96px!important}#s-espera .espera-titulo{font-size:1.48rem!important}.cj-access-card{padding:14px;border-radius:16px}.cj-access-actions{display:grid;grid-template-columns:1fr}.cj-access-btn{width:100%}.cj-device-row{align-items:flex-start}.cj-sheet-card{padding:18px;border-radius:22px}}
 @media(prefers-reduced-motion:reduce){#s-espera .espera-anim:after,.cj-access-card,.cj-sheet,.cj-sheet-card{animation:none!important}.cj-access-btn{transition:none!important}}
+
+/* CJ24H v4 — focused waiting + fullscreen consultation */
+#s-espera:not(.cj-consult-active) .espera-anim{width:34px!important;height:34px!important;border-radius:50%!important;margin:6px 0 16px!important;background:rgba(255,255,255,.018)!important;border:1px solid rgba(120,230,165,.14)!important;box-shadow:none!important;overflow:visible!important}
+#s-espera:not(.cj-consult-active) .espera-anim:after{width:16px!important;height:16px!important;border-radius:50%!important;background:transparent!important;border:1.5px solid rgba(120,230,165,.16)!important;border-top-color:rgba(120,230,165,.82)!important;box-shadow:none!important;animation:cjSpin .9s linear infinite!important;transform:none!important;margin:0!important}
+#s-espera .espera-status:before{display:none!important}
+#s-espera .espera-status{padding:0!important;border:0!important;background:transparent!important;margin:0 0 14px!important;color:rgba(235,242,238,.38)!important}
+#s-espera .cj-wait-dot{display:none!important}
+#s-espera button[onclick="confirmarSairConsulta()"]{display:none!important}
+#s-espera:not(.cj-consult-active) .cj-access-card{margin:8px 0 10px!important;padding:12px 13px!important;border-radius:15px!important;background:rgba(255,255,255,.018)!important;border-color:rgba(120,230,165,.1)!important;box-shadow:none!important}
+#s-espera:not(.cj-consult-active) .cj-access-card:before{display:none!important}
+#s-espera:not(.cj-consult-active) .cj-access-head{gap:10px!important}
+#s-espera:not(.cj-consult-active) .cj-access-icon{width:32px!important;height:32px!important;border-radius:10px!important;background:rgba(120,230,165,.045)!important}
+#s-espera:not(.cj-consult-active) .cj-access-icon svg{width:15px!important;height:15px!important}
+#s-espera:not(.cj-consult-active) .cj-access-title{font-size:.82rem!important;font-weight:620!important}
+#s-espera:not(.cj-consult-active) .cj-access-sub{font-size:.67rem!important;line-height:1.42!important;margin-top:2px!important;max-width:320px!important}
+#s-espera:not(.cj-consult-active) .cj-access-actions{margin-top:9px!important}
+#s-espera:not(.cj-consult-active) .cj-access-btn{padding:8px 10px!important;border-radius:10px!important;font-size:.68rem!important;background:rgba(120,230,165,.065)!important;color:rgba(169,239,196,.86)!important}
+#s-espera:not(.cj-consult-active) .cj-access-foot{display:none!important}
+#s-espera:not(.cj-consult-active) .cj-device-row{margin-top:7px!important;padding-top:7px!important;border-top-color:rgba(255,255,255,.04)!important;justify-content:flex-start!important}
+#s-espera:not(.cj-consult-active) .cj-device-note{display:none!important}
+#s-espera:not(.cj-consult-active) .cj-device-action{font-size:.64rem!important;color:rgba(154,231,184,.7)!important;padding:3px 0!important}
+#s-espera:not(.cj-consult-active) .cj-return-link{margin:7px 0 8px!important}
+#s-espera:not(.cj-consult-active) .cj-return-link button{font-size:.65rem!important;color:rgba(230,238,234,.28)!important}
+#s-espera.cj-consult-active .espera-anim,#s-espera.cj-consult-active .espera-titulo,#s-espera.cj-consult-active .espera-sub,#s-espera.cj-consult-active .espera-status,#s-espera.cj-consult-active #esperaFila,#s-espera.cj-consult-active #esperaDemora,#s-espera.cj-consult-active #aviso-horario-espera,#s-espera.cj-consult-active #cjAccessCard,#s-espera.cj-consult-active #cjReturnCompact,#s-espera.cj-consult-active #link-retorno-box,#s-espera.cj-consult-active button[onclick="confirmarSairConsulta()"],#s-espera.cj-consult-active .medico-entrou-banner,#s-espera.cj-consult-active .cj-continuity{display:none!important}
+#s-espera.cj-consult-active .chat-consulta{display:flex!important;flex-direction:column!important;background:#06100d!important;box-shadow:none!important;border-color:rgba(255,255,255,.045)!important}
+#s-espera.cj-consult-active .chat-header-box{flex:0 0 auto!important;text-align:left!important;margin:0!important;padding:10px 14px!important;border-radius:0!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.05)!important;background:rgba(6,16,13,.92)!important;backdrop-filter:blur(14px)!important}
+#s-espera.cj-consult-active .chat-header-box h3{justify-content:flex-start!important;margin:0!important;font-size:.74rem!important;font-weight:620!important;color:rgba(240,246,242,.78)!important}
+#s-espera.cj-consult-active .chat-header-box p{margin-top:2px!important;font-size:.65rem!important;color:rgba(235,242,238,.34)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#s-espera.cj-consult-active .online-dot{width:5px!important;height:5px!important;background:rgba(120,230,165,.72)!important;animation:none!important;box-shadow:none!important}
+#s-espera.cj-consult-active .chat-msgs{flex:1 1 auto!important;min-height:0!important;max-height:none!important;border:0!important;border-radius:0!important;padding:18px 14px 20px!important;background:#06100d!important;overscroll-behavior:contain!important}
+#s-espera.cj-consult-active .chat-input-row{flex:0 0 auto!important;border:0!important;border-top:1px solid rgba(255,255,255,.055)!important;border-radius:0!important;padding:9px 10px calc(9px + env(safe-area-inset-bottom,0px))!important;background:rgba(7,17,14,.96)!important;backdrop-filter:blur(16px)!important;box-shadow:0 -10px 30px rgba(0,0,0,.16)!important}
+#s-espera.cj-consult-active .chat-input-row textarea{min-height:42px!important;border-radius:14px!important;background:rgba(255,255,255,.035)!important;border-color:rgba(255,255,255,.075)!important;padding:10px 13px!important}
+#s-espera.cj-consult-active .chat-input-row textarea:focus{border-color:rgba(120,230,165,.18)!important;box-shadow:0 0 0 2px rgba(120,230,165,.025)!important}
+#s-espera .chat-send{width:40px!important;height:40px!important;border-radius:13px!important;background:rgba(120,230,165,.07)!important;color:rgba(174,239,199,.86)!important;border:1px solid rgba(120,230,165,.16)!important;box-shadow:none!important;transition:background .15s ease,transform .12s ease!important}
+#s-espera .chat-send:hover{transform:none!important;background:rgba(120,230,165,.105)!important}
+#s-espera .chat-send:active{transform:scale(.96)!important}
+#s-espera .chat-clip-btn{width:38px!important;height:38px!important;border-radius:13px!important;background:rgba(255,255,255,.025)!important;border-color:rgba(255,255,255,.065)!important;color:rgba(235,242,238,.38)!important}
+#s-espera.cj-consult-active .chat-consulta>div:last-child{display:none!important}
+@media(max-width:720px){body:has(#s-espera.cj-consult-active){overflow:hidden!important;background:#06100d!important}#s-espera.cj-consult-active{height:calc(100dvh - 58px)!important;min-height:0!important;overflow:hidden!important;padding:0!important}#s-espera.cj-consult-active .s-inner{width:100%!important;max-width:none!important;height:100%!important;min-height:0!important;padding:0!important;margin:0!important}#s-espera.cj-consult-active .espera-box{width:100%!important;max-width:none!important;height:100%!important;min-height:0!important;margin:0!important;display:flex!important;flex-direction:column!important}#s-espera.cj-consult-active .chat-consulta{width:100%!important;max-width:none!important;height:100%!important;min-height:0!important;border:0!important;border-radius:0!important;margin:0!important;overflow:hidden!important}}
+@media(min-width:721px){#s-espera.cj-consult-active .s-inner{max-width:680px!important}#s-espera.cj-consult-active .espera-box{max-width:620px!important}#s-espera.cj-consult-active .chat-consulta{max-width:620px!important;margin:18px auto 0!important;min-height:70vh!important}}
+@keyframes cjSpin{to{transform:rotate(360deg)}}
