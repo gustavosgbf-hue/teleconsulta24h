@@ -6,7 +6,10 @@
 <!-- End Google Tag Manager -->
 <meta charset="utf-8"/>
 <meta name="robots" content="noindex,nofollow"/>
-<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="apple-touch-icon" href="/icon-192.png"/>
+<meta name="theme-color" content="#07100f"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>ConsultaJá24h · Consulta Médica Online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -488,6 +491,14 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 /* ── KEYBOARD SAFETY: prevent card clip on small iPhones when keyboard opens ── */
 /* Applied via JS class on focus — only for screens that are vertically centered  */
 .s-inner.kb-open{justify-content:flex-start !important}
+
+/* CJ24H-PWA-PUSH-V1 */
+.cj-continuity{display:none;gap:12px;align-items:center;margin:0 0 10px;padding:12px 13px;border:1px solid rgba(94,224,160,.16);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.018));box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.cj-continuity.show{display:flex}.cj-continuity img{width:42px;height:42px;border-radius:11px;box-shadow:0 4px 14px rgba(0,0,0,.24);flex:0 0 auto}.cj-continuity__copy{min-width:0;flex:1}.cj-continuity__title{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.94);margin-bottom:2px}.cj-continuity__sub{font-size:.68rem;line-height:1.45;color:rgba(255,255,255,.42)}.cj-continuity__actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.cj-mini-btn{border:1px solid rgba(94,224,160,.22);background:rgba(94,224,160,.07);color:#8be8b4;border-radius:9px;padding:7px 9px;font:600 .67rem 'Outfit',sans-serif;cursor:pointer}.cj-mini-btn.secondary{border-color:rgba(255,255,255,.09);background:rgba(255,255,255,.035);color:rgba(255,255,255,.66)}
+.chat-consulta{background:rgba(255,255,255,.018)!important;border-color:rgba(255,255,255,.07)!important;box-shadow:0 18px 55px rgba(0,0,0,.22)!important}.chat-header-box{background:rgba(255,255,255,.018)!important;border-bottom-color:rgba(255,255,255,.055)!important}.medico-entrou-banner{background:rgba(94,224,160,.055)!important;border-color:rgba(94,224,160,.14)!important}.chat-input-row{background:rgba(5,12,10,.88)!important;border-top-color:rgba(255,255,255,.055)!important}.cj-avatar-mark,.cj-doctor-mark{font-family:'Outfit',sans-serif!important;font-weight:700!important;letter-spacing:.02em!important;color:#8be8b4!important}.cj-wait-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8be8b4;margin-right:6px;box-shadow:0 0 0 4px rgba(94,224,160,.08)}
+.cj-install-sheet{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.68);backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;padding:14px}.cj-install-sheet__card{width:100%;max-width:430px;background:#0b1512;border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:18px;box-shadow:0 24px 80px rgba(0,0,0,.5)}.cj-install-sheet__title{font-size:1rem;font-weight:650;margin-bottom:6px}.cj-install-sheet__text{font-size:.78rem;line-height:1.55;color:rgba(255,255,255,.55)}.cj-install-sheet__close{width:100%;margin-top:14px;border:0;border-radius:11px;padding:11px;background:rgba(255,255,255,.06);color:#fff;font:600 .78rem 'Outfit',sans-serif}
+@media(max-width:520px){.cj-continuity{align-items:flex-start}.cj-continuity img{width:38px;height:38px}.cj-continuity__actions{width:100%}}
+
 </style>
 </head>
 <body>
@@ -900,8 +911,12 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
       <!-- CHAT CONSULTA -->
       <div class="chat-consulta" id="chatConsulta">
+        <section class="cj-continuity" id="cjContinuity" aria-label="Acesso rápido ao atendimento">
+          <img src="/icon-192.png" alt=""/>
+          <div class="cj-continuity__copy"><div class="cj-continuity__title">Seu atendimento sempre acessível</div><div class="cj-continuity__sub">Receba novas mensagens mesmo com esta tela fechada e adicione a ConsultaJá24h ao celular.</div><div class="cj-continuity__actions"><button class="cj-mini-btn" id="cjPushBtn" type="button" onclick="cjAtivarPushPaciente()">Ativar notificações</button><button class="cj-mini-btn secondary" id="cjInstallBtn" type="button" onclick="cjInstalarApp()">Adicionar ao celular</button></div></div>
+        </section>
         <div class="medico-entrou-banner" id="medicoEntrou" style="display:none">
-          <span>👨‍⚕️</span>
+          <span class="cj-doctor-mark" aria-hidden="true">MD</span>
           <div><strong id="medicoNomeBanner">Dr. Médico</strong> entrou na consulta.<br>
           <span style="font-size:.75rem;font-weight:300;color:rgba(255,255,255,.45)">Você está falando com um médico.</span></div>
         </div>
@@ -909,7 +924,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
           <h3><div class="online-dot"></div> Consulta iniciada</h3>
           <p id="chatMedicoLabel">Médico disponível, pode enviar sua mensagem</p>
         </div>
-        <div class="chat-msgs" id="chatMsgs"><div class="typing-indicator" id="typingIndicator"><div class="av">🩺</div><div class="typ-bub"><span></span><span></span><span></span></div></div></div>
+        <div class="chat-msgs" id="chatMsgs"><div class="typing-indicator" id="typingIndicator"><div class="av cj-avatar-mark">CJ</div><div class="typ-bub"><span></span><span></span><span></span></div></div></div>
         <div class="chat-preview-wrap" id="chat-preview-wrap">
           <img class="chat-preview-img" id="chat-preview-img" src="" style="display:none"/>
           <span class="chat-preview-nome" id="chat-preview-nome"></span>
@@ -927,16 +942,16 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         </div>
         <div id="chatErroPaciente" role="alert" style="display:none;padding:0 14px 9px;color:#ff9a9a;font-size:.72rem;text-align:center"></div>
         <!-- [UX v2] Rodapé de segurança -->
-        <div style="padding:7px 12px;text-align:center;font-size:.66rem;color:rgba(255,255,255,.25);background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.04);border-radius:0 0 14px 14px">🔒 Conversa segura e criptografada</div>
+        <div style="padding:7px 12px;text-align:center;font-size:.66rem;color:rgba(255,255,255,.25);background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.04);border-radius:0 0 14px 14px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Conversa segura e criptografada</div>
       </div>
 
       <!-- VIDEOCHAMADA -->
       <div class="meet-wrap" id="meetWrap">
         <div class="medico-entrou-banner" id="medicoEntrouVideo" style="display:none">
-          <span>👨‍⚕️</span>
+          <span class="cj-doctor-mark" aria-hidden="true">MD</span>
           <div><strong id="medicoNomeBannerVideo">Dr. Médico</strong> está pronto para a videochamada.</div>
         </div>
-        <div class="meet-aguardando" id="meetAguardando"><p>⏳ O médico está se preparando.<br>O link aparecerá aqui em instantes.</p></div>
+        <div class="meet-aguardando" id="meetAguardando"><p><span class="cj-wait-dot"></span>O médico está se preparando.<br>O link aparecerá aqui em instantes.</p></div>
         <a href="#" id="btnMeetLink" class="btn-meet disabled" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
           Entrar na videochamada
@@ -2881,6 +2896,6 @@ function copiarLinkRetorno(){
   if(ta) ta.addEventListener('input',function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
 })();
 
-</script>
+\n// CJ24H-PWA-PUSH-V1\nvar cjInstallPrompt=null,cjPushBusy=false;\nfunction cjB64ToU8(v){var p='='.repeat((4-v.length%4)%4),b=(v+p).replace(/-/g,'+').replace(/_/g,'/'),r=atob(b),o=new Uint8Array(r.length);for(var i=0;i<r.length;i++)o[i]=r.charCodeAt(i);return o;}\nfunction cjStandalone(){return window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;}\nfunction cjIsIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent||'');}\nfunction cjAtualizarContinuity(){var box=document.getElementById('cjContinuity');if(!box||!atendimentoId)return;box.classList.add('show');var ib=document.getElementById('cjInstallBtn');if(ib&&cjStandalone())ib.style.display='none';var pb=document.getElementById('cjPushBtn');if(pb&&window.Notification&&Notification.permission==='granted'){pb.textContent='Notificações ativadas';pb.disabled=true;cjRegistrarPushPaciente(false);}}\nwindow.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cjInstallPrompt=e;cjAtualizarContinuity();});\nwindow.addEventListener('appinstalled',function(){cjInstallPrompt=null;cjAtualizarContinuity();});\nfunction cjMostrarInstrucaoIOS(){var x=document.createElement('div');x.className='cj-install-sheet';x.innerHTML='<div class="cj-install-sheet__card"><div class="cj-install-sheet__title">Adicionar ConsultaJá24h à Tela de Início</div><div class="cj-install-sheet__text">No Safari, toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>. O ícone da ConsultaJá24h ficará no seu celular e este atendimento continuará acessível pelo mesmo aparelho.</div><button class="cj-install-sheet__close">Entendi</button></div>';x.querySelector('button').onclick=function(){x.remove()};x.onclick=function(e){if(e.target===x)x.remove()};document.body.appendChild(x);}\nasync function cjInstalarApp(){if(cjStandalone())return;if(cjInstallPrompt){var p=cjInstallPrompt;cjInstallPrompt=null;await p.prompt();try{await p.userChoice}catch(e){}cjAtualizarContinuity();return;}if(cjIsIOS())return cjMostrarInstrucaoIOS();var x=document.createElement('div');x.className='cj-install-sheet';x.innerHTML='<div class="cj-install-sheet__card"><div class="cj-install-sheet__title">Adicionar ao celular</div><div class="cj-install-sheet__text">Abra o menu do navegador e escolha <strong>Instalar app</strong> ou <strong>Adicionar à tela inicial</strong>. No Android compatível, o botão de instalação também pode aparecer automaticamente.</div><button class="cj-install-sheet__close">Entendi</button></div>';x.querySelector('button').onclick=function(){x.remove()};document.body.appendChild(x);}\nwindow.cjInstalarApp=cjInstalarApp;\nasync function cjRegistrarPushPaciente(pedir){if(cjPushBusy||!atendimentoId||!pacienteTel||!('serviceWorker'in navigator)||!('PushManager'in window)||!('Notification'in window))return false;cjPushBusy=true;var b=document.getElementById('cjPushBtn');try{var perm=Notification.permission;if(perm==='default'&&pedir)perm=await Notification.requestPermission();if(perm!=='granted')return false;if(b){b.textContent='Ativando...';b.disabled=true}var reg=await navigator.serviceWorker.register('/atendimento/push-sw.js',{scope:'/atendimento/'});var kd=await (await fetch(API+'/api/web-push/public-key')).json();if(!kd.ok||!kd.publicKey)throw new Error('push_indisponivel');var sub=await reg.pushManager.getSubscription();if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:cjB64ToU8(kd.publicKey)});var r=await fetch(API+'/api/web-push/chat-subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({papel:'paciente',atendimentoId:atendimentoId,telefone:pacienteTel,subscription:sub.toJSON()})});var d=await r.json().catch(function(){return{}});if(!r.ok||!d.ok)throw new Error(d.error||'push_failed');if(b){b.textContent='Notificações ativadas';b.disabled=true}return true;}catch(e){if(b){b.textContent='Ativar notificações';b.disabled=false}return false;}finally{cjPushBusy=false;}}\nfunction cjAtivarPushPaciente(){cjRegistrarPushPaciente(true)}window.cjAtivarPushPaciente=cjAtivarPushPaciente;\n(function(){var tries=0,t=setInterval(function(){tries++;cjAtualizarContinuity();if(window.Notification&&Notification.permission==='granted')cjRegistrarPushPaciente(false);if((atendimentoId&&tries>3)||tries>20)clearInterval(t)},700)})();\n</script>
 </body>
 </html>
