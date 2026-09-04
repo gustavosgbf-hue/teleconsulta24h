@@ -2060,7 +2060,7 @@ function mostrarSalaEspera(){
 async function verificarStatus(){
   if(!atendimentoId){ atualizarContador(); return; }
   try{
-    var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+    var res=await fetch(API+'/api/atendimento/status/'+atendimentoId,{cache:'no-store'});
     var data=await res.json(); if(!data.ok) return;
     atualizarContador(); var a=data.atendimento;
     // [UX] Posição na fila — só mostra se estiver aguardando e houver mais gente
@@ -2102,7 +2102,7 @@ function medicoAssumiu(a){
   document.getElementById('esperaAnim').style.background='linear-gradient(135deg,rgba(94,224,160,.2),rgba(180,224,90,.15))';
   encerradoPoller=setInterval(async function(){
     try{
-      var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+      var res=await fetch(API+'/api/atendimento/status/'+atendimentoId,{cache:'no-store'});
       var data=await res.json();
       if(!data.ok||!data.atendimento){ clearInterval(encerradoPoller); return; }
       var at=data.atendimento;
@@ -2267,7 +2267,7 @@ function iniciarVideoConsulta(atendimento){
   else{
     meetPoller=setInterval(async function(){
       try{
-        var res=await fetch(API+'/api/atendimento/status/'+atendimentoId);
+        var res=await fetch(API+'/api/atendimento/status/'+atendimentoId,{cache:'no-store'});
         var data=await res.json();
         if(!data.ok||!data.atendimento){ clearInterval(meetPoller); meetPoller=null; return; }
         var at=data.atendimento;
@@ -2825,7 +2825,7 @@ async function verificarPagamentoManual(){
     } else {
       // Também tenta pelo atendimentoId direto (cobre caso onde orderId não bateu)
       if(atendimentoId){
-        var r2 = await fetch(API+'/api/atendimento/status/'+atendimentoId);
+        var r2 = await fetch(API+'/api/atendimento/status/'+atendimentoId,{cache:'no-store'});
         var d2 = await r2.json();
         if(d2.ok && d2.atendimento && d2.atendimento.pagamento_status === 'confirmado'){
           clearInterval(paymentPoller);
