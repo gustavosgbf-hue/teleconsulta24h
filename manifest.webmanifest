@@ -1,12 +1,12 @@
 {
   "name": "ConsultaJá24h",
   "short_name": "ConsultaJá24h",
-  "description": "Acesse seu atendimento médico online e suas mensagens com rapidez.",
-  "start_url": "/atendimento/",
+  "description": "Acesse seus atendimentos, mensagens e documentos da ConsultaJá24h.",
+  "start_url": "/conta/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#07100f",
-  "theme_color": "#07100f",
+  "background_color": "#06100d",
+  "theme_color": "#06100d",
   "icons": [
     {"src":"/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
     {"src":"/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"},
