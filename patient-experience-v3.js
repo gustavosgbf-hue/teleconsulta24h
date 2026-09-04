@@ -7,7 +7,7 @@
   var RETENTION_KEY='cj_retencao_optin';
   var accessCard=null;
 
-  function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]})}
   function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent||'')}
   function isStandalone(){return !!((window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)}
   function isAndroid(){return /android/i.test(navigator.userAgent||'')}
@@ -141,6 +141,24 @@
     document.getElementById('cjAccessMain').onclick=function(){if(active)location.href='/conta/';else beginAccess()};var nc=document.getElementById('cjNewConsult');if(nc)nc.onclick=function(){location.href='/consulta/?utm_source=area_paciente&utm_medium=owned&utm_campaign=nova_consulta'};var db=document.getElementById('cjDeviceBtn');if(db&&!db.disabled)db.onclick=deviceAction;
   }
 
+  var cjConsultWasActive=false;
+  function syncConsultMode(){
+    var section=document.getElementById('s-espera');
+    var chat=document.getElementById('chatConsulta');
+    if(!section||!chat)return;
+    var active=chat.classList.contains('ativo');
+    section.classList.toggle('cj-consult-active',active);
+    var step=document.getElementById('nav-step');
+    if(step){
+      if(active)step.textContent='CONSULTA ATIVA';
+      else if((step.textContent||'').toUpperCase()==='CONSULTA ATIVA')step.textContent='AGUARDANDO MÉDICO';
+    }
+    if(active&&!cjConsultWasActive){
+      requestAnimationFrame(function(){var msgs=document.getElementById('chatMsgs');if(msgs)msgs.scrollTop=msgs.scrollHeight;});
+    }
+    cjConsultWasActive=active;
+  }
+
   function cleanWaitingState(){
     var title=document.getElementById('esperaTitulo'),sub=document.getElementById('esperaSub'),anim=document.getElementById('esperaAnim');if(!title||!anim)return;
     var ready=/dispon[ií]vel|assumiu|entrou/i.test((title.textContent||'')+' '+((sub&&sub.textContent)||''));anim.classList.toggle('cj-ready',ready);
@@ -149,12 +167,13 @@
     var demora=document.getElementById('esperaDemora');if(demora)demora.textContent='Seu atendimento continua ativo. Pode haver uma pequena espera enquanto o médico conclui o atendimento anterior.';
     var aviso=document.getElementById('aviso-horario-espera');if(aviso)aviso.innerHTML='Neste horário pode haver uma pequena espera. Seu atendimento permanece ativo e você será avisado quando o médico entrar.';
     var badgeIcon=document.getElementById('esperaBadgeIcon');if(badgeIcon)badgeIcon.textContent='';
+    syncConsultMode();
   }
 
   function boot(){
-    cleanWaitingState();renderAccessCard();
-    var title=document.getElementById('esperaTitulo');if(title&&window.MutationObserver)new MutationObserver(function(){cleanWaitingState();renderAccessCard()}).observe(title,{childList:true,subtree:true,characterData:true});
-    var tries=0,t=setInterval(function(){tries++;if(document.getElementById('s-espera')&&document.getElementById('s-espera').classList.contains('active')){cleanWaitingState();renderAccessCard()}if(tries>80)clearInterval(t)},500);
+    cleanWaitingState();renderAccessCard();syncConsultMode();
+    var title=document.getElementById('esperaTitulo');if(title&&window.MutationObserver)new MutationObserver(function(){cleanWaitingState();renderAccessCard();syncConsultMode()}).observe(title,{childList:true,subtree:true,characterData:true});
+    var tries=0,t=setInterval(function(){tries++;if(document.getElementById('s-espera')&&document.getElementById('s-espera').classList.contains('active')){cleanWaitingState();renderAccessCard();syncConsultMode()}if(tries>80)clearInterval(t)},500);
     if(token()&&retentionOptIn())setTimeout(function(){maybeSubscribeRetention(false)},1800);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
