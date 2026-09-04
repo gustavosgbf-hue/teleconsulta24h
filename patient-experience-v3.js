@@ -144,8 +144,8 @@
   function cleanWaitingState(){
     var title=document.getElementById('esperaTitulo'),sub=document.getElementById('esperaSub'),anim=document.getElementById('esperaAnim');if(!title||!anim)return;
     var ready=/dispon[ií]vel|assumiu|entrou/i.test((title.textContent||'')+' '+((sub&&sub.textContent)||''));anim.classList.toggle('cj-ready',ready);
-    if(ready){title.textContent='Seu médico chegou';if(sub)sub.textContent='O atendimento já está disponível. Você pode continuar pelo chat abaixo.'}
-    else {if(/notificado|aguard|procur/i.test(title.textContent||''))title.textContent='Estamos chamando seu médico';if(sub)sub.textContent='Seu atendimento está na fila e será assumido assim que o médico ficar disponível.'}
+    if(ready){if(title.textContent!=='Seu médico chegou')title.textContent='Seu médico chegou';if(sub&&sub.textContent!=='O atendimento já está disponível. Você pode continuar pelo chat abaixo.')sub.textContent='O atendimento já está disponível. Você pode continuar pelo chat abaixo.'}
+    else {if(/notificado|aguard|procur/i.test(title.textContent||'')&&title.textContent!=='Estamos chamando seu médico')title.textContent='Estamos chamando seu médico';if(sub&&sub.textContent!=='Seu atendimento está na fila e será assumido assim que o médico ficar disponível.')sub.textContent='Seu atendimento está na fila e será assumido assim que o médico ficar disponível.'}
     var demora=document.getElementById('esperaDemora');if(demora)demora.textContent='Seu atendimento continua ativo. Pode haver uma pequena espera enquanto o médico conclui o atendimento anterior.';
     var aviso=document.getElementById('aviso-horario-espera');if(aviso)aviso.innerHTML='Neste horário pode haver uma pequena espera. Seu atendimento permanece ativo e você será avisado quando o médico entrar.';
     var badgeIcon=document.getElementById('esperaBadgeIcon');if(badgeIcon)badgeIcon.textContent='';
