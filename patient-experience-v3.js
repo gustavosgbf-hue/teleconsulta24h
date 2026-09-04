@@ -7,7 +7,7 @@
   var RETENTION_KEY='cj_retencao_optin';
   var accessCard=null;
 
-  function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]})}
+  function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent||'')}
   function isStandalone(){return !!((window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)}
   function isAndroid(){return /android/i.test(navigator.userAgent||'')}
