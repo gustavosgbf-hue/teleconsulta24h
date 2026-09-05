@@ -38,13 +38,7 @@
     var email=emailOverride||((typeof pacienteEmail!=='undefined'&&pacienteEmail)||'');
     var r=await fetch(API_BASE+'/api/paciente/otp/solicitar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:tel,email:email,cpf:cpf})});
     var d=await r.json().catch(function(){return{}});if(!r.ok||!d.ok)throw new Error(d.error||'Não foi possível enviar o código.');
-    if(d.precisa_dados){
-      if(email&&cpf){
-        var r2=await fetch(API_BASE+'/api/paciente/otp/solicitar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:tel,email:email,cpf:cpf})});
-        var d2=await r2.json().catch(function(){return{}});if(!r2.ok||!d2.ok||d2.precisa_dados)throw new Error(d2.error||'Confirme seu e-mail para ativar o acesso.');return d2;
-      }
-      return d;
-    }
+    if(d.precisa_dados)return d;
     return d;
   }
 
@@ -60,7 +54,7 @@
       try{
         if(typeof pacienteEmail!=='undefined'&&!pacienteEmail){pacienteEmail=em;try{if(typeof salvarSessao==='function')salvarSessao()}catch(e){}}
         var d=await requestOtp(em);if(d.precisa_dados)throw new Error('Não foi possível vincular este acesso automaticamente.');openCodeStep(d.challenge_id,d.email_mascarado||maskEmail(em));
-      }catch(e){setSheetError(e.message||'Não foi possível enviar o código.');b.disabled=false;b.textContent='Enviar código de acesso'}
+      }catch(e){var msg=(e&&e.message)||'Não foi possível enviar o código.';if(/failed to fetch|network/i.test(msg))msg='Não foi possível ativar o acesso agora. Seu atendimento continua normalmente.';setSheetError(msg);b.disabled=false;b.textContent='Tentar novamente'}
     };
   }
 
@@ -148,6 +142,7 @@
     if(!section||!chat)return;
     var active=chat.classList.contains('ativo');
     section.classList.toggle('cj-consult-active',active);
+    if(active)closeSheet();
     var step=document.getElementById('nav-step');
     if(step){
       if(active)step.textContent='CONSULTA ATIVA';
@@ -161,7 +156,8 @@
 
   function cleanWaitingState(){
     var title=document.getElementById('esperaTitulo'),sub=document.getElementById('esperaSub'),anim=document.getElementById('esperaAnim');if(!title||!anim)return;
-    var ready=/dispon[ií]vel|assumiu|entrou/i.test((title.textContent||'')+' '+((sub&&sub.textContent)||''));anim.classList.toggle('cj-ready',ready);
+    var chat=document.getElementById('chatConsulta');
+    var ready=!!(chat&&chat.classList.contains('ativo'));anim.classList.toggle('cj-ready',ready);
     if(ready){if(title.textContent!=='Seu médico chegou')title.textContent='Seu médico chegou';if(sub&&sub.textContent!=='O atendimento já está disponível. Você pode continuar pelo chat abaixo.')sub.textContent='O atendimento já está disponível. Você pode continuar pelo chat abaixo.'}
     else {if(/notificado|aguard|procur/i.test(title.textContent||'')&&title.textContent!=='Estamos chamando seu médico')title.textContent='Estamos chamando seu médico';if(sub&&sub.textContent!=='Seu atendimento está na fila e será assumido assim que o médico ficar disponível.')sub.textContent='Seu atendimento está na fila e será assumido assim que o médico ficar disponível.'}
     var demora=document.getElementById('esperaDemora');if(demora)demora.textContent='Seu atendimento continua ativo. Pode haver uma pequena espera enquanto o médico conclui o atendimento anterior.';
