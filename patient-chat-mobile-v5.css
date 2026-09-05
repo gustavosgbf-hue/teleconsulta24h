@@ -1,0 +1,59 @@
+/* ConsultaJa24h v5 — mobile consultation is the product */
+@media (max-width: 760px){
+  /* Active consultation becomes a true app-like screen below the fixed chrome. */
+  #s-espera.cj-consult-active{position:fixed!important;inset:58px 0 0!important;z-index:40!important;height:auto!important;min-height:0!important;overflow:hidden!important;background:#06100d!important}
+  #s-espera.cj-consult-active .s-inner{position:absolute!important;inset:0!important;width:100%!important;max-width:none!important;height:100%!important;padding:0!important;margin:0!important;overflow:hidden!important}
+  #s-espera.cj-consult-active .espera-box{width:100%!important;max-width:none!important;height:100%!important;margin:0!important;padding:0!important;overflow:hidden!important}
+
+  /* Nothing from the waiting/onboarding state competes with the live consultation. */
+  #s-espera.cj-consult-active .espera-anim,
+  #s-espera.cj-consult-active .espera-titulo,
+  #s-espera.cj-consult-active .espera-sub,
+  #s-espera.cj-consult-active .espera-status,
+  #s-espera.cj-consult-active .espera-info,
+  #s-espera.cj-consult-active #esperaFila,
+  #s-espera.cj-consult-active #esperaDemora,
+  #s-espera.cj-consult-active #aviso-horario-espera,
+  #s-espera.cj-consult-active .cj-access-card,
+  #s-espera.cj-consult-active .cj-return-link,
+  #s-espera.cj-consult-active #link-retorno-box,
+  #s-espera.cj-consult-active .medico-entrou-banner,
+  #s-espera.cj-consult-active .cj-continuity{display:none!important}
+
+  #s-espera.cj-consult-active .chat-consulta{
+    display:flex!important;flex-direction:column!important;
+    width:100%!important;max-width:none!important;height:100%!important;min-height:0!important;
+    margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+    background:#06100d!important;overflow:hidden!important
+  }
+  #s-espera.cj-consult-active .chat-header-box{
+    flex:0 0 auto!important;min-height:52px!important;padding:10px 16px!important;
+    display:flex!important;align-items:center!important;justify-content:space-between!important;
+    border-bottom:1px solid rgba(255,255,255,.055)!important;background:rgba(6,16,13,.94)!important;
+    backdrop-filter:blur(14px)!important
+  }
+  #s-espera.cj-consult-active .chat-header-box h3{font-size:.84rem!important;font-weight:620!important;margin:0!important;color:rgba(246,249,247,.9)!important}
+  #s-espera.cj-consult-active .chat-header-box p{font-size:.66rem!important;margin:2px 0 0!important;color:rgba(235,242,238,.38)!important}
+
+  #s-espera.cj-consult-active .chat-msgs{
+    flex:1 1 auto!important;min-height:0!important;height:auto!important;overflow-y:auto!important;
+    overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;
+    padding:16px 14px 18px!important;scroll-padding-bottom:18px!important
+  }
+  #s-espera.cj-consult-active .chat-input-row{
+    position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;
+    flex:0 0 auto!important;margin:0!important;padding:10px 12px calc(10px + env(safe-area-inset-bottom))!important;
+    border-top:1px solid rgba(255,255,255,.06)!important;background:rgba(7,15,12,.98)!important;
+    backdrop-filter:blur(16px)!important
+  }
+  #s-espera.cj-consult-active .chat-send{
+    background:rgba(120,230,165,.10)!important;color:#91e9b2!important;
+    border:1px solid rgba(120,230,165,.18)!important;box-shadow:none!important
+  }
+  #s-espera.cj-consult-active .chat-send:hover{background:rgba(120,230,165,.14)!important}
+  #s-espera.cj-consult-active .chat-clip-btn{background:rgba(255,255,255,.025)!important;border-color:rgba(255,255,255,.07)!important;color:rgba(236,241,238,.46)!important}
+  #s-espera.cj-consult-active .chat-consulta>div:last-child{display:none!important}
+
+  /* Mobile browser viewport: use the full usable portrait canvas, not a tiny centered card. */
+  @supports(height:100dvh){#s-espera.cj-consult-active{height:calc(100dvh - 58px)!important}}
+}
