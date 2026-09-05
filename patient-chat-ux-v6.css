@@ -52,6 +52,11 @@
 .cj-end-cta-v6__btn.secondary{background:rgba(255,255,255,.025);border-color:rgba(255,255,255,.07);color:rgba(239,244,241,.62)}
 .cj-end-cta-v6__micro{margin-top:9px;font:400 .61rem 'Outfit',sans-serif;color:rgba(235,242,238,.3)}
 
+
+.cj-menu-v6.is-closing{animation:cjV6FadeOut .22s ease both;pointer-events:none}
+.cj-menu-v6.is-closing .cj-menu-v6__sheet{animation:cjV6SheetOut .22s cubic-bezier(.4,0,.8,.2) both}
 @keyframes cjV6Fade{from{opacity:0}to{opacity:1}}
+@keyframes cjV6FadeOut{from{opacity:1}to{opacity:0}}
+@keyframes cjV6SheetOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(18px)}}
 @keyframes cjV6Sheet{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.cj-menu-v6,.cj-menu-v6__sheet{animation:none!important}}

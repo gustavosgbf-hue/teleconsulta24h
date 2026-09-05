@@ -142,7 +142,7 @@
     if(!section||!chat)return;
     var active=chat.classList.contains('ativo');
     section.classList.toggle('cj-consult-active',active);
-    if(active)closeSheet();
+    if(active&&!cjConsultWasActive)closeSheet();
     var step=document.getElementById('nav-step');
     if(step){
       if(active)step.textContent='CONSULTA ATIVA';

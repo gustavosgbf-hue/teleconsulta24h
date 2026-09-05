@@ -23,15 +23,15 @@
     var m2=t.match(/(?:Dr\.?|Dra\.?)\s+[^.]+/i); if(m2)return m2[0].trim();
     return 'Seu médico';
   }
-  function closeMenu(){var x=q('#cjMenuV6');if(x)x.remove()}
-  function go(url){location.href=url}
+  function closeMenu(immediate){var x=q('#cjMenuV6');if(!x)return;if(immediate){x.remove();return}if(x.classList.contains('is-closing'))return;x.classList.add('is-closing');setTimeout(function(){if(x.parentNode)x.remove()},220)}
+  function go(url){setTimeout(function(){location.href=url},180)}
   function activateAccess(){closeMenu();if(hasToken())go('/conta/');else if(typeof window.cjBeginAccess==='function')window.cjBeginAccess()}
   function deviceAction(){closeMenu();if(typeof window.cjDeviceAction==='function')window.cjDeviceAction()}
   function copyLink(){closeMenu();try{if(typeof window.copiarLinkRetorno==='function')window.copiarLinkRetorno()}catch(e){}}
   function item(main,sub,key,ico){return '<button type="button" class="cj-menu-v6__item" data-cj-v6="'+key+'"><span class="cj-menu-v6__icon">'+icon(ico)+'</span><span class="cj-menu-v6__item-copy"><span class="cj-menu-v6__item-main">'+esc(main)+'</span>'+(sub?'<span class="cj-menu-v6__item-sub">'+esc(sub)+'</span>':'')+'</span><span class="cj-menu-v6__arrow">'+icon('chevron')+'</span></button>'}
   function group(label,html){return '<div class="cj-menu-v6__group"><div class="cj-menu-v6__group-label">'+esc(label)+'</div>'+html+'</div>'}
   function openMenu(){
-    closeMenu();
+    closeMenu(true);
     var active=hasToken();
     var x=document.createElement('div');x.id='cjMenuV6';x.className='cj-menu-v6';
     x.innerHTML='<div class="cj-menu-v6__sheet" role="dialog" aria-modal="true">'+
