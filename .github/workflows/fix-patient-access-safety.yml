@@ -1,0 +1,74 @@
+name: Fix patient access safety
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-patient-access-safety.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch patient access UX safely
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('patient-experience-v3.js')
+          s=p.read_text()
+
+          old="""    if(d.precisa_dados){
+      if(email&&cpf){
+        var r2=await fetch(API_BASE+'/api/paciente/otp/solicitar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:tel,email:email,cpf:cpf})});
+        var d2=await r2.json().catch(function(){return{}});if(!r2.ok||!d2.ok||d2.precisa_dados)throw new Error(d2.error||'Confirme seu e-mail para ativar o acesso.');return d2;
+      }
+      return d;
+    }
+"""
+          new="""    if(d.precisa_dados)return d;
+"""
+          if old not in s:
+              raise SystemExit('duplicate OTP block not found')
+          s=s.replace(old,new,1)
+
+          old="""    var active=chat.classList.contains('ativo');
+    section.classList.toggle('cj-consult-active',active);
+"""
+          new="""    var active=chat.classList.contains('ativo');
+    section.classList.toggle('cj-consult-active',active);
+    if(active)closeSheet();
+"""
+          if old not in s:
+              raise SystemExit('syncConsultMode block not found')
+          s=s.replace(old,new,1)
+
+          old="""    var ready=/dispon[ií]vel|assumiu|entrou/i.test((title.textContent||'')+' '+((sub&&sub.textContent)||''));anim.classList.toggle('cj-ready',ready);
+"""
+          new="""    var chat=document.getElementById('chatConsulta');
+    var ready=!!(chat&&chat.classList.contains('ativo'));anim.classList.toggle('cj-ready',ready);
+"""
+          if old not in s:
+              raise SystemExit('ready detector not found')
+          s=s.replace(old,new,1)
+
+          old="""      }catch(e){setSheetError(e.message||'Não foi possível enviar o código.');b.disabled=false;b.textContent='Enviar código de acesso'}
+"""
+          new="""      }catch(e){var msg=(e&&e.message)||'Não foi possível enviar o código.';if(/failed to fetch|network/i.test(msg))msg='Não foi possível ativar o acesso agora. Seu atendimento continua normalmente.';setSheetError(msg);b.disabled=false;b.textContent='Tentar novamente'}
+"""
+          if old not in s:
+              raise SystemExit('email error handler not found')
+          s=s.replace(old,new,1)
+
+          p.write_text(s)
+          PY
+          node --check patient-experience-v3.js
+          grep -q "if(d.precisa_dados)return d" patient-experience-v3.js
+          grep -q "if(active)closeSheet" patient-experience-v3.js
+      - name: Commit hotfix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "4189826+github-actions[bot]@users.noreply.github.com"
+          git add patient-experience-v3.js
+          git commit -m "Prevent patient access flow from blocking consultation" || exit 0
+          git push
