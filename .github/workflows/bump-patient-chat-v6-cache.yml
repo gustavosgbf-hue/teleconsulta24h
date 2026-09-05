@@ -1,0 +1,31 @@
+name: Bump patient chat v6 cache
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/bump-patient-chat-v6-cache.yml'
+permissions:
+  contents: write
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump asset versions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('atendimento/index.html')
+          s=p.read_text()
+          s=s.replace('/patient-chat-ux-v6.css?v=1','/patient-chat-ux-v6.css?v=2')
+          s=s.replace('/patient-chat-ux-v6.js?v=1','/patient-chat-ux-v6.js?v=2')
+          p.write_text(s)
+          PY
+      - name: Commit cache bust
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add atendimento/index.html
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Bust patient chat v6 asset cache'
+          git push
