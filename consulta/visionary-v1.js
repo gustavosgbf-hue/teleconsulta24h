@@ -6,28 +6,48 @@
   ready(function(){
     function syncTrustNumbers(){
       var heroBadge=document.getElementById('heroBadge');
-      if(heroBadge) heroBadge.textContent='★★★★★ 4,7 · +4.000 atendimentos';
+      var heroBadgeText='★★★★★ 4,7 · +4.000 atendimentos';
+      if(heroBadge && heroBadge.textContent!==heroBadgeText) heroBadge.textContent=heroBadgeText;
 
       var heroProof=document.querySelector('#heroReviewProof span');
-      if(heroProof) heroProof.innerHTML='4,7 no Google · <strong>Ver avaliações</strong> · +4.000 atendimentos';
+      var heroProofHtml='4,7 no Google · <strong>Ver avaliações</strong> · +4.000 atendimentos';
+      if(heroProof && heroProof.innerHTML!==heroProofHtml) heroProof.innerHTML=heroProofHtml;
 
       var reviewsBadge=document.getElementById('reviewsBadgeTxt');
       if(reviewsBadge){
-        reviewsBadge.innerHTML=reviewsBadge.innerHTML
+        var atual=reviewsBadge.innerHTML;
+        var proximo=atual
           .replace(/5,0 no Google/g,'4,7 no Google')
-          .replace(/\+2\.000 atendimentos/g,'+4.000 atendimentos')
-          .replace(/\+4\.000 atendimentos/g,'+4.000 atendimentos');
+          .replace(/\+2\.000 atendimentos/g,'+4.000 atendimentos');
+        if(proximo!==atual) reviewsBadge.innerHTML=proximo;
+      }
+    }
+
+    function fixPixStatusVisibility(){
+      var status=document.getElementById('moPixStatus');
+      var qr=document.getElementById('moQrWrap');
+      if(!status||!qr||!qr.parentNode) return;
+      if(status.parentNode===qr){
+        qr.parentNode.insertBefore(status,qr);
+        status.style.marginTop='10px';
+        status.style.marginBottom='8px';
       }
     }
 
     syncTrustNumbers();
+    fixPixStatusVisibility();
     setTimeout(syncTrustNumbers,800);
     setTimeout(syncTrustNumbers,2200);
     setTimeout(syncTrustNumbers,4500);
+    setTimeout(fixPixStatusVisibility,250);
+    setTimeout(fixPixStatusVisibility,900);
 
     var reviewsBadge=document.getElementById('reviewsBadgeTxt');
     if(reviewsBadge && typeof MutationObserver!=='undefined'){
-      new MutationObserver(function(){ syncTrustNumbers(); }).observe(reviewsBadge,{childList:true,subtree:true,characterData:true});
+      new MutationObserver(function(){
+        var atual=reviewsBadge.innerHTML;
+        if(/5,0 no Google|\+2\.000 atendimentos/.test(atual)) syncTrustNumbers();
+      }).observe(reviewsBadge,{childList:true,subtree:true,characterData:true});
     }
 
     var hero=document.querySelector('.hero');
