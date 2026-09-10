@@ -4,6 +4,38 @@
     else fn();
   }
   ready(function(){
+    var PLAY_STORE_URL='https://play.google.com/store/apps/details?id=com.consultaja24h.app';
+    function isAndroid(){return /android/i.test(navigator.userAgent||'')}
+    function trackAppDownload(source){
+      try{
+        window.dataLayer=window.dataLayer||[];
+        window.dataLayer.push({event:'app_download_click',app_store:'google_play',source:source||'landing'});
+      }catch(e){}
+    }
+    function playBadge(){
+      return '<img src="https://play.google.com/intl/en_us/badges/static/images/badges/pt-br_badge_web_generic.png" alt="Disponível no Google Play" loading="lazy">';
+    }
+    function mountAndroidAppPromos(){
+      if(!isAndroid())return;
+      var priceAnchor=document.getElementById('heroPriceAnchor');
+      if(priceAnchor&&!document.querySelector('.cj-play-hero')){
+        var heroApp=document.createElement('div');
+        heroApp.className='cj-play-hero';
+        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><span class="cj-play-hero__new">NOVO</span><span class="cj-play-hero__copy"><strong>Prefere usar o aplicativo?</strong><small>Baixe na Google Play e tenha acesso mais rápido.</small></span><span class="cj-play-hero__arrow">›</span></a>';
+        heroApp.querySelector('a').addEventListener('click',function(){trackAppDownload('landing_hero')});
+        priceAnchor.parentNode.insertBefore(heroApp,priceAnchor.nextSibling);
+      }
+      var finalCta=document.querySelector('.cta-final');
+      if(finalCta&&!document.querySelector('.cj-app-callout')){
+        var appSection=document.createElement('section');
+        appSection.className='cj-app-callout reveal visible';
+        appSection.setAttribute('aria-labelledby','cjAppCalloutTitle');
+        appSection.innerHTML='<div class="cj-app-callout__inner"><div class="cj-app-callout__icon"><img src="/icon-192.png" alt="" loading="lazy"></div><div class="cj-app-callout__copy"><div class="cj-app-callout__eyebrow">NOVO · APLICATIVO PARA ANDROID</div><h2 id="cjAppCalloutTitle">Leve a ConsultaJá24h com você.</h2><p>Acompanhe atendimentos, acesse seus documentos e volte mais rápido quando precisar.</p></div><a class="cj-app-callout__play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play">'+playBadge()+'</a></div>';
+        appSection.querySelector('a').addEventListener('click',function(){trackAppDownload('landing_section')});
+        finalCta.parentNode.insertBefore(appSection,finalCta);
+      }
+    }
+
     function syncTrustNumbers(){
       var heroBadge=document.getElementById('heroBadge');
       var heroBadgeText='★★★★★ 4,7 · +4.000 atendimentos';
@@ -36,6 +68,7 @@
 
     syncTrustNumbers();
     fixPixStatusVisibility();
+    mountAndroidAppPromos();
     setTimeout(syncTrustNumbers,800);
     setTimeout(syncTrustNumbers,2200);
     setTimeout(syncTrustNumbers,4500);
@@ -67,7 +100,7 @@
       dock.className='cj-conversion-dock';
       dock.setAttribute('role','region');
       dock.setAttribute('aria-label','Iniciar consulta online');
-      dock.innerHTML='<div class="cj-conversion-dock__copy"><div class="cj-conversion-dock__title">Médico online agora</div><div class="cj-conversion-dock__sub">Atendimento sem app e sem burocracia</div></div><button class="cj-conversion-dock__btn" type="button">Consultar agora</button>';
+      dock.innerHTML='<div class="cj-conversion-dock__copy"><div class="cj-conversion-dock__title">Médico online agora</div><div class="cj-conversion-dock__sub">Atendimento por chat ou vídeo</div></div><button class="cj-conversion-dock__btn" type="button">Consultar agora</button>';
       document.body.appendChild(dock);
       var btn=dock.querySelector('button');
       btn.addEventListener('click',function(ev){
