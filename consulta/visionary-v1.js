@@ -19,17 +19,20 @@
       }catch(e){}
     }
 
+    function googlePlayMark(className){
+      return '<svg class="'+(className||'')+'" viewBox="0 0 32 36" aria-hidden="true"><path fill="#00d7fe" d="M2 2.6v30.8c0 1.8 2 2.8 3.4 1.7L22.8 18 5.4.9C4-.2 2 .8 2 2.6z"/><path fill="#00f076" d="M5.4.9 22.8 18l4.6-4.5L8.8.6C7.7-.2 6.4-.1 5.4.9z"/><path fill="#ffd900" d="m22.8 18-17.4 17.1c1 1 2.4 1.1 3.5.4l18.6-12.9-4.7-4.6z"/><path fill="#ff3a44" d="M29.6 16.1 27.4 14l-4.6 4 4.7 4.6 2.1-1.5c1.9-1.3 1.9-3.7 0-5z"/></svg>';
+    }
+
     function playBadge(){
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></svg><span><strong>Baixar aplicativo</strong><small>Disponível na Google Play</small></span>';
+      return googlePlayMark('cj-google-play-mark')+'<span><small>DISPONÍVEL NO</small><strong>Google Play</strong></span>';
     }
 
     function mountAppPromos(){
-      if(isAppleMobile()) return;
       var priceAnchor=document.getElementById('heroPriceAnchor');
       if(priceAnchor&&!document.querySelector('.cj-play-hero')){
         var heroApp=document.createElement('div');
         heroApp.className='cj-play-hero';
-        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><span class="cj-play-hero__new">APP</span><span class="cj-play-hero__copy"><strong>Também disponível no aplicativo</strong><small>Atendimentos e documentos no celular.</small></span><span class="cj-play-hero__arrow">›</span></a>';
+        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><span class="cj-play-hero__playmark">'+googlePlayMark('')+'</span><span class="cj-play-hero__copy"><strong>Baixe o app ConsultaJá24h</strong><small>Disponível na Google Play</small></span><span class="cj-play-hero__arrow">›</span></a>';
         heroApp.querySelector('a').addEventListener('click',function(){trackAppDownload('landing_hero')});
         priceAnchor.parentNode.insertBefore(heroApp,priceAnchor.nextSibling);
       }
@@ -39,7 +42,7 @@
         var appSection=document.createElement('section');
         appSection.className='cj-app-callout reveal visible';
         appSection.setAttribute('aria-labelledby','cjAppCalloutTitle');
-        appSection.innerHTML='<div class="cj-app-callout__inner"><div class="cj-app-callout__icon"><img src="/icon-192.png" alt="" loading="lazy"></div><div class="cj-app-callout__copy"><div class="cj-app-callout__eyebrow">CONSULTAJÁ24H NO CELULAR</div><h2 id="cjAppCalloutTitle">Da próxima vez, abra o app.</h2><p>Atendimentos e documentos reunidos em um só lugar.</p></div><a class="cj-app-callout__play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play">'+playBadge()+'</a></div>';
+        appSection.innerHTML='<div class="cj-app-callout__inner"><div class="cj-app-callout__icon"><img src="/icon-192.png" alt="" loading="lazy"></div><div class="cj-app-callout__copy"><div class="cj-app-callout__eyebrow">CONSULTAJÁ24H NO CELULAR</div><h2 id="cjAppCalloutTitle">Leve a ConsultaJá24h com você.</h2><p>Acesse atendimentos e documentos direto pelo app.</p></div><a class="cj-app-callout__play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play">'+playBadge()+'</a></div>';
         appSection.querySelector('a').addEventListener('click',function(){trackAppDownload('landing_section')});
         finalCta.parentNode.insertBefore(appSection,finalCta);
       }
@@ -109,9 +112,9 @@
 
     function mountVisualPolish(){
       document.body.classList.add('cj-ceo-refined');
-      if(document.getElementById('cj-mobile-polish-v4')) return;
+      if(document.getElementById('cj-mobile-polish-v5')) return;
       var style=document.createElement('style');
-      style.id='cj-mobile-polish-v4';
+      style.id='cj-mobile-polish-v5';
       style.textContent='\
       body.cj-ceo-refined{background:#07100d}\
       body.cj-ceo-refined .hero{background:#f4f6f1;color:#15382f;border:1px solid #dce7df;box-shadow:0 30px 80px rgba(0,0,0,.18);border-radius:30px;margin-top:18px;margin-bottom:22px;overflow:hidden}\
@@ -128,11 +131,13 @@
       body.cj-ceo-refined .hero .hero__intent-btn--primary{background:#123f33!important;border-color:#123f33!important;color:#efffe9!important}\
       body.cj-ceo-refined .hero .hero__intent-icon{color:#14976e!important;filter:none!important}\
       body.cj-ceo-refined .hero .hero__intent-btn--primary .hero__intent-icon{color:#9bea45!important}\
-      body.cj-ceo-refined .hero .cj-play-hero__link{background:#eaf2ec!important;border-color:#cbdcd0!important;color:#173c31!important}\
-      body.cj-ceo-refined .hero .cj-play-hero__copy strong{color:#173c31!important}\
-      body.cj-ceo-refined .hero .cj-play-hero__copy small{color:#65776e!important}\
-      body.cj-ceo-refined .hero .cj-play-hero__new{background:#173c31!important;color:#baf46f!important}\
-      body.cj-ceo-refined .hero .cj-play-hero__arrow{color:#0b8f66!important}\
+      body.cj-ceo-refined .hero .cj-play-hero__link{background:#07100d!important;border-color:#25362f!important;color:#fff!important}\
+      body.cj-ceo-refined .hero .cj-play-hero__copy strong{color:#fff!important}\
+      body.cj-ceo-refined .hero .cj-play-hero__copy small{color:#b8c3bd!important}\
+      body.cj-ceo-refined .hero .cj-play-hero__arrow{color:#9bea45!important}\
+      .cj-play-hero__playmark{width:30px;height:34px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}\
+      .cj-play-hero__playmark svg{display:block;width:26px;height:30px}\
+      .cj-google-play-mark{display:block;width:26px!important;height:30px!important;flex:0 0 auto}\
       body.cj-ceo-refined .how-section{background:#f2f5f0!important;color:#173c31!important;border-top:1px solid #dbe5df!important;border-bottom:1px solid #dbe5df!important}\
       body.cj-ceo-refined .how-section .section-label{color:#0b8f66!important}\
       body.cj-ceo-refined .how-section .section-title{color:#173c31!important}\
@@ -146,31 +151,37 @@
       .cj-flow-mini__icon{width:32px;height:32px;border-radius:10px;background:#e4f5e8;color:#0b8f66;display:flex;align-items:center;justify-content:center;flex:0 0 auto}\
       .cj-flow-mini__icon svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}\
       .cj-flow-mini__copy{min-width:0;text-align:left}.cj-flow-mini__copy strong{display:block;font-size:.75rem;color:#21483b}.cj-flow-mini__copy small{display:block;margin-top:2px;font-size:.65rem;line-height:1.3;color:#74857d}\
-      body.cj-ceo-refined .cj-app-callout{background:#f2f5f0;border-color:#dbe5df}\
-      body.cj-ceo-refined .cj-app-callout__inner{background:#123f33;border-color:#2c6755;box-shadow:0 18px 50px rgba(0,0,0,.16)}\
+      body.cj-ceo-refined .cj-app-callout{background:#07100d!important;border-color:#1b2c25!important}\
+      body.cj-ceo-refined .cj-app-callout__inner{background:#10251b!important;border-color:#2c6755;box-shadow:0 18px 50px rgba(0,0,0,.16)}\
+      body.cj-ceo-refined .cj-app-callout__play{background:#050706!important;color:#fff!important;border:1px solid #3a413d!important;box-shadow:none!important}\
+      body.cj-ceo-refined .cj-app-callout__play span{display:flex;flex-direction:column;align-items:flex-start}\
+      body.cj-ceo-refined .cj-app-callout__play small{color:#c5ccc8!important;font-size:9px!important;letter-spacing:.08em!important;line-height:1.1!important}\
+      body.cj-ceo-refined .cj-app-callout__play strong{color:#fff!important;font-size:18px!important;line-height:1.05!important}\
       body.cj-ceo-refined .cj-video-section video{aspect-ratio:9/16;object-fit:cover;background:#08120f!important}\
       @media(max-width:720px){\
         body.cj-ceo-refined .nav__in{padding:11px 14px!important}\
         body.cj-ceo-refined .nav__logo{font-size:16px!important}\
         body.cj-ceo-refined .nav__cta-link{min-height:38px!important;padding:9px 11px!important;font-size:11.5px!important;border-radius:11px!important}\
-        body.cj-ceo-refined .hero{margin:0!important;border-radius:0 0 26px 26px!important;border:0!important;box-shadow:0 14px 34px rgba(0,0,0,.12)!important;padding:24px 16px 24px!important;align-items:stretch!important;text-align:left!important}\
-        body.cj-ceo-refined .hero #heroTitle{font-size:clamp(30px,9vw,38px)!important;line-height:1.03!important;letter-spacing:-.048em!important;margin:0 0 12px!important;text-align:left!important;max-width:95%!important}\
-        body.cj-ceo-refined .hero #heroSub{font-size:14.5px!important;line-height:1.47!important;max-width:96%!important;margin:0 0 17px!important;text-align:left!important}\
+        body.cj-ceo-refined .hero{margin:0!important;border-radius:0 0 24px 24px!important;border:0!important;box-shadow:0 16px 34px rgba(0,0,0,.24)!important;padding:25px 16px 24px!important;align-items:stretch!important;text-align:left!important;background:linear-gradient(180deg,#0d1a16 0%,#07100d 100%)!important;color:#f7fbf8!important}\
+        body.cj-ceo-refined .hero #heroTitle{font-size:clamp(30px,9vw,38px)!important;line-height:1.03!important;letter-spacing:-.048em!important;margin:0 0 12px!important;text-align:left!important;max-width:95%!important;color:#f7fbf8!important}\
+        body.cj-ceo-refined .hero #heroTitle em{background:linear-gradient(135deg,#9bea45,#43df7e)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important}\
+        body.cj-ceo-refined .hero #heroSub{font-size:14.5px!important;line-height:1.47!important;max-width:96%!important;margin:0 0 17px!important;text-align:left!important;color:#b9c8c0!important}\
         body.cj-ceo-refined .hero #heroCTA{width:100%!important;max-width:none!important;min-height:56px!important;border-radius:14px!important;font-size:15.5px!important;margin:0!important}\
-        body.cj-ceo-refined .hero #heroReviewProof{font-size:11.5px!important;line-height:1.45!important;margin:10px 0 0!important;text-align:center!important;justify-content:center!important}\
+        body.cj-ceo-refined .hero #heroReviewProof{font-size:11.5px!important;line-height:1.45!important;margin:10px 0 0!important;text-align:center!important;justify-content:center!important;color:#a8b7af!important}\
+        body.cj-ceo-refined .hero #heroReviewProof strong{color:#cff896!important}\
         body.cj-ceo-refined .hero #heroPriceAnchor{margin:10px 0 0!important;align-items:flex-start!important;gap:4px!important}\
-        body.cj-ceo-refined .hero__proof-row{font-size:11.5px!important;line-height:1.4!important;justify-content:flex-start!important}\
-        body.cj-ceo-refined .hero .cj-play-hero{margin:12px 0 0!important;max-width:none!important}\
-        body.cj-ceo-refined .hero .cj-play-hero__link{padding:10px 11px!important;border-radius:13px!important;gap:9px!important}\
-        body.cj-ceo-refined .hero .cj-play-hero__new{font-size:8px!important;padding:4px 5px!important}\
-        body.cj-ceo-refined .hero .cj-play-hero__copy strong{font-size:12.5px!important}\
-        body.cj-ceo-refined .hero .cj-play-hero__copy small{font-size:10.5px!important}\
+        body.cj-ceo-refined .hero__proof-row{font-size:11.5px!important;line-height:1.4!important;justify-content:flex-start!important;color:#b1c0b8!important}\
+        body.cj-ceo-refined .hero .cj-play-hero{margin:13px 0 0!important;max-width:none!important}\
+        body.cj-ceo-refined .hero .cj-play-hero__link{padding:11px 12px!important;border-radius:14px!important;gap:10px!important;background:#050706!important;border-color:#303834!important}\
+        body.cj-ceo-refined .hero .cj-play-hero__copy strong{font-size:13px!important;color:#fff!important}\
+        body.cj-ceo-refined .hero .cj-play-hero__copy small{font-size:10px!important;color:#b9c1bd!important;text-transform:uppercase!important;letter-spacing:.06em!important}\
         body.cj-ceo-refined .hero .hero__intent{margin:18px 0 0!important;max-width:none!important;width:100%!important}\
-        body.cj-ceo-refined .hero .hero__intent-title{font-size:12px!important;line-height:1.35!important;margin-bottom:9px!important;text-align:left!important}\
+        body.cj-ceo-refined .hero .hero__intent-title{font-size:12px!important;line-height:1.35!important;margin-bottom:9px!important;text-align:left!important;color:#c6d2cc!important}\
         body.cj-ceo-refined .hero .hero__intent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}\
-        body.cj-ceo-refined .hero .hero__intent-btn{min-height:46px!important;padding:9px 9px!important;font-size:11.5px!important;border-radius:12px!important;gap:7px!important;text-align:left!important;justify-content:flex-start!important}\
-        body.cj-ceo-refined .hero .hero__intent-icon{width:17px!important;height:17px!important}\
-        body.cj-ceo-refined .hero #heroSecurity{font-size:10.5px!important;line-height:1.4!important;margin:12px 0 0!important;text-align:center!important}\
+        body.cj-ceo-refined .hero .hero__intent-btn{min-height:46px!important;padding:9px 9px!important;font-size:11.5px!important;border-radius:12px!important;gap:7px!important;text-align:left!important;justify-content:flex-start!important;background:#102019!important;border-color:#263d33!important;color:#eef6f1!important;box-shadow:none!important}\
+        body.cj-ceo-refined .hero .hero__intent-btn--primary{background:#163624!important;border-color:#7fd84a!important;color:#e9ffc9!important}\
+        body.cj-ceo-refined .hero .hero__intent-icon{width:17px!important;height:17px!important;color:#79dd7f!important}\
+        body.cj-ceo-refined .hero #heroSecurity{font-size:10.5px!important;line-height:1.4!important;margin:12px 0 0!important;text-align:center!important;color:#8fa098!important}\
         body.cj-ceo-refined .section-inner{padding-left:0!important;padding-right:0!important}\
         body.cj-ceo-refined .section-label,body.cj-ceo-refined .section-title,body.cj-ceo-refined .section-sub{text-align:left!important}\
         body.cj-ceo-refined .section-title{font-size:1.72rem!important;line-height:1.08!important}\
@@ -191,13 +202,13 @@
         body.cj-ceo-refined .specialty-bridge{padding:30px 14px 38px!important}\
         body.cj-ceo-refined .specialty-bridge__inner{padding:18px 14px!important;border-radius:20px!important}\
         body.cj-ceo-refined .specialty-mini{padding:13px 11px!important;border-radius:14px!important}\
-        body.cj-ceo-refined .cj-app-callout{padding:26px 14px!important}\
-        body.cj-ceo-refined .cj-app-callout__inner{grid-template-columns:46px 1fr!important;gap:12px!important;padding:18px 15px!important;border-radius:19px!important}\
+        body.cj-ceo-refined .cj-app-callout{padding:26px 14px!important;background:#07100d!important}\
+        body.cj-ceo-refined .cj-app-callout__inner{grid-template-columns:46px 1fr!important;gap:12px!important;padding:18px 15px!important;border-radius:19px!important;background:#10251b!important}\
         body.cj-ceo-refined .cj-app-callout__icon{width:46px!important;height:46px!important;border-radius:12px!important}\
         body.cj-ceo-refined .cj-app-callout__copy h2{font-size:20px!important;margin:4px 0 5px!important}\
         body.cj-ceo-refined .cj-app-callout__copy p{font-size:12.5px!important;line-height:1.45!important}\
         body.cj-ceo-refined .cj-app-callout__eyebrow{font-size:9px!important}\
-        body.cj-ceo-refined .cj-app-callout__play{grid-column:1/-1!important;justify-self:stretch!important;margin-top:2px!important;min-height:54px!important;padding:11px 14px!important;border-radius:13px!important}\
+        body.cj-ceo-refined .cj-app-callout__play{grid-column:1/-1!important;justify-self:stretch!important;margin-top:2px!important;min-height:56px!important;padding:10px 15px!important;border-radius:13px!important;background:#050706!important;border:1px solid #3a413d!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important}\
         body.cj-ceo-refined .cj-conversion-dock{bottom:calc(7px + env(safe-area-inset-bottom,0px))!important;width:calc(100% - 16px)!important;min-height:54px!important;padding:6px 6px 6px 10px!important;border-radius:14px!important;gap:7px!important}\
         body.cj-ceo-refined .cj-conversion-dock__title{font-size:12px!important}\
         body.cj-ceo-refined .cj-conversion-dock__sub{display:none!important}\
