@@ -92,16 +92,6 @@
       });
     }
 
-    function mountHeroMedia(){
-      if(!window.matchMedia||!window.matchMedia('(min-width:900px)').matches)return;
-      var hero=document.querySelector('.hero');
-      if(!hero||hero.querySelector('.cj-hero-media'))return;
-      var media=document.createElement('div');
-      media.className='cj-hero-media';media.setAttribute('aria-hidden','true');
-      media.innerHTML='<img src="/consulta/hero-medica-online.jpg" alt="" decoding="async" fetchpriority="high">';
-      hero.appendChild(media);
-    }
-
     function simplifyMobileIntents(){
       var grid=document.querySelector('.hero__intent-grid');
       if(!grid||document.querySelector('.cj-intent-more'))return;
@@ -134,10 +124,6 @@
         body.cj-ceo-refined .hero .hero__intent-btn--primary{background:rgba(155,234,69,.09)!important;border-color:rgba(155,234,69,.32)!important;color:#efffda!important}
         body.cj-ceo-refined .hero .hero__intent-icon{color:#57dfa0!important;filter:none!important}
         body.cj-ceo-refined .hero .hero__intent-btn--primary .hero__intent-icon{color:#a8f04a!important}
-        .cj-hero-media{position:absolute;right:18px;top:18px;bottom:18px;width:40%;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.08);z-index:0}
-        .cj-hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,14,10,.46),transparent 35%),linear-gradient(180deg,transparent 58%,rgba(4,12,8,.25))}
-        .cj-hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 28%;filter:saturate(.86) contrast(1.02)}
-        .hero>*:not(.cj-hero-media){position:relative;z-index:2}
         .cj-play-hero{width:100%;max-width:640px;margin:13px auto 0!important}
         .cj-play-hero__link{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border-radius:15px;background:rgba(2,8,5,.72)!important;border:1px solid rgba(120,230,165,.18)!important;color:#fff!important;text-decoration:none;backdrop-filter:blur(12px)}
         .cj-play-hero__appicon{width:40px;height:40px;border-radius:10px;object-fit:cover;flex:0 0 auto}
@@ -164,12 +150,15 @@
         body.cj-ceo-refined .cj-app-callout__play{background:#030604!important;color:#fff!important;border:1px solid rgba(255,255,255,.14)!important}
         .cj-intent-more{display:none}
         @media(min-width:900px){
-          body.cj-ceo-refined .hero{min-height:590px!important;padding:62px 49% 48px 48px!important;align-items:flex-start!important;text-align:left!important}
-          body.cj-ceo-refined .hero #heroTitle,body.cj-ceo-refined .hero #heroSub,body.cj-ceo-refined .hero #heroCTA,body.cj-ceo-refined .hero #heroPriceAnchor,body.cj-ceo-refined .hero .hero__intent,body.cj-ceo-refined .hero #heroReviewProof,body.cj-ceo-refined .hero #heroSecurity,body.cj-ceo-refined .hero .cj-play-hero{margin-left:0!important;margin-right:0!important;max-width:540px!important}
-          body.cj-ceo-refined .hero #heroTitle{font-size:clamp(42px,4.5vw,66px)!important;line-height:.98!important;letter-spacing:-.055em!important}
-          body.cj-ceo-refined .hero #heroSub{font-size:16px!important;line-height:1.5!important}
+          body.cj-ceo-refined .hero{min-height:0!important;padding:58px 64px 50px!important;align-items:center!important;text-align:center!important}
+          body.cj-ceo-refined .hero #heroTitle,body.cj-ceo-refined .hero #heroSub,body.cj-ceo-refined .hero #heroCTA,body.cj-ceo-refined .hero #heroPriceAnchor,body.cj-ceo-refined .hero .hero__intent,body.cj-ceo-refined .hero #heroReviewProof,body.cj-ceo-refined .hero #heroSecurity,body.cj-ceo-refined .hero .cj-play-hero{width:100%!important;margin-left:auto!important;margin-right:auto!important}
+          body.cj-ceo-refined .hero #heroTitle{max-width:820px!important;font-size:clamp(48px,4.2vw,64px)!important;line-height:.98!important;letter-spacing:-.055em!important}
+          body.cj-ceo-refined .hero #heroSub{max-width:680px!important;font-size:16px!important;line-height:1.5!important}
+          body.cj-ceo-refined .hero #heroCTA,body.cj-ceo-refined .hero #heroPriceAnchor{max-width:640px!important}
+          body.cj-ceo-refined .hero .hero__intent{max-width:780px!important}
+          body.cj-ceo-refined .hero #heroReviewProof,body.cj-ceo-refined .hero #heroSecurity{max-width:700px!important;justify-content:center!important;text-align:center!important}
+          body.cj-ceo-refined .hero .cj-play-hero{max-width:700px!important}
         }
-        @media(max-width:899px){.cj-hero-media{display:none!important}}
         @media(max-width:720px){
           body.cj-ceo-refined .nav__in{padding:10px 13px!important}
           body.cj-ceo-refined .nav__logo{font-size:15px!important}
@@ -246,7 +235,7 @@
       syncDock();window.addEventListener('scroll',syncDock,{passive:true});window.addEventListener('resize',syncDock,{passive:true});
     }
 
-    syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();mountHeroMedia();mountVisualPolish();setupVideo();mountDock();
+    syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();mountVisualPolish();setupVideo();mountDock();
     setTimeout(syncTrustNumbers,800);setTimeout(syncTrustNumbers,2200);setTimeout(syncTrustNumbers,4500);setTimeout(fixPixStatusVisibility,250);setTimeout(fixPixStatusVisibility,900);
     var reviewsBadge=document.getElementById('reviewsBadgeTxt');
     if(reviewsBadge&&typeof MutationObserver!=='undefined'){new MutationObserver(function(){var atual=reviewsBadge.innerHTML;if(/5,0 no Google|\+2\.000 atendimentos/.test(atual))syncTrustNumbers()}).observe(reviewsBadge,{childList:true,subtree:true,characterData:true})}
