@@ -60,3 +60,15 @@
 @keyframes cjV6SheetOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(18px)}}
 @keyframes cjV6Sheet{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.cj-menu-v6,.cj-menu-v6__sheet{animation:none!important}}
+
+
+/* Native Android app CTA — strongest only after a completed consultation. */
+.cj-end-cta-v6.is-app{padding:17px;border-color:rgba(67,223,126,.24);background:linear-gradient(145deg,rgba(67,223,126,.09),rgba(8,20,15,.58));box-shadow:0 18px 45px rgba(0,0,0,.2);text-align:left}
+.cj-end-cta-v6__apphead{display:flex;align-items:center;gap:11px}
+.cj-end-cta-v6__apphead>img{width:46px;height:46px;border-radius:13px;object-fit:cover;box-shadow:0 9px 22px rgba(0,0,0,.28)}
+.cj-end-cta-v6.is-app .cj-end-cta-v6__title{font-size:1.06rem;line-height:1.12}
+.cj-end-cta-v6.is-app .cj-end-cta-v6__sub{margin-top:10px;color:rgba(235,242,238,.56)}
+.cj-end-cta-v6__play{display:flex;align-items:center;justify-content:center;min-height:62px;margin-top:11px;border:1px solid rgba(120,230,165,.2);border-radius:14px;background:rgba(120,230,165,.08);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.cj-end-cta-v6__play:active{transform:scale(.985)}
+.cj-end-cta-v6__play img{display:block;width:190px;max-width:78%;height:auto}
+.cj-end-cta-v6.is-app .cj-end-cta-v6__actions{margin-top:9px}
