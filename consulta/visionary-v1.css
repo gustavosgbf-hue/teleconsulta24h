@@ -300,3 +300,92 @@ section:not(.hero):not(.specialty-bridge){
   .pain-grid{grid-template-columns:1fr 1fr!important}
   .cj-conversion-dock__sub{display:none}
 }
+
+
+/* Android app discovery: secondary in the hero, stronger near the final decision point. */
+.cj-play-hero{order:8;width:100%;max-width:520px;margin:11px auto 0}
+.cj-play-hero__link{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:1px solid rgba(67,223,126,.16);border-radius:15px;background:rgba(67,223,126,.035);color:rgba(246,248,247,.84);text-decoration:none;text-align:left;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.cj-play-hero__link:hover{transform:translateY(-1px);border-color:rgba(67,223,126,.32);background:rgba(67,223,126,.06)}
+.cj-play-hero__new{flex:0 0 auto;padding:4px 6px;border-radius:7px;background:#43df7e;color:#061409;font-size:.5rem;font-weight:900;letter-spacing:.08em}
+.cj-play-hero__copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:2px}
+.cj-play-hero__copy strong{font-size:.74rem;line-height:1.2;color:#f4f8f6}
+.cj-play-hero__copy small{font-size:.61rem;line-height:1.35;color:rgba(246,248,247,.46)}
+.cj-play-hero__arrow{flex:0 0 auto;color:#78f25f;font-size:1.3rem;line-height:1}
+
+.cj-app-callout{padding:34px 20px;border-top:1px solid rgba(255,255,255,.055);background:linear-gradient(180deg,rgba(67,223,126,.025),rgba(4,7,6,.18))}
+.cj-app-callout__inner{max-width:920px;margin:0 auto;display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:center;gap:20px;padding:24px 26px;border:1px solid rgba(67,223,126,.17);border-radius:24px;background:linear-gradient(135deg,rgba(16,35,28,.94),rgba(7,14,11,.96));box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.cj-app-callout__icon{width:72px;height:72px;border-radius:19px;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.28)}
+.cj-app-callout__icon img{display:block;width:100%;height:100%;object-fit:cover}
+.cj-app-callout__eyebrow{font-size:.58rem;font-weight:850;letter-spacing:.13em;color:#78f25f}
+.cj-app-callout__copy h2{margin:5px 0 5px;font-family:'Outfit',sans-serif;font-size:1.42rem;line-height:1.08;letter-spacing:-.035em;color:#f7fbf8}
+.cj-app-callout__copy p{margin:0;max-width:520px;font-size:.78rem;line-height:1.5;color:rgba(246,248,247,.5)}
+.cj-app-callout__play{display:block;flex:0 0 auto;text-decoration:none}
+.cj-app-callout__play img{display:block;width:184px;height:auto}
+
+@media(max-width:720px){
+  .cj-play-hero{margin-top:9px}
+  .cj-app-callout{padding:20px 14px 26px}
+  .cj-app-callout__inner{grid-template-columns:56px minmax(0,1fr);gap:13px;padding:18px 16px;border-radius:20px}
+  .cj-app-callout__icon{width:56px;height:56px;border-radius:15px}
+  .cj-app-callout__copy h2{font-size:1.14rem}
+  .cj-app-callout__copy p{font-size:.7rem}
+  .cj-app-callout__play{grid-column:1 / -1;justify-self:center;margin-top:1px}
+  .cj-app-callout__play img{width:196px}
+}
+
+/* Compact dark mobile refinement; payment UI and handlers are untouched. */
+body>.livebar{position:relative!important;padding:8px 14px!important;font-size:12px!important;box-shadow:none!important}
+.bg-glow{display:none}
+.hero::before{display:none!important}
+.nav{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#060c09!important}
+.nav__in{max-width:1120px!important;flex-wrap:nowrap!important;gap:14px!important;padding:14px 20px!important}
+.nav__brand{flex:0 1 auto!important;white-space:nowrap}.nav__actions{flex:0 0 auto!important;width:auto!important}
+.nav__logo{font-size:18px!important}.nav__logo .c3{color:#9faea5!important;-webkit-text-fill-color:currentColor!important;font-size:12px!important}
+.nav__brand>.live-dot{display:none}
+.nav__cta-full{display:inline!important}.nav__cta-short{display:none!important}
+.hero{padding:42px 20px 36px!important;max-width:1120px!important}
+.hero #heroTitle{order:1;font-size:clamp(36px,5.4vw,66px)!important;line-height:1.07!important;letter-spacing:-.045em!important;margin:0 auto 18px!important}
+.hero #heroSub{order:2;font-size:17px!important;max-width:530px!important;margin:0 auto 22px!important;color:#b2bdb5!important;line-height:1.55!important}
+#resumeCare{order:3!important}
+.hero #heroCTA{order:4!important;width:100%;max-width:520px!important;min-height:60px!important;border-radius:16px!important;margin:0!important;animation:none!important;font-size:17px!important;box-shadow:0 8px 28px #43df7e20!important}
+.hero #heroReviewProof{order:5!important;max-width:560px!important;margin:13px auto 0!important;padding:0!important;font-size:13px!important;color:#aab9af!important;animation:none!important}
+.hero #heroReviewProof strong{color:#c4f684!important}
+.hero #heroPriceAnchor{order:6!important;margin:12px auto 0!important;gap:6px!important}
+.hero__proof-row{font-size:13px!important;color:#a8b8ad!important;line-height:1.5!important}
+.hero .cj-play-hero{order:7!important;margin:18px auto 0!important;max-width:520px}
+.cj-play-hero__link{padding:13px 14px;border:1px solid #43df7e40;background:#11261b;border-radius:14px;gap:12px}
+.cj-play-hero__new{font-size:10px;padding:5px 6px;border-radius:5px;background:#9bea45}
+.cj-play-hero__copy strong{font-size:15px;font-weight:600}.cj-play-hero__copy small{font-size:13px;color:#acbfb1;margin-top:2px}
+.hero .hero__intent{order:8!important;display:block!important;max-width:620px!important;margin:22px auto 0!important}
+.hero__intent-title{font-size:13px!important;line-height:1.5!important;color:#b7c4bb!important;margin-bottom:12px!important}
+.hero__intent-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+.hero .hero__intent-btn{font-size:14px!important;min-height:54px!important;padding:12px!important;gap:9px!important;border-radius:13px!important;box-shadow:none!important;animation:none!important;color:#d7e0da!important}
+.hero .hero__intent-btn--primary{background:#142b1a!important;border-color:#9bea4560!important;color:#d4faa1!important}
+.hero__intent-btn--primary::after{display:none!important}.hero__intent-icon{flex-shrink:0;width:19px!important;height:19px!important}
+.hero #heroSecurity{order:10!important;font-size:12px!important;line-height:1.55!important;margin:18px auto 0!important;padding:0!important;color:#94a69a!important;animation:none!important}
+.cj-social-proof{display:none}
+/* Single dock: the old duplicate stays hidden, and neither covers checkout. */
+.sticky-cta,body.mo-open .cj-conversion-dock{display:none!important}
+.cj-conversion-dock{background:#0d1912;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:16px;box-shadow:0 8px 25px #0004}
+.cj-conversion-dock__title{font-size:14px}.cj-conversion-dock__sub{font-size:12px}.cj-conversion-dock__btn{font-size:14px;box-shadow:none;border-radius:11px}
+/* Local, text-based store CTA: no badge download, no extra library. */
+.cj-app-callout{padding:40px 20px}.cj-app-callout__inner{max-width:1040px;padding:28px;box-shadow:none;background:#102218;border-color:#43df7e35}
+.cj-app-callout__icon{width:64px;height:64px;border-radius:17px;box-shadow:none}.cj-app-callout__eyebrow{font-size:12px;letter-spacing:.07em}
+.cj-app-callout__copy h2{font-size:28px;line-height:1.15;margin:8px 0 10px}.cj-app-callout__copy p{font-size:16px;color:#aec1b3;line-height:1.55}
+.cj-app-callout__play{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 20px;min-height:62px;background:linear-gradient(110deg,#9bea45,#43df7e);color:#072310;border-radius:13px;text-decoration:none}
+.cj-app-callout__play svg{width:25px;height:25px;flex-shrink:0}.cj-app-callout__play strong{display:block;font-size:16px;font-weight:700}.cj-app-callout__play small{display:block;font-size:12px;margin-top:3px;color:#204c2b}
+.section-sub{color:#a3b2a8!important}.faq-q{font-size:16px!important}.faq-a p{font-size:15px!important;color:#aebbb2!important}
+.hero a:focus-visible,.nav a:focus-visible,.cj-app-callout a:focus-visible{outline:2px solid #9bea45;outline-offset:4px}
+@media(max-width:720px){
+ .nav__in{padding:12px 16px!important}.nav__links{display:none!important}.nav__logo{font-size:17px!important}.nav__cta-link{min-height:40px!important;font-size:12px!important;padding:10px 12px!important;box-shadow:none!important}
+ .hero{padding:26px 16px 28px!important}.hero #heroTitle{font-size:clamp(27px,8vw,36px)!important;line-height:1.1!important;letter-spacing:-.045em!important;margin-bottom:14px!important;max-width:100%!important}
+ .hero #heroSub{font-size:16px!important;line-height:1.5!important;margin-bottom:20px!important;max-width:100%!important;text-wrap:initial}
+ .hero #heroCTA{min-height:58px!important;font-size:16px!important;border-radius:14px!important}
+ .hero #heroReviewProof{font-size:12px!important;line-height:1.6!important;margin-top:12px!important;gap:6px!important}
+ .hero__proof-row{font-size:12px!important}.hero #heroPriceAnchor{gap:5px!important;margin-top:10px!important}
+ .hero .cj-play-hero{margin-top:16px!important}.cj-play-hero__copy strong{font-size:14px}.cj-play-hero__copy small{font-size:12px}.cj-play-hero__link{padding:12px}
+ .hero .hero__intent{margin-top:19px!important}.hero__intent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.hero .hero__intent-btn{font-size:13px!important;min-height:52px!important;padding:11px 10px!important;text-align:left;justify-content:flex-start!important}
+ .cj-app-callout{padding:26px 16px}.cj-app-callout__inner{padding:22px 18px;grid-template-columns:48px 1fr;gap:14px;border-radius:18px}.cj-app-callout__icon{width:48px;height:48px;border-radius:13px}.cj-app-callout__copy h2{font-size:24px}.cj-app-callout__copy p{font-size:14px}.cj-app-callout__eyebrow{font-size:10px}.cj-app-callout__play{justify-self:stretch;margin-top:4px}
+ .pain-section,.how-section,.price-section,.reviews-section,.faq-section{padding:40px 16px!important}.cj-conversion-dock{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+}
+@media(prefers-reduced-motion:reduce){.hero *, .nav *, .cj-conversion-dock{animation:none!important;transition:none!important}}

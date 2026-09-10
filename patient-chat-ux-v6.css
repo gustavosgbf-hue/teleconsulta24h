@@ -60,3 +60,97 @@
 @keyframes cjV6SheetOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(18px)}}
 @keyframes cjV6Sheet{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.cj-menu-v6,.cj-menu-v6__sheet{animation:none!important}}
+
+
+/* Native Android app CTA — strongest only after a completed consultation. */
+.cj-end-cta-v6.is-app{padding:17px;border-color:rgba(67,223,126,.24);background:linear-gradient(145deg,rgba(67,223,126,.09),rgba(8,20,15,.58));box-shadow:0 18px 45px rgba(0,0,0,.2);text-align:left}
+.cj-end-cta-v6__apphead{display:flex;align-items:center;gap:11px}
+.cj-end-cta-v6__apphead>img{width:46px;height:46px;border-radius:13px;object-fit:cover;box-shadow:0 9px 22px rgba(0,0,0,.28)}
+.cj-end-cta-v6.is-app .cj-end-cta-v6__title{font-size:1.06rem;line-height:1.12}
+.cj-end-cta-v6.is-app .cj-end-cta-v6__sub{margin-top:10px;color:rgba(235,242,238,.56)}
+.cj-end-cta-v6__play{display:flex;align-items:center;justify-content:center;min-height:62px;margin-top:11px;border:1px solid rgba(120,230,165,.2);border-radius:14px;background:rgba(120,230,165,.08);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.cj-end-cta-v6__play:active{transform:scale(.985)}
+.cj-end-cta-v6__play img{display:block;width:190px;max-width:78%;height:auto}
+.cj-end-cta-v6.is-app .cj-end-cta-v6__actions{margin-top:9px}
+
+/* Completed care: same permission gate, new presentation. */
+#s-encerrado{background:#07100c;color:#edf4ee}
+#s-encerrado .s-inner{padding:28px 20px 48px!important;max-width:none!important}
+#s-encerrado .enc-content{max-width:720px;text-align:left}
+#s-encerrado .enc-heading{padding:30px 28px;background:#101b14;border:1px solid #26382c;border-radius:20px;margin-bottom:18px;position:relative}
+#s-encerrado .enc-icon{width:48px;height:48px;display:grid;place-items:center;background:#172d1b;border-radius:14px;color:#9bea45;margin:0 0 18px;font-size:0}
+#s-encerrado .enc-icon svg{width:29px;height:29px}
+#s-encerrado .enc-titulo{font:500 30px/1.16 'Outfit',sans-serif;letter-spacing:-.035em;color:#f2f7f3;margin-bottom:12px}
+#s-encerrado .enc-sub{font:400 16px/1.6 'Outfit',sans-serif;color:#a8b9ad;max-width:520px;margin:0}
+#s-encerrado .enc-sub span{color:#9caf9f!important;font-size:13px!important;display:inline-block;margin-top:10px}
+#s-encerrado #btn-avaliar-google{min-height:48px;justify-content:center;padding:13px 20px!important;border-radius:11px!important;background:#9bea45!important;color:#102a15!important;box-shadow:none!important;font-size:15px!important;margin:22px 0 0!important;font-weight:500!important}
+#s-encerrado .enc-documentos,#s-encerrado .enc-chat{background:#101b14;border:1px solid #26382c;border-radius:18px;padding:23px;margin:0 0 18px}
+#s-encerrado .enc-documentos__titulo,#s-encerrado .enc-chat__titulo{text-transform:none;letter-spacing:-.02em;color:#eaf4ec;font-size:19px;font-weight:500;margin:0 0 6px}
+#s-encerrado .enc-documentos__sub,#s-encerrado .enc-chat__sub{font-size:14px;line-height:1.5;color:#a6b9ac;margin-bottom:16px}
+#s-encerrado .enc-documento{background:#15251a;border:1px solid #2b4230;border-radius:12px;min-height:69px;padding:12px;color:#e7f2e8;gap:12px}
+#s-encerrado .enc-documento__icone{background:#233c24;color:#c0f387;width:38px;height:38px;flex-basis:38px;border-radius:10px}
+#s-encerrado .enc-documento__nome{font-size:15px;font-weight:500;white-space:normal;overflow-wrap:anywhere;line-height:1.4}
+#s-encerrado .enc-documento__acao{font-size:12px;color:#a1b7a5;margin-top:3px}
+#s-encerrado .cj-end-cta-v6{background:#101b14;border:1px solid #26382c;border-radius:18px;padding:25px;margin:0 0 18px;box-shadow:none;color:#edf5ee}
+#s-encerrado .cj-end-cta-v6.is-app{background:#102b1c;border-color:#315a3a;color:#f2f8ef;padding:26px}
+#s-encerrado .cj-end-cta-v6__apphead{align-items:flex-start;gap:14px}
+#s-encerrado .cj-end-cta-v6__apphead>img{width:46px;height:46px;border-radius:12px;box-shadow:none}
+#s-encerrado .cj-end-cta-v6__eyebrow{font-size:11px;letter-spacing:.12em;font-weight:500;color:#9bd478}
+#s-encerrado .cj-end-cta-v6__title{font-size:24px;line-height:1.2;letter-spacing:-.025em;font-weight:500;color:#f0f7ef;margin-top:8px}
+#s-encerrado .is-app .cj-end-cta-v6__eyebrow{color:#b3ea9b}
+#s-encerrado .is-app .cj-end-cta-v6__title{color:#f2f8ef}
+#s-encerrado .cj-end-cta-v6__sub{font-size:15px;line-height:1.6;color:#a9bcad;margin-top:12px}
+#s-encerrado .is-app .cj-end-cta-v6__sub{color:#bdd1c1}
+#s-encerrado .cj-end-cta-v6__play{background:transparent;border:0;justify-content:flex-start;min-height:60px;margin:12px 0 6px;padding:0}
+#s-encerrado .cj-end-cta-v6__play img{width:193px;max-width:100%;margin-left:-10px}
+#s-encerrado .cj-end-cta-v6__actions{margin-top:19px;padding-top:18px;border-top:1px solid #2a4131;gap:10px}
+#s-encerrado .is-app .cj-end-cta-v6__actions{border-color:#ffffff26}
+#s-encerrado .cj-end-cta-v6__btn{min-height:46px;padding:12px;font-size:14px;font-weight:500;border:1px solid #5b875d;background:#9bea45;color:#163c1d;border-radius:10px}
+#s-encerrado .cj-end-cta-v6__btn.secondary{background:transparent;color:#c4d8c8;border-color:#3f6046}
+#s-encerrado .is-app .cj-end-cta-v6__btn{background:#9bea45;color:#18391a;border-color:#9bea45}
+#s-encerrado .is-app .cj-end-cta-v6__btn.secondary{background:transparent;color:#d5e8d7;border-color:#537b5b}
+#s-encerrado .cj-end-cta-v6__micro{font-size:12px;color:#a8bdaa;margin-top:12px;line-height:1.5}
+#s-encerrado .enc-chat__lista{max-height:320px;gap:12px}
+#s-encerrado .enc-chat__bub{font-size:14px;line-height:1.6;padding:12px 14px}
+#s-encerrado .enc-chat__msg.medico .enc-chat__bub{background:#15251a;border-color:#2a4230;color:#d8e6d8}
+#s-encerrado .enc-chat__msg.paciente .enc-chat__bub{background:#223e27;border-color:#3b6040;color:#d9edd7}
+#s-encerrado .enc-chat__hora{font-size:11px;color:#97ac99}
+#s-encerrado .enc-chat__arquivo{background:#1b3220;border-color:#37543c;color:#c0e6b8;font-size:14px}
+#s-encerrado .has-end-actions .enc-new-consultation{display:none}
+#s-encerrado .enc-new-consultation button{color:#b8ed96!important;font-size:15px!important;min-height:48px}
+#s-encerrado .enc-footer{text-align:center;color:#8fa593!important;font-size:12px!important;margin-top:24px!important}
+#s-encerrado a:focus-visible,#s-encerrado button:focus-visible{outline:3px solid #9bea45;outline-offset:4px}
+@media(max-width:600px){
+#s-encerrado .s-inner{padding:20px 16px 38px!important}
+#s-encerrado .enc-heading{padding:24px 21px;border-radius:17px;margin-bottom:14px}
+#s-encerrado .enc-titulo{font-size:27px}
+#s-encerrado .enc-sub{font-size:15px}
+#s-encerrado #btn-avaliar-google{width:100%;margin-top:19px!important}
+#s-encerrado .enc-documentos,#s-encerrado .enc-chat{padding:20px;border-radius:16px;margin-bottom:14px}
+#s-encerrado .cj-end-cta-v6,#s-encerrado .cj-end-cta-v6.is-app{padding:22px 20px;border-radius:16px;margin-bottom:14px}
+#s-encerrado .cj-end-cta-v6__title{font-size:23px}
+#s-encerrado .cj-end-cta-v6__apphead>img{width:40px;height:40px;border-radius:10px}
+#s-encerrado .cj-end-cta-v6__sub{font-size:14px}
+#s-encerrado .cj-end-cta-v6__btn{font-size:13px;padding:11px 8px}
+}
+
+#s-encerrado .cj-end-cta-v6__play{display:flex;justify-content:center;gap:12px;min-height:64px;background:#9bea45;color:#092b11;border-radius:12px;margin:20px 0 0;padding:12px;text-decoration:none}
+#s-encerrado .cj-end-cta-v6__play svg{width:26px;height:26px;flex-shrink:0}
+#s-encerrado .cj-end-cta-v6__play strong{display:block;font-size:17px;font-weight:600}
+#s-encerrado .cj-end-cta-v6__play small{display:block;font-size:12px;margin-top:3px;color:#285532}
+body:has(#s-encerrado.active)>.nav{background:#07100c!important;border-bottom:1px solid #26382c!important;box-shadow:none!important}
+body:has(#s-encerrado.active)>.nav .c1{color:#edf4ee}body:has(#s-encerrado.active)>.nav .c2{background:none;-webkit-text-fill-color:#079764}
+body:has(#s-encerrado.active)>.nav .tag24{color:#9aafa1;-webkit-text-fill-color:currentColor}
+body:has(#s-encerrado.active) #nav-step{color:#59705e!important;font-size:11px!important}
+
+/* Single primary app action, compact completed-care header. */
+#s-encerrado .is-app .cj-end-cta-v6__btn{background:#1a3522;color:#d9edd6;border-color:#42684a}
+#s-encerrado .is-app .cj-end-cta-v6__play{background:linear-gradient(110deg,#9bea45,#43df7e)}
+#s-encerrado .enc-heading{display:grid;grid-template-columns:42px minmax(0,1fr);column-gap:14px;padding:24px}
+#s-encerrado .enc-icon{grid-row:1/span 2;width:42px;height:42px;margin:0}
+#s-encerrado .enc-titulo{font-size:25px;margin:0 0 8px}
+#s-encerrado .enc-sub{font-size:14px;line-height:1.55}
+#s-encerrado #btn-avaliar-google{grid-column:1/-1}
+#s-encerrado .enc-documentos__sub{display:none}
+#s-encerrado .enc-documentos__titulo{margin-bottom:14px}
+@media(max-width:600px){#s-encerrado .enc-heading{padding:22px 20px;column-gap:12px}#s-encerrado .enc-titulo{font-size:24px}}
