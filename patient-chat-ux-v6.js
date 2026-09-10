@@ -1,4 +1,4 @@
-/* ConsultaJa24h v6 — live consultation actions + post-consultation retention */
+/* ConsultaJa24h v7 — live consultation actions + post-consultation retention */
 (function(){
   'use strict';
   var TOKEN_KEY='cj_paciente_token';
@@ -20,6 +20,15 @@
       chevron:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 6 6 6-6 6"/></svg>'
     };return m[name]||m.account;
   }
+  function googlePlayMark(){
+    return '<svg class="cj-end-play-mark" viewBox="0 0 32 36" aria-hidden="true"><path fill="#00d7fe" d="M2 2.6v30.8c0 1.8 2 2.8 3.4 1.7L22.8 18 5.4.9C4-.2 2 .8 2 2.6z"/><path fill="#00f076" d="M5.4.9 22.8 18l4.6-4.5L8.8.6C7.7-.2 6.4-.1 5.4.9z"/><path fill="#ffd900" d="m22.8 18-17.4 17.1c1 1 2.4 1.1 3.5.4l18.6-12.9-4.7-4.6z"/><path fill="#ff3a44" d="M29.6 16.1 27.4 14l-4.6 4 4.7 4.6 2.1-1.5c1.9-1.3 1.9-3.7 0-5z"/></svg>';
+  }
+  function mountEndAppStyle(){
+    if(q('#cj-end-app-v7-style'))return;
+    var s=document.createElement('style');s.id='cj-end-app-v7-style';
+    s.textContent='#s-encerrado .cj-end-cta-v6.is-app{background:linear-gradient(145deg,#102b1c,#0b1d14)!important;border-color:#315a3a!important}#s-encerrado .cj-end-play-badge{display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;gap:10px!important;width:auto!important;min-height:54px!important;margin:14px 0 5px!important;padding:8px 14px!important;background:#040706!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:12px!important;color:#fff!important;text-decoration:none!important}#s-encerrado .cj-end-play-mark{width:27px;height:31px;display:block;flex:0 0 auto}#s-encerrado .cj-end-play-badge>span{display:flex;flex-direction:column;align-items:flex-start;gap:1px}#s-encerrado .cj-end-play-badge small{font:600 8px/1 "Outfit",sans-serif;letter-spacing:.09em;color:#c7cfca}#s-encerrado .cj-end-play-badge strong{font:600 17px/1.05 "Outfit",sans-serif;color:#fff}#s-encerrado .cj-end-cta-v6__micro{display:none!important}@media(max-width:760px){#s-encerrado .cj-end-cta-v6.is-app{padding:20px!important}#s-encerrado .cj-end-cta-v6__title{font-size:21px!important}#s-encerrado .cj-end-cta-v6__sub{font-size:13.5px!important;line-height:1.45!important}#s-encerrado .cj-end-cta-v6__actions{margin-top:14px!important;padding-top:14px!important}}';
+    document.head.appendChild(s);
+  }
   function doctorName(){
     var banner=q('#medicoNomeBanner'); if(banner&&banner.textContent.trim())return banner.textContent.trim();
     var p=q('#chatMedicoLabel'); var t=(p&&p.textContent)||'';
@@ -37,12 +46,7 @@
     closeMenu(true);
     var active=hasToken();
     var x=document.createElement('div');x.id='cjMenuV6';x.className='cj-menu-v6';
-    x.innerHTML='<div class="cj-menu-v6__sheet" role="dialog" aria-modal="true">'+
-      '<div class="cj-menu-v6__grab"></div><div class="cj-menu-v6__head"><div><div class="cj-menu-v6__eyebrow">ConsultaJá24h</div><div class="cj-menu-v6__title">Ações da consulta</div></div><button type="button" class="cj-menu-v6__x" data-cj-v6="close" aria-label="Fechar">×</button></div>'+
-      group('Consulta',item('Meus documentos','Receitas, atestados e arquivos','docs','docs')+item('Copiar link do atendimento','Para retomar esta consulta','copy','link'))+
-      group('Seu acesso',item(active?'Abrir minha área':'Ativar meu acesso',active?'Consultas e documentos organizados':'Retome consultas e documentos depois','access','account')+item(isAndroid()?'Baixar aplicativo':'Adicionar ao celular',isAndroid()?'Disponível na Google Play':'Acesso rápido neste aparelho','device','device'))+
-      group('Quando precisar novamente',item('Nova consulta','Clínica geral · Especialidades · Psicologia','new','plus')+item('Renovar receita','Acesse a ConsultaJá24h quando precisar','renew','renew'))+
-      '</div>';
+    x.innerHTML='<div class="cj-menu-v6__sheet" role="dialog" aria-modal="true">'+'<div class="cj-menu-v6__grab"></div><div class="cj-menu-v6__head"><div><div class="cj-menu-v6__eyebrow">ConsultaJá24h</div><div class="cj-menu-v6__title">Ações da consulta</div></div><button type="button" class="cj-menu-v6__x" data-cj-v6="close" aria-label="Fechar">×</button></div>'+group('Consulta',item('Meus documentos','Receitas, atestados e arquivos','docs','docs')+item('Copiar link do atendimento','Para retomar esta consulta','copy','link'))+group('Seu acesso',item(active?'Abrir minha área':'Ativar meu acesso',active?'Consultas e documentos organizados':'Retome consultas e documentos depois','access','account')+item(isAndroid()?'Baixar aplicativo':'Adicionar ao celular',isAndroid()?'Disponível na Google Play':'Acesso rápido neste aparelho','device','device'))+group('Quando precisar novamente',item('Nova consulta','Clínica geral · Especialidades · Psicologia','new','plus')+item('Renovar receita','Acesse a ConsultaJá24h quando precisar','renew','renew'))+'</div>';
     x.addEventListener('click',function(e){if(e.target===x){closeMenu();return}var a=e.target.closest('[data-cj-v6]');if(!a)return;var k=a.getAttribute('data-cj-v6');if(k==='close')closeMenu();if(k==='access')activateAccess();if(k==='docs'){closeMenu();hasToken()?go('/conta/'):activateAccess()}if(k==='device')deviceAction();if(k==='copy')copyLink();if(k==='new'){closeMenu();go('/consulta/?utm_source=chat_menu&utm_medium=owned&utm_campaign=nova_consulta')}if(k==='renew'){closeMenu();go('/consulta/?utm_source=chat_menu&utm_medium=owned&utm_campaign=renovar_receita')}});
     document.body.appendChild(x);
   }
@@ -61,16 +65,13 @@
     if(!eligible){if(existing)existing.remove();if(host.classList.contains('has-end-actions'))host.classList.remove('has-end-actions');return}
     if(existing)return;
     host.classList.add('has-end-actions');
-    var c=document.createElement('section');c.className='cj-end-cta-v6'+(isAndroid()?' is-app':'');
-    if(isAndroid()){
-      c.innerHTML='<div class="cj-end-cta-v6__apphead"><img src="/icon-192.png" alt=""><div><div class="cj-end-cta-v6__eyebrow">SEU CUIDADO CONTINUA</div><div class="cj-end-cta-v6__title">Da próxima vez, abra o app.</div></div></div><div class="cj-end-cta-v6__sub">Seus atendimentos e documentos reunidos. Baixe agora e tenha a ConsultaJá24h sempre à mão.</div><a class="cj-end-cta-v6__play" data-end="play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play">'+icon('device')+'<span><strong>Baixar aplicativo</strong><small>Disponível na Google Play</small></span></a><div class="cj-end-cta-v6__actions"><button type="button" class="cj-end-cta-v6__btn" data-end="area">'+(hasToken()?'Abrir minha área':'Ativar meu acesso')+'</button><button type="button" class="cj-end-cta-v6__btn secondary" data-end="new">Nova consulta</button></div>';
-    }else{
-      c.innerHTML='<div class="cj-end-cta-v6__eyebrow">Seu acesso ConsultaJá24h</div><div class="cj-end-cta-v6__title">Continue com tudo organizado</div><div class="cj-end-cta-v6__sub">Acesse seus documentos e volte quando precisar de um novo atendimento.</div><div class="cj-end-cta-v6__actions"><button type="button" class="cj-end-cta-v6__btn" data-end="area">'+(hasToken()?'Abrir minha área':'Ativar meu acesso')+'</button><button type="button" class="cj-end-cta-v6__btn secondary" data-end="new">Nova consulta</button></div><div class="cj-end-cta-v6__micro">Clínica geral · Especialidades · Psicologia · Renovação de receita</div>';
-    }
+    var c=document.createElement('section');c.className='cj-end-cta-v6 is-app';
+    c.innerHTML='<div class="cj-end-cta-v6__apphead"><img src="/icon-192.png" alt=""><div><div class="cj-end-cta-v6__eyebrow">APP CONSULTAJÁ24H</div><div class="cj-end-cta-v6__title">Tenha seus atendimentos à mão.</div></div></div><div class="cj-end-cta-v6__sub">Acesse documentos e volte quando precisar de um novo atendimento.</div><a class="cj-end-cta-v6__play cj-end-play-badge" data-end="play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play">'+googlePlayMark()+'<span><small>DISPONÍVEL NO</small><strong>Google Play</strong></span></a><div class="cj-end-cta-v6__actions"><button type="button" class="cj-end-cta-v6__btn" data-end="area">'+(hasToken()?'Abrir minha área':'Ativar meu acesso')+'</button><button type="button" class="cj-end-cta-v6__btn secondary" data-end="new">Nova consulta</button></div>';
     c.addEventListener('click',function(e){var b=e.target.closest('[data-end]');if(!b)return;var k=b.getAttribute('data-end');if(k==='play'){trackAppDownload('pos_consulta');return}if(k==='area')activateAccess();else go('/consulta/?utm_source=pos_consulta&utm_medium=owned&utm_campaign=nova_consulta')});
     var docs=q('#encerrado-documentos',host);if(docs&&docs.nextSibling)host.insertBefore(c,docs.nextSibling);else host.appendChild(c);
   }
   function sync(){mountLivebar();removeDocumentCTA();mountEndCTA()}
+  mountEndAppStyle();
   setInterval(sync,1200);setTimeout(sync,100);
   if(window.MutationObserver){new MutationObserver(sync).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','data-consultation-completed','data-payment-confirmed']})}
 })();
