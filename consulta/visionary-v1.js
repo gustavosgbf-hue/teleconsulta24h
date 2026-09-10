@@ -21,7 +21,7 @@
       if(priceAnchor&&!document.querySelector('.cj-play-hero')){
         var heroApp=document.createElement('div');
         heroApp.className='cj-play-hero';
-        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><span class="cj-play-hero__new">NOVO</span><span class="cj-play-hero__copy"><strong>Prefere usar o aplicativo?</strong><small>Baixe na Google Play e tenha acesso mais rápido.</small></span><span class="cj-play-hero__arrow">›</span></a>';
+        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><span class="cj-play-hero__new">NOVO</span><span class="cj-play-hero__copy"><strong>Agora também no aplicativo</strong><small>Baixe na Google Play e volte com um toque.</small></span><span class="cj-play-hero__arrow">›</span></a>';
         heroApp.querySelector('a').addEventListener('click',function(){trackAppDownload('landing_hero')});
         priceAnchor.parentNode.insertBefore(heroApp,priceAnchor.nextSibling);
       }
