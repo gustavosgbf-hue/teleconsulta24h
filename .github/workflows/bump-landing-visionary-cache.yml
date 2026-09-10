@@ -17,10 +17,10 @@ jobs:
           from pathlib import Path
           p=Path('consulta/index.html')
           s=p.read_text()
-          old='/consulta/visionary-v1.js?v=1'
-          new='/consulta/visionary-v1.js?v=2'
+          old='/consulta/visionary-v1.js?v=dark-app-2'
+          new='/consulta/visionary-v1.js?v=dark-premium-6'
           if old not in s:
-              raise SystemExit('expected visionary v1 reference not found')
+              raise SystemExit('expected visionary cache reference not found')
           p.write_text(s.replace(old,new,1))
           PY
       - name: Commit cache bust
