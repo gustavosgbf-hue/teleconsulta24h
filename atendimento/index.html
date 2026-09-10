@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/patient-chat-mobile-v5.css?v=1"/>
-<link rel="stylesheet" href="/patient-chat-ux-v6.css?v=4"/>
+<link rel="stylesheet" href="/patient-chat-ux-v6.css?v=7"/>
 <!-- SDK Efí: tokenização de cartão no frontend -->
 <!-- Google Ads + GA4 config -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
@@ -985,14 +985,10 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 <div id="s-encerrado" class="screen-wrap scrollable">
   <div class="s-inner">
     <div class="enc-content">
-      <div class="enc-icon" id="encerrado-icon">✓</div>
+      <div class="enc-heading">
+      <div class="enc-icon" id="encerrado-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 12 3 3 7-7"/><circle cx="12" cy="12" r="9"/></svg></div>
       <div class="enc-titulo" id="encerrado-titulo">Consulta encerrada</div>
       <p class="enc-sub" id="encerrado-sub">Seu histórico e seus documentos continuam disponíveis abaixo.</p>
-      <div class="enc-documentos" id="encerrado-documentos">
-        <div class="enc-documentos__titulo">Seus documentos</div>
-        <div class="enc-documentos__sub">Eles continuam disponíveis após o encerramento da consulta.</div>
-        <div class="enc-documentos__lista" id="encerrado-documentos-lista"></div>
-      </div>
       <a id="btn-avaliar-google" href="https://g.page/r/CcLUafK3wdMIEBM/review" target="_blank" rel="noopener"
         style="display:none;align-items:center;gap:9px;padding:13px 26px;border-radius:13px;
                background:linear-gradient(135deg,#b4e05a,#5ee0a0);color:#051208;
@@ -1001,17 +997,23 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         Avaliar no Google
       </a>
+      </div>
+      <div class="enc-documentos" id="encerrado-documentos">
+        <div class="enc-documentos__titulo">Seus documentos</div>
+        <div class="enc-documentos__sub">Eles continuam disponíveis após o encerramento da consulta.</div>
+        <div class="enc-documentos__lista" id="encerrado-documentos-lista"></div>
+      </div>
       <div class="enc-chat" id="encerrado-chat">
         <div class="enc-chat__titulo">Histórico da conversa</div>
         <div class="enc-chat__sub">A consulta foi encerrada. Você ainda pode consultar as mensagens e os arquivos enviados.</div>
         <div class="enc-chat__lista" id="encerrado-chat-lista"></div>
       </div>
-      <div>
+      <div class="enc-new-consultation">
         <button onclick="novaConsulta()" style="background:none;border:none;color:rgba(255,255,255,.28);font-size:.76rem;font-family:'Outfit',sans-serif;cursor:pointer;padding:4px 0">
           Iniciar nova consulta
         </button>
       </div>
-      <div style="margin-top:16px;font-size:.68rem;color:rgba(255,255,255,.18)">ConsultaJá24h · Atendimento médico online 24h</div>
+      <div class="enc-footer" style="margin-top:16px;font-size:.68rem;color:rgba(255,255,255,.18)">ConsultaJá24h · Atendimento médico online 24h</div>
     </div>
   </div>
 </div>
@@ -2378,6 +2380,9 @@ async function carregarChatEncerrado(){
   }catch(e){}
 }
 function mostrarTelaEncerrado(atendimento){
+  var endScreen=document.getElementById('s-encerrado');
+  endScreen.dataset.consultationCompleted=String(!!(atendimento&&atendimento.status==='encerrado'));
+  endScreen.dataset.paymentConfirmed=String(!!(atendimento&&atendimento.pagamento_status==='confirmado'));
   if(atendimento&&typeof atendimento.mostrar_avaliacao_google==='boolean'){
     mostrarAvaliacaoGoogleEncerrada=atendimento.mostrar_avaliacao_google;
   }
@@ -2387,11 +2392,11 @@ function mostrarTelaEncerrado(atendimento){
   var btnAvaliacao=document.getElementById('btn-avaliar-google');
   if(btnAvaliacao) btnAvaliacao.style.display=mostrarAvaliacaoGoogleEncerrada?'inline-flex':'none';
   if(mostrarAvaliacaoGoogleEncerrada){
-    document.getElementById('encerrado-icon').textContent='⭐';
+    document.getElementById('encerrado-icon').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg>';
     document.getElementById('encerrado-titulo').textContent='Como foi sua consulta?';
     document.getElementById('encerrado-sub').innerHTML='Sua avaliação ajuda outras pessoas a encontrarem atendimento médico online com confiança.<br><span style="font-size:.78rem;color:rgba(255,255,255,.3)">Menos de 1 minuto.</span>';
   }else{
-    document.getElementById('encerrado-icon').textContent='✓';
+    document.getElementById('encerrado-icon').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 12 3 3 7-7"/><circle cx="12" cy="12" r="9"/></svg>';
     document.getElementById('encerrado-titulo').textContent='Consulta encerrada';
     document.getElementById('encerrado-sub').textContent='Seu histórico e seus documentos continuam disponíveis abaixo.';
   }
@@ -2399,10 +2404,13 @@ function mostrarTelaEncerrado(atendimento){
   carregarChatEncerrado();
 }
 function mostrarPagamentoCancelado(){
+  var endScreen=document.getElementById('s-encerrado');
+  endScreen.dataset.consultationCompleted='false';
+  endScreen.dataset.paymentConfirmed='false';
   setFlowState('final');
   clearInterval(esperaPoller); clearInterval(chatPoller); clearInterval(meetPoller); clearInterval(encerradoPoller);
   showScreen('encerrado'); setNavLabel('PAGAMENTO');
-  document.getElementById('encerrado-icon').textContent='💳';
+  document.getElementById('encerrado-icon').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h3"/></svg>';
   document.getElementById('encerrado-titulo').textContent='Pagamento não confirmado';
   document.getElementById('encerrado-sub').innerHTML='Não conseguimos validar seu pagamento.<br>Gere um novo PIX para continuar.';
   var docsEncerrado=document.getElementById('encerrado-documentos');
@@ -2944,6 +2952,6 @@ function cjAtivarPushPaciente(){cjRegistrarPushPaciente(true)}window.cjAtivarPus
 </script>
 
 <script src="/patient-experience-v3.js?v=4"></script>
-<script src="/patient-chat-ux-v6.js?v=4"></script>
+<script src="/patient-chat-ux-v6.js?v=6"></script>
 </body>
 </html>

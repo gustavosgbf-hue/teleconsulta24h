@@ -55,11 +55,15 @@
   }
   function removeDocumentCTA(){document.querySelectorAll('.cj-doc-cta-v6').forEach(function(c){c.remove()})}
   function mountEndCTA(){
-    var screen=q('#s-encerrado');var host=q('#s-encerrado .enc-content');if(!screen||!host||!screen.classList.contains('active')||q('.cj-end-cta-v6',host))return;
-    var endTitle=q('#encerrado-titulo');if(endTitle&&/pagamento não confirmado/i.test(endTitle.textContent||''))return;
+    var screen=q('#s-encerrado');var host=q('#s-encerrado .enc-content');if(!screen||!host)return;
+    var existing=q('.cj-end-cta-v6',host);
+    var eligible=screen.classList.contains('active')&&screen.dataset.consultationCompleted==='true'&&screen.dataset.paymentConfirmed==='true';
+    if(!eligible){if(existing)existing.remove();if(host.classList.contains('has-end-actions'))host.classList.remove('has-end-actions');return}
+    if(existing)return;
+    host.classList.add('has-end-actions');
     var c=document.createElement('section');c.className='cj-end-cta-v6'+(isAndroid()?' is-app':'');
     if(isAndroid()){
-      c.innerHTML='<div class="cj-end-cta-v6__apphead"><img src="/icon-192.png" alt=""><div><div class="cj-end-cta-v6__eyebrow">APLICATIVO PARA ANDROID</div><div class="cj-end-cta-v6__title">Leve a ConsultaJá24h com você</div></div></div><div class="cj-end-cta-v6__sub">Baixe o app para acessar esta consulta, seus documentos e voltar mais rápido quando precisar.</div><a class="cj-end-cta-v6__play" data-end="play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/pt-br_badge_web_generic.png" alt="Disponível no Google Play"></a><div class="cj-end-cta-v6__actions"><button type="button" class="cj-end-cta-v6__btn" data-end="area">'+(hasToken()?'Abrir minha área':'Ativar meu acesso')+'</button><button type="button" class="cj-end-cta-v6__btn secondary" data-end="new">Nova consulta</button></div>';
+      c.innerHTML='<div class="cj-end-cta-v6__apphead"><img src="/icon-192.png" alt=""><div><div class="cj-end-cta-v6__eyebrow">SEU CUIDADO CONTINUA</div><div class="cj-end-cta-v6__title">Da próxima vez, abra o app.</div></div></div><div class="cj-end-cta-v6__sub">Seus atendimentos e documentos reunidos. Baixe agora e tenha a ConsultaJá24h sempre à mão.</div><a class="cj-end-cta-v6__play" data-end="play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play">'+icon('device')+'<span><strong>Baixar aplicativo</strong><small>Disponível na Google Play</small></span></a><div class="cj-end-cta-v6__actions"><button type="button" class="cj-end-cta-v6__btn" data-end="area">'+(hasToken()?'Abrir minha área':'Ativar meu acesso')+'</button><button type="button" class="cj-end-cta-v6__btn secondary" data-end="new">Nova consulta</button></div>';
     }else{
       c.innerHTML='<div class="cj-end-cta-v6__eyebrow">Seu acesso ConsultaJá24h</div><div class="cj-end-cta-v6__title">Continue com tudo organizado</div><div class="cj-end-cta-v6__sub">Acesse seus documentos e volte quando precisar de um novo atendimento.</div><div class="cj-end-cta-v6__actions"><button type="button" class="cj-end-cta-v6__btn" data-end="area">'+(hasToken()?'Abrir minha área':'Ativar meu acesso')+'</button><button type="button" class="cj-end-cta-v6__btn secondary" data-end="new">Nova consulta</button></div><div class="cj-end-cta-v6__micro">Clínica geral · Especialidades · Psicologia · Renovação de receita</div>';
     }
@@ -68,5 +72,5 @@
   }
   function sync(){mountLivebar();removeDocumentCTA();mountEndCTA()}
   setInterval(sync,1200);setTimeout(sync,100);
-  if(window.MutationObserver){new MutationObserver(sync).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style']})}
+  if(window.MutationObserver){new MutationObserver(sync).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','data-consultation-completed','data-payment-confirmed']})}
 })();

@@ -13,7 +13,7 @@
       }catch(e){}
     }
     function playBadge(){
-      return '<img src="https://play.google.com/intl/en_us/badges/static/images/badges/pt-br_badge_web_generic.png" alt="Disponível no Google Play" loading="lazy">';
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></svg><span><strong>Baixar aplicativo</strong><small>Disponível na Google Play</small></span>';
     }
     function mountAndroidAppPromos(){
       if(!isAndroid())return;
