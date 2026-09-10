@@ -112,6 +112,7 @@
       .cj-flow-mini__wa{margin-left:auto;width:27px;height:27px;border-radius:50%;background:#20c768;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.68rem}\
       body.cj-ceo-refined .cj-app-callout{background:#f2f5f0;border-color:#dbe5df}\
       body.cj-ceo-refined .cj-app-callout__inner{background:#123f33;border-color:#2c6755;box-shadow:0 18px 50px rgba(0,0,0,.16)}\
+      body.cj-ceo-refined .cj-video-section video{aspect-ratio:9/16;object-fit:cover;background:#08120f!important}\
       @media(max-width:720px){\
         body.cj-ceo-refined .hero{margin:0;border-radius:0;border-left:0;border-right:0;box-shadow:none;padding-top:30px!important;padding-bottom:30px!important}\
         body.cj-ceo-refined .hero #heroTitle{font-size:clamp(34px,10.8vw,46px)!important;line-height:1.02!important;letter-spacing:-.05em!important;margin-bottom:15px!important}\
@@ -120,15 +121,32 @@
         body.cj-ceo-refined .hero .hero__intent{margin-top:22px!important}\
         body.cj-ceo-refined .hero .hero__intent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}\
         body.cj-ceo-refined .hero .hero__intent-btn{min-height:58px!important;padding:12px 11px!important;font-size:13px!important}\
-        body.cj-ceo-refined .how-section{padding:48px 16px!important}\
-        body.cj-ceo-refined .how-section .steps{grid-template-columns:1fr!important;gap:12px!important}\
-        body.cj-ceo-refined .how-section .step{display:block!important;padding:18px!important;border-radius:18px!important}\
-        body.cj-ceo-refined .how-section .step__num{margin:0 0 12px!important}\
-        .cj-flow-mini{margin-top:13px}\
+        body.cj-ceo-refined .how-section{padding:38px 16px!important}\
+        body.cj-ceo-refined .how-section .steps{grid-template-columns:1fr!important;gap:9px!important;margin-top:26px!important}\
+        body.cj-ceo-refined .how-section .step{display:grid!important;grid-template-columns:40px 1fr!important;column-gap:12px!important;row-gap:3px!important;padding:14px!important;border-radius:16px!important}\
+        body.cj-ceo-refined .how-section .step__num{grid-row:1 / span 3!important;width:38px!important;height:38px!important;margin:0!important;border-radius:11px!important}\
+        body.cj-ceo-refined .how-section .step h3{margin:1px 0 2px!important;font-size:1rem!important}\
+        body.cj-ceo-refined .how-section .step p{font-size:.82rem!important;line-height:1.45!important}\
+        .cj-flow-mini{grid-column:2;margin-top:7px;min-height:48px;padding:8px 10px}\
+        .cj-flow-mini__icon{width:30px;height:30px}\
+        .cj-conversion-dock{bottom:calc(8px + env(safe-area-inset-bottom,0px))!important;padding:6px 7px 6px 10px!important;min-height:60px!important;border-radius:15px!important}\
+        .cj-conversion-dock__title{font-size:13px!important}.cj-conversion-dock__sub{display:none!important}\
+        .cj-conversion-dock__btn{min-height:42px!important;padding:0 14px!important;font-size:13px!important;border-radius:11px!important}\
+        .whatsapp-float.visible{bottom:calc(78px + env(safe-area-inset-bottom,0px))!important;right:13px!important;width:48px!important;height:48px!important}\
       }';
       document.head.appendChild(style);
 
       var how=document.querySelector('.how-section');
+      var specialty=document.querySelector('.specialty-bridge');
+      if(how&&specialty&&specialty.parentNode===how.parentNode){
+        specialty.parentNode.insertBefore(how,specialty);
+      }
+
+      var demoVideo=document.querySelector('.cj-video-section video');
+      if(demoVideo){
+        demoVideo.setAttribute('poster','/consulta/video-poster-v1.svg');
+      }
+
       var title=how&&how.querySelector('.section-title');
       var sub=how&&how.querySelector('.section-sub');
       if(title) title.innerHTML='Como funciona';
