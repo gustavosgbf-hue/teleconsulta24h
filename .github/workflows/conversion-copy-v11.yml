@@ -1,0 +1,161 @@
+name: Conversion copy v11
+on:
+  push:
+    paths:
+      - '.github/workflows/conversion-copy-v11.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply conversion and retention polish
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          # Landing: concrete price/speed proof + clearer app copy. Mobile-only visual impact.
+          p = Path('consulta/visionary-v1.js')
+          s = p.read_text()
+
+          s = s.replace(
+              '<strong>Prefere usar o aplicativo?</strong><small>Consultas e documentos no celular</small>',
+              '<strong>Também temos aplicativo</strong><small>Baixe na Google Play para consultar e acessar documentos</small>'
+          )
+
+          s = re.sub(
+              r"    function polishMobileContent\(\)\{.*?\n    \}\n\n",
+              """    function polishMobileContent(){
+      if(!window.matchMedia||!window.matchMedia('(max-width:720px)').matches)return;
+      var sub=document.getElementById('heroSub');
+      if(sub)sub.textContent='Chat ou vídeo. R$49,90 por consulta. Sem mensalidade.';
+      var security=document.getElementById('heroSecurity');
+      if(security)security.textContent='Médicos com CRM ativo · documentos após avaliação médica.';
+      var intentTitle=document.querySelector('.hero__intent-title');
+      if(intentTitle)intentTitle.textContent='O que você precisa hoje?';
+    }
+
+""",
+              s,
+              count=1,
+              flags=re.S
+          )
+
+          if 'function mountValueProof()' not in s:
+              marker = '    function mountVisualPolish(){\n'
+              fn = """    function mountValueProof(){
+      var cta=document.getElementById('heroCTA');
+      if(!cta||document.querySelector('.cj-value-proof'))return;
+      var proof=document.createElement('div');
+      proof.className='cj-value-proof';
+      proof.setAttribute('aria-label','Preço e tempo típico de espera');
+      proof.innerHTML='<div class="cj-value-proof__item"><strong>Pague só quando precisar</strong><span>sem assinatura</span></div><div class="cj-value-proof__item"><strong>~5 min no chat¹</strong><span>espera típica</span></div><small class="cj-value-proof__note">¹ Mediana das consultas clínicas por chat nos últimos 30 dias.</small>';
+      cta.insertAdjacentElement('afterend',proof);
+      if(!document.getElementById('cj-value-proof-style')){
+        var st=document.createElement('style');st.id='cj-value-proof-style';
+        st.textContent='.cj-value-proof{display:none}@media(max-width:720px){.cj-value-proof{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px auto 0;max-width:430px;width:100%}.cj-value-proof__item{min-width:0;padding:8px 9px;border:1px solid rgba(120,230,165,.12);border-radius:11px;background:rgba(255,255,255,.018);text-align:left}.cj-value-proof__item strong{display:block;font:650 10.8px/1.2 "Outfit",sans-serif;color:#eaf6ec}.cj-value-proof__item span{display:block;margin-top:2px;font:500 9px/1.2 "Outfit",sans-serif;color:#81958a}.cj-value-proof__note{grid-column:1/-1;margin-top:-1px;text-align:center;font:400 8.3px/1.3 "Outfit",sans-serif;color:#5f7569}}';
+        document.head.appendChild(st);
+      }
+    }
+
+"""
+              if marker not in s:
+                  raise SystemExit('landing mountVisualPolish marker not found')
+              s = s.replace(marker, fn + marker, 1)
+
+          old_call = 'syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();polishMobileContent();mountVisualPolish();setupVideo();mountDock();'
+          new_call = 'syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();polishMobileContent();mountValueProof();mountVisualPolish();setupVideo();mountDock();'
+          if old_call in s:
+              s = s.replace(old_call, new_call, 1)
+          elif new_call not in s:
+              raise SystemExit('landing init marker not found')
+          p.write_text(s)
+
+          # Patient chat: clearer post-consult separation + light Android browser CTA during active consultation.
+          p2 = Path('patient-chat-ux-v6.js')
+          t = p2.read_text()
+
+          if 'function isNativeApp()' not in t:
+              t = t.replace(
+                  "  function isAndroid(){return /android/i.test(navigator.userAgent||'')}\n",
+                  "  function isAndroid(){return /android/i.test(navigator.userAgent||'')}\n  function isNativeApp(){return !!window.ReactNativeWebView||/ConsultaJa24hApp/i.test(navigator.userAgent||'')}\n",
+                  1
+              )
+
+          if 'function mountRetentionClarityStyle()' not in t:
+              marker = '  function doctorName(){\n'
+              fn = """  function mountRetentionClarityStyle(){
+    if(q('#cj-retention-clarity-v8-style'))return;
+    var s=document.createElement('style');s.id='cj-retention-clarity-v8-style';
+    s.textContent='#s-encerrado .cj-end-access-guide{margin:17px 0 0;padding:15px 0 0;border-top:1px solid rgba(255,255,255,.11)}#s-encerrado .cj-end-access-guide__eyebrow{font:650 9px/1 "Outfit",sans-serif;letter-spacing:.11em;color:#8fdc78}#s-encerrado .cj-end-access-guide__title{margin-top:6px;font:600 15px/1.25 "Outfit",sans-serif;color:#eef6ef}#s-encerrado .cj-end-access-guide__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}#s-encerrado .cj-end-access-guide__step{display:flex;align-items:flex-start;gap:7px;padding:9px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);font:500 10.5px/1.3 "Outfit",sans-serif;color:#b9cabd}#s-encerrado .cj-end-access-guide__step b{display:grid;place-items:center;width:18px;height:18px;flex:0 0 18px;border-radius:50%;background:rgba(155,234,69,.12);color:#b9ef81;font-size:9px}#s-encerrado .cj-end-access-guide__note{margin-top:9px;font:400 10px/1.4 "Outfit",sans-serif;color:#8fa197}@media(max-width:760px){#s-encerrado .cj-end-access-guide__steps{grid-template-columns:1fr;gap:6px}#s-encerrado .cj-end-access-guide__step{padding:8px 9px}.cj-live-app-cta{margin:8px 10px 0;display:grid;grid-template-columns:34px minmax(0,1fr) auto 24px;align-items:center;gap:8px;padding:8px 8px 8px 9px;border-radius:12px;background:linear-gradient(145deg,rgba(67,223,126,.075),rgba(8,20,15,.75));border:1px solid rgba(120,230,165,.13)}.cj-live-app-cta__icon{width:34px;height:34px;border-radius:8px}.cj-live-app-cta__copy{min-width:0}.cj-live-app-cta__copy strong{display:block;font:600 11px/1.2 "Outfit",sans-serif;color:#eef6f0}.cj-live-app-cta__copy small{display:block;margin-top:2px;font:400 9px/1.25 "Outfit",sans-serif;color:#8ea198}.cj-live-app-cta__link{padding:7px 9px;border-radius:8px;background:#9bea45;color:#102a15;text-decoration:none;font:700 9.5px/1 "Outfit",sans-serif}.cj-live-app-cta__x{width:24px;height:24px;border:0;background:transparent;color:#698076;font:400 16px/1 sans-serif;padding:0}}';
+    document.head.appendChild(s);
+  }
+
+"""
+              if marker not in t:
+                  raise SystemExit('patient doctorName marker not found')
+              t = t.replace(marker, fn + marker, 1)
+
+          if 'function mountLiveAppCTA()' not in t:
+              marker = '  function removeDocumentCTA(){'
+              fn = """  function mountLiveAppCTA(){
+    var section=q('#s-espera');var msgs=q('#s-espera .chat-msgs');
+    if(!section||!msgs||!section.classList.contains('cj-consult-active'))return;
+    if(!isAndroid()||isNativeApp())return;
+    try{if(sessionStorage.getItem('cj_live_app_cta_dismissed')==='1')return}catch(e){}
+    if(q('.cj-live-app-cta',msgs))return;
+    var c=document.createElement('div');c.className='cj-live-app-cta';
+    c.innerHTML='<img class="cj-live-app-cta__icon" src="/icon-192.png" alt=""><div class="cj-live-app-cta__copy"><strong>Temos aplicativo</strong><small>Consultas e documentos na Google Play</small></div><a class="cj-live-app-cta__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener">Baixar</a><button class="cj-live-app-cta__x" type="button" aria-label="Fechar">×</button>';
+    c.querySelector('a').addEventListener('click',function(){trackAppDownload('consulta_ativa')});
+    c.querySelector('button').addEventListener('click',function(){try{sessionStorage.setItem('cj_live_app_cta_dismissed','1')}catch(e){}c.remove()});
+    msgs.insertBefore(c,msgs.firstChild);
+  }
+"""
+              if marker not in t:
+                  raise SystemExit('patient removeDocumentCTA marker not found')
+              t = t.replace(marker, fn + marker, 1)
+
+          t = t.replace('Tenha seus atendimentos à mão.','Leve a ConsultaJá24h no celular.')
+          t = t.replace('Acesse documentos e volte quando precisar de um novo atendimento.','Baixe o app para acessar consultas e documentos com mais facilidade.')
+          t = t.replace("(hasToken()?'Abrir minha área':'Ativar meu acesso')","(hasToken()?'Abrir minha área':'Criar meu acesso')")
+
+          guide = '<div class="cj-end-access-guide"><div class="cj-end-access-guide__eyebrow">SEU ACESSO</div><div class="cj-end-access-guide__title">Quer guardar tudo para depois?</div><div class="cj-end-access-guide__steps"><div class="cj-end-access-guide__step"><b>1</b><span>Crie seu acesso</span></div><div class="cj-end-access-guide__step"><b>2</b><span>Entre quando precisar</span></div><div class="cj-end-access-guide__step"><b>3</b><span>Veja consultas e documentos</span></div></div><div class="cj-end-access-guide__note">O aplicativo é opcional. Seu acesso também funciona pelo navegador.</div></div>'
+          needle = '</a><div class="cj-end-cta-v6__actions">'
+          if guide not in t:
+              if needle not in t:
+                  raise SystemExit('post-consult actions marker not found')
+              t = t.replace(needle, '</a>'+guide+'<div class="cj-end-cta-v6__actions">', 1)
+
+          t = t.replace('  function sync(){mountLivebar();removeDocumentCTA();mountEndCTA()}', '  function sync(){mountLivebar();mountLiveAppCTA();removeDocumentCTA();mountEndCTA()}')
+          t = t.replace('  mountEndAppStyle();\n', '  mountEndAppStyle();\n  mountRetentionClarityStyle();\n', 1)
+          p2.write_text(t)
+
+          # Cache-bust only; checkout/payment logic remains untouched.
+          idx = Path('consulta/index.html')
+          html = idx.read_text()
+          html, n = re.subn(r'/consulta/visionary-v1\.js\?v=[^"\']+', '/consulta/visionary-v1.js?v=conversion-v11-1', html, count=1)
+          if n != 1: raise SystemExit('landing cache marker not found')
+          idx.write_text(html)
+
+          att = Path('atendimento/index.html')
+          ah = att.read_text()
+          ah, n = re.subn(r'/patient-chat-ux-v6\.js\?v=[^"\']+', '/patient-chat-ux-v6.js?v=retention-v8-1', ah, count=1)
+          if n != 1: raise SystemExit('patient cache marker not found')
+          att.write_text(ah)
+          PY
+          node --check consulta/visionary-v1.js
+          node --check patient-chat-ux-v6.js
+          git diff --check
+      - name: Commit production-safe UX changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f .github/workflows/conversion-copy-v11.yml
+          git add consulta/visionary-v1.js consulta/index.html patient-chat-ux-v6.js atendimento/index.html
+          git commit -m 'Improve landing value proof and app retention clarity'
+          git pull --rebase origin main
+          git push
