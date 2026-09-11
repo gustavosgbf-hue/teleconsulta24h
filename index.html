@@ -4,14 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>ConsultaJá24h | Telemedicina no app ou navegador</title>
-  <meta name="description" content="Tenha a ConsultaJá24h no celular para falar com médicos online por chat ou vídeo, acessar seus documentos e voltar quando precisar. Prefere não instalar? Continue pelo navegador.">
+  <meta name="description" content="Tenha a ConsultaJá24h no celular para consultar por chat ou vídeo, acessar seus documentos e voltar quando precisar. Prefere não instalar? Continue pelo navegador.">
   <meta name="theme-color" content="#07100f">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://consultaja24h.com.br/">
   <link rel="icon" href="/apple-icon-180x180.png">
   <link rel="apple-touch-icon" href="/apple-icon-180x180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
   <script>
@@ -44,216 +45,189 @@
   <style>
     :root{
       --ink:#07100f;
-      --ink-2:#0b1714;
-      --green:#16c783;
-      --lime:#78f25f;
-      --paper:#f4f7f3;
-      --paper-2:#eaf1ec;
-      --text:#13201c;
-      --muted:#637069;
-      --line:rgba(19,32,28,.11);
-      --white:#fff;
-      --shadow:0 24px 80px rgba(4,24,16,.16);
+      --ink-soft:#0d1715;
+      --ink-card:#101b18;
+      --accent:#1b8f68;
+      --accent-hover:#157a59;
+      --accent-soft:#e6f2ed;
+      --accent-ink:#0c6448;
+      --paper:#f5f7f5;
+      --paper-2:#edf2ef;
+      --white:#ffffff;
+      --text:#14201d;
+      --muted:#66726d;
+      --line:rgba(20,32,29,.10);
+      --dark-line:rgba(255,255,255,.10);
+      --shadow:0 24px 70px rgba(4,18,13,.12);
+      --radius-lg:30px;
+      --radius-md:22px;
+      --container:1160px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:'DM Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);background:var(--paper);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body{margin:0;font-family:'Manrope',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--paper);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
     a{color:inherit}
     button,a{-webkit-tap-highlight-color:transparent}
-    .wrap{width:min(1160px,calc(100% - 40px));margin:0 auto}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .wrap{width:min(var(--container),calc(100% - 40px));margin:0 auto}
+    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
-    .nav{position:absolute;left:0;right:0;top:0;z-index:20;color:#fff}
-    .nav__in{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .brand{display:inline-flex;align-items:baseline;text-decoration:none;white-space:nowrap}
-    .brand__consulta{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.17rem;color:#fff}
-    .brand__ja{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.17rem;color:var(--lime)}
-    .brand__24{margin-left:2px;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.48)}
-    .nav__links{display:flex;align-items:center;gap:24px;font-size:.84rem;color:rgba(255,255,255,.74)}
+    .nav{position:absolute;top:0;left:0;right:0;z-index:20;color:#fff}
+    .nav__in{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:inline-flex;align-items:center;gap:3px;text-decoration:none;white-space:nowrap;font-weight:800;letter-spacing:-.035em}
+    .brand__consulta{font-size:1.12rem;color:#fff}
+    .brand__ja{font-size:1.12rem;color:#9fd2bf}
+    .brand__24{font-size:.78rem;color:rgba(255,255,255,.48);font-weight:700;letter-spacing:-.02em;margin-left:1px}
+    .nav__links{display:flex;align-items:center;gap:23px;font-size:.83rem;color:rgba(255,255,255,.72)}
     .nav__links a{text-decoration:none}
-    .nav__web{padding:10px 14px;border:1px solid rgba(255,255,255,.19);border-radius:999px;color:#fff!important;background:rgba(255,255,255,.06);backdrop-filter:blur(12px)}
+    .nav__web{padding:10px 14px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.05);color:#fff!important;backdrop-filter:blur(12px)}
 
-    .hero{position:relative;min-height:760px;background:var(--ink);color:#fff;overflow:hidden;display:flex;align-items:center;padding:116px 0 68px}
-    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 76% 32%,rgba(22,199,131,.20),transparent 37%),radial-gradient(circle at 12% 88%,rgba(120,242,95,.11),transparent 34%),linear-gradient(125deg,#07100f 0%,#071410 52%,#06100d 100%);z-index:0}
-    .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,10,8,.94) 0%,rgba(3,10,8,.79) 40%,rgba(3,10,8,.40) 70%,rgba(3,10,8,.62) 100%);z-index:2;pointer-events:none}
-    .hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 36%;filter:saturate(.60) contrast(.94) brightness(.64);opacity:.78;z-index:1}
-    .hero__grid{position:relative;z-index:4;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(300px,.72fr);gap:72px;align-items:center}
-    .hero__copy{max-width:680px}
-    .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.75rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#c4ffb5;margin-bottom:22px}
-    .eyebrow::before{content:'';width:28px;height:1px;background:var(--lime)}
-    .hero h1{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:-.038em;line-height:.98;font-size:clamp(3.35rem,6.1vw,6.5rem);margin:0 0 24px;max-width:790px}
-    .hero h1 em{font-style:italic;color:var(--lime)}
-    .hero__lead{font-size:clamp(1rem,1.65vw,1.22rem);line-height:1.62;color:rgba(255,255,255,.71);max-width:590px;margin:0 0 28px}
-    .hero__actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .store-btn{min-height:60px;display:inline-flex;align-items:center;gap:12px;padding:11px 19px 11px 15px;border-radius:17px;text-decoration:none;background:#fff;color:#0c1512;box-shadow:0 18px 40px rgba(0,0,0,.24);font-weight:700;transition:transform .18s ease,box-shadow .18s ease}
-    .store-btn:hover{transform:translateY(-2px);box-shadow:0 22px 54px rgba(0,0,0,.31)}
+    .hero{position:relative;min-height:760px;display:flex;align-items:center;overflow:hidden;background:var(--ink);color:#fff;padding:118px 0 72px}
+    .hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;filter:saturate(.68) contrast(1.02) brightness(.56)}
+    .hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(4,11,9,.95) 0%,rgba(4,11,9,.86) 36%,rgba(4,11,9,.52) 66%,rgba(4,11,9,.30) 100%)}
+    .hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,11,9,.18) 0%,rgba(4,11,9,.02) 52%,rgba(4,11,9,.38) 100%);pointer-events:none}
+    .hero__content{position:relative;z-index:3;max-width:670px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;font-size:.75rem;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.74)}
+    .eyebrow::before{content:'';width:30px;height:1px;background:#8fbfae}
+    .hero h1{margin:0;max-width:760px;font-size:clamp(3rem,6vw,6.15rem);line-height:.98;letter-spacing:-.062em;font-weight:700}
+    .hero h1 span{color:#a8d4c3}
+    .hero__lead{margin:24px 0 0;max-width:590px;font-size:clamp(1rem,1.6vw,1.18rem);line-height:1.66;color:rgba(255,255,255,.72)}
+    .hero__actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:30px}
+    .store-btn{min-height:60px;display:inline-flex;align-items:center;gap:12px;padding:11px 19px 11px 15px;border-radius:17px;text-decoration:none;background:var(--accent);color:#fff;box-shadow:0 18px 44px rgba(0,0,0,.22);font-weight:800;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
+    .store-btn:hover{transform:translateY(-2px);background:var(--accent-hover);box-shadow:0 22px 54px rgba(0,0,0,.28)}
     .store-btn__play{width:29px;height:33px;display:grid;place-items:center}
     .store-btn__play svg{width:29px;height:33px}
-    .store-btn__small{display:block;font-size:.59rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#5c6863;line-height:1.1}
-    .store-btn__big{display:block;font-size:1.03rem;line-height:1.15;margin-top:3px}
-    .web-link{display:inline-flex;align-items:center;gap:8px;min-height:54px;padding:0 8px;color:rgba(255,255,255,.75);font-size:.86rem;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25)}
-    .web-link:hover{color:#fff;border-color:var(--lime)}
-    .hero__micro{display:flex;gap:15px;align-items:center;flex-wrap:wrap;margin-top:20px;color:rgba(255,255,255,.47);font-size:.72rem}
+    .store-btn__small{display:block;font-size:.59rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.72);line-height:1.1}
+    .store-btn__big{display:block;font-size:1.02rem;line-height:1.15;margin-top:3px}
+    .web-link{display:inline-flex;align-items:center;gap:8px;min-height:54px;padding:0 3px;color:rgba(255,255,255,.72);font-size:.88rem;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.23)}
+    .web-link:hover{color:#fff;border-color:#9bcbb9}
+    .hero__micro{display:flex;gap:17px;align-items:center;flex-wrap:wrap;margin-top:22px;color:rgba(255,255,255,.50);font-size:.74rem}
     .hero__micro span{display:flex;align-items:center;gap:6px}
-    .hero__micro svg{width:14px;height:14px;color:var(--green)}
-
-    .phone{justify-self:end;width:min(330px,88vw);aspect-ratio:9/18.4;border-radius:45px;padding:10px;background:linear-gradient(145deg,#29322f,#050807 55%);box-shadow:0 45px 100px rgba(0,0,0,.48),0 0 0 1px rgba(255,255,255,.16) inset;transform:rotate(2.1deg);position:relative}
-    .phone::before{content:'';position:absolute;left:50%;transform:translateX(-50%);top:18px;width:92px;height:24px;border-radius:18px;background:#050706;z-index:3}
-    .phone__screen{height:100%;border-radius:37px;overflow:hidden;background:linear-gradient(180deg,#0d2019 0%,#f3f7f4 42%);position:relative}
-    .phone__top{height:42%;padding:52px 23px 22px;color:#fff;background:radial-gradient(circle at 78% 14%,rgba(120,242,95,.17),transparent 34%),linear-gradient(150deg,#0a1713,#102c20)}
-    .phone__brand{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:.86rem}
-    .phone__brand strong{color:var(--lime)}
-    .phone__hello{font-size:.66rem;color:rgba(255,255,255,.55);margin-top:28px}
-    .phone__title{font-size:1.3rem;line-height:1.08;font-weight:700;margin-top:5px;letter-spacing:-.03em}
-    .phone__status{display:flex;align-items:center;gap:7px;margin-top:16px;font-size:.63rem;color:#cffff0}
-    .phone__status i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(22,199,131,.13)}
-    .phone__content{padding:18px 16px 16px;color:#14211d}
-    .phone__cta{padding:15px;border-radius:16px;background:#0b1714;color:#fff;box-shadow:0 12px 24px rgba(2,23,14,.13)}
-    .phone__cta small{display:block;color:#8bf1c1;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-    .phone__cta b{display:block;font-size:.91rem;margin-top:4px}
-    .phone__row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-    .phone__card{min-height:87px;padding:12px;border:1px solid rgba(12,45,32,.09);border-radius:14px;background:#fff}
-    .phone__card svg{width:18px;height:18px;color:#16a76f}
-    .phone__card b{display:block;font-size:.69rem;margin-top:8px}
-    .phone__card span{display:block;font-size:.55rem;color:#79857f;margin-top:3px;line-height:1.35}
-    .float-pill{position:absolute;z-index:5;background:rgba(255,255,255,.96);color:#102019;padding:11px 14px;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.28);font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:8px}
-    .float-pill--one{right:-38px;top:23%}
-    .float-pill--two{left:-64px;bottom:18%}
-    .float-pill i{width:9px;height:9px;border-radius:50%;background:var(--green)}
+    .hero__micro svg{width:14px;height:14px;color:#9bcbb9}
 
     .trustbar{background:#fff;border-bottom:1px solid var(--line)}
-    .trustbar__in{min-height:86px;display:grid;grid-template-columns:repeat(4,1fr);align-items:center;gap:0}
-    .trust{display:flex;align-items:center;justify-content:center;gap:11px;padding:17px 20px;border-right:1px solid var(--line);font-size:.78rem;font-weight:600;color:#3c4b45}
+    .trustbar__in{min-height:88px;display:grid;grid-template-columns:repeat(4,1fr)}
+    .trust{display:flex;align-items:center;justify-content:center;gap:11px;padding:18px 20px;border-right:1px solid var(--line);font-size:.8rem;font-weight:700;color:#41504a}
     .trust:last-child{border-right:0}
-    .trust svg{width:19px;height:19px;color:#159b69;flex:0 0 auto}
+    .trust svg{width:19px;height:19px;color:var(--accent);flex:0 0 auto}
 
-    section{padding:96px 0}
-    .section-kicker{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#11885c;margin-bottom:12px}
-    .section-title{font-family:'Playfair Display',serif;font-size:clamp(2.25rem,4.6vw,4.4rem);line-height:1.02;letter-spacing:-.035em;margin:0;color:#102019}
-    .section-lead{font-size:1rem;line-height:1.7;color:var(--muted);max-width:620px;margin:18px 0 0}
+    section{padding:98px 0}
+    .section-kicker{font-size:.72rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px}
+    .section-title{font-size:clamp(2.15rem,4.3vw,4rem);line-height:1.04;letter-spacing:-.052em;margin:0;color:#102019;font-weight:700;max-width:850px}
+    .section-lead{font-size:1rem;line-height:1.72;color:var(--muted);max-width:640px;margin:18px 0 0}
 
     .why{background:var(--paper)}
-    .why__head{display:grid;grid-template-columns:1fr .75fr;gap:70px;align-items:end;margin-bottom:52px}
+    .why__head{display:grid;grid-template-columns:1fr .82fr;gap:72px;align-items:end;margin-bottom:52px}
     .why__head .section-lead{margin:0 0 4px}
-    .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .benefit{position:relative;min-height:250px;padding:28px;border-radius:26px;background:#fff;border:1px solid rgba(18,51,39,.08);overflow:hidden;box-shadow:0 13px 45px rgba(13,50,34,.045)}
-    .benefit--dark{background:#0b1814;color:#fff;border-color:#0b1814}
-    .benefit__icon{width:44px;height:44px;border-radius:13px;background:#e9f8f0;display:grid;place-items:center;color:#139563;margin-bottom:36px}
-    .benefit--dark .benefit__icon{background:rgba(120,242,95,.10);color:var(--lime)}
-    .benefit__icon svg{width:21px;height:21px}
-    .benefit h3{font-size:1.15rem;line-height:1.25;margin:0 0 10px;letter-spacing:-.02em}
-    .benefit p{margin:0;color:#718078;font-size:.86rem;line-height:1.62}
-    .benefit--dark p{color:rgba(255,255,255,.54)}
-    .benefit__num{position:absolute;right:22px;top:20px;font-family:'Playfair Display',serif;font-size:2.6rem;font-style:italic;color:rgba(12,64,42,.06)}
-    .benefit--dark .benefit__num{color:rgba(255,255,255,.055)}
+    .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .benefit{min-height:245px;padding:28px;border-radius:26px;background:#fff;border:1px solid rgba(18,51,39,.08);box-shadow:0 14px 42px rgba(13,50,34,.045)}
+    .benefit__icon{width:46px;height:46px;border-radius:14px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent-ink);margin-bottom:38px}
+    .benefit__icon svg{width:22px;height:22px}
+    .benefit h3{font-size:1.16rem;line-height:1.25;margin:0 0 10px;letter-spacing:-.025em}
+    .benefit p{margin:0;color:#718078;font-size:.88rem;line-height:1.64}
 
-    .flow{background:#0a1512;color:#fff;position:relative;overflow:hidden}
-    .flow::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(22,199,131,.10);filter:blur(100px);right:-180px;top:-220px}
-    .flow .section-kicker{color:#8cf3c4}
-    .flow .section-title{color:#fff;max-width:760px}
-    .flow .section-lead{color:rgba(255,255,255,.55)}
-    .flow__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:54px}
-    .flow-card{padding:28px;border-radius:24px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);backdrop-filter:blur(8px)}
-    .flow-card__n{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(120,242,95,.32);color:var(--lime);font-family:'Playfair Display',serif;font-style:italic;font-weight:700}
-    .flow-card h3{font-size:1.05rem;margin:28px 0 10px}
-    .flow-card p{font-size:.84rem;line-height:1.62;color:rgba(255,255,255,.52);margin:0}
+    .steps-section{background:var(--paper-2)}
+    .steps-head{text-align:center;max-width:760px;margin:0 auto 48px}
+    .steps-head .section-title{margin:0 auto}
+    .steps-head .section-lead{margin:17px auto 0}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .step{position:relative;padding:30px;border-radius:26px;background:#fff;border:1px solid rgba(18,51,39,.08);box-shadow:0 14px 40px rgba(13,50,34,.04)}
+    .step__num{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:#0f6b50;color:#fff;font-weight:800;font-size:1rem;letter-spacing:.02em;box-shadow:0 10px 24px rgba(15,107,80,.16);margin-bottom:24px}
+    .step h3{margin:0 0 10px;font-size:1.13rem;letter-spacing:-.025em}
+    .step p{margin:0;color:#708078;line-height:1.66;font-size:.9rem}
 
-    .choice{background:#fff}
-    .choice__box{display:grid;grid-template-columns:1fr .95fr;gap:68px;align-items:center;padding:54px;border-radius:32px;background:linear-gradient(135deg,#eef8f2,#f8fbf8);border:1px solid rgba(12,66,43,.09)}
-    .choice__panel{padding:28px;border-radius:25px;background:#fff;box-shadow:var(--shadow);border:1px solid rgba(11,58,39,.07)}
-    .choice__label{font-size:.67rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:#119461;margin-bottom:13px}
-    .choice__option{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
-    .choice__option:last-child{border-bottom:0}
-    .choice__option svg{width:22px;height:22px;color:#159b69;flex:0 0 auto}
-    .choice__option b{display:block;font-size:.88rem}
-    .choice__option span{display:block;font-size:.72rem;color:#7a8781;margin-top:3px;line-height:1.4}
+    .app-band{background:var(--ink);color:#fff;overflow:hidden;position:relative}
+    .app-band::before{content:'';position:absolute;right:-12%;top:-45%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(27,143,104,.18),transparent 68%);pointer-events:none}
+    .app-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.08fr .92fr;gap:64px;align-items:center}
+    .app-band .section-kicker{color:#9bcbb9}
+    .app-band .section-title{color:#fff}
+    .app-band .section-lead{color:rgba(255,255,255,.62)}
+    .app-points{display:grid;gap:12px;margin-top:28px}
+    .app-point{display:flex;gap:13px;align-items:flex-start;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+    .app-point:last-child{border-bottom:0}
+    .app-point__icon{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.07);display:grid;place-items:center;color:#9bcbb9;flex:0 0 auto}
+    .app-point__icon svg{width:17px;height:17px}
+    .app-point b{display:block;font-size:.94rem}
+    .app-point span{display:block;margin-top:3px;color:rgba(255,255,255,.48);font-size:.82rem;line-height:1.5}
+    .app-card{background:#fff;color:var(--text);border-radius:28px;padding:30px;box-shadow:0 28px 80px rgba(0,0,0,.24)}
+    .app-card__label{font-size:.72rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-ink)}
+    .app-card h3{font-size:1.75rem;line-height:1.12;letter-spacing:-.04em;margin:10px 0 12px}
+    .app-card p{margin:0;color:var(--muted);line-height:1.66;font-size:.92rem}
+    .app-card .store-btn{margin-top:22px;width:100%;justify-content:center}
+    .app-card__web{display:block;text-align:center;margin-top:14px;font-size:.82rem;font-weight:700;color:#5e6d66;text-decoration:none}
 
-    .final{padding:90px 0;background:var(--paper-2)}
-    .final__card{position:relative;overflow:hidden;background:#07110e;color:#fff;border-radius:34px;padding:68px;text-align:center}
-    .final__card::before{content:'';position:absolute;inset:auto auto -160px -140px;width:440px;height:440px;border-radius:50%;background:rgba(120,242,95,.11);filter:blur(70px)}
-    .final__card::after{content:'';position:absolute;inset:-150px -170px auto auto;width:420px;height:420px;border-radius:50%;background:rgba(22,199,131,.13);filter:blur(70px)}
-    .final__inner{position:relative;z-index:2;max-width:720px;margin:auto}
-    .final h2{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5.6vw,4.9rem);line-height:1;letter-spacing:-.04em;margin:0 0 18px}
-    .final p{color:rgba(255,255,255,.59);line-height:1.65;margin:0 auto 28px;max-width:560px}
-    .final .hero__actions{justify-content:center}
-    .final__note{margin-top:16px;font-size:.7rem;color:rgba(255,255,255,.38)}
+    .web-section{background:#fff}
+    .web-card{display:grid;grid-template-columns:1fr auto;gap:34px;align-items:center;padding:34px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(135deg,#f8faf9 0%,#f1f5f3 100%)}
+    .web-card h2{font-size:clamp(1.8rem,3.4vw,3rem);line-height:1.08;letter-spacing:-.045em;margin:0}
+    .web-card p{margin:10px 0 0;color:var(--muted);line-height:1.65;max-width:660px}
+    .web-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 20px;border-radius:15px;background:#11201b;color:#fff;text-decoration:none;font-weight:800;white-space:nowrap}
 
-    .faq{background:#fff}
-    .faq__grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:80px}
-    .faq__items{border-top:1px solid var(--line)}
-    details{border-bottom:1px solid var(--line);padding:0}
-    summary{list-style:none;cursor:pointer;padding:21px 4px;font-size:.9rem;font-weight:700;display:flex;justify-content:space-between;gap:20px;align-items:center}
-    summary::-webkit-details-marker{display:none}
-    summary::after{content:'+';font-size:1.25rem;font-weight:400;color:#139563}
-    details[open] summary::after{content:'−'}
-    details p{margin:-4px 42px 21px 4px;color:#718078;font-size:.82rem;line-height:1.65}
+    .faq{background:var(--paper)}
+    .faq__head{max-width:700px;margin-bottom:34px}
+    .faq-list{display:grid;gap:12px;max-width:900px}
+    .faq details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:0 20px}
+    .faq summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary::after{content:'+';font-size:1.3rem;color:var(--accent-ink)}
+    .faq details[open] summary::after{content:'–'}
+    .faq p{margin:0;padding:0 0 18px;color:var(--muted);line-height:1.7;font-size:.91rem}
 
-    footer{padding:34px 0 44px;background:#07100f;color:rgba(255,255,255,.48)}
-    .footer__in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    .footer__links{display:flex;gap:18px;flex-wrap:wrap;font-size:.72rem}
-    .footer__links a{text-decoration:none}
-    .footer__legal{font-size:.67rem;line-height:1.55;max-width:560px}
+    .final-cta{background:var(--ink);color:#fff;padding:70px 0}
+    .final-cta__in{display:grid;grid-template-columns:1fr auto;gap:34px;align-items:center}
+    .final-cta h2{margin:0;font-size:clamp(2rem,4vw,3.6rem);line-height:1.03;letter-spacing:-.055em;max-width:700px}
+    .final-cta p{margin:13px 0 0;color:rgba(255,255,255,.58);max-width:590px;line-height:1.65}
+    .final-cta__actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 
-    .mobile-dock{display:none}
+    footer{background:#050c0a;color:rgba(255,255,255,.50);padding:26px 0 34px}
+    .footer__in{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding-top:4px}
+    .footer__brand{font-weight:800;color:#fff;letter-spacing:-.03em}
+    .footer__meta{font-size:.78rem;line-height:1.65;margin-top:7px}
+    .footer__links{display:flex;gap:17px;flex-wrap:wrap;font-size:.78rem}
+    .footer__links a{text-decoration:none;color:rgba(255,255,255,.66)}
 
-    @media(max-width:860px){
+    @media(max-width:920px){
       .nav__links a:not(.nav__web){display:none}
-      .hero{min-height:auto;padding:112px 0 62px}
-      .hero__grid{grid-template-columns:1fr;gap:44px}
-      .hero__copy{text-align:center;margin:auto}
-      .hero__copy .eyebrow{justify-content:center}
-      .hero__lead{margin-left:auto;margin-right:auto}
-      .hero__actions,.hero__micro{justify-content:center}
-      .phone{justify-self:center;width:min(300px,76vw);margin-top:8px;transform:rotate(1.2deg)}
-      .float-pill--one{right:-28px}.float-pill--two{left:-46px}
-      .trustbar__in{grid-template-columns:1fr 1fr}
-      .trust:nth-child(2){border-right:0}.trust:nth-child(-n+2){border-bottom:1px solid var(--line)}
-      .why__head,.choice__box,.faq__grid{grid-template-columns:1fr;gap:30px}
-      .why__head .section-lead{margin-top:0}
-      .benefits,.flow__grid{grid-template-columns:1fr}
-      .benefit{min-height:auto}
-      .benefit__icon{margin-bottom:26px}
-      .choice__box{padding:34px}
-      .faq__grid{gap:36px}
+      .hero{min-height:700px;padding:116px 0 62px}
+      .hero::before{background:linear-gradient(90deg,rgba(4,11,9,.96) 0%,rgba(4,11,9,.78) 62%,rgba(4,11,9,.46) 100%)}
+      .hero h1{max-width:650px}
+      .why__head,.app-grid{grid-template-columns:1fr;gap:30px}
+      .why__head .section-lead{margin-top:14px}
+      .benefits,.steps{grid-template-columns:1fr}
+      .web-card,.final-cta__in{grid-template-columns:1fr}
+      .final-cta__actions{justify-content:flex-start}
     }
 
-    @media(max-width:600px){
-      .wrap{width:min(100% - 28px,1160px)}
+    @media(max-width:680px){
+      .wrap{width:min(100% - 28px,var(--container))}
       .nav__in{height:68px}
-      .brand__consulta,.brand__ja{font-size:1.02rem}.brand__24{font-size:.68rem}
-      .nav__web{padding:8px 11px;font-size:.72rem}
-      .hero{padding:98px 0 54px}
-      .hero::after{background:linear-gradient(180deg,rgba(3,10,8,.82) 0%,rgba(3,10,8,.69) 52%,rgba(3,10,8,.85) 100%)}
-      .hero h1{font-size:clamp(2.75rem,14vw,4.1rem);max-width:360px;margin-left:auto;margin-right:auto}
-      .hero__lead{font-size:.95rem;max-width:345px}
-      .hero__actions{flex-direction:column;width:100%}
-      .store-btn{width:min(100%,350px);justify-content:center}
-      .web-link{min-height:42px}
-      .hero__micro{font-size:.66rem;gap:10px 13px}
-      .phone{width:min(275px,78vw)}
-      .float-pill{font-size:.61rem;padding:9px 10px}
-      .float-pill--one{right:-19px}.float-pill--two{left:-22px}
+      .nav__web{font-size:.74rem;padding:9px 11px}
+      .hero{min-height:690px;padding:102px 0 50px;align-items:flex-end}
+      .hero__video{object-position:58% center;filter:saturate(.62) contrast(1.02) brightness(.50)}
+      .hero::before{background:linear-gradient(180deg,rgba(4,11,9,.38) 0%,rgba(4,11,9,.64) 40%,rgba(4,11,9,.96) 82%,rgba(4,11,9,.98) 100%)}
+      .eyebrow{font-size:.66rem;letter-spacing:.085em;margin-bottom:16px}
+      .hero h1{font-size:clamp(2.7rem,13vw,4.5rem);line-height:.98;letter-spacing:-.06em}
+      .hero__lead{font-size:.98rem;line-height:1.58;margin-top:18px}
+      .hero__actions{flex-direction:column;align-items:stretch;margin-top:24px}
+      .store-btn{width:100%;justify-content:center}
+      .web-link{justify-content:center;border:0;min-height:42px}
+      .hero__micro{gap:9px 14px;font-size:.68rem}
       .trustbar__in{grid-template-columns:1fr 1fr}
-      .trust{padding:14px 8px;font-size:.67rem;gap:7px;text-align:center;flex-direction:column}
-      section{padding:68px 0}
-      .section-title{font-size:2.45rem}
+      .trust{justify-content:flex-start;border-bottom:1px solid var(--line);padding:15px 14px;font-size:.72rem}
+      .trust:nth-child(2){border-right:0}
+      .trust:nth-child(3),.trust:nth-child(4){border-bottom:0}
+      section{padding:70px 0}
+      .section-title{font-size:clamp(2rem,10vw,3rem)}
       .why__head{margin-bottom:30px}
-      .benefit{padding:23px;border-radius:21px}
-      .flow__grid{margin-top:34px}
-      .flow-card{padding:23px;border-radius:20px}
-      .choice__box{padding:22px;border-radius:24px}
-      .choice__panel{padding:20px;border-radius:20px}
-      .final{padding:58px 0 88px}
-      .final__card{padding:48px 21px;border-radius:27px}
-      .faq__grid{gap:28px}
-      footer{padding-bottom:90px}
-      .mobile-dock{position:fixed;z-index:30;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;padding:7px;border-radius:18px;background:rgba(7,16,15,.91);border:1px solid rgba(255,255,255,.09);box-shadow:0 20px 50px rgba(0,0,0,.28);backdrop-filter:blur(18px);transform:translateY(130%);transition:transform .25s ease}
-      .mobile-dock.is-visible{transform:translateY(0)}
-      .mobile-dock a{text-decoration:none;display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:13px;font-size:.75rem;font-weight:800}
-      .mobile-dock__app{flex:1.25;background:linear-gradient(135deg,var(--lime),var(--green));color:#06110c}
-      .mobile-dock__web{flex:.8;border:1px solid rgba(255,255,255,.14);color:#fff}
+      .benefit,.step{padding:24px}
+      .step__num{width:48px;height:48px;border-radius:14px;background:#0f6b50;color:#fff;font-size:1.02rem}
+      .app-card{padding:24px}
+      .web-card{padding:24px}
+      .web-btn{width:100%}
+      .final-cta{padding:58px 0}
+      .final-cta__actions{flex-direction:column;align-items:stretch}
+      .final-cta__actions .store-btn,.final-cta__actions .web-link{width:100%}
+      .footer__in{flex-direction:column}
     }
-    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.hero__video{display:none}}
   </style>
 </head>
 <body>
@@ -265,157 +239,183 @@
         <span class="brand__consulta">Consulta</span><span class="brand__ja">Já</span><span class="brand__24">24h</span>
       </a>
       <nav class="nav__links" aria-label="Navegação principal">
-        <a href="#vantagens">Por que o app</a>
+        <a href="#vantagens">Vantagens</a>
         <a href="#como-funciona">Como funciona</a>
         <a href="#duvidas">Dúvidas</a>
-        <a class="nav__web js-web" href="/consulta">Consultar pelo navegador</a>
+        <a class="nav__web js-web-link" href="/consulta">Continuar no navegador</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero" id="topo">
-      <!-- Quando o vídeo estiver no Cloudflare R2, troque apenas data-src abaixo pela URL pública .mp4. -->
-      <video class="hero__video" id="heroVideo" data-src="" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
+    <section class="hero">
+      <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/hero-app.mp4" type="video/mp4">
+      </video>
+      <div class="wrap">
+        <div class="hero__content">
           <div class="eyebrow">ConsultaJá24h no seu celular</div>
-          <h1>Saúde online, <em>sempre à mão.</em></h1>
-          <p class="hero__lead">Fale com médicos por chat ou vídeo, acesse seus documentos e volte quando precisar. Sem mensalidade e sem complicação.</p>
+          <h1>Saúde online, <span>sempre à mão.</span></h1>
+          <p class="hero__lead">Baixe o app para consultar por chat ou vídeo, acessar seus documentos e voltar quando precisar. Sem mensalidade e sem perder a opção de usar pelo navegador.</p>
           <div class="hero__actions">
-            <a class="store-btn js-play" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" rel="noopener">
+            <a class="store-btn js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener">
               <span class="store-btn__play" aria-hidden="true">
-                <svg viewBox="0 0 32 36" fill="none"><path d="M2.7 2.1 20.3 18 2.6 33.9c-.6-.7-.9-1.6-.9-2.7V4.8c0-1.1.4-2 .9-2.7Z" fill="#32C85A"/><path d="m20.3 18 5.3-4.8 4.3 2.5c1.4.8 1.4 2.8 0 3.6l-4.4 2.5-5.2-3.8Z" fill="#F7B529"/><path d="m2.7 2.1 22.9 11.1-5.3 4.8L2.7 2.1Z" fill="#49A6FF"/><path d="m2.6 33.9 17.7-15.9 5.2 3.8L2.6 33.9Z" fill="#F04B55"/></svg>
+                <svg viewBox="0 0 48 52" fill="none"><path d="M3.5 3.4c-.7.8-1.1 2-1.1 3.5v38.2c0 1.5.4 2.7 1.1 3.5L26.1 26 3.5 3.4Z" fill="#fff"/><path d="m29.1 29 7.5 7.5L6.9 50.4c-.7.3-1.3.3-1.8.1L29.1 29Z" fill="#d8eee6"/><path d="m29.1 23 7.5-7.5L6.9 1.6c-.7-.3-1.3-.3-1.8-.1L29.1 23Z" fill="#c7e5da"/><path d="m39.9 18 5.4 2.5c1.7.8 2.6 1.9 2.6 3.5s-.9 2.7-2.6 3.5L39.9 30l-8-8 8-4Z" fill="#fff"/></svg>
               </span>
               <span><span class="store-btn__small">Disponível no</span><span class="store-btn__big">Google Play</span></span>
             </a>
-            <a class="web-link js-web" href="/consulta">Prefere não instalar? Continuar no navegador <span aria-hidden="true">→</span></a>
+            <a class="web-link js-web-link" href="/consulta">Prefiro continuar no navegador →</a>
           </div>
-          <div class="hero__micro" aria-label="Informações principais">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>R$ 49,90 por consulta</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>Médicos com CRM</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Atendimento 24h</span>
+          <div class="hero__micro">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>R$49,90 por consulta</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Sem mensalidade</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Médicos com CRM</span>
           </div>
-        </div>
-
-        <div class="phone" aria-label="Prévia ilustrativa do aplicativo ConsultaJá24h">
-          <div class="phone__screen">
-            <div class="phone__top">
-              <div class="phone__brand">Consulta<strong>Já</strong>24h</div>
-              <div class="phone__hello">Boa tarde</div>
-              <div class="phone__title">Como podemos cuidar de você hoje?</div>
-              <div class="phone__status"><i></i>Médicos disponíveis</div>
-            </div>
-            <div class="phone__content">
-              <div class="phone__cta"><small>Consulta imediata</small><b>Falar com um médico</b></div>
-              <div class="phone__row">
-                <div class="phone__card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2h8a2 2 0 0 1 2 2v16H6V4a2 2 0 0 1 2-2Z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg><b>Documentos</b><span>Receitas e arquivos em um só lugar</span></div>
-                <div class="phone__card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg><b>Atendimentos</b><span>Volte para cuidar da saúde quando precisar</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="float-pill float-pill--one"><i></i>Consulta por chat ou vídeo</div>
-          <div class="float-pill float-pill--two"><i></i>Sem mensalidade</div>
         </div>
       </div>
     </section>
 
-    <div class="trustbar" aria-label="Confiança">
+    <div class="trustbar">
       <div class="wrap trustbar__in">
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><span>CRM ativo</span></div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg><span>Pagamento seguro</span></div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span>Ambiente protegido</span></div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Disponível 24h</span></div>
+        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg>Chat ou vídeo</div>
+        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg>Atendimento seguro</div>
+        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l3 3v17H6z"/><path d="M14 2v5h5"/></svg>Documentos digitais</div>
+        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Disponível quando precisar</div>
       </div>
     </div>
 
-    <section class="why" id="vantagens">
+    <section id="vantagens" class="why">
       <div class="wrap">
         <div class="why__head">
-          <div><div class="section-kicker">Mais simples para voltar</div><h2 class="section-title">Seu cuidado não precisa começar do zero toda vez.</h2></div>
-          <p class="section-lead">O app deixa a ConsultaJá24h a um toque de distância. Você entra, consulta e encontra o que precisa sem procurar o site novamente.</p>
+          <div>
+            <div class="section-kicker">Por que baixar o app</div>
+            <h2 class="section-title">Uma forma mais simples de voltar quando precisar.</h2>
+          </div>
+          <p class="section-lead">O app deixa a ConsultaJá24h no seu celular, facilita o acesso aos documentos e reduz o caminho até um novo atendimento.</p>
         </div>
         <div class="benefits">
-          <article class="benefit benefit--dark">
-            <div class="benefit__num">01</div>
-            <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg></div>
-            <h3>Fale com um médico pelo celular</h3>
-            <p>Atendimento por chat ou vídeo, com uma experiência pensada para funcionar bem no seu telefone.</p>
+          <article class="benefit">
+            <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+            <h3>Acesso rápido</h3>
+            <p>Abra o app e encontre seus atendimentos e documentos sem precisar procurar o site de novo.</p>
           </article>
           <article class="benefit">
-            <div class="benefit__num">02</div>
-            <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3h8l3 3v15H5V3h3Z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></svg></div>
-            <h3>Seus documentos ficam fáceis de encontrar</h3>
-            <p>Acesse os documentos relacionados ao seu atendimento sem depender de procurar links antigos.</p>
+            <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
+            <h3>Documentos organizados</h3>
+            <p>Receitas, atestados e registros ficam mais fáceis de acessar no celular.</p>
           </article>
           <article class="benefit">
-            <div class="benefit__num">03</div>
-            <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
-            <h3>Volte quando precisar</h3>
-            <p>Sem assinatura. Você paga apenas quando fizer uma consulta e mantém a plataforma sempre por perto.</p>
+            <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7h8M7 12h10M9 17h6"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <h3>Você escolhe o canal</h3>
+            <p>Prefere não instalar? A versão pelo navegador continua disponível normalmente.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="flow" id="como-funciona">
+    <section id="como-funciona" class="steps-section">
       <div class="wrap">
-        <div class="section-kicker">Como funciona</div>
-        <h2 class="section-title">Da instalação ao atendimento, sem caminho complicado.</h2>
-        <p class="section-lead">Baixe grátis, entre na sua conta e escolha como prefere ser atendido.</p>
-        <div class="flow__grid">
-          <article class="flow-card"><div class="flow-card__n">1</div><h3>Baixe o ConsultaJá24h</h3><p>Instale gratuitamente no Android pela Google Play e tenha o acesso sempre no celular.</p></article>
-          <article class="flow-card"><div class="flow-card__n">2</div><h3>Conte o que está sentindo</h3><p>Informe o motivo da consulta e siga um fluxo simples para chegar ao atendimento adequado.</p></article>
-          <article class="flow-card"><div class="flow-card__n">3</div><h3>Consulte e siga sua rotina</h3><p>Fale com o médico por chat ou vídeo. Quando houver indicação clínica, documentos podem ser emitidos digitalmente.</p></article>
+        <div class="steps-head">
+          <div class="section-kicker">Como funciona</div>
+          <h2 class="section-title">Três passos, sem complicação.</h2>
+          <p class="section-lead">Baixe, acesse e use quando precisar. Se não quiser instalar agora, continue pela web.</p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step__num">01</div>
+            <h3>Baixe o app</h3>
+            <p>Instale a ConsultaJá24h gratuitamente pela Google Play.</p>
+          </article>
+          <article class="step">
+            <div class="step__num">02</div>
+            <h3>Entre na sua conta</h3>
+            <p>Acesse seus atendimentos e escolha entre chat ou vídeo quando precisar consultar.</p>
+          </article>
+          <article class="step">
+            <div class="step__num">03</div>
+            <h3>Volte quando quiser</h3>
+            <p>Tenha documentos e novos atendimentos a poucos toques de distância.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="choice">
+    <section class="app-band">
+      <div class="wrap app-grid">
+        <div>
+          <div class="section-kicker">ConsultaJá24h no app</div>
+          <h2 class="section-title">Mais conveniente para quem pretende voltar.</h2>
+          <p class="section-lead">A ideia não é obrigar você a instalar nada. É deixar a próxima consulta mais fácil se o app fizer sentido para sua rotina.</p>
+          <div class="app-points">
+            <div class="app-point"><div class="app-point__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7"/></svg></div><div><b>Acesso direto</b><span>Sem precisar pesquisar a plataforma toda vez.</span></div></div>
+            <div class="app-point"><div class="app-point__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h6"/></svg></div><div><b>Histórico e documentos</b><span>Informações importantes reunidas em um só lugar.</span></div></div>
+            <div class="app-point"><div class="app-point__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/></svg></div><div><b>Experiência contínua</b><span>Mais praticidade para quem já conhece a ConsultaJá24h.</span></div></div>
+          </div>
+        </div>
+        <aside class="app-card">
+          <div class="app-card__label">Aplicativo gratuito</div>
+          <h3>Tenha a ConsultaJá24h no celular.</h3>
+          <p>O aplicativo não tem mensalidade. Você paga apenas quando realizar uma consulta.</p>
+          <a class="store-btn js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener">
+            <span class="store-btn__play" aria-hidden="true"><svg viewBox="0 0 48 52" fill="none"><path d="M3.5 3.4c-.7.8-1.1 2-1.1 3.5v38.2c0 1.5.4 2.7 1.1 3.5L26.1 26 3.5 3.4Z" fill="#fff"/><path d="m29.1 29 7.5 7.5L6.9 50.4c-.7.3-1.3.3-1.8.1L29.1 29Z" fill="#d8eee6"/><path d="m29.1 23 7.5-7.5L6.9 1.6c-.7-.3-1.3-.3-1.8-.1L29.1 23Z" fill="#c7e5da"/><path d="m39.9 18 5.4 2.5c1.7.8 2.6 1.9 2.6 3.5s-.9 2.7-2.6 3.5L39.9 30l-8-8 8-4Z" fill="#fff"/></svg></span>
+            <span><span class="store-btn__small">Disponível no</span><span class="store-btn__big">Google Play</span></span>
+          </a>
+          <a class="app-card__web js-web-link" href="/consulta">Prefiro usar pelo navegador</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="web-section">
       <div class="wrap">
-        <div class="choice__box">
+        <div class="web-card">
           <div>
-            <div class="section-kicker">Você escolhe o caminho</div>
-            <h2 class="section-title">App primeiro. Web sempre disponível.</h2>
-            <p class="section-lead">Quer praticidade no dia a dia? Fique com o app. Precisa consultar agora e prefere não instalar nada? Continue pelo navegador — a consulta funciona normalmente.</p>
-            <div class="hero__actions" style="margin-top:26px">
-              <a class="store-btn js-play" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" rel="noopener"><span class="store-btn__play" aria-hidden="true"><svg viewBox="0 0 32 36" fill="none"><path d="M2.7 2.1 20.3 18 2.6 33.9c-.6-.7-.9-1.6-.9-2.7V4.8c0-1.1.4-2 .9-2.7Z" fill="#32C85A"/><path d="m20.3 18 5.3-4.8 4.3 2.5c1.4.8 1.4 2.8 0 3.6l-4.4 2.5-5.2-3.8Z" fill="#F7B529"/><path d="m2.7 2.1 22.9 11.1-5.3 4.8L2.7 2.1Z" fill="#49A6FF"/><path d="m2.6 33.9 17.7-15.9 5.2 3.8L2.6 33.9Z" fill="#F04B55"/></svg></span><span><span class="store-btn__small">Disponível no</span><span class="store-btn__big">Google Play</span></span></a>
-            </div>
+            <h2>Não quer instalar agora?</h2>
+            <p>Sem problema. Você pode continuar pelo navegador e acessar o fluxo de consulta normalmente.</p>
           </div>
-          <div class="choice__panel">
-            <div class="choice__label">Duas portas, a mesma ConsultaJá24h</div>
-            <div class="choice__option"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><div><b>Baixar o app</b><span>Melhor para ter acesso recorrente e tudo sempre à mão.</span></div></div>
-            <a class="choice__option js-web" href="/consulta" style="text-decoration:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg><div><b>Continuar pelo navegador →</b><span>Sem download. Você vai direto para a página de consulta.</span></div></a>
-          </div>
+          <a class="web-btn js-web-link" href="/consulta">Continuar no navegador</a>
         </div>
       </div>
     </section>
 
-    <section class="faq" id="duvidas">
-      <div class="wrap faq__grid">
-        <div><div class="section-kicker">Perguntas frequentes</div><h2 class="section-title">Sem letra miúda.</h2><p class="section-lead">O app é uma facilidade, não uma barreira para cuidar da sua saúde.</p></div>
-        <div class="faq__items">
-          <details open><summary>Preciso baixar o aplicativo para consultar?</summary><p>Não. O app é a experiência recomendada para ter a ConsultaJá24h sempre à mão, mas você também pode continuar pelo navegador e fazer sua consulta pela web.</p></details>
-          <details><summary>O aplicativo é gratuito?</summary><p>Sim. O download é gratuito. Você paga apenas quando realizar uma consulta, conforme o valor apresentado antes do pagamento.</p></details>
-          <details><summary>Tem aplicativo para iPhone?</summary><p>No momento, o aplicativo está disponível para Android pela Google Play. No iPhone, você pode usar normalmente a versão pelo navegador.</p></details>
-          <details><summary>Posso receber receita ou atestado?</summary><p>Quando houver indicação clínica, o médico pode emitir documentos digitais compatíveis com o atendimento realizado.</p></details>
-          <details><summary>Os médicos têm CRM?</summary><p>Sim. Os atendimentos são realizados por médicos regularmente cadastrados, dentro das regras aplicáveis à telemedicina.</p></details>
-        </div>
-      </div>
-    </section>
-
-    <section class="final">
+    <section id="duvidas" class="faq">
       <div class="wrap">
-        <div class="final__card">
-          <div class="final__inner">
-            <h2>Tenha um médico online mais perto de você.</h2>
-            <p>Baixe a ConsultaJá24h no Android. Se preferir, continue pelo navegador e consulte sem instalar nada.</p>
-            <div class="hero__actions">
-              <a class="store-btn js-play" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" rel="noopener"><span class="store-btn__play" aria-hidden="true"><svg viewBox="0 0 32 36" fill="none"><path d="M2.7 2.1 20.3 18 2.6 33.9c-.6-.7-.9-1.6-.9-2.7V4.8c0-1.1.4-2 .9-2.7Z" fill="#32C85A"/><path d="m20.3 18 5.3-4.8 4.3 2.5c1.4.8 1.4 2.8 0 3.6l-4.4 2.5-5.2-3.8Z" fill="#F7B529"/><path d="m2.7 2.1 22.9 11.1-5.3 4.8L2.7 2.1Z" fill="#49A6FF"/><path d="m2.6 33.9 17.7-15.9 5.2 3.8L2.6 33.9Z" fill="#F04B55"/></svg></span><span><span class="store-btn__small">Disponível no</span><span class="store-btn__big">Google Play</span></span></a>
-              <a class="web-link js-web" href="/consulta">Continuar pelo navegador <span aria-hidden="true">→</span></a>
-            </div>
-            <div class="final__note">R$ 49,90 por consulta · sem mensalidade</div>
-          </div>
+        <div class="faq__head">
+          <div class="section-kicker">Dúvidas frequentes</div>
+          <h2 class="section-title">O essencial, sem enrolação.</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Preciso baixar o app para consultar?</summary>
+            <p>Não. O app é uma forma mais prática de acessar a ConsultaJá24h, mas você também pode continuar pelo navegador.</p>
+          </details>
+          <details>
+            <summary>Quanto custa uma consulta?</summary>
+            <p>A consulta custa R$49,90 e não há mensalidade.</p>
+          </details>
+          <details>
+            <summary>Posso consultar por chat ou vídeo?</summary>
+            <p>Sim. A plataforma oferece atendimento por chat ou vídeo, conforme a modalidade disponível no fluxo de consulta.</p>
+          </details>
+          <details>
+            <summary>E no iPhone?</summary>
+            <p>Enquanto o aplicativo para iPhone ainda não está disponível, você pode usar a ConsultaJá24h normalmente pelo navegador.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="wrap final-cta__in">
+        <div>
+          <h2>Baixe o app ou continue pela web. Você escolhe.</h2>
+          <p>ConsultaJá24h: telemedicina prática para usar agora e voltar quando precisar.</p>
+        </div>
+        <div class="final-cta__actions">
+          <a class="store-btn js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener">
+            <span class="store-btn__play" aria-hidden="true"><svg viewBox="0 0 48 52" fill="none"><path d="M3.5 3.4c-.7.8-1.1 2-1.1 3.5v38.2c0 1.5.4 2.7 1.1 3.5L26.1 26 3.5 3.4Z" fill="#fff"/><path d="m29.1 29 7.5 7.5L6.9 50.4c-.7.3-1.3.3-1.8.1L29.1 29Z" fill="#d8eee6"/><path d="m29.1 23 7.5-7.5L6.9 1.6c-.7-.3-1.3-.3-1.8-.1L29.1 23Z" fill="#c7e5da"/><path d="m39.9 18 5.4 2.5c1.7.8 2.6 1.9 2.6 3.5s-.9 2.7-2.6 3.5L39.9 30l-8-8 8-4Z" fill="#fff"/></svg></span>
+            <span><span class="store-btn__small">Disponível no</span><span class="store-btn__big">Google Play</span></span>
+          </a>
+          <a class="web-link js-web-link" href="/consulta">Continuar no navegador →</a>
         </div>
       </div>
     </section>
@@ -423,62 +423,65 @@
 
   <footer>
     <div class="wrap footer__in">
-      <a class="brand" href="/" aria-label="ConsultaJá24h"><span class="brand__consulta">Consulta</span><span class="brand__ja">Já</span><span class="brand__24">24h</span></a>
-      <div class="footer__links"><a href="/consulta">Consulta médica online</a><a href="/privacy">Privacidade</a><a href="mailto:consultaja24@gmail.com">Suporte</a></div>
-      <div class="footer__legal">ConsultaJá24h · São Luís - MA, Brasil. Em situações de urgência ou emergência, procure atendimento presencial adequado.</div>
+      <div>
+        <div class="footer__brand">ConsultaJá24h</div>
+        <div class="footer__meta">Telemedicina por chat ou vídeo. Aplicativo opcional; acesso web disponível.</div>
+      </div>
+      <div class="footer__links">
+        <a class="js-web-link" href="/consulta">Consulta online</a>
+        <a href="/privacy">Política de Privacidade</a>
+      </div>
     </div>
   </footer>
 
-  <div class="mobile-dock" id="mobileDock" aria-label="Ações rápidas">
-    <a class="mobile-dock__app js-play" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" rel="noopener">Baixar o app</a>
-    <a class="mobile-dock__web js-web" href="/consulta">Usar web</a>
-  </div>
-
   <script>
     (function(){
-      var PLAY_BASE='https://play.google.com/store/apps/details?id=com.consultaja24h.app';
-      var params=new URLSearchParams(location.search);
-      var allowed=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','fbclid','ttclid'];
-      var attribution=new URLSearchParams();
-      allowed.forEach(function(k){if(params.get(k)) attribution.set(k,params.get(k))});
+      var PLAY_URL='https://play.google.com/store/apps/details?id=com.consultaja24h.app';
+      var params=new URLSearchParams(window.location.search);
+      var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 
-      function webUrl(){
-        var u=new URL('/consulta',location.origin);
-        attribution.forEach(function(v,k){u.searchParams.set(k,v)});
-        u.searchParams.set('from','home_app');
-        return u.pathname+u.search;
+      function withParams(path){
+        var u=new URL(path,window.location.origin);
+        params.forEach(function(v,k){u.searchParams.set(k,v)});
+        return u.toString();
       }
+
       function playUrl(){
-        if(!attribution.toString()) return PLAY_BASE;
+        var u=new URL(PLAY_URL);
         var ref=new URLSearchParams();
-        attribution.forEach(function(v,k){ref.set(k,v)});
-        return PLAY_BASE+'&referrer='+encodeURIComponent(ref.toString());
+        ref.set('utm_source',params.get('utm_source')||'site');
+        ref.set('utm_medium',params.get('utm_medium')||'homepage');
+        ref.set('utm_campaign',params.get('utm_campaign')||'app_download');
+        ['fbclid','gclid','ttclid'].forEach(function(k){if(params.get(k))ref.set(k,params.get(k))});
+        u.searchParams.set('referrer',ref.toString());
+        return u.toString();
       }
-      function track(kind,destination){
+
+      function track(name,extra){
         window.dataLayer=window.dataLayer||[];
-        window.dataLayer.push({event:kind,destination:destination,page_path:location.pathname});
-        if(typeof window.fbq==='function') window.fbq('trackCustom',kind,{destination:destination});
-      }
-      document.querySelectorAll('.js-play').forEach(function(a){a.href=playUrl();a.addEventListener('click',function(){track('app_download_click','google_play')})});
-      document.querySelectorAll('.js-web').forEach(function(a){a.href=webUrl();a.addEventListener('click',function(){track('web_continue_click','consulta_web')})});
-
-      var video=document.getElementById('heroVideo');
-      if(video){
-        var src=(video.dataset.src||'').trim();
-        if(/^https:\/\//i.test(src)){video.src=src;video.load();video.play().catch(function(){})}
+        window.dataLayer.push(Object.assign({event:name},extra||{}));
+        if(typeof gtag==='function')gtag('event',name,extra||{});
+        if(typeof fbq==='function')fbq('trackCustom',name,extra||{});
       }
 
-      var dock=document.getElementById('mobileDock');
-      var hero=document.querySelector('.hero');
-      if(dock&&hero&&'IntersectionObserver' in window){
-        new IntersectionObserver(function(entries){entries.forEach(function(entry){dock.classList.toggle('is-visible',!entry.isIntersecting)})},{threshold:.12}).observe(hero);
-      }
+      document.querySelectorAll('.js-web-link').forEach(function(a){
+        a.href=withParams('/consulta');
+        a.addEventListener('click',function(){track('web_continue_click',{placement:(a.textContent||'').trim()})});
+      });
 
-      var ua=navigator.userAgent||'';
-      var isiOS=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-      if(isiOS){
-        document.querySelectorAll('.js-play').forEach(function(a){
-          if(a.closest('.mobile-dock')){a.textContent='App Android';a.setAttribute('aria-label','Aplicativo disponível para Android')}
+      document.querySelectorAll('.js-app-link').forEach(function(a){
+        a.href=playUrl();
+        a.addEventListener('click',function(){track('app_download_click',{placement:(a.textContent||'').trim(),device:isIOS?'ios':'other'})});
+      });
+
+      if(isIOS){
+        document.querySelectorAll('.js-app-link').forEach(function(a){
+          a.href=withParams('/consulta');
+          a.removeAttribute('target');
+          var big=a.querySelector('.store-btn__big');
+          var small=a.querySelector('.store-btn__small');
+          if(big)big.textContent='Continuar no navegador';
+          if(small)small.textContent='No iPhone';
         });
       }
     })();
