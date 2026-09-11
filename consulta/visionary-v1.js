@@ -22,12 +22,16 @@
       return googlePlayMark('cj-google-play-mark')+'<span class="cj-play-badge-copy"><small>DISPONÍVEL NO</small><strong>Google Play</strong></span>';
     }
 
+    function isIOSDevice(){
+      return /iPad|iPhone|iPod/.test(navigator.userAgent||'') || (navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+    }
+
     function mountAppPromos(){
       var priceAnchor=document.getElementById('heroPriceAnchor');
       if(priceAnchor&&!document.querySelector('.cj-play-hero')){
         var heroApp=document.createElement('div');
         heroApp.className='cj-play-hero';
-        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><img class="cj-play-hero__appicon" src="/icon-192.png" alt="" width="42" height="42"><span class="cj-play-hero__copy"><strong>Também temos aplicativo</strong><small>Baixe na Google Play para consultar e acessar documentos</small></span><span class="cj-play-hero__badge">'+playBadge()+'</span></a>';
+        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><img class="cj-play-hero__appicon" src="/icon-192.png" alt="" width="42" height="42"><span class="cj-play-hero__copy"><strong>Também temos aplicativo</strong><small>'+(isIOSDevice()?'Disponível para Android na Google Play':'Baixe na Google Play para consultar e acessar documentos')+'</small></span><span class="cj-play-hero__badge">'+playBadge()+'</span></a>';
         heroApp.querySelector('a').addEventListener('click',function(){trackAppDownload('landing_hero')});
         priceAnchor.parentNode.insertBefore(heroApp,priceAnchor.nextSibling);
       }
@@ -123,6 +127,34 @@
       if(!document.getElementById('cj-value-proof-style')){
         var st=document.createElement('style');st.id='cj-value-proof-style';
         st.textContent='.cj-value-proof{display:none}@media(max-width:720px){.cj-value-proof{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px auto 0;max-width:430px;width:100%}.cj-value-proof__item{min-width:0;padding:8px 9px;border:1px solid rgba(120,230,165,.12);border-radius:11px;background:rgba(255,255,255,.018);text-align:left}.cj-value-proof__item strong{display:block;font:650 10.8px/1.2 Outfit,sans-serif;color:#eaf6ec}.cj-value-proof__item span{display:block;margin-top:2px;font:500 9px/1.2 Outfit,sans-serif;color:#81958a}.cj-value-proof__note{grid-column:1/-1;margin-top:-1px;text-align:center;font:400 8.3px/1.3 Outfit,sans-serif;color:#5f7569}}';
+        document.head.appendChild(st);
+      }
+    }
+
+    function refineMobileHierarchy(){
+      if(!window.matchMedia||!window.matchMedia('(max-width:720px)').matches)return;
+      var hero=document.querySelector('.hero');
+      var review=document.getElementById('heroReviewProof');
+      var value=document.querySelector('.cj-value-proof');
+      var intents=document.querySelector('.hero__intent');
+      var app=document.querySelector('.cj-play-hero');
+      if(hero&&review&&value) review.insertAdjacentElement('afterend',value);
+      if(hero&&intents&&app) intents.insertAdjacentElement('afterend',app);
+      document.body.classList.add('cj-mobile-hierarchy-v12');
+      var navCta=document.querySelector('.nav__cta-link');
+      var heroCta=document.getElementById('heroCTA');
+      if(navCta&&heroCta){
+        var setVisible=function(visible){document.body.classList.toggle('cj-hero-cta-visible',visible)};
+        if('IntersectionObserver' in window){
+          new IntersectionObserver(function(entries){setVisible(entries[0]&&entries[0].isIntersecting)},{threshold:.18}).observe(heroCta);
+        }else{
+          var sync=function(){var r=heroCta.getBoundingClientRect();setVisible(r.bottom>0&&r.top<window.innerHeight)};
+          sync();window.addEventListener('scroll',sync,{passive:true});
+        }
+      }
+      if(!document.getElementById('cj-mobile-hierarchy-v12-style')){
+        var st=document.createElement('style');st.id='cj-mobile-hierarchy-v12-style';
+        st.textContent='@media(max-width:720px){body.cj-mobile-hierarchy-v12 .hero #heroTitle{order:1!important;font-size:clamp(31px,9.2vw,39px)!important;line-height:1!important;max-width:360px!important}body.cj-mobile-hierarchy-v12 .hero #heroSub{order:2!important}body.cj-mobile-hierarchy-v12 .hero #heroCTA{order:3!important}body.cj-mobile-hierarchy-v12 .hero #heroReviewProof{order:4!important}body.cj-mobile-hierarchy-v12 .hero .cj-value-proof{order:5!important;margin-top:11px!important}body.cj-mobile-hierarchy-v12 .hero .hero__intent{order:6!important;margin-top:17px!important}body.cj-mobile-hierarchy-v12 .hero .cj-play-hero{order:7!important;margin-top:12px!important}body.cj-mobile-hierarchy-v12 .hero #heroSecurity{order:8!important}body.cj-mobile-hierarchy-v12.cj-hero-cta-visible .nav__cta-link{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:scale(.96)!important}body.cj-mobile-hierarchy-v12 .nav__cta-link{transition:opacity .18s ease,transform .18s ease,visibility .18s ease!important}body.cj-mobile-hierarchy-v12 .hero .cj-play-hero__link{padding:8px 9px!important}body.cj-mobile-hierarchy-v12 .hero .cj-play-hero__copy strong{font-size:11.5px!important}body.cj-mobile-hierarchy-v12 .hero .cj-play-hero__copy small{font-size:9px!important;line-height:1.25!important}}';
         document.head.appendChild(st);
       }
     }
@@ -264,7 +296,7 @@
       syncDock();window.addEventListener('scroll',syncDock,{passive:true});window.addEventListener('resize',syncDock,{passive:true});
     }
 
-    syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();polishMobileContent();mountValueProof();mountVisualPolish();setupVideo();mountDock();
+    syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();polishMobileContent();mountValueProof();mountVisualPolish();refineMobileHierarchy();setupVideo();mountDock();
     setTimeout(syncTrustNumbers,800);setTimeout(syncTrustNumbers,2200);setTimeout(syncTrustNumbers,4500);setTimeout(fixPixStatusVisibility,250);setTimeout(fixPixStatusVisibility,900);
     var reviewsBadge=document.getElementById('reviewsBadgeTxt');
     if(reviewsBadge&&typeof MutationObserver!=='undefined'){new MutationObserver(function(){var atual=reviewsBadge.innerHTML;if(/5,0 no Google|\+2\.000 atendimentos/.test(atual))syncTrustNumbers()}).observe(reviewsBadge,{childList:true,subtree:true,characterData:true})}
