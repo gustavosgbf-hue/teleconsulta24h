@@ -4,6 +4,7 @@
   var TOKEN_KEY='cj_paciente_token';
   var PLAY_STORE_URL='https://play.google.com/store/apps/details?id=com.consultaja24h.app';
   function isAndroid(){return /android/i.test(navigator.userAgent||'')}
+  function isNativeApp(){return !!window.ReactNativeWebView||/ConsultaJa24hApp/i.test(navigator.userAgent||'')}
   function trackAppDownload(source){try{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'app_download_click',app_store:'google_play',source:source||'pos_consulta'})}catch(e){}}
   function hasToken(){try{return !!localStorage.getItem(TOKEN_KEY)}catch(e){return false}}
   function q(s,r){return (r||document).querySelector(s)}
@@ -29,6 +30,13 @@
     s.textContent='#s-encerrado .cj-end-cta-v6.is-app{background:linear-gradient(145deg,#102b1c,#0b1d14)!important;border-color:#315a3a!important}#s-encerrado .cj-end-play-badge{display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;gap:10px!important;width:auto!important;min-height:54px!important;margin:14px 0 5px!important;padding:8px 14px!important;background:#040706!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:12px!important;color:#fff!important;text-decoration:none!important}#s-encerrado .cj-end-play-mark{width:27px;height:31px;display:block;flex:0 0 auto}#s-encerrado .cj-end-play-badge>span{display:flex;flex-direction:column;align-items:flex-start;gap:1px}#s-encerrado .cj-end-play-badge small{font:600 8px/1 "Outfit",sans-serif;letter-spacing:.09em;color:#c7cfca}#s-encerrado .cj-end-play-badge strong{font:600 17px/1.05 "Outfit",sans-serif;color:#fff}#s-encerrado .cj-end-cta-v6__micro{display:none!important}@media(max-width:760px){#s-encerrado .cj-end-cta-v6.is-app{padding:20px!important}#s-encerrado .cj-end-cta-v6__title{font-size:21px!important}#s-encerrado .cj-end-cta-v6__sub{font-size:13.5px!important;line-height:1.45!important}#s-encerrado .cj-end-cta-v6__actions{margin-top:14px!important;padding-top:14px!important}}';
     document.head.appendChild(s);
   }
+  function mountRetentionClarityStyle(){
+    if(q('#cj-retention-clarity-v8-style'))return;
+    var s=document.createElement('style');s.id='cj-retention-clarity-v8-style';
+    s.textContent='#s-encerrado .cj-end-access-guide{margin:17px 0 0;padding:15px 0 0;border-top:1px solid rgba(255,255,255,.11)}#s-encerrado .cj-end-access-guide__eyebrow{font:650 9px/1 Outfit,sans-serif;letter-spacing:.11em;color:#8fdc78}#s-encerrado .cj-end-access-guide__title{margin-top:6px;font:600 15px/1.25 Outfit,sans-serif;color:#eef6ef}#s-encerrado .cj-end-access-guide__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}#s-encerrado .cj-end-access-guide__step{display:flex;align-items:flex-start;gap:7px;padding:9px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);font:500 10.5px/1.3 Outfit,sans-serif;color:#b9cabd}#s-encerrado .cj-end-access-guide__step b{display:grid;place-items:center;width:18px;height:18px;flex:0 0 18px;border-radius:50%;background:rgba(155,234,69,.12);color:#b9ef81;font-size:9px}#s-encerrado .cj-end-access-guide__note{margin-top:9px;font:400 10px/1.4 Outfit,sans-serif;color:#8fa197}@media(max-width:760px){#s-encerrado .cj-end-access-guide__steps{grid-template-columns:1fr;gap:6px}#s-encerrado .cj-end-access-guide__step{padding:8px 9px}.cj-live-app-cta{margin:8px 10px 0;display:grid;grid-template-columns:34px minmax(0,1fr) auto 24px;align-items:center;gap:8px;padding:8px 8px 8px 9px;border-radius:12px;background:linear-gradient(145deg,rgba(67,223,126,.075),rgba(8,20,15,.75));border:1px solid rgba(120,230,165,.13)}.cj-live-app-cta__icon{width:34px;height:34px;border-radius:8px}.cj-live-app-cta__copy{min-width:0}.cj-live-app-cta__copy strong{display:block;font:600 11px/1.2 Outfit,sans-serif;color:#eef6f0}.cj-live-app-cta__copy small{display:block;margin-top:2px;font:400 9px/1.25 Outfit,sans-serif;color:#8ea198}.cj-live-app-cta__link{padding:7px 9px;border-radius:8px;background:#9bea45;color:#102a15;text-decoration:none;font:700 9.5px/1 Outfit,sans-serif}.cj-live-app-cta__x{width:24px;height:24px;border:0;background:transparent;color:#698076;font:400 16px/1 sans-serif;padding:0}}';
+    document.head.appendChild(s);
+  }
+
   function doctorName(){
     var banner=q('#medicoNomeBanner'); if(banner&&banner.textContent.trim())return banner.textContent.trim();
     var p=q('#chatMedicoLabel'); var t=(p&&p.textContent)||'';
@@ -57,6 +65,18 @@
     bar.innerHTML='<span class="cj-livebar-v6__status"></span><div class="cj-livebar-v6__copy"><div class="cj-livebar-v6__doctor">'+esc(doctorName())+'</div><div class="cj-livebar-v6__meta">Consulta ativa</div></div><button type="button" class="cj-livebar-v6__menu" aria-label="Mais opções">'+icon('more')+'</button>';
     bar.querySelector('button').onclick=openMenu;head.appendChild(bar);
   }
+  function mountLiveAppCTA(){
+    var section=q('#s-espera');var msgs=q('#s-espera .chat-msgs');
+    if(!section||!msgs||!section.classList.contains('cj-consult-active'))return;
+    if(!isAndroid()||isNativeApp())return;
+    try{if(sessionStorage.getItem('cj_live_app_cta_dismissed')==='1')return}catch(e){}
+    if(q('.cj-live-app-cta',msgs))return;
+    var c=document.createElement('div');c.className='cj-live-app-cta';
+    c.innerHTML='<img class="cj-live-app-cta__icon" src="/icon-192.png" alt=""><div class="cj-live-app-cta__copy"><strong>Também temos aplicativo</strong><small>Consultas e documentos na Google Play</small></div><a class="cj-live-app-cta__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener">Baixar</a><button class="cj-live-app-cta__x" type="button" aria-label="Fechar">×</button>';
+    c.querySelector('a').addEventListener('click',function(){trackAppDownload('consulta_ativa')});
+    c.querySelector('button').addEventListener('click',function(){try{sessionStorage.setItem('cj_live_app_cta_dismissed','1')}catch(e){}c.remove()});
+    msgs.insertBefore(c,msgs.firstChild);
+  }
   function removeDocumentCTA(){document.querySelectorAll('.cj-doc-cta-v6').forEach(function(c){c.remove()})}
   function mountEndCTA(){
     var screen=q('#s-encerrado');var host=q('#s-encerrado .enc-content');if(!screen||!host)return;
@@ -66,12 +86,13 @@
     if(existing)return;
     host.classList.add('has-end-actions');
     var c=document.createElement('section');c.className='cj-end-cta-v6 is-app';
-    c.innerHTML='<div class="cj-end-cta-v6__apphead"><img src="/icon-192.png" alt=""><div><div class="cj-end-cta-v6__eyebrow">APP CONSULTAJÁ24H</div><div class="cj-end-cta-v6__title">Tenha seus atendimentos à mão.</div></div></div><div class="cj-end-cta-v6__sub">Acesse documentos e volte quando precisar de um novo atendimento.</div><a class="cj-end-cta-v6__play cj-end-play-badge" data-end="play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play">'+googlePlayMark()+'<span><small>DISPONÍVEL NO</small><strong>Google Play</strong></span></a><div class="cj-end-cta-v6__actions"><button type="button" class="cj-end-cta-v6__btn" data-end="area">'+(hasToken()?'Abrir minha área':'Ativar meu acesso')+'</button><button type="button" class="cj-end-cta-v6__btn secondary" data-end="new">Nova consulta</button></div>';
+    c.innerHTML='<div class="cj-end-cta-v6__apphead"><img src="/icon-192.png" alt=""><div><div class="cj-end-cta-v6__eyebrow">APP CONSULTAJÁ24H</div><div class="cj-end-cta-v6__title">Leve a ConsultaJá24h no celular.</div></div></div><div class="cj-end-cta-v6__sub">Baixe o app para acessar consultas e documentos com mais facilidade.</div><a class="cj-end-cta-v6__play cj-end-play-badge" data-end="play" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play">'+googlePlayMark()+'<span><small>DISPONÍVEL NO</small><strong>Google Play</strong></span></a><div class="cj-end-access-guide"><div class="cj-end-access-guide__eyebrow">SEU ACESSO</div><div class="cj-end-access-guide__title">Quer guardar tudo para depois?</div><div class="cj-end-access-guide__steps"><div class="cj-end-access-guide__step"><b>1</b><span>Crie seu acesso</span></div><div class="cj-end-access-guide__step"><b>2</b><span>Entre quando precisar</span></div><div class="cj-end-access-guide__step"><b>3</b><span>Veja consultas e documentos</span></div></div><div class="cj-end-access-guide__note">O aplicativo é opcional. Seu acesso também funciona pelo navegador.</div></div><div class="cj-end-cta-v6__actions"><button type="button" class="cj-end-cta-v6__btn" data-end="area">'+(hasToken()?'Abrir minha área':'Criar meu acesso')+'</button><button type="button" class="cj-end-cta-v6__btn secondary" data-end="new">Nova consulta</button></div>';
     c.addEventListener('click',function(e){var b=e.target.closest('[data-end]');if(!b)return;var k=b.getAttribute('data-end');if(k==='play'){trackAppDownload('pos_consulta');return}if(k==='area')activateAccess();else go('/consulta/?utm_source=pos_consulta&utm_medium=owned&utm_campaign=nova_consulta')});
     var docs=q('#encerrado-documentos',host);if(docs&&docs.nextSibling)host.insertBefore(c,docs.nextSibling);else host.appendChild(c);
   }
-  function sync(){mountLivebar();removeDocumentCTA();mountEndCTA()}
+  function sync(){mountLivebar();mountLiveAppCTA();removeDocumentCTA();mountEndCTA()}
   mountEndAppStyle();
+  mountRetentionClarityStyle();
   setInterval(sync,1200);setTimeout(sync,100);
   if(window.MutationObserver){new MutationObserver(sync).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','data-consultation-completed','data-payment-confirmed']})}
 })();
