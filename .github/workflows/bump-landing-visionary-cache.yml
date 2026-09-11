@@ -11,21 +11,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Refresh landing asset versions
+      - name: Apply portrait video assets and refresh versions
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
+
+          desktop='https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/hero-app.mp4'
+          mobile='https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/hero-appp.mp4'
+
+          # Homepage: mobile gets portrait video; desktop keeps current horizontal video.
+          p=Path('index.html')
+          s=p.read_text()
+          old=f'<source src="{desktop}" type="video/mp4">'
+          portrait=f'<source media="(max-width: 720px)" src="{mobile}" type="video/mp4">\n        {old}'
+          if mobile not in s:
+              if old not in s:
+                  raise SystemExit('homepage video source not found')
+              s=s.replace(old,portrait,1)
+          p.write_text(s)
+
+          # /consulta: load the new mobile visual layer after the existing premium layer.
           p=Path('consulta/index.html')
           s=p.read_text()
-          s=s.replace('/consulta/visionary-v1.css?v=dark-app-2','/consulta/visionary-v1.css?v=premium-mobile-14')
-          s=s.replace('/consulta/visionary-v1.js?v=mobile-v12-1','/consulta/visionary-v1.js?v=premium-mobile-14')
+          css='<link rel="stylesheet" href="/consulta/mobile-premium-v1.css?v=1">'
+          js='<script src="/consulta/mobile-video-v1.js?v=1" defer></script>'
+          if css not in s:
+              s=s.replace('</head>',css+'\n'+js+'\n</head>',1)
+          s=re.sub(r'/consulta/visionary-v1\.css\?v=[^"\']+', '/consulta/visionary-v1.css?v=portrait-mobile-1', s)
+          s=re.sub(r'/consulta/visionary-v1\.js\?v=[^"\']+', '/consulta/visionary-v1.js?v=portrait-mobile-1', s)
           p.write_text(s)
           PY
       - name: Commit cache refresh
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add consulta/index.html
-          git commit -m 'Refresh consultation landing asset cache'
+          git add index.html consulta/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Use portrait hero video on mobile landing pages'
           git pull --rebase origin main
           git push
