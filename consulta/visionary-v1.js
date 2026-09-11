@@ -85,17 +85,6 @@
       }
     }
 
-    function mountAppPromo(){
-      var priceAnchor=document.getElementById('heroPriceAnchor');
-      if(!priceAnchor||document.querySelector('.cj-play-hero')) return;
-      var wrap=document.createElement('div');
-      wrap.className='cj-play-hero';
-      wrap.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener"><img class="cj-play-hero__appicon" src="/icon-192.png" alt="" width="40" height="40"><span class="cj-play-hero__copy"><strong>Prefere usar pelo app?</strong><small>Baixe na Google Play. No navegador, você continua normalmente.</small></span></a>';
-      var a=wrap.querySelector('a');
-      a.addEventListener('click',function(){track('app_download_click',{source:'consulta_hero'})});
-      priceAnchor.parentNode.insertBefore(wrap,priceAnchor.nextSibling);
-    }
-
     function mountStickyCTA(){
       if(document.querySelector('.cj-conversion-dock')) return;
       var heroCTA=document.getElementById('heroCTA');
@@ -120,7 +109,7 @@
       window.addEventListener('resize',sync,{passive:true});
     }
 
-    function polishMobile(){
+    function polishMobileContent(){
       if(!window.matchMedia||!window.matchMedia('(max-width:720px)').matches) return;
       var sub=document.getElementById('heroSub');
       if(sub) sub.textContent='Atendimento por chat ou vídeo, com pagamento único. Sem mensalidade.';
@@ -130,13 +119,56 @@
       if(security) security.textContent='Médicos com CRM ativo · documentos após avaliação médica.';
     }
 
+    function mountMobileConversionPolish(){
+      if(document.getElementById('cj-mobile-conversion-v13')) return;
+      var style=document.createElement('style');
+      style.id='cj-mobile-conversion-v13';
+      style.textContent='@media(max-width:720px){'+
+        'html body .nav__in{padding:9px 12px!important}'+
+        'html body .nav__logo{font-size:.9rem!important}'+
+        'html body .nav__cta-link{min-height:38px!important;padding:8px 12px!important;font-size:.72rem!important}'+
+        'html body .hero{min-height:auto!important;padding:32px 14px 28px!important;text-align:left!important;align-items:stretch!important}'+
+        'html body .cj-hero-bg-video{object-position:61% center!important;filter:brightness(.54) saturate(.5) contrast(1.04)!important}'+
+        'html body .hero::before{background:linear-gradient(180deg,rgba(5,12,10,.43) 0%,rgba(5,12,10,.77) 42%,rgba(5,12,10,.96) 100%)!important}'+
+        'html body #heroBadge{display:none!important}'+
+        'html body .hero h1,html body .hero__title{margin-left:0!important;margin-right:0!important;max-width:355px!important;font-size:clamp(2.02rem,9.5vw,2.72rem)!important;line-height:.99!important;letter-spacing:-.05em!important;text-align:left!important}'+
+        'html body .hero__sub{margin-left:0!important;margin-right:0!important;max-width:350px!important;font-size:.91rem!important;line-height:1.47!important;text-align:left!important;color:rgba(244,249,246,.78)!important}'+
+        'html body #heroCTA,html body .hero__cta{max-width:none!important;width:100%!important}'+
+        'html body .hero__cta-btn,html body .hero__cta button,html body .hero__cta a{width:100%!important;min-height:56px!important;border-radius:14px!important;font-size:.96rem!important;box-shadow:0 15px 34px rgba(0,0,0,.25)!important}'+
+        'html body .hero__intent{margin-top:13px!important;width:100%!important}'+
+        'html body .hero__intent-title{text-align:left!important;font-size:.69rem!important;margin-bottom:8px!important}'+
+        'html body .hero__intent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}'+
+        'html body .hero__intent-btn{min-height:42px!important;padding:8px 7px!important;border-radius:12px!important;font-size:.66rem!important}'+
+        'html body .hero__intent-btn--primary::after{display:none!important}'+
+        'html body #heroUrgency{display:none!important}'+
+        'html body #heroPriceAnchor{margin-top:11px!important}'+
+        'html body #heroReviewProof{margin-top:9px!important;font-size:.69rem!important;justify-content:flex-start!important;text-align:left!important}'+
+        'html body #heroSecurity{margin-top:8px!important;font-size:.64rem!important;text-align:left!important}'+
+        'html body .hero__proof-list{margin-top:9px!important;gap:6px!important}'+
+        'html body .hero__proof-row{justify-content:flex-start!important;font-size:.7rem!important}'+
+        'html body .doc-card{display:none!important}'+
+        'html body .cj-play-hero{display:none!important}'+
+        'html body .pain-section,html body .how-section,html body .price-section,html body .reviews-section,html body .faq-section{padding:46px 15px!important}'+
+        'html body .section-title{font-size:1.72rem!important;line-height:1.06!important}'+
+        'html body .section-sub{font-size:.86rem!important}'+
+        'html body .steps{grid-template-columns:1fr!important;gap:9px!important}'+
+        'html body .step{grid-template-columns:44px 1fr!important;padding:15px 14px!important;border-radius:16px!important}'+
+        'html body .step__num{width:40px!important;height:40px!important;border-radius:12px!important;font-size:.95rem!important}'+
+        'html body .step h3{font-size:.9rem!important}'+
+        'html body .step p{font-size:.76rem!important}'+
+        'html body .cj-conversion-dock{bottom:9px!important;width:calc(100% - 16px)!important;border-radius:15px!important;padding:8px!important}'+
+        'html body .cj-conversion-dock__btn{min-height:44px!important;border-radius:11px!important;font-size:.76rem!important}'+
+      '}@media(max-width:430px){html body .hero__intent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}';
+      document.head.appendChild(style);
+    }
+
     mountHeroVideo();
     setupHowSection();
     syncTrustNumbers();
     fixPixStatusVisibility();
-    mountAppPromo();
+    mountMobileConversionPolish();
     mountStickyCTA();
-    polishMobile();
+    polishMobileContent();
 
     setTimeout(fixPixStatusVisibility,800);
     setTimeout(fixPixStatusVisibility,1800);
