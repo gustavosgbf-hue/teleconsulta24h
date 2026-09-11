@@ -11,23 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Bump cache version
+      - name: Refresh landing asset versions
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('consulta/index.html')
           s=p.read_text()
-          old='/consulta/visionary-v1.js?v=dark-premium-7'
-          new='/consulta/visionary-v1.js?v=dark-premium-8'
-          if old not in s:
-              raise SystemExit('expected visionary cache reference not found')
-          p.write_text(s.replace(old,new,1))
+          s=s.replace('/consulta/visionary-v1.css?v=dark-app-2','/consulta/visionary-v1.css?v=premium-mobile-14')
+          s=s.replace('/consulta/visionary-v1.js?v=mobile-v12-1','/consulta/visionary-v1.js?v=premium-mobile-14')
+          p.write_text(s)
           PY
-      - name: Commit cache bust
+      - name: Commit cache refresh
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add consulta/index.html
-          git commit -m 'Bust landing visionary cache'
+          git commit -m 'Refresh consultation landing asset cache'
           git pull --rebase origin main
           git push
