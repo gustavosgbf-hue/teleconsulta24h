@@ -1,0 +1,98 @@
+name: Mobile hierarchy v12
+on:
+  push:
+    paths:
+      - '.github/workflows/mobile-hierarchy-v12.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply mobile hierarchy polish
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p=Path('consulta/visionary-v1.js')
+          s=p.read_text()
+
+          # Clarify Android availability on iOS without hiding the app promo.
+          marker="    function mountAppPromos(){\n"
+          if 'function isIOSDevice()' not in s:
+              helper=("    function isIOSDevice(){\n"
+                      "      return /iPad|iPhone|iPod/.test(navigator.userAgent||'') || (navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);\n"
+                      "    }\n\n")
+              if marker not in s: raise SystemExit('mountAppPromos marker not found')
+              s=s.replace(marker,helper+marker,1)
+
+          old="<strong>Também temos aplicativo</strong><small>Baixe na Google Play para consultar e acessar documentos</small>"
+          new="<strong>Também temos aplicativo</strong><small>"+"'+(isIOSDevice()?'Disponível para Android na Google Play':'Baixe na Google Play para consultar e acessar documentos')+'"+"</small>"
+          if old in s:
+              s=s.replace(old,new,1)
+          elif "Disponível para Android na Google Play" not in s:
+              raise SystemExit('app hero copy marker not found')
+
+          # Put the mobile hero back into a conversion-first reading order.
+          if 'function refineMobileHierarchy()' not in s:
+              marker="    function mountVisualPolish(){\n"
+              fn=("    function refineMobileHierarchy(){\n"
+                  "      if(!window.matchMedia||!window.matchMedia('(max-width:720px)').matches)return;\n"
+                  "      var hero=document.querySelector('.hero');\n"
+                  "      var review=document.getElementById('heroReviewProof');\n"
+                  "      var value=document.querySelector('.cj-value-proof');\n"
+                  "      var intents=document.querySelector('.hero__intent');\n"
+                  "      var app=document.querySelector('.cj-play-hero');\n"
+                  "      if(hero&&review&&value) review.insertAdjacentElement('afterend',value);\n"
+                  "      if(hero&&intents&&app) intents.insertAdjacentElement('afterend',app);\n"
+                  "      document.body.classList.add('cj-mobile-hierarchy-v12');\n"
+                  "      var navCta=document.querySelector('.nav__cta-link');\n"
+                  "      var heroCta=document.getElementById('heroCTA');\n"
+                  "      if(navCta&&heroCta){\n"
+                  "        var setVisible=function(visible){document.body.classList.toggle('cj-hero-cta-visible',visible)};\n"
+                  "        if('IntersectionObserver' in window){\n"
+                  "          new IntersectionObserver(function(entries){setVisible(entries[0]&&entries[0].isIntersecting)},{threshold:.18}).observe(heroCta);\n"
+                  "        }else{\n"
+                  "          var sync=function(){var r=heroCta.getBoundingClientRect();setVisible(r.bottom>0&&r.top<window.innerHeight)};\n"
+                  "          sync();window.addEventListener('scroll',sync,{passive:true});\n"
+                  "        }\n"
+                  "      }\n"
+                  "      if(!document.getElementById('cj-mobile-hierarchy-v12-style')){\n"
+                  "        var st=document.createElement('style');st.id='cj-mobile-hierarchy-v12-style';\n"
+                  "        st.textContent='@media(max-width:720px){body.cj-mobile-hierarchy-v12 .hero #heroTitle{order:1!important;font-size:clamp(31px,9.2vw,39px)!important;line-height:1!important;max-width:360px!important}body.cj-mobile-hierarchy-v12 .hero #heroSub{order:2!important}body.cj-mobile-hierarchy-v12 .hero #heroCTA{order:3!important}body.cj-mobile-hierarchy-v12 .hero #heroReviewProof{order:4!important}body.cj-mobile-hierarchy-v12 .hero .cj-value-proof{order:5!important;margin-top:11px!important}body.cj-mobile-hierarchy-v12 .hero .hero__intent{order:6!important;margin-top:17px!important}body.cj-mobile-hierarchy-v12 .hero .cj-play-hero{order:7!important;margin-top:12px!important}body.cj-mobile-hierarchy-v12 .hero #heroSecurity{order:8!important}body.cj-mobile-hierarchy-v12.cj-hero-cta-visible .nav__cta-link{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:scale(.96)!important}body.cj-mobile-hierarchy-v12 .nav__cta-link{transition:opacity .18s ease,transform .18s ease,visibility .18s ease!important}body.cj-mobile-hierarchy-v12 .hero .cj-play-hero__link{padding:8px 9px!important}body.cj-mobile-hierarchy-v12 .hero .cj-play-hero__copy strong{font-size:11.5px!important}body.cj-mobile-hierarchy-v12 .hero .cj-play-hero__copy small{font-size:9px!important;line-height:1.25!important}}';\n"
+                  "        document.head.appendChild(st);\n"
+                  "      }\n"
+                  "    }\n\n")
+              if marker not in s: raise SystemExit('mountVisualPolish marker not found')
+              s=s.replace(marker,fn+marker,1)
+
+          old_init='syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();polishMobileContent();mountValueProof();mountVisualPolish();setupVideo();mountDock();'
+          new_init='syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();polishMobileContent();mountValueProof();mountVisualPolish();refineMobileHierarchy();setupVideo();mountDock();'
+          if old_init in s:
+              s=s.replace(old_init,new_init,1)
+          elif new_init not in s:
+              raise SystemExit('init marker not found')
+
+          p.write_text(s)
+
+          idx=Path('consulta/index.html')
+          html=idx.read_text()
+          html,n=re.subn(r'/consulta/visionary-v1\.js\?v=[^\"\']+','/consulta/visionary-v1.js?v=mobile-v12-1',html,count=1)
+          if n!=1: raise SystemExit('cache marker not found')
+          idx.write_text(html)
+          PY
+          node --check consulta/visionary-v1.js
+          git diff --check
+      - name: Commit mobile hierarchy changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f .github/workflows/mobile-hierarchy-v12.yml
+          git add consulta/visionary-v1.js consulta/index.html
+          git commit -m 'Refine mobile landing hierarchy and app messaging'
+          git pull --rebase origin main
+          git push
