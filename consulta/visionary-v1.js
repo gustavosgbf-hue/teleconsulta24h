@@ -27,7 +27,7 @@
       if(priceAnchor&&!document.querySelector('.cj-play-hero')){
         var heroApp=document.createElement('div');
         heroApp.className='cj-play-hero';
-        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><img class="cj-play-hero__appicon" src="/icon-192.png" alt="" width="42" height="42"><span class="cj-play-hero__copy"><strong>Prefere usar o aplicativo?</strong><small>Consultas e documentos no celular</small></span><span class="cj-play-hero__badge">'+playBadge()+'</span></a>';
+        heroApp.innerHTML='<a class="cj-play-hero__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener" aria-label="Baixar ConsultaJá24h na Google Play"><img class="cj-play-hero__appicon" src="/icon-192.png" alt="" width="42" height="42"><span class="cj-play-hero__copy"><strong>Também temos aplicativo</strong><small>Baixe na Google Play para consultar e acessar documentos</small></span><span class="cj-play-hero__badge">'+playBadge()+'</span></a>';
         heroApp.querySelector('a').addEventListener('click',function(){trackAppDownload('landing_hero')});
         priceAnchor.parentNode.insertBefore(heroApp,priceAnchor.nextSibling);
       }
@@ -77,7 +77,7 @@
       var sub=how.querySelector('.section-sub');
       if(label)label.textContent='SIMPLES, SEGURO E SEM BUROCRACIA';
       if(title)title.textContent='Como funciona';
-      if(sub)sub.textContent='Três passos e você já sabe o que esperar.';
+      if(sub)sub.textContent='Chat ou vídeo. R$49,90 por consulta. Sem mensalidade.';
       var steps=how.querySelectorAll('.step');
       var data=[
         {title:'1. Inicie a consulta',copy:'Cadastro e pagamento por PIX ou cartão.'},
@@ -110,7 +110,21 @@
       var security=document.getElementById('heroSecurity');
       if(security)security.textContent='Médicos com CRM ativo · documentos após avaliação médica.';
       var intentTitle=document.querySelector('.hero__intent-title');
-      if(intentTitle)intentTitle.textContent='Como podemos ajudar?';
+      if(intentTitle)intentTitle.textContent='O que você precisa hoje?';
+    }
+
+    function mountValueProof(){
+      var cta=document.getElementById('heroCTA');
+      if(!cta||document.querySelector('.cj-value-proof'))return;
+      var proof=document.createElement('div');
+      proof.className='cj-value-proof';
+      proof.innerHTML='<div class="cj-value-proof__item"><strong>Pague só quando precisar</strong><span>sem assinatura</span></div><div class="cj-value-proof__item"><strong>~5 min no chat¹</strong><span>espera típica</span></div><small class="cj-value-proof__note">¹ Mediana das consultas clínicas por chat nos últimos 30 dias.</small>';
+      cta.insertAdjacentElement('afterend',proof);
+      if(!document.getElementById('cj-value-proof-style')){
+        var st=document.createElement('style');st.id='cj-value-proof-style';
+        st.textContent='.cj-value-proof{display:none}@media(max-width:720px){.cj-value-proof{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px auto 0;max-width:430px;width:100%}.cj-value-proof__item{min-width:0;padding:8px 9px;border:1px solid rgba(120,230,165,.12);border-radius:11px;background:rgba(255,255,255,.018);text-align:left}.cj-value-proof__item strong{display:block;font:650 10.8px/1.2 Outfit,sans-serif;color:#eaf6ec}.cj-value-proof__item span{display:block;margin-top:2px;font:500 9px/1.2 Outfit,sans-serif;color:#81958a}.cj-value-proof__note{grid-column:1/-1;margin-top:-1px;text-align:center;font:400 8.3px/1.3 Outfit,sans-serif;color:#5f7569}}';
+        document.head.appendChild(st);
+      }
     }
 
     function mountVisualPolish(){
@@ -250,7 +264,7 @@
       syncDock();window.addEventListener('scroll',syncDock,{passive:true});window.addEventListener('resize',syncDock,{passive:true});
     }
 
-    syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();polishMobileContent();mountVisualPolish();setupVideo();mountDock();
+    syncTrustNumbers();fixPixStatusVisibility();mountAppPromos();setupHowSection();simplifyMobileIntents();polishMobileContent();mountValueProof();mountVisualPolish();setupVideo();mountDock();
     setTimeout(syncTrustNumbers,800);setTimeout(syncTrustNumbers,2200);setTimeout(syncTrustNumbers,4500);setTimeout(fixPixStatusVisibility,250);setTimeout(fixPixStatusVisibility,900);
     var reviewsBadge=document.getElementById('reviewsBadgeTxt');
     if(reviewsBadge&&typeof MutationObserver!=='undefined'){new MutationObserver(function(){var atual=reviewsBadge.innerHTML;if(/5,0 no Google|\+2\.000 atendimentos/.test(atual))syncTrustNumbers()}).observe(reviewsBadge,{childList:true,subtree:true,characterData:true})}
