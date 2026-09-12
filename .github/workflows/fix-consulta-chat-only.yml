@@ -1,0 +1,55 @@
+name: Fix consulta chat only
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-consulta-chat-only.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply chat-only copy and force chat mode
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          idx=Path('consulta/index.html')
+          s=idx.read_text()
+          reps={
+            'chat ou vídeo':'chat',
+            'Médico online <span class="hero__mobile-break"></span>agora<br>\n    <em>por chat ou <span class="hero__mobile-break"></span>vídeo.</em>':'Médico online <span class="hero__mobile-break"></span>agora<br>\n    <em>por chat.</em>',
+            'Atendimento médico por chat, sem câmera, ou por vídeo. Sem app e com pagamento único.':'Atendimento médico por chat, sem câmera. Sem app e com pagamento único.',
+            'Por chat, sem câmera · vídeo opcional · pagamento único':'Por chat, sem câmera · pagamento único',
+            "function moSelecionarTipo(tipo){\n  moTipoConsulta=tipo;":"function moSelecionarTipo(tipo){\n  tipo='chat';\n  moTipoConsulta='chat';",
+            "// pula direto pro telefone — escolha chat/vídeo vira opcional no proprio step 1":"// pula direto pro telefone — atendimento por chat",
+            "if(titulo) titulo.textContent = moTipoConsulta==='chat' ? 'Atendimento por chat' : 'Atendimento por vídeo';":"if(titulo) titulo.textContent = 'Atendimento por chat';",
+            "if(desc) desc.textContent = moTipoConsulta==='chat'\n    ? 'Texto e envio de fotos, direto no navegador'\n    : 'Videochamada direto no navegador, sem app';":"if(desc) desc.textContent = 'Texto e envio de fotos, direto no navegador';"
+          }
+          for a,b in reps.items(): s=s.replace(a,b)
+          s=re.sub(r'\n\s*<a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir\(event,\'consulta por vídeo\',\'video\'\)">.*?</a>','',s,count=1,flags=re.S)
+          s=s.replace('id="moModoPill" style="display:flex;','id="moModoPill" style="display:none;')
+          idx.write_text(s)
+
+          js=Path('consulta/visionary-v1.js')
+          v=js.read_text()
+          v=v.replace("Chat ou vídeo. R$49,90 por consulta. Sem mensalidade.","Chat. R$49,90 por consulta. Sem mensalidade.")
+          v=v.replace("Atendimento por chat ou vídeo.","Atendimento por chat.")
+          v=v.replace("Atendimento por chat ou vídeo, com pagamento único. Sem mensalidade.","Atendimento por chat, com pagamento único. Sem mensalidade.")
+          js.write_text(v)
+          PY
+          node --check consulta/visionary-v1.js
+          git diff --check
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f .github/workflows/fix-consulta-chat-only.yml
+          git add consulta/index.html consulta/visionary-v1.js
+          git commit -m 'Make consultation flow chat only'
+          git pull --rebase origin main
+          git push
