@@ -44,10 +44,10 @@
       var sub=how.querySelector('.section-sub');
       if(label) label.textContent='SIMPLES, SEGURO E SEM BUROCRACIA';
       if(title) title.textContent='Como funciona';
-      if(sub) sub.textContent='Chat ou vídeo. R$49,90 por consulta. Sem mensalidade.';
+      if(sub) sub.textContent='Chat. R$49,90 por consulta. Sem mensalidade.';
       var data=[
         {title:'1. Inicie a consulta',copy:'Cadastro e pagamento por PIX ou cartão.'},
-        {title:'2. Fale com um médico',copy:'Atendimento por chat ou vídeo.'},
+        {title:'2. Fale com um médico',copy:'Atendimento por chat.'},
         {title:'3. Receba seus documentos',copy:'PDF no chat e receita digital quando indicada.'}
       ];
       how.querySelectorAll('.step').forEach(function(step,i){
@@ -121,7 +121,7 @@
     function polishMobileContent(){
       if(!window.matchMedia||!window.matchMedia('(max-width:720px)').matches) return;
       var sub=document.getElementById('heroSub');
-      if(sub) sub.textContent='Atendimento por chat ou vídeo, com pagamento único. Sem mensalidade.';
+      if(sub) sub.textContent='Atendimento por chat, com pagamento único. Sem mensalidade.';
       var intentTitle=document.querySelector('.hero__intent-title');
       if(intentTitle) intentTitle.textContent='O que você precisa hoje?';
       var security=document.getElementById('heroSecurity');
