@@ -1,0 +1,35 @@
+name: Restore old consulta art
+on:
+  push:
+    paths:
+      - '.github/workflows/restore-old-consulta-art.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Remove visionary visual layer only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('consulta/index.html')
+          s=p.read_text()
+          s=re.sub(r'\n?<link[^>]+href="/consulta/visionary-v1\.css\?v=[^"]+"[^>]*>', '', s)
+          s=re.sub(r'\n?<script[^>]+src="/consulta/visionary-v1\.js\?v=[^"]+"[^>]*></script>', '', s)
+          p.write_text(s)
+          PY
+          git diff --check
+      - name: Commit restored old art
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f .github/workflows/restore-old-consulta-art.yml
+          git add consulta/index.html
+          git commit -m 'Restore pre-visionary consulta artwork'
+          git pull --rebase origin main
+          git push
