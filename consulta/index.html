@@ -1229,9 +1229,7 @@ a.specialty-mini:hover{border-color:rgba(94,224,160,.28);background:rgba(94,224,
 }
 </style>
 <script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
-<link rel="stylesheet" href="/consulta/visionary-v1.css?v=portrait-mobile-1" data-cj-visionary-v1="1">
-<link rel="stylesheet" href="/consulta/mobile-premium-v1.css?v=1">
-<script src="/consulta/mobile-video-v1.js?v=1" defer></script>
+<link rel="stylesheet" href="/consulta/visionary-v1.css?v=1" data-cj-visionary-v1="1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1610,9 +1608,12 @@ whatsappSend.addEventListener('click', function() {
   <div class="hero__badge" id="heroBadge" style="font-size:.62rem">
     ★★★★★ 5,0 · +2.000 atendimentos
   </div>
-  <h1 class="hero__h1" id="heroTitle">Médico online agora<br><em>por chat ou vídeo.</em></h1>
+  <h1 class="hero__h1" id="heroTitle">
+    Médico online <span class="hero__mobile-break"></span>agora<br>
+    <em>por chat ou <span class="hero__mobile-break"></span>vídeo.</em>
+  </h1>
   <p class="hero__sub" id="heroSub" style="line-height:1.65;color:rgba(255,255,255,.68)">
-    Converse por chat, sem câmera, ou por vídeo. Direto pelo navegador, com pagamento único.
+    Atendimento médico por chat, sem câmera, ou por vídeo. Sem app e com pagamento único.
   </p>
   <div class="resume-care" id="resumeCare" role="status">
     <span class="resume-care__copy">
@@ -1709,7 +1710,7 @@ whatsappSend.addEventListener('click', function() {
 </section>
 
 <!-- ════════ VÍDEO PROVA SOCIAL ════════ -->
-<section class="reveal cj-video-section" style="padding:36px 20px 44px;text-align:center;border-top:1px solid rgba(255,255,255,.04)">
+<section class="reveal" style="padding:36px 20px 44px;text-align:center;border-top:1px solid rgba(255,255,255,.04)">
   <div class="section-inner" style="max-width:480px">
     <div style="display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:500;color:rgba(180,224,90,.85);letter-spacing:.02em;margin-bottom:14px"><span class="live-dot"></span>Veja como funciona</div>
     <div style="position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 40px rgba(0,0,0,.4);max-width:300px;margin:0 auto">
@@ -1791,14 +1792,14 @@ whatsappSend.addEventListener('click', function() {
   <div class="section-inner" style="text-align:center">
     <div class="section-label">Passo a passo</div>
     <h2 class="section-title">Do clique ao médico<br>em poucos minutos</h2>
-    <p class="section-sub" style="margin:0 auto 0">Você pode começar diretamente pelo site.</p>
+    <p class="section-sub" style="margin:0 auto 0">Sem app, sem criar conta.</p>
     <div class="steps reveal-group" style="margin-top:40px">
       <div class="step">
         <div class="step__num">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
-        <h3>Escolha e inicie</h3>
-        <p>Informe seus dados e confirme o pagamento por PIX ou cartão.</p>
+        <h3>Informe seus dados</h3>
+        <p>Preencha nome e WhatsApp para iniciar o atendimento com segurança.</p>
       </div>
       <div class="step">
         <div class="step__num">
@@ -1812,7 +1813,7 @@ whatsappSend.addEventListener('click', function() {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
         </div>
         <h3>Fale com o médico</h3>
-        <p>Converse pelo chat ou por vídeo. Documentos são emitidos quando houver indicação médica.</p>
+        <p>Após o pagamento, você conversa com um médico com CRM ativo. Receita, atestado ou exames só são emitidos quando indicados.</p>
       </div>
     </div>
     <div class="how-summary" aria-label="Preço e formas de pagamento">
@@ -2043,7 +2044,7 @@ whatsappSend.addEventListener('click', function() {
     <em>Fale com um médico agora.</em>
   </h2>
   <p class="section-sub" style="text-align:center;margin:0 auto 32px">
-    Consulta completa pelo site ou aplicativo. Sem sair de casa.
+    Consulta completa na plataforma. Sem app e sem sair de casa.
   </p>
   <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
     <div style="display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:999px;background:rgba(180,224,90,.08);border:1px solid rgba(180,224,90,.22);font-size:.72rem;font-weight:600;color:#b4e05a">
@@ -2309,7 +2310,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;background:rgba(180,224,90,.07);border:1px solid rgba(180,224,90,.2);border-radius:13px;margin:8px 0 6px">
         <div style="font-size:.74rem;color:rgba(255,255,255,.68);line-height:1.35">
           <strong id="moResumoProduto" style="display:block;color:#fff;font-size:.82rem;margin-bottom:1px">Consulta médica online</strong>
-          Pagamento único · direto pelo navegador
+          Pagamento único · sem app · começa após confirmação
         </div>
         <div id="moResumoPreco" style="font-size:1rem;font-weight:800;color:#b4e05a;white-space:nowrap">R$ 49,90</div>
       </div>
@@ -4185,5 +4186,5 @@ document.addEventListener('DOMContentLoaded',async function(){
 </script>
 
 
-<script src="/consulta/visionary-v1.js?v=portrait-mobile-1" defer data-cj-visionary-v1="1"></script>
+<script src="/consulta/visionary-v1.js?v=2" defer data-cj-visionary-v1="1"></script>
 </body></html>
