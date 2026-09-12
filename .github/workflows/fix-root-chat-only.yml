@@ -1,0 +1,43 @@
+name: Fix root chat-only copy
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-root-chat-only.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Update homepage copy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          replacements = {
+              'chat ou vídeo': 'chat',
+              'Chat ou vídeo': 'Chat',
+              'chat e vídeo': 'chat',
+              'Chat e vídeo': 'Chat',
+          }
+          old = s
+          for a, b in replacements.items():
+              s = s.replace(a, b)
+          if s == old:
+              raise SystemExit('No homepage chat/video copy found to replace')
+          p.write_text(s)
+          PY
+          git diff --check
+      - name: Commit change
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f .github/workflows/fix-root-chat-only.yml
+          git add index.html
+          git commit -m 'Update homepage to chat-only consultation copy'
+          git pull --rebase origin main
+          git push
