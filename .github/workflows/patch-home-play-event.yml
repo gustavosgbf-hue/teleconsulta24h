@@ -1,0 +1,51 @@
+name: "Patch homepage Play event"
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  patch-home:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("index.html")
+          s = p.read_text()
+          needle = "a.addEventListener('click',function(){track('app_download_click',{placement:(a.textContent||'').trim(),device:isIOS?'ios':'other'})});"
+          replacement = """a.addEventListener('click',function(){
+          var placement=(a.textContent||'').trim();
+          if(isIOS){
+            track('web_continue_click',{placement:placement,source:'ios_app_fallback'});
+            return;
+          }
+          var detail={placement:placement,device:'non_ios',link_url:a.href};
+          track('google_play_click',detail);
+          track('app_download_click',detail);
+        });"""
+          if needle not in s:
+              raise SystemExit("tracking hook not found")
+          p.write_text(s.replace(needle, replacement, 1))
+          PY
+          git diff --check
+      - name: Commit
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/patch-home-play-event.yml .github/workflows/add-google-play-click-tracking.yml
+          git add index.html
+          git commit -m "Track Google Play CTA clicks on homepage"
+          git pull --rebase origin main
+          git push origin HEAD:main
