@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const vm = require('node:vm');
 let count = 0;
-for (const file of ['consulta/index.html', 'atendimento/index.html']) {
+for (const file of ['index.html', 'consulta/index.html', 'atendimento/index.html']) {
   const html = fs.readFileSync(file, 'utf8');
   for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
     if (/\bsrc=|application\/ld\+json/i.test(match[1]) || !match[2].trim()) continue;

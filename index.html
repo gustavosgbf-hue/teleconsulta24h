@@ -437,8 +437,26 @@
   <script>
     (function(){
       var PLAY_URL='https://play.google.com/store/apps/details?id=com.consultaja24h.app';
+      var TRACKING_URL='https://triagem-api.onrender.com/api/tracking/play-click';
       var params=new URLSearchParams(window.location.search);
       var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+
+      function attributionId(){
+        var key='consultaja_app_attribution_id';
+        try{
+          var existing=sessionStorage.getItem(key);
+          if(existing)return existing;
+          var generated='cja_'+(self.crypto&&typeof self.crypto.randomUUID==='function'
+            ? self.crypto.randomUUID()
+            : Date.now().toString(36)+'_'+Math.random().toString(36).slice(2));
+          sessionStorage.setItem(key,generated);
+          return generated;
+        }catch(_){
+          return 'cja_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2);
+        }
+      }
+
+      var cjaid=attributionId();
 
       function withParams(path){
         var u=new URL(path,window.location.origin);
@@ -452,7 +470,10 @@
         ref.set('utm_source',params.get('utm_source')||'site');
         ref.set('utm_medium',params.get('utm_medium')||'homepage');
         ref.set('utm_campaign',params.get('utm_campaign')||'app_download');
-        ['fbclid','gclid','ttclid'].forEach(function(k){if(params.get(k))ref.set(k,params.get(k))});
+        ref.set('cjaid',cjaid);
+        ['utm_term','utm_content','fbclid','gclid','gbraid','wbraid','ttclid'].forEach(function(k){
+          if(params.get(k))ref.set(k,params.get(k));
+        });
         u.searchParams.set('referrer',ref.toString());
         return u.toString();
       }
@@ -464,6 +485,42 @@
         if(typeof fbq==='function')fbq('trackCustom',name,extra||{});
       }
 
+      function trackGooglePlayClick(placement){
+        var payload={
+          attribution_id:cjaid,
+          captured_at:new Date().toISOString(),
+          placement:placement,
+          landing_url:window.location.href,
+          utm_source:params.get('utm_source')||'site',
+          utm_medium:params.get('utm_medium')||'homepage',
+          utm_campaign:params.get('utm_campaign')||'app_download',
+          utm_term:params.get('utm_term')||'',
+          utm_content:params.get('utm_content')||'',
+          gclid:params.get('gclid')||'',
+          gbraid:params.get('gbraid')||'',
+          wbraid:params.get('wbraid')||''
+        };
+        var analyticsPayload={
+          placement:placement,
+          device:'android_or_desktop',
+          has_gclid:payload.gclid?'yes':'no',
+          has_gbraid:payload.gbraid?'yes':'no',
+          has_wbraid:payload.wbraid?'yes':'no'
+        };
+        window.dataLayer=window.dataLayer||[];
+        if(typeof gtag==='function')gtag('event','google_play_click',analyticsPayload);
+        else window.dataLayer.push(Object.assign({event:'google_play_click'},analyticsPayload));
+        var body=JSON.stringify(payload);
+        if(!(navigator.sendBeacon&&navigator.sendBeacon(TRACKING_URL,body))){
+          fetch(TRACKING_URL,{
+            method:'POST',
+            headers:{'Content-Type':'text/plain;charset=UTF-8'},
+            body:body,
+            keepalive:true
+          }).catch(function(){});
+        }
+      }
+
       document.querySelectorAll('.js-web-link').forEach(function(a){
         a.href=withParams('/consulta');
         a.addEventListener('click',function(){track('web_continue_click',{placement:(a.textContent||'').trim()})});
@@ -471,7 +528,9 @@
 
       document.querySelectorAll('.js-app-link').forEach(function(a){
         a.href=playUrl();
-        a.addEventListener('click',function(){track('app_download_click',{placement:(a.textContent||'').trim(),device:isIOS?'ios':'other'})});
+        a.addEventListener('click',function(){
+          if(!isIOS)trackGooglePlayClick((a.textContent||'').trim());
+        });
       });
 
       if(isIOS){
