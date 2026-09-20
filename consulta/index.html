@@ -1501,18 +1501,10 @@ whatsappSend.addEventListener('click', function() {
     .livebar__sep{display:inline}
   }
 </style>
-<div class="livebar" id="liveBar">
-  <div class="livebar__inner">
-    <span class="livebar__item"><span class="live-dot"></span>Atendimento médico 24h</span>
-    <span class="livebar__sep">·</span>
-    <span class="livebar__item"><span class="livebar__num">chat ou vídeo</span></span>
-  </div>
-</div>
 <!-- ════════ NAV ════════ -->
 <nav class="nav">
   <div class="nav__in">
-    <a href="#" class="nav__brand">
-      <div class="live-dot"></div>
+    <a href="#" class="nav__brand" aria-label="ConsultaJá24h">
       <span class="nav__logo">
         <span class="c1">Consulta</span><span class="c2">Já</span><span class="c3">24h</span>
       </span>
@@ -1525,18 +1517,18 @@ whatsappSend.addEventListener('click', function() {
         </a>
         <a href="https://consultaja24h.com.br/especialistas" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver especialistas online">
           <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v5a4 4 0 0 0 8 0V3"/><path d="M12 12v3a5 5 0 0 0 10 0v-2"/><path d="M4 3h4M16 3h4"/><circle cx="22" cy="11" r="1.6"/></svg>
-          <span class="nav__rx-text"><span class="nav__link-full">Especialistas</span><span class="nav__link-short">Especialista</span></span>
+          <span class="nav__rx-text"><span class="nav__link-full">Especialidades</span><span class="nav__link-short">Especialidades</span></span>
         </a>
         <a href="https://consultaja24h.com.br/psicologo-online" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver psicologia online">
           <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4a3 3 0 0 0-3 3v.4A3.5 3.5 0 0 0 4 10.6c0 1.3.7 2.5 1.8 3.1A3.3 3.3 0 0 0 9 18h1V4H9Z"/><path d="M15 4a3 3 0 0 1 3 3v.4a3.5 3.5 0 0 1 2 3.2c0 1.3-.7 2.5-1.8 3.1A3.3 3.3 0 0 1 15 18h-1V4h1Z"/><path d="M10 9H7M14 9h3M10 13H7.5M14 13h2.5"/></svg>
-          <span class="nav__rx-text">Psicólogo</span>
+          <span class="nav__rx-text">Psicologia</span>
         </a>
       </div>
-      <a href="#" class="nav__cta-link" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Consulta</span></a>
+      <a href="#" class="nav__cta-link" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Falar com médico</span></a>
     </div>
   </div>
 </nav>
-
+<link rel="stylesheet" href="hero-premium.css">
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
@@ -1604,15 +1596,17 @@ whatsappSend.addEventListener('click', function() {
   })();
   </script>
 
-  <div class="hero__badge" id="heroBadge" style="font-size:.62rem">
+  <div class="hero__layout">
+    <div class="hero__copy">
+      <div class="hero__badge" id="heroBadge" style="font-size:.62rem">
     ★★★★★ 5,0 · +2.000 atendimentos
   </div>
   <h1 class="hero__h1" id="heroTitle">
-    Médico online <span class="hero__mobile-break"></span>agora<br>
-    <em>por chat ou <span class="hero__mobile-break"></span>vídeo.</em>
+    Médico online agora.<br>
+    <em>Por chat ou vídeo.</em>
   </h1>
   <p class="hero__sub" id="heroSub" style="line-height:1.65;color:rgba(255,255,255,.68)">
-    Atendimento médico por chat, sem câmera, ou por vídeo. Sem app e com pagamento único.
+    Atendimento médico pelo celular, por chat sem câmera ou por vídeo. Pagamento único, sem mensalidade.
   </p>
   <div class="resume-care" id="resumeCare" role="status">
     <span class="resume-care__copy">
@@ -1623,24 +1617,17 @@ whatsappSend.addEventListener('click', function() {
   </div>
   <!-- heroUrgency removido: não promete tempo de vaga (só mostra info estática na livebar) -->
   <p id="heroUrgency" style="display:none"></p>
+  <div class="hero__pricing" aria-label="Preço da consulta">
+    <span class="hero__pricing-value">R$ 49,90</span>
+    <span class="hero__pricing-note">pagamento único<br>sem mensalidade</span>
+  </div>
   <a href="#" class="btn-primary" id="heroCTA" onclick="return moCliqueAbrir(event)">
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"></path><path d="M8 10.5h8"></path><path d="M8 14h5"></path></svg>
-    <span>Iniciar consulta</span>
-    <span style="display:inline-block;width:1px;height:18px;background:rgba(6,20,9,.25);margin:0 2px"></span>
-    <span style="font-weight:800">R$ 49,90</span>
+    <span>Falar com médico agora</span>
   </a>
-  <a href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener noreferrer" aria-label="Baixar o aplicativo ConsultaJá24h na Google Play" style="display:inline-flex;align-items:center;gap:10px;margin:12px auto 2px;padding:8px 13px;border-radius:14px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.035);color:rgba(255,255,255,.82);text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.16);animation:fadeUp .5s ease both .28s">
-    <svg width="23" height="23" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 auto">
-      <path fill="#00D2FF" d="M3.2 2.7c-.2.3-.3.7-.3 1.2v16.2c0 .5.1.9.3 1.2l9.1-9.3-9.1-9.3Z"/>
-      <path fill="#00F076" d="m12.3 12 3-3.1L4.8 3c-.6-.3-1.1-.4-1.6-.3l9.1 9.3Z"/>
-      <path fill="#FFD400" d="m12.3 12-9.1 9.3c.5.1 1 0 1.6-.3l10.5-5.9-3-3.1Z"/>
-      <path fill="#FF3A44" d="m21 10.6-5.7-3.2-3 3.1 3 3.1 5.7-3.2c.8-.4.8-1.2 0-1.8Z"/>
-    </svg>
-    <span style="display:flex;flex-direction:column;align-items:flex-start;line-height:1.08;text-align:left">
-      <span style="font-size:.59rem;font-weight:600;letter-spacing:.035em;color:rgba(255,255,255,.48);text-transform:uppercase">Também no Android</span>
-      <span style="font-size:.77rem;font-weight:700;color:rgba(255,255,255,.86)">Baixe na Google Play</span>
-    </span>
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="opacity:.42;margin-left:1px"><path d="m9 18 6-6-6-6"/></svg>
+  <a href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" class="hero__play-credential" target="_blank" rel="noopener noreferrer" aria-label="Disponível no Google Play">
+    <span class="hero__play-label">Disponível também no app</span>
+    <img src="assets/hero/google-play-badge.png" alt="Disponível no Google Play" width="129" height="50">
   </a>
   <!-- âncora de preço: comparação com presencial -->
   <div id="heroPriceAnchor" class="hero__proof-list">
@@ -1688,6 +1675,15 @@ whatsappSend.addEventListener('click', function() {
         <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H4V7Z"/><path d="m17 11 4-3v8l-4-3"/></svg>
         Consulta por vídeo
       </a>
+    </div>
+  </div>
+    </div>
+    <div class="hero__media" aria-label="Médica em atendimento online">
+      <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/telehealth-doctor-poster.jpg" aria-hidden="true">
+        <source src="assets/hero/telehealth-doctor.webm" type="video/webm">
+        <source src="assets/hero/telehealth-doctor.mp4" type="video/mp4">
+      </video>
+      <span class="hero__media-accent"><i></i>Atendimento humano 24h</span>
     </div>
   </div>
 </section>
