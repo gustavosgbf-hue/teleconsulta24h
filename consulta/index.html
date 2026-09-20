@@ -1528,7 +1528,7 @@ whatsappSend.addEventListener('click', function() {
     </div>
   </div>
 </nav>
-<link rel="stylesheet" href="hero-premium.css?v=20260920c">
+<link rel="stylesheet" href="hero-premium.css?v=20260920d">
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
@@ -1679,18 +1679,8 @@ whatsappSend.addEventListener('click', function() {
   </div>
     </div>
     <div class="hero__media" aria-label="Atendimento médico online">
-      <video class="hero__video hero__video--1 is-active" data-hero-video autoplay muted loop playsinline preload="auto" poster="assets/hero/telehealth-doctor-poster.jpg" aria-hidden="true">
-        <source src="assets/hero/telehealth-doctor.webm?v=20260920c" type="video/webm">
-        <source src="assets/hero/telehealth-doctor.mp4?v=20260920c" type="video/mp4">
-      </video>
-      <video class="hero__video hero__video--2" data-hero-video autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="assets/hero/telehealth-doctor-2.webm?v=20260920c" type="video/webm">
-        <source src="assets/hero/telehealth-doctor-2.mp4?v=20260920c" type="video/mp4">
-      </video>
-      <video class="hero__video hero__video--3" data-hero-video autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="assets/hero/telehealth-doctor-3.webm?v=20260920c" type="video/webm">
-        <source src="assets/hero/telehealth-doctor-3.mp4?v=20260920c" type="video/mp4">
-      </video>
+      <video class="hero__video hero__video--slot-a hero__video--clip-1 is-visible" data-hero-slot="a" autoplay muted loop playsinline preload="auto" poster="assets/hero/telehealth-doctor-poster.jpg" aria-hidden="true"></video>
+      <video class="hero__video hero__video--slot-b" data-hero-slot="b" muted loop playsinline preload="metadata" aria-hidden="true"></video>
       <span class="hero__media-accent"><i></i>Atendimento humano 24h</span>
     </div>
   </div>
@@ -1698,31 +1688,124 @@ whatsappSend.addEventListener('click', function() {
 
 <script>
 (() => {
-  const videos = Array.from(document.querySelectorAll('[data-hero-video]'));
-  if (!videos.length) return;
+  const slots = Array.from(document.querySelectorAll('[data-hero-slot]'));
+  if (slots.length !== 2) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saveData = !!(navigator.connection && navigator.connection.saveData);
+  const isMobile = window.matchMedia('(max-width: 760px)').matches;
+  const supportsWebm = !!slots[0].canPlayType('video/webm; codecs="vp9"');
+  const version = '20260920d';
 
-  if (reduceMotion || saveData) {
-    videos.forEach((video, index) => {
-      if (index === 0) video.play().catch(() => {});
-      else video.pause();
+  const clips = [
+    {
+      webm: isMobile ? 'assets/hero/telehealth-doctor.webm' : 'assets/hero/telehealth-doctor-1-landscape.webm',
+      mp4: isMobile ? 'assets/hero/telehealth-doctor.mp4' : 'assets/hero/telehealth-doctor-1-landscape.mp4'
+    },
+    { webm: 'assets/hero/telehealth-doctor-2.webm', mp4: 'assets/hero/telehealth-doctor-2.mp4' },
+    { webm: 'assets/hero/telehealth-doctor-3.webm', mp4: 'assets/hero/telehealth-doctor-3.mp4' }
+  ];
+
+  const DISPLAY_MS = 4550;
+  const FADE_MS = 1250;
+  let currentIndex = 0;
+  let active = slots[0];
+  let standby = slots[1];
+  let timer = 0;
+  let fadeTimer = 0;
+
+  const clipClass = index => 'hero__video--clip-' + (index + 1);
+
+  const setClip = (video, index) => {
+    video.classList.remove('hero__video--clip-1', 'hero__video--clip-2', 'hero__video--clip-3');
+    video.classList.add(clipClass(index));
+    const src = supportsWebm ? clips[index].webm : clips[index].mp4;
+    const nextSrc = src + '?v=' + version;
+    if (!video.src.endsWith(nextSrc)) {
+      video.src = nextSrc;
+      video.load();
+    }
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+  };
+
+  const playSafe = video => {
+    video.muted = true;
+    const result = video.play();
+    return result && typeof result.catch === 'function' ? result.catch(() => false) : Promise.resolve(true);
+  };
+
+  const schedule = () => {
+    clearTimeout(timer);
+    timer = window.setTimeout(transitionToNext, DISPLAY_MS);
+  };
+
+  const transitionToNext = async () => {
+    if (document.hidden) return;
+
+    const nextIndex = (currentIndex + 1) % clips.length;
+    setClip(standby, nextIndex);
+
+    try { standby.currentTime = 0; } catch (_) {}
+    const played = await playSafe(standby);
+    if (played === false) {
+      timer = window.setTimeout(transitionToNext, 500);
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      standby.classList.add('is-visible');
+      active.classList.remove('is-visible');
     });
-    return;
-  }
 
-  const keepPlaying = () => {
-    videos.forEach(video => {
-      if (video.paused) video.play().catch(() => {});
+    clearTimeout(fadeTimer);
+    fadeTimer = window.setTimeout(() => {
+      active.pause();
+      try { active.currentTime = 0; } catch (_) {}
+
+      const previous = active;
+      active = standby;
+      standby = previous;
+      currentIndex = nextIndex;
+      schedule();
+    }, FADE_MS);
+  };
+
+  const resetCycle = () => {
+    clearTimeout(timer);
+    clearTimeout(fadeTimer);
+
+    slots.forEach(video => {
+      video.pause();
+      video.classList.remove('is-visible');
+    });
+
+    currentIndex = 0;
+    active = slots[0];
+    standby = slots[1];
+    setClip(active, 0);
+    active.classList.add('is-visible');
+
+    playSafe(active).then(() => {
+      if (!reduceMotion && !saveData) schedule();
     });
   };
 
-  keepPlaying();
+  resetCycle();
+
+  if (reduceMotion || saveData) return;
+
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) keepPlaying();
+    if (document.hidden) {
+      clearTimeout(timer);
+      clearTimeout(fadeTimer);
+      return;
+    }
+    playSafe(active).then(schedule);
   });
-  window.addEventListener('pageshow', keepPlaying);
+
+  window.addEventListener('pageshow', () => playSafe(active));
 })();
 </script>
 

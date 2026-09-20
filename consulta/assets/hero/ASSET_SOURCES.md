@@ -29,14 +29,26 @@
 - Trecho usado: aproximadamente 3s–9s do original.
 - Áudio removido.
 
+## Vídeo 1 — alternativa landscape para desktop
+- Fonte: Pexels
+- Título: Doctor Using Laptop for Online Consultation
+- ID: 8375485
+- Autor: Tima Miroshnichenko
+- URL: https://www.pexels.com/video/doctor-using-laptop-for-online-consultation-8375485/
+- Uso: versão horizontal do primeiro take para desktop, evitando enquadramento vertical preso à direita.
+- Trecho usado: aproximadamente 2s–8s do original.
+- Áudio removido.
+
 ## Arquivos derivados
-- telehealth-doctor.webm — VP9, 6 s, 720x1366, vídeo 1.
-- telehealth-doctor.mp4 — H.264, 6 s, fallback do vídeo 1.
+- telehealth-doctor.webm — VP9, 6 s, vertical do vídeo 1 para mobile.
+- telehealth-doctor.mp4 — H.264, fallback mobile do vídeo 1.
+- telehealth-doctor-1-landscape.webm — VP9, 6 s, landscape do vídeo 1 para desktop.
+- telehealth-doctor-1-landscape.mp4 — H.264, fallback desktop do vídeo 1.
 - telehealth-doctor-2.webm — VP9, 6 s, vídeo 2.
-- telehealth-doctor-2.mp4 — H.264, 6 s, fallback do vídeo 2.
+- telehealth-doctor-2.mp4 — H.264, fallback do vídeo 2.
 - telehealth-doctor-3.webm — VP9, 6 s, vídeo 3.
-- telehealth-doctor-3.mp4 — H.264, 6 s, fallback do vídeo 3.
+- telehealth-doctor-3.mp4 — H.264, fallback do vídeo 3.
 - telehealth-doctor-poster.jpg — frame estático para carregamento inicial.
 
 ## Implementação
-A interface do hero continua em HTML/CSS real. Os três vídeos ficam em layers absolutas sob um overlay único e fixo. Os três permanecem em autoplay/muted/loop, e a rotação 1 → 2 → 3 → 1 altera apenas a opacidade com crossfade de 1,25 s; texto, preço, CTA e fluxo da consulta permanecem independentes da mídia.
+A interface do hero continua em HTML/CSS real sob um overlay único e fixo. A rotação usa dois slots de vídeo: apenas o atual e o próximo participam do crossfade de 1,25 s. Depois da transição, o anterior é pausado e reutilizado para o take seguinte. A sequência permanece 1 → 2 → 3 → 1, evitando três players simultâneos em segundo plano no Safari/mobile. No desktop o vídeo 1 usa o asset landscape; no mobile usa o vertical original.

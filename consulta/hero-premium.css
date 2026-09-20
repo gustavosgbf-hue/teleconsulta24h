@@ -38,13 +38,11 @@
 .hero__media{position:absolute;inset:0;z-index:0;margin:0;border:0;border-radius:0;overflow:hidden;background:#07100f;box-shadow:none;max-height:none;aspect-ratio:auto;opacity:1}
 .hero__media::before{content:none}
 .hero__media::after{content:none}
-.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.26) saturate(.50) contrast(1.02);transform:none;opacity:0;will-change:opacity;pointer-events:none}
-.hero__video--1{inset:0 0 0 auto;width:58%;object-fit:contain;object-position:82% 50%;animation:heroVideo1 17.4s linear infinite}
-.hero__video--2{object-position:68% 50%;animation:heroVideo2 17.4s linear infinite}
-.hero__video--3{object-position:73% 52%;animation:heroVideo3 17.4s linear infinite}
-@keyframes heroVideo1{0%,26.15%{opacity:1}33.33%,92.82%{opacity:0}100%{opacity:1}}
-@keyframes heroVideo2{0%,26.15%{opacity:0}33.33%,59.48%{opacity:1}66.67%,100%{opacity:0}}
-@keyframes heroVideo3{0%,59.48%{opacity:0}66.67%,92.82%{opacity:1}100%{opacity:0}}
+.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.26) saturate(.50) contrast(1.02);transform:none;opacity:0;transition:opacity 1.25s cubic-bezier(.22,.61,.36,1);will-change:opacity;pointer-events:none}
+.hero__video.is-visible{opacity:1}
+.hero__video--clip-1{object-position:68% 50%}
+.hero__video--clip-2{object-position:68% 50%}
+.hero__video--clip-3{object-position:73% 52%}
 .hero__media-accent{display:none}
 .hero__media-accent i{width:6px;height:6px;border-radius:50%;background:#58d997;box-shadow:0 0 0 4px rgba(88,217,151,.08)}
 @media(max-width:760px){
@@ -80,10 +78,10 @@
   #heroSecurity{text-align:center!important;margin:12px auto 0!important;max-width:350px;font-size:.65rem!important}
   .hero__media{position:absolute;inset:0;opacity:1}
   .hero__video{inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.20) saturate(.44) contrast(1.01);transform:none}
-  .hero__video--1{inset:0;width:100%;object-fit:cover;object-position:72% 54%}
-  .hero__video--2{object-position:66% 50%}
-  .hero__video--3{object-position:70% 56%}
+  .hero__video--clip-1{object-position:72% 54%}
+  .hero__video--clip-2{object-position:66% 50%}
+  .hero__video--clip-3{object-position:70% 56%}
   .hero__media::after{content:none}
   .hero__media-accent{right:13px;bottom:16px;padding:7px 9px;font-size:.59rem;background:rgba(7,17,14,.28)}
 }
-@media(prefers-reduced-motion:reduce){.hero__video{animation:none!important;opacity:0!important}.hero__video--1{opacity:1!important;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero__video{transition:none!important}.hero__video:not(.is-visible){opacity:0!important}}
