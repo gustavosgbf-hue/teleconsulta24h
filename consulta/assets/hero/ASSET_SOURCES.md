@@ -39,4 +39,4 @@
 - telehealth-doctor-poster.jpg — frame estático para carregamento inicial.
 
 ## Implementação
-A interface do hero continua em HTML/CSS real. Os três vídeos ficam em layers absolutas sob um overlay único e fixo. A rotação é 1 → 2 → 3 → 1 com crossfade de 900 ms; texto, preço, CTA e fluxo da consulta permanecem independentes da mídia.
+A interface do hero continua em HTML/CSS real. Os três vídeos ficam em layers absolutas sob um overlay único e fixo. Os três permanecem em autoplay/muted/loop, e a rotação 1 → 2 → 3 → 1 altera apenas a opacidade com crossfade de 1,25 s; texto, preço, CTA e fluxo da consulta permanecem independentes da mídia.

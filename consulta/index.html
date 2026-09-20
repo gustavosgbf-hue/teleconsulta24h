@@ -1679,15 +1679,15 @@ whatsappSend.addEventListener('click', function() {
   </div>
     </div>
     <div class="hero__media" aria-label="Atendimento médico online">
-      <video class="hero__video hero__video--1 is-active" data-hero-video autoplay muted playsinline preload="metadata" poster="assets/hero/telehealth-doctor-poster.jpg" aria-hidden="true">
+      <video class="hero__video hero__video--1 is-active" data-hero-video autoplay muted loop playsinline preload="auto" poster="assets/hero/telehealth-doctor-poster.jpg" aria-hidden="true">
         <source src="assets/hero/telehealth-doctor.webm" type="video/webm">
         <source src="assets/hero/telehealth-doctor.mp4" type="video/mp4">
       </video>
-      <video class="hero__video hero__video--2" data-hero-video muted playsinline preload="none" aria-hidden="true">
+      <video class="hero__video hero__video--2" data-hero-video autoplay muted loop playsinline preload="auto" aria-hidden="true">
         <source src="assets/hero/telehealth-doctor-2.webm" type="video/webm">
         <source src="assets/hero/telehealth-doctor-2.mp4" type="video/mp4">
       </video>
-      <video class="hero__video hero__video--3" data-hero-video muted playsinline preload="none" aria-hidden="true">
+      <video class="hero__video hero__video--3" data-hero-video autoplay muted loop playsinline preload="auto" aria-hidden="true">
         <source src="assets/hero/telehealth-doctor-3.webm" type="video/webm">
         <source src="assets/hero/telehealth-doctor-3.mp4" type="video/mp4">
       </video>
@@ -1705,91 +1705,42 @@ whatsappSend.addEventListener('click', function() {
   const saveData = !!(navigator.connection && navigator.connection.saveData);
 
   if (reduceMotion || saveData) {
-    videos[0].loop = true;
-    videos.slice(1).forEach(video => {
-      video.pause();
-      video.removeAttribute('src');
+    videos.forEach((video, index) => {
+      video.classList.toggle('is-active', index === 0);
+      if (index > 0) video.pause();
     });
     return;
   }
 
-  const DISPLAY_MS = 5100;
-  const FADE_MS = 900;
+  const STEP_MS = 5800;
   let current = 0;
   let timer = 0;
-  let switching = false;
 
-  const warm = index => {
-    const video = videos[index];
-    if (!video || video.preload === 'auto') return;
-    video.preload = 'auto';
-    video.load();
+  const keepPlaying = () => {
+    videos.forEach(video => {
+      if (video.paused) video.play().catch(() => {});
+    });
   };
 
-  const schedule = () => {
-    clearTimeout(timer);
-    timer = window.setTimeout(() => switchTo((current + 1) % videos.length), DISPLAY_MS);
+  const show = index => {
+    current = index;
+    videos.forEach((video, i) => video.classList.toggle('is-active', i === current));
   };
 
-  const switchTo = async nextIndex => {
-    if (switching || document.hidden) return;
-    switching = true;
-
-    const outgoing = videos[current];
-    const incoming = videos[nextIndex];
-    warm(nextIndex);
-
-    try {
-      incoming.currentTime = 0;
-      await incoming.play();
-      requestAnimationFrame(() => incoming.classList.add('is-active'));
-
-      window.setTimeout(() => {
-        outgoing.classList.remove('is-active');
-        outgoing.pause();
-        try { outgoing.currentTime = 0; } catch (_) {}
-        current = nextIndex;
-        switching = false;
-        warm((current + 1) % videos.length);
-        schedule();
-      }, FADE_MS);
-    } catch (_) {
-      switching = false;
-      schedule();
-    }
+  const tick = () => {
+    keepPlaying();
+    show((current + 1) % videos.length);
   };
 
-  const start = async () => {
-    warm(1);
-    try {
-      await videos[0].play();
-      schedule();
-      window.setTimeout(() => warm(2), 1200);
-    } catch (_) {
-      videos[0].loop = true;
-    }
-  };
+  keepPlaying();
+  timer = window.setInterval(tick, STEP_MS);
 
   document.addEventListener('visibilitychange', () => {
-    clearTimeout(timer);
-    if (document.hidden) {
-      videos.forEach(video => video.pause());
-      return;
-    }
-    switching = false;
-    videos.forEach((video, index) => {
-      video.classList.toggle('is-active', index === current);
-      if (index !== current) {
-        try { video.currentTime = 0; } catch (_) {}
-      }
-    });
-    videos[current].currentTime = 0;
-    videos[current].play().then(schedule).catch(() => {
-      videos[current].loop = true;
-    });
+    if (document.hidden) return;
+    keepPlaying();
   });
 
-  start();
+  window.addEventListener('pageshow', keepPlaying);
 })();
 </script>
 
