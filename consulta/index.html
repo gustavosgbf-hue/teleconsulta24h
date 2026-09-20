@@ -1528,7 +1528,7 @@ whatsappSend.addEventListener('click', function() {
     </div>
   </div>
 </nav>
-<link rel="stylesheet" href="hero-premium.css">
+<link rel="stylesheet" href="hero-premium.css?v=20260920c">
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
@@ -1680,16 +1680,16 @@ whatsappSend.addEventListener('click', function() {
     </div>
     <div class="hero__media" aria-label="Atendimento médico online">
       <video class="hero__video hero__video--1 is-active" data-hero-video autoplay muted loop playsinline preload="auto" poster="assets/hero/telehealth-doctor-poster.jpg" aria-hidden="true">
-        <source src="assets/hero/telehealth-doctor.webm" type="video/webm">
-        <source src="assets/hero/telehealth-doctor.mp4" type="video/mp4">
+        <source src="assets/hero/telehealth-doctor.webm?v=20260920c" type="video/webm">
+        <source src="assets/hero/telehealth-doctor.mp4?v=20260920c" type="video/mp4">
       </video>
       <video class="hero__video hero__video--2" data-hero-video autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="assets/hero/telehealth-doctor-2.webm" type="video/webm">
-        <source src="assets/hero/telehealth-doctor-2.mp4" type="video/mp4">
+        <source src="assets/hero/telehealth-doctor-2.webm?v=20260920c" type="video/webm">
+        <source src="assets/hero/telehealth-doctor-2.mp4?v=20260920c" type="video/mp4">
       </video>
       <video class="hero__video hero__video--3" data-hero-video autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="assets/hero/telehealth-doctor-3.webm" type="video/webm">
-        <source src="assets/hero/telehealth-doctor-3.mp4" type="video/mp4">
+        <source src="assets/hero/telehealth-doctor-3.webm?v=20260920c" type="video/webm">
+        <source src="assets/hero/telehealth-doctor-3.mp4?v=20260920c" type="video/mp4">
       </video>
       <span class="hero__media-accent"><i></i>Atendimento humano 24h</span>
     </div>
@@ -1699,22 +1699,18 @@ whatsappSend.addEventListener('click', function() {
 <script>
 (() => {
   const videos = Array.from(document.querySelectorAll('[data-hero-video]'));
-  if (videos.length < 2) return;
+  if (!videos.length) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saveData = !!(navigator.connection && navigator.connection.saveData);
 
   if (reduceMotion || saveData) {
     videos.forEach((video, index) => {
-      video.classList.toggle('is-active', index === 0);
-      if (index > 0) video.pause();
+      if (index === 0) video.play().catch(() => {});
+      else video.pause();
     });
     return;
   }
-
-  const STEP_MS = 5800;
-  let current = 0;
-  let timer = 0;
 
   const keepPlaying = () => {
     videos.forEach(video => {
@@ -1722,24 +1718,10 @@ whatsappSend.addEventListener('click', function() {
     });
   };
 
-  const show = index => {
-    current = index;
-    videos.forEach((video, i) => video.classList.toggle('is-active', i === current));
-  };
-
-  const tick = () => {
-    keepPlaying();
-    show((current + 1) % videos.length);
-  };
-
   keepPlaying();
-  timer = window.setInterval(tick, STEP_MS);
-
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) return;
-    keepPlaying();
+    if (!document.hidden) keepPlaying();
   });
-
   window.addEventListener('pageshow', keepPlaying);
 })();
 </script>
