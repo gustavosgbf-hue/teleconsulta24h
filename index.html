@@ -95,8 +95,8 @@
     .hero__actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:30px}
     .store-btn{min-height:60px;display:inline-flex;align-items:center;gap:12px;padding:11px 19px 11px 15px;border-radius:17px;text-decoration:none;background:var(--accent);color:#fff;box-shadow:0 18px 44px rgba(0,0,0,.22);font-weight:800;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
     .store-btn:hover{transform:translateY(-2px);background:var(--accent-hover);box-shadow:0 22px 54px rgba(0,0,0,.28)}
-    .store-btn__play{width:29px;height:33px;display:grid;place-items:center}
-    .store-btn__play svg{width:29px;height:33px}
+    .store-btn__play,.store-btn__apple{width:29px;height:33px;display:grid;place-items:center;flex:0 0 auto}
+    .store-btn__play svg,.store-btn__apple svg{width:29px;height:33px}
     .store-btn__small{display:block;font-size:.59rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.72);line-height:1.1}
     .store-btn__big{display:block;font-size:1.02rem;line-height:1.15;margin-top:3px}
     .web-link{display:inline-flex;align-items:center;gap:8px;min-height:54px;padding:0 3px;color:rgba(255,255,255,.72);font-size:.88rem;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.23)}
@@ -258,6 +258,12 @@
           <h1>Saúde online, <span>sempre à mão.</span></h1>
           <p class="hero__lead">Baixe o app para consultar por chat, acessar seus documentos e voltar quando precisar. Sem mensalidade e sem perder a opção de usar pelo navegador.</p>
           <div class="hero__actions">
+            <a class="store-btn js-app-store-link" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener">
+              <span class="store-btn__apple" aria-hidden="true">
+                <svg viewBox="0 0 32 36" fill="none"><path d="M7 28 16 7l9 21M10.5 21h11" stroke="white" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span><span class="store-btn__small">Disponível na</span><span class="store-btn__big">App Store</span></span>
+            </a>
             <a class="store-btn js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener">
               <span class="store-btn__play" aria-hidden="true">
                 <svg viewBox="0 0 48 52" fill="none"><path d="M3.5 3.4c-.7.8-1.1 2-1.1 3.5v38.2c0 1.5.4 2.7 1.1 3.5L26.1 26 3.5 3.4Z" fill="#fff"/><path d="m29.1 29 7.5 7.5L6.9 50.4c-.7.3-1.3.3-1.8.1L29.1 29Z" fill="#d8eee6"/><path d="m29.1 23 7.5-7.5L6.9 1.6c-.7-.3-1.3-.3-1.8-.1L29.1 23Z" fill="#c7e5da"/><path d="m39.9 18 5.4 2.5c1.7.8 2.6 1.9 2.6 3.5s-.9 2.7-2.6 3.5L39.9 30l-8-8 8-4Z" fill="#fff"/></svg>
@@ -324,7 +330,7 @@
           <article class="step">
             <div class="step__num">01</div>
             <h3>Baixe o app</h3>
-            <p>Instale a ConsultaJá24h gratuitamente pela Google Play.</p>
+            <p>Instale a ConsultaJá24h gratuitamente pela App Store ou Google Play.</p>
           </article>
           <article class="step">
             <div class="step__num">02</div>
@@ -356,6 +362,10 @@
           <div class="app-card__label">Aplicativo gratuito</div>
           <h3>Tenha a ConsultaJá24h no celular.</h3>
           <p>O aplicativo não tem mensalidade. Você paga apenas quando realizar uma consulta.</p>
+          <a class="store-btn js-app-store-link" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener">
+            <span class="store-btn__apple" aria-hidden="true"><svg viewBox="0 0 32 36" fill="none"><path d="M7 28 16 7l9 21M10.5 21h11" stroke="white" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><span class="store-btn__small">Disponível na</span><span class="store-btn__big">App Store</span></span>
+          </a>
           <a class="store-btn js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener">
             <span class="store-btn__play" aria-hidden="true"><svg viewBox="0 0 48 52" fill="none"><path d="M3.5 3.4c-.7.8-1.1 2-1.1 3.5v38.2c0 1.5.4 2.7 1.1 3.5L26.1 26 3.5 3.4Z" fill="#fff"/><path d="m29.1 29 7.5 7.5L6.9 50.4c-.7.3-1.3.3-1.8.1L29.1 29Z" fill="#d8eee6"/><path d="m29.1 23 7.5-7.5L6.9 1.6c-.7-.3-1.3-.3-1.8-.1L29.1 23Z" fill="#c7e5da"/><path d="m39.9 18 5.4 2.5c1.7.8 2.6 1.9 2.6 3.5s-.9 2.7-2.6 3.5L39.9 30l-8-8 8-4Z" fill="#fff"/></svg></span>
             <span><span class="store-btn__small">Disponível no</span><span class="store-btn__big">Google Play</span></span>
@@ -398,7 +408,7 @@
           </details>
           <details>
             <summary>E no iPhone?</summary>
-            <p>Enquanto o aplicativo para iPhone ainda não está disponível, você pode usar a ConsultaJá24h normalmente pelo navegador.</p>
+            <p>Sim. A ConsultaJá24h está disponível para iPhone na App Store e também para Android no Google Play.</p>
           </details>
         </div>
       </div>
@@ -411,6 +421,10 @@
           <p>ConsultaJá24h: telemedicina prática para usar agora e voltar quando precisar.</p>
         </div>
         <div class="final-cta__actions">
+          <a class="store-btn js-app-store-link" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener">
+            <span class="store-btn__apple" aria-hidden="true"><svg viewBox="0 0 32 36" fill="none"><path d="M7 28 16 7l9 21M10.5 21h11" stroke="white" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><span class="store-btn__small">Disponível na</span><span class="store-btn__big">App Store</span></span>
+          </a>
           <a class="store-btn js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener">
             <span class="store-btn__play" aria-hidden="true"><svg viewBox="0 0 48 52" fill="none"><path d="M3.5 3.4c-.7.8-1.1 2-1.1 3.5v38.2c0 1.5.4 2.7 1.1 3.5L26.1 26 3.5 3.4Z" fill="#fff"/><path d="m29.1 29 7.5 7.5L6.9 50.4c-.7.3-1.3.3-1.8.1L29.1 29Z" fill="#d8eee6"/><path d="m29.1 23 7.5-7.5L6.9 1.6c-.7-.3-1.3-.3-1.8-.1L29.1 23Z" fill="#c7e5da"/><path d="m39.9 18 5.4 2.5c1.7.8 2.6 1.9 2.6 3.5s-.9 2.7-2.6 3.5L39.9 30l-8-8 8-4Z" fill="#fff"/></svg></span>
             <span><span class="store-btn__small">Disponível no</span><span class="store-btn__big">Google Play</span></span>
@@ -437,9 +451,12 @@
   <script>
     (function(){
       var PLAY_URL='https://play.google.com/store/apps/details?id=com.consultaja24h.app';
-      var TRACKING_URL='https://triagem-api.onrender.com/api/tracking/play-click';
+      var APPLE_URL='https://apps.apple.com/app/consultaj%C3%A124h/id6803718849';
+      var PLAY_TRACKING_URL='https://triagem-api.onrender.com/api/tracking/play-click';
+      var APPLE_TRACKING_URL='https://triagem-api.onrender.com/api/tracking/app-store-click';
       var params=new URLSearchParams(window.location.search);
       var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+      var isAndroid=/Android/i.test(navigator.userAgent);
 
       function attributionId(){
         var key='consultaja_app_attribution_id';
@@ -485,7 +502,7 @@
         if(typeof fbq==='function')fbq('trackCustom',name,extra||{});
       }
 
-      function trackGooglePlayClick(placement){
+      function trackStoreClick(store,placement){
         var payload={
           attribution_id:cjaid,
           captured_at:new Date().toISOString(),
@@ -500,19 +517,23 @@
           gbraid:params.get('gbraid')||'',
           wbraid:params.get('wbraid')||''
         };
+        var eventName=store==='apple'?'app_store_click':'google_play_click';
+        var endpoint=store==='apple'?APPLE_TRACKING_URL:PLAY_TRACKING_URL;
         var analyticsPayload={
           placement:placement,
-          device:'android_or_desktop',
+          store:store==='apple'?'app_store':'google_play',
+          device:isIOS?'ios':(isAndroid?'android':'desktop_other'),
           has_gclid:payload.gclid?'yes':'no',
           has_gbraid:payload.gbraid?'yes':'no',
           has_wbraid:payload.wbraid?'yes':'no'
         };
         window.dataLayer=window.dataLayer||[];
-        if(typeof gtag==='function')gtag('event','google_play_click',analyticsPayload);
-        else window.dataLayer.push(Object.assign({event:'google_play_click'},analyticsPayload));
+        if(typeof gtag==='function')gtag('event',eventName,analyticsPayload);
+        else window.dataLayer.push(Object.assign({event:eventName},analyticsPayload));
+        if(typeof fbq==='function')fbq('trackCustom',eventName,analyticsPayload);
         var body=JSON.stringify(payload);
-        if(!(navigator.sendBeacon&&navigator.sendBeacon(TRACKING_URL,body))){
-          fetch(TRACKING_URL,{
+        if(!(navigator.sendBeacon&&navigator.sendBeacon(endpoint,body))){
+          fetch(endpoint,{
             method:'POST',
             headers:{'Content-Type':'text/plain;charset=UTF-8'},
             body:body,
@@ -529,20 +550,16 @@
       document.querySelectorAll('.js-app-link').forEach(function(a){
         a.href=playUrl();
         a.addEventListener('click',function(){
-          if(!isIOS)trackGooglePlayClick((a.textContent||'').trim());
+          trackStoreClick('google',(a.textContent||'').trim());
         });
       });
 
-      if(isIOS){
-        document.querySelectorAll('.js-app-link').forEach(function(a){
-          a.href=withParams('/consulta');
-          a.removeAttribute('target');
-          var big=a.querySelector('.store-btn__big');
-          var small=a.querySelector('.store-btn__small');
-          if(big)big.textContent='Continuar no navegador';
-          if(small)small.textContent='No iPhone';
+      document.querySelectorAll('.js-app-store-link').forEach(function(a){
+        a.href=APPLE_URL;
+        a.addEventListener('click',function(){
+          trackStoreClick('apple',(a.textContent||'').trim());
         });
-      }
+      });
     })();
   </script>
 </body>
