@@ -2968,14 +2968,54 @@ function moAdsParamPermitido(chave){
 function moSalvarAdsParamsAtuais(){
   try{
     var origem = new URLSearchParams(window.location.search);
-    var salvos = {};
+    var existentes = {};
+    try{
+      existentes = JSON.parse(
+        sessionStorage.getItem('cj_ads_params') ||
+        localStorage.getItem('cj_ads_params') ||
+        '{}'
+      ) || {};
+    }catch(_){ existentes = {}; }
+
+    var atuais = {};
     origem.forEach(function(valor,chave){
-      if(moAdsParamPermitido(chave) && valor) salvos[chave] = valor;
+      if(moAdsParamPermitido(chave) && valor) atuais[chave] = valor;
     });
-    if(Object.keys(salvos).length){
-      var json = JSON.stringify(salvos);
+
+    // Mescla em vez de sobrescrever: um redirect/navegacao sem fbclid nao pode
+    // apagar a origem paga capturada na entrada.
+    var mesclados = Object.assign({}, existentes, atuais);
+    if(Object.keys(mesclados).length){
+      var json = JSON.stringify(mesclados);
       sessionStorage.setItem('cj_ads_params', json);
       localStorage.setItem('cj_ads_params', json);
+    }
+
+    if(Object.keys(atuais).length){
+      var touch = Object.assign({
+        captured_at:new Date().toISOString(),
+        landing_url:window.location.href,
+        referrer:document.referrer || ''
+      }, atuais);
+
+      var firstRaw = sessionStorage.getItem('cj_ads_first_touch') || localStorage.getItem('cj_ads_first_touch');
+      if(!firstRaw){
+        var firstJson = JSON.stringify(touch);
+        sessionStorage.setItem('cj_ads_first_touch', firstJson);
+        localStorage.setItem('cj_ads_first_touch', firstJson);
+      }
+
+      var lastJson = JSON.stringify(touch);
+      sessionStorage.setItem('cj_ads_last_touch', lastJson);
+      localStorage.setItem('cj_ads_last_touch', lastJson);
+    }
+
+    // Garante identificador CAPI mesmo quando o Meta Pixel nao consegue
+    // persistir _fbc por conta propria.
+    var fbclid = atuais.fbclid || existentes.fbclid || '';
+    if(fbclid && document.cookie.indexOf('_fbc=') === -1){
+      var fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+      document.cookie = '_fbc=' + encodeURIComponent(fbc) + '; Max-Age=7776000; Path=/; SameSite=Lax; Secure';
     }
   }catch(e){}
 }
