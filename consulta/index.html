@@ -4082,6 +4082,43 @@ function moIniciarPolling(){
   },3000);
 }
 
+function moIniciarPollingCartao(){
+  clearInterval(moPoller);
+  var tentativas=0;
+  var statusEl=document.getElementById('moPixStatus');
+  var btn=document.getElementById('moBtnPagar');
+
+  async function verificar(){
+    if(!moAtendimentoId) return;
+    tentativas++;
+    try{
+      var r=await fetch(MO_API+'/api/atendimento/status/'+moAtendimentoId);
+      var d=await r.json();
+      if(d.ok&&d.atendimento&&d.atendimento.pagamento_status==='confirmado'){
+        clearInterval(moPoller);
+        moTrack('card_confirmed_backend', {result:'confirmed'});
+        if(btn){ btn.disabled=false; btn.textContent='Pagar com cartão'; }
+        moConfirmarPagamento();
+        return;
+      }
+    }catch(e){}
+
+    if(tentativas>=60){
+      clearInterval(moPoller);
+      moTrack('card_waiting_timeout', {result:'still_pending'});
+      if(statusEl){
+        statusEl.textContent='O pagamento ainda está em análise. Não tente pagar novamente agora. Atualize a página em alguns minutos.';
+        statusEl.className='mstatus';
+        statusEl.style.display='block';
+      }
+      if(btn){ btn.disabled=false; btn.textContent='Verificar novamente'; }
+    }
+  }
+
+  verificar();
+  moPoller=setInterval(verificar,3000);
+}
+
 async function moVerificarManual(){
   moTrack('manual_payment_check', {result:'clicked'});
   var btn=document.getElementById('moJaBtn');
@@ -4319,9 +4356,25 @@ async function moPagarCartao(){
       })});
     var d=await r.json();
     moMostrarPushRecuperacao();
-    var ok=!!(d&&(d.ok===true||d.status==='approved'||d.status==='paid'||d.transaction_id||d.transactionId));
-    if(ok){ moTrack('card_approved', {status:d.status||'approved'}); setTimeout(function(){ moConfirmarPagamento(); }, 800); }
-    else throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
+    var statusCartao=String(d&&d.status||'').toLowerCase();
+
+    if(d&&d.ok===true&&(statusCartao==='paid'||statusCartao==='approved')){
+      moTrack('card_approved', {status:statusCartao});
+      setTimeout(function(){ moConfirmarPagamento(); }, 800);
+    } else if(d&&d.ok===true&&statusCartao==='waiting'){
+      moTrack('card_waiting', {status:'waiting'});
+      var statusCartaoEl=document.getElementById('moPixStatus');
+      if(statusCartaoEl){
+        statusCartaoEl.textContent='Pagamento recebido. Aguardando confirmação da operadora...';
+        statusCartaoEl.className='mstatus';
+        statusCartaoEl.style.display='block';
+      }
+      btn.textContent='Aguardando confirmação...';
+      btn.disabled=true;
+      moIniciarPollingCartao();
+    } else {
+      throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
+    }
   } catch(e) {
     document.getElementById('moCardErr').textContent=e.message||'Erro ao processar. Tente novamente.';
     document.getElementById('moCardErr').style.display='block';
