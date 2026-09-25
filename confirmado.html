@@ -110,7 +110,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   </section>
 </main>
 <script>
-(function(){
+(async function(){
   var params = new URLSearchParams(window.location.search);
   var consultaId = params.get('consulta') || '';
   var sessao = null;
@@ -156,6 +156,37 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   var txId = consultaId || ('sem_id_' + Date.now());
   var chave = 'conv_confirmado_' + txId;
   var emDebug = params.has('debug_tag') || params.has('force_tag');
+
+  async function pagamentoConfirmadoNoBackend(){
+    if(!/^\d+$/.test(String(consultaId||''))) return false;
+    var titulo=document.querySelector('h1');
+    var texto=document.querySelector('.card p');
+    for(var tentativa=0; tentativa<15; tentativa++){
+      try{
+        var r=await fetch('https://triagem-api.onrender.com/api/atendimento/status/'+encodeURIComponent(consultaId), {cache:'no-store'});
+        var d=await r.json();
+        if(d&&d.ok&&d.atendimento&&d.atendimento.pagamento_status==='confirmado') return true;
+      }catch(e){}
+      if(titulo) titulo.textContent='Confirmando pagamento';
+      if(texto) texto.textContent='A operadora ainda está validando a cobrança. Aguarde alguns instantes...';
+      await new Promise(function(resolve){ setTimeout(resolve,2000); });
+    }
+    return false;
+  }
+
+  var backendConfirmou=await pagamentoConfirmadoNoBackend();
+  if(!backendConfirmou){
+    var tituloPendente=document.querySelector('h1');
+    var textoPendente=document.querySelector('.card p');
+    var loaderPendente=document.querySelector('.loader');
+    if(tituloPendente) tituloPendente.textContent='Pagamento em análise';
+    if(textoPendente) textoPendente.textContent='Ainda não recebemos a confirmação definitiva da operadora. Você não será encaminhado ao atendimento até essa confirmação.';
+    if(loaderPendente) loaderPendente.style.display='none';
+    setTimeout(function(){
+      window.location.replace('/consulta/?retomar_pagamento='+encodeURIComponent(String(consultaId||'')));
+    },3500);
+    return;
+  }
   params.forEach(function(_, chaveParam){ if(/^gtm_/i.test(chaveParam)) emDebug = true; });
 
   function lerCookie(nome){
