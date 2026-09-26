@@ -157,6 +157,8 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   var chave = 'conv_confirmado_' + txId;
   var emDebug = params.has('debug_tag') || params.has('force_tag');
 
+  var backendAtendimento = null;
+
   async function pagamentoConfirmadoNoBackend(){
     if(!/^\d+$/.test(String(consultaId||''))) return false;
     var titulo=document.querySelector('h1');
@@ -165,7 +167,10 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       try{
         var r=await fetch('https://triagem-api.onrender.com/api/atendimento/status/'+encodeURIComponent(consultaId), {cache:'no-store'});
         var d=await r.json();
-        if(d&&d.ok&&d.atendimento&&d.atendimento.pagamento_status==='confirmado') return true;
+        if(d&&d.ok&&d.atendimento&&d.atendimento.pagamento_status==='confirmado'){
+          backendAtendimento = d.atendimento;
+          return true;
+        }
       }catch(e){}
       if(titulo) titulo.textContent='Confirmando pagamento';
       if(texto) texto.textContent='A operadora ainda está validando a cobrança. Aguarde alguns instantes...';
@@ -187,6 +192,13 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
     },3500);
     return;
   }
+  var clienteNovo = backendAtendimento && typeof backendAtendimento.cliente_novo === 'boolean'
+    ? backendAtendimento.cliente_novo
+    : null;
+  var customerType = backendAtendimento && (backendAtendimento.customer_type === 'new' || backendAtendimento.customer_type === 'returning')
+    ? backendAtendimento.customer_type
+    : 'unknown';
+
   params.forEach(function(_, chaveParam){ if(/^gtm_/i.test(chaveParam)) emDebug = true; });
 
   function lerCookie(nome){
@@ -297,11 +309,14 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       checkout_session_id: (sessao && sessao.checkoutSessionId) || '',
       tipo_consulta: (sessao && sessao.tipoConsulta) || params.get('tipo') || '',
       payment_method: (sessao && sessao.paymentMethod) || '',
-      preco_variante: precoVariante
+      preco_variante: precoVariante,
+      customer_type: customerType
     };
+    if(typeof clienteNovo === 'boolean') eventoCompra.new_customer = clienteNovo;
     window.dataLayer.push(eventoCompra);
-    window.dataLayer.push({
+    var eventoPurchase = {
       event: 'purchase',
+      customer_type: customerType,
       ecommerce: {
         transaction_id: String(txId),
         value: valorCompra,
@@ -314,7 +329,9 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
           quantity: 1
         }]
       }
-    });
+    };
+    if(typeof clienteNovo === 'boolean') eventoPurchase.new_customer = clienteNovo;
+    window.dataLayer.push(eventoPurchase);
     if(typeof window.fbq === 'function'){
       window.fbq('track','Purchase',{
         value: valorCompra,
@@ -334,14 +351,17 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
         callbackChamado = true;
         irParaTriagem();
       }
-      gtag('event', 'conversion', {
+      var googleConversion = {
         send_to: 'AW-17964942771/AT3gCPTl0PsbELOLrfZC',
         value: valorCompra,
         currency: 'BRL',
         transaction_id: String(txId),
+        customer_type: customerType,
         event_callback: seguirDepoisDaTag,
         event_timeout: 3500
-      });
+      };
+      if(typeof clienteNovo === 'boolean') googleConversion.new_customer = clienteNovo;
+      gtag('event', 'conversion', googleConversion);
       setTimeout(seguirDepoisDaTag, 4200);
       return;
     }

@@ -110,7 +110,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   </section>
 </main>
 <script>
-(function(){
+(async function(){
   var params = new URLSearchParams(window.location.search);
   var consultaId = params.get('consulta') || '';
   var sessao = null;
@@ -156,6 +156,21 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   var txId = consultaId || ('sem_id_' + Date.now());
   var chave = 'conv_confirmado_' + txId;
   var emDebug = params.has('debug_tag') || params.has('force_tag');
+
+  var clienteNovo = null;
+  var customerType = 'unknown';
+  if(/^\d+$/.test(String(consultaId || ''))){
+    try{
+      var rc = await fetch('https://triagem-api.onrender.com/api/atendimento/status/'+encodeURIComponent(consultaId), {cache:'no-store'});
+      var dc = await rc.json();
+      if(dc&&dc.ok&&dc.atendimento&&dc.atendimento.pagamento_status==='confirmado'){
+        if(typeof dc.atendimento.cliente_novo === 'boolean') clienteNovo = dc.atendimento.cliente_novo;
+        if(dc.atendimento.customer_type === 'new' || dc.atendimento.customer_type === 'returning'){
+          customerType = dc.atendimento.customer_type;
+        }
+      }
+    }catch(e){}
+  }
   params.forEach(function(_, chaveParam){ if(/^gtm_/i.test(chaveParam)) emDebug = true; });
 
   function pingConfirmadoView(){
@@ -214,11 +229,14 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       checkout_session_id: (sessao && sessao.checkoutSessionId) || '',
       tipo_consulta: (sessao && sessao.tipoConsulta) || params.get('tipo') || '',
       payment_method: (sessao && sessao.paymentMethod) || '',
-      preco_variante: precoVariante
+      preco_variante: precoVariante,
+      customer_type: customerType
     };
+    if(typeof clienteNovo === 'boolean') eventoCompra.new_customer = clienteNovo;
     window.dataLayer.push(eventoCompra);
-    window.dataLayer.push({
+    var eventoPurchase = {
       event: 'purchase',
+      customer_type: customerType,
       ecommerce: {
         transaction_id: String(txId),
         value: valorCompra,
@@ -231,7 +249,9 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
           quantity: 1
         }]
       }
-    });
+    };
+    if(typeof clienteNovo === 'boolean') eventoPurchase.new_customer = clienteNovo;
+    window.dataLayer.push(eventoPurchase);
     if(typeof window.fbq === 'function'){
       window.fbq('track','Purchase',{
         value: valorCompra,
@@ -250,14 +270,17 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
         callbackChamado = true;
         irParaTriagem();
       }
-      gtag('event', 'conversion', {
+      var googleConversion = {
         send_to: 'AW-17964942771/AT3gCPTl0PsbELOLrfZC',
         value: valorCompra,
         currency: 'BRL',
         transaction_id: String(txId),
+        customer_type: customerType,
         event_callback: seguirDepoisDaTag,
         event_timeout: 3500
-      });
+      };
+      if(typeof clienteNovo === 'boolean') googleConversion.new_customer = clienteNovo;
+      gtag('event', 'conversion', googleConversion);
       setTimeout(seguirDepoisDaTag, 4200);
       return;
     }
