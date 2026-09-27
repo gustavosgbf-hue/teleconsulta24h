@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1067" role="img" aria-labelledby="t d">
+  <title id="t">Veja como funciona a ConsultaJá24h</title>
+  <desc id="d">Capa vertical do vídeo explicativo da ConsultaJá24h</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06100d"/>
+      <stop offset="1" stop-color="#0d241a"/>
+    </linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9bea45"/>
+      <stop offset="1" stop-color="#43df7e"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="1067" rx="36" fill="url(#bg)"/>
+  <circle cx="502" cy="170" r="190" fill="#43df7e" opacity=".06"/>
+  <circle cx="74" cy="890" r="210" fill="#9bea45" opacity=".045"/>
+  <g transform="translate(54 60)">
+    <circle cx="9" cy="9" r="7" fill="#43df7e"/>
+    <text x="29" y="18" fill="#f4f7f5" font-family="Georgia,serif" font-style="italic" font-weight="700" font-size="29">Consulta<tspan fill="#78f25f">Já</tspan><tspan fill="#9aaba2" font-family="Arial,sans-serif" font-style="normal" font-size="17">24h</tspan></text>
+  </g>
+  <text x="54" y="188" fill="#9bea45" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3">EM POUCOS PASSOS</text>
+  <text x="54" y="245" fill="#f5f7f6" font-family="Arial,sans-serif" font-size="48" font-weight="800">Veja como</text>
+  <text x="54" y="300" fill="#f5f7f6" font-family="Arial,sans-serif" font-size="48" font-weight="800">funciona.</text>
+  <text x="54" y="346" fill="#aebcb4" font-family="Arial,sans-serif" font-size="22">Consulta, conversa e documentos</text>
+  <text x="54" y="378" fill="#aebcb4" font-family="Arial,sans-serif" font-size="22">direto pelo celular.</text>
+  <g transform="translate(102 438)">
+    <rect width="396" height="390" rx="38" fill="#0b1712" stroke="#2d4d3e" stroke-width="2"/>
+    <rect x="25" y="28" width="346" height="60" rx="18" fill="#12271d"/>
+    <circle cx="57" cy="58" r="10" fill="#43df7e"/>
+    <text x="82" y="66" fill="#eff5f1" font-family="Arial,sans-serif" font-size="18" font-weight="700">Médico disponível</text>
+    <rect x="45" y="126" width="245" height="66" rx="22" fill="#153126"/>
+    <text x="65" y="153" fill="#f3f6f4" font-family="Arial,sans-serif" font-size="15">Olá! Como posso</text>
+    <text x="65" y="176" fill="#f3f6f4" font-family="Arial,sans-serif" font-size="15">te ajudar hoje?</text>
+    <rect x="119" y="215" width="232" height="66" rx="22" fill="#dff4e6"/>
+    <text x="142" y="242" fill="#173c31" font-family="Arial,sans-serif" font-size="15">Estou com dor de</text>
+    <text x="142" y="265" fill="#173c31" font-family="Arial,sans-serif" font-size="15">garganta e febre.</text>
+    <rect x="45" y="307" width="306" height="54" rx="17" fill="#eff6f1"/>
+    <path d="M72 320h26l11 11v17H72z" fill="none" stroke="#0c9469" stroke-width="3"/>
+    <text x="124" y="341" fill="#21483b" font-family="Arial,sans-serif" font-size="17" font-weight="700">Receita médica.pdf</text>
+  </g>
+  <g transform="translate(230 858)">
+    <circle cx="70" cy="70" r="70" fill="url(#g)"/>
+    <path d="M58 40l48 30-48 30z" fill="#06100d"/>
+  </g>
+  <text x="300" y="1021" text-anchor="middle" fill="#c1cec6" font-family="Arial,sans-serif" font-size="19">Toque para assistir</text>
+</svg>
