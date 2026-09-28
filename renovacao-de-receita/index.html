@@ -9,20 +9,20 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:#07100f;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-:root{--g1:#35E56F;--g2:#16c783;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.55);--danger:#fb7185;--warn:#fbbf24}
+body{font-family:'Outfit',sans-serif;background:#002017;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+:root{--g1:#b4e05a;--g2:#5ee0a0;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.55);--danger:#fb7185;--warn:#fbbf24}
 
-.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80vw 60vh at 20% -5%,rgba(53,229,111,.09) 0%,transparent 55%),radial-gradient(ellipse 55vw 45vh at 85% 15%,rgba(22,199,131,.07) 0%,transparent 50%)}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80vw 60vh at 20% -5%,rgba(180,224,90,.09) 0%,transparent 55%),radial-gradient(ellipse 55vw 45vh at 85% 15%,rgba(94,224,160,.07) 0%,transparent 50%)}
 
 /* NAV - logo igual ao site principal */
-.nav{position:sticky;top:0;z-index:100;background:rgba(7,16,15,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,32,23,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
 .nav__in{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:960px;margin:0 auto}
 .nav__brand{display:flex;align-items:center;gap:8px;text-decoration:none}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--g2);flex-shrink:0;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(22,199,131,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(22,199,131,0)}}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(94,224,160,.5)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(94,224,160,0)}}
 .nav__logo{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;font-weight:700}
 .nav__logo .c1{color:rgba(255,255,255,.93)}
-.nav__logo .c2{background:linear-gradient(135deg,#35E56F,#16c783);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav__logo .c2{background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav__logo .c3{font-family:'Outfit',sans-serif;font-style:normal;font-size:.65rem;font-weight:500;color:rgba(255,255,255,.35);-webkit-text-fill-color:rgba(255,255,255,.35)}
 .nav__cta-link{padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.55);font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;text-decoration:none;transition:all .2s}
 .nav__cta-link:hover{color:white;border-color:rgba(255,255,255,.25)}
@@ -30,9 +30,9 @@ body{font-family:'Outfit',sans-serif;background:#07100f;color:rgba(255,255,255,.
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 .hero{position:relative;z-index:1;padding:48px 20px 40px;max-width:900px;margin:0 auto;text-align:center}
-.hero__badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;border:1px solid rgba(22,199,131,.16);background:rgba(22,199,131,.04);font-size:.66rem;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px;animation:fadeUp .5s ease both .05s}
+.hero__badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;border:1px solid rgba(94,224,160,.16);background:rgba(94,224,160,.04);font-size:.66rem;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px;animation:fadeUp .5s ease both .05s}
 .hero__h1{font-family:'Outfit',sans-serif;font-size:clamp(2rem,6.5vw,3.2rem);font-weight:800;line-height:1.12;letter-spacing:-.03em;margin-bottom:18px;animation:fadeUp .5s ease both .12s}
-.hero__h1 em{font-style:normal;background:linear-gradient(135deg,#35E56F,#16c783);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero__h1 em{font-style:normal;background:linear-gradient(135deg,#b4e05a,#5ee0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero__sub{font-size:clamp(.95rem,2.5vw,1.05rem);font-weight:400;color:rgba(255,255,255,.6);line-height:1.6;max-width:480px;margin-left:auto;margin-right:auto;margin-bottom:28px;animation:fadeUp .5s ease both .2s}
 
 .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:19px 36px;border-radius:14px;border:none;background:linear-gradient(160deg,#8fd44a 0%,#35c46e 100%);color:#061409;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.05rem;cursor:pointer;text-decoration:none;box-shadow:0 8px 22px rgba(53,196,110,.28),0 1px 0 rgba(255,255,255,.14) inset;transition:transform .18s,box-shadow .22s;position:relative;overflow:hidden;width:100%;max-width:400px;animation:fadeUp .5s ease both .28s}
@@ -62,37 +62,37 @@ section{position:relative;z-index:1}
 .receita-types{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:24px}
 .rtype{padding:18px 18px 16px;border-radius:14px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;border:1px solid;background:rgba(255,255,255,.03)}
 .rtype--branca{border-color:rgba(255,255,255,.18)}
-.rtype--branca-c{border-color:rgba(53,229,111,.25);background:rgba(53,229,111,.04)}
+.rtype--branca-c{border-color:rgba(180,224,90,.25);background:rgba(180,224,90,.04)}
 .rtype--azul{border-color:rgba(96,165,250,.25);background:rgba(96,165,250,.04)}
 .rtype--amarela{border-color:rgba(251,191,36,.25);background:rgba(251,191,36,.04)}
 .rtype__head{display:flex;align-items:center;gap:10px}
 .rtype__chip{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:6px;flex-shrink:0}
 .rtype--branca .rtype__chip{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85)}
-.rtype--branca-c .rtype__chip{background:rgba(53,229,111,.15);color:#35E56F}
+.rtype--branca-c .rtype__chip{background:rgba(180,224,90,.15);color:#b4e05a}
 .rtype--azul .rtype__chip{background:rgba(96,165,250,.18);color:#93c5fd}
 .rtype--amarela .rtype__chip{background:rgba(251,191,36,.18);color:#fde68a}
 .rtype__title{font-weight:700;font-size:.95rem;color:white}
 .rtype__desc{font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.55}
 .rtype__exemplos{font-size:.72rem;color:rgba(255,255,255,.5);font-style:italic;margin-top:auto;padding-top:6px}
 .rtype__delivery{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.7);margin-top:6px;align-self:flex-start}
-.rtype__delivery.digital{background:rgba(22,199,131,.1);color:#16c783}
+.rtype__delivery.digital{background:rgba(94,224,160,.1);color:#5ee0a0}
 .rtype__delivery.fisica{background:rgba(251,191,36,.12);color:#fde68a}
 
 /* HOW SECTION */
 .how-section{padding:64px 20px;border-top:1px solid var(--line)}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin-top:40px;position:relative}
 .step{text-align:center;padding:0 8px;position:relative;z-index:1}
-.step__num{width:52px;height:52px;border-radius:50%;background:#0b1714;border:1px solid rgba(53,229,111,.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--g1);margin:0 auto 16px;box-shadow:0 0 0 4px rgba(53,229,111,.07),0 0 16px rgba(22,199,131,.12);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
-.step__num:hover{transform:scale(1.12);border-color:rgba(53,229,111,.85);box-shadow:0 0 0 6px rgba(53,229,111,.12),0 0 28px rgba(22,199,131,.3)}
-.steps::before{content:'';position:absolute;top:26px;left:16.66%;right:16.66%;height:1px;background:linear-gradient(90deg,rgba(53,229,111,.35),rgba(22,199,131,.35));pointer-events:none;z-index:0}
+.step__num{width:52px;height:52px;border-radius:50%;background:#0c1a12;border:1px solid rgba(180,224,90,.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--g1);margin:0 auto 16px;box-shadow:0 0 0 4px rgba(180,224,90,.07),0 0 16px rgba(94,224,160,.12);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.step__num:hover{transform:scale(1.12);border-color:rgba(180,224,90,.85);box-shadow:0 0 0 6px rgba(180,224,90,.12),0 0 28px rgba(94,224,160,.3)}
+.steps::before{content:'';position:absolute;top:26px;left:16.66%;right:16.66%;height:1px;background:linear-gradient(90deg,rgba(180,224,90,.35),rgba(94,224,160,.35));pointer-events:none;z-index:0}
 .step h3{font-size:.95rem;font-weight:700;margin-bottom:7px}
 .step p{font-size:.82rem;font-weight:400;color:var(--muted);line-height:1.6}
 @media(max-width:600px){.steps::before{display:none}.steps{gap:24px}}
 
 /* PREÇO */
 .price-section{padding:60px 20px;border-top:1px solid var(--line)}
-.price-box{background:rgba(53,229,111,.05);border:1px solid rgba(53,229,111,.22);border-radius:24px;padding:42px 28px;text-align:center;max-width:480px;margin:0 auto;position:relative;overflow:hidden}
-.price-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(53,229,111,.07),transparent);pointer-events:none}
+.price-box{background:rgba(180,224,90,.05);border:1px solid rgba(180,224,90,.22);border-radius:24px;padding:42px 28px;text-align:center;max-width:480px;margin:0 auto;position:relative;overflow:hidden}
+.price-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(180,224,90,.07),transparent);pointer-events:none}
 .price-label{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:10px;position:relative}
 .price-num{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:700;color:var(--g1);line-height:1;margin-bottom:8px;position:relative}
 .price-num sup{font-size:1.2rem;vertical-align:super}
@@ -130,7 +130,7 @@ footer a:hover{color:var(--g2)}
 /* MODAL */
 .modal{position:fixed;inset:0;z-index:200;background:rgba(0,15,11,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
 .modal.show{display:flex}
-.modal__box{background:#0b1714;border:1px solid var(--line);border-radius:18px;padding:24px;max-width:520px;width:100%;margin:24px auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.modal__box{background:#0c1a12;border:1px solid var(--line);border-radius:18px;padding:24px;max-width:520px;width:100%;margin:24px auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4)}
 .modal__close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:white;cursor:pointer;font-size:18px;line-height:1}
 .modal__close:hover{background:rgba(255,255,255,.08)}
 .modal__step{display:none}
@@ -151,25 +151,25 @@ footer a:hover{color:var(--g2)}
 .choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 .choice__opt{padding:14px;background:rgba(255,255,255,.03);border:1.5px solid var(--line);border-radius:12px;cursor:pointer;text-align:center;transition:all .2s}
 .choice__opt:hover{background:rgba(255,255,255,.05)}
-.choice__opt.active{border-color:var(--g2);background:rgba(22,199,131,.07)}
+.choice__opt.active{border-color:var(--g2);background:rgba(94,224,160,.07)}
 .choice__opt-icon{font-size:20px;margin-bottom:4px}
 .choice__opt-title{font-weight:700;font-size:.86rem;color:white;margin-bottom:2px}
 .choice__opt-sub{font-size:.7rem;color:var(--muted);line-height:1.4}
 
 .upload{display:block;padding:18px;background:rgba(255,255,255,.03);border:1.5px dashed var(--line);border-radius:12px;cursor:pointer;text-align:center;transition:all .2s}
-.upload:hover{border-color:var(--g2);background:rgba(22,199,131,.04)}
-.upload.has-file{border-color:var(--g2);border-style:solid;background:rgba(22,199,131,.06)}
+.upload:hover{border-color:var(--g2);background:rgba(94,224,160,.04)}
+.upload.has-file{border-color:var(--g2);border-style:solid;background:rgba(94,224,160,.06)}
 .upload__icon{font-size:1.4rem;margin-bottom:6px;color:var(--g2)}
 .upload__txt{font-size:.84rem;color:rgba(255,255,255,.85);font-weight:600}
 .upload__sub{font-size:.72rem;color:var(--muted);margin-top:3px}
 .upload input{display:none}
 
-.frete-box{background:rgba(53,229,111,.04);border:1px solid rgba(53,229,111,.15);border-radius:12px;padding:14px;margin-bottom:14px}
+.frete-box{background:rgba(180,224,90,.04);border:1px solid rgba(180,224,90,.15);border-radius:12px;padding:14px;margin-bottom:14px}
 .frete-loading{font-size:.82rem;color:var(--muted);text-align:center;padding:8px;display:flex;align-items:center;justify-content:center;gap:8px}
 .frete-opts{display:flex;flex-direction:column;gap:8px}
 .frete-opt{padding:12px 14px;background:rgba(255,255,255,.03);border:1.5px solid var(--line);border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
-.frete-opt:hover{border-color:rgba(22,199,131,.4)}
-.frete-opt.active{border-color:var(--g2);background:rgba(22,199,131,.07)}
+.frete-opt:hover{border-color:rgba(94,224,160,.4)}
+.frete-opt.active{border-color:var(--g2);background:rgba(94,224,160,.07)}
 .frete-opt__name{font-weight:700;color:white;font-size:.88rem}
 .frete-opt__prazo{font-size:.72rem;color:var(--muted);margin-top:2px}
 .frete-opt__price{font-weight:800;color:var(--g1);font-size:.95rem}
@@ -191,7 +191,7 @@ footer a:hover{color:var(--g2)}
 .btn-secondary:hover{background:rgba(255,255,255,.04);color:white}
 
 .alert{padding:11px 13px;background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.22);border-radius:10px;color:#fda4af;font-size:.78rem;margin-bottom:14px;line-height:1.5}
-.alert--info{background:rgba(22,199,131,.06);border-color:rgba(22,199,131,.18);color:rgba(53,229,111,.9)}
+.alert--info{background:rgba(94,224,160,.06);border-color:rgba(94,224,160,.18);color:rgba(180,224,90,.9)}
 .alert--warn{background:rgba(251,191,36,.06);border-color:rgba(251,191,36,.2);color:#fde68a}
 
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.2);border-top-color:var(--g2);border-radius:50%;animation:spin .7s linear infinite}
@@ -202,66 +202,16 @@ footer a:hover{color:var(--g2)}
 
 .pay-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
 .pay-tab{border:1.5px solid var(--line);background:rgba(255,255,255,.035);color:rgba(255,255,255,.72);border-radius:12px;padding:11px 10px;font-family:inherit;font-size:.86rem;font-weight:800;cursor:pointer;transition:all .2s}
-.pay-tab.active{border-color:var(--g2);background:rgba(22,199,131,.08);color:white;box-shadow:0 0 0 3px rgba(22,199,131,.06)}
+.pay-tab.active{border-color:var(--g2);background:rgba(94,224,160,.08);color:white;box-shadow:0 0 0 3px rgba(94,224,160,.06)}
 .pay-panel{display:none;margin-top:10px}
 .pay-panel.active{display:block}
 .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pay-status{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.78rem;line-height:1.45}
-.pay-status.info{display:block;background:rgba(22,199,131,.06);border:1px solid rgba(22,199,131,.18);color:rgba(53,229,111,.9)}
+.pay-status.info{display:block;background:rgba(94,224,160,.06);border:1px solid rgba(94,224,160,.18);color:rgba(180,224,90,.9)}
 .pay-status.err{display:block;background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.22);color:#fda4af}
 .pix-box{text-align:center;padding:14px 0}
 .pix-qr{max-width:220px;width:100%;background:white;padding:12px;border-radius:12px;margin:10px auto;display:block}
 .pix-code{font-size:.68rem;color:var(--muted);word-break:break-all;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:10px;border-radius:8px;margin:10px 0;max-height:86px;overflow:auto}
-
-/* DIGITAL-FIRST RENEWAL 2026 */
-.hero{padding-top:38px;padding-bottom:28px}
-.hero__badge{border-color:rgba(53,229,111,.22);background:rgba(53,229,111,.06);color:rgba(255,255,255,.68)}
-.hero__sub{max-width:560px;margin-bottom:22px}
-.hero-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:16px auto 0;max-width:620px}
-.hero-trust__item{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);padding:7px 10px;border-radius:999px;font-size:.72rem;color:rgba(255,255,255,.68)}
-.hero-trust__item svg{width:13px;height:13px;color:var(--g2);flex:none}
-.disclaimer-bar{margin-top:16px}
-.disclaimer-bar__box{background:rgba(22,199,131,.045);border-color:rgba(22,199,131,.17)}
-.disclaimer-bar__icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(22,199,131,.1);color:var(--g2);flex:none}
-.disclaimer-bar__icon svg{width:15px;height:15px}
-.disclaimer-bar__txt strong{color:#d8fff0}
-.format-section{padding:54px 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.014)}
-.format-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:12px;margin-top:22px}
-.format-card{padding:20px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
-.format-card--primary{border-color:rgba(53,229,111,.25);background:linear-gradient(180deg,rgba(53,229,111,.065),rgba(255,255,255,.018))}
-.format-card__kicker{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:var(--g1);margin-bottom:8px}
-.format-card h3{font-size:1rem;margin-bottom:7px}
-.format-card p{font-size:.82rem;line-height:1.6;color:rgba(255,255,255,.62)}
-.format-note{margin-top:14px;padding:12px 14px;border-left:2px solid rgba(53,229,111,.55);background:rgba(53,229,111,.035);font-size:.78rem;line-height:1.6;color:rgba(255,255,255,.65)}
-.proof-section{padding:54px 20px;border-top:1px solid var(--line)}
-.proof-card{max-width:640px;margin:24px auto 0;padding:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);border-radius:18px;text-align:center}
-.proof-rating{font-size:1.45rem;font-weight:800;color:white;letter-spacing:-.02em}
-.proof-stars{color:#f8c94d;letter-spacing:.08em;font-size:.8rem;margin:3px 0 8px}
-.proof-meta{font-size:.78rem;color:rgba(255,255,255,.58)}
-.proof-link{display:inline-block;margin-top:12px;color:var(--g2);font-size:.78rem;font-weight:700;text-decoration:none}
-.mobile-sticky{display:none}
-.choice__opt--contingency{opacity:.74;border-style:dashed}
-.choice__opt--contingency.active{opacity:1;border-style:solid}
-@media(max-width:640px){
-  body{padding-bottom:76px}
-  .nav__in{padding:11px 16px}.nav__cta-link{font-size:.72rem;padding:6px 10px}
-  .hero{padding:28px 18px 24px}.hero__badge{margin-bottom:14px}.hero__h1{font-size:2.08rem;margin-bottom:14px}.hero__sub{font-size:.93rem;line-height:1.55;margin-bottom:18px}
-  .btn-primary{padding:17px 20px;font-size:1rem;border-radius:13px}.hero__price-line{font-size:.78rem;margin-top:12px}
-  .hero-trust{gap:6px;margin-top:13px}.hero-trust__item{font-size:.66rem;padding:6px 8px}
-  .disclaimer-bar{padding:0 18px;margin-top:12px}.disclaimer-bar__box{padding:12px 13px}.disclaimer-bar__txt{font-size:.76rem}
-  .how-section,.format-section,.price-section,.proof-section,.faq-section{padding:46px 18px}
-  .section-title{font-family:'Outfit',sans-serif;font-size:1.42rem;letter-spacing:-.02em}.section-sub{font-size:.84rem;line-height:1.6}
-  .steps{margin-top:26px;gap:18px}.step{text-align:left;display:grid;grid-template-columns:40px 1fr;column-gap:12px;padding:0}.step__num{grid-row:1/3;width:40px;height:40px;margin:0;font-size:.95rem}.step h3{margin:2px 0 4px}.step p{font-size:.79rem}.steps::before{display:none}
-  .format-grid{grid-template-columns:1fr}.format-card{padding:16px}
-  .price-box{padding:30px 18px;border-radius:18px}.price-num{font-size:3rem}.price-feats{margin-bottom:22px}
-  .trust-strip__inner{gap:12px}.trust-sep{display:none}.trust-item-mini{font-size:.7rem}
-  .faq-q{padding:14px 15px;font-size:.86rem}.faq-a{font-size:.8rem;padding:0 15px 14px}
-  .cta-final{padding:48px 18px 96px}
-  .mobile-sticky{position:fixed;z-index:150;left:10px;right:10px;bottom:10px;display:flex;align-items:center;gap:10px;padding:9px 10px 9px 14px;border:1px solid rgba(255,255,255,.12);background:rgba(7,16,15,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.4)}
-  .mobile-sticky__price{font-size:.73rem;color:rgba(255,255,255,.52);line-height:1.15;white-space:nowrap}.mobile-sticky__price strong{display:block;color:white;font-size:1rem}
-  .mobile-sticky .btn-primary{padding:13px 14px;font-size:.88rem;max-width:none;animation:none}
-  .modal{z-index:220;padding:10px}.modal__box{margin:4px auto 80px}
-}
 </style>
 <script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 </head>
@@ -281,134 +231,149 @@ footer a:hover{color:var(--g2)}
 </nav>
 
 <section class="hero">
-  <div class="hero__badge">Renovação online · avaliação médica</div>
+  <div class="hero__badge">Renovação de receita online</div>
   <h1 class="hero__h1">Renove sua receita <em>online</em></h1>
-  <p class="hero__sub">Envie sua receita anterior para avaliação médica. Havendo indicação clínica, a prescrição é emitida — <strong style="color:rgba(255,255,255,.86);font-weight:600">digital sempre que disponível</strong> para aquele tipo de receituário.</p>
+  <p class="hero__sub">Envie sua receita anterior para avaliação médica. Havendo indicação clínica, a prescrição é emitida — digital sempre que disponível para o tipo de receituário.</p>
   <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
-  <div class="hero__price-line">Pagamento único · PIX ou cartão · sujeito à avaliação médica</div>
-  <div class="hero-trust" aria-label="Segurança da renovação">
-    <span class="hero-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Médico com CRM ativo</span>
-    <span class="hero-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Digital sempre que disponível</span>
-    <span class="hero-trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Dados protegidos</span>
-  </div>
+  <div class="hero__price-line">PIX ou cartão · <strong>pagamento único</strong> · sujeito à avaliação médica</div>
 </section>
 
+<!-- AVISO IMPORTANTE -->
 <div class="disclaimer-bar">
   <div class="disclaimer-bar__box">
-    <div class="disclaimer-bar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01"/><circle cx="12" cy="12" r="9"/></svg></div>
-    <div class="disclaimer-bar__txt"><strong>A renovação não é automática.</strong> O médico analisa cada solicitação e pode pedir informações adicionais, consulta ou exames. Se a renovação não for indicada, o valor é reembolsado integralmente.</div>
+    <div class="disclaimer-bar__icon">⚠️</div>
+    <div class="disclaimer-bar__txt">
+      <strong>A renovação não é automática.</strong> O médico analisa cada solicitação e pode pedir informações adicionais, teleconsulta ou exames. A prescrição só é emitida quando houver indicação clínica. Se a renovação não for indicada, o valor é integralmente reembolsado.
+    </div>
   </div>
 </div>
 
-<section class="how-section" id="como-funciona">
+<!-- TIPOS DE RECEITA -->
+<section class="receita-types-section">
+  <div class="section-inner">
+    <div class="section-label">Tipos de receita</div>
+    <h2 class="section-title">Digital sempre que disponível</h2>
+    <p class="section-sub">O SNCR amplia a possibilidade de emissão eletrônica de diferentes receituários, inclusive notificações azul e amarela, mas a adoção é gradual. Na ConsultaJá24h, priorizamos o digital quando o tipo de prescrição e os sistemas envolvidos permitirem. Se ainda for necessário receituário físico, nossa equipe orientará o envio.</p>
+    <div class="receita-types">
+
+      <div class="rtype rtype--branca">
+        <div class="rtype__head">
+          <span class="rtype__chip">Branca</span>
+          <span class="rtype__title">Comum</span>
+        </div>
+        <div class="rtype__desc">Medicamentos de uso comum, sem controle especial. A receita digital chega direto no seu celular pelo Memed.</div>
+        <div class="rtype__exemplos">Anti-hipertensivos, hipoglicemiantes, anticoncepcionais, levotiroxina, estatinas.</div>
+        <span class="rtype__delivery digital">📱 Receita Digital · Memed</span>
+      </div>
+
+      <div class="rtype rtype--branca-c">
+        <div class="rtype__head">
+          <span class="rtype__chip">Branca C1</span>
+          <span class="rtype__title">Controle especial</span>
+        </div>
+        <div class="rtype__desc">Substâncias sob controle especial em receita branca de 2 vias. Quando aplicável, a receita é emitida como documento eletrônico nato-digital, assinado com certificado compatível com ICP-Brasil via Memed.</div>
+        <div class="rtype__exemplos">Antidepressivos (sertralina, fluoxetina), anticonvulsivantes, neurolépticos.</div>
+        <span class="rtype__delivery digital">📱 Receita Digital · Memed</span>
+      </div>
+
+      <div class="rtype rtype--azul">
+        <div class="rtype__head">
+          <span class="rtype__chip">Azul B1/B2</span>
+          <span class="rtype__title">Psicotrópicos e anorexígenos</span>
+        </div>
+        <div class="rtype__desc">Notificação de Receita B ou B2. A emissão eletrônica passa a ser possível em sistemas integrados ao SNCR, com adoção gradual. O formato disponível será confirmado conforme o caso.</div>
+        <div class="rtype__exemplos">Clonazepam, alprazolam, zolpidem, modafinila, sibutramina.</div>
+        <span class="rtype__delivery digital">Digital quando disponível</span>
+      </div>
+
+      <div class="rtype rtype--amarela">
+        <div class="rtype__head">
+          <span class="rtype__chip">Amarela A3</span>
+          <span class="rtype__title">Controle rigoroso</span>
+        </div>
+        <div class="rtype__desc">Notificação de Receita A. A emissão eletrônica passa a ser possível em sistemas integrados ao SNCR, com adoção gradual. O formato disponível será confirmado conforme o caso.</div>
+        <div class="rtype__exemplos">Ritalina/Concerta (metilfenidato), Venvanse/Juneve (lisdexanfetamina).</div>
+        <span class="rtype__delivery digital">Digital quando disponível</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="how-section">
   <div class="section-inner">
     <div class="section-label">Como funciona</div>
-    <h2 class="section-title">Três passos, sem burocracia</h2>
-    <p class="section-sub">O serviço é para quem já está em tratamento e precisa solicitar a continuidade da prescrição com segurança.</p>
+    <h2 class="section-title">Renovação em 4 passos</h2>
+    <p class="section-sub">Simples, rápido e dentro das normas do CFM.</p>
     <div class="steps">
-      <div class="step"><div class="step__num">1</div><h3>Envie os dados</h3><p>Informe seus medicamentos e anexe a receita anterior. O pagamento é único: R$ 59,90.</p></div>
-      <div class="step"><div class="step__num">2</div><h3>O médico avalia</h3><p>Um médico revisa as informações, o tratamento e a possibilidade de renovação. A emissão depende de indicação clínica.</p></div>
-      <div class="step"><div class="step__num">3</div><h3>Receba a orientação</h3><p>Se houver indicação, a prescrição é emitida digitalmente quando disponível. Se o receituário físico ainda for necessário, nossa equipe orienta o próximo passo.</p></div>
+      <div class="step"><div class="step__num">1</div><h3>Envie sua solicitação</h3><p>Informe seus dados e os medicamentos do tratamento que deseja renovar.</p></div>
+      <div class="step"><div class="step__num">2</div><h3>Anexe a receita anterior</h3><p>Foto ou PDF ajudam o médico a confirmar o tratamento e avaliar a continuidade.</p></div>
+      <div class="step"><div class="step__num">3</div><h3>Pague R$ 59,90</h3><p>Pagamento único via PIX ou cartão. Depois, a solicitação segue para avaliação médica.</p></div>
+      <div class="step"><div class="step__num">4</div><h3>Avaliação e emissão</h3><p>Havendo indicação clínica, a receita é emitida. Digital quando disponível; físico apenas se necessário.</p></div>
     </div>
   </div>
 </section>
 
-<section class="format-section">
-  <div class="section-inner">
-    <div class="section-label">Digital primeiro</div>
-    <h2 class="section-title">O formato mais simples para o seu caso</h2>
-    <p class="section-sub">O tipo de receita, as regras aplicáveis e a disponibilidade do sistema de prescrição e da farmácia definem o formato final.</p>
-    <div class="format-grid">
-      <div class="format-card format-card--primary">
-        <div class="format-card__kicker">Preferencial</div>
-        <h3>Prescrição eletrônica</h3>
-        <p>Quando disponível para aquele receituário, o documento é emitido eletronicamente e enviado para você usar no celular, conforme as regras de validação aplicáveis.</p>
-      </div>
-      <div class="format-card">
-        <div class="format-card__kicker">Exceção</div>
-        <h3>Receituário físico</h3>
-        <p>Se o caso ainda exigir papel, nossa equipe informa isso após a avaliação e orienta o envio. Você só precisa se preocupar com essa etapa se ela realmente for necessária.</p>
-      </div>
-    </div>
-    <div class="format-note"><strong>SNCR:</strong> a partir de 30/09/2026 começa uma nova etapa para emissão eletrônica integrada, inclusive para algumas Notificações de Receita antes restritas ao papel. A adoção é gradual, e as receitas físicas continuam válidas.</div>
-  </div>
-</section>
-
+<!-- PREÇO -->
 <section class="price-section">
   <div class="price-box">
-    <div class="price-label">Solicitação de renovação</div>
+    <div class="price-label">Renovação de receita</div>
     <div class="price-num">R$ 59<sup>,90</sup></div>
-    <div class="price-desc">pagamento único · PIX ou cartão</div>
-    <div class="price-badge">Sem mensalidade</div>
+    <div class="price-desc">à vista no PIX ou cartão</div>
+    <div class="price-badge">Até 12x no cartão</div>
     <div class="price-feats">
-      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Avaliação médica individual</div>
-      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Prescrição digital quando disponível</div>
-      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Reembolso integral se não houver renovação</div>
-      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Dados protegidos pela LGPD</div>
+      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Digital sempre que disponível</div>
+      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Avaliação por médico responsável</div>
+      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Reembolso 100% se não puder renovar</div>
+      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Conforme normas do CFM</div>
     </div>
     <button class="btn-primary" style="max-width:340px" onclick="abrirModal()">Solicitar renovação</button>
-    <div class="price-extras">Se houver necessidade de receituário físico, eventual envio é orientado separadamente antes de qualquer custo adicional.</div>
+    <div class="price-extras">Se excepcionalmente houver necessidade de receituário físico, nossa equipe orientará as etapas e eventuais custos de envio antes da conclusão.</div>
   </div>
 </section>
 
 <section class="trust-strip">
   <div class="trust-strip__inner">
-    <div class="trust-item-mini"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--g2)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> LGPD e sigilo médico</div>
+    <div class="trust-item-mini"><span class="icon">🔒</span> Dados protegidos · LGPD</div>
     <div class="trust-sep"></div>
-    <div class="trust-item-mini"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--g2)"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg> Médicos com CRM ativo</div>
+    <div class="trust-item-mini"><span class="icon">📋</span> Conforme Resolução CFM 2.314/2022</div>
     <div class="trust-sep"></div>
-    <div class="trust-item-mini"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--g2)"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/></svg> Telemedicina CFM 2.314/2022</div>
+    <div class="trust-item-mini"><span class="icon">📱</span> Memed · ICP-Brasil</div>
   </div>
 </section>
 
-<section class="proof-section" id="avaliacoes">
-  <div class="section-inner" style="text-align:center">
-    <div class="section-label">Confiança</div>
-    <h2 class="section-title">Avaliada por pacientes no Google</h2>
-    <div class="proof-card">
-      <div class="proof-rating">4,7 no Google</div>
-      <div class="proof-meta">154 avaliações públicas no perfil ConsultaJá24h – Médico Online</div>
-      <a class="proof-link" href="https://maps.app.goo.gl/bXMaD9GugXdfYmXv7" target="_blank" rel="noopener noreferrer">Ver avaliações no Google →</a>
-    </div>
-  </div>
-</section>
-
+<!-- FAQ -->
 <section class="faq-section">
   <div class="section-inner">
-    <div class="section-label">Dúvidas rápidas</div>
-    <h2 class="section-title">O essencial antes de solicitar</h2>
+    <div class="section-label">Dúvidas frequentes</div>
+    <h2 class="section-title">Perguntas comuns</h2>
     <div class="faq-wrap">
-      <details class="faq-item"><summary class="faq-q">A renovação é garantida?</summary><div class="faq-a">Não. A solicitação passa por avaliação médica individual e a prescrição só é emitida quando houver indicação clínica e possibilidade regulatória. O médico pode solicitar consulta, exames ou informações adicionais.</div></details>
-      <details class="faq-item"><summary class="faq-q">Minha receita será digital?</summary><div class="faq-a">Sempre que o tipo de prescrição e os sistemas envolvidos permitirem, a preferência é pela emissão digital. Se ainda houver necessidade de receituário físico, nossa equipe orientará você.</div></details>
-      <details class="faq-item"><summary class="faq-q">E receitas controladas?</summary><div class="faq-a">Podem ser avaliadas dentro das regras aplicáveis. A nova etapa do SNCR, prevista para 30/09/2026, amplia a possibilidade de emissão eletrônica de algumas Notificações de Receita, mas a implantação é gradual e o papel continua válido quando necessário.</div></details>
-      <details class="faq-item"><summary class="faq-q">Preciso enviar a receita anterior?</summary><div class="faq-a">Sim. A receita anterior ajuda o médico a validar o tratamento, a dose e a continuidade da prescrição. O serviço é voltado a pacientes que já estão em tratamento.</div></details>
-      <details class="faq-item"><summary class="faq-q">Quanto tempo leva?</summary><div class="faq-a">A solicitação entra em avaliação após a confirmação do pagamento. O tempo pode variar conforme o caso e a necessidade de informações adicionais. Se houver emissão digital, o documento é enviado após a conclusão médica; se o físico for necessário, o prazo inclui a etapa de envio.</div></details>
-      <details class="faq-item"><summary class="faq-q">E se o médico não puder renovar?</summary><div class="faq-a">Se a renovação não for indicada após a avaliação, o valor pago pelo serviço é reembolsado integralmente.</div></details>
-      <details class="faq-item"><summary class="faq-q">Quanto custa?</summary><div class="faq-a">A solicitação de renovação custa R$ 59,90, por PIX ou cartão. Se um receituário físico for necessário, eventual custo de envio é informado separadamente antes da cobrança.</div></details>
+      <details class="faq-item"><summary class="faq-q">Quanto tempo demora?</summary><div class="faq-a">Após a confirmação do pagamento, a solicitação segue para avaliação médica. O prazo pode variar conforme o caso e a necessidade de informações adicionais. Quando a emissão digital estiver disponível e for indicada, o documento é enviado eletronicamente; se houver necessidade de formato físico, nossa equipe informa o prazo de envio.</div></details>
+      <details class="faq-item"><summary class="faq-q">Receitas controladas podem ser avaliadas?</summary><div class="faq-a">Podem ser avaliadas quando há tratamento já estabelecido e documentação adequada. A emissão não é garantida e depende da decisão médica e das regras aplicáveis ao medicamento. A partir de 30/09/2026, o SNCR amplia a possibilidade de emissão eletrônica de notificações de receita, inclusive A, B e B2, mas a adoção pelos sistemas e estabelecimentos é gradual.</div></details>
+      <details class="faq-item"><summary class="faq-q">Como funciona a receita digital?</summary><div class="faq-a">Quando disponível para o tipo de prescrição e indicada pelo médico, a receita é emitida eletronicamente pelo sistema de prescrição, com os requisitos de assinatura e validação aplicáveis. Você recebe as orientações para acessar o documento no celular.</div></details>
+      <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática — cada caso é avaliado individualmente. O médico poderá solicitar informações adicionais, teleconsulta ou exames antes da decisão. Se identificar que não é seguro renovar, devolvemos 100% do valor pago em até 5 dias úteis.</div></details>
+      <details class="faq-item"><summary class="faq-q">Perdi minha receita anterior. Posso solicitar renovação?</summary><div class="faq-a">Não — a receita anterior é necessária para validação. Se você perdeu sua receita, recomendamos uma <a href="https://consultaja24h.com.br">teleconsulta no plantão médico</a>, onde será feita uma nova avaliação completa.</div></details>
+      <details class="faq-item"><summary class="faq-q">Quais formas de pagamento vocês aceitam?</summary><div class="faq-a">PIX (confirmação imediata) e cartão de crédito nas principais bandeiras, em até 12x.</div></details>
+      <details class="faq-item"><summary class="faq-q">É seguro? Meus dados estão protegidos?</summary><div class="faq-a">Sim. A plataforma é operada em conformidade com a Resolução CFM 2.314/2022 (telemedicina) e com a LGPD. Todos os arquivos são armazenados com criptografia.</div></details>
     </div>
   </div>
 </section>
 
 <section class="cta-final">
-  <h2>Renove com avaliação médica.</h2>
-  <p>Digital sempre que disponível. Físico apenas quando necessário.</p>
+  <h2>Pronto para renovar?</h2>
+  <p>Digital sempre que disponível · físico apenas quando necessário</p>
   <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
 </section>
 
 <footer>
-  <div>ConsultaJá24h · JG Fonseca Serviços Médicos LTDA · São Luís — MA</div>
+  <div>JG Fonseca Serviços Médicos LTDA · São Luís — MA</div>
   <div style="margin-top:6px">
-    <a href="https://consultaja24h.com.br">Consulta médica</a> ·
+    <a href="https://consultaja24h.com.br">Plantão 24h</a> ·
     <a href="https://consultaja24h.com.br/termos">Termos</a> ·
-    <a href="https://consultaja24h.com.br/privacy">Privacidade</a>
+    <a href="https://consultaja24h.com.br/privacidade">Privacidade</a>
   </div>
-  <div style="margin-top:8px;font-size:.7rem;color:rgba(255,255,255,.4)">Não comercializamos medicamentos. A prescrição depende de avaliação médica e indicação clínica.</div>
 </footer>
-
-<div class="mobile-sticky" aria-label="Solicitar renovação">
-  <div class="mobile-sticky__price"><strong>R$ 59,90</strong>pagamento único</div>
-  <button class="btn-primary" onclick="abrirModal()">Solicitar renovação</button>
-</div>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
@@ -417,21 +382,21 @@ footer a:hover{color:var(--g2)}
 
     <div class="modal__step active" id="step1">
       <div class="modal__title">Como seguir com sua solicitação?</div>
-      <div class="modal__sub">O fluxo é digital primeiro. Escolha receituário físico apenas se nossa equipe já orientou essa necessidade ou se o seu caso ainda depender de papel.</div>
+      <div class="modal__sub">Começamos pelo digital. Se o tipo de prescrição e os sistemas envolvidos permitirem, a receita será eletrônica. Se ainda houver necessidade de papel, nossa equipe orientará.</div>
       <div class="choice">
         <div class="choice__opt active" id="optDigital" onclick="selecModalidade('digital')">
-          <div class="choice__opt-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 18h6"/></svg></div>
+          <div class="choice__opt-icon">📱</div>
           <div class="choice__opt-title">Digital primeiro</div>
           <div class="choice__opt-sub">Preferencial · quando disponível</div>
         </div>
-        <div class="choice__opt choice__opt--contingency" id="optFisica" onclick="selecModalidade('fisica')">
-          <div class="choice__opt-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h5"/></svg></div>
+        <div class="choice__opt" id="optFisica" onclick="selecModalidade('fisica')">
+          <div class="choice__opt-icon">📦</div>
           <div class="choice__opt-title">Físico, se necessário</div>
           <div class="choice__opt-sub">Exceção · sob orientação</div>
         </div>
       </div>
       <div class="alert alert--info" id="alertDigital">Vamos priorizar a emissão digital quando o tipo de prescrição e os sistemas envolvidos permitirem. A emissão depende da avaliação médica.</div>
-      <div class="alert alert--warn" id="alertFisica" style="display:none">Use esta opção apenas quando houver necessidade de receituário físico. Será solicitado documento com foto e endereço; o frete é informado antes do pagamento.</div>
+      <div class="alert alert--warn" id="alertFisica" style="display:none">Use esta opção somente se houver necessidade de receituário físico. Será solicitado documento com foto e endereço; o frete é informado antes do pagamento.</div>
       <button class="btn-modal" onclick="irParaStep(2)">Continuar →</button>
     </div>
 
@@ -476,10 +441,10 @@ footer a:hover{color:var(--g2)}
       <div class="modal__title">Anexar documentos</div>
       <div class="modal__sub">Foto ou PDF, até 10MB cada. Tire fotos com boa iluminação.</div>
       <div class="field"><label class="field__label">Receita anterior <span style="color:var(--danger)">*</span></label>
-        <label class="upload" id="upReceita"><div class="upload__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div class="upload__txt">Selecionar receita anterior</div><div class="upload__sub">PDF, JPG ou PNG · até 10MB</div><input type="file" id="iUpReceita" accept="image/*,application/pdf" onchange="handleUpload(this,'receita_anterior')"/></label>
+        <label class="upload" id="upReceita"><div class="upload__icon">📄</div><div class="upload__txt">Selecionar receita anterior</div><div class="upload__sub">PDF, JPG ou PNG · até 10MB</div><input type="file" id="iUpReceita" accept="image/*,application/pdf" onchange="handleUpload(this,'receita_anterior')"/></label>
       </div>
       <div class="field" id="upDocBlock" style="display:none"><label class="field__label">Documento com foto (RG ou CNH frente) <span style="color:var(--danger)">*</span></label>
-        <label class="upload" id="upDoc"><div class="upload__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M13 10h5M13 14h4"/></svg></div><div class="upload__txt">Selecionar documento</div><div class="upload__sub">Apenas a frente · não precisa segurar</div><input type="file" id="iUpDoc" accept="image/*,application/pdf" onchange="handleUpload(this,'documento')"/></label>
+        <label class="upload" id="upDoc"><div class="upload__icon">🪪</div><div class="upload__txt">Selecionar documento</div><div class="upload__sub">Apenas a frente · não precisa segurar</div><input type="file" id="iUpDoc" accept="image/*,application/pdf" onchange="handleUpload(this,'documento')"/></label>
       </div>
       <div class="alert" id="uploadErr" style="display:none">Erro no upload</div>
       <button class="btn-modal" id="btnStep4" onclick="irParaStep(5)" disabled>Continuar →</button>
@@ -525,7 +490,7 @@ footer a:hover{color:var(--g2)}
         <div class="totals__row totals__total"><span>Total</span><strong id="rValTotal">R$ 59,90</strong></div>
       </div>
       <label class="checkbox"><input type="checkbox" id="cTermos"/><span>Declaro que estou em <strong>tratamento contínuo</strong> com os medicamentos informados e que a receita anterior é verdadeira. Ciente de que a prescrição não é automática e o médico pode optar por não renovar.</span></label>
-      <label class="checkbox" id="cFisicaBlock" style="display:none"><input type="checkbox" id="cFisica"/><span>Ciente de que selecionei a contingência de <strong>receituário físico</strong> e que o envio só ocorrerá se esse formato for necessário após a avaliação médica.</span></label>
+      <label class="checkbox" id="cFisicaBlock" style="display:none"><input type="checkbox" id="cFisica"/><span>Ciente de que selecionei a opção de <strong>receituário físico</strong> e que o envio só será utilizado se esse formato for necessário após a avaliação médica.</span></label>
       <div class="pay-tabs">
         <button class="pay-tab active" id="tabPix" type="button" onclick="selecionarPagamento('pix')">PIX</button>
         <button class="pay-tab" id="tabCartao" type="button" onclick="selecionarPagamento('cartao')">Cartão</button>
@@ -548,7 +513,7 @@ footer a:hover{color:var(--g2)}
 
     <div class="modal__step" id="step8">
       <div style="text-align:center;padding:14px 0">
-        <div style="width:48px;height:48px;margin:0 auto 10px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(22,199,131,.12);color:var(--g2)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div style="font-size:48px;margin-bottom:10px">✅</div>
         <div class="modal__title" style="text-align:center;padding:0">Pagamento confirmado!</div>
         <div class="modal__sub" style="text-align:center" id="sucessoMsg">Sua solicitação foi recebida.</div>
         <a href="https://consultaja24h.com.br" class="btn-modal" style="display:inline-flex;text-decoration:none;margin-top:10px;width:auto;padding:12px 24px">Voltar ao site</a>
@@ -892,9 +857,14 @@ async function pagarCartao(){
     if(!tokenResult||!tokenResult.payment_token)throw new Error('Falha ao tokenizar cartão.');
     const r=await fetch(API+'/api/renovacao/efi/cartao/cobrar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({payment_token:tokenResult.payment_token,nome:document.getElementById('iNome').value.trim(),cpf:cpf,email:document.getElementById('iEmail').value.trim(),telefone:document.getElementById('iTel').value.replace(/\D/g,''),nascimento:document.getElementById('iNasc').value,parcelas:1,atendimentoId:SOLIC.atendimentoId})});
     const d=await r.json();
-    if(d.ok||d.status==='paid'||d.status==='approved'||d.status==='waiting'){
+    if(d.ok&&(d.status==='paid'||d.status==='approved'||d.confirmed)){
       setPayStatus('Pagamento recebido. Finalizando...','info');
       setTimeout(finalizarPagamento,700);
+      return;
+    }
+    if(d.ok&&d.status==='waiting'){
+      setPayStatus('Pagamento em análise. Aguarde a confirmação automática antes de fechar.','info');
+      iniciarPolling();
       return;
     }
     throw new Error(d.error||'Cartão não aprovado. Verifique os dados ou tente outro cartão.');
@@ -908,7 +878,7 @@ async function pagarCartao(){
 function finalizarPagamento(){
   clearInterval(POLLER_PAGAMENTO);
   irParaStep(8);
-  const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida e seguirá para avaliação médica. Se houver indicação, a prescrição será digital sempre que disponível.':'Sua solicitação foi recebida e seguirá para avaliação médica. Se o receituário físico for necessário, nossa equipe dará continuidade ao envio.';
+  const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida e seguirá para avaliação médica. Havendo indicação, a prescrição será emitida digitalmente quando disponível para o seu caso.':'Sua solicitação foi recebida e seguirá para avaliação médica. Se o receituário físico for necessário, nossa equipe orientará o envio.';
   document.getElementById('sucessoMsg').textContent=msg;
 }
 </script>
