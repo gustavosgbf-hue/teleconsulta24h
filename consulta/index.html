@@ -62,7 +62,8 @@ fbq('track','PageView');
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Médico Online Agora · ConsultaJá24h</title>
+<title>Consulta Médica Online · ConsultaJá24h</title>
+<meta name="description" content="Consulta médica online por chat ou vídeo com médicos de CRM ativo. Atendimento particular, seguro e sem deslocamento.">
 <template id="__bundler_thumbnail" data-bg-color="#030706">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
     <rect width="1200" height="800" fill="#030706"/>
@@ -1542,18 +1543,6 @@ whatsappSend.addEventListener('click', function() {
     </a>
     <div class="nav__actions">
       <div class="nav__links" aria-label="Outros atendimentos">
-        <a href="https://consultaja24h.com.br/renovacao-de-receita" class="nav__rx-link nav__rx-link--featured" aria-label="Renovar receita médica">
-          <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h4"/><path d="M8.5 12h4.2a2 2 0 0 1 0 4H8.5v-4Z"/><path d="m12.3 16 3.2 4"/></svg>
-          <span class="nav__rx-text"><span class="nav__link-full">Renovar receita</span><span class="nav__link-short">Renovar receita</span></span>
-        </a>
-        <a href="https://consultaja24h.com.br/especialistas" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver especialistas online">
-          <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v5a4 4 0 0 0 8 0V3"/><path d="M12 12v3a5 5 0 0 0 10 0v-2"/><path d="M4 3h4M16 3h4"/><circle cx="22" cy="11" r="1.6"/></svg>
-          <span class="nav__rx-text"><span class="nav__link-full">Especialidades</span><span class="nav__link-short">Especialidades</span></span>
-        </a>
-        <a href="https://consultaja24h.com.br/psicologo-online" class="nav__rx-link nav__rx-link--subtle" aria-label="Ver psicologia online">
-          <svg class="nav__rx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4a3 3 0 0 0-3 3v.4A3.5 3.5 0 0 0 4 10.6c0 1.3.7 2.5 1.8 3.1A3.3 3.3 0 0 0 9 18h1V4H9Z"/><path d="M15 4a3 3 0 0 1 3 3v.4a3.5 3.5 0 0 1 2 3.2c0 1.3-.7 2.5-1.8 3.1A3.3 3.3 0 0 1 15 18h-1V4h1Z"/><path d="M10 9H7M14 9h3M10 13H7.5M14 13h2.5"/></svg>
-          <span class="nav__rx-text">Psicologia</span>
-        </a>
       </div>
       <a href="#" class="nav__cta-link" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Falar com médico</span></a>
     </div>
@@ -1684,32 +1673,16 @@ whatsappSend.addEventListener('click', function() {
   </a>
   <!-- segurança -->
   <p id="heroSecurity" style="font-size:.72rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:18px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);display:inline;vertical-align:middle;margin-right:3px;position:relative;top:-1px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Médicos com CRM ativo. Documentos somente após avaliação médica.
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);display:inline;vertical-align:middle;margin-right:3px;position:relative;top:-1px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Médicos com CRM ativo · Atendimento particular com privacidade e segurança.
   </p>
-  <div class="hero__intent" aria-label="Escolha sua necessidade">
-    <div class="hero__intent-title">O que você precisa hoje?</div>
+  <div class="hero__intent" aria-label="Escolha como prefere ser atendido">
+    <div class="hero__intent-title">Como prefere ser atendido?</div>
     <div class="hero__intent-grid">
-      <a class="hero__intent-btn hero__intent-btn--primary" href="https://consultaja24h.com.br/renovacao-de-receita">
-        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h4"/><path d="M8.5 12h4.2a2 2 0 0 1 0 4H8.5v-4Z"/><path d="m12.3 16 3.2 4"/></svg>
-        Renovar receita
-      </a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'atestado médico','chat')">
-        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h4"/><path d="M8 13h8M8 17h5"/><path d="M10 8h3M11.5 6.5v3"/></svg>
-        Atestado médico
-      </a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'sintomas ou mal-estar','chat')">
-        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01M8.5 15.5c1.9-1.5 5.1-1.5 7 0"/></svg>
-        Sintomas
-      </a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'exames de check-up','chat')">
-        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6l1 2h3v15H5V6h3l1-2Z"/><path d="M9 12l2 2 4-4"/><path d="M8 18h8"/></svg>
-        Exames de check-up
-      </a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta por chat','chat')">
+      <a class="hero__intent-btn hero__intent-btn--primary" href="#" onclick="return moCliqueAbrir(event,'consulta médica online','chat')">
         <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"/><path d="M8 10.5h8M8 14h5"/></svg>
-        Chat com médico
+        Consulta por chat
       </a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta por vídeo','video')">
+      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta médica online','video')">
         <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H4V7Z"/><path d="m17 11 4-3v8l-4-3"/></svg>
         Consulta por vídeo
       </a>
@@ -1923,32 +1896,6 @@ whatsappSend.addEventListener('click', function() {
 <div id="reviewsMount" aria-hidden="true"></div>
 
 
-<!-- ════════ DOCTORS STRIP ════════ -->
-<section class="doctor-strip">
-  <div class="doctor-strip__header">
-    <div class="doctor-strip__eyebrow"><span class="live-dot"></span>Quem vai te atender</div>
-    <p class="doctor-strip__sub">Médicos brasileiros que integram a plataforma · CRM verificável</p>
-  </div>
-  <div class="doctor-strip__track" aria-label="Médicos da plataforma">
-    <style>
-      .dstrip-card{flex:0 0 auto;width:158px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.022));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px 12px 15px;text-align:center;transition:border-color .25s,transform .25s,box-shadow .25s;box-shadow:0 18px 44px rgba(0,0,0,.22)}
-      .dstrip-card:hover{border-color:rgba(155,234,69,.35);transform:translateY(-2px);box-shadow:0 20px 48px rgba(0,0,0,.3),0 0 30px rgba(67,223,126,.08)}
-      .dstrip-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#b4e05a;margin:0 auto 12px;background-size:cover;background-position:center top;background-repeat:no-repeat;box-sizing:border-box;position:relative;overflow:visible}
-      .dstrip-av.has-photo{color:transparent;box-shadow:0 8px 18px rgba(0,0,0,.42),0 0 0 3px rgba(155,234,69,.55),0 0 0 7px rgba(155,234,69,.09)}
-      .dstrip-av.has-photo::after{display:none}
-    </style>
-    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-julia-fonseca.png')">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-paulo-almeida.png')">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
-    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-franco.png')">MF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Franco</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 236748-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Endocrinologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-martins.png')">MM</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Martins</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 32814-DF</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
-    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-raquel-lima.png')">RL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Raquel Lima</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 14300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
-    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-carolina-amate.png')">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
-    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-danielle.png');background-position:60% 35%;background-size:200%">DL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Danielle Lourdes</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 271705-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Dermatologia</div></div>
-    <div class="dstrip-card dstrip-more" style="background:rgba(155,234,69,.055);border-color:rgba(155,234,69,.22)"><div class="dstrip-av" style="background:rgba(155,234,69,.16);color:#b4e05a;font-size:1rem;width:72px;height:72px">+15</div><div style="font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 15 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
-  </div>
-  <a class="doctor-strip__more-link" href="/especialistas">Conheça o corpo clínico →</a>
-</section>
-
 <!-- ════════ VÍDEO PROVA SOCIAL ════════ -->
 <section class="reveal" style="padding:36px 20px 44px;text-align:center;border-top:1px solid rgba(255,255,255,.04)">
   <div class="section-inner" style="max-width:480px">
@@ -1966,64 +1913,6 @@ whatsappSend.addEventListener('click', function() {
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
       Veja mais no nosso Instagram
     </a>
-  </div>
-</section>
-
-<section class="specialty-bridge reveal visible" aria-labelledby="specialtyBridgeTitle">
-  <div class="specialty-bridge__inner">
-    <div class="specialty-bridge__head">
-      <div>
-        <div class="specialty-bridge__eyebrow">Atendimento agora ou com hora marcada</div>
-        <h2 class="specialty-bridge__title" id="specialtyBridgeTitle">Precisa de acompanhamento especializado?</h2>
-        <p class="specialty-bridge__sub">Agende com especialistas de CRM ativo e RQE quando aplicável.</p>
-      </div>
-      <a class="specialty-bridge__all" href="/especialistas">
-        <span>Ver todos</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-    <div class="specialty-bridge__grid">
-      <a class="specialty-mini" href="/consulta/?especialidade=pediatria" onclick="return moCliqueEspecialidade(event,'pediatria')">
-        <div class="specialty-mini__top">
-          <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><path d="M9 12a3 3 0 1 0 6 0"/><path d="M12 3v3M5 8l2 2M19 8l-2 2"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/><circle cx="12" cy="12" r="8"/></svg></span>
-          <span class="specialty-mini__status">Agora</span>
-        </div>
-        <div class="specialty-mini__name">Pediatria</div>
-        <div class="specialty-mini__meta">Especialista online · R$ 99,90</div>
-      </a>
-      <a class="specialty-mini" href="/especialistas/endocrinologia">
-        <div class="specialty-mini__top">
-          <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M8 15h8"/></svg></span>
-          <span class="specialty-mini__status">Agendar</span>
-        </div>
-        <div class="specialty-mini__name">Endocrinologia</div>
-        <div class="specialty-mini__meta">Tireoide, diabetes e hormônios</div>
-      </a>
-      <a class="specialty-mini" href="/consulta/?especialidade=psiquiatria" onclick="return moCliqueEspecialidade(event,'psiquiatria')">
-        <div class="specialty-mini__top">
-          <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><path d="M9.5 4.5A3.5 3.5 0 0 0 6 8v.3A3.5 3.5 0 0 0 4 11.5 3.5 3.5 0 0 0 7.5 15H9v5"/><path d="M14.5 4.5A3.5 3.5 0 0 1 18 8v.3a3.5 3.5 0 0 1 2 3.2 3.5 3.5 0 0 1-3.5 3.5H15v5M12 3v18M8 9h4M12 13h4"/></svg></span>
-          <span class="specialty-mini__status">Agora</span>
-        </div>
-        <div class="specialty-mini__name">Psiquiatria</div>
-        <div class="specialty-mini__meta">Especialista online · R$ 99,90</div>
-      </a>
-      <a class="specialty-mini" href="/especialistas/dermatologia">
-        <div class="specialty-mini__top">
-          <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><path d="M19 4C11 4 6 8 6 14c0 3 2 5 5 5 6 0 9-7 8-15Z"/><path d="M5 21c2-6 6-9 11-12"/></svg></span>
-          <span class="specialty-mini__status">Agendar</span>
-        </div>
-        <div class="specialty-mini__name">Dermatologia</div>
-        <div class="specialty-mini__meta">Pele, acne e queda de cabelo</div>
-      </a>
-      <a class="specialty-mini" href="/consulta/?especialidade=geriatria" onclick="return moCliqueEspecialidade(event,'geriatria')">
-        <div class="specialty-mini__top">
-          <span class="specialty-mini__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M7 21v-3a5 5 0 0 1 10 0v3M18 10l2 2-2 2"/></svg></span>
-          <span class="specialty-mini__status">Agora</span>
-        </div>
-        <div class="specialty-mini__name">Geriatria</div>
-        <div class="specialty-mini__meta">Especialista online · R$ 99,90</div>
-      </a>
-    </div>
   </div>
 </section>
 
@@ -2053,7 +1942,7 @@ whatsappSend.addEventListener('click', function() {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
         </div>
         <h3>Fale com o médico</h3>
-        <p>Após o pagamento, você conversa com um médico com CRM ativo. Receita, atestado ou exames só são emitidos quando indicados.</p>
+        <p>Após a confirmação do pagamento, você conversa com um médico com CRM ativo diretamente pela plataforma.</p>
       </div>
     </div>
     <div class="how-summary" aria-label="Preço e formas de pagamento">
@@ -2076,7 +1965,7 @@ whatsappSend.addEventListener('click', function() {
     </div>
     <div class="car-outer" style="margin-top:24px">
       <div class="car-vp">
-        <div class="car-tk" id="carTk" style="transform: translateX(-200%);"><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">R</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Rayssa C.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"Perfeito, muito atenciosos e rápidos, atendimento ótimo do início ao fim."</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 3 semanas</p></div><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">D</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Daniely L.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"Doutor super atencioso, me ajudou demais. Agradeço pela atenção, ótimo atendimento!"</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 4 dias</p></div><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">D</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Débora V.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"O médico é muito atencioso e a consulta foi imediata, após fazer o pix. É uma ótima solução para quem está doente e não pode sair de casa. A equipe de atendimento responde na hora, com muita educação e atenção. Recomendo."</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 1 semana</p></div><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">W</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Wellington M.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"Excelente atendimento, recomendo."</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 1 semana</p></div><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">B</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Bruna G.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"Mais prático e fácil do que eu esperava. Fui bem atendida. Recebi a receita e o atestado por SMS para fazer download no celular, tudo certo."</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 1 semana</p></div></div>
+        <div class="car-tk" id="carTk" style="transform: translateX(-200%);"><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">R</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Rayssa C.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"Perfeito, muito atenciosos e rápidos, atendimento ótimo do início ao fim."</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 3 semanas</p></div><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">D</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Daniely L.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"Doutor super atencioso, me ajudou demais. Agradeço pela atenção, ótimo atendimento!"</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 4 dias</p></div><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">D</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Débora V.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"O médico é muito atencioso e a consulta foi imediata, após fazer o pix. É uma ótima solução para quem está doente e não pode sair de casa. A equipe de atendimento responde na hora, com muita educação e atenção. Recomendo."</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 1 semana</p></div><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">W</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Wellington M.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"Excelente atendimento, recomendo."</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 1 semana</p></div><div class="rcard"><div class="rcard__top" style="gap:10px;align-items:flex-start"><div style="width:34px;height:34px;border-radius:50%;background:rgba(94,224,160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;font-weight:700;color:#5ee0a0;border:1px solid rgba(94,224,160,.2)">B</div><div style="flex:1;min-width:0;text-align:left"><div class="rcard__name" style="margin-bottom:3px">Bruna G.</div><div style="font-size:.75rem;line-height:1;display:flex;gap:1px"><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span><span style="color:#f5c518">★</span></div></div><svg width="13" height="13" viewBox="0 0 48 48" style="display:inline;vertical-align:middle;margin-right:5px" aria-label="Google"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 15.5 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"></path><path fill="#FBBC05" d="M24 46c5.5 0 10.5-1.9 14.3-5l-6.6-5.4C29.7 37.3 27 38 24 38c-6.1 0-10.7-3.9-11.8-9.2l-7 5.4C8.4 41.2 15.7 46 24 46z"></path><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3-3.4 5.5-6.4 7.1l6.6 5.4C40.5 37.4 44 31.1 44 24c0-1.3-.2-2.7-.5-4z"></path></svg></div><p class="rcard__quote" style="text-align:left;margin-top:14px">"Mais prático e fácil do que eu esperava. Fui bem atendida e consegui fazer tudo pelo celular, tudo certo."</p><p style="font-size:.64rem;color:rgba(255,255,255,.22);margin-top:8px;text-align:left">há 1 semana</p></div></div>
       </div>
       <div class="car-footer">
         <div class="car-arrows">
@@ -2094,146 +1983,6 @@ whatsappSend.addEventListener('click', function() {
 
 <hr class="divider">
 
-<!-- ════════ MÉDICOS ════════ -->
-<section class="reveal" hidden aria-hidden="true" style="padding:64px 20px;border-top:1px solid var(--line)">
-  <div class="section-inner" style="text-align:center">
-    <div class="section-label">Nosso time</div>
-    <h2 class="section-title">Médicos registrados no CRM</h2>
-    <p class="section-sub" style="margin:0 auto 8px">Todos os profissionais possuem CRM ativo e são habilitados para exercer a medicina no Brasil.</p>
-    <p style="font-size:.78rem;color:rgba(255,255,255,.35);margin:0 auto 36px;max-width:480px">O atendimento é realizado pelo médico disponível no momento da consulta. Todos têm CRM ativo e atuam dentro das normas do CFM.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,160px));gap:12px;max-width:860px;margin:0 auto;justify-content:center">
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JF</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Julia Fonseca</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 10300-MA</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Ginecologia e Obstetrícia</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">BH</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Bruna Heluy</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 6732-MA</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Dermatologia</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MF</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Mariana Franco</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 236748-SP</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas/endocrinologia" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Endocrinologia</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">DL</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Danielle Lourdes</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 271705-SP</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Dermatologia</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">PA</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Paulo Almeida</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 52126585-7/RJ</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas/psiquiatria" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Psiquiatria</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">CA</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Carolina Amate</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 8696-MA</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Ginecologia e Obstetrícia</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">MM</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Mariana Martins</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 32814-DF</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">RL</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Raquel Lima</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 14300-MA</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">HF</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Herllan Felix</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 18775-PB</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">JR</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. João Reis</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 116053</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">IZ</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Isadora Araujo</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 17420</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">GO</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Gabriela Oliveira</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 35883</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">KG</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Karina Guisard</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 280473</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">CP</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Clara Costa</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 19374</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">GA</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Gabriel Souza</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 16420-MA</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Médica</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">SP</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Sarah Paulino</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 281779-SP</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Geral</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">EN</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dr. Everton Neres</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 48578-BA</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Generalista</a></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center">
-        <div style="width:44px;height:44px;border-radius:50%;background:rgba(94,224,160,.12);border:1px solid rgba(94,224,160,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#5ee0a0;margin:0 auto 10px">KD</div>
-        <div style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:4px">Dra. Kalina Dominik</div>
-        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:3px">CRM 107977-MG</div>
-        <div style="font-size:.65rem;color:rgba(180,224,90,.6)"><a href="https://consultaja24h.com.br/especialistas" style="color:rgba(180,224,90,.6);text-decoration:none;border-bottom:1px solid rgba(180,224,90,.3)">Clínica Geral</a></div>
-      </div>
-
-    </div>
-    <p style="margin-top:20px;font-size:.7rem;color:rgba(255,255,255,.25)">Todos os CRMs podem ser verificados no portal CFM (cfm.org.br)</p>
-  </div>
-</section>
-
 <!-- ════════ FAQ ════════ -->
 <section class="faq-section reveal">
   <div class="section-inner" style="max-width:640px">
@@ -2249,10 +1998,10 @@ whatsappSend.addEventListener('click', function() {
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          A consulta emite atestado e receita?
+          Posso escolher entre chat e vídeo?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         </button>
-        <div class="faq-a"><p>Quando clinicamente indicado, o médico pode emitir atestado, receita ou pedido de exame com validade legal. O valor cobre a consulta e a orientação médica; documentos não são garantidos.</p></div>
+        <div class="faq-a"><p>Sim. Você pode iniciar por chat, sem câmera, ou escolher atendimento por vídeo conforme sua preferência.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -2306,18 +2055,12 @@ whatsappSend.addEventListener('click', function() {
 <!-- ════════ LINKS DE CONSULTA ONLINE ════════ -->
 <section class="seo-links" style="padding:44px 20px;border-top:1px solid var(--line);background:rgba(255,255,255,.012)">
   <div style="max-width:820px;margin:0 auto;text-align:center">
-    <div class="section-label">Consultas online por tema</div>
-    <p style="font-size:.82rem;color:rgba(255,255,255,.48);line-height:1.7;margin:0 auto 20px;max-width:560px">Encontre orientação médica online para queixas comuns e situações não emergenciais.</p>
+    <div class="section-label">ConsultaJá24h</div>
+    <p style="font-size:.82rem;color:rgba(255,255,255,.48);line-height:1.7;margin:0 auto 20px;max-width:560px">Atendimento médico online particular, com praticidade, privacidade e profissionais com CRM ativo.</p>
     <div style="display:flex;flex-wrap:wrap;gap:9px;justify-content:center">
-      <a href="https://consultaja24h.com.br/medico-online-agora" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Médico online agora</a>
-      <a href="https://consultaja24h.com.br/medico-online-por-chat" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Médico por chat</a>
+      <a href="https://consultaja24h.com.br/medico-online-agora" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Médico online</a>
+      <a href="https://consultaja24h.com.br/medico-online-por-chat" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Consulta por chat</a>
       <a href="https://consultaja24h.com.br/consulta-medica-online-24h" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Consulta online 24h</a>
-      <a href="https://consultaja24h.com.br/renovacao-de-receita" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(180,224,90,.18);background:rgba(180,224,90,.055);color:rgba(218,255,158,.9);font-size:.78rem;text-decoration:none">Renovar receita</a>
-      <a href="https://consultaja24h.com.br/atestado-medico-online" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Atestado médico online</a>
-      <a href="https://consultaja24h.com.br/consulta-online-gripe" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Gripe e resfriado</a>
-      <a href="https://consultaja24h.com.br/consulta-online-sinusite" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Sinusite</a>
-      <a href="https://consultaja24h.com.br/consulta-online-diarreia" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Diarreia e enjoo</a>
-      <a href="https://consultaja24h.com.br/infeccao-urinaria" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.66);font-size:.78rem;text-decoration:none">Infecção urinária</a>
     </div>
   </div>
 </section>
@@ -2333,7 +2076,6 @@ whatsappSend.addEventListener('click', function() {
     </p>
     <p style="margin-top:10px">Serviço regulamentado conforme Resolução CFM nº 2.314/2022.</p>
     <p style="margin-top:5px">Responsável técnico: Dr. Gustavo Fonseca, CRM-MA 14325</p>
-    <p style="margin-top:10px;font-size:.68rem;color:rgba(255,255,255,.38)">Não comercializamos medicamentos. Prescrições são realizadas apenas durante consulta médica.</p>
   </div>
 </footer>
 
@@ -2475,7 +2217,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       {author_name:'Rayssa C.',rating:5,text:'Perfeito, muito atenciosos e rápidos, atendimento ótimo do início ao fim.',relative_time_description:'há 3 semanas'},
       {author_name:'Daniely L.',rating:5,text:'Doutor super atencioso, me ajudou demais. Agradeço pela atenção, ótimo atendimento!',relative_time_description:'há 4 dias'},
       {author_name:'Wellington M.',rating:5,text:'Excelente atendimento, recomendo.',relative_time_description:'há 1 semana'},
-      {author_name:'Bruna G.',rating:5,text:'Mais prático e fácil do que eu esperava. Fui bem atendida e recebi os documentos no celular.',relative_time_description:'há 1 semana'}
+      {author_name:'Bruna G.',rating:5,text:'Mais prático e fácil do que eu esperava. Fui bem atendida e consegui fazer tudo pelo celular.',relative_time_description:'há 1 semana'}
     ]);
   }
   fallback();
@@ -2602,16 +2344,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <span id="moModoToggleLabel" style="font-size:.7rem;color:rgba(255,255,255,.5);font-weight:400">Prefere atendimento por <strong>vídeo</strong>?</span>
         <a href="#" onclick="moTrocarModo(event)" style="font-size:.7rem;color:var(--g2);font-weight:600;text-decoration:none;border-bottom:1px dashed rgba(94,224,160,.4);padding-bottom:1px">trocar</a>
       </div>
-      <!-- selo Memed: pictograma genérico de receita digital + texto -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:10px;padding:7px 12px;background:rgba(94,224,160,.06);border:1px solid rgba(94,224,160,.18);border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--g2);flex-shrink:0">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <polyline points="9 15 11 17 15 13"></polyline>
-        </svg>
-        <span style="font-size:.68rem;color:rgba(255,255,255,.7);font-weight:500;letter-spacing:.01em">Documentos digitais via <strong style="color:var(--g2);font-weight:700">Memed</strong>, com validade nacional</span>
-      </div>
-      <p class="mtrust" style="display:flex;align-items:center;justify-content:center;gap:6px;font-size:.68rem;margin-top:10px">
+<p class="mtrust" style="display:flex;align-items:center;justify-content:center;gap:6px;font-size:.68rem;margin-top:10px">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
         <span>Dados protegidos por sigilo médico e LGPD</span>
       </p>
@@ -2636,7 +2369,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
       </div>
       <div class="mcard-fields" id="moCardFields">
         <div><label class="ml">Nome do pagador</label><input class="mi" id="moPayNome" type="text" placeholder="Como no CPF" autocomplete="name"></div>
-        <div><label class="ml">CPF do pagador</label><input class="mi" id="moPayCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)"><div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Usado somente para processar o pagamento. Os documentos usam os dados do paciente.</div></div>
+        <div><label class="ml">CPF do pagador</label><input class="mi" id="moPayCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)"><div style="font-size:.63rem;color:rgba(255,255,255,.28);margin-top:4px">Usado somente para processar o pagamento e validar os dados do pagador.</div></div>
         <div><label class="ml">E-mail</label><input class="mi" id="moCardEmail" type="email" placeholder="seu@email.com" inputmode="email"></div>
         <div><label class="ml">Número do cartão</label><input class="mi" id="moCfNumero" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" oninput="moCfMascaraNumero(this)"></div>
         <div><label class="ml">Nome no cartão</label><input class="mi" id="moCfNome" type="text" placeholder="Como aparece no cartão" autocomplete="cc-name" oninput="this.value=this.value.toUpperCase()"></div>
@@ -2655,7 +2388,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         </div>
         <label class="ml">CPF do pagador</label>
         <input class="mi" id="moPixCPF" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this);moPixCpfDetectar(this)">
-        <div style="font-size:.63rem;color:rgba(255,255,255,.34);margin-top:5px;line-height:1.45">Usado somente para gerar o pagamento. Os documentos médicos serão emitidos com os dados do paciente informado anteriormente.</div>
+        <div style="font-size:.63rem;color:rgba(255,255,255,.34);margin-top:5px;line-height:1.45">Usado somente para gerar o pagamento. Os dados do pagador ficam separados do cadastro do paciente.</div>
       </div>
       <button class="mcta" id="moBtnPagar" onclick="moPagar()">Gerar Pix de R$ 49,90</button>
       <div style="text-align:center;font-size:.68rem;color:rgba(255,255,255,.34);line-height:1.45">Após o pagamento, você será direcionado para a triagem médica. Sem mensalidade, fidelidade ou cobrança extra.</div>
@@ -2702,7 +2435,7 @@ document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(funct
         <label class="ml">CPF</label>
         <input class="mi" id="moCpfPos" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" oninput="moMascaraCPF(this)" onkeydown="if(event.key==='Enter')moIniciarTriagem()">
         <div style="font-size:.66rem;color:rgba(255,255,255,.42);margin-top:5px;line-height:1.5">
-          Necessário para receita, atestado e prontuário. Protegidos por sigilo médico e LGPD.
+          Necessário para identificação do paciente e prontuário. Protegido por sigilo médico e LGPD.
         </div>
         <div class="mcard-err" id="moCpfPosErr"></div>
       </div>
