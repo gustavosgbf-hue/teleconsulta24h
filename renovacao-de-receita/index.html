@@ -9,13 +9,13 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:#07100f;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-:root{--g1:#35E56F;--g2:#16c783;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.55);--danger:#fb7185;--warn:#fbbf24}
+body{font-family:'Outfit',sans-serif;background:#002017;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+:root{--g1:#b4e05a;--g2:#5ee0a0;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.55);--danger:#fb7185;--warn:#fbbf24}
 
-.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80vw 60vh at 20% -5%,rgba(53,229,111,.08) 0%,transparent 55%),radial-gradient(ellipse 55vw 45vh at 85% 15%,rgba(22,199,131,.07) 0%,transparent 50%)}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80vw 60vh at 20% -5%,rgba(180,224,90,.09) 0%,transparent 55%),radial-gradient(ellipse 55vw 45vh at 85% 15%,rgba(94,224,160,.07) 0%,transparent 50%)}
 
 /* NAV - logo igual ao site principal */
-.nav{position:sticky;top:0;z-index:100;background:rgba(7,16,15,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,32,23,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
 .nav__in{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:960px;margin:0 auto}
 .nav__brand{display:flex;align-items:center;gap:8px;text-decoration:none}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--g2);flex-shrink:0;animation:pulse 2s ease-in-out infinite}
@@ -217,10 +217,10 @@ footer a:hover{color:var(--g2)}
 .hero__badge{gap:8px}.hero__badge svg{width:13px;height:13px;color:var(--g2)}
 .hero__sub{max-width:560px}.hero__micro{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;color:rgba(255,255,255,.58);font-size:.72rem}.hero__micro span{display:inline-flex;align-items:center;gap:6px}.hero__micro i{width:6px;height:6px;border-radius:50%;background:var(--g2);box-shadow:0 0 0 4px rgba(22,199,131,.09)}
 .digital-note{max-width:760px;margin:20px auto 0;padding:0 20px}.digital-note__box{padding:14px 16px;border:1px solid rgba(22,199,131,.2);background:rgba(22,199,131,.055);border-radius:14px;font-size:.82rem;line-height:1.6;color:rgba(255,255,255,.76)}.digital-note__box strong{color:#dfffee}.digital-note__muted{display:block;margin-top:4px;color:rgba(255,255,255,.46);font-size:.74rem}
-.rx-switcher{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}.rx-tab{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);border-radius:14px;padding:14px 12px;text-align:left;color:white;font-family:inherit;cursor:pointer;transition:.18s}.rx-tab:hover{border-color:rgba(22,199,131,.35);transform:translateY(-1px)}.rx-tab.active{border-color:rgba(53,229,111,.55);background:rgba(22,199,131,.08);box-shadow:0 0 0 3px rgba(22,199,131,.05)}.rx-tab__top{display:flex;align-items:center;justify-content:space-between;gap:8px}.rx-tab__name{font-size:.9rem;font-weight:750}.rx-tab__status{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;padding:4px 7px;border-radius:999px;background:rgba(22,199,131,.12);color:#7cf0b5;white-space:nowrap}.rx-tab__sub{font-size:.7rem;line-height:1.45;color:rgba(255,255,255,.45);margin-top:7px}.rx-detail{margin-top:12px;border:1px solid rgba(255,255,255,.09);border-radius:15px;background:rgba(255,255,255,.025);padding:18px}.rx-detail__eyebrow{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--g2)}.rx-detail__title{font-size:1.02rem;font-weight:800;margin-top:4px}.rx-detail__text{font-size:.82rem;line-height:1.62;color:rgba(255,255,255,.67);margin-top:8px}.rx-detail__foot{font-size:.72rem;line-height:1.5;color:rgba(255,255,255,.4);margin-top:10px}.rx-detail__foot strong{color:rgba(255,255,255,.68)}
+.rx-switcher{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.rx-tab{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);border-radius:14px;padding:16px 14px;text-align:left;color:white;font-family:inherit;cursor:pointer;transition:transform .18s,border-color .18s,background .18s,box-shadow .18s}.rx-tab:hover{transform:translateY(-2px)}.rx-tab[data-rx="comum"]{border-color:rgba(255,255,255,.18)}.rx-tab[data-rx="c1"]{border-color:rgba(180,224,90,.25);background:rgba(180,224,90,.035)}.rx-tab[data-rx="azul"]{border-color:rgba(96,165,250,.28);background:rgba(96,165,250,.035)}.rx-tab[data-rx="amarela"]{border-color:rgba(251,191,36,.28);background:rgba(251,191,36,.035)}.rx-tab[data-rx="comum"].active{border-color:rgba(255,255,255,.55);box-shadow:0 0 0 3px rgba(255,255,255,.05)}.rx-tab[data-rx="c1"].active{border-color:rgba(180,224,90,.7);box-shadow:0 0 0 3px rgba(180,224,90,.07)}.rx-tab[data-rx="azul"].active{border-color:rgba(96,165,250,.7);box-shadow:0 0 0 3px rgba(96,165,250,.07)}.rx-tab[data-rx="amarela"].active{border-color:rgba(251,191,36,.72);box-shadow:0 0 0 3px rgba(251,191,36,.07)}.rx-tab__top{display:flex;align-items:center;justify-content:space-between;gap:8px}.rx-tab__name{font-size:.9rem;font-weight:750}.rx-tab__status{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;padding:4px 7px;border-radius:999px;background:rgba(94,224,160,.1);color:#5ee0a0;white-space:nowrap}.rx-tab[data-rx="azul"] .rx-tab__status{background:rgba(96,165,250,.14);color:#93c5fd}.rx-tab[data-rx="amarela"] .rx-tab__status{background:rgba(251,191,36,.14);color:#fde68a}.rx-tab__sub{font-size:.7rem;line-height:1.45;color:rgba(255,255,255,.5);margin-top:8px}.rx-detail{margin-top:12px;border:1px solid rgba(255,255,255,.1);border-radius:15px;background:rgba(255,255,255,.025);padding:18px}.rx-detail__eyebrow{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--g2)}.rx-detail__title{font-size:1.02rem;font-weight:800;margin-top:4px}.rx-detail__text{font-size:.82rem;line-height:1.62;color:rgba(255,255,255,.7);margin-top:8px}.rx-detail__foot{font-size:.72rem;line-height:1.5;color:rgba(255,255,255,.45);margin-top:10px}.rx-detail__foot strong{color:rgba(255,255,255,.72)}
 .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}.review-card{padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(255,255,255,.025);text-align:left}.review-stars{font-size:.72rem;letter-spacing:.08em;color:#f5c518}.review-quote{font-size:.83rem;line-height:1.6;color:rgba(255,255,255,.78);margin:10px 0}.review-name{font-size:.72rem;color:rgba(255,255,255,.4)}
-.modal-rx-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 16px}.modal-rx{border:1.5px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:13px;text-align:left;color:white;font-family:inherit;cursor:pointer;transition:.18s}.modal-rx.active{border-color:var(--g2);background:rgba(22,199,131,.075);box-shadow:0 0 0 3px rgba(22,199,131,.05)}.modal-rx__name{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.83rem;font-weight:800}.modal-rx__badge{font-size:.55rem;text-transform:uppercase;letter-spacing:.05em;color:#7cf0b5;background:rgba(22,199,131,.1);padding:3px 6px;border-radius:999px;white-space:nowrap}.modal-rx__sub{font-size:.68rem;color:rgba(255,255,255,.43);line-height:1.45;margin-top:6px}.physical-contingency{margin-top:10px;font-size:.68rem;color:rgba(255,255,255,.34);text-align:center}.physical-contingency button{background:none;border:0;color:rgba(255,255,255,.44);text-decoration:underline;text-underline-offset:3px;font:inherit;cursor:pointer}.sticky-renew{display:none}.social-section{padding:58px 20px;border-top:1px solid var(--line)}
-@media(max-width:720px){.rx-switcher{grid-template-columns:1fr 1fr}.review-grid{grid-template-columns:1fr}.hero{padding-top:34px}.hero__h1{font-size:2.05rem}.hero__sub{font-size:.92rem;line-height:1.52}.receita-types-section,.how-section,.price-section,.faq-section,.social-section{padding-top:44px;padding-bottom:44px}.sticky-renew{display:flex;position:fixed;left:10px;right:10px;bottom:10px;z-index:145;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 14px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(7,16,15,.94);backdrop-filter:blur(18px);box-shadow:0 16px 38px rgba(0,0,0,.35)}.sticky-renew__price{font-size:.7rem;color:rgba(255,255,255,.48)}.sticky-renew__price strong{display:block;color:white;font-size:.95rem}.sticky-renew button{border:0;border-radius:11px;background:#16c783;color:#06120e;font:700 .82rem 'Outfit',sans-serif;padding:11px 14px;cursor:pointer}body{padding-bottom:78px}}
+.modal-rx-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 16px}.modal-rx{border:1.5px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:13px;text-align:left;color:white;font-family:inherit;cursor:pointer;transition:.18s}.modal-rx.active{border-color:var(--g2);background:rgba(94,224,160,.07);box-shadow:0 0 0 3px rgba(94,224,160,.05)}.modal-rx[data-cat="azul"]{border-color:rgba(96,165,250,.24)}.modal-rx[data-cat="amarela"]{border-color:rgba(251,191,36,.24)}.modal-rx__name{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.83rem;font-weight:800}.modal-rx__badge{font-size:.55rem;text-transform:uppercase;letter-spacing:.05em;color:#5ee0a0;background:rgba(94,224,160,.1);padding:3px 6px;border-radius:999px;white-space:nowrap}.modal-rx[data-cat="azul"] .modal-rx__badge{color:#93c5fd;background:rgba(96,165,250,.12)}.modal-rx[data-cat="amarela"] .modal-rx__badge{color:#fde68a;background:rgba(251,191,36,.12)}.modal-rx__sub{font-size:.68rem;color:rgba(255,255,255,.46);line-height:1.45;margin-top:6px}.physical-contingency{display:none!important}.sticky-renew{display:none!important}.social-section{padding:58px 20px;border-top:1px solid var(--line)}
+@media(max-width:720px){.rx-switcher{grid-template-columns:1fr 1fr}.review-grid{grid-template-columns:1fr}.hero{padding-top:36px}.hero__h1{font-size:2.05rem}.hero__sub{font-size:.92rem;line-height:1.52}.receita-types-section,.how-section,.price-section,.faq-section,.social-section{padding-top:44px;padding-bottom:44px}}
 </style>
 <script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 </head>
@@ -243,7 +243,7 @@ footer a:hover{color:var(--g2)}
   <div class="hero__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Renovação de receita médica</div>
   <h1 class="hero__h1">Renove sua receita <em>online</em></h1>
   <p class="hero__sub">Para quem já está em tratamento contínuo. Você envia a receita anterior, passa por avaliação médica e, havendo indicação clínica, a nova prescrição é emitida.</p>
-  <button class="btn-primary" onclick="abrirModal()">Avaliar renovação · R$ 59,90</button>
+  <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
   <div class="hero__micro"><span><i></i>Digital sempre que disponível</span><span><i></i>PIX ou cartão</span><span><i></i>Médico com CRM ativo</span></div>
 </section>
 
@@ -256,8 +256,8 @@ footer a:hover{color:var(--g2)}
 <section class="receita-types-section">
   <div class="section-inner">
     <div class="section-label">Tipos de prescrição</div>
-    <h2 class="section-title">Veja como a emissão digital se aplica ao seu caso</h2>
-    <p class="section-sub">Toque no tipo de receita. A partir de 30/09/2026, o SNCR amplia a possibilidade de emissão eletrônica de notificações antes restritas ao papel, com implantação gradual.</p>
+    <h2 class="section-title">Sua receita, agora com mais opções digitais</h2>
+    <p class="section-sub">Toque no tipo da sua receita para entender como funciona. A partir de 30/09/2026, o SNCR passa a permitir emissão eletrônica também para notificações azuis e amarelas, com implantação gradual.</p>
     <div class="rx-switcher" role="tablist" aria-label="Tipos de receita">
       <button class="rx-tab active" type="button" data-rx="comum"><div class="rx-tab__top"><span class="rx-tab__name">Branca</span><span class="rx-tab__status">Digital</span></div><div class="rx-tab__sub">Medicamentos de uso comum</div></button>
       <button class="rx-tab" type="button" data-rx="c1"><div class="rx-tab__top"><span class="rx-tab__name">Branca C1</span><span class="rx-tab__status">Digital</span></div><div class="rx-tab__sub">Controle especial</div></button>
@@ -348,10 +348,9 @@ footer a:hover{color:var(--g2)}
 <section class="cta-final">
   <h2>Pronto para renovar?</h2>
   <p>Digital sempre que disponível · sujeito à avaliação médica</p>
-  <button class="btn-primary" onclick="abrirModal()">Solicitar avaliação · R$ 59,90</button>
+  <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
 </section>
 
-<div class="sticky-renew" aria-label="Ação rápida de renovação"><div class="sticky-renew__price">Avaliação de renovação<strong>R$ 59,90</strong></div><button type="button" onclick="abrirModal()">Começar</button></div>
 
 <footer>
   <div>JG Fonseca Serviços Médicos LTDA · São Luís — MA</div>
@@ -368,8 +367,8 @@ footer a:hover{color:var(--g2)}
     <button class="modal__close" onclick="fecharModal()" aria-label="Fechar">×</button>
 
     <div class="modal__step active" id="step1">
-      <div class="modal__title">Qual receita você quer renovar?</div>
-      <div class="modal__sub">Selecione o tipo. A solicitação começa pelo fluxo digital; se o seu caso ainda exigir receituário físico, a equipe orientará.</div>
+      <div class="modal__title">Escolha o tipo da sua receita</div>
+      <div class="modal__sub">A experiência começa pelo digital. Se o seu caso ainda exigir receituário físico, nossa equipe orientará depois da avaliação.</div>
       <div id="optDigital" style="display:none"></div><div id="optFisica" style="display:none"></div>
       <div class="modal-rx-grid" id="modalRxGrid">
         <button type="button" class="modal-rx active" data-cat="comum" onclick="selecionarCategoriaReceita('comum',this)"><div class="modal-rx__name">Branca <span class="modal-rx__badge">Digital</span></div><div class="modal-rx__sub">Uso comum</div></button>
@@ -379,7 +378,7 @@ footer a:hover{color:var(--g2)}
       </div>
       <div class="alert alert--info" id="alertDigital">A emissão depende de avaliação médica e indicação clínica. Azul e amarela passam a ter possibilidade de emissão eletrônica via SNCR a partir de 30/09/2026, com adoção gradual.</div>
       <div class="alert alert--warn" id="alertFisica" style="display:none">Fluxo de contingência: use apenas quando a equipe orientar receituário físico.</div>
-      <button class="btn-modal" onclick="selecModalidade('digital');irParaStep(2)">Continuar com avaliação →</button>
+      <button class="btn-modal" onclick="selecModalidade('digital');irParaStep(2)">Continuar</button>
       <div class="physical-contingency"><button id="btnFluxoFisico" style="display:none" type="button" onclick="selecModalidade('fisica');irParaStep(2)">Minha equipe orientou receituário físico</button></div>
     </div>
 
