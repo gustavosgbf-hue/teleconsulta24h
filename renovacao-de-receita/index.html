@@ -9,13 +9,13 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:#002017;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-:root{--g1:#b4e05a;--g2:#5ee0a0;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.55);--danger:#fb7185;--warn:#fbbf24}
+body{font-family:'Outfit',sans-serif;background:#07100f;color:rgba(255,255,255,.92);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+:root{--g1:#35E56F;--g2:#16c783;--line:rgba(255,255,255,.09);--muted:rgba(255,255,255,.55);--danger:#fb7185;--warn:#fbbf24}
 
-.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80vw 60vh at 20% -5%,rgba(180,224,90,.09) 0%,transparent 55%),radial-gradient(ellipse 55vw 45vh at 85% 15%,rgba(94,224,160,.07) 0%,transparent 50%)}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80vw 60vh at 20% -5%,rgba(53,229,111,.08) 0%,transparent 55%),radial-gradient(ellipse 55vw 45vh at 85% 15%,rgba(22,199,131,.07) 0%,transparent 50%)}
 
 /* NAV - logo igual ao site principal */
-.nav{position:sticky;top:0;z-index:100;background:rgba(0,32,23,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(7,16,15,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
 .nav__in{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:960px;margin:0 auto}
 .nav__brand{display:flex;align-items:center;gap:8px;text-decoration:none}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--g2);flex-shrink:0;animation:pulse 2s ease-in-out infinite}
@@ -212,6 +212,15 @@ footer a:hover{color:var(--g2)}
 .pix-box{text-align:center;padding:14px 0}
 .pix-qr{max-width:220px;width:100%;background:white;padding:12px;border-radius:12px;margin:10px auto;display:block}
 .pix-code{font-size:.68rem;color:var(--muted);word-break:break-all;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:10px;border-radius:8px;margin:10px 0;max-height:86px;overflow:auto}
+
+/* digital-first renewal refresh */
+.hero__badge{gap:8px}.hero__badge svg{width:13px;height:13px;color:var(--g2)}
+.hero__sub{max-width:560px}.hero__micro{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;color:rgba(255,255,255,.58);font-size:.72rem}.hero__micro span{display:inline-flex;align-items:center;gap:6px}.hero__micro i{width:6px;height:6px;border-radius:50%;background:var(--g2);box-shadow:0 0 0 4px rgba(22,199,131,.09)}
+.digital-note{max-width:760px;margin:20px auto 0;padding:0 20px}.digital-note__box{padding:14px 16px;border:1px solid rgba(22,199,131,.2);background:rgba(22,199,131,.055);border-radius:14px;font-size:.82rem;line-height:1.6;color:rgba(255,255,255,.76)}.digital-note__box strong{color:#dfffee}.digital-note__muted{display:block;margin-top:4px;color:rgba(255,255,255,.46);font-size:.74rem}
+.rx-switcher{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}.rx-tab{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);border-radius:14px;padding:14px 12px;text-align:left;color:white;font-family:inherit;cursor:pointer;transition:.18s}.rx-tab:hover{border-color:rgba(22,199,131,.35);transform:translateY(-1px)}.rx-tab.active{border-color:rgba(53,229,111,.55);background:rgba(22,199,131,.08);box-shadow:0 0 0 3px rgba(22,199,131,.05)}.rx-tab__top{display:flex;align-items:center;justify-content:space-between;gap:8px}.rx-tab__name{font-size:.9rem;font-weight:750}.rx-tab__status{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;padding:4px 7px;border-radius:999px;background:rgba(22,199,131,.12);color:#7cf0b5;white-space:nowrap}.rx-tab__sub{font-size:.7rem;line-height:1.45;color:rgba(255,255,255,.45);margin-top:7px}.rx-detail{margin-top:12px;border:1px solid rgba(255,255,255,.09);border-radius:15px;background:rgba(255,255,255,.025);padding:18px}.rx-detail__eyebrow{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--g2)}.rx-detail__title{font-size:1.02rem;font-weight:800;margin-top:4px}.rx-detail__text{font-size:.82rem;line-height:1.62;color:rgba(255,255,255,.67);margin-top:8px}.rx-detail__foot{font-size:.72rem;line-height:1.5;color:rgba(255,255,255,.4);margin-top:10px}.rx-detail__foot strong{color:rgba(255,255,255,.68)}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}.review-card{padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(255,255,255,.025);text-align:left}.review-stars{font-size:.72rem;letter-spacing:.08em;color:#f5c518}.review-quote{font-size:.83rem;line-height:1.6;color:rgba(255,255,255,.78);margin:10px 0}.review-name{font-size:.72rem;color:rgba(255,255,255,.4)}
+.modal-rx-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 16px}.modal-rx{border:1.5px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:13px;text-align:left;color:white;font-family:inherit;cursor:pointer;transition:.18s}.modal-rx.active{border-color:var(--g2);background:rgba(22,199,131,.075);box-shadow:0 0 0 3px rgba(22,199,131,.05)}.modal-rx__name{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.83rem;font-weight:800}.modal-rx__badge{font-size:.55rem;text-transform:uppercase;letter-spacing:.05em;color:#7cf0b5;background:rgba(22,199,131,.1);padding:3px 6px;border-radius:999px;white-space:nowrap}.modal-rx__sub{font-size:.68rem;color:rgba(255,255,255,.43);line-height:1.45;margin-top:6px}.physical-contingency{margin-top:10px;font-size:.68rem;color:rgba(255,255,255,.34);text-align:center}.physical-contingency button{background:none;border:0;color:rgba(255,255,255,.44);text-decoration:underline;text-underline-offset:3px;font:inherit;cursor:pointer}.sticky-renew{display:none}.social-section{padding:58px 20px;border-top:1px solid var(--line)}
+@media(max-width:720px){.rx-switcher{grid-template-columns:1fr 1fr}.review-grid{grid-template-columns:1fr}.hero{padding-top:34px}.hero__h1{font-size:2.05rem}.hero__sub{font-size:.92rem;line-height:1.52}.receita-types-section,.how-section,.price-section,.faq-section,.social-section{padding-top:44px;padding-bottom:44px}.sticky-renew{display:flex;position:fixed;left:10px;right:10px;bottom:10px;z-index:145;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 14px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(7,16,15,.94);backdrop-filter:blur(18px);box-shadow:0 16px 38px rgba(0,0,0,.35)}.sticky-renew__price{font-size:.7rem;color:rgba(255,255,255,.48)}.sticky-renew__price strong{display:block;color:white;font-size:.95rem}.sticky-renew button{border:0;border-radius:11px;background:#16c783;color:#06120e;font:700 .82rem 'Outfit',sans-serif;padding:11px 14px;cursor:pointer}body{padding-bottom:78px}}
 </style>
 <script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 </head>
@@ -231,42 +240,36 @@ footer a:hover{color:var(--g2)}
 </nav>
 
 <section class="hero">
-  <div class="hero__badge">Renovação de receita online</div>
+  <div class="hero__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Renovação de receita médica</div>
   <h1 class="hero__h1">Renove sua receita <em>online</em></h1>
-  <p class="hero__sub">Envie sua receita anterior e solicite a avaliação médica. Havendo indicação clínica, a prescrição é emitida <strong style="color:rgba(255,255,255,.88);font-weight:600">digitalmente sempre que disponível</strong>.</p>
-  <button class="btn-primary" onclick="abrirModal()">Solicitar avaliação · R$ 59,90</button>
-  <div class="hero__price-line">Pagamento único · PIX ou cartão · <strong>sujeito à avaliação médica</strong></div>
+  <p class="hero__sub">Para quem já está em tratamento contínuo. Você envia a receita anterior, passa por avaliação médica e, havendo indicação clínica, a nova prescrição é emitida.</p>
+  <button class="btn-primary" onclick="abrirModal()">Avaliar renovação · R$ 59,90</button>
+  <div class="hero__micro"><span><i></i>Digital sempre que disponível</span><span><i></i>PIX ou cartão</span><span><i></i>Médico com CRM ativo</span></div>
 </section>
 
 <!-- AVISO IMPORTANTE -->
-<div class="disclaimer-bar">
-  <div class="disclaimer-bar__box">
-    <div class="disclaimer-bar__icon">⚠️</div>
-    <div class="disclaimer-bar__txt">
-      <strong>A renovação não é automática.</strong> Cada caso passa por avaliação médica individual. O profissional pode solicitar informações adicionais, consulta ou exames antes de decidir. Se a renovação não puder ser realizada, o valor é reembolsado integralmente.
-    </div>
-  </div>
+<div class="digital-note">
+  <div class="digital-note__box"><strong>Digital primeiro.</strong> A receita será eletrônica sempre que o tipo de prescrição, o sistema utilizado e a dispensação pela farmácia permitirem. Se ainda houver necessidade de receituário físico, nossa equipe orientará o próximo passo.<span class="digital-note__muted">A prescrição não é automática: toda solicitação depende de avaliação médica e indicação clínica.</span></div>
 </div>
 
 <!-- TIPOS DE RECEITA -->
 <section class="receita-types-section">
   <div class="section-inner">
-    <div class="section-label">Digital primeiro</div>
-    <h2 class="section-title">Digital sempre que disponível</h2>
-    <p class="section-sub">A partir de 30/09/2026, o SNCR amplia a possibilidade de emissão eletrônica, inclusive para Notificações de Receita A, B e B2. A adoção é gradual. Na ConsultaJá24h, priorizamos a via digital quando o tipo de prescrição, o sistema e a dispensação permitirem.</p>
-    <div class="receita-types">
-      <div class="rtype rtype--branca">
-        <div class="rtype__head"><span class="rtype__chip">Digital</span><span class="rtype__title">Receitas comuns</span></div>
-        <div class="rtype__desc">Quando houver indicação clínica, a prescrição pode ser emitida digitalmente e enviada diretamente ao paciente.</div>
-        <span class="rtype__delivery digital">Receita digital</span>
-      </div>
-      <div class="rtype rtype--branca-c">
-        <div class="rtype__head"><span class="rtype__chip">Digital</span><span class="rtype__title">Controle especial</span></div>
-        <div class="rtype__desc">A possibilidade de emissão digital depende do tipo de medicamento, das regras vigentes e da disponibilidade do sistema de prescrição.</div>
-        <span class="rtype__delivery digital">Digital quando disponível</span>
-      </div>
+    <div class="section-label">Tipos de prescrição</div>
+    <h2 class="section-title">Veja como a emissão digital se aplica ao seu caso</h2>
+    <p class="section-sub">Toque no tipo de receita. A partir de 30/09/2026, o SNCR amplia a possibilidade de emissão eletrônica de notificações antes restritas ao papel, com implantação gradual.</p>
+    <div class="rx-switcher" role="tablist" aria-label="Tipos de receita">
+      <button class="rx-tab active" type="button" data-rx="comum"><div class="rx-tab__top"><span class="rx-tab__name">Branca</span><span class="rx-tab__status">Digital</span></div><div class="rx-tab__sub">Medicamentos de uso comum</div></button>
+      <button class="rx-tab" type="button" data-rx="c1"><div class="rx-tab__top"><span class="rx-tab__name">Branca C1</span><span class="rx-tab__status">Digital</span></div><div class="rx-tab__sub">Controle especial</div></button>
+      <button class="rx-tab" type="button" data-rx="azul"><div class="rx-tab__top"><span class="rx-tab__name">Azul B1/B2</span><span class="rx-tab__status" data-sncr-status>Digital 30/09</span></div><div class="rx-tab__sub">Notificação de Receita B</div></button>
+      <button class="rx-tab" type="button" data-rx="amarela"><div class="rx-tab__top"><span class="rx-tab__name">Amarela A</span><span class="rx-tab__status" data-sncr-status>Digital 30/09</span></div><div class="rx-tab__sub">Notificação de Receita A</div></button>
     </div>
-    <p class="section-sub" style="margin-top:16px;max-width:620px;opacity:.72">Alguns tipos de prescrição ainda podem exigir via física durante a transição. Se for o seu caso, nossa equipe orienta essa etapa — você não precisa escolher isso agora.</p>
+    <div class="rx-detail" id="rxDetail" aria-live="polite">
+      <div class="rx-detail__eyebrow">Branca · emissão digital</div>
+      <div class="rx-detail__title">Receita comum</div>
+      <div class="rx-detail__text">Quando houver indicação após avaliação médica, a prescrição pode ser emitida digitalmente e enviada ao paciente.</div>
+      <div class="rx-detail__foot">A modalidade final depende do medicamento e das exigências aplicáveis ao caso.</div>
+    </div>
   </div>
 </section>
 
@@ -274,13 +277,12 @@ footer a:hover{color:var(--g2)}
 <section class="how-section">
   <div class="section-inner">
     <div class="section-label">Como funciona</div>
-    <h2 class="section-title">Renovação em 4 passos</h2>
-    <p class="section-sub">Um fluxo simples, com decisão clínica antes da emissão.</p>
+    <h2 class="section-title">Três passos, sem burocracia</h2>
+    <p class="section-sub">O serviço é uma avaliação médica para continuidade de tratamento — não uma compra de receita.</p>
     <div class="steps">
-      <div class="step"><div class="step__num">1</div><h3>Faça a solicitação</h3><p>Informe seus dados, o medicamento e anexe a receita anterior.</p></div>
-      <div class="step"><div class="step__num">2</div><h3>Avaliação médica</h3><p>O médico revisa o tratamento e pode pedir informações adicionais.</p></div>
-      <div class="step"><div class="step__num">3</div><h3>Decisão clínica</h3><p>Havendo indicação e possibilidade regulatória, a renovação é realizada.</p></div>
-      <div class="step"><div class="step__num">4</div><h3>Receba com segurança</h3><p>Digital sempre que disponível. Se o físico for necessário, nossa equipe orienta.</p></div>
+      <div class="step"><div class="step__num">1</div><h3>Envie sua solicitação</h3><p>Informe seus dados, medicamento em uso e anexe a receita anterior.</p></div>
+      <div class="step"><div class="step__num">2</div><h3>Avaliação médica</h3><p>O médico analisa histórico, tratamento e segurança da renovação. Pode solicitar informações adicionais.</p></div>
+      <div class="step"><div class="step__num">3</div><h3>Prescrição, quando indicada</h3><p>Havendo indicação e possibilidade regulatória, a receita é emitida — digital sempre que disponível.</p></div>
     </div>
   </div>
 </section>
@@ -305,11 +307,24 @@ footer a:hover{color:var(--g2)}
 
 <section class="trust-strip">
   <div class="trust-strip__inner">
-    <div class="trust-item-mini"><span class="icon">🔒</span> Dados protegidos · LGPD</div>
+    <div class="trust-item-mini">Dados protegidos · LGPD</div>
     <div class="trust-sep"></div>
-    <div class="trust-item-mini"><span class="icon">📋</span> Conforme Resolução CFM 2.314/2022</div>
+    <div class="trust-item-mini">Telemedicina · CFM 2.314/2022</div>
     <div class="trust-sep"></div>
-    <div class="trust-item-mini"><span class="icon">📱</span> Memed · ICP-Brasil</div>
+    <div class="trust-item-mini">Prescrição eletrônica verificável</div>
+  </div>
+</section>
+
+<section class="social-section">
+  <div class="section-inner">
+    <div class="section-label">Avaliações reais</div>
+    <h2 class="section-title">Prático para quem precisa resolver pelo celular</h2>
+    <div class="review-grid">
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-quote">“Mais prático e fácil do que eu esperava. Fui bem atendida. Recebi a receita e o atestado por SMS para fazer download no celular, tudo certo.”</div><div class="review-name">Bruna G. · avaliação no Google</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-quote">“Perfeito, muito atenciosos e rápidos, atendimento ótimo do início ao fim.”</div><div class="review-name">Rayssa C. · avaliação no Google</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-quote">“O médico é muito atencioso e a consulta foi imediata, após fazer o pix.”</div><div class="review-name">Débora V. · avaliação no Google</div></div>
+    </div>
+    <a href="https://maps.app.goo.gl/bXMaD9GugXdfYmXv7" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:14px;font-size:.72rem;color:rgba(255,255,255,.4);text-decoration:none">Ver avaliações no Google →</a>
   </div>
 </section>
 
@@ -324,7 +339,7 @@ footer a:hover{color:var(--g2)}
       <details class="faq-item"><summary class="faq-q">Como funciona a receita digital?</summary><div class="faq-a">Quando disponível para aquele tipo de prescrição, a receita é emitida eletronicamente com assinatura válida e enviada pelos canais informados no cadastro. A disponibilidade também depende da integração do sistema de prescrição e das regras de dispensação.</div></details>
       <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática — cada caso é avaliado individualmente. O médico poderá solicitar informações adicionais, teleconsulta ou exames antes da decisão. Se identificar que não é seguro renovar, devolvemos 100% do valor pago em até 5 dias úteis.</div></details>
       <details class="faq-item"><summary class="faq-q">Perdi minha receita anterior. Posso solicitar renovação?</summary><div class="faq-a">Não — a receita anterior é necessária para validação. Se você perdeu sua receita, recomendamos uma <a href="https://consultaja24h.com.br">teleconsulta no plantão médico</a>, onde será feita uma nova avaliação completa.</div></details>
-      <details class="faq-item"><summary class="faq-q">Quais formas de pagamento vocês aceitam?</summary><div class="faq-a">PIX (confirmação imediata) e cartão de crédito nas principais bandeiras, em até 12x.</div></details>
+      <details class="faq-item"><summary class="faq-q">Quais formas de pagamento vocês aceitam?</summary><div class="faq-a">PIX (confirmação imediata) e cartão de crédito nas principais bandeiras.</div></details>
       <details class="faq-item"><summary class="faq-q">É seguro? Meus dados estão protegidos?</summary><div class="faq-a">Sim. A plataforma é operada em conformidade com a Resolução CFM 2.314/2022 (telemedicina) e com a LGPD. Todos os arquivos são armazenados com criptografia.</div></details>
     </div>
   </div>
@@ -335,6 +350,8 @@ footer a:hover{color:var(--g2)}
   <p>Digital sempre que disponível · sujeito à avaliação médica</p>
   <button class="btn-primary" onclick="abrirModal()">Solicitar avaliação · R$ 59,90</button>
 </section>
+
+<div class="sticky-renew" aria-label="Ação rápida de renovação"><div class="sticky-renew__price">Avaliação de renovação<strong>R$ 59,90</strong></div><button type="button" onclick="abrirModal()">Começar</button></div>
 
 <footer>
   <div>JG Fonseca Serviços Médicos LTDA · São Luís — MA</div>
@@ -351,24 +368,29 @@ footer a:hover{color:var(--g2)}
     <button class="modal__close" onclick="fecharModal()" aria-label="Fechar">×</button>
 
     <div class="modal__step active" id="step1">
-      <div class="modal__title">Antes de começar</div>
-      <div class="modal__sub">A solicitação começa pela via digital. Se houver alguma exigência adicional para o seu tipo de prescrição, nossa equipe orientará durante o atendimento.</div>
-      <div id="optDigital" style="display:none"></div>
-      <div id="optFisica" style="display:none"></div>
-      <div class="alert alert--info" id="alertDigital">A emissão depende de avaliação médica e indicação clínica. Quando disponível, a receita será enviada digitalmente.</div>
-      <div class="alert alert--warn" id="alertFisica" style="display:none">Use o fluxo físico apenas quando sua equipe de atendimento orientar. Nesse caso, podem ser solicitados documento com foto, endereço e dados adicionais.</div>
-      <button class="btn-modal" onclick="selecModalidade('digital');irParaStep(2)">Começar solicitação →</button>
-      <button class="btn-secondary" id="btnFluxoFisico" style="display:none;font-size:.74rem;opacity:.58" onclick="selecModalidade('fisica');irParaStep(2)">Continuar pelo fluxo físico orientado pela equipe</button>
+      <div class="modal__title">Qual receita você quer renovar?</div>
+      <div class="modal__sub">Selecione o tipo. A solicitação começa pelo fluxo digital; se o seu caso ainda exigir receituário físico, a equipe orientará.</div>
+      <div id="optDigital" style="display:none"></div><div id="optFisica" style="display:none"></div>
+      <div class="modal-rx-grid" id="modalRxGrid">
+        <button type="button" class="modal-rx active" data-cat="comum" onclick="selecionarCategoriaReceita('comum',this)"><div class="modal-rx__name">Branca <span class="modal-rx__badge">Digital</span></div><div class="modal-rx__sub">Uso comum</div></button>
+        <button type="button" class="modal-rx" data-cat="c1" onclick="selecionarCategoriaReceita('c1',this)"><div class="modal-rx__name">Branca C1 <span class="modal-rx__badge">Digital</span></div><div class="modal-rx__sub">Controle especial</div></button>
+        <button type="button" class="modal-rx" data-cat="azul" onclick="selecionarCategoriaReceita('azul',this)"><div class="modal-rx__name">Azul B1/B2 <span class="modal-rx__badge" data-sncr-status>Digital 30/09</span></div><div class="modal-rx__sub">SNCR · implantação gradual</div></button>
+        <button type="button" class="modal-rx" data-cat="amarela" onclick="selecionarCategoriaReceita('amarela',this)"><div class="modal-rx__name">Amarela A <span class="modal-rx__badge" data-sncr-status>Digital 30/09</span></div><div class="modal-rx__sub">SNCR · implantação gradual</div></button>
+      </div>
+      <div class="alert alert--info" id="alertDigital">A emissão depende de avaliação médica e indicação clínica. Azul e amarela passam a ter possibilidade de emissão eletrônica via SNCR a partir de 30/09/2026, com adoção gradual.</div>
+      <div class="alert alert--warn" id="alertFisica" style="display:none">Fluxo de contingência: use apenas quando a equipe orientar receituário físico.</div>
+      <button class="btn-modal" onclick="selecModalidade('digital');irParaStep(2)">Continuar com avaliação →</button>
+      <div class="physical-contingency"><button id="btnFluxoFisico" style="display:none" type="button" onclick="selecModalidade('fisica');irParaStep(2)">Minha equipe orientou receituário físico</button></div>
     </div>
 
     <div class="modal__step" id="step2">
       <div class="modal__title">Seus dados</div>
-      <div class="modal__sub">Para emitir a receita corretamente.</div>
+      <div class="modal__sub">Dados necessários para a avaliação médica.</div>
       <div class="field" id="fNome"><label class="field__label">Nome completo</label><input class="field__input" id="iNome" placeholder="Como está no seu RG"/><div class="field__error">Informe seu nome completo</div></div>
       <div class="field" id="fCpf"><label class="field__label">CPF</label><input class="field__input" id="iCpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric"/><div class="field__error">CPF inválido</div></div>
       <div class="field" id="fNasc"><label class="field__label">Data de nascimento</label><input class="field__input" id="iNasc" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric"/><div class="field__error">Data inválida</div></div>
       <div class="field" id="fTel"><label class="field__label">WhatsApp</label><input class="field__input" id="iTel" placeholder="(00) 00000-0000" maxlength="16" inputmode="tel"/><div class="field__error">Número inválido</div></div>
-      <div class="field" id="fEmail"><label class="field__label">Email</label><input class="field__input" id="iEmail" placeholder="seu@email.com" type="email" inputmode="email"/><div class="field__hint">A receita digital chegará neste email.</div><div class="field__error">Email inválido</div></div>
+      <div class="field" id="fEmail"><label class="field__label">Email</label><input class="field__input" id="iEmail" placeholder="seu@email.com" type="email" inputmode="email"/><div class="field__hint">Se houver emissão digital, o documento poderá ser enviado para este email.</div><div class="field__error">Email inválido</div></div>
       <button class="btn-modal" onclick="irParaStep(3)">Continuar →</button>
       <button class="btn-secondary" onclick="irParaStep(1)">← Voltar</button>
     </div>
@@ -376,7 +398,7 @@ footer a:hover{color:var(--g2)}
     <div class="modal__step" id="step3">
       <div class="modal__title">Medicamentos a renovar</div>
       <div class="modal__sub">Liste o nome, dose e posologia dos medicamentos da sua receita atual.</div>
-      <div class="field" id="fMeds"><label class="field__label">Medicamentos (um por linha)</label><textarea class="field__textarea" id="iMeds" rows="4" placeholder="Ex:&#10;Losartana 50mg — 1cp pela manhã&#10;Metformina 500mg — 2x ao dia"></textarea><div class="field__hint">Quanto mais detalhado (dose, posologia), mais rápido a renovação é processada.</div><div class="field__error">Liste pelo menos um medicamento</div></div>
+      <div class="field" id="fMeds"><label class="field__label">Medicamentos (um por linha)</label><textarea class="field__textarea" id="iMeds" rows="4" placeholder="Ex:&#10;Losartana 50mg — 1cp pela manhã&#10;Metformina 500mg — 2x ao dia"></textarea><div class="field__hint">Informe dose e posologia para ajudar o médico a analisar a continuidade do tratamento.</div><div class="field__error">Liste pelo menos um medicamento</div></div>
 
       <div id="questBlock">
         <div class="alert alert--info" style="margin-bottom:14px">Responda em poucas palavras. Essas informações ajudam o médico a decidir se a renovação é segura.</div>
@@ -498,7 +520,7 @@ let POLLER_PAGAMENTO=null;
     }
   }catch(e){}
 })();
-const SOLIC={tipo:'digital',atendimentoId:null,valorTotal:59.90,valorBase:59.90,valorFrete:0,valorLogistica:0,freteServicoId:null,freteModalidade:null,fretePrazoDias:null,anexos:{receita_anterior:null,documento:null},files:{receita_anterior:null,documento:null}};
+const SOLIC={tipo:'digital',categoria:'comum',atendimentoId:null,valorTotal:59.90,valorBase:59.90,valorFrete:0,valorLogistica:0,freteServicoId:null,freteModalidade:null,fretePrazoDias:null,anexos:{receita_anterior:null,documento:null},files:{receita_anterior:null,documento:null}};
 
 function mascCpf(v){v=v.replace(/\D/g,'').slice(0,11);return v.replace(/^(\d{3})(\d)/,'$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1-$2')}
 function mascData(v){v=v.replace(/\D/g,'').slice(0,8);return v.replace(/^(\d{2})(\d)/,'$1/$2').replace(/^(\d{2})\/(\d{2})(\d)/,'$1/$2/$3')}
@@ -529,6 +551,12 @@ function irParaStep(n){
   document.querySelector('.modal__box').scrollTop=0;
   if(n===7)atualizarResumo();
   if(n===6)calcularFrete();
+}
+
+
+function selecionarCategoriaReceita(cat,el){
+  SOLIC.categoria=cat;
+  document.querySelectorAll('.modal-rx').forEach(function(x){x.classList.toggle('active',x===el)});
 }
 
 function selecModalidade(t){
@@ -584,6 +612,7 @@ async function criarPreRegistro(){
   if(SOLIC.atendimentoId)return true;
   const meds=document.getElementById('iMeds').value.trim();
   const questionario={
+    tipo_receita_informado:SOLIC.categoria,
     condicao_diagnostico:document.getElementById('qCondicao').value,
     tempo_uso:document.getElementById('qTempo').value,
     mudanca_dose:document.getElementById('qDose').value,
@@ -852,5 +881,18 @@ function finalizarPagamento(){
   const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida. A receita digital será enviada por email e WhatsApp após avaliação médica.':'Sua solicitação foi recebida. Como seu caso foi direcionado para receituário físico, a equipe seguirá com as orientações após a avaliação médica.';
   document.getElementById('sucessoMsg').textContent=msg;
 }
+
+(function(){
+  var data={
+    comum:{ey:'Branca · emissão digital',title:'Receita comum',text:'Quando houver indicação após avaliação médica, a prescrição pode ser emitida digitalmente e enviada ao paciente.',foot:'A modalidade final depende do medicamento e das exigências aplicáveis ao caso.'},
+    c1:{ey:'Branca C1 · emissão digital',title:'Controle especial',text:'Receitas de Controle Especial podem ser emitidas eletronicamente quando cumpridos os requisitos aplicáveis e houver indicação clínica.',foot:'O médico pode solicitar informações ou documentos adicionais antes de decidir pela renovação.'},
+    azul:{ey:'Azul B1/B2 · SNCR',title:'Notificação de Receita B também entra no digital',text:'A partir de 30/09/2026, a Anvisa passa a permitir emissão eletrônica das Notificações B e B2 por sistemas de prescrição integrados ao SNCR.',foot:'<strong>Implantação gradual:</strong> papel continua válido. Se a emissão eletrônica ainda não estiver disponível para o seu caso, a equipe orientará a alternativa.'},
+    amarela:{ey:'Amarela A · SNCR',title:'Notificação de Receita A também entra no digital',text:'A partir de 30/09/2026, a Notificação de Receita A também poderá ser emitida eletronicamente por sistemas integrados ao SNCR.',foot:'<strong>Implantação gradual:</strong> não significa fim do papel nem disponibilidade imediata em todos os sistemas e farmácias.'}
+  };
+  var detail=document.getElementById('rxDetail');
+  document.querySelectorAll('.rx-tab').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.rx-tab').forEach(function(x){x.classList.remove('active')});btn.classList.add('active');var d=data[btn.dataset.rx];detail.innerHTML='<div class="rx-detail__eyebrow">'+d.ey+'</div><div class="rx-detail__title">'+d.title+'</div><div class="rx-detail__text">'+d.text+'</div><div class="rx-detail__foot">'+d.foot+'</div>';})});
+  var launch=new Date('2026-09-30T00:00:00-03:00');
+  if(new Date()>=launch){document.querySelectorAll('[data-sncr-status]').forEach(function(el){el.textContent='Digital via SNCR'})}
+})();
 </script>
 </body></html>
