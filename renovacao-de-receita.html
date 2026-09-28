@@ -265,12 +265,8 @@ footer a:hover{color:var(--g2)}
         <div class="rtype__desc">A possibilidade de emissão digital depende do tipo de medicamento, das regras vigentes e da disponibilidade do sistema de prescrição.</div>
         <span class="rtype__delivery digital">Digital quando disponível</span>
       </div>
-      <div class="rtype rtype--azul" style="opacity:.78">
-        <div class="rtype__head"><span class="rtype__chip">A / B / B2</span><span class="rtype__title">Notificações controladas</span></div>
-        <div class="rtype__desc">A nova etapa do SNCR amplia a emissão eletrônica a partir de 30/09/2026, com adoção gradual. Se o formato físico ainda for necessário, nossa equipe orienta o paciente.</div>
-        <span class="rtype__delivery digital">Digital primeiro</span>
-      </div>
     </div>
+    <p class="section-sub" style="margin-top:16px;max-width:620px;opacity:.72">Alguns tipos de prescrição ainda podem exigir via física durante a transição. Se for o seu caso, nossa equipe orienta essa etapa — você não precisa escolher isso agora.</p>
   </div>
 </section>
 
@@ -303,7 +299,7 @@ footer a:hover{color:var(--g2)}
       <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Conforme normas do CFM</div>
     </div>
     <button class="btn-primary" style="max-width:340px" onclick="abrirModal()">Solicitar renovação</button>
-    <div class="price-extras" style="opacity:.68">Se o seu caso ainda exigir receituário físico, nossa equipe orienta essa etapa e eventuais custos antes da conclusão.</div>
+    <div class="price-extras" style="opacity:.58">Se houver alguma exigência adicional para o seu tipo de prescrição, nossa equipe orienta antes da conclusão.</div>
   </div>
 </section>
 
@@ -324,7 +320,7 @@ footer a:hover{color:var(--g2)}
     <h2 class="section-title">Perguntas comuns</h2>
     <div class="faq-wrap">
       <details class="faq-item"><summary class="faq-q">Quanto tempo demora?</summary><div class="faq-a">A solicitação entra para avaliação médica após a confirmação do pagamento. O prazo de emissão depende da análise do caso e do tipo de prescrição. Quando a via digital estiver disponível, o documento é enviado eletronicamente.</div></details>
-      <details class="faq-item"><summary class="faq-q">E receitas controladas?</summary><div class="faq-a">Podem ser avaliadas em pacientes com tratamento já estabelecido, mas a renovação depende da avaliação médica e das exigências regulatórias aplicáveis. Com a nova etapa do SNCR, algumas notificações passam a poder ser emitidas eletronicamente de forma gradual. Se ainda for necessário receituário físico, nossa equipe orienta.</div></details>
+      <details class="faq-item"><summary class="faq-q">E receitas controladas?</summary><div class="faq-a">Podem ser avaliadas em pacientes com tratamento já estabelecido, sempre conforme avaliação médica e exigências regulatórias. Com a nova etapa do SNCR, algumas notificações passam a poder ser emitidas eletronicamente de forma gradual. Quando a via digital ainda não estiver disponível para aquele caso, nossa equipe orienta a alternativa adequada.</div></details>
       <details class="faq-item"><summary class="faq-q">Como funciona a receita digital?</summary><div class="faq-a">Quando disponível para aquele tipo de prescrição, a receita é emitida eletronicamente com assinatura válida e enviada pelos canais informados no cadastro. A disponibilidade também depende da integração do sistema de prescrição e das regras de dispensação.</div></details>
       <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática — cada caso é avaliado individualmente. O médico poderá solicitar informações adicionais, teleconsulta ou exames antes da decisão. Se identificar que não é seguro renovar, devolvemos 100% do valor pago em até 5 dias úteis.</div></details>
       <details class="faq-item"><summary class="faq-q">Perdi minha receita anterior. Posso solicitar renovação?</summary><div class="faq-a">Não — a receita anterior é necessária para validação. Se você perdeu sua receita, recomendamos uma <a href="https://consultaja24h.com.br">teleconsulta no plantão médico</a>, onde será feita uma nova avaliação completa.</div></details>
@@ -336,7 +332,7 @@ footer a:hover{color:var(--g2)}
 
 <section class="cta-final">
   <h2>Pronto para renovar?</h2>
-  <p>Digital sempre que disponível · físico apenas quando necessário</p>
+  <p>Digital sempre que disponível · sujeito à avaliação médica</p>
   <button class="btn-primary" onclick="abrirModal()">Solicitar avaliação · R$ 59,90</button>
 </section>
 
@@ -356,13 +352,13 @@ footer a:hover{color:var(--g2)}
 
     <div class="modal__step active" id="step1">
       <div class="modal__title">Antes de começar</div>
-      <div class="modal__sub">A solicitação começa pela via digital. Se o seu tipo de prescrição ainda exigir receituário físico, nossa equipe orientará essa etapa.</div>
+      <div class="modal__sub">A solicitação começa pela via digital. Se houver alguma exigência adicional para o seu tipo de prescrição, nossa equipe orientará durante o atendimento.</div>
       <div id="optDigital" style="display:none"></div>
       <div id="optFisica" style="display:none"></div>
       <div class="alert alert--info" id="alertDigital">A emissão depende de avaliação médica e indicação clínica. Quando disponível, a receita será enviada digitalmente.</div>
       <div class="alert alert--warn" id="alertFisica" style="display:none">Use o fluxo físico apenas quando sua equipe de atendimento orientar. Nesse caso, podem ser solicitados documento com foto, endereço e dados adicionais.</div>
       <button class="btn-modal" onclick="selecModalidade('digital');irParaStep(2)">Começar solicitação →</button>
-      <button class="btn-secondary" style="font-size:.74rem;opacity:.62" onclick="selecModalidade('fisica');irParaStep(2)">Já fui orientado a usar receituário físico</button>
+      <button class="btn-secondary" id="btnFluxoFisico" style="display:none;font-size:.74rem;opacity:.58" onclick="selecModalidade('fisica');irParaStep(2)">Continuar pelo fluxo físico orientado pela equipe</button>
     </div>
 
     <div class="modal__step" id="step2">
@@ -492,6 +488,16 @@ const API="https://triagem-api.onrender.com";
 const EFI_PAYEE_CODE="b241c1c1aa59c7a663f8360ac1d05b52";
 let METODO_PAGAMENTO="pix";
 let POLLER_PAGAMENTO=null;
+
+(function(){
+  try{
+    var q=new URLSearchParams(location.search);
+    if(q.get('fisica')==='1'||q.get('modo')==='fisico'){
+      var b=document.getElementById('btnFluxoFisico');
+      if(b)b.style.display='block';
+    }
+  }catch(e){}
+})();
 const SOLIC={tipo:'digital',atendimentoId:null,valorTotal:59.90,valorBase:59.90,valorFrete:0,valorLogistica:0,freteServicoId:null,freteModalidade:null,fretePrazoDias:null,anexos:{receita_anterior:null,documento:null},files:{receita_anterior:null,documento:null}};
 
 function mascCpf(v){v=v.replace(/\D/g,'').slice(0,11);return v.replace(/^(\d{3})(\d)/,'$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1-$2')}
