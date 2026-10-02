@@ -85,3 +85,72 @@
   .hero__media-accent{right:13px;bottom:16px;padding:7px 9px;font-size:.59rem;background:rgba(7,17,14,.28)}
 }
 @media(prefers-reduced-motion:reduce){.hero__video{transition:none!important}.hero__video:not(.is-visible){opacity:0!important}}
+
+/* Outubro Rosa 2026 — skin sazonal. Mantém fluxo, CTA e estrutura intactos. */
+:root{
+  --rosa-outubro:#f06f9d;
+  --rosa-outubro-soft:#f7bfd2;
+  --rosa-outubro-deep:#b94c75;
+}
+.october-rosa{
+  order:0;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  width:max-content;
+  max-width:100%;
+  margin:0 0 15px;
+  padding:7px 11px 7px 8px;
+  border-radius:999px;
+  color:#ffd9e6;
+  background:linear-gradient(135deg,rgba(240,111,157,.16),rgba(255,255,255,.045));
+  border:1px solid rgba(240,111,157,.34);
+  box-shadow:0 10px 30px rgba(121,37,70,.12),inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(16px) saturate(120%);
+  -webkit-backdrop-filter:blur(16px) saturate(120%);
+}
+.october-rosa__ribbon{
+  width:27px;height:27px;border-radius:50%;
+  display:grid;place-items:center;
+  color:var(--rosa-outubro-soft);
+  background:rgba(240,111,157,.12);
+  flex:0 0 auto;
+}
+.october-rosa__ribbon svg{width:16px;height:19px;display:block}
+.october-rosa__copy{display:flex;align-items:baseline;gap:7px;min-width:0;white-space:nowrap}
+.october-rosa__copy strong{font-size:.69rem;letter-spacing:.075em;text-transform:uppercase;color:#ffd7e4}
+.october-rosa__copy span{font-size:.69rem;font-weight:600;color:rgba(255,228,237,.68)}
+
+/* rosé só como luz ambiente; identidade verde e CTA continuam dominantes */
+.hero::before{
+  background:
+    radial-gradient(circle at 80% 34%,rgba(240,111,157,.12),transparent 32%),
+    linear-gradient(90deg,rgba(5,13,10,.97) 0%,rgba(12,14,13,.90) 36%,rgba(26,13,19,.67) 74%,rgba(9,14,12,.82) 100%)!important;
+}
+.hero__media::before{
+  content:'';
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(118deg,transparent 38%,rgba(240,111,157,.085) 72%,rgba(196,70,112,.12) 100%);
+  mix-blend-mode:screen;
+}
+.hero__video{filter:brightness(.25) saturate(.58) contrast(1.02) sepia(.03) hue-rotate(-5deg)!important}
+
+/* microacento sazonal sem trocar o verde da marca */
+#heroReviewProof strong{color:#f3a7c1;text-decoration-color:rgba(240,111,157,.35)}
+
+/* faixa delicada entre hero e conteúdo, sem alterar hierarquia */
+.hero{border-bottom-color:rgba(240,111,157,.12)!important}
+
+@media(max-width:760px){
+  .october-rosa{margin:0 auto 13px;padding:6px 10px 6px 7px;gap:7px}
+  .october-rosa__ribbon{width:25px;height:25px}
+  .october-rosa__copy{gap:5px}
+  .october-rosa__copy strong,.october-rosa__copy span{font-size:.61rem}
+  .hero::before{
+    background:
+      radial-gradient(circle at 76% 69%,rgba(240,111,157,.10),transparent 28%),
+      linear-gradient(180deg,rgba(5,13,10,.98) 0%,rgba(8,13,11,.93) 28%,rgba(21,12,16,.82) 52%,rgba(15,11,13,.73) 70%,rgba(7,16,13,.88) 88%,#07100f 100%)!important;
+  }
+  .hero__media::before{background:linear-gradient(180deg,rgba(240,111,157,.025),rgba(240,111,157,.07) 58%,rgba(116,28,60,.10))}
+  .hero__video{filter:brightness(.21) saturate(.54) contrast(1.01) sepia(.035) hue-rotate(-6deg)!important}
+}
