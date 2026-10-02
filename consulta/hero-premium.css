@@ -154,3 +154,35 @@
   .hero__media::before{background:linear-gradient(180deg,rgba(240,111,157,.025),rgba(240,111,157,.07) 58%,rgba(116,28,60,.10))}
   .hero__video{filter:brightness(.21) saturate(.54) contrast(1.01) sepia(.035) hue-rotate(-6deg)!important}
 }
+
+/* Outubro Rosa — acentos tipográficos visíveis sem trocar o CTA verde de conversão */
+.hero__h1 em{
+  background:linear-gradient(135deg,#ffd0df 5%,#f47aa5 50%,#e85f91 100%)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  color:#f47aa5!important;
+  text-shadow:0 0 28px rgba(240,111,157,.12)!important;
+}
+.hero__pricing-value{color:#ffd4e2!important}
+.hero__proof-row svg{color:#f29abb!important;filter:drop-shadow(0 0 10px rgba(240,111,157,.15))!important}
+.hero__intent-btn--primary{
+  border-color:rgba(240,111,157,.26)!important;
+  background:linear-gradient(180deg,rgba(240,111,157,.105),rgba(7,17,14,.22))!important;
+  color:#ffd0df!important;
+}
+.hero__intent-btn--primary::after{
+  background:rgba(49,15,29,.96)!important;
+  border-color:rgba(240,111,157,.3)!important;
+  color:#ffd1df!important;
+}
+.section-label,.doctor-strip__eyebrow{color:#f29abb!important}
+.step__num{
+  color:#f3aac3!important;
+  border-color:rgba(240,111,157,.36)!important;
+  box-shadow:0 0 0 4px rgba(240,111,157,.06),0 0 16px rgba(240,111,157,.10)!important;
+}
+.pain-item svg{color:#f29abb!important}
+@media(max-width:760px){
+  .hero__h1 em{filter:none!important}
+}
