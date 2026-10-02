@@ -234,3 +234,40 @@
     box-shadow:0 9px 22px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.06),0 0 24px rgba(240,111,157,.08)!important;
   }
 }
+/* Outubro Rosa — ajustes visuais solicitados */
+.nav__logo .c2{
+  background:linear-gradient(135deg,#f7bfd2,#e75480)!important;
+  -webkit-background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  background-clip:text!important;
+}
+#heroCTA,
+.sticky-cta__button{
+  background:linear-gradient(140deg,#f7a9c2 0%,#e95f90 82%)!important;
+  color:#2a0f18!important;
+  box-shadow:0 16px 38px rgba(233,95,144,.24),0 0 0 1px rgba(255,255,255,.18) inset,0 0 38px rgba(233,95,144,.10)!important;
+}
+#heroCTA:hover,
+.sticky-cta__button:hover{
+  box-shadow:0 20px 48px rgba(233,95,144,.32),0 0 0 1px rgba(255,255,255,.20) inset,0 0 52px rgba(233,95,144,.14)!important;
+}
+.hero__intent-btn--primary{
+  border-color:rgba(240,111,157,.30)!important;
+  background:linear-gradient(180deg,rgba(240,111,157,.11),rgba(91,25,50,.16))!important;
+  color:#f8bfd0!important;
+  box-shadow:0 12px 30px rgba(240,111,157,.11),0 0 0 1px rgba(240,111,157,.07) inset!important;
+}
+.hero__intent-btn--primary .hero__intent-icon{color:#f3a7c1!important}
+.hero__intent-btn--primary::after{
+  background:rgba(52,14,28,.96)!important;
+  border-color:rgba(240,111,157,.30)!important;
+  color:#ffd4e2!important;
+}
+#heroSecurity svg{color:#f06f9d!important}
+@media(max-width:760px){
+  .nav__cta-link{
+    border-color:rgba(240,111,157,.30)!important;
+    color:#ffe9f0!important;
+    box-shadow:0 9px 22px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.06),0 0 18px rgba(240,111,157,.08)!important;
+  }
+}
