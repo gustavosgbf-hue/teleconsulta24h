@@ -229,6 +229,120 @@
       .final-cta__actions .web-link{flex-basis:100%}
       .footer__in{flex-direction:column}
     }
+
+    /* ─── PREMIUM MOTION ─── */
+    .motion-ready [data-reveal]{
+      opacity:0;
+      transform:translate3d(0,28px,0);
+      transition:
+        opacity .78s cubic-bezier(.22,.61,.36,1),
+        transform .88s cubic-bezier(.22,.61,.36,1),
+        filter .88s ease;
+      will-change:opacity,transform;
+    }
+    .motion-ready [data-reveal="card"]{
+      transform:translate3d(0,24px,0) scale(.985);
+      filter:blur(3px);
+    }
+    .motion-ready [data-reveal="left"]{transform:translate3d(-28px,0,0)}
+    .motion-ready [data-reveal="right"]{transform:translate3d(28px,0,0)}
+    .motion-ready [data-reveal].is-visible{
+      opacity:1;
+      transform:translate3d(0,0,0) scale(1);
+      filter:blur(0);
+    }
+    .motion-ready [data-reveal][data-delay="1"]{transition-delay:.07s}
+    .motion-ready [data-reveal][data-delay="2"]{transition-delay:.14s}
+    .motion-ready [data-reveal][data-delay="3"]{transition-delay:.21s}
+    .motion-ready [data-reveal][data-delay="4"]{transition-delay:.28s}
+
+    .motion-ready .nav__in{
+      animation:premiumNavIn .7s cubic-bezier(.22,.61,.36,1) both;
+    }
+    .motion-ready .hero .eyebrow{
+      animation:premiumHeroIn .72s .06s cubic-bezier(.22,.61,.36,1) both;
+    }
+    .motion-ready .hero h1{
+      animation:premiumHeroIn .86s .13s cubic-bezier(.22,.61,.36,1) both;
+    }
+    .motion-ready .hero__lead{
+      animation:premiumHeroIn .82s .22s cubic-bezier(.22,.61,.36,1) both;
+    }
+    .motion-ready .hero__actions{
+      animation:premiumHeroIn .78s .31s cubic-bezier(.22,.61,.36,1) both;
+    }
+    .motion-ready .hero__micro{
+      animation:premiumHeroIn .72s .39s cubic-bezier(.22,.61,.36,1) both;
+    }
+    @keyframes premiumHeroIn{
+      from{opacity:0;transform:translate3d(0,24px,0);filter:blur(4px)}
+      to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}
+    }
+    @keyframes premiumNavIn{
+      from{opacity:0;transform:translate3d(0,-12px,0)}
+      to{opacity:1;transform:translate3d(0,0,0)}
+    }
+
+    .benefit,.step,.app-card,.web-card,.faq-list details{
+      transition:
+        transform .28s cubic-bezier(.22,.61,.36,1),
+        box-shadow .28s ease,
+        border-color .28s ease,
+        background-color .28s ease;
+    }
+    @media (hover:hover){
+      .benefit:hover,.step:hover{
+        transform:translateY(-5px);
+        box-shadow:0 22px 54px rgba(4,18,13,.09);
+      }
+      .app-card:hover,.web-card:hover{
+        transform:translateY(-3px);
+        box-shadow:0 30px 78px rgba(4,18,13,.14);
+      }
+      .faq-list details:hover{transform:translateX(3px)}
+    }
+
+    .hero__video{
+      transform:scale(1.035) translate3d(0,var(--hero-parallax,0px),0);
+      transition:transform .12s linear;
+      will-change:transform;
+    }
+    .section-kicker::after{
+      content:'';
+      display:inline-block;
+      width:0;
+      height:1px;
+      margin-left:9px;
+      vertical-align:middle;
+      background:currentColor;
+      opacity:.42;
+      transition:width .75s cubic-bezier(.22,.61,.36,1) .15s;
+    }
+    [data-reveal].is-visible .section-kicker::after,
+    .is-visible > .section-kicker::after{width:34px}
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .motion-ready [data-reveal],
+      .motion-ready [data-reveal="card"],
+      .motion-ready [data-reveal="left"],
+      .motion-ready [data-reveal="right"]{
+        opacity:1!important;
+        transform:none!important;
+        filter:none!important;
+        transition:none!important;
+      }
+      .motion-ready .nav__in,
+      .motion-ready .hero .eyebrow,
+      .motion-ready .hero h1,
+      .motion-ready .hero__lead,
+      .motion-ready .hero__actions,
+      .motion-ready .hero__micro{
+        animation:none!important;
+      }
+      .hero__video{transform:scale(1.035)!important;transition:none!important}
+    }
+
   </style>
 </head>
 <body>
@@ -255,9 +369,9 @@
       </video>
       <div class="wrap">
         <div class="hero__content">
-          <div class="eyebrow">ConsultaJá24h no seu celular</div>
+          <div class="eyebrow">Atendimento médico 24h no seu celular</div>
           <h1>Saúde online, <span>sempre à mão.</span></h1>
-          <p class="hero__lead">Baixe o app para consultar por chat, acessar seus documentos e voltar quando precisar. Sem mensalidade e sem perder a opção de usar pelo navegador.</p>
+          <p class="hero__lead">Baixe o app ConsultaJá24h para consultar por chat, acessar seus documentos e voltar quando precisar. Sem mensalidade — e com a opção de continuar pelo navegador.</p>
           <div class="hero__actions">
             <a class="store-badge-link js-app-store-link" data-placement="hero" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
             <a class="store-badge-link js-app-link" data-placement="hero" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
@@ -274,10 +388,10 @@
 
     <div class="trustbar">
       <div class="wrap trustbar__in">
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg>Chat</div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg>Atendimento seguro</div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l3 3v17H6z"/><path d="M14 2v5h5"/></svg>Documentos digitais</div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Disponível quando precisar</div>
+        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Médicos com CRM ativo</div>
+        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg>R$49,90 por consulta</div>
+        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>App ou navegador</div>
+        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Documentos digitais</div>
       </div>
     </div>
 
@@ -428,6 +542,69 @@
       </div>
     </div>
   </footer>
+
+
+  <script>
+    (function(){
+      var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.documentElement.classList.add('motion-ready');
+
+      var groups=[
+        ['.trust', 'card'],
+        ['.why__head > *', 'soft'],
+        ['.benefit', 'card'],
+        ['.steps-head > *', 'soft'],
+        ['.step', 'card'],
+        ['.app-grid > div', 'left'],
+        ['.app-card', 'right'],
+        ['.web-card', 'card'],
+        ['.faq__head > *', 'soft'],
+        ['.faq-list details', 'card'],
+        ['.final-cta__in > *', 'soft']
+      ];
+
+      groups.forEach(function(group){
+        document.querySelectorAll(group[0]).forEach(function(el,index){
+          el.setAttribute('data-reveal',group[1]);
+          el.setAttribute('data-delay',String(Math.min((index%4)+1,4)));
+        });
+      });
+
+      var revealEls=[].slice.call(document.querySelectorAll('[data-reveal]'));
+      if(reduceMotion||!('IntersectionObserver' in window)){
+        revealEls.forEach(function(el){el.classList.add('is-visible')});
+      }else{
+        var observer=new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+        revealEls.forEach(function(el){observer.observe(el)});
+      }
+
+      if(!reduceMotion && window.matchMedia('(min-width: 821px)').matches){
+        var ticking=false;
+        function updateParallax(){
+          var hero=document.querySelector('.hero');
+          if(!hero){ticking=false;return}
+          var rect=hero.getBoundingClientRect();
+          var progress=Math.max(-1,Math.min(1,-rect.top/Math.max(rect.height,1)));
+          hero.style.setProperty('--hero-parallax',(progress*18).toFixed(1)+'px');
+          ticking=false;
+        }
+        window.addEventListener('scroll',function(){
+          if(!ticking){
+            ticking=true;
+            requestAnimationFrame(updateParallax);
+          }
+        },{passive:true});
+        updateParallax();
+      }
+    })();
+  </script>
 
   <script>
     (function(){
