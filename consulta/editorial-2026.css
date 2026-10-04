@@ -676,3 +676,14 @@ body{
     padding-top:72px!important;
   }
 }
+
+
+/* Equilibra transição vídeo social -> experiência no app */
+@media(max-width:760px){
+  .journey-section + .social-proof-video{
+    padding-bottom:24px!important;
+  }
+  .product-story{
+    padding-top:48px!important;
+  }
+}
