@@ -1549,7 +1549,7 @@ whatsappSend.addEventListener('click', function() {
     </div>
   </div>
 </nav>
-<link rel="stylesheet" href="hero-premium.css?v=20261002rosa4">
+<link rel="stylesheet" href="hero-premium.css?v=20261002rosa4">\n<link rel="stylesheet" href="editorial-2026.css?v=20261004a">
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
@@ -1953,45 +1953,62 @@ whatsappSend.addEventListener('click', function() {
   </div>
 </section>
 
-<!-- ════════ COMO FUNCIONA ════════ -->
-<section class="how-section reveal" id="como-funciona">
+<!-- ════════ JORNADA / LINHA DO SINTOMA ════════ -->
+<section class="journey-section reveal" id="como-funciona">
   <div class="section-inner" style="text-align:center">
-    <div class="section-label">Passo a passo</div>
-    <h2 class="section-title">Do clique ao médico<br>em poucos minutos</h2>
-    <p class="section-sub" style="margin:0 auto 0">Sem app, sem criar conta.</p>
-    <div class="steps reveal-group" style="margin-top:40px">
-      <div class="step">
-        <div class="step__num">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <div class="section-label">Do sintoma ao cuidado</div>
+    <h2 class="section-title">Uma jornada simples.<br>Sem deixar você perdido no caminho.</h2>
+    <p class="section-sub" style="margin:0 auto">Você conta o que está sentindo, passa por uma triagem objetiva e segue para o atendimento com um médico com CRM ativo.</p>
+
+    <div class="journey-layout">
+      <div class="journey-sticky">
+        <div class="section-label">Como acontece</div>
+        <h3 style="font:760 clamp(1.9rem,3.8vw,3.25rem)/1.04 'Outfit',sans-serif;letter-spacing:-.04em;margin:12px 0 18px;color:#11201b">Do primeiro relato<br>à orientação médica.</h3>
+        <p style="margin:0;color:#65756e;line-height:1.65;font-size:.96rem">Sem precisar entender sistemas, filas ou etapas técnicas. A plataforma organiza o caminho enquanto você acompanha tudo pelo celular.</p>
+        <div class="journey-time">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          Tempo médio de espera: aprox. 5 min
         </div>
-        <h3>Informe seus dados</h3>
-        <p>Preencha nome e WhatsApp para iniciar o atendimento com segurança.</p>
       </div>
-      <div class="step">
-        <div class="step__num">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
-        </div>
-        <h3>Faça a triagem médica</h3>
-        <p>Responda perguntas rápidas para o médico entender seu caso.</p>
+
+      <div class="journey-steps" aria-label="Etapas do atendimento">
+        <span class="symptom-line" aria-hidden="true"><span class="symptom-line__fill"></span></span>
+
+        <article class="journey-step">
+          <span class="journey-node" aria-hidden="true"></span>
+          <span class="journey-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v12H8l-4 3V5Z"/><path d="M8 9h8M8 13h5"/></svg></span>
+          <h3>Conte o que está sentindo</h3>
+          <p>Descreva o sintoma e o motivo da consulta com suas próprias palavras.</p>
+          <div class="journey-meta"><span class="journey-chip">Sintoma relatado</span><span class="journey-chip">Pelo celular</span></div>
+        </article>
+
+        <article class="journey-step">
+          <span class="journey-node" aria-hidden="true"></span>
+          <span class="journey-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l2 2 4-5"/><path d="M5 4h14v16H5z"/></svg></span>
+          <h3>Triagem objetiva</h3>
+          <p>Algumas perguntas organizam as informações importantes antes do atendimento.</p>
+          <div class="journey-meta"><span class="journey-chip">Triagem concluída</span><span class="journey-chip">Dados organizados</span></div>
+        </article>
+
+        <article class="journey-step">
+          <span class="journey-node" aria-hidden="true"></span>
+          <span class="journey-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"/><path d="M18 5l1.5 1.5L22 4"/></svg></span>
+          <h3>Um médico assume o caso</h3>
+          <p>Após a confirmação do pagamento, um médico com CRM ativo entra no atendimento pela plataforma.</p>
+          <div class="journey-meta"><span class="journey-chip">Aprox. 5 min</span><span class="journey-chip">CRM ativo</span></div>
+        </article>
+
+        <article class="journey-step">
+          <span class="journey-node" aria-hidden="true"></span>
+          <span class="journey-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l3 3v15H6z"/><path d="M14 3v5h5"/><path d="M9 12h6M9 16h4"/></svg></span>
+          <h3>Orientação e documentos</h3>
+          <p>Você recebe a orientação médica e, quando clinicamente indicado, documentos digitais emitidos e assinados pelo médico.</p>
+          <div class="journey-meta"><span class="journey-chip">Receita digital</span><span class="journey-chip">Atestado</span><span class="journey-chip">Pedidos</span></div>
+        </article>
       </div>
-      <div class="step">
-        <div class="step__num">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.5 2 2 0 0 1 3.6 1.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.68 16.92z"/></svg>
-        </div>
-        <h3>Fale com o médico</h3>
-        <p>Após a confirmação do pagamento, você conversa com um médico com CRM ativo diretamente pela plataforma.</p>
-      </div>
-    </div>
-    <div class="how-summary" aria-label="Preço e formas de pagamento">
-      <span>Pagamento único</span>
-      <span class="how-summary__sep">·</span>
-      <strong>R$ 49,90</strong>
-      <span class="how-summary__sep">·</span>
-      <span>PIX ou cartão</span>
     </div>
   </div>
 </section>
-
 
 <!-- ════════ DEPOIMENTOS ════════ -->
 <section class="reviews-section reveal" id="reviewsSection">
@@ -4380,4 +4397,4 @@ document.addEventListener('DOMContentLoaded',async function(){
 </script>
 
 
-</body></html>
+<script src="symptom-line.js?v=20261004a" defer></script>\n</body></html>
