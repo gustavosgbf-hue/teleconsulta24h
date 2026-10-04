@@ -458,3 +458,35 @@ body{
     padding-top:42px!important;
   }
 }
+
+
+/* Emenda WebM -> seção seguinte sem faixa vazia */
+.product-story{
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+}
+.product-story__video{
+  margin-bottom:0!important;
+}
+.product-story__video video{
+  display:block!important;
+  margin:0!important;
+  vertical-align:top!important;
+}
+.reviews-section{
+  padding-top:0!important;
+  margin-top:0!important;
+}
+@media(max-width:760px){
+  .product-story{
+    padding-bottom:0!important;
+    margin-bottom:0!important;
+  }
+  .product-story__video{
+    margin-bottom:0!important;
+  }
+  .reviews-section{
+    padding-top:0!important;
+    margin-top:0!important;
+  }
+}
