@@ -506,3 +506,23 @@ body{
     padding-bottom:34px!important;
   }
 }
+
+
+/* prova social sem espaçamento morto */
+.social-proof-video{
+  padding-top:0!important;
+  margin-top:0!important;
+  transform:none!important;
+  opacity:1!important;
+}
+.social-proof-video .video-proof-label{
+  margin-top:0!important;
+  padding-top:8px!important;
+  margin-bottom:10px!important;
+}
+@media(max-width:760px){
+  .doctor-strip{padding-bottom:0!important}
+  .social-proof-video{
+    padding-top:0!important;
+  }
+}
