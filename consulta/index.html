@@ -1714,8 +1714,6 @@ whatsappSend.addEventListener('click', function() {
   var PLAY_TRACK='https://triagem-api.onrender.com/api/tracking/play-click';
   var APPLE_TRACK='https://triagem-api.onrender.com/api/tracking/app-store-click';
   var params=new URLSearchParams(window.location.search);
-  var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-  var isAndroid=/Android/i.test(navigator.userAgent);
 
   function attributionId(){
     var key='consultaja_app_attribution_id';
@@ -1776,11 +1774,6 @@ whatsappSend.addEventListener('click', function() {
 
   document.querySelectorAll('.js-consulta-store').forEach(function(a){
     var store=a.getAttribute('data-store');
-    if((isIOS&&store==='google')||(isAndroid&&store==='apple')){
-      a.style.display='none';
-      a.setAttribute('aria-hidden','true');
-      return;
-    }
     a.href=store==='apple'?APPLE_URL:playUrl();
     a.addEventListener('click',function(){trackStore(store);});
   });
