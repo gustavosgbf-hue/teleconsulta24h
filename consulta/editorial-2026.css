@@ -490,3 +490,19 @@ body{
     margin-top:0!important;
   }
 }
+
+
+/* Emenda visual corpo clínico -> prova social */
+.social-proof-video{
+  padding:14px 20px 40px!important;
+  margin:0!important;
+  border-top:0!important;
+  background:linear-gradient(180deg,#102820 0%,#0d211b 38%,#091713 100%)!important;
+}
+@media(max-width:760px){
+  .doctor-strip{padding-bottom:12px!important}
+  .social-proof-video{
+    padding-top:10px!important;
+    padding-bottom:34px!important;
+  }
+}
