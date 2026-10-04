@@ -92,6 +92,12 @@
     .hero h1{margin:0;max-width:760px;font-size:clamp(3rem,6vw,6.15rem);line-height:.98;letter-spacing:-.062em;font-weight:700}
     .hero h1 span{color:#a8d4c3}
     .hero__lead{margin:24px 0 0;max-width:590px;font-size:clamp(1rem,1.6vw,1.18rem);line-height:1.66;color:rgba(255,255,255,.72)}
+    .hero__app-identity{display:none;align-items:center;gap:11px;margin-top:26px;color:#fff}
+    .hero__app-identity img{width:46px;height:46px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.18)}
+    .hero__app-identity span{display:flex;flex-direction:column;gap:2px}
+    .hero__app-identity strong{font-size:.88rem;line-height:1.1}
+    .hero__app-identity small{font-size:.68rem;color:rgba(255,255,255,.55);font-weight:600}
+    .device-ios .hero__app-identity,.device-android .hero__app-identity{display:flex}
     .hero__actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:30px}
     .store-badge-link{display:inline-flex;align-items:center;text-decoration:none;line-height:0;transition:transform .18s ease,filter .18s ease}
     .store-badge-link:hover{transform:translateY(-2px);filter:brightness(1.06)}
@@ -199,12 +205,14 @@
       .wrap{width:min(100% - 28px,var(--container))}
       .nav__in{height:68px}
       .nav__web{font-size:.74rem;padding:9px 11px}
-      .hero{min-height:690px;padding:102px 0 50px;align-items:flex-end}
-      .hero__video{object-position:58% 68%;filter:saturate(.62) contrast(1.02) brightness(.50)}
+      .hero{min-height:690px;padding:102px 0 50px;align-items:flex-end;--hero-scale:1.13;--hero-shift:-54px}
+      .hero__video{object-position:58% center;filter:saturate(.62) contrast(1.02) brightness(.50)}
       .hero::before{background:linear-gradient(180deg,rgba(4,11,9,.38) 0%,rgba(4,11,9,.64) 40%,rgba(4,11,9,.96) 82%,rgba(4,11,9,.98) 100%)}
       .eyebrow{font-size:.66rem;letter-spacing:.085em;margin-bottom:16px}
       .hero h1{font-size:clamp(2.7rem,13vw,4.5rem);line-height:.98;letter-spacing:-.06em}
       .hero__lead{font-size:.98rem;line-height:1.58;margin-top:18px}
+      .hero__app-identity{margin-top:20px}
+      .device-ios .hero__actions,.device-android .hero__actions{margin-top:14px}
       .hero__actions{flex-direction:column;align-items:stretch;margin-top:24px}
       .hero__actions{flex-direction:row;align-items:center}
       .store-badge-link img{height:44px}
@@ -303,7 +311,8 @@
     }
 
     .hero__video{
-      transform:scale(1.035) translate3d(0,var(--hero-parallax,0px),0);
+      transform:translate3d(0,calc(var(--hero-shift,0px) + var(--hero-parallax,0px)),0) scale(var(--hero-scale,1.035));
+      transform-origin:center center;
       transition:transform .12s linear;
       will-change:transform;
     }
@@ -340,7 +349,7 @@
       .motion-ready .hero__micro{
         animation:none!important;
       }
-      .hero__video{transform:scale(1.035)!important;transition:none!important}
+      .hero__video{transform:translate3d(0,var(--hero-shift,0px),0) scale(var(--hero-scale,1.035))!important;transition:none!important}
     }
 
   </style>
@@ -372,6 +381,10 @@
           <div class="eyebrow">Atendimento médico 24h no seu celular</div>
           <h1>Saúde online, <span>sempre à mão.</span></h1>
           <p class="hero__lead">Baixe o app ConsultaJá24h para consultar por chat, acessar seus documentos e voltar quando precisar. Sem mensalidade — e com a opção de continuar pelo navegador.</p>
+          <div class="hero__app-identity" aria-hidden="true">
+            <img src="/apple-icon-180x180.png" alt="">
+            <span><strong>ConsultaJá24h</strong><small>App gratuito para seu celular</small></span>
+          </div>
           <div class="hero__actions">
             <a class="store-badge-link js-app-store-link" data-placement="hero" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
             <a class="store-badge-link js-app-link" data-placement="hero" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
