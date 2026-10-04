@@ -259,8 +259,8 @@
           <h1>Saúde online, <span>sempre à mão.</span></h1>
           <p class="hero__lead">Baixe o app para consultar por chat, acessar seus documentos e voltar quando precisar. Sem mensalidade e sem perder a opção de usar pelo navegador.</p>
           <div class="hero__actions">
-            <a class="store-badge-link js-app-store-link" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
-            <a class="store-badge-link js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
+            <a class="store-badge-link js-app-store-link" data-placement="hero" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
+            <a class="store-badge-link js-app-link" data-placement="hero" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
             <a class="web-link js-web-link" href="/consulta">Prefiro continuar no navegador →</a>
           </div>
           <div class="hero__micro">
@@ -354,8 +354,8 @@
           <h3>Tenha a ConsultaJá24h no celular.</h3>
           <p>O aplicativo não tem mensalidade. Você paga apenas quando realizar uma consulta.</p>
           <div class="store-badges">
-          <a class="store-badge-link js-app-store-link" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
-          <a class="store-badge-link js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
+          <a class="store-badge-link js-app-store-link" data-placement="app_card" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
+          <a class="store-badge-link js-app-link" data-placement="app_card" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
           </div>
           <a class="app-card__web js-web-link" href="/consulta">Prefiro usar pelo navegador</a>
         </aside>
@@ -408,8 +408,8 @@
           <p>ConsultaJá24h: telemedicina prática para usar agora e voltar quando precisar.</p>
         </div>
         <div class="final-cta__actions">
-          <a class="store-badge-link js-app-store-link" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
-          <a class="store-badge-link js-app-link" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
+          <a class="store-badge-link js-app-store-link" data-placement="final_cta" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
+          <a class="store-badge-link js-app-link" data-placement="final_cta" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
           <a class="web-link js-web-link" href="/consulta">Continuar no navegador →</a>
         </div>
       </div>
@@ -455,6 +455,24 @@
       }
 
       var cjaid=attributionId();
+
+      function applyDeviceStoreFocus(){
+        var appleLinks=document.querySelectorAll('.js-app-store-link');
+        var playLinks=document.querySelectorAll('.js-app-link');
+        if(isIOS){
+          playLinks.forEach(function(a){a.style.display='none';a.setAttribute('aria-hidden','true');});
+          document.documentElement.classList.add('device-ios');
+        }else if(isAndroid){
+          appleLinks.forEach(function(a){a.style.display='none';a.setAttribute('aria-hidden','true');});
+          document.documentElement.classList.add('device-android');
+        }else{
+          document.documentElement.classList.add('device-desktop');
+        }
+      }
+
+      function storePlacement(a,fallback){
+        return a.getAttribute('data-placement') || fallback || 'unknown';
+      }
 
       function withParams(path){
         var u=new URL(path,window.location.origin);
@@ -523,6 +541,8 @@
         }
       }
 
+      applyDeviceStoreFocus();
+
       document.querySelectorAll('.js-web-link').forEach(function(a){
         a.href=withParams('/consulta');
         a.addEventListener('click',function(){track('web_continue_click',{placement:(a.textContent||'').trim()})});
@@ -531,14 +551,14 @@
       document.querySelectorAll('.js-app-link').forEach(function(a){
         a.href=playUrl();
         a.addEventListener('click',function(){
-          trackStoreClick('google',(a.textContent||'').trim());
+          trackStoreClick('google',storePlacement(a,'google_play'));
         });
       });
 
       document.querySelectorAll('.js-app-store-link').forEach(function(a){
         a.href=APPLE_URL;
         a.addEventListener('click',function(){
-          trackStoreClick('apple',(a.textContent||'').trim());
+          trackStoreClick('apple',storePlacement(a,'app_store'));
         });
       });
     })();
