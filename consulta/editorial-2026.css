@@ -130,3 +130,24 @@ section{position:relative}
   .reviews-section,#corpo-clinico,.faq-section,.cta-final{padding-top:82px!important;padding-bottom:82px!important}
 }
 @media(prefers-reduced-motion:reduce){.journey-step{transition:none!important}.symptom-line__fill{transition:none!important}}
+
+/* navegação compacta */
+.nav__links{display:flex!important;align-items:center;gap:22px}
+.nav__links a{color:rgba(255,255,255,.60);font-size:.76rem;font-weight:650;text-decoration:none;transition:color .18s}
+.nav__links a:hover{color:#fff}
+.nav__menu-btn{display:none;width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.035);align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer}
+.nav__menu-btn span{width:16px;height:1.5px;background:rgba(255,255,255,.82);border-radius:2px}
+.nav__mobile-menu{position:absolute;top:100%;left:12px;right:12px;padding:14px;border-radius:18px;background:rgba(7,17,15,.97);border:1px solid rgba(255,255,255,.09);box-shadow:0 22px 60px rgba(0,0,0,.36);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.nav__mobile-menu[hidden]{display:none!important}
+.nav__mobile-menu>a{display:block;padding:12px 10px;color:rgba(255,255,255,.78);font-size:.82rem;font-weight:650;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.055)}
+.nav__mobile-apps{padding:14px 10px 4px;display:flex;gap:8px;flex-wrap:wrap}
+.nav__mobile-apps>span{width:100%;font-size:.65rem;text-transform:uppercase;letter-spacing:.10em;color:rgba(255,255,255,.36);margin-bottom:3px}
+.nav__mobile-apps a{padding:8px 10px;border-radius:10px;background:rgba(22,199,131,.08);border:1px solid rgba(22,199,131,.16);color:#a9e7c8;font-size:.72rem;font-weight:700;text-decoration:none}
+
+@media(max-width:760px){
+  .nav__menu-btn{display:flex}
+  .nav__actions{gap:7px!important}
+  .nav__links{display:none!important}
+  .nav__cta-link{display:none!important}
+  .nav{position:sticky!important;top:0}
+}
