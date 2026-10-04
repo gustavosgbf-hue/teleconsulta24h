@@ -1684,7 +1684,11 @@ whatsappSend.addEventListener('click', function() {
   <div class="hero__intent" aria-label="Escolha como prefere ser atendido">
     <div class="hero__intent-title">Como prefere ser atendido?</div>
     <div class="hero__intent-grid">
-      <a class="hero__intent-btn hero__intent-btn--primary" href="#" onclick="return moCliqueAbrir(event,'consulta médica online','chat')">
+      <a class="hero__intent-btn hero__intent-btn--primary" href="https://consultaja24h.com.br/renovacao-de-receita">
+        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M14 3v5h5"/><path d="M9 12h6M9 16h4"/></svg>
+        Renovar receita
+      </a>
+      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta médica online','chat')">
         <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"/><path d="M8 10.5h8M8 14h5"/></svg>
         Consulta por chat
       </a>
@@ -1710,6 +1714,8 @@ whatsappSend.addEventListener('click', function() {
   var PLAY_TRACK='https://triagem-api.onrender.com/api/tracking/play-click';
   var APPLE_TRACK='https://triagem-api.onrender.com/api/tracking/app-store-click';
   var params=new URLSearchParams(window.location.search);
+  var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  var isAndroid=/Android/i.test(navigator.userAgent);
 
   function attributionId(){
     var key='consultaja_app_attribution_id';
@@ -1770,6 +1776,11 @@ whatsappSend.addEventListener('click', function() {
 
   document.querySelectorAll('.js-consulta-store').forEach(function(a){
     var store=a.getAttribute('data-store');
+    if((isIOS&&store==='google')||(isAndroid&&store==='apple')){
+      a.style.display='none';
+      a.setAttribute('aria-hidden','true');
+      return;
+    }
     a.href=store==='apple'?APPLE_URL:playUrl();
     a.addEventListener('click',function(){trackStore(store);});
   });
