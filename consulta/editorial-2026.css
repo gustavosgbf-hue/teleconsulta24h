@@ -1,0 +1,132 @@
+/* ConsultaJa24h /consulta — editorial healthtech layer, Oct 2026 */
+:root{--cj-bg:#07110f;--cj-deep:#0b1b17;--cj-deep2:#10241e;--cj-green:#16c783;--cj-lime:#78f25f;--cj-cream:#f5f7f2;--cj-ink:#11201b;--cj-muted:#65756e}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(180deg,#07110f 0%,#0a1714 38%,#07110f 100%)}
+section{position:relative}
+.section-inner{max-width:1080px}
+.section-title{font-family:'Outfit',sans-serif!important;font-style:normal!important;font-weight:760!important;letter-spacing:-.035em!important;line-height:1.05!important}
+.section-title em{font-style:normal!important;color:var(--cj-green)!important}
+.section-label{font-family:'Outfit',sans-serif!important;letter-spacing:.11em!important;text-transform:uppercase;font-size:.68rem!important;font-weight:750!important}
+
+/* Outubro Rosa: campanha visível, nunca vira identidade da interface */
+.hero::before{background:radial-gradient(circle at 81% 31%,rgba(240,111,157,.065),transparent 25%),linear-gradient(90deg,rgba(5,13,10,.98) 0%,rgba(5,14,11,.94) 39%,rgba(6,16,13,.74) 68%,rgba(6,16,13,.52) 100%)!important}
+.hero__media::before{background:linear-gradient(118deg,transparent 48%,rgba(240,111,157,.035) 78%,rgba(240,111,157,.055) 100%)!important}
+.hero__video{filter:brightness(.27) saturate(.52) contrast(1.03)!important}
+.october-rosa{background:rgba(240,111,157,.07)!important;border-color:rgba(240,111,157,.22)!important;box-shadow:none!important}
+.october-rosa__ribbon{background:rgba(240,111,157,.08)!important}
+#heroReviewProof strong{color:rgba(255,255,255,.78)!important}
+.hero{border-bottom:1px solid rgba(255,255,255,.055)!important}
+
+/* hero: mais respiro e hierarquia */
+.hero{min-height:720px!important;padding-top:106px!important;padding-bottom:112px!important}
+.hero__copy{max-width:650px!important}
+.hero__h1{margin-bottom:27px!important}
+.hero__sub{max-width:560px!important}
+.hero__pricing{margin-top:30px!important}
+#heroCTA{margin-top:22px!important;box-shadow:0 16px 42px rgba(22,199,131,.22),0 0 34px rgba(22,199,131,.08),inset 0 1px rgba(255,255,255,.18)!important}
+.hero__store-block{order:10!important;margin-top:20px!important;max-width:360px!important}
+.hero__store-label{font-weight:500!important;color:rgba(255,255,255,.40)!important}
+.hero__intent{margin-top:18px!important}
+.hero__intent-grid{display:grid!important;grid-template-columns:1.25fr 1fr 1fr!important;gap:8px!important}
+.hero__intent-grid>a{display:flex!important}
+.hero__intent-btn{background:rgba(255,255,255,.028)!important;border-color:rgba(255,255,255,.085)!important;box-shadow:none!important;min-height:44px!important}
+.hero__intent-btn--primary{background:rgba(22,199,131,.08)!important;border-color:rgba(22,199,131,.25)!important;color:#bff4d8!important}
+.hero__intent-btn--primary::after{background:#163126!important;color:#c8f7db!important;border:1px solid rgba(22,199,131,.22)!important;box-shadow:none!important}
+#heroPriceAnchor{margin-top:18px!important}
+#heroSecurity{margin-top:15px!important}
+
+/* doctors strip: preservar cards, retirar efeito SaaS/neon */
+.doctor-strip{padding:64px 0 42px!important;background:linear-gradient(180deg,#07110f 0%,#0b1b17 100%)!important}
+.doctor-strip__header{margin-bottom:24px!important}
+.doctor-strip__eyebrow{color:rgba(226,245,236,.72)!important;font-size:.7rem!important;text-transform:uppercase;letter-spacing:.12em!important}
+.doctor-strip__eyebrow .live-dot{box-shadow:none!important;background:var(--cj-green)!important}
+.doctor-strip__sub{font-size:.86rem!important;color:rgba(255,255,255,.46)!important}
+.doctor-strip__track{gap:14px!important;padding:5px 24px 21px!important}
+.dstrip-card{background:rgba(255,255,255,.035)!important;border-color:rgba(255,255,255,.09)!important;border-radius:22px!important;box-shadow:0 18px 50px rgba(0,0,0,.16)!important;padding:19px 14px 17px!important}
+.dstrip-card:hover{transform:translateY(-2px)!important;border-color:rgba(22,199,131,.25)!important;box-shadow:0 24px 60px rgba(0,0,0,.22)!important}
+.dstrip-av.has-photo{box-shadow:0 10px 24px rgba(0,0,0,.28),0 0 0 2px rgba(255,255,255,.09)!important}
+.doctor-strip__more-link{margin-top:9px!important;color:#9ee8c4!important;font-size:.76rem!important}
+
+/* jornada */
+.journey-section{background:var(--cj-cream);color:var(--cj-ink);padding:104px 24px 112px;overflow:hidden}
+.journey-section .section-label{color:#16865f!important}
+.journey-section .section-title{color:var(--cj-ink)!important;font-size:clamp(2.2rem,5vw,4.5rem)!important;max-width:760px;margin:0 auto 18px}
+.journey-section .section-sub{color:var(--cj-muted)!important;font-size:1rem!important;max-width:620px!important}
+.journey-layout{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:74px;align-items:start;margin-top:76px;text-align:left}
+.journey-sticky{position:sticky;top:112px}
+.journey-time{display:inline-flex;align-items:center;gap:10px;padding:11px 15px;border-radius:999px;background:#eaf4ee;border:1px solid #d6e8dd;color:#254a3d;font-size:.8rem;font-weight:700;margin-top:24px}
+.journey-time svg{width:16px;height:16px;color:#178b63}
+.symptom-line{position:absolute;left:21px;top:32px;bottom:32px;width:2px;background:#dbe7df;overflow:hidden}
+.symptom-line__fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(180deg,#16c783,#4fd3a0);box-shadow:0 0 16px rgba(22,199,131,.22)}
+.journey-steps{position:relative;display:grid;gap:24px}
+.journey-step{position:relative;padding:28px 28px 28px 68px;border:1px solid #dfe7e2;background:rgba(255,255,255,.82);border-radius:24px;box-shadow:0 16px 44px rgba(24,55,44,.055);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease}
+.journey-step.is-active{transform:translateX(7px);border-color:rgba(22,199,131,.35);box-shadow:0 22px 58px rgba(24,55,44,.09)}
+.journey-node{position:absolute;left:14px;top:29px;width:18px;height:18px;border-radius:50%;background:var(--cj-cream);border:2px solid #b8ccc1;z-index:2;transition:.3s}
+.journey-step.is-active .journey-node{border-color:#16c783;background:#16c783;box-shadow:0 0 0 6px rgba(22,199,131,.09)}
+.journey-icon{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:#eef5f0;color:#167e5a;margin-bottom:16px}
+.journey-icon svg{width:18px;height:18px}
+.journey-step h3{margin:0 0 8px;font:750 1.12rem/1.2 'Outfit',sans-serif;color:#12251e;letter-spacing:-.02em}
+.journey-step p{margin:0;color:#61726a;font-size:.9rem;line-height:1.55}
+.journey-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.journey-chip{font-size:.68rem;font-weight:700;color:#385c4e;background:#eef5f0;border:1px solid #e0ebe4;border-radius:999px;padding:7px 10px}
+
+/* produto/app */
+.product-story{padding:108px 24px;background:linear-gradient(180deg,#0b1b17,#07110f);overflow:hidden}
+.product-story__grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:center}
+.product-story__copy .section-label{color:#78d7ad!important}
+.product-story__copy h2{color:#f5faf7;font:760 clamp(2.1rem,4vw,3.8rem)/1.03 'Outfit',sans-serif;letter-spacing:-.04em;margin:12px 0 20px}
+.product-story__copy p{color:rgba(255,255,255,.58);font-size:.98rem;line-height:1.65;margin:0}
+.product-story__video{border-radius:30px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#0c1512;box-shadow:0 30px 90px rgba(0,0,0,.32)}
+.product-story__video video{display:block;width:100%;height:auto}
+.product-story__stores{display:flex;gap:10px;margin-top:26px;align-items:center;flex-wrap:wrap}
+.product-story__stores img{height:39px;width:auto}
+
+/* how old section hidden after replacement safeguard */
+.how-section:not(.journey-section){background:transparent}
+
+/* reviews: editorial cards, less carousel-gadget */
+.reviews-section{padding:106px 24px!important;background:#0c1a16!important}
+.reviews-section .section-inner{max-width:1020px!important}
+.reviews-section .section-title{font-size:clamp(2rem,4.2vw,3.6rem)!important;margin-bottom:14px!important}
+#reviewsBadge{background:transparent!important;border:0!important;color:rgba(255,255,255,.56)!important;padding:0!important;font-size:.76rem!important}
+.car-outer{margin-top:38px!important}
+.rcard{border-radius:22px!important;background:rgba(255,255,255,.045)!important;border:1px solid rgba(255,255,255,.085)!important;box-shadow:none!important;padding:24px!important}
+.rcard__quote{font-size:.92rem!important;line-height:1.6!important;color:rgba(255,255,255,.74)!important}
+
+/* clinical roster + FAQ */
+#corpo-clinico{padding:104px 24px!important;background:#07110f!important}
+#corpo-clinico .section-title{font-size:clamp(2rem,4vw,3.4rem)!important}
+.faq-section{padding:104px 24px!important;background:var(--cj-cream)!important;color:var(--cj-ink)}
+.faq-section .section-label{color:#16865f!important}
+.faq-section .section-title{color:var(--cj-ink)!important}
+.faq-item{border-color:#dce6e0!important}
+.faq-q{color:#15251f!important;font-family:'Outfit',sans-serif!important}
+.faq-a p{color:#5f7068!important}
+.emergency{background:#fff7ed!important;border-color:#fed7aa!important;color:#7c2d12!important}
+
+/* final conversion */
+.cta-final{padding:112px 24px!important;background:radial-gradient(circle at 50% 15%,rgba(22,199,131,.08),transparent 34%),#07110f!important}
+.cta-final .section-title{font-size:clamp(2.2rem,4.8vw,4rem)!important}
+.cta-final .section-label{color:#8fe2bb!important}
+
+@media(max-width:760px){
+  .hero{min-height:820px!important;padding-top:54px!important;padding-bottom:64px!important}
+  .hero__intent-grid{grid-template-columns:1fr 1fr!important;max-width:350px;margin:auto}
+  .hero__intent-btn--primary{grid-column:1/-1}
+  .hero__store-block{margin-top:18px!important}
+  .doctor-strip{padding:52px 0 32px!important}
+  .doctor-strip__track{flex-wrap:nowrap!important;justify-content:flex-start!important;overflow-x:auto!important;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .doctor-strip__track::-webkit-scrollbar{display:none}
+  .dstrip-card{scroll-snap-align:start}
+  .journey-section{padding:78px 18px 86px}
+  .journey-section .section-title{font-size:2.45rem!important}
+  .journey-layout{grid-template-columns:1fr;gap:42px;margin-top:52px}
+  .journey-sticky{position:static}
+  .journey-step{padding:24px 20px 24px 62px;border-radius:20px}
+  .symptom-line{left:20px}
+  .product-story{padding:82px 18px}
+  .product-story__grid{grid-template-columns:1fr;gap:38px}
+  .product-story__video{border-radius:22px}
+  .reviews-section,#corpo-clinico,.faq-section,.cta-final{padding-top:82px!important;padding-bottom:82px!important}
+}
+@media(prefers-reduced-motion:reduce){.journey-step{transition:none!important}.symptom-line__fill{transition:none!important}}
