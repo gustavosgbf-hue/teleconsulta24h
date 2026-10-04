@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Geriatria Online · ConsultaJá24h</title>
+  <meta name="description" content="Consulta de Geriatria online com atendimento médico por vídeo ou chat. Consulte disponibilidade e fale com a equipe da ConsultaJá24h."/>
+  <meta name="theme-color" content="#07100f"/>
+  <link rel="canonical" href="https://consultaja24h.com.br/especialistas/geriatria/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)}
+    gtag('js', new Date());
+    gtag('config', 'AW-17964942771');
+  </script>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:#f7f7f5;
+      color:#14201d;
+      font-family:'DM Sans',sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{text-decoration:none;color:inherit}
+    nav{
+      position:sticky;top:0;z-index:20;
+      height:60px;padding:0 32px;
+      display:flex;align-items:center;justify-content:space-between;
+      background:rgba(247,250,248,.96);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(15,23,42,.09);
+    }
+    .nav__logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.15rem}
+    .nav__logo span{color:#64748b}
+    .nav__back{display:flex;align-items:center;gap:7px;font-size:.8rem;color:#334155}
+    .nav__cta-pill{
+      font-size:.8rem;font-weight:500;padding:7px 18px;border-radius:999px;
+      border:1px solid rgba(15,23,42,.12);background:#fff;color:#111827;
+    }
+
+    .spec-hero{
+      background:linear-gradient(135deg,#eee8f5,#fbf9fd);
+      padding:64px 32px 56px;
+      border-bottom:1px solid #cbbbd9;
+    }
+    .spec-hero__inner{max-width:900px;margin:0 auto}
+    .spec-hero__breadcrumb{font-size:.76rem;color:#74538f;margin-bottom:22px;display:flex;gap:8px;align-items:center}
+    .spec-hero__tag{
+      display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;
+      background:rgba(116,83,143,.10);border:1px solid rgba(116,83,143,.18);
+      color:#5a3e73;font-size:.73rem;font-weight:600;margin-bottom:20px;
+    }
+    .spec-hero__tag-dot{width:6px;height:6px;border-radius:50%;background:#74538f}
+    .spec-hero__h1{
+      margin:0;
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-size:clamp(2.2rem,5vw,3.6rem);
+      line-height:1.08;
+      font-weight:500;
+      color:#3e2851;
+      max-width:760px;
+    }
+    .spec-hero__desc{font-size:.96rem;line-height:1.72;color:#674f79;max-width:650px;margin:17px 0 0}
+    .spec-hero__pills{display:flex;gap:9px;flex-wrap:wrap;margin-top:25px}
+    .spec-hero__pill{padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(116,83,143,.15);font-size:.76rem;color:#5a3e73}
+    .spec-hero__actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:28px}
+    .hero-cta{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:14px 22px;border-radius:999px;font-size:.88rem;font-weight:700;
+    }
+    .hero-cta--primary{background:linear-gradient(135deg,#74538f,#4a315f);color:#fff;box-shadow:0 10px 24px rgba(116,83,143,.22)}
+    .hero-cta--ghost{background:#fff;border:1px solid rgba(116,83,143,.16);color:#3e2851}
+
+    .section{max-width:1080px;margin:0 auto;padding:76px 32px}
+    .section-label{font-size:.69rem;letter-spacing:.16em;text-transform:uppercase;color:#7c7085;margin-bottom:12px}
+    .section-title{
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-size:clamp(1.8rem,3.2vw,2.7rem);
+      line-height:1.13;margin:0 0 12px;color:#211829;
+    }
+    .section-sub{color:#66726d;line-height:1.68;max-width:690px;margin:0 0 30px}
+    .doctors-grid{display:grid;grid-template-columns:minmax(0,760px);gap:20px}
+    .doctor-card{
+      background:#fff;border:1px solid rgba(20,32,29,.1);border-radius:22px;
+      overflow:hidden;display:grid;grid-template-columns:250px minmax(0,1fr);
+      box-shadow:0 14px 42px rgba(13,50,34,.05);
+    }
+    .doctor-card__photo{min-height:420px;background:#eee8f5}
+    .doctor-card__photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+    .doctor-card__body{padding:30px}
+    .doctor-card__name{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;color:#211829}
+    .doctor-card__crm{font-size:.86rem;color:#6b7280;margin-top:3px}
+    .doctor-card__spec{
+      display:inline-flex;margin-top:16px;padding:6px 11px;border-radius:999px;
+      background:#eee8f5;color:#5a3e73;border:1px solid rgba(116,83,143,.12);
+      font-size:.76rem;font-weight:600;
+    }
+    .doctor-card__bio{color:#5f6b66;line-height:1.68;margin:19px 0 0}
+    .doctor-card__meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .doctor-card__meta-chip{
+      padding:6px 10px;border-radius:999px;background:#f6f4f8;
+      border:1px solid rgba(116,83,143,.11);color:#5a3e73;font-size:.72rem;
+    }
+    .doctor-card__footer{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border-top:1px solid rgba(20,32,29,.09);margin-top:24px;padding-top:22px;
+    }
+    .doctor-card__availability-label{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:#8a928e}
+    .doctor-card__availability{font-size:1rem;font-weight:700;color:#5a3e73;margin-top:4px}
+    .doctor-card__btn{
+      border:none;cursor:pointer;border-radius:13px;padding:13px 18px;
+      background:linear-gradient(135deg,#74538f,#4a315f);color:#fff;font-weight:700;
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    }
+
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .info-card{background:#fff;border:1px solid rgba(20,32,29,.09);border-radius:18px;padding:22px}
+    .info-card h3{margin:0 0 8px;font-size:1rem;color:#28322f}
+    .info-card p{margin:0;color:#69756f;line-height:1.6;font-size:.88rem}
+
+    .cta-bottom{background:#07100f;color:#fff;padding:64px 32px}
+    .cta-bottom__inner{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;gap:28px;align-items:center}
+    .cta-bottom__title{font-size:clamp(1.9rem,4vw,3.2rem);font-family:'Cormorant Garamond',Georgia,serif;margin:0}
+    .cta-bottom__sub{color:rgba(255,255,255,.62);max-width:580px;line-height:1.65;margin:10px 0 0}
+
+    @media(max-width:680px){
+      nav{padding:0 18px;height:58px}.nav__logo{display:none}.nav__cta-pill{font-size:.74rem;padding:8px 12px}
+      .spec-hero{padding:52px 20px 46px}.spec-hero__h1{font-size:clamp(2.3rem,11vw,3.2rem)}
+      .hero-cta{width:100%}.section{padding:58px 18px}
+      .doctor-card{grid-template-columns:108px minmax(0,1fr);border-radius:20px}
+      .doctor-card__photo{min-height:0}.doctor-card__body{padding:16px 15px}
+      .doctor-card__name{font-size:1.28rem}.doctor-card__crm{font-size:.74rem}
+      .doctor-card__spec{font-size:.66rem;margin-top:9px}
+      .doctor-card__bio{font-size:.78rem;line-height:1.45;margin-top:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+      .doctor-card__meta{margin-top:10px}.doctor-card__meta-chip{font-size:.62rem}.doctor-card__meta-chip:nth-child(n+2){display:none}
+      .doctor-card__footer{flex-direction:column;align-items:stretch;gap:10px;margin-top:12px;padding-top:12px}
+      .doctor-card__availability{font-size:.86rem}.doctor-card__btn{width:100%;font-size:.76rem;padding:10px 12px}
+      .info-grid{grid-template-columns:1fr}
+      .cta-bottom{padding:52px 20px}.cta-bottom__inner{display:block}.cta-bottom .hero-cta{margin-top:22px}
+    }
+  </style>
+
+  <link rel="stylesheet" href="/especialistas/brand-2026.css?v=20261004e"/>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav__logo">Consulta<span>Já</span>24h</a>
+  <a href="/especialistas" class="nav__back">← Especialidades</a>
+  <a href="/consulta/" class="nav__cta-pill">Consulta 24h →</a>
+</nav>
+
+<section class="spec-hero">
+  <div class="spec-hero__inner">
+    <div class="spec-hero__breadcrumb"><a href="/especialistas">Especialistas</a><span>→</span><span>Geriatria</span></div>
+    <div class="spec-hero__tag"><span class="spec-hero__tag-dot"></span> Atendimento médico online</div>
+    <h1 class="spec-hero__h1">Geriatria online para um cuidado mais completo da pessoa idosa</h1>
+    <p class="spec-hero__desc">Avaliação médica com foco em saúde global, revisão de medicamentos, memória, funcionalidade e acompanhamento clínico da pessoa idosa.</p>
+    <div class="spec-hero__pills">
+      <span class="spec-hero__pill">Revisão de medicamentos</span>
+      <span class="spec-hero__pill">Memória e cognição</span>
+      <span class="spec-hero__pill">Fragilidade</span>
+      <span class="spec-hero__pill">Acompanhamento clínico</span>
+    </div>
+    <div class="spec-hero__actions">
+      <a class="hero-cta hero-cta--primary" href="#medica">Conhecer a médica</a>
+      <a class="hero-cta hero-cta--ghost" href="https://wa.me/559898272727?text=Ol%C3%A1%2C%20quero%20consultar%20a%20disponibilidade%20para%20Geriatria." target="_blank" rel="noopener">Consultar disponibilidade</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="medica">
+  <div class="section-label">Profissional disponível</div>
+  <h2 class="section-title">Atendimento em Geriatria com cuidado individualizado</h2>
+  <p class="section-sub">Veja o perfil da médica e fale com a equipe para consultar os próximos horários disponíveis.</p>
+
+  <div class="doctors-grid">
+    <article class="doctor-card">
+      <div class="doctor-card__photo">
+        <img src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/anaval.jpg" alt="Dra. Ana Valéria Brandão" loading="eager">
+      </div>
+      <div class="doctor-card__body">
+        <div class="doctor-card__name">Dra. Ana Valéria Brandão</div>
+        <div class="doctor-card__crm">CRM-MA 14909</div>
+        <span class="doctor-card__spec">Geriatria</span>
+
+        <p class="doctor-card__bio">Atendimento médico online voltado à avaliação integral da pessoa idosa, com atenção ao uso de medicamentos, sintomas clínicos, memória, autonomia e acompanhamento contínuo.</p>
+
+        <div class="doctor-card__meta">
+          <span class="doctor-card__meta-chip">Vídeo ou chat</span>
+          <span class="doctor-card__meta-chip">Avaliação individualizada</span>
+          <span class="doctor-card__meta-chip">Acompanhamento clínico</span>
+        </div>
+
+        <div class="doctor-card__footer">
+          <div>
+            <span class="doctor-card__availability-label">Agenda</span>
+            <div class="doctor-card__availability">Consulte os próximos horários</div>
+          </div>
+          <a class="doctor-card__btn" href="https://wa.me/559898272727?text=Ol%C3%A1%2C%20quero%20consultar%20a%20disponibilidade%20da%20Dra.%20Ana%20Val%C3%A9ria%20para%20Geriatria." target="_blank" rel="noopener">
+            Consultar disponibilidade →
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">Quando procurar</div>
+  <h2 class="section-title">Situações em que uma avaliação geriátrica pode ajudar</h2>
+  <div class="info-grid">
+    <div class="info-card"><h3>Muitos medicamentos</h3><p>Revisão de tratamentos em uso e discussão sobre possíveis interações, duplicidades e organização da rotina medicamentosa.</p></div>
+    <div class="info-card"><h3>Memória e autonomia</h3><p>Avaliação inicial de queixas de memória, mudanças de comportamento, funcionalidade e impacto nas atividades do dia a dia.</p></div>
+    <div class="info-card"><h3>Acompanhamento global</h3><p>Visão integrada de doenças crônicas, sintomas novos, prevenção e necessidades de acompanhamento da pessoa idosa.</p></div>
+  </div>
+</section>
+
+<section class="cta-bottom">
+  <div class="cta-bottom__inner">
+    <div>
+      <h2 class="cta-bottom__title">Quer consultar a disponibilidade?</h2>
+      <p class="cta-bottom__sub">Fale com a equipe da ConsultaJá24h e veja os próximos horários para atendimento em Geriatria.</p>
+    </div>
+    <a class="hero-cta hero-cta--primary" href="https://wa.me/559898272727?text=Ol%C3%A1%2C%20quero%20consultar%20a%20disponibilidade%20para%20Geriatria." target="_blank" rel="noopener">Consultar horários</a>
+  </div>
+</section>
+
+</body>
+</html>
