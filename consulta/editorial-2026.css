@@ -603,3 +603,76 @@ body{
     padding-top:0!important;
   }
 }
+
+
+/* Reordenação visual 04/10 — menos branco e menos verde morto */
+.journey-section{
+  background:linear-gradient(180deg,#edf6f0 0%,#e8f3ec 100%)!important;
+}
+.journey-step{
+  background:rgba(249,252,250,.92)!important;
+  border-color:rgba(22,199,131,.12)!important;
+}
+.journey-icon,
+.journey-chip{
+  background:#e4f1e9!important;
+}
+.faq-section{
+  background:linear-gradient(180deg,#eef6f1 0%,#e9f3ed 100%)!important;
+}
+.faq-item{
+  background:rgba(250,252,250,.82)!important;
+  border-color:rgba(22,199,131,.10)!important;
+}
+.faq-q{background:transparent!important}
+
+/* vídeo social depois da jornada, com transição suave */
+.journey-section + .social-proof-video{
+  background:linear-gradient(180deg,#e8f3ec 0%,#153128 26%,#102820 100%)!important;
+  padding-top:72px!important;
+}
+.journey-section + .social-proof-video .video-proof-label{
+  color:rgba(237,249,242,.72)!important;
+  padding-top:0!important;
+}
+
+/* WebM -> experiência de pacientes: respiro, sem blocão verde vazio */
+.product-story{
+  padding-bottom:24px!important;
+}
+.product-story + .reviews-section{
+  padding-top:54px!important;
+}
+.reviews-section{
+  padding-bottom:52px!important;
+}
+.reviews-section .car-outer{
+  margin-bottom:10px!important;
+}
+
+/* separa corpo clínico da prova/avaliações */
+#corpo-clinico{
+  padding-top:84px!important;
+}
+@media(max-width:760px){
+  .journey-section{
+    padding-top:72px!important;
+    padding-bottom:72px!important;
+  }
+  .journey-section + .social-proof-video{
+    padding-top:58px!important;
+    padding-bottom:48px!important;
+  }
+  .product-story{
+    padding-bottom:18px!important;
+  }
+  .product-story + .reviews-section{
+    padding-top:46px!important;
+  }
+  .reviews-section{
+    padding-bottom:42px!important;
+  }
+  #corpo-clinico{
+    padding-top:72px!important;
+  }
+}
