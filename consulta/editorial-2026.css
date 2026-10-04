@@ -584,3 +584,22 @@ body{
     margin-top:0!important;
   }
 }
+
+
+/* Ajuste baseado nos prints marcados */
+@media(max-width:760px){
+  .hero{
+    margin-top:-20px!important;
+    padding-top:12px!important;
+  }
+  .october-rosa{
+    margin-top:0!important;
+  }
+
+  .product-story{
+    padding-top:104px!important;
+  }
+  .product-story__copy{
+    padding-top:0!important;
+  }
+}
