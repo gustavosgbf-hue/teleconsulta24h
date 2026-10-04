@@ -1543,9 +1543,25 @@ whatsappSend.addEventListener('click', function() {
       </span>
     </a>
     <div class="nav__actions">
-      <div class="nav__links" aria-label="Outros atendimentos">
+      <div class="nav__links" aria-label="Navegação principal">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#corpo-clinico">Médicos</a>
+        <a href="#reviewsSection">Avaliações</a>
       </div>
+      <button class="nav__menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
       <a href="#" class="nav__cta-link" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Falar com médico</span></a>
+    </div>
+    <div class="nav__mobile-menu" id="mobileNav" hidden>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#corpo-clinico">Corpo clínico</a>
+      <a href="#reviewsSection">Avaliações</a>
+      <div class="nav__mobile-apps">
+        <span>ConsultaJá24h no celular</span>
+        <a href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener noreferrer">App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener noreferrer">Google Play</a>
+      </div>
     </div>
   </div>
 </nav>
@@ -2006,6 +2022,26 @@ whatsappSend.addEventListener('click', function() {
           <div class="journey-meta"><span class="journey-chip">Receita digital</span><span class="journey-chip">Atestado</span><span class="journey-chip">Pedidos</span></div>
         </article>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ EXPERIÊNCIA NO APP ════════ -->
+<section class="product-story reveal" id="experiencia-app">
+  <div class="product-story__grid">
+    <div class="product-story__copy">
+      <div class="section-label">A experiência continua no celular</div>
+      <h2>Veja como a ConsultaJá24h acompanha você.</h2>
+      <p>O app não é uma etapa obrigatória para consultar. Ele é uma extensão da experiência: acesso rápido, documentos e continuidade no celular para quem prefere ter tudo à mão.</p>
+      <div class="product-story__stores">
+        <a href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener noreferrer"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener noreferrer"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
+      </div>
+    </div>
+    <div class="product-story__video">
+      <video autoplay muted loop playsinline preload="metadata" aria-label="Demonstração da experiência no app ConsultaJá24h">
+        <source src="assets/app/consultaja24h-web-app-story.webm" type="video/webm">
+      </video>
     </div>
   </div>
 </section>
@@ -4397,4 +4433,17 @@ document.addEventListener('DOMContentLoaded',async function(){
 </script>
 
 
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const menuBtn=document.querySelector('.nav__menu-btn');
+  const menu=document.getElementById('mobileNav');
+  if(!menuBtn||!menu)return;
+  menuBtn.addEventListener('click',function(){
+    const open=menuBtn.getAttribute('aria-expanded')==='true';
+    menuBtn.setAttribute('aria-expanded',String(!open));
+    menu.hidden=open;
+  });
+  menu.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(){menu.hidden=true;menuBtn.setAttribute('aria-expanded','false')})});
+});
+</script>
 <script src="symptom-line.js?v=20261004a" defer></script>\n</body></html>
