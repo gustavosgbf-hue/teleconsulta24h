@@ -151,3 +151,177 @@ section{position:relative}
   .nav__cta-link{display:none!important}
   .nav{position:sticky!important;top:0}
 }
+
+
+/* Refinamento visual — 04/10/2026 */
+:root{
+  --cj-bg:#0b1e19;
+  --cj-deep:#102820;
+  --cj-deep2:#153128;
+  --cj-green:#16c783;
+  --cj-lime:#78f25f;
+  --cj-cream:#f5f7f2;
+}
+body{
+  background:linear-gradient(180deg,#0b1e19 0%,#102820 38%,#0d211b 72%,#0a1915 100%)!important;
+}
+.nav{
+  background:linear-gradient(180deg,rgba(13,31,26,.88),rgba(10,25,21,.78))!important;
+}
+.nav__logo{gap:0!important;letter-spacing:-.045em!important}
+.nav__logo .c2{margin-left:-1px!important}
+.nav__logo .c3{margin-left:-1px!important}
+.nav__actions{border-left:0!important}
+.nav__actions::before,.nav__actions::after,.nav__cta-link::before,.nav__cta-link::after{content:none!important;display:none!important;border:0!important}
+
+/* rosa fica SOMENTE no badge de Outubro Rosa */
+.hero::before{
+  background:
+    linear-gradient(90deg,rgba(9,25,21,.98) 0%,rgba(10,28,23,.94) 38%,rgba(13,35,29,.78) 68%,rgba(13,35,29,.54) 100%)!important;
+}
+.hero__media::before{display:none!important;background:none!important}
+.hero__h1 em{
+  color:transparent!important;
+  background:linear-gradient(135deg,#d8f69b 0%,#69dda3 78%)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  filter:none!important;
+}
+#heroReviewProof strong{color:rgba(255,255,255,.78)!important}
+.hero__video{filter:brightness(.31) saturate(.58) contrast(1.02)!important}
+#heroCTA,.btn-primary,.sticky-cta__button{
+  background:linear-gradient(135deg,#65e0a0 0%,#23bd77 100%)!important;
+  color:#06140e!important;
+}
+.nav__cta-link{
+  background:rgba(22,199,131,.10)!important;
+  border-color:rgba(22,199,131,.22)!important;
+  color:#eaf8f1!important;
+  box-shadow:none!important;
+}
+
+/* cards de modalidade: mais limpos e com ícone linear */
+.hero__intent-grid{grid-template-columns:1.25fr 1fr!important;max-width:430px!important}
+.hero__intent-btn{
+  border-radius:16px!important;
+  background:rgba(255,255,255,.035)!important;
+  border-color:rgba(255,255,255,.085)!important;
+  box-shadow:none!important;
+}
+.hero__intent-icon{
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.75!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+.hero__intent-btn--primary{
+  background:rgba(22,199,131,.075)!important;
+  border-color:rgba(22,199,131,.20)!important;
+}
+.hero__intent-btn--primary::after{
+  background:#1a382d!important;
+  color:#c8f3da!important;
+  border-color:rgba(22,199,131,.18)!important;
+}
+
+/* rótulo de vídeo/prova sem bolinha ou glow */
+.video-proof-label{
+  display:inline-block;
+  margin-bottom:16px;
+  font:700 .68rem/1 'Outfit',sans-serif;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:rgba(220,239,230,.58);
+}
+
+/* blocos escuros um pouco mais claros */
+.doctor-strip{
+  background:linear-gradient(180deg,#0d241e 0%,#102820 100%)!important;
+}
+.product-story{
+  background:linear-gradient(180deg,#153128 0%,#102820 48%,#0e241e 100%)!important;
+}
+.reviews-section{
+  background:#122b23!important;
+  padding:72px 24px!important;
+}
+#corpo-clinico{
+  background:#0d211b!important;
+}
+.cta-final{
+  background:radial-gradient(circle at 50% 15%,rgba(22,199,131,.08),transparent 34%),#0d211b!important;
+}
+
+/* reviews mais compactos */
+.reviews-section .section-inner{max-width:940px!important}
+.reviews-section .section-title{
+  font-size:clamp(1.75rem,3.3vw,2.65rem)!important;
+  margin-bottom:8px!important;
+}
+#reviewsBadge{margin-top:4px!important}
+.reviews-section .car-outer{margin-top:26px!important}
+.reviews-section .rcard{
+  padding:19px 20px!important;
+  border-radius:19px!important;
+  min-height:0!important;
+}
+.reviews-section .rcard__quote{
+  font-size:.86rem!important;
+  line-height:1.5!important;
+  margin-top:11px!important;
+}
+
+/* linha do sintoma alinhada aos próprios cards */
+.journey-steps{position:relative!important;padding-left:0!important}
+.symptom-line{
+  left:22px!important;
+  top:38px!important;
+  bottom:38px!important;
+  height:auto!important;
+  width:2px!important;
+  border-radius:999px!important;
+  background:#d8e5dd!important;
+  overflow:hidden!important;
+}
+.symptom-line__fill{
+  width:100%!important;
+  max-height:100%!important;
+  border-radius:999px!important;
+  background:linear-gradient(180deg,#16c783,#52cfa0)!important;
+  box-shadow:none!important;
+}
+.journey-node{
+  left:13px!important;
+  top:31px!important;
+  width:18px!important;
+  height:18px!important;
+  box-shadow:none!important;
+}
+.journey-step.is-active .journey-node{
+  box-shadow:0 0 0 5px rgba(22,199,131,.08)!important;
+}
+.journey-step.is-active{
+  transform:translateX(4px)!important;
+}
+
+/* FAQ clara com contraste maior */
+.faq-section{background:#f3f6f1!important}
+.emergency{
+  background:#fff3e5!important;
+  border-color:#f2c89c!important;
+}
+.emergency p{color:#713914!important}
+
+/* app showcase: aumentar legibilidade geral */
+.product-story__copy p{color:rgba(255,255,255,.68)!important}
+.product-story__video{border-color:rgba(255,255,255,.12)!important}
+
+@media(max-width:760px){
+  .hero__intent-grid{grid-template-columns:1fr!important;max-width:350px!important}
+  .hero__intent-btn--primary{grid-column:auto!important}
+  .reviews-section{padding:64px 16px!important}
+  .reviews-section .section-title{font-size:1.8rem!important}
+  .journey-step.is-active{transform:none!important}
+}
