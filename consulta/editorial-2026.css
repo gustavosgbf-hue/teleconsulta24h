@@ -526,3 +526,47 @@ body{
     padding-top:0!important;
   }
 }
+
+
+/* Ajuste fino do primeiro viewport e entrada da seção do app */
+@media(max-width:760px){
+  .hero{
+    min-height:auto!important;
+    padding-top:22px!important;
+    padding-bottom:28px!important;
+  }
+  .hero__copy{
+    gap:0!important;
+  }
+  .hero__h1{
+    margin-bottom:10px!important;
+  }
+  .hero__sub{
+    margin-bottom:14px!important;
+  }
+  .hero__pricing{
+    margin-top:16px!important;
+  }
+  #heroCTA{
+    margin-top:16px!important;
+  }
+  .hero__store-block{
+    margin-top:12px!important;
+  }
+  #heroPriceAnchor{
+    margin-top:12px!important;
+  }
+  #heroSecurity{
+    margin-top:10px!important;
+  }
+  .hero__intent{
+    margin-top:12px!important;
+  }
+
+  .product-story{
+    padding-top:46px!important;
+  }
+  .product-story__copy{
+    padding-top:4px!important;
+  }
+}
