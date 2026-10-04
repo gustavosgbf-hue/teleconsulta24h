@@ -556,142 +556,15 @@ section{position:relative;z-index:1}
   text-transform:uppercase;color:var(--g1);margin-bottom:10px;
 }
 .section-title{
-  font-family:'Outfit',sans-serif;
-  font-size:clamp(1.72rem,4vw,2.45rem);
-  font-weight:760;line-height:1.08;letter-spacing:-.035em;margin-bottom:14px;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,4vw,2.2rem);
+  font-weight:700;line-height:1.2;margin-bottom:14px;
 }
 .section-sub{
   font-size:.9rem;font-weight:400;
   color:var(--muted);line-height:1.7;max-width:460px;
 }
 
-
-/* ─── PRODUCT + CLINICAL PROOF / 2026 PREMIUM LAYER ─── */
-.product-experience,
-.clinical-team,
-.specialist-preview{
-  position:relative;
-  padding:92px 20px;
-  border-top:1px solid rgba(255,255,255,.055);
-  overflow:hidden;
-}
-.product-experience{background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,0))}
-.product-experience__grid{
-  max-width:1040px;margin:0 auto;
-  display:grid;grid-template-columns:minmax(0,.92fr) minmax(300px,.72fr);
-  gap:72px;align-items:center;
-}
-.product-experience__copy{max-width:520px}
-.product-experience__eyebrow,
-.clinical-team__eyebrow,
-.specialist-preview__eyebrow{
-  font-size:.7rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
-  color:rgba(168,240,74,.76);margin-bottom:14px;
-}
-.product-experience__title,
-.clinical-team__title,
-.specialist-preview__title{
-  margin:0;font-family:'Outfit',sans-serif;font-size:clamp(2rem,4.8vw,3.75rem);
-  line-height:1.02;letter-spacing:-.052em;font-weight:740;color:#fff;
-}
-.product-experience__text,
-.clinical-team__lead,
-.specialist-preview__lead{
-  margin:20px 0 0;color:rgba(255,255,255,.58);font-size:.96rem;line-height:1.72;
-}
-.product-experience__points{display:grid;gap:12px;margin-top:28px}
-.product-experience__point{display:flex;align-items:flex-start;gap:11px;color:rgba(255,255,255,.74);font-size:.84rem;line-height:1.5}
-.product-experience__point svg{width:17px;height:17px;flex:0 0 auto;margin-top:2px;color:#68d99a}
-.phone-demo-wrap{display:flex;justify-content:center;position:relative;min-height:610px;align-items:center}
-.phone-demo-wrap::before{
-  content:'';position:absolute;width:330px;height:330px;border-radius:50%;
-  background:radial-gradient(circle,rgba(67,223,126,.12),rgba(67,223,126,0) 68%);
-  filter:blur(4px);
-}
-.phone-demo{
-  position:relative;width:min(290px,72vw);aspect-ratio:886/1920;
-  border-radius:42px;padding:9px;background:#080c0b;
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 34px 90px rgba(0,0,0,.52),0 0 0 1px rgba(255,255,255,.025) inset;
-  transform:rotate(1.2deg);
-}
-.phone-demo::before{
-  content:'';position:absolute;z-index:3;top:14px;left:50%;transform:translateX(-50%);
-  width:28%;height:22px;border-radius:999px;background:#050706;
-}
-.phone-demo video{width:100%;height:100%;display:block;object-fit:cover;border-radius:34px;background:#050706}
-.phone-demo__caption{
-  position:absolute;z-index:4;left:-38px;bottom:64px;width:185px;padding:13px 14px;
-  border:1px solid rgba(255,255,255,.11);border-radius:16px;
-  background:rgba(7,16,15,.82);backdrop-filter:blur(18px);
-  box-shadow:0 18px 46px rgba(0,0,0,.32);color:#fff;
-}
-.phone-demo__caption strong{display:block;font-size:.76rem;margin-bottom:3px}
-.phone-demo__caption span{display:block;color:rgba(255,255,255,.5);font-size:.65rem;line-height:1.4}
-
-.specialist-preview{padding-top:78px;padding-bottom:78px;background:rgba(255,255,255,.012)}
-.specialist-preview__in{max-width:1040px;margin:0 auto}
-.specialist-preview__top{display:grid;grid-template-columns:1fr .78fr;gap:64px;align-items:end}
-.specialist-preview__lead{margin:0}
-.specialist-preview__cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}
-.specialist-card-new{
-  min-height:180px;padding:24px;border-radius:22px;text-decoration:none;color:#fff;
-  background:rgba(255,255,255,.027);border:1px solid rgba(255,255,255,.075);
-  transition:transform .22s ease,border-color .22s ease,background .22s ease;
-}
-.specialist-card-new:hover{transform:translateY(-3px);border-color:rgba(104,217,154,.28);background:rgba(255,255,255,.045)}
-.specialist-card-new__icon{
-  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;margin-bottom:28px;
-  background:rgba(104,217,154,.09);color:#78d7a5;border:1px solid rgba(104,217,154,.12)
-}
-.specialist-card-new__name{font-size:1rem;font-weight:760;letter-spacing:-.02em}
-.specialist-card-new__desc{margin-top:7px;color:rgba(255,255,255,.47);font-size:.76rem;line-height:1.55}
-.specialist-preview__all{display:inline-flex;margin-top:22px;color:rgba(255,255,255,.62);font-size:.78rem;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:3px}
-
-.clinical-team{padding-top:90px;padding-bottom:86px}
-.clinical-team__head{max-width:1040px;margin:0 auto 38px;display:grid;grid-template-columns:1fr .75fr;gap:64px;align-items:end}
-.clinical-team__lead{margin:0}
-.clinical-team__scroll{max-width:1120px;margin:0 auto;display:flex;gap:13px;overflow-x:auto;padding:6px 20px 24px;scrollbar-width:none}
-.clinical-team__scroll::-webkit-scrollbar{display:none}
-.doctor-card-new{
-  flex:0 0 174px;padding:13px 13px 16px;border-radius:22px;
-  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.075);
-  transition:transform .22s ease,border-color .22s ease;
-}
-.doctor-card-new:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.14)}
-.doctor-card-new__photo{
-  width:100%;aspect-ratio:1/1;border-radius:16px;background-size:cover;background-position:center top;
-  margin-bottom:14px;background-color:#101716;
-}
-.doctor-card-new__name{font-size:.82rem;font-weight:720;color:rgba(255,255,255,.91);line-height:1.22}
-.doctor-card-new__crm{font-size:.65rem;color:rgba(255,255,255,.36);margin-top:5px}
-.doctor-card-new__spec{font-size:.65rem;color:#75d9a4;margin-top:4px}
-.doctor-card-new--more{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:24px}
-.doctor-card-new--more strong{font-size:2.15rem;line-height:1;color:#a8f04a;letter-spacing:-.06em}
-.doctor-card-new--more span{font-size:.75rem;color:rgba(255,255,255,.58);line-height:1.5;margin-top:9px}
-.clinical-roster{
-  max-width:1040px;margin:12px auto 0;padding:24px 0 0;border-top:1px solid rgba(255,255,255,.055);
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 26px;
-}
-.clinical-roster span{font-size:.71rem;color:rgba(255,255,255,.4);line-height:1.45}
-.clinical-roster strong{color:rgba(255,255,255,.67);font-weight:600}
-.clinical-team__foot{max-width:1040px;margin:22px auto 0;color:rgba(255,255,255,.28);font-size:.68rem;line-height:1.6}
-
-@media(max-width:760px){
-  .product-experience,.clinical-team,.specialist-preview{padding:68px 18px}
-  .product-experience__grid,.clinical-team__head,.specialist-preview__top{grid-template-columns:1fr;gap:28px}
-  .product-experience__title,.clinical-team__title,.specialist-preview__title{font-size:clamp(2rem,10vw,3rem)}
-  .phone-demo-wrap{min-height:535px;margin-top:4px}
-  .phone-demo{width:min(255px,72vw);border-radius:38px;transform:rotate(.8deg)}
-  .phone-demo video{border-radius:30px}
-  .phone-demo__caption{left:-24px;bottom:52px;width:165px}
-  .specialist-preview__cards{grid-template-columns:1fr;gap:9px;margin-top:26px}
-  .specialist-card-new{min-height:auto;padding:20px}
-  .specialist-card-new__icon{margin-bottom:20px}
-  .clinical-team__scroll{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}
-  .doctor-card-new{flex-basis:158px}
-  .clinical-roster{grid-template-columns:1fr 1fr;gap:9px 16px;padding-top:20px}
-}
 
 /* ─── PAIN SECTION ─── */
 .pain-section{
@@ -2034,10 +1907,36 @@ whatsappSend.addEventListener('click', function() {
 <div id="reviewsMount" aria-hidden="true"></div>
 
 
+<!-- ════════ DOCTORS STRIP ════════ -->
+<section class="doctor-strip">
+  <div class="doctor-strip__header">
+    <div class="doctor-strip__eyebrow"><span class="live-dot"></span>Quem vai te atender</div>
+    <p class="doctor-strip__sub">Médicos brasileiros que integram a plataforma · CRM verificável</p>
+  </div>
+  <div class="doctor-strip__track" aria-label="Médicos da plataforma">
+    <style>
+      .dstrip-card{flex:0 0 auto;width:158px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.022));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px 12px 15px;text-align:center;transition:border-color .25s,transform .25s,box-shadow .25s;box-shadow:0 18px 44px rgba(0,0,0,.22)}
+      .dstrip-card:hover{border-color:rgba(155,234,69,.35);transform:translateY(-2px);box-shadow:0 20px 48px rgba(0,0,0,.3),0 0 30px rgba(67,223,126,.08)}
+      .dstrip-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(94,224,160,.18),rgba(180,224,90,.12));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#b4e05a;margin:0 auto 12px;background-size:cover;background-position:center top;background-repeat:no-repeat;box-sizing:border-box;position:relative;overflow:visible}
+      .dstrip-av.has-photo{color:transparent;box-shadow:0 8px 18px rgba(0,0,0,.42),0 0 0 3px rgba(155,234,69,.55),0 0 0 7px rgba(155,234,69,.09)}
+      .dstrip-av.has-photo::after{display:none}
+    </style>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-julia-fonseca.png')">JF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Julia Fonseca</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 10300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-paulo-almeida.png')">PA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dr. Paulo Almeida</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 52126585-7/RJ</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Psiquiatria</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-franco.png')">MF</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Franco</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 236748-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Endocrinologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-martins.png')">MM</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Mariana Martins</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 32814-DF</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-raquel-lima.png')">RL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Raquel Lima</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 14300-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Clínica Médica</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-carolina-amate.png')">CA</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Carolina Amate</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 8696-MA</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Ginecologia</div></div>
+    <div class="dstrip-card"><div class="dstrip-av has-photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-danielle.png');background-position:60% 35%;background-size:200%">DL</div><div style="font-size:.74rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:3px">Dra. Danielle Lourdes</div><div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:3px">CRM 271705-SP</div><div style="font-size:.6rem;color:rgba(180,224,90,.65)">Dermatologia</div></div>
+    <div class="dstrip-card dstrip-more" style="background:rgba(155,234,69,.055);border-color:rgba(155,234,69,.22)"><div class="dstrip-av" style="background:rgba(155,234,69,.16);color:#b4e05a;font-size:1rem;width:72px;height:72px">+15</div><div style="font-size:.74rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:3px">e mais 15 médicos</div><div style="font-size:.6rem;color:rgba(180,224,90,.65);margin-top:6px">CRMs verificáveis no CFM</div></div>
+  </div>
+  <a class="doctor-strip__more-link" href="/especialistas">Conheça o corpo clínico →</a>
+</section>
+
 <!-- ════════ VÍDEO PROVA SOCIAL ════════ -->
 <section class="reveal" style="padding:36px 20px 44px;text-align:center;border-top:1px solid rgba(255,255,255,.04)">
   <div class="section-inner" style="max-width:480px">
-    <div class="section-label" style="margin-bottom:14px">ConsultaJá24h em uso</div>
+    <div style="display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:500;color:rgba(180,224,90,.85);letter-spacing:.02em;margin-bottom:14px"><span class="live-dot"></span>Veja como funciona</div>
     <div style="position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 40px rgba(0,0,0,.4);max-width:300px;margin:0 auto">
       <video
         src="https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/consulta_ja.mp4"
@@ -2093,102 +1992,6 @@ whatsappSend.addEventListener('click', function() {
   </div>
 </section>
 
-
-<!-- ════════ EXPERIÊNCIA NO APP ════════ -->
-<section class="product-experience reveal" id="experiencia-app">
-  <div class="product-experience__grid">
-    <div class="product-experience__copy">
-      <div class="product-experience__eyebrow">Também no seu celular</div>
-      <h2 class="product-experience__title">Uma experiência simples<br>do início ao fim.</h2>
-      <p class="product-experience__text">Consulte, acompanhe o atendimento e tenha seus documentos em um só lugar. O app complementa a experiência sem impedir quem prefere continuar pelo navegador.</p>
-      <div class="product-experience__points">
-        <div class="product-experience__point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><span>Acesso rápido aos seus atendimentos e documentos.</span></div>
-        <div class="product-experience__point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><span>Chat e acompanhamento pelo celular quando preferir.</span></div>
-        <div class="product-experience__point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><span>Disponível para iPhone e Android.</span></div>
-      </div>
-    </div>
-    <div class="phone-demo-wrap" aria-label="Prévia do aplicativo ConsultaJá24h">
-      <div class="phone-demo">
-        <video src="/consulta/assets/app/consultaja24h-preview-clean.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Demonstração da experiência no aplicativo ConsultaJá24h"></video>
-        <div class="phone-demo__caption"><strong>ConsultaJá24h</strong><span>Veja a experiência real do app antes de baixar.</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════ ESPECIALIDADES ════════ -->
-<section class="specialist-preview reveal">
-  <div class="specialist-preview__in">
-    <div class="specialist-preview__top">
-      <div>
-        <div class="specialist-preview__eyebrow">Quando você precisa de acompanhamento</div>
-        <h2 class="specialist-preview__title">Atendimento geral.<br>E especialistas também.</h2>
-      </div>
-      <p class="specialist-preview__lead">Para demandas pontuais, fale com o médico disponível. Quando fizer sentido escolher área e profissional, acesse as especialidades da plataforma.</p>
-    </div>
-    <div class="specialist-preview__cards">
-      <a class="specialist-card-new" href="/especialistas/psiquiatria">
-        <div class="specialist-card-new__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4a3 3 0 0 0-3 3v.4A3.5 3.5 0 0 0 4 10.6c0 1.3.7 2.5 1.8 3.1A3.3 3.3 0 0 0 9 18h1V4H9Z"/><path d="M15 4a3 3 0 0 1 3 3v.4a3.5 3.5 0 0 1 2 3.2c0 1.3-.7 2.5-1.8 3.1A3.3 3.3 0 0 1 15 18h-1V4h1Z"/></svg></div>
-        <div class="specialist-card-new__name">Psiquiatria</div>
-        <div class="specialist-card-new__desc">Avaliação e acompanhamento com profissional da especialidade.</div>
-      </a>
-      <a class="specialist-card-new" href="/especialistas/endocrinologia">
-        <div class="specialist-card-new__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M7 7c0 3 2 5 5 5s5-2 5-5M7 17c0-3 2-5 5-5s5 2 5 5"/></svg></div>
-        <div class="specialist-card-new__name">Endocrinologia</div>
-        <div class="specialist-card-new__desc">Consulta com especialista para avaliação e seguimento individualizado.</div>
-      </a>
-      <a class="specialist-card-new" href="/especialistas/dermatologia">
-        <div class="specialist-card-new__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M8 9h.01M15 8h.01M9 15c1.7 1 4.3 1 6 0"/></svg></div>
-        <div class="specialist-card-new__name">Dermatologia</div>
-        <div class="specialist-card-new__desc">Avaliação dermatológica online para condições compatíveis com telemedicina.</div>
-      </a>
-    </div>
-    <a class="specialist-preview__all" href="/especialistas">Ver especialidades e profissionais →</a>
-  </div>
-</section>
-
-<!-- ════════ CORPO CLÍNICO ════════ -->
-<section class="clinical-team reveal" id="corpo-clinico">
-  <div class="clinical-team__head">
-    <div>
-      <div class="clinical-team__eyebrow">Quem está por trás da plataforma</div>
-      <h2 class="clinical-team__title">Médicos reais.<br>CRMs verificáveis.</h2>
-    </div>
-    <p class="clinical-team__lead">A ConsultaJá24h conecta pacientes a médicos brasileiros habilitados. O profissional que assume o atendimento é identificado na própria plataforma.</p>
-  </div>
-
-  <div class="clinical-team__scroll" aria-label="Médicos da ConsultaJá24h">
-    <article class="doctor-card-new"><div class="doctor-card-new__photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-julia-fonseca.png')"></div><div class="doctor-card-new__name">Dra. Julia Fonseca</div><div class="doctor-card-new__crm">CRM 10300-MA</div><div class="doctor-card-new__spec">Ginecologia</div></article>
-    <article class="doctor-card-new"><div class="doctor-card-new__photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-paulo-almeida.png')"></div><div class="doctor-card-new__name">Dr. Paulo Almeida</div><div class="doctor-card-new__crm">CRM 52126585-7/RJ</div><div class="doctor-card-new__spec">Psiquiatria</div></article>
-    <article class="doctor-card-new"><div class="doctor-card-new__photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-franco.png')"></div><div class="doctor-card-new__name">Dra. Mariana Franco</div><div class="doctor-card-new__crm">CRM 236748-SP</div><div class="doctor-card-new__spec">Endocrinologia</div></article>
-    <article class="doctor-card-new"><div class="doctor-card-new__photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-mariana-martins.png')"></div><div class="doctor-card-new__name">Dra. Mariana Martins</div><div class="doctor-card-new__crm">CRM 32814-DF</div><div class="doctor-card-new__spec">Clínica Médica</div></article>
-    <article class="doctor-card-new"><div class="doctor-card-new__photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-raquel-lima.png')"></div><div class="doctor-card-new__name">Dra. Raquel Lima</div><div class="doctor-card-new__crm">CRM 14300-MA</div><div class="doctor-card-new__spec">Clínica Médica</div></article>
-    <article class="doctor-card-new"><div class="doctor-card-new__photo" style="background-image:url('https://pub-93eb63c110d047c681aab7a5b30d2c2b.r2.dev/dr-carolina-amate.png')"></div><div class="doctor-card-new__name">Dra. Carolina Amate</div><div class="doctor-card-new__crm">CRM 8696-MA</div><div class="doctor-card-new__spec">Ginecologia</div></article>
-    <article class="doctor-card-new doctor-card-new--more"><strong>18</strong><span>médicos apresentados no corpo clínico da plataforma</span></article>
-  </div>
-
-  <div class="clinical-roster" aria-label="Lista de médicos">
-    <span><strong>Dra. Julia Fonseca</strong> · CRM 10300-MA</span>
-    <span><strong>Dra. Bruna Heluy</strong> · CRM 6732-MA</span>
-    <span><strong>Dra. Mariana Franco</strong> · CRM 236748-SP</span>
-    <span><strong>Dra. Danielle Lourdes</strong> · CRM 271705-SP</span>
-    <span><strong>Dr. Paulo Almeida</strong> · CRM 52126585-7/RJ</span>
-    <span><strong>Dra. Carolina Amate</strong> · CRM 8696-MA</span>
-    <span><strong>Dra. Mariana Martins</strong> · CRM 32814-DF</span>
-    <span><strong>Dra. Raquel Lima</strong> · CRM 14300-MA</span>
-    <span><strong>Dr. Herllan Felix</strong> · CRM 18775-PB</span>
-    <span><strong>Dr. João Reis</strong> · CRM 116053</span>
-    <span><strong>Dra. Isadora Araujo</strong> · CRM 17420</span>
-    <span><strong>Dra. Gabriela Oliveira</strong> · CRM 35883</span>
-    <span><strong>Dra. Karina Guisard</strong> · CRM 280473</span>
-    <span><strong>Dra. Clara Costa</strong> · CRM 19374</span>
-    <span><strong>Dr. Gabriel Souza</strong> · CRM 16420-MA</span>
-    <span><strong>Dra. Sarah Paulino</strong> · CRM 281779-SP</span>
-    <span><strong>Dr. Everton Neres</strong> · CRM 48578-BA</span>
-    <span><strong>Dra. Kalina Dominik</strong> · CRM 107977-MG</span>
-  </div>
-  <p class="clinical-team__foot">Os registros profissionais podem ser consultados no portal do Conselho Federal de Medicina. A disponibilidade varia conforme o momento do atendimento.</p>
-</section>
 
 <!-- ════════ DEPOIMENTOS ════════ -->
 <section class="reviews-section reveal" id="reviewsSection">
