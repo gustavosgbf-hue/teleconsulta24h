@@ -1553,7 +1553,7 @@ whatsappSend.addEventListener('click', function() {
       </button>
       <a href="#" class="nav__cta-link" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Falar com médico</span></a>
     </div>
-    <div class="nav__mobile-menu" id="mobileNav" hidden>
+    <div class="nav__mobile-menu" id="mobileNav" aria-hidden="true">
       <a href="#como-funciona">Como funciona</a>
       <a href="#corpo-clinico">Corpo clínico</a>
       <a href="#reviewsSection">Avaliações</a>
@@ -1565,7 +1565,7 @@ whatsappSend.addEventListener('click', function() {
     </div>
   </div>
 </nav>
-<link rel="stylesheet" href="hero-premium.css?v=20261002rosa4">\n<link rel="stylesheet" href="editorial-2026.css?v=20261004b">
+<link rel="stylesheet" href="hero-premium.css?v=20261004clean">\n<link rel="stylesheet" href="editorial-2026.css?v=20261004c">
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
@@ -1698,16 +1698,12 @@ whatsappSend.addEventListener('click', function() {
   <p id="heroSecurity" style="font-size:.72rem;font-weight:500;color:rgba(255,255,255,.55);margin-top:18px;text-align:center;padding:0 16px;line-height:1.6;animation:fadeUp .5s ease both .4s">
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--g2);display:inline;vertical-align:middle;margin-right:3px;position:relative;top:-1px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Médicos com CRM ativo · Atendimento particular com privacidade e segurança.
   </p>
-  <div class="hero__intent" aria-label="Escolha como prefere ser atendido">
-    <div class="hero__intent-title">Como prefere ser atendido?</div>
+  <div class="hero__intent" aria-label="Outros serviços">
+    <div class="hero__intent-title">Outros serviços</div>
     <div class="hero__intent-grid">
       <a class="hero__intent-btn hero__intent-btn--primary" href="https://consultaja24h.com.br/renovacao-de-receita">
         <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M14 3v5h5"/><path d="M9 12h6M9 16h4"/></svg>
         Renovar receita
-      </a>
-      <a class="hero__intent-btn" href="#" onclick="return moCliqueAbrir(event,'consulta médica online','chat')">
-        <svg class="hero__intent-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.7 8.7 0 0 1-3.5-.9L3 20l1.5-4.6a8.3 8.3 0 1 1 16.5-3.9Z"/><path d="M8 10.5h8M8 14h5"/></svg>
-        Consulta por chat
       </a>
     </div>
   </div>
@@ -4397,12 +4393,29 @@ document.addEventListener('DOMContentLoaded',function(){
   const menuBtn=document.querySelector('.nav__menu-btn');
   const menu=document.getElementById('mobileNav');
   if(!menuBtn||!menu)return;
-  menuBtn.addEventListener('click',function(){
-    const open=menuBtn.getAttribute('aria-expanded')==='true';
-    menuBtn.setAttribute('aria-expanded',String(!open));
-    menu.hidden=open;
+
+  function setMenu(open){
+    menuBtn.setAttribute('aria-expanded',String(open));
+    menu.setAttribute('aria-hidden',String(!open));
+    menu.classList.toggle('is-open',open);
+  }
+
+  menuBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    setMenu(menuBtn.getAttribute('aria-expanded')!=='true');
   });
-  menu.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(){menu.hidden=true;menuBtn.setAttribute('aria-expanded','false')})});
+
+  menu.addEventListener('click',function(e){e.stopPropagation()});
+  document.addEventListener('click',function(){setMenu(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false)});
+  menu.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(){
+      setMenu(false);
+      const id=a.getAttribute('href');
+      const target=id&&document.querySelector(id);
+      if(target)setTimeout(function(){target.scrollIntoView({behavior:'smooth',block:'start'})},80);
+    });
+  });
 });
 </script>
-<script src="symptom-line.js?v=20261004a" defer></script>\n</body></html>
+<script src="symptom-line.js?v=20261004b" defer></script>\n</body></html>
