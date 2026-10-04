@@ -570,3 +570,17 @@ body{
     padding-top:4px!important;
   }
 }
+
+
+/* Respiro controlado na entrada da experiência do app */
+@media(max-width:760px){
+  .product-story{
+    padding-top:68px!important;
+  }
+  .product-story__copy .section-label{
+    margin-bottom:10px!important;
+  }
+  .product-story__copy h2{
+    margin-top:0!important;
+  }
+}
