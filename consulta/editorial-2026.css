@@ -438,3 +438,23 @@ body{
 }
 .product-story{padding-bottom:72px!important}
 .reviews-section{border-top:0!important}
+
+
+/* Corrige espaço abaixo do WebM */
+.product-story{
+  padding-bottom:24px!important;
+}
+.reviews-section{
+  padding-top:58px!important;
+}
+@media(max-width:760px){
+  .product-story{
+    padding-bottom:10px!important;
+  }
+  .product-story__grid{
+    gap:30px!important;
+  }
+  .reviews-section{
+    padding-top:42px!important;
+  }
+}
