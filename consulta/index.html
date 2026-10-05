@@ -1551,7 +1551,7 @@ whatsappSend.addEventListener('click', function() {
       <button class="nav__menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileNav">
         <span></span><span></span><span></span>
       </button>
-      <a href="#" class="nav__cta-link" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Falar com médico</span></a>
+      <a href="#" class="nav__cta-link" data-cta-placement="nav" onclick="return moCliqueAbrir(event)"><span class="nav__cta-full">Falar com médico</span><span class="nav__cta-short">Falar com médico</span></a>
     </div>
     <div class="nav__mobile-menu" id="mobileNav" aria-hidden="true">
       <a href="#como-funciona">Como funciona</a>
@@ -1664,7 +1664,7 @@ whatsappSend.addEventListener('click', function() {
     <span class="hero__pricing-value">R$ 49,90</span>
     <span class="hero__pricing-note">pagamento único<br>sem mensalidade</span>
   </div>
-  <a href="#" class="btn-primary" id="heroCTA" onclick="return moCliqueAbrir(event)">
+  <a href="#" class="btn-primary" id="heroCTA" data-cta-placement="hero" onclick="return moCliqueAbrir(event)">
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 10h.01M12 10h.01M16 10h.01"></path></svg>
     <span>Falar com médico agora</span>
   </a>
@@ -2233,7 +2233,7 @@ whatsappSend.addEventListener('click', function() {
 </footer>
 
 <div class="sticky-cta" aria-label="Iniciar consulta médica online">
-  <a href="#" class="sticky-cta__button" onclick="return moCliqueAbrir(event)">
+  <a href="#" class="sticky-cta__button" data-cta-placement="sticky_mobile" onclick="return moCliqueAbrir(event)">
     <span>Falar com médico agora</span>
     <span class="sticky-cta__price">R$ 49,90</span>
   </a>
@@ -2247,6 +2247,31 @@ function toggleFaq(btn){
   document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
   if(!isOpen) item.classList.add('open');
 }
+
+// ── CTA analytics: mede posição/origem sem criar escrita no backend ──
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  document.querySelectorAll('[data-cta-placement]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var placement=btn.getAttribute('data-cta-placement')||'unknown';
+      var label=(btn.textContent||'').replace(/\s+/g,' ').trim();
+      var payload={
+        placement:placement,
+        cta_label:label,
+        page_path:window.location.pathname,
+        utm_source:params.get('utm_source')||'',
+        utm_campaign:params.get('utm_campaign')||'',
+        has_gclid:params.get('gclid')?'yes':'no',
+        has_gbraid:params.get('gbraid')?'yes':'no',
+        has_wbraid:params.get('wbraid')?'yes':'no'
+      };
+      window.dataLayer=window.dataLayer||[];
+      window.dataLayer.push(Object.assign({event:'consulta_cta_click'},payload));
+      try{if(typeof gtag==='function')gtag('event','consulta_cta_click',payload);}catch(_){}
+      try{if(typeof fbq==='function')fbq('trackCustom','consulta_cta_click',payload);}catch(_){}
+    });
+  });
+})();
 
 // ── CTA click feedback + conversion tracking ──
 document.querySelectorAll('.btn-primary, a[href*="triagem.html"]').forEach(function(btn){
