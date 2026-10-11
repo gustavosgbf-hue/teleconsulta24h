@@ -231,11 +231,11 @@ footer a:hover{color:var(--g2)}
 </nav>
 
 <section class="hero">
-  <div class="hero__badge">💊 Renovação de receita médica</div>
+  <div class="hero__badge"><svg style="width:16px;height:16px;vertical-align:middle;margin-right:6px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M14 3l5 5h-5z"/><path d="M8.5 9h3M8.5 12.5h5"/><path d="M20.5 15.5a3.5 3.5 0 1 1-1-2.45"/><path d="M20.5 12v2h-2"/></svg>Renovação de receita médica</div>
   <h1 class="hero__h1">Renove sua receita <em>sem sair de casa</em></h1>
   <p class="hero__sub">Para quem já está em tratamento contínuo. Anexe sua receita anterior, escolha como receber e pronto. Receita digital pelo Memed direto no seu celular.</p>
   <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
-  <div class="hero__price-line">PIX ou cartão · <strong>até 12x</strong> · receba por email e WhatsApp</div>
+  <div class="hero__price-line">Receita digital: R$ 59,90 · Receita física: a partir de R$ 59,90 + taxa de R$ 10 + envio</div>
 </section>
 
 <!-- AVISO IMPORTANTE -->
@@ -272,7 +272,7 @@ footer a:hover{color:var(--g2)}
           <span class="rtype__title">Controle especial</span>
         </div>
         <div class="rtype__desc">Substâncias sob controle especial em receita branca de 2 vias. Também emitida digitalmente via Memed.</div>
-        <div class="rtype__exemplos">Antidepressivos (sertralina, fluoxetina), anticonvulsivantes, neurolépticos.</div>
+        <div class="rtype__exemplos">Antidepressivos e outros medicamentos de controle especial.</div>
         <span class="rtype__delivery digital">📱 Receita Digital · Memed</span>
       </div>
 
@@ -282,7 +282,7 @@ footer a:hover{color:var(--g2)}
           <span class="rtype__title">Psicotrópicos</span>
         </div>
         <div class="rtype__desc">Notificação de receita azul, com talonário numerado. Preenchida manualmente e enviada por Correios.</div>
-        <div class="rtype__exemplos">Clonazepam, alprazolam, zolpidem, sibutramina.</div>
+        <div class="rtype__exemplos">Receitas de controle especial, mediante avaliação médica com contato direto. Envio físico pelos Correios.</div>
         <span class="rtype__delivery fisica">📦 Física · Sedex/PAC</span>
       </div>
 
@@ -292,7 +292,7 @@ footer a:hover{color:var(--g2)}
           <span class="rtype__title">Controle rigoroso</span>
         </div>
         <div class="rtype__desc">Notificação de receita amarela, válida 30 dias, retida na farmácia. Enviada por Correios após preenchimento manual.</div>
-        <div class="rtype__exemplos">Ritalina (metilfenidato), Venvanse (lisdexanfetamina), modafinila.</div>
+        <div class="rtype__exemplos">Receitas de controle especial, mediante avaliação médica com contato direto. Envio físico pelos Correios.</div>
         <span class="rtype__delivery fisica">📦 Física · Sedex/PAC</span>
       </div>
 
@@ -309,7 +309,7 @@ footer a:hover{color:var(--g2)}
     <div class="steps">
       <div class="step"><div class="step__num">1</div><h3>Preencha seus dados</h3><p>Nome, CPF, data de nascimento e WhatsApp para receber sua receita.</p></div>
       <div class="step"><div class="step__num">2</div><h3>Anexe a receita anterior</h3><p>Foto ou PDF da sua receita atual. Para controladas, também o RG ou CNH.</p></div>
-      <div class="step"><div class="step__num">3</div><h3>Pague R$ 59,90</h3><p>PIX (instantâneo) ou cartão em até 12x. Para envio físico, taxa de envio à parte.</p></div>
+      <div class="step"><div class="step__num">3</div><h3>Pague R$ 59,90</h3><p>PIX ou cartão. Para envio físico, taxa de processamento e frete calculado à parte.</p></div>
       <div class="step"><div class="step__num">4</div><h3>Receba sua receita</h3><p>Digital pelo Memed direto no seu celular · física por Sedex/PAC após postagem.</p></div>
     </div>
   </div>
@@ -321,7 +321,7 @@ footer a:hover{color:var(--g2)}
     <div class="price-label">Renovação de receita</div>
     <div class="price-num">R$ 59<sup>,90</sup></div>
     <div class="price-desc">à vista no PIX ou cartão</div>
-    <div class="price-badge">Até 12x no cartão</div>
+    <div class="price-badge">Pagamento único, sem assinatura</div>
     <div class="price-feats">
       <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Receita digital pelo Memed</div>
       <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Avaliação por médico responsável</div>
@@ -354,7 +354,7 @@ footer a:hover{color:var(--g2)}
       <details class="faq-item"><summary class="faq-q">Como funciona a receita digital pelo Memed?</summary><div class="faq-a">A receita digital é assinada eletronicamente com certificado ICP-Brasil. Ela chega no seu email e WhatsApp com um QR Code que qualquer farmácia do Brasil pode validar — equivale a uma receita em papel.</div></details>
       <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática — cada caso é avaliado individualmente. Se o médico identificar que não é seguro renovar (receita anterior antiga, ilegível, ou alguma dúvida clínica), devolvemos 100% do valor pago em até 5 dias úteis e recomendamos uma teleconsulta no plantão.</div></details>
       <details class="faq-item"><summary class="faq-q">Perdi minha receita anterior. Posso solicitar renovação?</summary><div class="faq-a">Não — a receita anterior é necessária para validação. Se você perdeu sua receita, recomendamos uma <a href="https://consultaja24h.com.br">teleconsulta no plantão médico</a>, onde será feita uma nova avaliação completa.</div></details>
-      <details class="faq-item"><summary class="faq-q">Quais formas de pagamento vocês aceitam?</summary><div class="faq-a">PIX (confirmação imediata) e cartão de crédito nas principais bandeiras, em até 12x.</div></details>
+      <details class="faq-item"><summary class="faq-q">Quais formas de pagamento vocês aceitam?</summary><div class="faq-a">PIX (confirmação imediata) e cartão de crédito nas principais bandeiras. Parcelamento em até 12x somente para compras acima de R$ 100.</div></details>
       <details class="faq-item"><summary class="faq-q">É seguro? Meus dados estão protegidos?</summary><div class="faq-a">Sim. A plataforma é operada em conformidade com a Resolução CFM 2.314/2022 (telemedicina) e com a LGPD. Todos os arquivos são armazenados com criptografia.</div></details>
     </div>
   </div>
@@ -396,7 +396,7 @@ footer a:hover{color:var(--g2)}
         </div>
       </div>
       <div class="alert alert--info" id="alertDigital">Receita digital pelo Memed chega no seu email e WhatsApp após avaliação do médico.</div>
-      <div class="alert alert--warn" id="alertFisica" style="display:none">Receitas controladas exigem documento com foto (RG/CNH) e endereço. Frete dos Correios calculado pelo CEP.</div>
+      <div class="alert alert--warn" id="alertFisica" style="display:none">Para receitas de controle especial, o médico faz um contato rápido com você, por chat ao vivo ou vídeo, antes de emitir. A renovação só acontece após essa avaliação. Documento com foto e endereço são necessários. Frete dos Correios calculado pelo CEP.</div>
       <button class="btn-modal" onclick="irParaStep(2)">Continuar →</button>
     </div>
 
@@ -479,8 +479,8 @@ footer a:hover{color:var(--g2)}
       <div class="totals">
         <div class="totals__row"><span>Renovação de receita</span><strong id="rValBase">R$ 59,90</strong></div>
         <div class="totals__row" id="rRowFrete" style="display:none"><span id="rLabelFrete">Frete</span><strong id="rValFrete">R$ 0,00</strong></div>
-        <div class="totals__row" id="rRowLog" style="display:none"><span>Taxa de processamento</span><strong>R$ 10,00</strong></div>
-        <div class="totals__row totals__total"><span>Total</span><strong id="rValTotal">R$ 59,90</strong></div>
+        <div class="totals__row" id="rRowLog" style="display:none"><span>Taxa de processamento</span><strong id="rValLog">R$ 10,00</strong></div>
+        <p id="avisoFisicaContato" style="display:none;font-size:.76rem;line-height:1.5;color:#f5d4a7;padding:10px 0">Para receitas de controle especial, o médico faz um contato rápido com você, por chat ao vivo ou vídeo, antes de emitir. A renovação só acontece após essa avaliação.</p><div class="totals__row totals__total"><span>Total</span><strong id="rValTotal">R$ 59,90</strong></div>
       </div>
       <label class="checkbox"><input type="checkbox" id="cTermos"/><span>Declaro que estou em <strong>tratamento contínuo</strong> com os medicamentos informados e que a receita anterior é verdadeira. Ciente de que a prescrição não é automática e o médico pode optar por não renovar.</span></label>
       <label class="checkbox" id="cFisicaBlock" style="display:none"><input type="checkbox" id="cFisica"/><span>Ciente de que minha receita é <strong>controlada</strong> (azul/amarela) e será enviada via Correios de São Luís — MA após avaliação médica.</span></label>
@@ -693,7 +693,7 @@ async function calcularFrete(){
     const r=await fetch(API+'/api/correios/calcular-frete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({cep_destino:cep})});
     const d=await r.json();
     if(!d.ok||!d.servicos?.length){loading.textContent='Não foi possível calcular o frete agora.';return}
-    SOLIC.valorLogistica=d.margem_logistica||10;
+    SOLIC.valorLogistica=Number(d.margem_logistica??10);
     d.servicos.forEach(s=>{
       const div=document.createElement('div');
       div.className='frete-opt';
@@ -719,6 +719,7 @@ function atualizarResumo(){
     document.getElementById('rRowLog').style.display='flex';
     document.getElementById('rLabelFrete').textContent=`Frete (${SOLIC.freteModalidade})`;
     document.getElementById('rValFrete').textContent=fmt(SOLIC.valorFrete);
+    document.getElementById('rValLog').textContent=fmt(SOLIC.valorLogistica);
     SOLIC.valorTotal=SOLIC.valorBase+SOLIC.valorFrete+SOLIC.valorLogistica;
   }else{
     document.getElementById('rRowFrete').style.display='none';
@@ -726,6 +727,7 @@ function atualizarResumo(){
     SOLIC.valorTotal=SOLIC.valorBase;
   }
   document.getElementById('rValTotal').textContent=fmt(SOLIC.valorTotal);
+  document.getElementById('avisoFisicaContato').style.display=SOLIC.tipo==='fisica'?'block':'none';
   const c1=document.getElementById('cTermos');
   const c2=document.getElementById('cFisica');
   const checkBtns=()=>{document.getElementById('btnPagar').disabled=!(c1.checked && (SOLIC.tipo==='digital'||c2.checked))}

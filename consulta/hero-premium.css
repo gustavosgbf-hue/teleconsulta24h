@@ -163,3 +163,9 @@
 #heroSecurity{display:flex!important;align-items:center;justify-content:flex-start;gap:7px}
 #heroSecurity svg{flex:0 0 13px;margin:0!important;position:static!important;vertical-align:baseline!important}
 @media(max-width:760px){#heroSecurity{justify-content:center!important}}
+
+/* Chip discreto de renovação com ícone de documento e atualização */
+.cj-renew{order:6;display:inline-flex;align-items:center;gap:12px;padding:8px 16px 8px 8px;margin-top:12px;border-radius:999px;background:rgba(194,236,206,.06);border:1px solid rgba(194,236,206,.16);color:#eaf3ee;text-decoration:none;transition:background .2s,border-color .2s,transform .15s}
+.cj-renew:hover{background:rgba(194,236,206,.1);border-color:rgba(194,236,206,.3)}.cj-renew:active{transform:scale(.98)}.cj-renew:focus-visible{outline:2px solid #8bdd86;outline-offset:3px}
+.cj-renew__icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(139,221,134,.14)}.cj-renew__txt{display:flex;flex-direction:column;line-height:1.15;text-align:left}.cj-renew__t{font-weight:600;font-size:15px}.cj-renew__s{font-size:12px;color:#93ab9f}.cj-renew__arrow{margin-left:4px;opacity:.6}
+@media(max-width:760px){.cj-renew{margin:11px auto 0}}
