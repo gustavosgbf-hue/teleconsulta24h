@@ -128,3 +128,13 @@
   .october-rosa__copy{gap:5px}
   .october-rosa__copy strong,.october-rosa__copy span{font-size:.61rem}
 }
+
+/* Hero compacto — somente estilo; checkout, scripts e tracking intactos */
+.hero__h1{font-size:clamp(2.85rem,4.1vw,4.15rem);max-width:620px;margin-bottom:15px}
+.hero__pricing-note{max-width:170px}
+.hero__intent{display:none!important}
+#heroReviewProof{order:5!important;margin-top:12px!important}
+.hero__renew-text{order:6;display:inline-flex;gap:6px;margin-top:12px;color:rgba(224,250,237,.76);font-size:.78rem;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(224,250,237,.32)}
+#heroSecurity{order:7!important;margin:10px 0 0!important}
+.hero__store-block{order:8!important;margin-top:12px!important}
+@media(max-width:760px){.hero{min-height:0;padding:30px 16px 42px}.hero__h1{font-size:clamp(2rem,8vw,2.45rem);max-width:350px;margin:0 auto 10px}.hero__sub{font-size:.83rem;max-width:330px}.hero__pricing{margin-top:15px}#heroCTA{margin-top:13px}.hero__renew-text{margin:11px auto 0;font-size:.75rem}#heroSecurity{margin:10px auto 0!important;font-size:.65rem!important;text-align:center!important}#heroReviewProof{margin:12px auto 0!important}}
