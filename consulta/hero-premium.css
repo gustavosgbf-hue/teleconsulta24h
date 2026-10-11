@@ -180,3 +180,9 @@
 .cj-renew__s{font-size:12px!important}
 .hero__pricing-note{font-weight:400!important;max-width:none!important;white-space:nowrap!important;font-size:.70rem!important}
 @media(max-width:760px){.cj-renew{align-self:center!important;margin-left:auto!important;margin-right:auto!important}.hero__pricing-note{font-size:.62rem!important}}
+/* Chip da renovacao: compacto, opaco e centralizado abaixo da prova social */
+.cj-renew{order:6!important;display:inline-flex!important;box-sizing:border-box!important;align-items:center!important;justify-content:center!important;gap:12px!important;padding:8px 16px 8px 8px!important;width:auto!important;max-width:max-content!important;min-width:0!important;flex:0 0 auto!important;align-self:center!important;margin:12px auto 0!important;background:#10271e!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.cj-renew:hover{background:#183529!important}
+.cj-renew__icon{width:34px!important;height:34px!important;flex:0 0 34px!important}
+.cj-renew__t{font-size:15px!important;font-weight:600!important}
+.cj-renew__s{font-size:12px!important}
