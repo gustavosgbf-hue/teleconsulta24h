@@ -157,3 +157,9 @@
 .emergency svg[style]{color:#a3410e!important}
 /* A demonstração recebe mais espaço para leitura em telas pequenas */
 @media(max-width:760px){.journey-demo__media{width:100%!important;max-width:100%!important}.journey-demo__media video{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important}}
+
+/* Legibilidade do preço e afastamento do escudo — outubro 2026 */
+.hero__pricing-note{color:#f0f7f3!important;text-shadow:0 2px 9px rgba(0,0,0,.95),0 0 20px rgba(0,0,0,.6)!important;font-weight:600}
+#heroSecurity{display:flex!important;align-items:center;justify-content:flex-start;gap:7px}
+#heroSecurity svg{flex:0 0 13px;margin:0!important;position:static!important;vertical-align:baseline!important}
+@media(max-width:760px){#heroSecurity{justify-content:center!important}}
