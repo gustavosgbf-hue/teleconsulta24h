@@ -57,10 +57,10 @@
       },
       {
         "@type": "Question",
-        "name": "Quanto custa uma consulta?",
+        "name": "O app é pago?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A consulta custa R$49,90 e não há mensalidade."
+          "text": "Não. O app é gratuito. Você paga só quando faz uma consulta, R$ 49,90, sem mensalidade."
         }
       },
       {
@@ -68,15 +68,23 @@
         "name": "Posso consultar por chat?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sim. A plataforma oferece atendimento por chat, conforme a modalidade disponível no fluxo de consulta."
+          "text": "Sim. A consulta é feita por chat, pelo app ou pelo navegador."
         }
       },
       {
         "@type": "Question",
-        "name": "E no iPhone?",
+        "name": "Recebo receita ou atestado?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sim. A ConsultaJá24h está disponível para iPhone na App Store e também para Android no Google Play."
+          "text": "Se o médico avaliar que é indicado, sim. Os documentos são digitais, assinados pelo médico, e ficam disponíveis no app."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Tem app para iPhone e Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. O app é gratuito na App Store e no Google Play."
         }
       }
     ]
@@ -386,7 +394,22 @@
     }
 
   </style>
-</head>
+<style>
+.hero__store-rating{margin-top:12px;font-size:.74rem;color:#d2f3bb;font-weight:600}
+.desktop-qr{display:none;align-items:center;gap:10px;max-width:270px;color:#dbf4e4;font-size:.72rem;text-align:left}
+.desktop-qr img{background:white;border-radius:9px;padding:5px;flex:none}
+.device-desktop .desktop-qr{display:flex}
+.hero__actions .web-link{display:block;width:100%;text-align:center;color:#e3ffee;text-decoration:underline;text-underline-offset:4px;font-weight:700;order:3}
+.hero__actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:11px}
+.trustbar__in{justify-content:center;gap:12px;flex-wrap:wrap}
+.trustbar .trust{font-size:.79rem}
+.emergency-notice{margin-top:18px;border:1px solid #98ae85;border-radius:12px;padding:14px 17px;background:#183129;color:#f2ffee;line-height:1.5}
+.footer__brand .brand__consulta{font-family:Georgia,serif;font-style:italic;color:#fff3d7}
+.footer__brand .brand__ja{font-family:Georgia,serif;font-style:italic;color:#8cebad}
+.footer__brand .brand__24{font-size:.7em;color:#b4c3bb}
+.footer__meta{margin-top:7px}
+@media(max-width:650px){.hero__actions .desktop-qr{display:none}.hero__actions .web-link{font-size:.87rem}}
+</style></head>
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NN2WKSD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
@@ -415,27 +438,21 @@
           <h1>Saúde online, <span>sempre à mão.</span></h1>
           <p class="hero__lead">Baixe o app ConsultaJá24h para consultar por chat, acessar seus documentos e voltar quando precisar. Sem mensalidade, e com a opção de continuar pelo navegador.</p>
           <div class="hero__actions">
-            <a class="store-badge-link js-app-store-link" data-placement="hero" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
+            <a class="store-badge-link js-app-store-link" data-placement="hero" href="https://apps.apple.com/br/app/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
             <a class="store-badge-link js-app-link" data-placement="hero" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
-            <a class="web-link js-web-link" href="/consulta">Prefiro continuar no navegador →</a>
+            <a class="web-link js-web-link" href="/consulta">Continuar no navegador →</a>
+            <div class="desktop-qr"><img src="/assets/qr-consultaja-links.svg" width="92" height="92" alt="QR code para baixar o app"><span>Aponte a câmera do celular para baixar</span></div>
           </div>
-          <div class="hero__micro">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>R$49,90 por consulta</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Sem mensalidade</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Médicos com CRM</span>
-          </div>
+          <div class="hero__store-rating">★ Nota 5,0 no Google Play</div>
         </div>
       </div>
     </section>
 
-    <div class="trustbar">
-      <div class="wrap trustbar__in">
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Médicos com CRM ativo</div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg>R$49,90 por consulta</div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>App ou navegador</div>
-        <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Documentos digitais</div>
-      </div>
-    </div>
+    <div class="trustbar"><div class="wrap trustbar__in">
+      <div class="trust">★ 5,0 no Google</div>
+      <div class="trust">+2.000 atendimentos</div>
+      <div class="trust">Médicos com CRM ativo · Tempo médio de espera aprox. 5 min</div>
+    </div></div>
 
     <section id="vantagens" class="why">
       <div class="wrap">
@@ -455,7 +472,7 @@
           <article class="benefit">
             <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
             <h3>Documentos organizados</h3>
-            <p>Receitas, atestados e registros ficam mais fáceis de acessar no celular.</p>
+            <p>Receitas e atestados, quando indicados pelo médico, ficam mais fáceis de acessar no celular.</p>
           </article>
           <article class="benefit">
             <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7h8M7 12h10M9 17h6"/><circle cx="12" cy="12" r="9"/></svg></div>
@@ -493,42 +510,12 @@
       </div>
     </section>
 
-    <section class="app-band">
-      <div class="wrap app-grid">
-        <div>
-          <div class="section-kicker">ConsultaJá24h no app</div>
-          <h2 class="section-title">Mais conveniente para quem pretende voltar.</h2>
-          <p class="section-lead">A ideia não é obrigar você a instalar nada. É deixar a próxima consulta mais fácil se o app fizer sentido para sua rotina.</p>
-          <div class="app-points">
-            <div class="app-point"><div class="app-point__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7"/></svg></div><div><b>Acesso direto</b><span>Sem precisar pesquisar a plataforma toda vez.</span></div></div>
-            <div class="app-point"><div class="app-point__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h6"/></svg></div><div><b>Histórico e documentos</b><span>Informações importantes reunidas em um só lugar.</span></div></div>
-            <div class="app-point"><div class="app-point__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/></svg></div><div><b>Experiência contínua</b><span>Mais praticidade para quem já conhece a ConsultaJá24h.</span></div></div>
-          </div>
-        </div>
-        <aside class="app-card">
-          <div class="app-card__label">Aplicativo gratuito</div>
-          <h3>Tenha a ConsultaJá24h no celular.</h3>
-          <p>O aplicativo não tem mensalidade. Você paga apenas quando realizar uma consulta.</p>
-          <div class="store-badges">
-          <a class="store-badge-link js-app-store-link" data-placement="app_card" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
-          <a class="store-badge-link js-app-link" data-placement="app_card" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
-          </div>
-          <a class="app-card__web js-web-link" href="/consulta">Prefiro usar pelo navegador</a>
-        </aside>
-      </div>
-    </section>
-
-    <section class="web-section">
-      <div class="wrap">
-        <div class="web-card">
-          <div>
-            <h2>Não quer instalar agora?</h2>
-            <p>Sem problema. Você pode continuar pelo navegador e acessar o fluxo de consulta normalmente.</p>
-          </div>
-          <a class="web-btn js-web-link" href="/consulta">Continuar no navegador</a>
-        </div>
-      </div>
-    </section>
+    <section class="app-band" id="app-telas"><div class="wrap">
+      <div class="section-kicker">ConsultaJá24h no app</div>
+      <h2 class="section-title">Seu cuidado também pelo aplicativo.</h2>
+      <p class="section-lead">Consulte por chat, tenha seus documentos disponíveis quando indicados pelo médico e acompanhe o histórico das consultas.</p>
+      <!-- Inserir carrossel com as três capturas reais do aplicativo após recebê-las da conta de demonstração. -->
+    </div></section>
 
     <section id="duvidas" class="faq">
       <div class="wrap">
@@ -542,29 +529,31 @@
             <p>Não. O app é uma forma mais prática de acessar a ConsultaJá24h, mas você também pode continuar pelo navegador.</p>
           </details>
           <details>
-            <summary>Quanto custa uma consulta?</summary>
-            <p>A consulta custa R$49,90 e não há mensalidade.</p>
+            <summary>O app é pago?</summary>
+            <p>Não. O app é gratuito. Você paga só quando faz uma consulta, R$ 49,90, sem mensalidade.</p>
           </details>
           <details>
             <summary>Posso consultar por chat?</summary>
-            <p>Sim. A plataforma oferece atendimento por chat, conforme a modalidade disponível no fluxo de consulta.</p>
+            <p>Sim. A consulta é feita por chat, pelo app ou pelo navegador.</p>
           </details>
           <details>
-            <summary>E no iPhone?</summary>
-            <p>Sim. A ConsultaJá24h está disponível para iPhone na App Store e também para Android no Google Play.</p>
+            <summary>Tem app para iPhone e Android?</summary>
+            <p>Sim. O app é gratuito na App Store e no Google Play.</p>
           </details>
+          <details><summary>Recebo receita ou atestado?</summary><p>Se o médico avaliar que é indicado, sim. Os documentos são digitais, assinados pelo médico, e ficam disponíveis no app.</p></details>
         </div>
+        <div class="emergency-notice"><strong>Atenção:</strong> Este serviço não substitui emergências. Em risco de vida, procure um pronto-socorro ou ligue 192 (SAMU).</div>
       </div>
     </section>
 
     <section class="final-cta">
       <div class="wrap final-cta__in">
         <div>
-          <h2>Baixe o app ou continue pela web. Você escolhe.</h2>
+          <h2>Leve a ConsultaJá24h com você.</h2>
           <p>ConsultaJá24h: telemedicina prática para usar agora e voltar quando precisar.</p>
         </div>
         <div class="final-cta__actions">
-          <a class="store-badge-link js-app-store-link" data-placement="final_cta" href="https://apps.apple.com/app/consultaj%C3%A124h/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
+          <a class="store-badge-link js-app-store-link" data-placement="final_cta" href="https://apps.apple.com/br/app/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
           <a class="store-badge-link js-app-link" data-placement="final_cta" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
           <a class="web-link js-web-link" href="/consulta">Continuar no navegador →</a>
         </div>
@@ -572,19 +561,14 @@
     </section>
   </main>
 
-  <footer>
-    <div class="wrap footer__in">
-      <div>
-        <div class="footer__brand">ConsultaJá24h</div>
-        <div class="footer__meta">Telemedicina por chat. Aplicativo opcional; acesso web disponível.</div>
-      </div>
-      <div class="footer__links">
-        <a class="js-web-link" href="/consulta">Consulta online</a>
-        <a href="/privacy">Política de Privacidade</a>
-      </div>
+  <footer><div class="wrap footer__in">
+    <div><div class="footer__brand"><span class="brand__consulta">Consulta</span><span class="brand__ja">Já</span><span class="brand__24">24h</span></div>
+      <div class="footer__meta">JG Fonseca Serviços Médicos LTDA · CNPJ: a informar · São Luís, MA</div>
+      <div class="footer__meta">Diretor técnico: Dr. Gustavo Fonseca, CRM-MA 14325</div>
+      <div class="footer__meta">© 2026 ConsultaJá24h</div>
     </div>
-  </footer>
-
+    <div class="footer__links"><a class="js-web-link" href="/consulta">Consulta online</a><a href="/termos.html">Termos de Uso</a><a href="/privacy">Política de Privacidade</a></div>
+  </div></footer>
 
   <script>
     (function(){
@@ -651,11 +635,11 @@
   <script>
     (function(){
       var PLAY_URL='https://play.google.com/store/apps/details?id=com.consultaja24h.app';
-      var APPLE_URL='https://apps.apple.com/app/consultaj%C3%A124h/id6803718849';
+      var APPLE_URL='https://apps.apple.com/br/app/id6803718849';
       var PLAY_TRACKING_URL='https://triagem-api.onrender.com/api/tracking/play-click';
       var APPLE_TRACKING_URL='https://triagem-api.onrender.com/api/tracking/app-store-click';
       var params=new URLSearchParams(window.location.search);
-      var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+      var isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
       var isAndroid=/Android/i.test(navigator.userAgent);
 
       function attributionId(){
