@@ -138,3 +138,22 @@
 #heroSecurity{order:7!important;margin:10px 0 0!important}
 .hero__store-block{order:8!important;margin-top:12px!important}
 @media(max-width:760px){.hero{min-height:0;padding:30px 16px 42px}.hero__h1{font-size:clamp(2rem,8vw,2.45rem);max-width:350px;margin:0 auto 10px}.hero__sub{font-size:.83rem;max-width:330px}.hero__pricing{margin-top:15px}#heroCTA{margin-top:13px}.hero__renew-text{margin:11px auto 0;font-size:.75rem}#heroSecurity{margin:10px auto 0!important;font-size:.65rem!important;text-align:center!important}#heroReviewProof{margin:12px auto 0!important}}
+
+/* Acabamento mobile e acessibilidade: não altera lógica transacional */
+.sticky-cta.cj-hide-cta{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(105%)!important}
+.whatsapp-float{bottom:calc(108px + env(safe-area-inset-bottom, 0px))!important}
+.whatsapp-float:not(.cj-wa-above-sticky){bottom:24px!important}
+@media(min-width:761px){.whatsapp-float{bottom:110px!important}.whatsapp-float:not(.cj-wa-above-sticky){bottom:24px!important}}
+.journey-doc{border-color:rgba(255,255,255,.1)!important;background:rgba(255,255,255,.025)!important;box-shadow:none!important}
+.journey-doc strong{color:rgba(255,255,255,.91)!important}
+.emergency strong{color:#8c310a!important}.emergency svg{color:#a3410e!important}
+#corpo-clinico{display:none!important}
+.doctor-strip__more-link--top{white-space:nowrap}
+.journey-scroll-hint{display:none!important}
+/* Remove espaçamento herdado após o bloco demonstrativo */
+.journey-section{margin-bottom:0!important}
+@media(max-width:760px){.doctor-strip{padding-bottom:16px!important}.journey-demo{margin-bottom:0!important}.whatsapp-float{right:16px!important;width:54px;height:54px}}
+
+.emergency svg[style]{color:#a3410e!important}
+/* A demonstração recebe mais espaço para leitura em telas pequenas */
+@media(max-width:760px){.journey-demo__media{width:100%!important;max-width:100%!important}.journey-demo__media video{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important}}
