@@ -384,9 +384,9 @@ footer a:hover{color:var(--g2)}
       <div class="modal__title">Qual tipo de receita você usa?</div>
       <div class="modal__sub">Todas as opções abaixo são digitais. Escolha o tipo da sua receita anterior.</div>
       <div class="choice" style="grid-template-columns:1fr;gap:9px">
-        <div class="choice__opt active" id="optDigital" onclick="selecClasseReceita('comum')"><div class="choice__opt-title">Digital comum ou branca controlada</div><div class="choice__opt-sub">Receitas brancas, inclusive C1 de duas vias</div></div>
-        <div class="choice__opt" id="optAzul" onclick="selecClasseReceita('azul')"><div class="choice__opt-title">Digital azul (B1/B2)</div><div class="choice__opt-sub">Notificação azul · requer identificação adicional</div></div>
-        <div class="choice__opt" id="optAmarela" onclick="selecClasseReceita('amarela')"><div class="choice__opt-title">Digital amarela (A)</div><div class="choice__opt-sub">Notificação amarela · requer identificação adicional</div></div>
+        <div class="choice__opt active" id="optDigital" style="border-left:5px solid #d9e4e0" onclick="selecClasseReceita('comum')"><div class="choice__opt-title">Receita branca · Digital</div><div class="choice__opt-sub">Exemplos: losartana (Cozaar), sertralina (Zoloft, receita de controle especial). Inclui receitas comuns e brancas de controle especial.</div></div>
+        <div class="choice__opt" id="optAzul" style="border-left:5px solid #60a5fa;background:rgba(96,165,250,.045)" onclick="selecClasseReceita('azul')"><div class="choice__opt-title">Receita azul · Digital (B1/B2)</div><div class="choice__opt-sub">Exemplos: clonazepam (Rivotril), alprazolam (Frontal). Requer informações adicionais de identificação.</div></div>
+        <div class="choice__opt" id="optAmarela" style="border-left:5px solid #facc15;background:rgba(250,204,21,.045)" onclick="selecClasseReceita('amarela')"><div class="choice__opt-title">Receita amarela · Digital (A)</div><div class="choice__opt-sub">Exemplos: metilfenidato (Ritalina, Concerta) e lisdexanfetamina (Venvanse). Requer informações adicionais de identificação.</div></div>
       </div>
       <div class="alert alert--info">A prescrição não é automática: depende de avaliação, dos requisitos legais e da emissão disponível no Memed.</div>
       <button class="btn-modal" onclick="irParaStep(2)">Continuar →</button>
