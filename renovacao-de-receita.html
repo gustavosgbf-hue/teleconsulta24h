@@ -349,10 +349,10 @@ footer a:hover{color:var(--g2)}
     <div class="section-label">Dúvidas frequentes</div>
     <h2 class="section-title">Perguntas comuns</h2>
     <div class="faq-wrap">
-      <details class="faq-item"><summary class="faq-q">Quanto tempo demora para receber minha receita?</summary><div class="faq-a">Receita digital (branca e branca C1) é processada conforme avaliação do médico. Receita física (azul/amarela) é postada após avaliação e o prazo total varia conforme prazo do Correios na sua região (geralmente 3-5 dias Sedex e 7-12 dias PAC).</div></details>
+      <details class="faq-item"><summary class="faq-q">Quanto tempo demora para receber minha receita?</summary><div class="faq-a">Todas as solicitações digitais são avaliadas individualmente. O prazo varia conforme a análise e a disponibilidade técnica do receituário exigido.</div></details>
       <details class="faq-item"><summary class="faq-q">Vocês renovam receita controlada (azul/amarela)?</summary><div class="faq-a">Sim, para pacientes em tratamento contínuo já estabelecido. Você precisará anexar a receita anterior e um documento com foto (RG ou CNH) para validação. Se sua receita anterior tiver mais de 6 meses, recomendamos uma teleconsulta no nosso plantão.</div></details>
-      <details class="faq-item"><summary class="faq-q">Como funciona a receita digital pelo Memed?</summary><div class="faq-a">A receita digital é assinada eletronicamente com certificado ICP-Brasil. Ela chega no seu email e WhatsApp com um QR Code que qualquer farmácia do Brasil pode validar — equivale a uma receita em papel.</div></details>
-      <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática — cada caso é avaliado individualmente. Se o médico identificar que não é seguro renovar (receita anterior antiga, ilegível, ou alguma dúvida clínica), devolvemos 100% do valor pago em até 5 dias úteis e recomendamos uma teleconsulta no plantão.</div></details>
+      <details class="faq-item"><summary class="faq-q">Como funciona a receita digital pelo Memed?</summary><div class="faq-a">Quando emitida, a receita digital é assinada eletronicamente e enviada pelos canais informados. A dispensação depende da validação e das regras aplicáveis à categoria do medicamento.</div></details>
+      <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática. Em caso de impossibilidade de renovação após avaliação, aplica-se a política de reembolso informada na contratação.</div></details>
       <details class="faq-item"><summary class="faq-q">Perdi minha receita anterior. Posso solicitar renovação?</summary><div class="faq-a">Não — a receita anterior é necessária para validação. Se você perdeu sua receita, recomendamos uma <a href="https://consultaja24h.com.br">teleconsulta no plantão médico</a>, onde será feita uma nova avaliação completa.</div></details>
       <details class="faq-item"><summary class="faq-q">Quais formas de pagamento vocês aceitam?</summary><div class="faq-a">PIX (confirmação imediata) e cartão de crédito nas principais bandeiras, em até 12x.</div></details>
       <details class="faq-item"><summary class="faq-q">É seguro? Meus dados estão protegidos?</summary><div class="faq-a">Sim. A plataforma é operada em conformidade com a Resolução CFM 2.314/2022 (telemedicina) e com a LGPD. Todos os arquivos são armazenados com criptografia.</div></details>
@@ -603,10 +603,6 @@ async function criarPreRegistro(){
   if(SOLIC.classeReceita!=='comum'){
     const endereco=getEnderecoEnvio();
     if(endereco.cep||endereco.rua)payload.endereco_envio=endereco;
-    payload.frete_modalidade=SOLIC.freteModalidade;
-    payload.frete_valor=SOLIC.valorFrete;
-    payload.frete_servico_id=SOLIC.freteServicoId;
-    payload.frete_prazo_dias=SOLIC.fretePrazoDias;
   }
   const r=await fetch(API+'/api/renovacao/criar-pre',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   const d=await r.json();
