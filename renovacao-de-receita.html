@@ -252,7 +252,7 @@ footer a:hover{color:var(--g2)}
 <section class="receita-types-section">
   <div class="section-inner">
     <div class="section-label">Tipos de receita</div>
-    <h2 class="section-title">Como sua receita será entregue</h2>
+    <h2 class="section-title">Conheça os tipos de receita digital</h2>
     <p class="section-sub">Veja qual tipo de receituário você utiliza. A emissão digital depende de avaliação médica e dos requisitos legais aplicáveis.</p>
     <div class="receita-types">
 
@@ -495,6 +495,15 @@ footer a:hover{color:var(--g2)}
 
 <script>
 const API="https://triagem-api.onrender.com";
+let RENOV_SESSION='';
+try{RENOV_SESSION=sessionStorage.getItem('cj_renov_sid')||'';if(!RENOV_SESSION){RENOV_SESSION=(crypto.randomUUID?.()||String(Date.now())+Math.random().toString(36).slice(2));sessionStorage.setItem('cj_renov_sid',RENOV_SESSION)}}catch(e){}
+function registrarEventoRenovacao(evento){
+  try{
+    const payload={modulo:'renovacao',evento,pagina:'/renovacao-de-receita',session_id:RENOV_SESSION,metadata:{source:(new URLSearchParams(location.search)).get('utm_source')||'direto'}};
+    fetch(API+'/api/funil/evento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{});
+  }catch(e){}
+}
+registrarEventoRenovacao('renovacao_page_view');
 const EFI_PAYEE_CODE="b241c1c1aa59c7a663f8360ac1d05b52";
 let METODO_PAGAMENTO="pix";
 let POLLER_PAGAMENTO=null;
@@ -514,7 +523,7 @@ document.getElementById('iCardNumero').addEventListener('input',e=>e.target.valu
 document.getElementById('iCardVal').addEventListener('input',e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,6).replace(/^(\d{2})(\d)/,'$1/$2'));
 document.getElementById('iCardCvv').addEventListener('input',e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,4));
 
-function abrirModal(){document.getElementById('modal').classList.add('show');document.body.style.overflow='hidden';irParaStep(1)}
+function abrirModal(){registrarEventoRenovacao('renovacao_form_start');document.getElementById('modal').classList.add('show');document.body.style.overflow='hidden';irParaStep(1)}
 function fecharModal(){document.getElementById('modal').classList.remove('show');document.body.style.overflow=''}
 
 function irParaStep(n){
@@ -527,7 +536,7 @@ function irParaStep(n){
   document.querySelectorAll('.modal__step').forEach(s=>s.classList.remove('active'));
   document.getElementById('step'+n).classList.add('active');
   document.querySelector('.modal__box').scrollTop=0;
-  if(n===7)atualizarResumo();
+  if(n===7){registrarEventoRenovacao('renovacao_checkout_start');atualizarResumo();}
 
 }
 
@@ -793,7 +802,7 @@ async function pagarCartao(){
 function finalizarPagamento(){
   clearInterval(POLLER_PAGAMENTO);
   irParaStep(8);
-  const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida. A receita digital será enviada por email e WhatsApp após avaliação médica.':'Sua solicitação foi recebida. A receita controlada será preparada e enviada via Correios após avaliação médica.';
+  const msg='Sua solicitação foi recebida para avaliação médica. Caso seja emitida, a receita digital será disponibilizada pelos canais informados.';
   document.getElementById('sucessoMsg').textContent=msg;
 }
 </script>
