@@ -283,7 +283,7 @@ footer a:hover{color:var(--g2)}
         </div>
         <div class="rtype__desc">Notificação de receita azul (B1/B2), com emissão digital quando os requisitos legais e técnicos são atendidos.</div>
         <div class="rtype__exemplos">Clonazepam, alprazolam, zolpidem, sibutramina.</div>
-        <span class="rtype__delivery fisica">📱 Digital · Memed</span>
+        <span class="rtype__delivery digital">📱 Digital · Memed</span>
       </div>
 
       <div class="rtype rtype--amarela">
@@ -293,7 +293,7 @@ footer a:hover{color:var(--g2)}
         </div>
         <div class="rtype__desc">Notificação de receita amarela, com emissão digital quando os requisitos legais e técnicos são atendidos.</div>
         <div class="rtype__exemplos">Ritalina (metilfenidato), Venvanse (lisdexanfetamina), modafinila.</div>
-        <span class="rtype__delivery fisica">📱 Digital · Memed</span>
+        <span class="rtype__delivery digital">📱 Digital · Memed</span>
       </div>
 
     </div>
@@ -454,28 +454,14 @@ footer a:hover{color:var(--g2)}
       <button class="btn-secondary" onclick="irParaStep(4)">← Voltar</button>
     </div>
 
-    <div class="modal__step" id="step6">
-      <div class="modal__title">Escolha o envio</div>
-      <div class="modal__sub">Frete calculado em tempo real conforme seu CEP.</div>
-      <div class="frete-box">
-        <div class="frete-loading" id="freteLoading"><span class="spinner"></span> Calculando frete...</div>
-        <div class="frete-opts" id="freteOpts" style="display:none"></div>
-      </div>
-      <button class="btn-modal" id="btnStep6" onclick="irParaStep(7)" disabled>Continuar →</button>
-      <button class="btn-secondary" onclick="irParaStep(5)">← Voltar</button>
-    </div>
-
     <div class="modal__step" id="step7">
       <div class="modal__title">Confirmar e pagar</div>
       <div class="modal__sub">Revise os valores antes de prosseguir.</div>
       <div class="totals">
         <div class="totals__row"><span>Renovação de receita</span><strong id="rValBase">R$ 59,90</strong></div>
-        <div class="totals__row" id="rRowFrete" style="display:none"><span id="rLabelFrete">Frete</span><strong id="rValFrete">R$ 0,00</strong></div>
-        <div class="totals__row" id="rRowLog" style="display:none"><span>Taxa de processamento</span><strong>R$ 10,00</strong></div>
         <div class="totals__row totals__total"><span>Total</span><strong id="rValTotal">R$ 59,90</strong></div>
       </div>
       <label class="checkbox"><input type="checkbox" id="cTermos"/><span>Declaro que estou em <strong>tratamento contínuo</strong> com os medicamentos informados e que a receita anterior é verdadeira. Ciente de que a prescrição não é automática e o médico pode optar por não renovar.</span></label>
-      <label class="checkbox" id="cFisicaBlock" style="display:none"><input type="checkbox" id="cFisica"/><span>Ciente de que minha receita é <strong>controlada</strong> (azul/amarela) e será enviada via Correios de São Luís — MA após avaliação médica.</span></label>
       <div class="pay-tabs">
         <button class="pay-tab active" id="tabPix" type="button" onclick="selecionarPagamento('pix')">PIX</button>
         <button class="pay-tab" id="tabCartao" type="button" onclick="selecionarPagamento('cartao')">Cartão</button>
@@ -542,7 +528,7 @@ function irParaStep(n){
   document.getElementById('step'+n).classList.add('active');
   document.querySelector('.modal__box').scrollTop=0;
   if(n===7)atualizarResumo();
-  if(n===6)calcularFrete();
+
 }
 
 function selecClasseReceita(classe){
@@ -671,52 +657,14 @@ function validarStep5(){
   return ok;
 }
 
-async function calcularFrete(){
-  const cep=document.getElementById('iCep').value.replace(/\D/g,'');
-  const opts=document.getElementById('freteOpts');
-  const loading=document.getElementById('freteLoading');
-  loading.style.display='flex';opts.style.display='none';opts.innerHTML='';
-  try{
-    const r=await fetch(API+'/api/correios/calcular-frete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({cep_destino:cep})});
-    const d=await r.json();
-    if(!d.ok||!d.servicos?.length){loading.textContent='Não foi possível calcular o frete agora.';return}
-    SOLIC.valorLogistica=d.margem_logistica||10;
-    d.servicos.forEach(s=>{
-      const div=document.createElement('div');
-      div.className='frete-opt';
-      div.innerHTML=`<div><div class="frete-opt__name">${s.nome}</div><div class="frete-opt__prazo">${s.prazo} dia${s.prazo>1?'s':''} útei${s.prazo>1?'s':' '} · ${s.transportadora}</div></div><div class="frete-opt__price">R$ ${s.valor.toFixed(2).replace('.',',')}</div>`;
-      div.onclick=()=>selecFrete(s,div);
-      opts.appendChild(div);
-    });
-    loading.style.display='none';opts.style.display='flex';
-  }catch(e){loading.textContent='Erro ao calcular. Tente novamente.'}
-}
-function selecFrete(s,el){
-  document.querySelectorAll('.frete-opt').forEach(e=>e.classList.remove('active'));
-  el.classList.add('active');
-  SOLIC.valorFrete=s.valor;SOLIC.freteServicoId=s.id;SOLIC.freteModalidade=s.nome;SOLIC.fretePrazoDias=s.prazo;
-  document.getElementById('btnStep6').disabled=false;
-}
-
 function atualizarResumo(){
   const fmt=v=>'R$ '+v.toFixed(2).replace('.',',');
   document.getElementById('rValBase').textContent=fmt(SOLIC.valorBase);
-  if(false){
-    document.getElementById('rRowFrete').style.display='flex';
-    document.getElementById('rRowLog').style.display='flex';
-    document.getElementById('rLabelFrete').textContent=`Frete (${SOLIC.freteModalidade})`;
-    document.getElementById('rValFrete').textContent=fmt(SOLIC.valorFrete);
-    SOLIC.valorTotal=SOLIC.valorBase+SOLIC.valorFrete+SOLIC.valorLogistica;
-  }else{
-    document.getElementById('rRowFrete').style.display='none';
-    document.getElementById('rRowLog').style.display='none';
-    SOLIC.valorTotal=SOLIC.valorBase;
-  }
+  SOLIC.valorTotal=SOLIC.valorBase;
   document.getElementById('rValTotal').textContent=fmt(SOLIC.valorTotal);
   const c1=document.getElementById('cTermos');
-  const c2=document.getElementById('cFisica');
   const checkBtns=()=>{document.getElementById('btnPagar').disabled=!c1.checked}
-  c1.onchange=checkBtns;c2.onchange=checkBtns;
+  c1.onchange=checkBtns;
   selecionarPagamento(METODO_PAGAMENTO);
 }
 
