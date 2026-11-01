@@ -190,3 +190,14 @@
 /* Documento sujeito a avaliação, sem ocupar a área do CTA */
 .hero__doc-note{margin:-14px 0 20px;font-size:.76rem;line-height:1.45;color:rgba(255,255,255,.57);max-width:490px}
 @media(max-width:600px){.hero__doc-note{text-align:center;margin:-12px auto 17px;padding:0 5px;font-size:.73rem}}
+
+/* App availability as discreet trust proof: checkout remains the primary action. */
+.hero__app-proof{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px 11px;margin:13px 0 1px;font:500 .73rem/1.5 Outfit,sans-serif;color:rgba(255,255,255,.51)}
+.hero__app-proof-label{white-space:nowrap}
+.hero__app-proof-links{display:inline-flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:center}
+.hero__app-proof-link{display:inline-flex;align-items:center;gap:4px;text-decoration:none;color:rgba(237,255,246,.79);font-weight:700;min-height:28px;white-space:nowrap;transition:color .18s}
+.hero__app-proof-link:hover{color:#78f25f}
+.hero__app-proof-link svg{flex:none;opacity:.85}
+.hero__app-proof-store{font-size:.65rem;font-weight:500;color:rgba(255,255,255,.47)}
+.hero__app-proof-divider{width:1px;height:13px;background:rgba(255,255,255,.2)}
+@media(max-width:420px){.hero__app-proof{gap:4px 8px;font-size:.69rem}.hero__app-proof-links{gap:7px}.hero__app-proof-store{font-size:.6rem}}
