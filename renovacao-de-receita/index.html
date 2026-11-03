@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Renove sua receita médica · ConsultaJá24h</title>
-<meta name="description" content="Renove sua receita médica online sem sair de casa. Receita digital pelo Memed, controladas (azul/amarela) por Sedex/PAC.">
+<meta name="description" content="Renove sua receita médica online, sem sair de casa. Avaliação por médicos habilitados e receita digital pelo Memed.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -212,6 +212,71 @@ footer a:hover{color:var(--g2)}
 .pix-box{text-align:center;padding:14px 0}
 .pix-qr{max-width:220px;width:100%;background:white;padding:12px;border-radius:12px;margin:10px auto;display:block}
 .pix-code{font-size:.68rem;color:var(--muted);word-break:break-all;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:10px;border-radius:8px;margin:10px 0;max-height:86px;overflow:auto}
+
+/* ===== v2 redesign (nov/2026) ===== */
+.nav__logo{font-family:'Outfit',sans-serif!important;font-style:normal!important;font-weight:800!important;font-size:1.02rem!important;letter-spacing:-.02em}
+.nav__logo .c1{color:#f2eee4}
+.nav__logo .c2{background:none!important;-webkit-text-fill-color:#8bdd86!important;color:#8bdd86}
+.nav__logo .c3{font-weight:700!important;font-size:.62rem!important;color:#8fa79b!important;-webkit-text-fill-color:#8fa79b!important;margin-left:2px}
+.section-title,.cta-final h2,.modal__title,.price-num,.step__num{font-family:'Outfit',sans-serif!important;letter-spacing:-.02em}
+.section-title{font-weight:800}
+.price-num{font-weight:800}
+.hero--v2{max-width:none;padding:0;overflow:hidden;isolation:isolate}
+.hero__media{position:absolute;inset:0;z-index:-1}
+.hero__media video{width:100%;height:100%;object-fit:cover;filter:blur(16px) saturate(.8);transform:scale(1.15);opacity:0;transition:opacity .9s ease}
+.hero__media video.is-on{opacity:.55}
+.hero__media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,32,23,.72) 0%,rgba(0,32,23,.82) 60%,#002017 100%)}
+.hero__content{max-width:640px;margin:0 auto;padding:64px 20px 56px;text-align:center}
+.hero--v2 .hero__badge{gap:7px;text-transform:none;letter-spacing:0;font-size:.78rem;font-weight:600;color:rgba(234,243,238,.82);padding:6px 14px 6px 11px}
+.hero--v2 .hero__sub{max-width:420px;color:rgba(255,255,255,.7)}
+.hero--v2 .hero__price-line{color:rgba(255,255,255,.62);font-size:.82rem}
+.hero__proof{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:.8rem;color:rgba(255,255,255,.66);text-decoration:none;animation:fadeUp .5s ease both .4s}
+.hero__proof strong{color:#dff5e6;font-weight:700}
+.hero__stars{color:#f5c518;letter-spacing:1px}
+.disclaimer-bar{margin-top:8px}
+.disclaimer-bar__box{align-items:center;background:rgba(251,191,36,.05);border-color:rgba(251,191,36,.18)}
+.disclaimer-bar__svg{flex-shrink:0}
+.v2-section{padding:72px 20px}
+.v2-section--alt{background:rgba(255,255,255,.02)}
+.v2-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.v2-step{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:20px;border-radius:16px;background:rgba(255,255,255,.03)}
+.v2-step__ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(139,221,134,.1);color:#8bdd86}
+.v2-step__n{font-size:.7rem;font-weight:700;color:rgba(180,224,90,.8);letter-spacing:.1em;margin-bottom:4px}
+.v2-step h3{font-size:1rem;font-weight:700;line-height:1.35;color:#f2f6f3}
+.v2-types{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.v2-type{padding:16px;border-radius:14px;background:rgba(255,255,255,.035);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.v2-type__t{font-weight:700;font-size:.95rem;color:#fff}
+.v2-type__d{font-size:.78rem;font-weight:600;padding:3px 8px;border-radius:6px}
+.v2-type__d--dig{background:rgba(94,224,160,.1);color:#5ee0a0}
+.v2-type__d--fis{background:rgba(251,191,36,.1);color:#fde68a}
+.v2-chip--branca{background:rgba(255,255,255,.1);color:rgba(255,255,255,.88)}
+.v2-chip--c1{background:rgba(180,224,90,.15);color:#b4e05a}
+.v2-chip--azul{background:rgba(96,165,250,.18);color:#93c5fd}
+.v2-chip--amarela{background:rgba(251,191,36,.18);color:#fde68a}
+.v2-note{margin-top:14px;font-size:.8rem;color:var(--muted)}
+.v2-reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.v2-review{margin:0;padding:20px;border-radius:16px;background:rgba(255,255,255,.035);display:flex;flex-direction:column;gap:10px}
+.v2-review__stars{color:#f5c518;letter-spacing:2px;font-size:.9rem}
+.v2-review blockquote{margin:0;font-size:.9rem;line-height:1.55;color:rgba(255,255,255,.84)}
+.v2-review figcaption{margin-top:auto;font-size:.8rem;font-weight:700;color:rgba(255,255,255,.6)}
+.v2-link{display:inline-block;margin-top:18px;font-size:.84rem;font-weight:600;color:#8bdd86;text-decoration:none}
+.price-section,.faq-section,.cta-final{border-top:none}
+.price-section{padding:72px 20px}
+.faq-section{padding:64px 20px}
+footer{line-height:1.5}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .45s ease-out,transform .45s ease-out}
+.reveal.is-in{opacity:1;transform:none}
+@media(max-width:760px){
+  .v2-steps{grid-template-columns:1fr;gap:10px}
+  .v2-step{flex-direction:row;align-items:center;padding:14px 16px}
+  .v2-types{grid-template-columns:1fr 1fr}
+  .v2-reviews{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-left:-20px;margin-right:-20px;padding:0 20px 6px;scrollbar-width:none}
+  .v2-reviews::-webkit-scrollbar{display:none}
+  .v2-review{flex:0 0 84%;scroll-snap-align:start}
+  .hero__content{padding:48px 20px 44px}
+  .v2-section,.price-section{padding:56px 20px}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero__media video{display:none}}
 </style>
 <script src="https://cdn.jsdelivr.net/gh/efipay/js-payment-token-efi/dist/payment-token-efi-umd.min.js"></script>
 </head>
@@ -230,146 +295,110 @@ footer a:hover{color:var(--g2)}
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero__badge">💊 Renovação de receita médica</div>
-  <h1 class="hero__h1">Renove sua receita <em>sem sair de casa</em></h1>
-  <p class="hero__sub">Para quem já está em tratamento contínuo. Anexe sua receita anterior, escolha como receber e pronto. Receita digital pelo Memed direto no seu celular.</p>
-  <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
-  <div class="hero__price-line">PIX ou cartão · <strong>até 12x</strong> · receba por email e WhatsApp</div>
+<section class="hero hero--v2">
+  <div class="hero__media" aria-hidden="true">
+    <video id="heroVid" muted loop playsinline preload="metadata" poster="/consulta/assets/hero/telehealth-doctor-poster.jpg">
+      <source src="/consulta/assets/hero/telehealth-doctor-2.webm" type="video/webm">
+      <source src="/consulta/assets/hero/telehealth-doctor-2.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero__content">
+    <div class="hero__badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8bdd86" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M14 3l5 5h-5z"/><path d="M8.5 9h3M8.5 12.5h5"/><path d="M20.5 15.5a3.5 3.5 0 1 1-1-2.45"/><path d="M20.5 12v2h-2"/></svg> Renovação de receita</div>
+    <h1 class="hero__h1">Renove sua receita <em>sem sair de casa</em></h1>
+    <p class="hero__sub">Para quem já faz tratamento contínuo. Avaliação por médicos habilitados.</p>
+    <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
+    <div class="hero__price-line">PIX ou cartão · Receita digital pelo Memed</div>
+    <a class="hero__proof" href="#avaliacoes"><span class="hero__stars">★★★★★</span> <strong>5,0 no Google</strong> · +2.000 atendimentos</a>
+  </div>
 </section>
 
-<!-- AVISO IMPORTANTE -->
-<div class="disclaimer-bar">
+<div class="disclaimer-bar reveal">
   <div class="disclaimer-bar__box">
-    <div class="disclaimer-bar__icon">⚠️</div>
-    <div class="disclaimer-bar__txt">
-      <strong>A prescrição médica não é automática.</strong> Cada caso é avaliado individualmente, e o médico pode optar por não renovar a receita, sempre priorizando sua segurança. Em caso de recusa, o valor é integralmente reembolsado.
-    </div>
+    <svg class="disclaimer-bar__svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+    <div class="disclaimer-bar__txt"><strong>A renovação não é automática.</strong> Cada pedido passa por avaliação médica. Se não for possível renovar, você recebe o valor de volta.</div>
   </div>
 </div>
 
-<!-- TIPOS DE RECEITA -->
-<section class="receita-types-section">
-  <div class="section-inner">
-    <div class="section-label">Tipos de receita</div>
-    <h2 class="section-title">Como sua receita será entregue</h2>
-    <p class="section-sub">A entrega depende da classificação ANVISA do seu medicamento. Receitas brancas (não controladas e C1) são digitais; controladas azul/amarela seguem por Correios.</p>
-    <div class="receita-types">
-
-      <div class="rtype rtype--branca">
-        <div class="rtype__head">
-          <span class="rtype__chip">Branca</span>
-          <span class="rtype__title">Comum</span>
-        </div>
-        <div class="rtype__desc">Medicamentos de uso comum, sem controle especial. A receita digital chega direto no seu celular pelo Memed.</div>
-        <div class="rtype__exemplos">Anti-hipertensivos, hipoglicemiantes, anticoncepcionais, levotiroxina, estatinas.</div>
-        <span class="rtype__delivery digital">📱 Receita Digital · Memed</span>
-      </div>
-
-      <div class="rtype rtype--branca-c">
-        <div class="rtype__head">
-          <span class="rtype__chip">Branca C1</span>
-          <span class="rtype__title">Controle especial</span>
-        </div>
-        <div class="rtype__desc">Substâncias sob controle especial em receita branca de 2 vias. Também emitida digitalmente via Memed.</div>
-        <div class="rtype__exemplos">Antidepressivos (sertralina, fluoxetina), anticonvulsivantes, neurolépticos.</div>
-        <span class="rtype__delivery digital">📱 Receita Digital · Memed</span>
-      </div>
-
-      <div class="rtype rtype--azul">
-        <div class="rtype__head">
-          <span class="rtype__chip">Azul B1/B2</span>
-          <span class="rtype__title">Psicotrópicos</span>
-        </div>
-        <div class="rtype__desc">Notificação de receita azul, com talonário numerado. Preenchida manualmente e enviada por Correios.</div>
-        <div class="rtype__exemplos">Clonazepam, alprazolam, zolpidem, sibutramina.</div>
-        <span class="rtype__delivery fisica">📦 Física · Sedex/PAC</span>
-      </div>
-
-      <div class="rtype rtype--amarela">
-        <div class="rtype__head">
-          <span class="rtype__chip">Amarela A3</span>
-          <span class="rtype__title">Controle rigoroso</span>
-        </div>
-        <div class="rtype__desc">Notificação de receita amarela, válida 30 dias, retida na farmácia. Enviada por Correios após preenchimento manual.</div>
-        <div class="rtype__exemplos">Ritalina (metilfenidato), Venvanse (lisdexanfetamina), modafinila.</div>
-        <span class="rtype__delivery fisica">📦 Física · Sedex/PAC</span>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- COMO FUNCIONA -->
-<section class="how-section">
+<section class="v2-section reveal">
   <div class="section-inner">
     <div class="section-label">Como funciona</div>
-    <h2 class="section-title">Renovação em 4 passos</h2>
-    <p class="section-sub">Simples, rápido e dentro das normas do CFM.</p>
-    <div class="steps">
-      <div class="step"><div class="step__num">1</div><h3>Preencha seus dados</h3><p>Nome, CPF, data de nascimento e WhatsApp para receber sua receita.</p></div>
-      <div class="step"><div class="step__num">2</div><h3>Anexe a receita anterior</h3><p>Foto ou PDF da sua receita atual. Para controladas, também o RG ou CNH.</p></div>
-      <div class="step"><div class="step__num">3</div><h3>Pague R$ 59,90</h3><p>PIX (instantâneo) ou cartão em até 12x. Para envio físico, taxa de envio à parte.</p></div>
-      <div class="step"><div class="step__num">4</div><h3>Receba sua receita</h3><p>Digital pelo Memed direto no seu celular · física por Sedex/PAC após postagem.</p></div>
+    <h2 class="section-title">Três passos, tudo pelo celular</h2>
+    <div class="v2-steps">
+      <div class="v2-step"><div class="v2-step__ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 17v-6M9 14l3-3 3 3"/></svg></div><div><div class="v2-step__n">1</div><h3>Envie sua receita anterior</h3></div></div>
+      <div class="v2-step"><div class="v2-step__ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div><div><div class="v2-step__n">2</div><h3>Pague R$ 59,90 no PIX ou cartão</h3></div></div>
+      <div class="v2-step"><div class="v2-step__ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M9.5 12.5l2 2 3.5-4"/></svg></div><div><div class="v2-step__n">3</div><h3>Receba a receita após a avaliação</h3></div></div>
     </div>
   </div>
 </section>
 
-<!-- PREÇO -->
-<section class="price-section">
+<section class="v2-section v2-section--alt reveal">
+  <div class="section-inner">
+    <div class="section-label">Tipos de receita</div>
+    <h2 class="section-title">Digital ou física, conforme o tipo</h2>
+    <div class="v2-types">
+      <div class="v2-type"><span class="rtype__chip v2-chip--branca">Branca</span><div class="v2-type__t">Comum</div><div class="v2-type__d v2-type__d--dig">Digital, pelo Memed</div></div>
+      <div class="v2-type"><span class="rtype__chip v2-chip--c1">Branca C1</span><div class="v2-type__t">Controle especial</div><div class="v2-type__d v2-type__d--dig">Digital, pelo Memed</div></div>
+      <div class="v2-type"><span class="rtype__chip v2-chip--azul">Azul</span><div class="v2-type__t">B1 / B2</div><div class="v2-type__d v2-type__d--fis">Física, pelos Correios</div></div>
+      <div class="v2-type"><span class="rtype__chip v2-chip--amarela">Amarela</span><div class="v2-type__t">A3</div><div class="v2-type__d v2-type__d--fis">Física, pelos Correios</div></div>
+    </div>
+    <p class="v2-note">Receitas físicas exigem documento com foto e têm frete à parte.</p>
+  </div>
+</section>
+
+<section class="v2-section reveal" id="avaliacoes">
+  <div class="section-inner">
+    <div class="section-label">Avaliações</div>
+    <h2 class="section-title">Quem já usou</h2>
+    <div class="v2-reviews">
+      <figure class="v2-review"><div class="v2-review__stars">★★★★★</div><blockquote>“Precisei de uma renovação de receita e o serviço foi rápido e eficiente. Recomendo.”</blockquote><figcaption>Christian Sales</figcaption></figure>
+      <figure class="v2-review"><div class="v2-review__stars">★★★★★</div><blockquote>“O médico é muito atencioso e a consulta foi imediata, após fazer o pix. A equipe de atendimento responde na hora, com muita educação e atenção.”</blockquote><figcaption>Débora Vilas Bôas</figcaption></figure>
+      <figure class="v2-review"><div class="v2-review__stars">★★★★★</div><blockquote>“Uma médica com um atendimento muito atencioso e humanizado, me senti acolhida, ouvida e bem mais tranquila.”</blockquote><figcaption>Clicia Castro Lima</figcaption></figure>
+    </div>
+    <a class="v2-link" href="https://maps.app.goo.gl/bXMaD9GugXdfYmXv7" target="_blank" rel="noopener">5,0 no Google · Ver todas as avaliações →</a>
+  </div>
+</section>
+
+<section class="price-section reveal">
   <div class="price-box">
     <div class="price-label">Renovação de receita</div>
     <div class="price-num">R$ 59<sup>,90</sup></div>
     <div class="price-desc">à vista no PIX ou cartão</div>
-    <div class="price-badge">Até 12x no cartão</div>
     <div class="price-feats">
-      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Receita digital pelo Memed</div>
-      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Avaliação por médico responsável</div>
-      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Reembolso 100% se não puder renovar</div>
-      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Conforme normas do CFM</div>
+      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Receita digital pelo Memed</div>
+      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Avaliação por médicos habilitados</div>
+      <div class="price-feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Reembolso integral se não renovar</div>
     </div>
     <button class="btn-primary" style="max-width:340px" onclick="abrirModal()">Solicitar renovação</button>
-    <div class="price-extras">Para receitas controladas (azul/amarela), há taxa de envio à parte (frete dos Correios + taxa de processamento).</div>
+    <div class="price-extras">Receitas físicas: frete dos Correios e taxa de processamento à parte.</div>
   </div>
 </section>
 
-<section class="trust-strip">
-  <div class="trust-strip__inner">
-    <div class="trust-item-mini"><span class="icon">🔒</span> Dados protegidos · LGPD</div>
-    <div class="trust-sep"></div>
-    <div class="trust-item-mini"><span class="icon">📋</span> Conforme Resolução CFM 2.314/2022</div>
-    <div class="trust-sep"></div>
-    <div class="trust-item-mini"><span class="icon">📱</span> Memed · ICP-Brasil</div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="faq-section">
+<section class="faq-section reveal">
   <div class="section-inner">
     <div class="section-label">Dúvidas frequentes</div>
     <h2 class="section-title">Perguntas comuns</h2>
     <div class="faq-wrap">
-      <details class="faq-item"><summary class="faq-q">Quanto tempo demora para receber minha receita?</summary><div class="faq-a">Receita digital (branca e branca C1) é processada conforme avaliação do médico. Receita física (azul/amarela) é postada após avaliação e o prazo total varia conforme prazo do Correios na sua região (geralmente 3-5 dias Sedex e 7-12 dias PAC).</div></details>
-      <details class="faq-item"><summary class="faq-q">Vocês renovam receita controlada (azul/amarela)?</summary><div class="faq-a">Sim, para pacientes em tratamento contínuo já estabelecido. Você precisará anexar a receita anterior e um documento com foto (RG ou CNH) para validação. Se sua receita anterior tiver mais de 6 meses, recomendamos uma teleconsulta no nosso plantão.</div></details>
-      <details class="faq-item"><summary class="faq-q">Como funciona a receita digital pelo Memed?</summary><div class="faq-a">A receita digital é assinada eletronicamente com certificado ICP-Brasil. Ela chega no seu email e WhatsApp com um QR Code que qualquer farmácia do Brasil pode validar — equivale a uma receita em papel.</div></details>
-      <details class="faq-item"><summary class="faq-q">E se vocês não puderem renovar minha receita?</summary><div class="faq-a">A prescrição não é automática — cada caso é avaliado individualmente. Se o médico identificar que não é seguro renovar (receita anterior antiga, ilegível, ou alguma dúvida clínica), devolvemos 100% do valor pago em até 5 dias úteis e recomendamos uma teleconsulta no plantão.</div></details>
-      <details class="faq-item"><summary class="faq-q">Perdi minha receita anterior. Posso solicitar renovação?</summary><div class="faq-a">Não — a receita anterior é necessária para validação. Se você perdeu sua receita, recomendamos uma <a href="https://consultaja24h.com.br">teleconsulta no plantão médico</a>, onde será feita uma nova avaliação completa.</div></details>
-      <details class="faq-item"><summary class="faq-q">Quais formas de pagamento vocês aceitam?</summary><div class="faq-a">PIX (confirmação imediata) e cartão de crédito nas principais bandeiras, em até 12x.</div></details>
-      <details class="faq-item"><summary class="faq-q">É seguro? Meus dados estão protegidos?</summary><div class="faq-a">Sim. A plataforma é operada em conformidade com a Resolução CFM 2.314/2022 (telemedicina) e com a LGPD. Todos os arquivos são armazenados com criptografia.</div></details>
+      <details class="faq-item"><summary class="faq-q">Quanto tempo demora?</summary><div class="faq-a">A receita digital é enviada logo após a avaliação médica. A física é postada depois da avaliação e segue o prazo dos Correios na sua região.</div></details>
+      <details class="faq-item"><summary class="faq-q">Vocês renovam receita azul ou amarela?</summary><div class="faq-a">Sim, para quem já faz tratamento contínuo, com a receita anterior e documento com foto. Se a receita tiver mais de 6 meses, indicamos uma teleconsulta no plantão.</div></details>
+      <details class="faq-item"><summary class="faq-q">A receita digital vale na farmácia?</summary><div class="faq-a">Sim. Ela é assinada digitalmente com certificado ICP-Brasil e tem QR code que as farmácias validam.</div></details>
+      <details class="faq-item"><summary class="faq-q">E se não puderem renovar?</summary><div class="faq-a">Você recebe 100% do valor de volta em até 5 dias úteis. Nesse caso, indicamos uma <a href="https://consultaja24h.com.br/consulta">teleconsulta no plantão</a>.</div></details>
+      <details class="faq-item"><summary class="faq-q">Perdi minha receita anterior. E agora?</summary><div class="faq-a">A receita anterior é necessária para renovar. Sem ela, faça uma <a href="https://consultaja24h.com.br/consulta">teleconsulta no plantão</a> para uma nova avaliação.</div></details>
+      <details class="faq-item"><summary class="faq-q">Meus dados estão protegidos?</summary><div class="faq-a">Sim. Seguimos a Resolução CFM 2.314/2022 e a LGPD, e os arquivos ficam armazenados com criptografia.</div></details>
     </div>
   </div>
 </section>
 
-<section class="cta-final">
+<section class="cta-final reveal">
   <h2>Pronto para renovar?</h2>
-  <p>Receita digital pelo Memed · física por Correios após avaliação</p>
+  <p>Avaliação por médicos habilitados · Reembolso se não renovar</p>
   <button class="btn-primary" onclick="abrirModal()">Solicitar renovação · R$ 59,90</button>
 </section>
 
 <footer>
-  <div>JG Fonseca Serviços Médicos LTDA · São Luís — MA</div>
-  <div style="margin-top:6px">
-    <a href="https://consultaja24h.com.br">Plantão 24h</a> ·
+  <div>JG Fonseca Serviços Médicos LTDA · São Luís, MA</div>
+  <div style="margin-top:4px">Responsável técnico: Dr. Gustavo Fonseca, CRM-MA 14325 · Serviço conforme Resolução CFM nº 2.314/2022</div>
+  <div style="margin-top:8px">
+    <a href="https://consultaja24h.com.br/consulta">Plantão 24h</a> ·
     <a href="https://consultaja24h.com.br/termos">Termos</a> ·
     <a href="https://consultaja24h.com.br/privacidade">Privacidade</a>
   </div>
@@ -861,5 +890,17 @@ function finalizarPagamento(){
   const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida. A receita digital será enviada por email e WhatsApp após avaliação médica.':'Sua solicitação foi recebida. A receita controlada será preparada e enviada via Correios após avaliação médica.';
   document.getElementById('sucessoMsg').textContent=msg;
 }
+</script>
+<script>
+(function(){
+  var v=document.getElementById('heroVid');
+  var slow=navigator.connection&&(navigator.connection.saveData||/2g/.test(navigator.connection.effectiveType||''));
+  var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(v&&!slow&&!rm){v.addEventListener('playing',function(){v.classList.add('is-on')});var p=v.play();if(p&&p.catch)p.catch(function(){});}
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)||rm){els.forEach(function(e){e.classList.add('is-in')});return}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('is-in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
 </script>
 </body></html>
