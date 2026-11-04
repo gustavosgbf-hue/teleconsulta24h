@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://consultaja24h.com.br/sitemap.xml
