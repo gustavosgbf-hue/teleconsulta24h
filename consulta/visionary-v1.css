@@ -1,0 +1,438 @@
+/* ConsultaJá24h · Premium conversion layer
+   Visual-only layer. Checkout/payment logic remains in consulta/index.html. */
+
+:root{
+  --cj-ink:#0b1512;
+  --cj-ink-2:#13201c;
+  --cj-forest:#124f3b;
+  --cj-forest-2:#177458;
+  --cj-accent:#19845f;
+  --cj-accent-strong:#116848;
+  --cj-paper:#f7f9f7;
+  --cj-paper-2:#eef3ef;
+  --cj-card:#ffffff;
+  --cj-text:#15211d;
+  --cj-muted:#66736d;
+  --cj-line:rgba(21,33,29,.10);
+  --cj-white:#f8fbf9;
+  --cj-shadow:0 18px 50px rgba(22,45,36,.09);
+}
+
+html body{
+  font-family:'Outfit',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;
+  background:var(--cj-paper)!important;
+  color:var(--cj-text)!important;
+}
+
+html body .bg-glow{display:none!important}
+
+/* NAV */
+html body .nav{
+  background:rgba(8,17,14,.82)!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(18px)!important;
+  -webkit-backdrop-filter:blur(18px)!important;
+}
+html body .nav__in{max-width:1120px!important;padding:11px 18px!important}
+html body .nav__logo{font-size:1rem!important;letter-spacing:-.02em!important}
+html body .nav__logo .c2{
+  background:none!important;
+  -webkit-text-fill-color:#8fd5b5!important;
+  color:#8fd5b5!important;
+}
+html body .nav__cta-link{
+  min-height:44px!important;
+  padding:11px 18px!important;
+  border-radius:14px!important;
+  background:#f8fbf9!important;
+  color:#0e2119!important;
+  border:1px solid rgba(255,255,255,.32)!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.16)!important;
+  font-weight:800!important;
+}
+html body .nav__rx-link{
+  border-radius:14px!important;
+  background:rgba(255,255,255,.045)!important;
+  border-color:rgba(255,255,255,.12)!important;
+  color:rgba(255,255,255,.76)!important;
+}
+html body .nav__rx-link--featured{
+  background:rgba(255,255,255,.055)!important;
+  border-color:rgba(143,213,181,.24)!important;
+  color:#d8eee4!important;
+  box-shadow:none!important;
+  animation:none!important;
+}
+html body .nav__rx-link--featured::after{
+  background:#183328!important;
+  color:#bfe3d2!important;
+  border-color:rgba(143,213,181,.2)!important;
+}
+
+/* HERO */
+html body .hero{
+  position:relative!important;
+  z-index:1!important;
+  isolation:isolate!important;
+  max-width:none!important;
+  width:100%!important;
+  min-height:660px!important;
+  margin:0!important;
+  padding:72px 20px 64px!important;
+  overflow:hidden!important;
+  color:var(--cj-white)!important;
+  background:#09120f!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html body .hero::before{
+  content:''!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:-1!important;
+  width:auto!important;height:auto!important;
+  transform:none!important;
+  background:linear-gradient(90deg,rgba(5,12,10,.90) 0%,rgba(5,12,10,.78) 38%,rgba(5,12,10,.48) 72%,rgba(5,12,10,.56) 100%)!important;
+  filter:none!important;
+  pointer-events:none!important;
+}
+html body .hero::after{
+  content:''!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:-1!important;
+  background:linear-gradient(180deg,rgba(5,12,10,.08),rgba(5,12,10,.26))!important;
+  pointer-events:none!important;
+}
+html body .cj-hero-bg-video{
+  position:absolute;
+  inset:0;
+  z-index:-3;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center center;
+  filter:brightness(.68) saturate(.62) contrast(1.02);
+  opacity:.88;
+}
+html body .hero > *:not(.cj-hero-bg-video){position:relative;z-index:1}
+html body .hero__badge{
+  background:rgba(255,255,255,.08)!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  color:#dce9e3!important;
+  letter-spacing:.05em!important;
+}
+html body .hero h1,
+html body .hero__title{
+  max-width:790px!important;
+  margin-left:auto!important;margin-right:auto!important;
+  font-family:'Outfit',sans-serif!important;
+  font-size:clamp(2.6rem,6.6vw,4.9rem)!important;
+  line-height:.98!important;
+  letter-spacing:-.058em!important;
+  font-weight:780!important;
+  color:#f8fbf9!important;
+  text-shadow:0 2px 18px rgba(0,0,0,.18)!important;
+  text-wrap:balance;
+}
+html body .hero #heroTitle em,
+html body .hero h1 em{
+  background:none!important;
+  -webkit-text-fill-color:#f8fbf9!important;
+  color:#f8fbf9!important;
+  font-style:normal!important;
+}
+html body .hero__sub{
+  max-width:610px!important;
+  color:rgba(244,249,246,.76)!important;
+  font-size:clamp(.98rem,2vw,1.12rem)!important;
+  line-height:1.58!important;
+}
+html body .hero__cta,
+html body .hero__cta-btn,
+html body #heroCTA{max-width:520px!important}
+html body .hero__cta-btn,
+html body .hero__cta button,
+html body .hero__cta a{
+  min-height:60px!important;
+  border-radius:17px!important;
+  background:#f7faf8!important;
+  color:#10241b!important;
+  border:1px solid rgba(255,255,255,.42)!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.24)!important;
+  font-size:1rem!important;
+  font-weight:850!important;
+}
+html body .hero__cta-btn:hover,
+html body .hero__cta button:hover,
+html body .hero__cta a:hover{transform:translateY(-1px)!important;box-shadow:0 22px 48px rgba(0,0,0,.29)!important}
+html body .hero__proof-row,
+html body #heroReviewProof{color:rgba(242,248,245,.72)!important}
+html body .hero__proof-row svg,
+html body .hero__intent-icon{color:#a5d7bf!important;filter:none!important}
+html body .hero__proof-row strong,
+html body #heroReviewProof strong{color:#d8eee4!important}
+html body #heroSecurity{color:rgba(238,246,242,.55)!important}
+html body .doc-card{
+  max-width:410px!important;
+  background:rgba(5,14,11,.48)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:17px!important;
+  backdrop-filter:blur(10px)!important;
+  -webkit-backdrop-filter:blur(10px)!important;
+}
+html body .doc-card__avatar{background:rgba(143,213,181,.13)!important;border-color:rgba(143,213,181,.24)!important;color:#c6e7d8!important}
+html body .doc-card__avatar::after{background:#69b992!important}
+html body .doc-card__meta{color:#9bcbb5!important}
+html body .hero__intent-title{color:rgba(248,251,249,.72)!important}
+html body .hero__intent-btn{
+  background:rgba(5,14,11,.40)!important;
+  border-color:rgba(255,255,255,.12)!important;
+  color:#e8f0ec!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(8px)!important;
+}
+html body .hero__intent-btn--primary{
+  background:rgba(143,213,181,.12)!important;
+  border-color:rgba(143,213,181,.28)!important;
+  color:#edf7f2!important;
+}
+html body .hero__intent-btn--primary::after{
+  background:#19352a!important;
+  color:#cce8da!important;
+  border-color:rgba(143,213,181,.22)!important;
+}
+html body .cj-social-proof,
+html body .cj-play-hero__link{
+  background:rgba(4,12,9,.52)!important;
+  border-color:rgba(255,255,255,.12)!important;
+  color:rgba(248,251,249,.72)!important;
+  backdrop-filter:blur(10px)!important;
+}
+html body .cj-social-proof svg{color:#9bcbb5!important}
+
+/* LIGHT CONTENT SYSTEM */
+html body section:not(.hero):not(.cta-final):not(.cj-app-callout){
+  color:var(--cj-text)!important;
+}
+html body .pain-section,
+html body .how-section,
+html body .price-section,
+html body .reviews-section,
+html body .faq-section,
+html body .doctor-strip,
+html body .doctor-strip-section,
+html body .specialty-bridge{
+  background:var(--cj-paper)!important;
+  border-color:var(--cj-line)!important;
+}
+html body .pain-section,
+html body .how-section,
+html body .price-section,
+html body .reviews-section,
+html body .faq-section{padding-top:68px!important;padding-bottom:68px!important}
+html body .section-inner{max-width:1040px!important}
+html body .section-label{
+  color:var(--cj-accent-strong)!important;
+  font-size:.65rem!important;
+  letter-spacing:.16em!important;
+}
+html body .section-title{
+  font-family:'Outfit',sans-serif!important;
+  color:var(--cj-text)!important;
+  font-size:clamp(1.8rem,4vw,2.7rem)!important;
+  line-height:1.08!important;
+  letter-spacing:-.04em!important;
+  font-weight:760!important;
+}
+html body .section-sub{color:var(--cj-muted)!important;font-size:.94rem!important;line-height:1.65!important}
+
+html body .pain-grid{gap:12px!important}
+html body .pain-item,
+html body .step,
+html body .rcard,
+html body .dstrip-card,
+html body .faq-item,
+html body .specialty-mini{
+  background:var(--cj-card)!important;
+  border:1px solid var(--cj-line)!important;
+  color:var(--cj-text)!important;
+  box-shadow:var(--cj-shadow)!important;
+}
+html body .pain-item{border-radius:18px!important;min-height:116px!important}
+html body .pain-item svg{color:var(--cj-accent)!important}
+html body .pain-item span,
+html body .step p,
+html body .rcard p,
+html body .dstrip-card p,
+html body .specialty-mini__meta{color:var(--cj-muted)!important}
+
+html body .steps{gap:14px!important;margin-top:30px!important}
+html body .step{border-radius:20px!important;padding:22px 18px!important}
+html body .step__num{
+  width:46px!important;height:46px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  border-radius:14px!important;
+  background:var(--cj-accent-strong)!important;
+  border:0!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  font-weight:900!important;
+  opacity:1!important;
+}
+html body .step__num svg{color:#fff!important;stroke:#fff!important;opacity:1!important}
+html body .step__num:hover{transform:none!important;box-shadow:none!important}
+html body .step h3{color:var(--cj-text)!important}
+html body .how-summary{
+  background:#e7f1ec!important;
+  border:1px solid rgba(17,104,72,.13)!important;
+  color:#52625a!important;
+}
+html body .how-summary strong{color:var(--cj-accent-strong)!important}
+
+html body .renewal-card{
+  max-width:760px!important;
+  background:#fff!important;
+  border:1px solid rgba(17,104,72,.13)!important;
+  box-shadow:var(--cj-shadow)!important;
+  border-radius:22px!important;
+}
+html body .renewal-card h3{color:var(--cj-text)!important}
+html body .renewal-card p{color:var(--cj-muted)!important}
+html body .renewal-card__icon{background:#e6f1ec!important;color:var(--cj-accent-strong)!important}
+html body .renewal-card__btn{
+  background:var(--cj-accent-strong)!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+
+html body .price-box{
+  max-width:610px!important;
+  padding:46px 32px!important;
+  border-radius:26px!important;
+  background:#fff!important;
+  border:1px solid var(--cj-line)!important;
+  box-shadow:0 22px 60px rgba(22,45,36,.11)!important;
+}
+html body .price-label{color:#78867f!important}
+html body .price-num{font-family:'Outfit',sans-serif!important;color:var(--cj-text)!important;letter-spacing:-.06em!important}
+html body .price-desc{color:var(--cj-muted)!important}
+html body .price-badge{color:var(--cj-accent-strong)!important}
+html body .price-feat{color:#435149!important}
+html body .price-feat svg{color:var(--cj-accent)!important}
+
+html body .trust-strip{
+  background:#eef3ef!important;
+  border-color:var(--cj-line)!important;
+}
+html body .trust-item-mini{color:#59675f!important}
+html body .trust-sep{background:rgba(21,33,29,.10)!important}
+
+html body .reviews-section--near-cta{background:#f2f5f2!important}
+html body .rcard{border-radius:19px!important}
+html body .rcard,
+html body .rcard *{text-shadow:none!important}
+html body .rcard__name,
+html body .dstrip-card h3,
+html body .specialty-mini__name{color:var(--cj-text)!important}
+html body .specialty-bridge__inner{
+  max-width:1040px!important;
+  padding:25px!important;
+  border-radius:22px!important;
+  background:#eef3ef!important;
+  border:1px solid var(--cj-line)!important;
+}
+html body .specialty-bridge__title{color:var(--cj-text)!important}
+html body .specialty-bridge__sub{color:var(--cj-muted)!important}
+html body .specialty-mini__icon{background:#e5efe9!important;color:var(--cj-accent-strong)!important}
+html body .specialty-mini__status{color:var(--cj-accent-strong)!important}
+html body .specialty-mini--soon{background:rgba(255,255,255,.55)!important}
+
+html body .faq{gap:9px!important}
+html body .faq-item{border-radius:16px!important}
+html body .faq-q{color:var(--cj-text)!important;font-weight:700!important}
+html body .faq-a{color:var(--cj-muted)!important}
+
+/* FINAL CTA remains dark for conversion contrast */
+html body .cta-final{
+  background:#0d1915!important;
+  color:#f7faf8!important;
+  border-top:1px solid rgba(255,255,255,.06)!important;
+}
+html body .cta-final .section-title,
+html body .cta-final h2{color:#f7faf8!important}
+html body .cta-final .section-sub,
+html body .cta-final p{color:rgba(247,250,248,.66)!important}
+
+/* APP promo */
+html body .cj-app-callout{background:#eef3ef!important;color:var(--cj-text)!important}
+html body .cj-app-callout__inner{
+  background:#fff!important;
+  border:1px solid var(--cj-line)!important;
+  box-shadow:var(--cj-shadow)!important;
+}
+html body .cj-app-callout__eyebrow{color:var(--cj-accent-strong)!important}
+html body .cj-app-callout__copy h2{color:var(--cj-text)!important}
+html body .cj-app-callout__copy p{color:var(--cj-muted)!important}
+
+/* STICKY CTA */
+html body .cj-conversion-dock{
+  background:rgba(255,255,255,.94)!important;
+  border:1px solid rgba(21,33,29,.10)!important;
+  box-shadow:0 18px 60px rgba(22,45,36,.18)!important;
+  backdrop-filter:blur(18px)!important;
+  -webkit-backdrop-filter:blur(18px)!important;
+}
+html body .cj-conversion-dock__title{color:var(--cj-text)!important}
+html body .cj-conversion-dock__sub{color:#718078!important}
+html body .cj-conversion-dock__btn{
+  background:var(--cj-accent-strong)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+
+/* Keep checkout/modal visually isolated from landing changes */
+html body.mo-open{background:var(--cj-paper)!important}
+
+@media(max-width:720px){
+  html body .nav__in{padding:10px 12px!important}
+  html body .nav__rx-link{display:none!important}
+  html body .nav__cta-link{min-height:40px!important;padding:9px 13px!important;border-radius:12px!important}
+  html body .hero{min-height:620px!important;padding:46px 16px 42px!important}
+  html body .cj-hero-bg-video{object-position:58% center!important;filter:brightness(.60) saturate(.58) contrast(1.03)!important}
+  html body .hero::before{background:linear-gradient(180deg,rgba(5,12,10,.62) 0%,rgba(5,12,10,.76) 44%,rgba(5,12,10,.92) 100%)!important}
+  html body .hero h1,
+  html body .hero__title{font-size:clamp(2.2rem,10.3vw,3.15rem)!important;line-height:1!important;max-width:390px!important}
+  html body .hero__sub{font-size:.95rem!important;line-height:1.5!important;max-width:94%!important}
+  html body .hero__cta-btn,
+  html body .hero__cta button,
+  html body .hero__cta a{min-height:57px!important;border-radius:15px!important}
+  html body .hero__intent{width:100%!important;display:grid!important;grid-template-columns:1fr 1fr!important}
+  html body .hero__intent-btn{font-size:.7rem!important;padding:10px 8px!important}
+  html body .doc-card{width:100%!important;max-width:100%!important}
+  html body .pain-section,
+  html body .how-section,
+  html body .price-section,
+  html body .reviews-section,
+  html body .faq-section{padding:52px 16px!important}
+  html body .section-title{font-size:1.84rem!important}
+  html body .pain-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  html body .pain-item{min-height:102px!important;border-radius:15px!important}
+  html body .steps{grid-template-columns:1fr!important;gap:9px!important}
+  html body .step{display:grid!important;grid-template-columns:48px 1fr!important;column-gap:13px!important;row-gap:2px!important;align-items:start!important;padding:17px 15px!important}
+  html body .step__num{grid-row:1 / span 2!important;margin:0!important;width:42px!important;height:42px!important}
+  html body .step h3{margin:2px 0 4px!important}
+  html body .price-box{padding:34px 18px!important;border-radius:22px!important}
+  html body .specialty-bridge{padding:16px 14px 48px!important}
+  html body .specialty-bridge__inner{padding:18px 14px!important}
+  html body .cj-conversion-dock{bottom:10px;width:calc(100% - 18px)!important}
+  html body .whatsapp-float.visible{bottom:78px!important;right:14px!important}
+}
+
+@media(max-width:430px){
+  html body .hero__intent{grid-template-columns:1fr!important}
+  html body .pain-grid{grid-template-columns:1fr 1fr!important}
+  html body .cj-conversion-dock__sub{display:none!important}
+}

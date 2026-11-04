@@ -1,0 +1,6 @@
+{
+  "name": "consultaja24h-preview",
+  "private": true,
+  "scripts": { "dev": "vite", "check": "node tools/validate.cjs" },
+  "devDependencies": { "vite": "^7.0.0" }
+}

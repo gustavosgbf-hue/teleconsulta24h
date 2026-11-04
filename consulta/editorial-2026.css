@@ -1,0 +1,689 @@
+/* ConsultaJa24h /consulta — editorial healthtech layer, Oct 2026 */
+:root{--cj-bg:#07110f;--cj-deep:#0b1b17;--cj-deep2:#10241e;--cj-green:#16c783;--cj-lime:#78f25f;--cj-cream:#f5f7f2;--cj-ink:#11201b;--cj-muted:#65756e}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(180deg,#07110f 0%,#0a1714 38%,#07110f 100%)}
+section{position:relative}
+.section-inner{max-width:1080px}
+.section-title{font-family:'Outfit',sans-serif!important;font-style:normal!important;font-weight:760!important;letter-spacing:-.035em!important;line-height:1.05!important}
+.section-title em{font-style:normal!important;color:var(--cj-green)!important}
+.section-label{font-family:'Outfit',sans-serif!important;letter-spacing:.11em!important;text-transform:uppercase;font-size:.68rem!important;font-weight:750!important}
+
+/* Outubro Rosa: campanha visível, nunca vira identidade da interface */
+.hero::before{background:radial-gradient(circle at 81% 31%,rgba(240,111,157,.065),transparent 25%),linear-gradient(90deg,rgba(5,13,10,.98) 0%,rgba(5,14,11,.94) 39%,rgba(6,16,13,.74) 68%,rgba(6,16,13,.52) 100%)!important}
+.hero__media::before{background:linear-gradient(118deg,transparent 48%,rgba(240,111,157,.035) 78%,rgba(240,111,157,.055) 100%)!important}
+.hero__video{filter:brightness(.27) saturate(.52) contrast(1.03)!important}
+.october-rosa{background:rgba(240,111,157,.07)!important;border-color:rgba(240,111,157,.22)!important;box-shadow:none!important}
+.october-rosa__ribbon{background:rgba(240,111,157,.08)!important}
+#heroReviewProof strong{color:rgba(255,255,255,.78)!important}
+.hero{border-bottom:1px solid rgba(255,255,255,.055)!important}
+
+/* hero: mais respiro e hierarquia */
+.hero{min-height:720px!important;padding-top:106px!important;padding-bottom:112px!important}
+.hero__copy{max-width:650px!important}
+.hero__h1{margin-bottom:27px!important}
+.hero__sub{max-width:560px!important}
+.hero__pricing{margin-top:30px!important}
+#heroCTA{margin-top:22px!important;box-shadow:0 16px 42px rgba(22,199,131,.22),0 0 34px rgba(22,199,131,.08),inset 0 1px rgba(255,255,255,.18)!important}
+.hero__store-block{order:10!important;margin-top:20px!important;max-width:360px!important}
+.hero__store-label{font-weight:500!important;color:rgba(255,255,255,.40)!important}
+.hero__intent{margin-top:18px!important}
+.hero__intent-grid{display:grid!important;grid-template-columns:1.25fr 1fr 1fr!important;gap:8px!important}
+.hero__intent-grid>a{display:flex!important}
+.hero__intent-btn{background:rgba(255,255,255,.028)!important;border-color:rgba(255,255,255,.085)!important;box-shadow:none!important;min-height:44px!important}
+.hero__intent-btn--primary{background:rgba(22,199,131,.08)!important;border-color:rgba(22,199,131,.25)!important;color:#bff4d8!important}
+.hero__intent-btn--primary::after{background:#163126!important;color:#c8f7db!important;border:1px solid rgba(22,199,131,.22)!important;box-shadow:none!important}
+#heroPriceAnchor{margin-top:18px!important}
+#heroSecurity{margin-top:15px!important}
+
+/* doctors strip: preservar cards, retirar efeito SaaS/neon */
+.doctor-strip{padding:64px 0 42px!important;background:linear-gradient(180deg,#07110f 0%,#0b1b17 100%)!important}
+.doctor-strip__header{margin-bottom:24px!important}
+.doctor-strip__eyebrow{color:rgba(226,245,236,.72)!important;font-size:.7rem!important;text-transform:uppercase;letter-spacing:.12em!important}
+.doctor-strip__eyebrow .live-dot{box-shadow:none!important;background:var(--cj-green)!important}
+.doctor-strip__sub{font-size:.86rem!important;color:rgba(255,255,255,.46)!important}
+.doctor-strip__track{gap:14px!important;padding:5px 24px 21px!important}
+.dstrip-card{background:rgba(255,255,255,.035)!important;border-color:rgba(255,255,255,.09)!important;border-radius:22px!important;box-shadow:0 18px 50px rgba(0,0,0,.16)!important;padding:19px 14px 17px!important}
+.dstrip-card:hover{transform:translateY(-2px)!important;border-color:rgba(22,199,131,.25)!important;box-shadow:0 24px 60px rgba(0,0,0,.22)!important}
+.dstrip-av.has-photo{box-shadow:0 10px 24px rgba(0,0,0,.28),0 0 0 2px rgba(255,255,255,.09)!important}
+.doctor-strip__more-link{margin-top:9px!important;color:#9ee8c4!important;font-size:.76rem!important}
+
+/* jornada */
+.journey-section{background:var(--cj-cream);color:var(--cj-ink);padding:104px 24px 112px;overflow:hidden}
+.journey-section .section-label{color:#16865f!important}
+.journey-section .section-title{color:var(--cj-ink)!important;font-size:clamp(2.2rem,5vw,4.5rem)!important;max-width:760px;margin:0 auto 18px}
+.journey-section .section-sub{color:var(--cj-muted)!important;font-size:1rem!important;max-width:620px!important}
+.journey-layout{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:74px;align-items:start;margin-top:76px;text-align:left}
+.journey-sticky{position:sticky;top:112px}
+.journey-time{display:inline-flex;align-items:center;gap:10px;padding:11px 15px;border-radius:999px;background:#eaf4ee;border:1px solid #d6e8dd;color:#254a3d;font-size:.8rem;font-weight:700;margin-top:24px}
+.journey-time svg{width:16px;height:16px;color:#178b63}
+.symptom-line{position:absolute;left:21px;top:32px;bottom:32px;width:2px;background:#dbe7df;overflow:hidden}
+.symptom-line__fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(180deg,#16c783,#4fd3a0);box-shadow:0 0 16px rgba(22,199,131,.22)}
+.journey-steps{position:relative;display:grid;gap:24px}
+.journey-step{position:relative;padding:28px 28px 28px 68px;border:1px solid #dfe7e2;background:rgba(255,255,255,.82);border-radius:24px;box-shadow:0 16px 44px rgba(24,55,44,.055);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease}
+.journey-step.is-active{transform:translateX(7px);border-color:rgba(22,199,131,.35);box-shadow:0 22px 58px rgba(24,55,44,.09)}
+.journey-node{position:absolute;left:14px;top:29px;width:18px;height:18px;border-radius:50%;background:var(--cj-cream);border:2px solid #b8ccc1;z-index:2;transition:.3s}
+.journey-step.is-active .journey-node{border-color:#16c783;background:#16c783;box-shadow:0 0 0 6px rgba(22,199,131,.09)}
+.journey-icon{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:#eef5f0;color:#167e5a;margin-bottom:16px}
+.journey-icon svg{width:18px;height:18px}
+.journey-step h3{margin:0 0 8px;font:750 1.12rem/1.2 'Outfit',sans-serif;color:#12251e;letter-spacing:-.02em}
+.journey-step p{margin:0;color:#61726a;font-size:.9rem;line-height:1.55}
+.journey-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.journey-chip{font-size:.68rem;font-weight:700;color:#385c4e;background:#eef5f0;border:1px solid #e0ebe4;border-radius:999px;padding:7px 10px}
+
+/* produto/app */
+.product-story{padding:108px 24px;background:linear-gradient(180deg,#0b1b17,#07110f);overflow:hidden}
+.product-story__grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:center}
+.product-story__copy .section-label{color:#78d7ad!important}
+.product-story__copy h2{color:#f5faf7;font:760 clamp(2.1rem,4vw,3.8rem)/1.03 'Outfit',sans-serif;letter-spacing:-.04em;margin:12px 0 20px}
+.product-story__copy p{color:rgba(255,255,255,.58);font-size:.98rem;line-height:1.65;margin:0}
+.product-story__video{border-radius:30px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#0c1512;box-shadow:0 30px 90px rgba(0,0,0,.32)}
+.product-story__video video{display:block;width:100%;height:auto}
+.product-story__stores{display:flex;gap:10px;margin-top:26px;align-items:center;flex-wrap:wrap}
+.product-story__stores img{height:39px;width:auto}
+
+/* how old section hidden after replacement safeguard */
+.how-section:not(.journey-section){background:transparent}
+
+/* reviews: editorial cards, less carousel-gadget */
+.reviews-section{padding:106px 24px!important;background:#0c1a16!important}
+.reviews-section .section-inner{max-width:1020px!important}
+.reviews-section .section-title{font-size:clamp(2rem,4.2vw,3.6rem)!important;margin-bottom:14px!important}
+#reviewsBadge{background:transparent!important;border:0!important;color:rgba(255,255,255,.56)!important;padding:0!important;font-size:.76rem!important}
+.car-outer{margin-top:38px!important}
+.rcard{border-radius:22px!important;background:rgba(255,255,255,.045)!important;border:1px solid rgba(255,255,255,.085)!important;box-shadow:none!important;padding:24px!important}
+.rcard__quote{font-size:.92rem!important;line-height:1.6!important;color:rgba(255,255,255,.74)!important}
+
+/* clinical roster + FAQ */
+#corpo-clinico{padding:104px 24px!important;background:#07110f!important}
+#corpo-clinico .section-title{font-size:clamp(2rem,4vw,3.4rem)!important}
+.faq-section{padding:104px 24px!important;background:var(--cj-cream)!important;color:var(--cj-ink)}
+.faq-section .section-label{color:#16865f!important}
+.faq-section .section-title{color:var(--cj-ink)!important}
+.faq-item{border-color:#dce6e0!important}
+.faq-q{color:#15251f!important;font-family:'Outfit',sans-serif!important}
+.faq-a p{color:#5f7068!important}
+.emergency{background:#fff7ed!important;border-color:#fed7aa!important;color:#7c2d12!important}
+
+/* final conversion */
+.cta-final{padding:112px 24px!important;background:radial-gradient(circle at 50% 15%,rgba(22,199,131,.08),transparent 34%),#07110f!important}
+.cta-final .section-title{font-size:clamp(2.2rem,4.8vw,4rem)!important}
+.cta-final .section-label{color:#8fe2bb!important}
+
+@media(max-width:760px){
+  .hero{min-height:820px!important;padding-top:54px!important;padding-bottom:64px!important}
+  .hero__intent-grid{grid-template-columns:1fr 1fr!important;max-width:350px;margin:auto}
+  .hero__intent-btn--primary{grid-column:1/-1}
+  .hero__store-block{margin-top:18px!important}
+  .doctor-strip{padding:52px 0 32px!important}
+  .doctor-strip__track{flex-wrap:nowrap!important;justify-content:flex-start!important;overflow-x:auto!important;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .doctor-strip__track::-webkit-scrollbar{display:none}
+  .dstrip-card{scroll-snap-align:start}
+  .journey-section{padding:78px 18px 86px}
+  .journey-section .section-title{font-size:2.45rem!important}
+  .journey-layout{grid-template-columns:1fr;gap:42px;margin-top:52px}
+  .journey-sticky{position:static}
+  .journey-step{padding:24px 20px 24px 62px;border-radius:20px}
+  .symptom-line{left:20px}
+  .product-story{padding:82px 18px}
+  .product-story__grid{grid-template-columns:1fr;gap:38px}
+  .product-story__video{border-radius:22px}
+  .reviews-section,#corpo-clinico,.faq-section,.cta-final{padding-top:82px!important;padding-bottom:82px!important}
+}
+@media(prefers-reduced-motion:reduce){.journey-step{transition:none!important}.symptom-line__fill{transition:none!important}}
+
+/* navegação compacta */
+.nav__links{display:flex!important;align-items:center;gap:22px}
+.nav__links a{color:rgba(255,255,255,.60);font-size:.76rem;font-weight:650;text-decoration:none;transition:color .18s}
+.nav__links a:hover{color:#fff}
+.nav__menu-btn{display:none;width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.035);align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer}
+.nav__menu-btn span{width:16px;height:1.5px;background:rgba(255,255,255,.82);border-radius:2px}
+.nav__mobile-menu{position:absolute;top:100%;left:12px;right:12px;padding:14px;border-radius:18px;background:rgba(7,17,15,.97);border:1px solid rgba(255,255,255,.09);box-shadow:0 22px 60px rgba(0,0,0,.36);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.nav__mobile-menu[hidden]{display:none!important}
+.nav__mobile-menu>a{display:block;padding:12px 10px;color:rgba(255,255,255,.78);font-size:.82rem;font-weight:650;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.055)}
+.nav__mobile-apps{padding:14px 10px 4px;display:flex;gap:8px;flex-wrap:wrap}
+.nav__mobile-apps>span{width:100%;font-size:.65rem;text-transform:uppercase;letter-spacing:.10em;color:rgba(255,255,255,.36);margin-bottom:3px}
+.nav__mobile-apps a{padding:8px 10px;border-radius:10px;background:rgba(22,199,131,.08);border:1px solid rgba(22,199,131,.16);color:#a9e7c8;font-size:.72rem;font-weight:700;text-decoration:none}
+
+@media(max-width:760px){
+  .nav__menu-btn{display:flex}
+  .nav__actions{gap:7px!important}
+  .nav__links{display:none!important}
+  .nav__cta-link{display:none!important}
+  .nav{position:sticky!important;top:0}
+}
+
+
+/* Refinamento visual — 04/10/2026 */
+:root{
+  --cj-bg:#0b1e19;
+  --cj-deep:#102820;
+  --cj-deep2:#153128;
+  --cj-green:#16c783;
+  --cj-lime:#78f25f;
+  --cj-cream:#f5f7f2;
+}
+body{
+  background:linear-gradient(180deg,#0b1e19 0%,#102820 38%,#0d211b 72%,#0a1915 100%)!important;
+}
+.nav{
+  background:linear-gradient(180deg,rgba(13,31,26,.88),rgba(10,25,21,.78))!important;
+}
+.nav__logo{gap:0!important;letter-spacing:-.045em!important}
+.nav__logo .c2{margin-left:-1px!important}
+.nav__logo .c3{margin-left:-1px!important}
+.nav__actions{border-left:0!important}
+.nav__actions::before,.nav__actions::after,.nav__cta-link::before,.nav__cta-link::after{content:none!important;display:none!important;border:0!important}
+
+/* rosa fica SOMENTE no badge de Outubro Rosa */
+.hero::before{
+  background:
+    linear-gradient(90deg,rgba(9,25,21,.98) 0%,rgba(10,28,23,.94) 38%,rgba(13,35,29,.78) 68%,rgba(13,35,29,.54) 100%)!important;
+}
+.hero__media::before{display:none!important;background:none!important}
+.hero__h1 em{
+  color:transparent!important;
+  background:linear-gradient(135deg,#d8f69b 0%,#69dda3 78%)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  filter:none!important;
+}
+#heroReviewProof strong{color:rgba(255,255,255,.78)!important}
+.hero__video{filter:brightness(.31) saturate(.58) contrast(1.02)!important}
+#heroCTA,.btn-primary,.sticky-cta__button{
+  background:linear-gradient(135deg,#65e0a0 0%,#23bd77 100%)!important;
+  color:#06140e!important;
+}
+.nav__cta-link{
+  background:rgba(22,199,131,.10)!important;
+  border-color:rgba(22,199,131,.22)!important;
+  color:#eaf8f1!important;
+  box-shadow:none!important;
+}
+
+/* cards de modalidade: mais limpos e com ícone linear */
+.hero__intent-grid{grid-template-columns:1.25fr 1fr!important;max-width:430px!important}
+.hero__intent-btn{
+  border-radius:16px!important;
+  background:rgba(255,255,255,.035)!important;
+  border-color:rgba(255,255,255,.085)!important;
+  box-shadow:none!important;
+}
+.hero__intent-icon{
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.75!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+.hero__intent-btn--primary{
+  background:rgba(22,199,131,.075)!important;
+  border-color:rgba(22,199,131,.20)!important;
+}
+.hero__intent-btn--primary::after{
+  background:#1a382d!important;
+  color:#c8f3da!important;
+  border-color:rgba(22,199,131,.18)!important;
+}
+
+/* rótulo de vídeo/prova sem bolinha ou glow */
+.video-proof-label{
+  display:inline-block;
+  margin-bottom:16px;
+  font:700 .68rem/1 'Outfit',sans-serif;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:rgba(220,239,230,.58);
+}
+
+/* blocos escuros um pouco mais claros */
+.doctor-strip{
+  background:linear-gradient(180deg,#0d241e 0%,#102820 100%)!important;
+}
+.product-story{
+  background:linear-gradient(180deg,#153128 0%,#102820 48%,#0e241e 100%)!important;
+}
+.reviews-section{
+  background:#122b23!important;
+  padding:72px 24px!important;
+}
+#corpo-clinico{
+  background:#0d211b!important;
+}
+.cta-final{
+  background:radial-gradient(circle at 50% 15%,rgba(22,199,131,.08),transparent 34%),#0d211b!important;
+}
+
+/* reviews mais compactos */
+.reviews-section .section-inner{max-width:940px!important}
+.reviews-section .section-title{
+  font-size:clamp(1.75rem,3.3vw,2.65rem)!important;
+  margin-bottom:8px!important;
+}
+#reviewsBadge{margin-top:4px!important}
+.reviews-section .car-outer{margin-top:26px!important}
+.reviews-section .rcard{
+  padding:19px 20px!important;
+  border-radius:19px!important;
+  min-height:0!important;
+}
+.reviews-section .rcard__quote{
+  font-size:.86rem!important;
+  line-height:1.5!important;
+  margin-top:11px!important;
+}
+
+/* linha do sintoma alinhada aos próprios cards */
+.journey-steps{position:relative!important;padding-left:0!important}
+.symptom-line{
+  left:22px!important;
+  top:38px!important;
+  bottom:38px!important;
+  height:auto!important;
+  width:2px!important;
+  border-radius:999px!important;
+  background:#d8e5dd!important;
+  overflow:hidden!important;
+}
+.symptom-line__fill{
+  width:100%!important;
+  max-height:100%!important;
+  border-radius:999px!important;
+  background:linear-gradient(180deg,#16c783,#52cfa0)!important;
+  box-shadow:none!important;
+}
+.journey-node{
+  left:13px!important;
+  top:31px!important;
+  width:18px!important;
+  height:18px!important;
+  box-shadow:none!important;
+}
+.journey-step.is-active .journey-node{
+  box-shadow:0 0 0 5px rgba(22,199,131,.08)!important;
+}
+.journey-step.is-active{
+  transform:translateX(4px)!important;
+}
+
+/* FAQ clara com contraste maior */
+.faq-section{background:#f3f6f1!important}
+.emergency{
+  background:#fff3e5!important;
+  border-color:#f2c89c!important;
+}
+.emergency p{color:#713914!important}
+
+/* app showcase: aumentar legibilidade geral */
+.product-story__copy p{color:rgba(255,255,255,.68)!important}
+.product-story__video{border-color:rgba(255,255,255,.12)!important}
+
+@media(max-width:760px){
+  .hero__intent-grid{grid-template-columns:1fr!important;max-width:350px!important}
+  .hero__intent-btn--primary{grid-column:auto!important}
+  .reviews-section{padding:64px 16px!important}
+  .reviews-section .section-title{font-size:1.8rem!important}
+  .journey-step.is-active{transform:none!important}
+}
+
+
+/* Refinamento final de identidade e microinterações */
+.nav__logo{gap:1px!important;letter-spacing:-.035em!important}
+.nav__logo .c2{
+  margin-left:1px!important;
+  color:var(--cj-green)!important;
+  background:none!important;
+  -webkit-background-clip:initial!important;
+  background-clip:initial!important;
+  -webkit-text-fill-color:var(--cj-green)!important;
+}
+.nav__logo .c3{margin-left:1px!important}
+
+/* verde/neutral em todos os destaques; rosa só vive no badge .october-rosa */
+.hero__pricing-value{
+  color:#f7fbf9!important;
+  -webkit-text-fill-color:#f7fbf9!important;
+}
+.hero__proof-row svg,
+#heroSecurity svg,
+.journey-icon,
+.step__num,
+.pain-item svg{
+  color:var(--cj-green)!important;
+  filter:none!important;
+}
+.section-label,
+.doctor-strip__eyebrow{
+  color:#8edeb8!important;
+}
+.section-title em,
+.cta-final .section-title em{
+  color:var(--cj-green)!important;
+  background:none!important;
+  -webkit-text-fill-color:var(--cj-green)!important;
+  text-shadow:none!important;
+}
+.hero__intent{width:auto!important;max-width:250px!important}
+.hero__intent-grid{display:block!important;max-width:250px!important}
+.hero__intent-btn--primary{
+  width:100%!important;
+  background:rgba(22,199,131,.075)!important;
+  border-color:rgba(22,199,131,.22)!important;
+  color:#bff0d5!important;
+  box-shadow:none!important;
+}
+.hero__intent-btn--primary .hero__intent-icon{
+  color:var(--cj-green)!important;
+  filter:none!important;
+}
+.hero__intent-btn--primary::after{
+  background:#17362b!important;
+  border-color:rgba(22,199,131,.18)!important;
+  color:#c7f2d9!important;
+}
+#heroCTA,.sticky-cta__button{
+  background:linear-gradient(135deg,#65e0a0 0%,#23bd77 100%)!important;
+  color:#06140e!important;
+  border-color:rgba(255,255,255,.16)!important;
+}
+#heroCTA:hover,.sticky-cta__button:hover{
+  box-shadow:0 20px 48px rgba(35,189,119,.28),0 0 0 1px rgba(255,255,255,.18) inset!important;
+}
+
+/* transição do menu */
+.nav{position:relative}
+.nav__mobile-menu{
+  display:block!important;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(-8px) scale(.985);
+  transform-origin:top right;
+  transition:opacity .22s ease,transform .28s cubic-bezier(.22,.61,.36,1),visibility 0s linear .28s;
+  background:rgba(11,30,25,.97)!important;
+  border-color:rgba(255,255,255,.085)!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.32)!important;
+}
+.nav__mobile-menu.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0) scale(1);
+  transition:opacity .22s ease,transform .28s cubic-bezier(.22,.61,.36,1),visibility 0s;
+}
+.nav__mobile-menu>a{
+  border-radius:10px;
+  transition:background .18s ease,color .18s ease,transform .18s ease;
+}
+.nav__mobile-menu>a:hover{
+  background:rgba(255,255,255,.045);
+  color:#fff;
+  transform:translateX(2px);
+}
+.nav__menu-btn{
+  transition:background .18s ease,border-color .18s ease,transform .18s ease;
+}
+.nav__menu-btn[aria-expanded="true"]{
+  background:rgba(22,199,131,.10);
+  border-color:rgba(22,199,131,.22);
+}
+.nav__menu-btn span{transition:transform .22s ease,opacity .18s ease}
+.nav__menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.nav__menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav__menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+
+/* remove folga visual excessiva entre o hero e a faixa seguinte */
+@media(max-width:760px){
+  .hero{min-height:760px!important;padding-bottom:44px!important}
+}
+.product-story{padding-bottom:72px!important}
+.reviews-section{border-top:0!important}
+
+
+/* Corrige espaço abaixo do WebM */
+.product-story{
+  padding-bottom:24px!important;
+}
+.reviews-section{
+  padding-top:58px!important;
+}
+@media(max-width:760px){
+  .product-story{
+    padding-bottom:10px!important;
+  }
+  .product-story__grid{
+    gap:30px!important;
+  }
+  .reviews-section{
+    padding-top:42px!important;
+  }
+}
+
+
+/* Emenda WebM -> seção seguinte sem faixa vazia */
+.product-story{
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+}
+.product-story__video{
+  margin-bottom:0!important;
+}
+.product-story__video video{
+  display:block!important;
+  margin:0!important;
+  vertical-align:top!important;
+}
+.reviews-section{
+  padding-top:0!important;
+  margin-top:0!important;
+}
+@media(max-width:760px){
+  .product-story{
+    padding-bottom:0!important;
+    margin-bottom:0!important;
+  }
+  .product-story__video{
+    margin-bottom:0!important;
+  }
+  .reviews-section{
+    padding-top:0!important;
+    margin-top:0!important;
+  }
+}
+
+
+/* Emenda visual corpo clínico -> prova social */
+.social-proof-video{
+  padding:14px 20px 40px!important;
+  margin:0!important;
+  border-top:0!important;
+  background:linear-gradient(180deg,#102820 0%,#0d211b 38%,#091713 100%)!important;
+}
+@media(max-width:760px){
+  .doctor-strip{padding-bottom:12px!important}
+  .social-proof-video{
+    padding-top:10px!important;
+    padding-bottom:34px!important;
+  }
+}
+
+
+/* prova social sem espaçamento morto */
+.social-proof-video{
+  padding-top:0!important;
+  margin-top:0!important;
+  transform:none!important;
+  opacity:1!important;
+}
+.social-proof-video .video-proof-label{
+  margin-top:0!important;
+  padding-top:8px!important;
+  margin-bottom:10px!important;
+}
+@media(max-width:760px){
+  .doctor-strip{padding-bottom:0!important}
+  .social-proof-video{
+    padding-top:0!important;
+  }
+}
+
+
+/* Ajuste fino do primeiro viewport e entrada da seção do app */
+@media(max-width:760px){
+  .hero{
+    min-height:auto!important;
+    padding-top:22px!important;
+    padding-bottom:28px!important;
+  }
+  .hero__copy{
+    gap:0!important;
+  }
+  .hero__h1{
+    margin-bottom:10px!important;
+  }
+  .hero__sub{
+    margin-bottom:14px!important;
+  }
+  .hero__pricing{
+    margin-top:16px!important;
+  }
+  #heroCTA{
+    margin-top:16px!important;
+  }
+  .hero__store-block{
+    margin-top:12px!important;
+  }
+  #heroPriceAnchor{
+    margin-top:12px!important;
+  }
+  #heroSecurity{
+    margin-top:10px!important;
+  }
+  .hero__intent{
+    margin-top:12px!important;
+  }
+
+  .product-story{
+    padding-top:46px!important;
+  }
+  .product-story__copy{
+    padding-top:4px!important;
+  }
+}
+
+
+/* Respiro controlado na entrada da experiência do app */
+@media(max-width:760px){
+  .product-story{
+    padding-top:68px!important;
+  }
+  .product-story__copy .section-label{
+    margin-bottom:10px!important;
+  }
+  .product-story__copy h2{
+    margin-top:0!important;
+  }
+}
+
+
+/* Ajuste baseado nos prints marcados */
+@media(max-width:760px){
+  .hero{
+    margin-top:-20px!important;
+    padding-top:12px!important;
+  }
+  .october-rosa{
+    margin-top:0!important;
+  }
+
+  .product-story{
+    padding-top:104px!important;
+  }
+  .product-story__copy{
+    padding-top:0!important;
+  }
+}
+
+
+/* Reordenação visual 04/10 — menos branco e menos verde morto */
+.journey-section{
+  background:linear-gradient(180deg,#edf6f0 0%,#e8f3ec 100%)!important;
+}
+.journey-step{
+  background:rgba(249,252,250,.92)!important;
+  border-color:rgba(22,199,131,.12)!important;
+}
+.journey-icon,
+.journey-chip{
+  background:#e4f1e9!important;
+}
+.faq-section{
+  background:linear-gradient(180deg,#eef6f1 0%,#e9f3ed 100%)!important;
+}
+.faq-item{
+  background:rgba(250,252,250,.82)!important;
+  border-color:rgba(22,199,131,.10)!important;
+}
+.faq-q{background:transparent!important}
+
+/* vídeo social depois da jornada, com transição suave */
+.journey-section + .social-proof-video{
+  background:linear-gradient(180deg,#e8f3ec 0%,#153128 26%,#102820 100%)!important;
+  padding-top:72px!important;
+}
+.journey-section + .social-proof-video .video-proof-label{
+  color:rgba(237,249,242,.72)!important;
+  padding-top:0!important;
+}
+
+/* WebM -> experiência de pacientes: respiro, sem blocão verde vazio */
+.product-story{
+  padding-bottom:24px!important;
+}
+.product-story + .reviews-section{
+  padding-top:54px!important;
+}
+.reviews-section{
+  padding-bottom:52px!important;
+}
+.reviews-section .car-outer{
+  margin-bottom:10px!important;
+}
+
+/* separa corpo clínico da prova/avaliações */
+#corpo-clinico{
+  padding-top:84px!important;
+}
+@media(max-width:760px){
+  .journey-section{
+    padding-top:72px!important;
+    padding-bottom:72px!important;
+  }
+  .journey-section + .social-proof-video{
+    padding-top:58px!important;
+    padding-bottom:48px!important;
+  }
+  .product-story{
+    padding-bottom:18px!important;
+  }
+  .product-story + .reviews-section{
+    padding-top:46px!important;
+  }
+  .reviews-section{
+    padding-bottom:42px!important;
+  }
+  #corpo-clinico{
+    padding-top:72px!important;
+  }
+}
+
+
+/* Equilibra transição vídeo social -> experiência no app */
+@media(max-width:760px){
+  .journey-section + .social-proof-video{
+    padding-bottom:24px!important;
+  }
+  .product-story{
+    padding-top:48px!important;
+  }
+}

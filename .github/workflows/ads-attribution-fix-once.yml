@@ -1,0 +1,25 @@
+name: Ads attribution fix once
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ads-attribution-fix-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply attribution patch
+        run: python3 scripts/apply_ads_attribution_patch.py
+      - name: Validate and commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add consulta/index.html confirmado.html
+          git diff --cached --check
+          git commit -m "Harden ads attribution persistence" || exit 0
+          git push

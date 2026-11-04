@@ -1,0 +1,39 @@
+name: Apply patient PWA push polish
+on:
+  push:
+    paths:
+      - 'scripts/apply_patient_pwa_push_polish.py'
+      - '.github/workflows/apply-patient-pwa-push-polish.yml'
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/apply_patient_pwa_push_polish.py
+      - name: Copy app icon and build PWA sizes
+        run: |
+          curl -L --fail -o icon-1024.png https://raw.githubusercontent.com/gustavosgbf-hue/consultaja24h-app/main/icon-1024.png
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image
+          im=Image.open('icon-1024.png').convert('RGBA')
+          im.resize((512,512),Image.Resampling.LANCZOS).save('icon-512.png')
+          im.resize((192,192),Image.Resampling.LANCZOS).save('icon-192.png')
+          PY
+      - name: Sanity checks
+        run: |
+          grep -q 'CJ24H-PWA-PUSH-V1' atendimento/index.html
+          grep -q 'manifest.webmanifest' atendimento/index.html
+          test -s icon-192.png && test -s icon-512.png && test -s icon-1024.png
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add atendimento/index.html icon-192.png icon-512.png icon-1024.png
+          git diff --cached --quiet || git commit -m 'Polish patient chat and add PWA push'
+          git push

@@ -1,0 +1,48 @@
+name: Apply patient experience v3
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-patient-experience-v3.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Patch atendimento safely
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('atendimento/index.html')
+          s=p.read_text()
+          if '/patient-experience-v3.css' not in s:
+              anchor='</head>'
+              assert anchor in s
+              s=s.replace(anchor,'<link rel="stylesheet" href="/patient-experience-v3.css?v=3">\n'+anchor,1)
+          if '/patient-experience-v3.js' not in s:
+              anchor='</body>'
+              assert anchor in s
+              s=s.replace(anchor,'<script src="/patient-experience-v3.js?v=3"></script>\n'+anchor,1)
+          p.write_text(s)
+          print('patient experience v3 linked')
+          PY
+      - name: Sanity checks
+        run: |
+          grep -q '/patient-experience-v3.css?v=3' atendimento/index.html
+          grep -q '/patient-experience-v3.js?v=3' atendimento/index.html
+          test -f patient-experience-v3.css
+          test -f patient-experience-v3.js
+          test -f conta/index.html
+          test -f conta/push-sw.js
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add atendimento/index.html
+          if ! git diff --cached --quiet; then git commit -m 'Wire patient experience v3 into atendimento'; git push; fi

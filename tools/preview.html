@@ -1,0 +1,12 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Revisão ConsultaJá24h</title>
+<style>body{margin:0;background:#dbe2dd;font:14px system-ui;color:#253f30}header{padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}a{color:#236745}iframe{border:0;display:block;margin:0;background:white}small{color:#5d7567}</style>
+<header><b>Revisão local · dados fictícios</b><a href="?device=android">Android</a><a href="?device=iphone">iPhone</a><a href="?device=desktop">Desktop</a><a id="landing">Landing</a><a id="rated">Concluída / avaliação</a><a id="unrated">Concluída / sem avaliação</a><a id="pending">Pagamento pendente</a><a id="canceled">Pagamento cancelado</a><small>Perfis responsivos no Chrome</small></header>
+<iframe id="preview" title="Prévia do site"></iframe>
+<script>
+const params=new URLSearchParams(location.search),device=params.get('device')||'android',scene=params.get('scene')||'landing';
+const sizes={android:[412,915],iphone:[390,844],desktop:[1440,1100]},size=sizes[device]||sizes.android;
+const frame=document.getElementById('preview');frame.width=size[0];frame.height=params.get('height')||size[1];
+if(params.has('capture')){document.querySelector('header').style.display='none';document.body.style.width=size[0]+'px'}
+for(const id of ['landing','rated','unrated','pending','canceled'])document.getElementById(id).href='?device='+device+'&scene='+id;
+frame.src=(scene==='landing'?'/consulta/':'/atendimento/?consulta=preview-care-001&')+(scene==='landing'?'?':'')+'__qa_device='+device+'&__qa_case='+scene+'&utm_source=qa_preview&utm_medium=test&utm_campaign=redesign';
+</script></html>

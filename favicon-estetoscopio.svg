@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ConsultaJá24h, estetoscópio">
+<rect width="128" height="128" rx="27" fill="#10271e"/>
+<path d="M36 33v28c0 18 12 30 28 30s28-12 28-30V33" fill="none" stroke="#eaf5ed" stroke-width="8" stroke-linecap="round"/>
+<path d="M64 91v4c0 11 8 19 19 19s19-8 19-19v-8" fill="none" stroke="#8bdd86" stroke-width="7" stroke-linecap="round"/>
+<circle cx="36" cy="31" r="7" fill="#eaf5ed"/>
+<circle cx="92" cy="31" r="7" fill="#eaf5ed"/>
+<circle cx="102" cy="80" r="14" fill="#8bdd86"/>
+<circle cx="102" cy="80" r="7" fill="#10271e"/>
+</svg>

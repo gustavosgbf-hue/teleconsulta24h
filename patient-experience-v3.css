@@ -1,0 +1,104 @@
+/* ConsultaJa24h patient experience v3 — additive visual layer only */
+:root{--cj-bg:#06100d;--cj-card:#0b1713;--cj-card2:#0e1d18;--cj-line:rgba(142,255,195,.12);--cj-green:#78e6a5;--cj-text:#f2f5f3;--cj-muted:rgba(235,242,238,.52);--cj-soft:rgba(235,242,238,.28)}
+#s-espera.active{background:radial-gradient(900px 420px at 50% -100px,rgba(46,182,113,.12),transparent 70%),#06100d}
+#s-espera .s-inner{max-width:560px!important;padding:22px 18px 110px!important;margin:auto}
+#s-espera .espera-box{width:100%;max-width:520px;margin:0 auto;text-align:left;padding:0!important}
+#s-espera .espera-anim{width:58px;height:58px;margin:8px 0 18px;border:1px solid rgba(120,230,165,.22);border-radius:18px;background:linear-gradient(145deg,rgba(120,230,165,.14),rgba(120,230,165,.04));display:grid;place-items:center;box-shadow:0 18px 50px rgba(0,0,0,.24);position:relative;overflow:hidden}
+#s-espera .espera-anim:after{content:"";width:10px;height:10px;border-radius:50%;background:var(--cj-green);box-shadow:0 0 0 8px rgba(120,230,165,.08);animation:cjPulse 1.9s ease-in-out infinite}
+#s-espera .espera-anim.cj-ready:after{width:20px;height:10px;border-radius:0;background:transparent;border-left:2px solid var(--cj-green);border-bottom:2px solid var(--cj-green);transform:rotate(-45deg);box-shadow:none;animation:none;margin-top:-5px}
+#s-espera #esperaIcon{display:none!important}
+#s-espera .espera-titulo{font-family:'Outfit',sans-serif!important;font-size:1.72rem!important;font-weight:650!important;letter-spacing:-.035em!important;color:var(--cj-text)!important;margin:0 0 7px!important;text-align:left!important}
+#s-espera .espera-sub{font-size:.92rem!important;line-height:1.55!important;color:var(--cj-muted)!important;margin:0 0 18px!important;text-align:left!important;max-width:430px}
+#s-espera .espera-info{display:none!important}
+#s-espera .espera-badge{display:none!important}
+#s-espera .espera-status{display:flex;align-items:center;gap:8px;width:max-content;max-width:100%;margin:0 0 16px!important;padding:7px 10px!important;border:1px solid rgba(120,230,165,.12);border-radius:999px;background:rgba(120,230,165,.045);font-size:.7rem!important;color:rgba(215,239,225,.56)!important;letter-spacing:.02em}
+#s-espera .espera-status:before{content:"";width:6px;height:6px;border-radius:50%;background:#78e6a5;box-shadow:0 0 0 4px rgba(120,230,165,.07)}
+#s-espera #esperaFila,#s-espera #esperaDemora,#s-espera #aviso-horario-espera{border-radius:14px!important;font-size:.76rem!important;line-height:1.45!important;box-shadow:none!important}
+#s-espera #link-retorno-box{display:none!important}
+#s-espera .cj-return-link{display:flex;align-items:center;gap:10px;margin:12px 0 20px}
+#s-espera .cj-return-link button{appearance:none;border:0;background:transparent;color:rgba(230,238,234,.36);font:500 .72rem 'Outfit',sans-serif;padding:5px 0;cursor:pointer;text-decoration:none}
+#s-espera .cj-return-link button:hover{color:rgba(230,238,234,.7)}
+#s-espera .cj-return-link svg{width:14px;height:14px;opacity:.45}
+#s-espera .chat-consulta{border:1px solid rgba(255,255,255,.065)!important;background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.008))!important;border-radius:20px!important;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.22)!important}
+#s-espera .chat-header-box{padding:15px 17px!important;background:transparent!important}
+#s-espera .chat-header-box h3{font-size:.86rem!important;font-weight:620!important;letter-spacing:-.01em}
+#s-espera .chat-header-box p{font-size:.72rem!important;color:rgba(235,242,238,.38)!important}
+#s-espera .medico-entrou-banner{margin:12px 12px 0!important;border-radius:14px!important;padding:11px 12px!important;background:rgba(120,230,165,.055)!important;border:1px solid rgba(120,230,165,.12)!important}
+#s-espera .cj-doctor-mark{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(120,230,165,.09);font-size:.62rem!important}
+#s-espera .cj-continuity{display:none!important}
+#s-espera .chat-msgs{min-height:160px}
+#s-espera .chat-input-row{background:#08110e!important}
+#s-espera .chat-send,#s-espera .chat-clip-btn{border-radius:11px!important}
+#s-espera .chat-consulta>div:last-child{font-size:.61rem!important;letter-spacing:.02em!important}
+
+.cj-access-card{position:relative;margin:4px 0 16px;padding:16px;border-radius:18px;border:1px solid var(--cj-line);background:linear-gradient(145deg,rgba(120,230,165,.07),rgba(255,255,255,.018));box-shadow:0 18px 50px rgba(0,0,0,.16);overflow:hidden;animation:cjRise .35s cubic-bezier(.2,.8,.2,1) both}
+.cj-access-card:before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(120,230,165,.08);filter:blur(42px);right:-50px;top:-70px;pointer-events:none}
+.cj-access-head{display:flex;align-items:flex-start;gap:12px;position:relative}
+.cj-access-icon{width:40px;height:40px;border-radius:12px;background:#0c2118;border:1px solid rgba(120,230,165,.14);display:grid;place-items:center;flex:0 0 auto}
+.cj-access-icon svg{width:18px;height:18px;color:#87ecaf}
+.cj-access-copy{min-width:0;flex:1}.cj-access-title{font-size:.92rem;font-weight:650;color:#f1f6f3;letter-spacing:-.015em}.cj-access-sub{font-size:.73rem;line-height:1.5;color:rgba(235,242,238,.48);margin-top:4px;max-width:390px}
+.cj-access-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.cj-access-btn{appearance:none;border:1px solid rgba(120,230,165,.22);background:rgba(120,230,165,.1);color:#98efb8;border-radius:11px;padding:9px 12px;font:620 .72rem 'Outfit',sans-serif;cursor:pointer;transition:transform .15s ease,background .18s ease,border-color .18s ease}.cj-access-btn:active{transform:scale(.98)}.cj-access-btn.secondary{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.08);color:rgba(239,244,241,.65)}.cj-access-btn:disabled{opacity:.45;cursor:default}
+.cj-access-foot{margin-top:9px;font-size:.62rem;color:rgba(235,242,238,.28)}
+.cj-device-row{display:flex;gap:8px;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.055)}.cj-device-note{font-size:.64rem;line-height:1.4;color:rgba(235,242,238,.34);flex:1}.cj-device-action{appearance:none;border:0;background:transparent;color:#84e7aa;font:600 .67rem 'Outfit',sans-serif;padding:6px 0;cursor:pointer;white-space:nowrap}
+.cj-access-success .cj-access-icon{background:rgba(120,230,165,.12)}
+
+.cj-sheet{position:fixed;inset:0;z-index:10050;display:flex;align-items:flex-end;justify-content:center;padding:14px;background:rgba(0,0,0,.66);backdrop-filter:blur(12px);animation:cjFade .18s ease both}.cj-sheet-card{width:100%;max-width:450px;border:1px solid rgba(255,255,255,.08);border-radius:24px;background:#0a1511;padding:20px;box-shadow:0 28px 90px rgba(0,0,0,.55);animation:cjSheet .28s cubic-bezier(.2,.78,.2,1) both}.cj-sheet-kicker{font-size:.62rem;text-transform:uppercase;letter-spacing:.11em;color:#6fd99a;font-weight:650}.cj-sheet-title{font-size:1.08rem;font-weight:680;letter-spacing:-.025em;color:#f3f6f4;margin-top:6px}.cj-sheet-text{font-size:.76rem;line-height:1.55;color:rgba(235,242,238,.48);margin:7px 0 14px}.cj-sheet-field{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.09);background:#0d1b16;color:#fff;border-radius:12px;padding:12px 13px;font:500 .86rem 'Outfit',sans-serif;outline:none;margin:6px 0}.cj-sheet-field:focus{border-color:rgba(120,230,165,.32);box-shadow:0 0 0 3px rgba(120,230,165,.05)}.cj-sheet-code{text-align:center;letter-spacing:.28em;font-size:1.15rem;font-weight:680}.cj-sheet-primary{width:100%;border:1px solid rgba(120,230,165,.24);background:#163d2b;color:#a6f1c0;border-radius:12px;padding:12px;font:650 .8rem 'Outfit',sans-serif;cursor:pointer;margin-top:8px}.cj-sheet-secondary{width:100%;border:0;background:transparent;color:rgba(235,242,238,.42);padding:11px;font:550 .74rem 'Outfit',sans-serif;cursor:pointer}.cj-sheet-error{display:none;color:#ff9c9c;font-size:.7rem;line-height:1.4;margin-top:8px}.cj-sheet-check{display:flex;align-items:flex-start;gap:9px;margin-top:13px;padding:11px;border-radius:12px;background:rgba(255,255,255,.025);font-size:.68rem;line-height:1.45;color:rgba(235,242,238,.5)}.cj-sheet-check input{margin-top:2px;accent-color:#78e6a5}
+
+/* Make the top bar feel like an app chrome instead of a landing header */
+body>.nav{height:58px!important;padding:0 18px!important;background:rgba(5,13,10,.86)!important;border-bottom:1px solid rgba(255,255,255,.055)!important;backdrop-filter:blur(18px)}
+body>.nav .nav__brand{gap:8px!important}.nav__brand .live-dot{width:7px!important;height:7px!important;box-shadow:0 0 0 5px rgba(94,224,160,.055)!important}.nav__brand .c1,.nav__brand .c2,.nav__brand .tag24{font-size:.92rem!important}.nav__brand .c1{font-family:'Playfair Display',serif!important}.nav__brand .tag24{opacity:.38!important}.nav #nav-step{font-size:.61rem!important;letter-spacing:.07em!important;color:rgba(235,242,238,.32)!important}
+
+/* Clean legacy emoji-heavy UI states without touching their logic */
+#s-cpf .s-card>div:first-child>div:first-child{display:none!important}
+#s-cpf .s-card>div:first-child{padding-top:24px!important}
+#s-cpf .s-card>div:first-child>div:nth-child(2){font-size:1.16rem!important}
+#s-triage .ia-banner>span:first-child{display:none!important}
+#s-triage .ia-banner{gap:0!important;padding:9px 12px!important}
+#s-modality .mc-icon{font-size:0!important;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.04);position:relative}
+#s-modality .mc-icon:after{content:"";position:absolute;inset:9px;border:1.6px solid currentColor;border-radius:3px;opacity:.65}
+.trust-strip{gap:7px!important}.trust-strip span{font-size:.66rem!important}.pay-icon-wrap{font-size:0!important}.pay-icon-wrap:after{content:"";display:block;width:9px;height:9px;border-radius:50%;background:var(--g1)}
+
+@keyframes cjPulse{0%,100%{transform:scale(.92);opacity:.72}50%{transform:scale(1);opacity:1}}@keyframes cjRise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}@keyframes cjFade{from{opacity:0}to{opacity:1}}@keyframes cjSheet{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(max-width:520px){#s-espera .s-inner{padding:18px 14px 96px!important}#s-espera .espera-titulo{font-size:1.48rem!important}.cj-access-card{padding:14px;border-radius:16px}.cj-access-actions{display:grid;grid-template-columns:1fr}.cj-access-btn{width:100%}.cj-device-row{align-items:flex-start}.cj-sheet-card{padding:18px;border-radius:22px}}
+@media(prefers-reduced-motion:reduce){#s-espera .espera-anim:after,.cj-access-card,.cj-sheet,.cj-sheet-card{animation:none!important}.cj-access-btn{transition:none!important}}
+
+/* CJ24H v4 — focused waiting + fullscreen consultation */
+#s-espera:not(.cj-consult-active) .espera-anim{width:34px!important;height:34px!important;border-radius:50%!important;margin:6px 0 16px!important;background:rgba(255,255,255,.018)!important;border:1px solid rgba(120,230,165,.14)!important;box-shadow:none!important;overflow:visible!important}
+#s-espera:not(.cj-consult-active) .espera-anim:after{width:16px!important;height:16px!important;border-radius:50%!important;background:transparent!important;border:1.5px solid rgba(120,230,165,.16)!important;border-top-color:rgba(120,230,165,.82)!important;box-shadow:none!important;animation:cjSpin .9s linear infinite!important;transform:none!important;margin:0!important}
+#s-espera .espera-status:before{display:none!important}
+#s-espera .espera-status{padding:0!important;border:0!important;background:transparent!important;margin:0 0 14px!important;color:rgba(235,242,238,.38)!important}
+#s-espera .cj-wait-dot{display:none!important}
+#s-espera button[onclick="confirmarSairConsulta()"]{display:none!important}
+#s-espera:not(.cj-consult-active) .cj-access-card{margin:8px 0 10px!important;padding:12px 13px!important;border-radius:15px!important;background:rgba(255,255,255,.018)!important;border-color:rgba(120,230,165,.1)!important;box-shadow:none!important}
+#s-espera:not(.cj-consult-active) .cj-access-card:before{display:none!important}
+#s-espera:not(.cj-consult-active) .cj-access-head{gap:10px!important}
+#s-espera:not(.cj-consult-active) .cj-access-icon{width:32px!important;height:32px!important;border-radius:10px!important;background:rgba(120,230,165,.045)!important}
+#s-espera:not(.cj-consult-active) .cj-access-icon svg{width:15px!important;height:15px!important}
+#s-espera:not(.cj-consult-active) .cj-access-title{font-size:.82rem!important;font-weight:620!important}
+#s-espera:not(.cj-consult-active) .cj-access-sub{font-size:.67rem!important;line-height:1.42!important;margin-top:2px!important;max-width:320px!important}
+#s-espera:not(.cj-consult-active) .cj-access-actions{margin-top:9px!important}
+#s-espera:not(.cj-consult-active) .cj-access-btn{padding:8px 10px!important;border-radius:10px!important;font-size:.68rem!important;background:rgba(120,230,165,.065)!important;color:rgba(169,239,196,.86)!important}
+#s-espera:not(.cj-consult-active) .cj-access-foot{display:none!important}
+#s-espera:not(.cj-consult-active) .cj-device-row{margin-top:7px!important;padding-top:7px!important;border-top-color:rgba(255,255,255,.04)!important;justify-content:flex-start!important}
+#s-espera:not(.cj-consult-active) .cj-device-note{display:none!important}
+#s-espera:not(.cj-consult-active) .cj-device-action{font-size:.64rem!important;color:rgba(154,231,184,.7)!important;padding:3px 0!important}
+#s-espera:not(.cj-consult-active) .cj-return-link{margin:7px 0 8px!important}
+#s-espera:not(.cj-consult-active) .cj-return-link button{font-size:.65rem!important;color:rgba(230,238,234,.28)!important}
+#s-espera.cj-consult-active .espera-anim,#s-espera.cj-consult-active .espera-titulo,#s-espera.cj-consult-active .espera-sub,#s-espera.cj-consult-active .espera-status,#s-espera.cj-consult-active #esperaFila,#s-espera.cj-consult-active #esperaDemora,#s-espera.cj-consult-active #aviso-horario-espera,#s-espera.cj-consult-active #cjAccessCard,#s-espera.cj-consult-active #cjReturnCompact,#s-espera.cj-consult-active #link-retorno-box,#s-espera.cj-consult-active button[onclick="confirmarSairConsulta()"],#s-espera.cj-consult-active .medico-entrou-banner,#s-espera.cj-consult-active .cj-continuity{display:none!important}
+#s-espera.cj-consult-active .chat-consulta{display:flex!important;flex-direction:column!important;background:#06100d!important;box-shadow:none!important;border-color:rgba(255,255,255,.045)!important}
+#s-espera.cj-consult-active .chat-header-box{flex:0 0 auto!important;text-align:left!important;margin:0!important;padding:10px 14px!important;border-radius:0!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.05)!important;background:rgba(6,16,13,.92)!important;backdrop-filter:blur(14px)!important}
+#s-espera.cj-consult-active .chat-header-box h3{justify-content:flex-start!important;margin:0!important;font-size:.74rem!important;font-weight:620!important;color:rgba(240,246,242,.78)!important}
+#s-espera.cj-consult-active .chat-header-box p{margin-top:2px!important;font-size:.65rem!important;color:rgba(235,242,238,.34)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#s-espera.cj-consult-active .online-dot{width:5px!important;height:5px!important;background:rgba(120,230,165,.72)!important;animation:none!important;box-shadow:none!important}
+#s-espera.cj-consult-active .chat-msgs{flex:1 1 auto!important;min-height:0!important;max-height:none!important;border:0!important;border-radius:0!important;padding:18px 14px 20px!important;background:#06100d!important;overscroll-behavior:contain!important}
+#s-espera.cj-consult-active .chat-input-row{flex:0 0 auto!important;border:0!important;border-top:1px solid rgba(255,255,255,.055)!important;border-radius:0!important;padding:9px 10px calc(9px + env(safe-area-inset-bottom,0px))!important;background:rgba(7,17,14,.96)!important;backdrop-filter:blur(16px)!important;box-shadow:0 -10px 30px rgba(0,0,0,.16)!important}
+#s-espera.cj-consult-active .chat-input-row textarea{min-height:42px!important;border-radius:14px!important;background:rgba(255,255,255,.035)!important;border-color:rgba(255,255,255,.075)!important;padding:10px 13px!important}
+#s-espera.cj-consult-active .chat-input-row textarea:focus{border-color:rgba(120,230,165,.18)!important;box-shadow:0 0 0 2px rgba(120,230,165,.025)!important}
+#s-espera .chat-send{width:40px!important;height:40px!important;border-radius:13px!important;background:rgba(120,230,165,.07)!important;color:rgba(174,239,199,.86)!important;border:1px solid rgba(120,230,165,.16)!important;box-shadow:none!important;transition:background .15s ease,transform .12s ease!important}
+#s-espera .chat-send:hover{transform:none!important;background:rgba(120,230,165,.105)!important}
+#s-espera .chat-send:active{transform:scale(.96)!important}
+#s-espera .chat-clip-btn{width:38px!important;height:38px!important;border-radius:13px!important;background:rgba(255,255,255,.025)!important;border-color:rgba(255,255,255,.065)!important;color:rgba(235,242,238,.38)!important}
+#s-espera.cj-consult-active .chat-consulta>div:last-child{display:none!important}
+@media(max-width:720px){body:has(#s-espera.cj-consult-active){overflow:hidden!important;background:#06100d!important}#s-espera.cj-consult-active{height:calc(100dvh - 58px)!important;min-height:0!important;overflow:hidden!important;padding:0!important}#s-espera.cj-consult-active .s-inner{width:100%!important;max-width:none!important;height:100%!important;min-height:0!important;padding:0!important;margin:0!important}#s-espera.cj-consult-active .espera-box{width:100%!important;max-width:none!important;height:100%!important;min-height:0!important;margin:0!important;display:flex!important;flex-direction:column!important}#s-espera.cj-consult-active .chat-consulta{width:100%!important;max-width:none!important;height:100%!important;min-height:0!important;border:0!important;border-radius:0!important;margin:0!important;overflow:hidden!important}}
+@media(min-width:721px){#s-espera.cj-consult-active .s-inner{max-width:680px!important}#s-espera.cj-consult-active .espera-box{max-width:620px!important}#s-espera.cj-consult-active .chat-consulta{max-width:620px!important;margin:18px auto 0!important;min-height:70vh!important}}
+@keyframes cjSpin{to{transform:rotate(360deg)}}

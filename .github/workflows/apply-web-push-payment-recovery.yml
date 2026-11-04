@@ -1,0 +1,46 @@
+name: Apply Web Push Payment Recovery
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/apply-web-push-payment-recovery.mjs'
+      - '.github/workflows/apply-web-push-payment-recovery.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Apply web push recovery patch
+        run: node scripts/apply-web-push-payment-recovery.mjs
+
+      - name: Validate patch
+        run: |
+          git diff --check
+          grep -q 'moPushRecoveryWrap' consulta/index.html
+          grep -q 'moRetomarPagamentoPorPush' consulta/index.html
+
+      - name: Commit landing recovery
+        run: |
+          if git diff --quiet -- consulta/index.html; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add consulta/index.html
+          git commit -m "Add web push checkout recovery"
+          git push

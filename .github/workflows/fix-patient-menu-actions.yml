@@ -1,0 +1,60 @@
+name: Fix patient menu actions
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-patient-menu-actions.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch menu actions and animations
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          # 1) Do not auto-close the access sheet on every sync while consultation is active.
+          p = Path('patient-experience-v3.js')
+          s = p.read_text()
+          old = "    if(active)closeSheet();"
+          new = "    if(active&&!cjConsultWasActive)closeSheet();"
+          if old not in s:
+              raise SystemExit('syncConsultMode target not found')
+          p.write_text(s.replace(old, new, 1))
+
+          # 2) Smooth menu close and delay actions enough to let the exit animation play.
+          p = Path('patient-chat-ux-v6.js')
+          s = p.read_text()
+          s = s.replace("  function closeMenu(){var x=q('#cjMenuV6');if(x)x.remove()}", "  function closeMenu(immediate){var x=q('#cjMenuV6');if(!x)return;if(immediate){x.remove();return}if(x.classList.contains('is-closing'))return;x.classList.add('is-closing');setTimeout(function(){if(x.parentNode)x.remove()},220)}")
+          s = s.replace("  function go(url){location.href=url}", "  function go(url){setTimeout(function(){location.href=url},180)}")
+          s = s.replace("    closeMenu();\n    var active=hasToken();", "    closeMenu(true);\n    var active=hasToken();")
+          p.write_text(s)
+
+          # 3) Add reverse animation for backdrop and sheet.
+          p = Path('patient-chat-ux-v6.css')
+          s = p.read_text()
+          insert = "\n.cj-menu-v6.is-closing{animation:cjV6FadeOut .22s ease both;pointer-events:none}\n.cj-menu-v6.is-closing .cj-menu-v6__sheet{animation:cjV6SheetOut .22s cubic-bezier(.4,0,.8,.2) both}\n"
+          marker = "@keyframes cjV6Fade{from{opacity:0}to{opacity:1}}"
+          if marker not in s:
+              raise SystemExit('animation marker not found')
+          s = s.replace(marker, insert + marker + "\n@keyframes cjV6FadeOut{from{opacity:1}to{opacity:0}}\n@keyframes cjV6SheetOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(18px)}}", 1)
+          p.write_text(s)
+
+          # 4) Cache bust the changed assets.
+          p = Path('atendimento/index.html')
+          s = p.read_text()
+          s = s.replace('/patient-chat-ux-v6.css?v=2','/patient-chat-ux-v6.css?v=3')
+          s = s.replace('/patient-chat-ux-v6.js?v=2','/patient-chat-ux-v6.js?v=3')
+          s = s.replace('/patient-chat-ux-v6.js?v=1','/patient-chat-ux-v6.js?v=3')
+          s = s.replace('/patient-experience-v3.js?v=3','/patient-experience-v3.js?v=4')
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add patient-experience-v3.js patient-chat-ux-v6.js patient-chat-ux-v6.css atendimento/index.html
+          git commit -m 'Fix patient access actions and smooth menu transitions'
+          git push

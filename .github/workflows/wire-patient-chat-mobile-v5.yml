@@ -1,0 +1,34 @@
+name: Wire patient chat mobile v5
+on:
+  push:
+    paths:
+      - '.github/workflows/wire-patient-chat-mobile-v5.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wire stylesheet
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('atendimento/index.html')
+          s=p.read_text()
+          tag='<link rel="stylesheet" href="/patient-chat-mobile-v5.css?v=1"/>'
+          if tag not in s:
+              marker='<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">'
+              if marker not in s: raise SystemExit('head marker not found')
+              s=s.replace(marker, marker+'\n'+tag, 1)
+              p.write_text(s)
+          PY
+          grep -q 'patient-chat-mobile-v5.css' atendimento/index.html
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add atendimento/index.html
+          git commit -m "Use full-screen mobile consultation layout" || exit 0
+          git push

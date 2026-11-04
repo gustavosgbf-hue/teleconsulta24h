@@ -1,0 +1,37 @@
+name: Apply patient chat UX v6
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-patient-chat-ux-v6.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wire v6 assets
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('atendimento/index.html')
+          s=p.read_text()
+          if '/patient-chat-ux-v6.css' not in s:
+              anchor='<link rel="stylesheet" href="/patient-chat-mobile-v5.css?v=1"/>'
+              if anchor not in s: raise SystemExit('v5 css anchor missing')
+              s=s.replace(anchor,anchor+'\n<link rel="stylesheet" href="/patient-chat-ux-v6.css?v=1"/>',1)
+          if '/patient-chat-ux-v6.js' not in s:
+              if '</body>' not in s: raise SystemExit('body end missing')
+              s=s.replace('</body>','<script src="/patient-chat-ux-v6.js?v=1"></script>\n</body>',1)
+          p.write_text(s)
+          PY
+          grep -q '/patient-chat-ux-v6.css' atendimento/index.html
+          grep -q '/patient-chat-ux-v6.js' atendimento/index.html
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add atendimento/index.html
+          git commit -m "Wire patient chat UX v6" || exit 0
+          git push

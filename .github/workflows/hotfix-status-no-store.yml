@@ -1,0 +1,41 @@
+name: Hotfix status no-store
+on:
+  push:
+    paths:
+      - '.github/workflows/hotfix-status-no-store.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch status polling cache
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('atendimento/index.html')
+          s=p.read_text()
+          old="fetch(API+'/api/atendimento/status/'+atendimentoId)"
+          new="fetch(API+'/api/atendimento/status/'+atendimentoId,{cache:'no-store'})"
+          n=s.count(old)
+          if n<1:
+              raise SystemExit('status fetch target not found')
+          s=s.replace(old,new)
+          p.write_text(s)
+          print('patched',n,'status fetches')
+          PY
+          python - <<'PY'
+          import re, pathlib
+          s=pathlib.Path('atendimento/index.html').read_text()
+          assert "fetch(API+'/api/atendimento/status/'+atendimentoId,{cache:'no-store'})" in s
+          print('validation ok')
+          PY
+      - name: Commit hotfix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add atendimento/index.html
+          git commit -m "Disable cache on patient status polling"
+          git push
