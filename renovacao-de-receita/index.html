@@ -1035,6 +1035,8 @@ function fecharModal(){
 }
 
 function irParaStep(n){
+  // Passos 5 e 6 pertencem ao fluxo legado de envio físico, indisponível.
+  if(n===5||n===6)return irParaStep(7);
   if(n===2&&!validarStep1())return;
   if(n===3&&!validarStep2())return;
   if(n===4&&!validarStep3())return;
@@ -1049,7 +1051,9 @@ function irParaStep(n){
 }
 
 function selecModalidade(t){
-  SOLIC.tipo=t;
+  // A contratação pública aceita apenas receita digital. Não reativar o fluxo físico oculto.
+  if(t!=='digital')return;
+  SOLIC.tipo='digital';
   document.getElementById('optDigital').classList.toggle('active',t==='digital');
   document.getElementById('optFisica').classList.toggle('active',t==='fisica');
   document.getElementById('alertDigital').style.display=t==='digital'?'block':'none';
@@ -1099,6 +1103,7 @@ function atualizarBtnStep4(){
 
 async function criarPreRegistro(){
   if(SOLIC.atendimentoId)return true;
+  SOLIC.tipo='digital'; // Garantia adicional antes do pré-registro.
   const meds=document.getElementById('iMeds').value.trim();
   let questionario=null;
   const emTratamentoPeso = document.querySelector('.premium-option[data-kind="peso"]')?.getAttribute('aria-pressed') === 'true';
@@ -1388,7 +1393,7 @@ async function verificarPagamentoStripe(sessionId){
 function finalizarPagamento(){
   clearInterval(POLLER_PAGAMENTO);
   irParaStep(8);
-  const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida. A receita digital será enviada por email e WhatsApp após avaliação médica.':'Sua solicitação foi recebida. A receita controlada será preparada e enviada via Correios após avaliação médica.';
+  const msg='Sua solicitação foi recebida. Após avaliação médica, se houver indicação, a receita será disponibilizada digitalmente.';
   document.getElementById('sucessoMsg').textContent=msg;
 }
 </script>
