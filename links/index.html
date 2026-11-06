@@ -54,11 +54,13 @@
   .checkout-load.hidden{display:none}
   .checkout-fallback{position:absolute;z-index:3;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);font:500 12px Outfit,sans-serif;color:#b4d2bd;background:#132b22;border:1px solid rgba(194,236,206,.25);border-radius:22px;padding:8px 14px;text-decoration:none;display:none;white-space:nowrap}
   .checkout-fallback.show{display:block}
+  .checkout-close{position:absolute;right:12px;top:calc(12px + env(safe-area-inset-top));z-index:4;border:1px solid rgba(194,236,206,.3);border-radius:24px;background:#132b22;color:#fff;padding:9px 13px;font:600 13px Outfit,sans-serif;cursor:pointer}
 </style>
 <div class="checkout-host" id="linksCheckout" role="dialog" aria-modal="true" aria-label="Iniciar consulta médica">
   <div class="checkout-load" id="linksCheckoutLoad">Abrindo atendimento seguro…</div>
   <iframe id="linksCheckoutFrame" title="Pagamento seguro da ConsultaJá24h" allow="payment *" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   <a class="checkout-fallback" id="linksCheckoutFallback" href="/consulta/">Abrir atendimento na página completa</a>
+  <button type="button" class="checkout-close" id="linksCheckoutClose" aria-label="Fechar atendimento">Fechar ✕</button>
 </div>
 <script>
 (function(){
@@ -67,12 +69,22 @@
  const frame=document.getElementById('linksCheckoutFrame');
  const loader=document.getElementById('linksCheckoutLoad');
  const fallback=document.getElementById('linksCheckoutFallback');
+ const closeBtn=document.getElementById('linksCheckoutClose');
  let loadingTimer=null;
  function close(){
    host.classList.remove('open');document.body.style.overflow='';
-   if(loadingTimer)clearTimeout(loadingTimer);
+   if(loadingTimer)clearTimeout(loadingTimer);loadingTimer=null;
    frame.removeAttribute('src');loader.classList.remove('hidden');fallback.classList.remove('show');
  }
+ closeBtn.addEventListener('click',function(){
+   // Permite abandonar o checkout sem ficar preso em um iframe indisponível.
+   try{if(frame.contentWindow&&typeof frame.contentWindow.moFechar==='function'){frame.contentWindow.moFechar();return;}}catch(_e){}
+   close();
+ });
+ frame.addEventListener('error',function(){
+   loader.textContent='Não foi possível abrir o atendimento aqui.';fallback.classList.add('show');
+   if(loadingTimer)clearTimeout(loadingTimer);loadingTimer=null;
+ });
  btn.addEventListener('click',function(event){
    if(event.defaultPrevented||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||event.button>0)return;
    event.preventDefault();
@@ -83,7 +95,8 @@
    host.classList.add('open');document.body.style.overflow='hidden';
    loader.classList.remove('hidden');fallback.classList.remove('show');
    frame.src=url.toString();
-   loadingTimer=setTimeout(function(){fallback.classList.add('show')},12000);
+   if(loadingTimer)clearTimeout(loadingTimer);
+   loadingTimer=setTimeout(function(){loader.textContent='O atendimento está demorando para abrir.';fallback.classList.add('show')},12000);
  });
  window.addEventListener('message',function(event){
    if(event.origin!==location.origin||event.source!==frame.contentWindow)return;
