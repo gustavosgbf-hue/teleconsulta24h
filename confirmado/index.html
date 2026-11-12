@@ -22,7 +22,7 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','966589106441907');
+fbq('init','1686104172455388');
 fbq('track','PageView');
 </script>
 <!-- End Meta Pixel -->
@@ -140,7 +140,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   // Fallback de atribuicao: a landing ja persiste UTMs/IDs em cj_ads_params.
   // Se algum redirect intermediario remover a query string, restaura antes do ping ao backend.
   try{
-    var adsRaw = sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
+    var adsRaw = sessionStorage.getItem('cj_ads_last_touch') || localStorage.getItem('cj_ads_last_touch') || sessionStorage.getItem('cj_ads_params') || localStorage.getItem('cj_ads_params') || '{}';
     var adsSalvos = JSON.parse(adsRaw);
     Object.keys(adsSalvos || {}).forEach(function(chaveAds){
       if((/^utm_/i.test(chaveAds) || /^gtm_/i.test(chaveAds) || ['gclid','gbraid','wbraid','fbclid'].indexOf(chaveAds) >= 0) && adsSalvos[chaveAds] && !params.has(chaveAds)){
@@ -157,23 +157,67 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
   var chave = 'conv_confirmado_' + txId;
   var emDebug = params.has('debug_tag') || params.has('force_tag');
 
-  var clienteNovo = null;
-  var customerType = 'unknown';
-  if(/^\d+$/.test(String(consultaId || ''))){
-    try{
-      var rc = await fetch('https://triagem-api.onrender.com/api/atendimento/status/'+encodeURIComponent(consultaId), {cache:'no-store'});
-      var dc = await rc.json();
-      if(dc&&dc.ok&&dc.atendimento&&dc.atendimento.pagamento_status==='confirmado'){
-        if(typeof dc.atendimento.cliente_novo === 'boolean') clienteNovo = dc.atendimento.cliente_novo;
-        if(dc.atendimento.customer_type === 'new' || dc.atendimento.customer_type === 'returning'){
-          customerType = dc.atendimento.customer_type;
+  var backendAtendimento = null;
+
+  async function pagamentoConfirmadoNoBackend(){
+    if(!/^\d+$/.test(String(consultaId||''))) return false;
+    var titulo=document.querySelector('h1');
+    var texto=document.querySelector('.card p');
+    for(var tentativa=0; tentativa<15; tentativa++){
+      try{
+        var r=await fetch('https://triagem-api.onrender.com/api/atendimento/status/'+encodeURIComponent(consultaId), {cache:'no-store'});
+        var d=await r.json();
+        if(d&&d.ok&&d.atendimento&&d.atendimento.pagamento_status==='confirmado'){
+          backendAtendimento = d.atendimento;
+          return true;
         }
-      }
-    }catch(e){}
+      }catch(e){}
+      if(titulo) titulo.textContent='Confirmando pagamento';
+      if(texto) texto.textContent='A operadora ainda está validando a cobrança. Aguarde alguns instantes...';
+      await new Promise(function(resolve){ setTimeout(resolve,2000); });
+    }
+    return false;
   }
+
+  var backendConfirmou=await pagamentoConfirmadoNoBackend();
+  if(!backendConfirmou){
+    var tituloPendente=document.querySelector('h1');
+    var textoPendente=document.querySelector('.card p');
+    var loaderPendente=document.querySelector('.loader');
+    if(tituloPendente) tituloPendente.textContent='Pagamento em análise';
+    if(textoPendente) textoPendente.textContent='Ainda não recebemos a confirmação definitiva da operadora. Você não será encaminhado ao atendimento até essa confirmação.';
+    if(loaderPendente) loaderPendente.style.display='none';
+    setTimeout(function(){
+      window.location.replace('/consulta/?retomar_pagamento='+encodeURIComponent(String(consultaId||'')));
+    },3500);
+    return;
+  }
+  var clienteNovo = backendAtendimento && typeof backendAtendimento.cliente_novo === 'boolean'
+    ? backendAtendimento.cliente_novo
+    : null;
+  var customerType = backendAtendimento && (backendAtendimento.customer_type === 'new' || backendAtendimento.customer_type === 'returning')
+    ? backendAtendimento.customer_type
+    : 'unknown';
+
   params.forEach(function(_, chaveParam){ if(/^gtm_/i.test(chaveParam)) emDebug = true; });
 
+  function lerCookie(nome){
+    try{
+      var prefixo = nome + '=';
+      var partes = document.cookie.split(';');
+      for(var i=0;i<partes.length;i++){
+        var parte = partes[i].trim();
+        if(parte.indexOf(prefixo) === 0) return decodeURIComponent(parte.slice(prefixo.length));
+      }
+    }catch(e){}
+    return '';
+  }
+
   function pingConfirmadoView(){
+    var firstTouch = {};
+    var lastTouch = {};
+    try{ firstTouch = JSON.parse(sessionStorage.getItem('cj_ads_first_touch') || localStorage.getItem('cj_ads_first_touch') || '{}') || {}; }catch(e){}
+    try{ lastTouch = JSON.parse(sessionStorage.getItem('cj_ads_last_touch') || localStorage.getItem('cj_ads_last_touch') || '{}') || {}; }catch(e){}
     var payload = {
       consultaId: String(consultaId || ''),
       tipo: params.get('tipo') || (sessao && sessao.tipoConsulta) || '',
@@ -189,6 +233,12 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       utm_campaign: params.get('utm_campaign') || '',
       utm_term: params.get('utm_term') || '',
       utm_content: params.get('utm_content') || '',
+      firstTouchAt: firstTouch.captured_at || '',
+      firstLandingUrl: firstTouch.landing_url || '',
+      firstReferrer: firstTouch.referrer || '',
+      lastTouchAt: lastTouch.captured_at || '',
+      lastLandingUrl: lastTouch.landing_url || '',
+      lastReferrer: lastTouch.referrer || '',
       href: location.href,
       referrer: document.referrer || ''
     };
@@ -199,6 +249,36 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       } else {
         fetch('https://triagem-api.onrender.com/api/tracking/confirmado-view', {method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){});
       }
+    }catch(e){}
+  }
+
+  function enviarMetaCapiPurchase(){
+    if(!/^\d+$/.test(String(consultaId || ''))) return;
+    var fbclidAtual = params.get('fbclid') || '';
+    var fbcAtual = lerCookie('_fbc');
+    if(!fbcAtual && fbclidAtual){
+      fbcAtual = 'fb.1.' + Date.now() + '.' + fbclidAtual;
+      try{
+        document.cookie = '_fbc=' + encodeURIComponent(fbcAtual) + '; Max-Age=7776000; Path=/; SameSite=Lax; Secure';
+      }catch(e){}
+    }
+    var payload = {
+      atendimentoId: String(consultaId),
+      eventId: 'purchase_' + String(txId),
+      value: valorCompra,
+      currency: 'BRL',
+      eventSourceUrl: location.href,
+      userAgent: navigator.userAgent || '',
+      fbc: fbcAtual,
+      fbp: lerCookie('_fbp')
+    };
+    try{
+      fetch('https://triagem-api.onrender.com/api/tracking/meta-capi-purchase', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload),
+        keepalive:true
+      }).catch(function(){});
     }catch(e){}
   }
 
@@ -262,6 +342,7 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
         num_items: 1
       },{eventID:'purchase_'+String(txId)});
     }
+    enviarMetaCapiPurchase();
 
     if(typeof gtag === 'function'){
       var callbackChamado = false;
