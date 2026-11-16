@@ -230,3 +230,14 @@ html.cjv #s-espera.cj-consult-active .cmsg.paciente .ts{display:flex;align-items
 html.cjv #s-espera.cj-consult-active .cjv-tick{margin:0;vertical-align:baseline;opacity:1;color:var(--cjv-ink3)}
 html.cjv #s-espera.cj-consult-active .cjv-tick[data-st="r"]{color:#1686bd}
 html.cjv:not([data-cjv-theme=light]) #s-espera.cj-consult-active .cjv-tick[data-st="r"]{color:#53bdeb}
+
+/* Post-consultation refinements: native store badges, compact secondary actions. */
+html.cjv body:has(#s-encerrado.active)>.nav{display:none!important}
+html.cjv #s-encerrado .cj-end-store-row{justify-content:center!important;align-items:center!important;gap:16px!important;margin:16px 0 4px!important}
+html.cjv #s-encerrado .cj-end-store-badge{flex:0 1 auto!important;min-width:0;min-height:44px;border:0!important;background:transparent!important;padding:0!important;border-radius:0!important;box-shadow:none!important}
+html.cjv #s-encerrado .cj-end-store-badge img{height:36px!important;width:auto!important;max-width:100%;object-fit:contain}
+html.cjv #s-encerrado .cjv-quiet{order:7;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:0 8px;margin:12px 0 4px}
+html.cjv #s-encerrado .cjv-quiet a{font-size:.75rem;padding:0 5px;min-height:44px}
+html.cjv #s-encerrado .enc-documento>span:not([class]){display:none}
+html.cjv #s-encerrado .enc-chat__msg.medico .enc-chat__bub{color:var(--cjv-drt)!important;background:var(--cjv-dr)!important}
+@media(max-width:359px){html.cjv #s-encerrado .cj-end-store-row{gap:8px!important}html.cjv #s-encerrado .cj-end-store-badge img{height:30px!important}}
