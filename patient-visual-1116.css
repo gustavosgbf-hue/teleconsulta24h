@@ -241,3 +241,9 @@ html.cjv #s-encerrado .cjv-quiet a{font-size:.75rem;padding:0 5px;min-height:44p
 html.cjv #s-encerrado .enc-documento>span:not([class]){display:none}
 html.cjv #s-encerrado .enc-chat__msg.medico .enc-chat__bub{color:var(--cjv-drt)!important;background:var(--cjv-dr)!important}
 @media(max-width:359px){html.cjv #s-encerrado .cj-end-store-row{gap:8px!important}html.cjv #s-encerrado .cj-end-store-badge img{height:30px!important}}
+
+html.cjv #s-encerrado .cjv-quiet{order:4;flex-direction:column;align-items:stretch;gap:4px;margin:6px 0 12px}
+html.cjv #s-encerrado .cjv-quiet .cjv-renew{display:flex;gap:10px;min-height:48px;padding:10px 14px;border:1px solid var(--cjv-cardbd);background:var(--cjv-card);color:var(--cjv-chipt);font-size:.875rem;font-weight:600;border-radius:14px}
+html.cjv #s-encerrado .cjv-renew span{flex:1}
+html.cjv #s-encerrado .cjv-renew svg{width:19px;height:19px;flex:none}
+html.cjv #s-encerrado .cjv-quiet a:not(.cjv-renew){align-self:center}
