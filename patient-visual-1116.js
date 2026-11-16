@@ -156,7 +156,7 @@
     var quiet=q('.cjv-quiet',host);
     if(done&&!quiet){
       quiet=d.createElement('div');quiet.className='cjv-quiet';
-      quiet.innerHTML='<a class="cjv-renew" href="/renovacao-de-receita"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h5"/></svg><span>Renovar minha receita</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="https://www.instagram.com/consultaja24h" target="_blank" rel="noopener noreferrer">'+IG+'Veja mais no nosso Instagram</a>';
+      quiet.innerHTML='<div class="cjv-next"><a class="cjv-newc" href="/consulta/?utm_source=pos_consulta&amp;utm_medium=owned&amp;utm_campaign=nova_consulta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Nova consulta</span></a><a class="cjv-renew" href="/renovacao-de-receita"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h5"/></svg><span>Renovar minha receita</span></a></div><a href="https://www.instagram.com/consultaja24h" target="_blank" rel="noopener noreferrer">'+IG+'Veja mais no nosso Instagram</a>';
       host.insertBefore(quiet,q('.enc-chat',host));
     }else if(!done&&quiet)quiet.remove();
   }
