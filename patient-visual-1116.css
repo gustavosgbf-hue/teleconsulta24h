@@ -75,7 +75,7 @@ html.cjv #s-espera.cj-consult-active .cmsg.paciente .bub{background:var(--cjv-pt
 html.cjv #s-espera.cj-consult-active .cmsg .bub a{color:inherit;text-decoration:underline}
 html.cjv #s-espera.cj-consult-active .cmsg .ts{font-size:.6875rem;color:var(--cjv-ink3);font-variant-numeric:tabular-nums}
 /* Os "✓✓" antigos eram decorativos (não refletiam leitura). Agora: um check neutro = mensagem registrada no servidor. Sem check azul. */
-html.cjv #s-espera.cj-consult-active .cmsg.paciente .ts::after{content:'\2713';color:var(--cjv-ink3);font-size:.75rem}
+html.cjv #s-espera.cj-consult-active .cmsg.paciente .ts::after{content:none!important;display:none!important}
 html.cjv #s-espera.cj-consult-active .msg-arquivo-pdf{background:var(--cjv-pt)!important;border:0!important;color:var(--cjv-ptt)!important;border-radius:18px!important;min-height:56px}
 html.cjv #s-espera.cj-consult-active .cmsg.medico .msg-arquivo-pdf{background:var(--cjv-dr)!important;color:var(--cjv-drt)!important;box-shadow:var(--cjv-drsh)}
 html.cjv #s-espera.cj-consult-active .msg-arquivo-pdf .pdf-nome{color:inherit}
@@ -106,7 +106,7 @@ html.cjv #s-espera.cj-consult-active #chatErroPaciente{color:var(--cjv-pdf)!impo
 
 /* mobile real: 320–430, teclado e safe area */
 @media (max-width:760px){
-  html.cjv #s-espera.cj-consult-active{height:calc(var(--cjv-vvh) - 58px)!important}
+  html.cjv #s-espera.cj-consult-active{height:var(--cjv-vvh)!important}
   html.cjv #s-espera.cj-consult-active .cmsg .bub{max-width:100%!important}
   html.cjv #s-espera.cj-consult-active .chat-input-row{margin-bottom:max(12px,env(safe-area-inset-bottom))!important}
   html.cjv.cjv-kb #s-espera.cj-consult-active .chat-input-row{margin-bottom:8px!important}
@@ -222,3 +222,11 @@ html.cjv #s-encerrado .enc-footer{order:8;text-align:center;color:var(--cjv-ink3
 .cjv-quote b{display:block;font-weight:700;font-size:.75rem}
 .cjv-quote span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media (prefers-reduced-motion:reduce){.cjv-tg,.cjv-tg__thumb,.cjv-tg svg,.cjv-sheet,.cjv-scrim,.cjv-pip{transition:none!important;animation:none!important}}
+
+/* Active consultation: one header, one read receipt. */
+html.cjv body:has(#s-espera.active.cj-consult-active)>.nav{display:none!important}
+html.cjv #s-espera.cj-consult-active .chat-input-row{box-shadow:0 3px 14px rgba(16,48,36,.07)!important}
+html.cjv #s-espera.cj-consult-active .cmsg.paciente .ts{display:flex;align-items:center;justify-content:flex-end;gap:4px}
+html.cjv #s-espera.cj-consult-active .cjv-tick{margin:0;vertical-align:baseline;opacity:1;color:var(--cjv-ink3)}
+html.cjv #s-espera.cj-consult-active .cjv-tick[data-st="r"]{color:#1686bd}
+html.cjv:not([data-cjv-theme=light]) #s-espera.cj-consult-active .cjv-tick[data-st="r"]{color:#53bdeb}
