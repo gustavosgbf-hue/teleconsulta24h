@@ -247,3 +247,6 @@ html.cjv #s-encerrado .cjv-quiet .cjv-renew{display:flex;gap:10px;min-height:48p
 html.cjv #s-encerrado .cjv-renew span{flex:1}
 html.cjv #s-encerrado .cjv-renew svg{width:19px;height:19px;flex:none}
 html.cjv #s-encerrado .cjv-quiet a:not(.cjv-renew){align-self:center}
+
+html.cjv #s-encerrado #btn-avaliar-google{min-height:60px;padding:10px 12px!important;gap:10px!important}
+html.cjv #s-encerrado #btn-avaliar-google .cjv-open{min-width:64px;padding:0 12px;min-height:40px;background:var(--cjv-chip);color:var(--cjv-chipt)}
