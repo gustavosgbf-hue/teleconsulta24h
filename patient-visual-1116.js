@@ -139,6 +139,20 @@
     if(g&&!g.getAttribute('data-cjv')){
       g.setAttribute('data-cjv','1');g.setAttribute('rel','noopener noreferrer');g.setAttribute('target','_blank');
       g.innerHTML='<span class="cjv-gmark">'+GSVG+'</span><span class="cjv-gtxt"><b>Avalie no Google</b><small>Leva menos de 1 minuto</small></span><span class="cjv-open" aria-hidden="true">Avaliar</span>';
+      g.addEventListener('click',function(e){
+        if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+        if(!window.matchMedia('(min-width: 761px) and (pointer: fine)').matches)return;
+        var w=Math.min(560,screen.availWidth),h=Math.min(720,screen.availHeight);
+        var left=Math.max(0,Math.round(window.screenX+(window.outerWidth-w)/2));
+        var top=Math.max(0,Math.round(window.screenY+(window.outerHeight-h)/2));
+        try{
+          var pop=window.open('about:blank','_blank','popup=yes,width='+w+',height='+h+',left='+left+',top='+top+',resizable=yes,scrollbars=yes');
+          if(!pop)return; // navegador bloqueou: deixa o link original abrir normalmente
+          pop.opener=null;
+          pop.location.replace(g.href);
+          e.preventDefault();
+        }catch(err){try{if(pop)pop.close()}catch(ignore){}}
+      });
       host.insertBefore(g,q('.enc-chat',host));
     }
     /* Documentos: rótulo neutro, sem inferir tipo */
