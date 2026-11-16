@@ -8,7 +8,7 @@ for (const file of ['index.html', 'consulta/index.html', 'atendimento/index.html
     new vm.Script(match[2], {filename: `${file}:script-${++count}`});
   }
 }
-for (const file of ['consulta/visionary-v1.js', 'patient-chat-ux-v6.js', 'tools/preview-fixtures.js']) {
+for (const file of ['consulta/visionary-v1.js', 'patient-chat-ux-v6.js', 'patient-visual-1116.js', 'tools/preview-fixtures.js']) {
   new vm.Script(fs.readFileSync(file, 'utf8'), {filename: file});
   count++;
 }

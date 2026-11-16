@@ -517,7 +517,7 @@ body{font-family:'Outfit',sans-serif;background:#060d0b;color:rgba(255,255,255,.
 
 </style>
 <link rel="stylesheet" href="/patient-experience-v3.css?v=3">
-<link rel="stylesheet" href="/patient-visual-1116.css?v=1">
+<link rel="stylesheet" href="/patient-visual-1116.css?v=2">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -2137,6 +2137,7 @@ function adicionarMensagemChat(m){
     return false;
   }
   chatMsgIds.add(key);
+  try{ var _cs=document.querySelectorAll('#chatMsgs .cmsg'); if(_cs.length) _cs[_cs.length-1].setAttribute('data-mid',String(Number(m.id)||'')); }catch(e){}
   ultimaMsgId=Math.max(ultimaMsgId,Number(m.id)||0);
   return true;
 }
@@ -2145,6 +2146,7 @@ function reconciliarMensagensChat(mensagens){
   (mensagens||[]).slice().sort(function(a,b){ return Number(a.id)-Number(b.id); }).forEach(function(m){
     if(adicionarMensagemChat(m)) novas.push(m);
   });
+  try{ if(window.cjvChatMeta) window.cjvChatMeta(mensagens||[]); }catch(e){}
   return novas;
 }
 async function carregarHistoricoChat(){
@@ -2946,6 +2948,6 @@ function cjAtivarPushPaciente(){cjRegistrarPushPaciente(true)}window.cjAtivarPus
 
 <script src="/patient-experience-v3.js?v=4"></script>
 <script src="/patient-chat-ux-v6.js?v=retention-v8-1"></script>
-<script src="/patient-visual-1116.js?v=1"></script>
+<script src="/patient-visual-1116.js?v=2"></script>
 </body>
 </html>

@@ -214,4 +214,11 @@ html.cjv #s-encerrado .enc-footer{order:8;text-align:center;color:var(--cjv-ink3
 .cjv-pip__ft .ghost{background:var(--cjv-soft);color:var(--cjv-ink)}
 @keyframes cjvFade{from{opacity:0}to{opacity:1}}
 @keyframes cjvPop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+/* ticks reais (lido_medico_em) e citação de resposta (reply_to_id) — somente leitura */
+.cjv-tick{display:inline-flex;vertical-align:-2px;margin-left:5px;opacity:.75}
+.cjv-tick svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cjv-tick[data-st="r"]{opacity:1;color:#53bdeb}
+.cjv-quote{display:block;margin:0 0 6px;padding:6px 10px;border-left:3px solid currentColor;border-radius:8px;background:rgba(127,127,127,.16);font-size:.8125rem;line-height:1.3;opacity:.9;overflow:hidden}
+.cjv-quote b{display:block;font-weight:700;font-size:.75rem}
+.cjv-quote span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media (prefers-reduced-motion:reduce){.cjv-tg,.cjv-tg__thumb,.cjv-tg svg,.cjv-sheet,.cjv-scrim,.cjv-pip{transition:none!important;animation:none!important}}

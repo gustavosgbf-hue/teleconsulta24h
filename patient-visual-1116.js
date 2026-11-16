@@ -118,6 +118,9 @@
     if(sheet&&!sheet.hidden&&!sheet.contains(e.target))closeSheet();
   },true);
   d.addEventListener('focusin',function(e){if(e.target&&e.target.id==='chatInputPaciente')closeSheet()});
+  d.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&sheet&&!sheet.hidden){closeSheet();var c=q('#s-espera .chat-clip-btn');if(c)c.focus()}
+  });
 
   /* ---------- triagem ---------- */
   function mountTriage(){var b=q('#s-triage .ia-banner');ensureToggle(b)}
@@ -166,7 +169,7 @@
   }
   function openDoc(a){
     var url;try{url=new URL(a.href,location.origin)}catch(e){return false}
-    if(url.protocol!=='https:'&&url.protocol!=='http:')return false;
+    if(url.protocol!=='https:')return false;/* só https: evita conteúdo misto e esquemas inesperados */
     lastFocus=a;closeDoc();lastFocus=a;
     var when=fmtDate(a.getAttribute('data-cj-criado'));
     scrim=d.createElement('div');scrim.className='cjv-scrim';
@@ -196,8 +199,50 @@
     }
   });
 
+  /* ---------- chat: ticks reais e citação de resposta (somente leitura) ----------
+     Fonte: campos que o GET legado /api/chat/:id já devolve (lido_medico_em, reply_to_id).
+     Sem o campo na resposta => nada é exibido (nunca simulamos "lida"). Envio de reply_to_id
+     NÃO é feito aqui: o POST legado do web não o suporta (exigiria backend). */
+  var TICK1='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4 4 10-10"/></svg>';
+  var TICK2='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 12.5 4 4 9-9M9 15.5l1 1 10-10"/></svg>';
+  window.cjvChatMeta=function(list){
+    try{
+      if(!Array.isArray(list))return;
+      var byId={};list.forEach(function(m){if(m&&m.id!=null)byId[String(m.id)]=m});
+      list.forEach(function(m){
+        if(!m||m.id==null)return;
+        var el=q('#chatMsgs .cmsg[data-mid="'+String(m.id).replace(/[^0-9]/g,'')+'"]');if(!el)return;
+        if(m.autor==='paciente'&&('lido_medico_em' in m)){
+          var ts=q('.ts',el);
+          if(ts){
+            var tk=q('.cjv-tick',ts),read=!!m.lido_medico_em;
+            if(!tk){tk=d.createElement('span');tk.className='cjv-tick';ts.appendChild(tk)}
+            var st=read?'r':'s';
+            if(tk.getAttribute('data-st')!==st){
+              tk.setAttribute('data-st',st);tk.innerHTML=read?TICK2:TICK1;
+              tk.setAttribute('role','img');tk.setAttribute('aria-label',read?'Lida pelo médico':'Enviada');
+            }
+          }
+        }
+        if(m.reply_to_id!=null&&!q('.cjv-quote',el)){
+          var tgt=byId[String(m.reply_to_id)],bub=q('.bub',el);
+          if(tgt&&bub){
+            var qb=d.createElement('div');qb.className='cjv-quote';
+            var who=d.createElement('b');who.textContent=tgt.autor==='medico'?'Médico':'Você';
+            var tx=d.createElement('span');
+            var raw=String(tgt.texto||'')||(tgt.arquivo_tipo==='pdf'?'PDF':tgt.arquivo_url?'Imagem':'');
+            tx.textContent=raw.length>120?raw.slice(0,117)+'…':raw;
+            qb.appendChild(who);qb.appendChild(tx);bub.insertBefore(qb,bub.firstChild);
+          }
+        }
+      });
+    }catch(e){}
+  };
+
+  var pend=false;
   function sync(){mountChatHeader();mountTriage();mountEnd()}
+  function schedule(){if(pend)return;pend=true;requestAnimationFrame(function(){pend=false;sync()})}
   if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',sync);else sync();
-  setInterval(sync,1200);
-  if(window.MutationObserver)new MutationObserver(sync).observe(d.body||r,{subtree:true,childList:true});
+  setInterval(function(){if(!d.hidden)sync()},2500);
+  if(window.MutationObserver)new MutationObserver(schedule).observe(d.body||r,{subtree:true,childList:true,attributes:true,attributeFilter:['data-consultation-completed']});
 })();
