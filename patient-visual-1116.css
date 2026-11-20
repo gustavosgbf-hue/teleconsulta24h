@@ -326,3 +326,16 @@ html.cjv .cj-live-app-cta__link{display:inline-flex;align-items:center;justify-c
 html.cjv .cj-live-app-cta__link svg{width:19px;height:19px;display:block;flex:none}
 html.cjv .cj-live-app-cta__x{width:22px;height:30px;display:grid;place-items:center;color:var(--cjv-ink2)}
 @media(max-width:365px){html.cjv .cj-live-app-cta{grid-template-columns:36px minmax(0,1fr) auto 18px;gap:6px;padding:8px 6px}html.cjv .cj-live-app-cta__icon{width:36px;height:36px}html.cjv .cj-live-app-cta__link{padding:6px}html.cjv .cj-live-app-cta__link span{display:none}}
+
+/* Independent, resizable prescription-renewal PiP; current chat stays mounted. */
+.cj-renew-pip{position:fixed;inset:0;z-index:2147483646;display:flex;align-items:flex-end;justify-content:center;padding:12px;background:rgba(4,19,13,.43);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.cj-renew-pip__sheet{display:flex;flex-direction:column;width:min(100%,540px);height:min(75dvh,740px);min-height:280px;resize:vertical;overflow:hidden;border-radius:22px;background:var(--cjv-card,#fff);color:var(--cjv-ink,#153c2c);border:1px solid var(--cjv-cardbd,#ddd);box-shadow:0 20px 70px rgba(0,0,0,.25);animation:cjPipOpen .3s ease-out}
+.cj-renew-pip.is-expanded .cj-renew-pip__sheet{height:calc(100dvh - 24px);width:min(100%,800px)}
+.cj-renew-pip__head{display:flex;align-items:center;gap:9px;padding:12px 14px;flex:none;border-bottom:1px solid var(--cjv-line,#ddd)}
+.cj-renew-pip__head>div{flex:1;min-width:0}.cj-renew-pip__head strong,.cj-renew-pip__head small{display:block}.cj-renew-pip__head small{font-size:11px;color:var(--cjv-ink2,#667)}
+.cj-renew-pip__head button{width:35px;height:35px;border:0;border-radius:50%;background:var(--cjv-soft,#eee);color:var(--cjv-ink,#123);font-size:21px;cursor:pointer}
+.cj-renew-pip iframe{width:100%;flex:1;min-height:0;border:0;background:#002017}
+.cj-renew-pip__foot{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 13px;font-size:10px;color:var(--cjv-ink2,#667)}
+.cj-renew-pip__foot a{color:var(--cjv-main,#278153);white-space:nowrap}
+@media(max-width:600px){.cj-renew-pip{padding:8px}.cj-renew-pip__sheet{height:78dvh;width:100%;border-radius:20px}.cj-renew-pip.is-expanded .cj-renew-pip__sheet{height:calc(100dvh - 16px)}}
+@media(prefers-reduced-motion:reduce){.cj-renew-pip__sheet{animation:none}}

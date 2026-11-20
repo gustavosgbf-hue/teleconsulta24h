@@ -54,13 +54,21 @@
   function copyLink(){closeMenu();try{if(typeof window.copiarLinkRetorno==='function')window.copiarLinkRetorno()}catch(e){}}
   function item(main,sub,key,ico){return '<button type="button" class="cj-menu-v6__item" data-cj-v6="'+key+'"><span class="cj-menu-v6__icon">'+icon(ico)+'</span><span class="cj-menu-v6__item-copy"><span class="cj-menu-v6__item-main">'+esc(main)+'</span>'+(sub?'<span class="cj-menu-v6__item-sub">'+esc(sub)+'</span>':'')+'</span><span class="cj-menu-v6__arrow">'+icon('chevron')+'</span></button>'}
   function group(label,html){return '<div class="cj-menu-v6__group"><div class="cj-menu-v6__group-label">'+esc(label)+'</div>'+html+'</div>'}
+  function openRenewPip(){
+    closeMenu(true);
+    if(q('#cjRenewPip'))return;
+    var modal=document.createElement('div');modal.id='cjRenewPip';modal.className='cj-renew-pip';
+    modal.innerHTML='<div class="cj-renew-pip__sheet" role="dialog" aria-modal="true" aria-label="Solicitar renovação de receita"><div class="cj-renew-pip__head"><div><strong>Renovar receita</strong><small>Solicitação independente da consulta atual</small></div><button type="button" data-renew="expand" aria-label="Expandir ou reduzir janela">⤢</button><button type="button" data-renew="close" aria-label="Fechar">×</button></div><iframe title="Solicitar renovação de receita" loading="eager" src="/renovacao-de-receita/?utm_source=chat_menu&utm_medium=owned&utm_campaign=renovar_receita"></iframe><div class="cj-renew-pip__foot"><span>Sua consulta continua aberta ao fechar esta janela.</span><a href="/renovacao-de-receita/?utm_source=chat_menu&utm_medium=owned&utm_campaign=renovar_receita" target="_blank" rel="noopener">Abrir em outra aba</a></div></div>';
+    modal.addEventListener('click',function(e){if(e.target===modal||e.target.closest('[data-renew="close"]')){modal.remove();return}if(e.target.closest('[data-renew="expand"]'))modal.classList.toggle('is-expanded')});
+    document.body.appendChild(modal);
+  }
   function openMenu(){
     closeMenu(true);
     var x=document.createElement('div');x.id='cjMenuV6';x.className='cj-menu-v6';
     var storeName=isIOS()?'App Store':isAndroid()?'Google Play':'seu celular';
     var storeIcon=isIOS()?'apple':isAndroid()?'play':'device';
     x.innerHTML='<div class="cj-menu-v6__sheet" role="dialog" aria-modal="true">'+'<div class="cj-menu-v6__grab"></div><div class="cj-menu-v6__head"><div><div class="cj-menu-v6__eyebrow">ConsultaJá24h</div><div class="cj-menu-v6__title">Ações da consulta</div></div><button type="button" class="cj-menu-v6__x" data-cj-v6="close" aria-label="Fechar">×</button></div>'+group('Sua consulta',item('Copiar link do atendimento','Continue de onde parou quando quiser','copy','link'))+'<div class="cj-menu-v6__app">'+item('Baixar o aplicativo','Mais praticidade para suas consultas · '+storeName,'device',storeIcon)+'</div>'+group('Quando precisar',item('Renovar receita','Solicite uma avaliação médica online','renew','renew'))+'</div>';
-    x.addEventListener('click',function(e){if(e.target===x){closeMenu();return}var a=e.target.closest('[data-cj-v6]');if(!a)return;var k=a.getAttribute('data-cj-v6');if(k==='close')closeMenu();if(k==='device')deviceAction();if(k==='copy')copyLink();if(k==='renew'){closeMenu();go('/consulta/?utm_source=chat_menu&utm_medium=owned&utm_campaign=renovar_receita')}});
+    x.addEventListener('click',function(e){if(e.target===x){closeMenu();return}var a=e.target.closest('[data-cj-v6]');if(!a)return;var k=a.getAttribute('data-cj-v6');if(k==='close')closeMenu();if(k==='device')deviceAction();if(k==='copy')copyLink();if(k==='renew')openRenewPip()});
     document.body.appendChild(x);
   }
   function mountLivebar(){
