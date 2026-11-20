@@ -54,6 +54,9 @@
   #s-espera.cj-consult-active .chat-clip-btn{background:rgba(255,255,255,.025)!important;border-color:rgba(255,255,255,.07)!important;color:rgba(236,241,238,.46)!important}
   #s-espera.cj-consult-active .chat-consulta>div:last-child{display:none!important}
 
+  /* iOS Safari: measure the actually visible viewport, excluding browser chrome. */
+  #s-espera.cj-consult-active{height:calc(var(--cj-chat-viewport-height, 100dvh) - 58px)!important;bottom:auto!important;transform:translateY(var(--cj-chat-viewport-top, 0px))!important}
+
   /* Mobile browser viewport: use the full usable portrait canvas, not a tiny centered card. */
-  @supports(height:100dvh){#s-espera.cj-consult-active{height:calc(100dvh - 58px)!important}}
+  @supports(height:100dvh){#s-espera.cj-consult-active{height:calc(var(--cj-chat-viewport-height, 100dvh) - 58px)!important}}
 }

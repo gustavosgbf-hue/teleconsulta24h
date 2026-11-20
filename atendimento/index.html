@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/patient-chat-mobile-v5.css?v=1"/>
+<link rel="stylesheet" href="/patient-chat-mobile-v5.css?v=2"/>
 <link rel="stylesheet" href="/patient-chat-ux-v6.css?v=dark-app-2"/>
 <!-- SDK Efí: tokenização de cartão no frontend -->
 <!-- Google Ads + GA4 config -->
@@ -2940,6 +2940,28 @@ function cjAtivarPushPaciente(){cjRegistrarPushPaciente(true)}window.cjAtivarPus
 })();
 </script>
 
+<script>
+// Keep the message composer inside Safari's visible viewport (toolbar + keyboard).
+(function(){
+  var root=document.documentElement, viewport=window.visualViewport;
+  var pending=false;
+  function sync(){
+    pending=false;
+    var height=viewport?viewport.height:window.innerHeight;
+    var top=viewport?viewport.offsetTop:0;
+    if(!Number.isFinite(height)||height<=0)return;
+    root.style.setProperty('--cj-chat-viewport-height',height+'px');
+    root.style.setProperty('--cj-chat-viewport-top',top+'px');
+  }
+  function schedule(){if(!pending){pending=true;requestAnimationFrame(sync)}}
+  if(viewport){viewport.addEventListener('resize',schedule);viewport.addEventListener('scroll',schedule)}
+  window.addEventListener('resize',schedule);
+  window.addEventListener('orientationchange',schedule);
+  document.addEventListener('focusin',schedule);
+  document.addEventListener('focusout',schedule);
+  sync();
+})();
+</script>
 <script src="/patient-experience-v3.js?v=4"></script>
 <script src="/patient-chat-ux-v6.js?v=retention-v8-2"></script>
 <script src="/patient-visual-1116.js?v=8"></script>
