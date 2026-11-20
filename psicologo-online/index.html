@@ -306,6 +306,13 @@ footer a{color:var(--ink-2)}
 .bk-pay-opt{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:14px;border:1.5px solid var(--line-mid);background:#fafaf9;cursor:pointer;transition:all .18s;text-align:left;width:100%}
 .bk-pay-opt:hover{border-color:var(--psi-acc);background:var(--psi)}
 @media(max-width:480px){#bk-slots-grid{grid-template-columns:repeat(2,1fr)}.bk-inner{padding:20px 18px 18px}}
+.bk-agenda-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 10px}
+.bk-agenda-nav button{padding:7px 12px;border-radius:7px;border:1.5px solid var(--line-mid);background:#fff;font-size:.74rem;font-weight:600;color:var(--ink-2);cursor:pointer}
+.bk-agenda-nav button:disabled{opacity:.4;cursor:default}
+.bk-agenda-periodo{font-size:.78rem;font-weight:600;color:var(--ink-2);text-align:center}
+.bk-agenda-tz{font-size:.7rem;color:var(--ink-3);margin:-4px 0 10px;text-align:center}
+.bk-slot-dia{grid-column:1/-1;font-size:.74rem;font-weight:700;color:var(--psi-dark);margin:6px 0 0}
+#bk-slots-grid{max-height:340px;overflow-y:auto}
 
 /* 2026 UX refresh: direct professional selection, mobile first */
 :root{
@@ -675,6 +682,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div>
 
+<script src="/psicologo-online/agenda-slots-client.js"></script>
 <script>
 /*
  * ================================================================
@@ -1228,7 +1236,7 @@ function cjFunil(evento, extra) {
 }
 
 const bk = {
-  psi: null, slots: [], selSlot: null,
+  psi: null, slots: [], selSlot: null, agenda: null, agendaMsg: '', agendaAviso: '',
   agendamentoId: null, orderId: null, pollingTimer: null, countdownTimer: null,
   paciente: null
 };
@@ -1263,9 +1271,9 @@ function openModal(psId) {
     .then(d => {
       if (!d.ok || !d.psicologo) throw new Error('not found');
       bk.psi = d.psicologo;
-      bkBuildSlots();
       bkRenderPerfil();
       bkShowStep('bk-step-horario');
+      bkIniciarAgenda();
     })
     .catch(() => {
       document.getElementById('bk-loading').innerHTML = '<p style="color:#c00;text-align:center;padding:20px">Erro ao carregar. Tente novamente.</p>';
@@ -1277,6 +1285,8 @@ function closeModal() {
   document.body.style.overflow = '';
   clearInterval(bk.pollingTimer);
   bkStopPixCountdown();
+  if (bk.agenda) bk.agenda.abortar();
+  bk.agenda = null; bk.agendaMsg = ''; bk.agendaAviso = '';
   bk.psi = null; bk.slots = []; bk.selSlot = null;
   bk.agendamentoId = null; bk.orderId = null; bk.paciente = null;
 
@@ -1316,36 +1326,137 @@ function parseFocos(raw) {
   return String(raw || '').replace(/^\{|\}$/g,'').split(',').map(f => f.trim().replace(/^"|"$/g,'')).filter(Boolean);
 }
 
-function bkBuildSlots() {
-  const disp = bk.psi.disponibilidade_raw !== undefined
-    ? bk.psi.disponibilidade_raw
-    : bk.psi.disponibilidade;
-  let dispObj = disp;
-  if (typeof disp === 'string') { try { dispObj = JSON.parse(disp); } catch(_) { dispObj = {}; } }
-  if (!dispObj || typeof dispObj !== 'object') {
-    bk.slots = [];
+/* Agenda: horários calculados no backend (America/Fortaleza), em janelas de
+   14 dias até 90 dias à frente — ver /psicologo-online/agenda-slots-client.js. */
+function bkIniciarAgenda() {
+  const sg = document.getElementById('bk-slots-grid');
+  if (!window.CJAgendaPsi || !bk.psi) {
+    sg.innerHTML = '<p style="font-size:.82rem;color:var(--ink-3);text-align:center;padding:12px 0">Agenda indisponível no momento. Tente novamente.</p>';
     return;
   }
-  const slots = [];
-  const now = new Date();
-  for (let d = 0; d < 28; d++) {
-    const dt = new Date(now); dt.setDate(now.getDate() + d);
-    const dow = String(dt.getDay()); // 0=Dom..6=Sab
-    const times = dispObj[dow] || [];
-    times.forEach(t => {
-      const [h, m] = t.split(':').map(Number);
-      const sd = new Date(dt); sd.setHours(h, m, 0, 0);
-      if (sd > now) slots.push({ iso: sd.toISOString(), label: bkFmtSlot(sd) });
-    });
-  }
-  bk.slots = slots;
+  if (bk.agenda) bk.agenda.abortar();
+  bk.agenda = CJAgendaPsi.criarAgenda({
+    api: API,
+    profissionalId: bk.psi.id,
+    disponibilidadeLegada: bk.psi.disponibilidade_raw !== undefined ? bk.psi.disponibilidade_raw : bk.psi.disponibilidade
+  });
+  bkAgendaExecutar(bk.agenda.primeira());
 }
 
-function bkFmtSlot(d) {
-  const dias = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-  return dias[d.getDay()] + ' ' + d.getDate() + '/' + meses[d.getMonth()] + ' às ' +
-    String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+function bkAgendaExecutar(promessa) {
+  const agenda = bk.agenda;
+  bk.agendaMsg = '';
+  bkRenderSlots(true);
+  promessa.then(() => {
+    if (agenda !== bk.agenda) return;
+    bkRenderSlots(false);
+  }).catch(e => {
+    if (agenda !== bk.agenda || (e && (e.codigo === 'abortado' || e.name === 'AbortError'))) return;
+    if (e && e.codigo === 'ocupado') return;
+    bk.agendaMsg = (e && e.message) || 'Não foi possível carregar os horários.';
+    bkRenderSlots(false);
+  });
+}
+
+function bkAgendaNavegar(direcao) {
+  if (!bk.agenda) return;
+  bk.selSlot = null;
+  bk.agendaAviso = '';
+  bkAgendaExecutar(direcao < 0 ? bk.agenda.anterior() : bk.agenda.proxima());
+}
+
+function bkRenderSlots(carregando) {
+  const sg = document.getElementById('bk-slots-grid');
+  const btnConf = document.getElementById('bk-btn-confirmar');
+  if (!sg) return;
+  const pg = bk.agenda ? bk.agenda.atual() : null;
+  bk.slots = pg ? pg.slots : [];
+  if (bk.selSlot && !bk.slots.some(s => s.iso === bk.selSlot.iso)) bk.selSlot = null;
+  if (btnConf) btnConf.disabled = !bk.selSlot;
+
+  let nav = document.getElementById('bk-agenda-nav');
+  if (!nav) {
+    nav = document.createElement('div');
+    nav.id = 'bk-agenda-nav';
+    sg.parentNode.insertBefore(nav, sg);
+  }
+  nav.innerHTML = '';
+  if (pg) {
+    const linha = document.createElement('div');
+    linha.className = 'bk-agenda-nav';
+    const ant = document.createElement('button');
+    ant.type = 'button'; ant.textContent = '‹ Anteriores';
+    ant.disabled = !!carregando || !pg.temAnterior;
+    ant.onclick = () => bkAgendaNavegar(-1);
+    const per = document.createElement('div');
+    per.className = 'bk-agenda-periodo';
+    per.textContent = pg.periodo;
+    const prox = document.createElement('button');
+    prox.type = 'button'; prox.textContent = 'Próximas datas ›';
+    prox.disabled = !!carregando || !pg.temProxima;
+    prox.onclick = () => bkAgendaNavegar(1);
+    linha.appendChild(ant); linha.appendChild(per); linha.appendChild(prox);
+    nav.appendChild(linha);
+    const tz = document.createElement('div');
+    tz.className = 'bk-agenda-tz';
+    tz.textContent = 'Horários de Brasília/Fortaleza (UTC-3) · agenda até 90 dias';
+    nav.appendChild(tz);
+  }
+
+  sg.innerHTML = '';
+  const aviso = (txt) => {
+    const p = document.createElement('p');
+    p.style.cssText = 'grid-column:1/-1;font-size:.82rem;color:var(--ink-3);text-align:center;padding:12px 0';
+    p.textContent = txt;
+    sg.appendChild(p);
+  };
+  if (carregando) { aviso('Carregando horários…'); return; }
+  if (bk.agendaMsg) {
+    aviso(bk.agendaMsg);
+    const tentar = document.createElement('button');
+    tentar.type = 'button'; tentar.className = 'bk-slot-btn'; tentar.style.gridColumn = '1/-1';
+    tentar.textContent = 'Tentar novamente';
+    tentar.onclick = () => bkAgendaExecutar(bk.agenda && bk.agenda.atual() ? bk.agenda.recarregar() : bk.agenda.primeira());
+    sg.appendChild(tentar);
+    return;
+  }
+  if (!pg) return;
+  if (bk.agendaAviso) {
+    const av = document.createElement('p');
+    av.setAttribute('role', 'status');
+    av.style.cssText = 'grid-column:1/-1;font-size:.8rem;color:#b45309;text-align:center;margin:0 0 6px';
+    av.textContent = bk.agendaAviso;
+    sg.appendChild(av);
+  }
+  if (!pg.estruturada) {
+    aviso('Este profissional ainda não publicou horários online. Use “Consultar disponibilidade”.');
+    return;
+  }
+  if (!bk.slots.length) {
+    aviso(pg.temProxima ? 'Nenhum horário livre neste período. Veja as próximas datas.' : 'Nenhum horário livre nos próximos 90 dias.');
+    return;
+  }
+  pg.grupos.forEach(g => {
+    const h = document.createElement('div');
+    h.className = 'bk-slot-dia';
+    h.textContent = g.rotulo;
+    sg.appendChild(h);
+    g.slots.forEach(sl => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'bk-slot-btn' + (bk.selSlot && bk.selSlot.iso === sl.iso ? ' sel' : '');
+      btn.textContent = sl.hora;
+      btn.setAttribute('aria-label', sl.label);
+      btn.onclick = () => {
+        document.querySelectorAll('.bk-slot-btn').forEach(b => b.classList.remove('sel'));
+        btn.classList.add('sel');
+        bk.selSlot = { iso: sl.iso, label: sl.label + ' (horário de Brasília)' };
+        cjFunil('slot_selected', { profissional_id: bk.psi && bk.psi.id });
+        document.getElementById('bk-btn-confirmar').disabled = false;
+      };
+      sg.appendChild(btn);
+    });
+  });
 }
 
 function bkRenderPerfil() {
@@ -1368,27 +1479,8 @@ function bkRenderPerfil() {
     <div class="bk-profile-price">Sessão de 50 min · <strong>R$${p.valor_sessao||'—'}</strong></div>`;
   refreshIcons();
 
-  // Slots
-  const sg = document.getElementById('bk-slots-grid');
-  sg.innerHTML = '';
-  if (!bk.slots.length) {
-    sg.innerHTML = '<p style="font-size:.82rem;color:var(--ink-3);text-align:center;padding:12px 0">Nenhum horário disponível nos próximos 28 dias.</p>';
-    return;
-  }
-  bk.slots.slice(0,24).forEach((sl,i) => {
-    const btn = document.createElement('button');
-    btn.className = 'bk-slot-btn';
-    btn.textContent = sl.label;
-    btn.onclick = () => {
-      document.querySelectorAll('.bk-slot-btn').forEach(b => b.classList.remove('sel'));
-      btn.classList.add('sel');
-      bk.selSlot = sl;
-      cjFunil('slot_selected', { profissional_id: bk.psi && bk.psi.id });
-      document.getElementById('bk-btn-confirmar').disabled = false;
-    };
-    sg.appendChild(btn);
-  });
-  document.getElementById('bk-btn-confirmar').disabled = true;
+  // Slots: renderizados por bkRenderSlots() conforme a agenda paginada carrega.
+  bkRenderSlots(true);
 }
 
 /* ----------------------------------------------------------------
@@ -1461,10 +1553,12 @@ async function bkCriarAgendamento() {
     let d;
 
     // First attempt: with auth token if available
+    let statusHttp = 0;
     if (token) {
       const r = await fetch(API + '/api/psicologia/agendamento/criar', {
         method:'POST', headers, body: JSON.stringify(payload)
       });
+      statusHttp = r.status;
       d = await r.json();
       if (d.code === 'AUTH_REQUIRED') {
         // Token expired, clear and retry as guest
@@ -1480,9 +1574,19 @@ async function bkCriarAgendamento() {
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify(payload)
       });
+      statusHttp = r2.status;
       d = await r2.json();
     }
 
+    if (statusHttp === 409 && bk.agenda && bk.selSlot) {
+      // Horário ocupado/indisponível: remove da lista, recarrega a janela e volta à escolha.
+      bk.agenda.marcarIndisponivel(bk.selSlot.iso);
+      bk.selSlot = null;
+      bkShowStep('bk-step-horario');
+      bk.agendaAviso = (d && d.error) || 'Esse horário acabou de ficar indisponível. Escolha outro.';
+      bkAgendaExecutar(bk.agenda.recarregar());
+      return;
+    }
     if (!d || !d.ok) throw new Error((d && (d.error || d.mensagem)) || 'Erro ao criar agendamento');
 
     bk.agendamentoId = d.agendamentoId;
@@ -1722,7 +1826,16 @@ async function bkAbrirAcessoPaciente() {
       body: JSON.stringify({ email: bk.paciente.email, cpf: bk.paciente.cpf })
     });
     const d = await r.json();
-    if (!r.ok || !d.ok || !d.url) throw new Error(d.error || 'Acesso indisponível');
+    if (!r.ok || !d.ok) throw new Error(d.error || 'Acesso indisponível');
+    if (d.precisa_criar_senha) {
+      // Por segurança o link para criar a senha vai só por e-mail.
+      msg.textContent = d.mensagem || 'Enviamos o link para criar sua senha no e-mail informado no agendamento.';
+      btn.disabled = false;
+      btn.textContent = 'Já criei minha senha, entrar';
+      btn.onclick = () => { window.location.href = 'https://consultaja24h.com.br/paciente'; };
+      return;
+    }
+    if (!d.url) throw new Error('Acesso indisponível');
     window.location.href = d.url;
   } catch (e) {
     msg.textContent = e.message + '. Use o reenvio por e-mail ou fale com o suporte.';

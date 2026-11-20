@@ -262,6 +262,7 @@ footer{text-align:center;padding:24px 20px;font-size:.75rem;color:var(--ink-3);f
 </footer>
 
 <script src="../api-config.js"></script>
+<script src="/psicologo-online/agenda-slots-client.js"></script>
 <script>
 const API = window.API_BASE_URL || 'https://triagem-api.onrender.com';
 
@@ -438,74 +439,89 @@ function mostrarStep(id) {
   });
 }
 
+// Horários reais do profissional, calculados no backend (America/Fortaleza),
+// em janelas de 14 dias até 90 dias — ver /psicologo-online/agenda-slots-client.js.
+// (Antes esta página inventava horários das 8h às 19h no fuso do navegador.)
+let agendaPsi = null;
+
 async function irParaHorario() {
   mostrarStep('step-horario');
   const psi = state.psicologo;
   document.getElementById('step-horario-sub').textContent =
     `${psi.nome_exibicao} · ${state.tipoConsulta === 'avaliacao' ? 'Avaliação psicológica' : 'Psicoterapia'}`;
-
-  const grid = document.getElementById('horarios-grid');
-  grid.innerHTML = '<p style="color:var(--ink-3);font-size:.82rem;grid-column:1/-1">Carregando horários…</p>';
-
-  let ocupados = [];
-  try {
-    const resp = await fetch(API + '/api/psicologia/horarios-ocupados/' + psi.id + '?dias=14');
-    const d    = await resp.json();
-    if (d.ok) ocupados = d.ocupados || [];
-  } catch(e) { /* backend valida mesmo assim */ }
-
-  gerarHorarios(ocupados);
+  state.horario = null;
+  if (agendaPsi) agendaPsi.abortar();
+  if (!window.CJAgendaPsi) { renderHorarios(null, 'Agenda indisponível no momento.'); return; }
+  agendaPsi = CJAgendaPsi.criarAgenda({
+    api: API,
+    profissionalId: psi.id,
+    disponibilidadeLegada: psi.disponibilidade
+  });
+  executarAgenda(agendaPsi.primeira());
 }
 
-function gerarHorarios(ocupados) {
+function executarAgenda(promessa) {
+  const agenda = agendaPsi;
+  renderHorarios(null, null, true);
+  promessa.then(pg => { if (agenda === agendaPsi) renderHorarios(pg); })
+    .catch(e => {
+      if (agenda !== agendaPsi || (e && (e.codigo === 'abortado' || e.codigo === 'ocupado' || e.name === 'AbortError'))) return;
+      renderHorarios(agendaPsi.atual(), (e && e.message) || 'Não foi possível carregar os horários.');
+    });
+}
+
+function renderHorarios(pg, erro, carregando) {
   const grid = document.getElementById('horarios-grid');
+  const btnIr = document.getElementById('btn-ir-pagamento');
   grid.innerHTML = '';
-
-  const ocupadosSet = new Set(ocupados.map(iso => {
-    const d = new Date(iso);
-    return d.toLocaleString('sv-SE', { timeZone: 'America/Fortaleza' }).slice(0,16);
-  }));
-
-  const slots = [];
-  const agora = new Date();
-  for (let d = 1; d <= 14 && slots.length < 18; d++) {
-    for (let h = 8; h <= 19 && slots.length < 18; h++) {
-      const slot = new Date(agora);
-      slot.setDate(slot.getDate() + d);
-      slot.setHours(h, 0, 0, 0);
-      slots.push(slot);
-    }
+  const aviso = (txt) => {
+    const p = document.createElement('p');
+    p.style.cssText = 'color:var(--ink-3);font-size:.82rem;grid-column:1/-1';
+    p.textContent = txt;
+    grid.appendChild(p);
+  };
+  if (pg) {
+    const nav = document.createElement('div');
+    nav.style.cssText = 'grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:.75rem';
+    const mk = (txt, on, fn) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.textContent = txt; b.disabled = !on || !!carregando;
+      b.style.cssText = 'padding:6px 10px;border-radius:8px;border:1px solid rgba(38,80,142,.18);background:#fff;color:#26508e;font-size:.72rem;font-family:inherit;cursor:pointer' + (b.disabled ? ';opacity:.4;cursor:default' : '');
+      b.onclick = fn; return b;
+    };
+    const per = document.createElement('span');
+    per.textContent = pg.periodo + ' · horário de Brasília';
+    nav.appendChild(mk('‹', pg.temAnterior, () => { state.horario = null; executarAgenda(agendaPsi.anterior()); }));
+    nav.appendChild(per);
+    nav.appendChild(mk('›', pg.temProxima, () => { state.horario = null; executarAgenda(agendaPsi.proxima()); }));
+    grid.appendChild(nav);
   }
-
-  if (!slots.length) {
-    grid.innerHTML = '<p style="color:var(--ink-3);font-size:.82rem;grid-column:1/-1">Nenhum horário disponível.</p>';
-    return;
-  }
-
-  slots.forEach(slot => {
-    const iso   = slot.toISOString();
-    const chave = slot.toLocaleString('sv-SE', { timeZone: 'America/Fortaleza' }).slice(0,16);
-    const ocup  = ocupadosSet.has(chave);
-    const label = slot.toLocaleString('pt-BR', { timeZone: 'America/Fortaleza', weekday: 'short', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
-    const btn   = document.createElement('button');
-    btn.textContent = label;
-    if (ocup) {
-      btn.disabled = true;
-      btn.title    = 'Horário indisponível';
-      btn.style.cssText = 'padding:8px 6px;border-radius:8px;border:1px solid rgba(0,0,0,.08);background:#e0e0e0;color:#aaa;font-size:.72rem;cursor:not-allowed;font-family:inherit;text-align:center;line-height:1.3;text-decoration:line-through';
-    } else {
+  if (btnIr && !state.horario) { btnIr.disabled = true; btnIr.style.opacity = '.5'; }
+  if (carregando) { aviso('Carregando horários…'); return; }
+  if (erro) { aviso(erro); return; }
+  if (!pg) return;
+  if (!pg.estruturada) { aviso('Este profissional ainda não publicou horários online.'); return; }
+  if (!pg.slots.length) { aviso(pg.temProxima ? 'Nenhum horário livre neste período. Veja as próximas datas (›).' : 'Nenhum horário livre nos próximos 90 dias.'); return; }
+  pg.grupos.forEach(g => {
+    const h = document.createElement('div');
+    h.style.cssText = 'grid-column:1/-1;font-size:.74rem;font-weight:700;color:#26508e;margin-top:4px';
+    h.textContent = g.rotulo;
+    grid.appendChild(h);
+    g.slots.forEach(sl => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = sl.hora;
+      btn.setAttribute('aria-label', sl.label);
       btn.style.cssText = 'padding:8px 6px;border-radius:8px;border:1px solid rgba(38,80,142,.18);background:#e8eef7;color:#26508e;font-size:.72rem;cursor:pointer;transition:all .18s;font-family:inherit;text-align:center;line-height:1.3';
-      let bloq = false;
       btn.addEventListener('click', () => {
-        if (bloq) return; bloq = true; setTimeout(()=>{ bloq=false; }, 400);
-        grid.querySelectorAll('button:not(:disabled)').forEach(b => { b.style.background='#e8eef7'; b.style.color='#26508e'; });
+        grid.querySelectorAll('button[data-slot]').forEach(b => { b.style.background='#e8eef7'; b.style.color='#26508e'; });
         btn.style.background = '#26508e'; btn.style.color = '#fff';
-        state.horario = iso;
-        const btnIr = document.getElementById('btn-ir-pagamento');
-        btnIr.disabled = false; btnIr.style.opacity = '1'; btnIr.style.cursor = 'pointer';
+        state.horario = sl.iso;
+        if (btnIr) { btnIr.disabled = false; btnIr.style.opacity = '1'; btnIr.style.cursor = 'pointer'; }
       });
-    }
-    grid.appendChild(btn);
+      btn.setAttribute('data-slot', sl.iso);
+      grid.appendChild(btn);
+    });
   });
 }
 
@@ -538,6 +554,11 @@ async function irParaPagamento() {
       err.textContent = data.error || 'Erro ao criar agendamento.';
       err.style.display = 'block';
       btn.disabled = false; btn.textContent = 'Confirmar horário e pagar →';
+      if (res.status === 409 && agendaPsi && state.horario) {
+        agendaPsi.marcarIndisponivel(state.horario);
+        state.horario = null;
+        executarAgenda(agendaPsi.recarregar());
+      }
       return;
     }
     state.agendamentoId = data.agendamentoId;

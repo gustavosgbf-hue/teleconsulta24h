@@ -1044,14 +1044,13 @@ function escHtml(s) {
 
 function normalizarDisponibilidade(disponibilidade) {
   if (!disponibilidade) return [];
-  var agoraIso = new Date().toISOString();
 
   function gerarDiaHoraPorIso(iso) {
     var dataIso = new Date(iso);
     if (isNaN(dataIso.getTime())) return null;
     return {
-      dia: dataIso.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' }),
-      hora: dataIso.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }),
+      dia: dataIso.toLocaleDateString('pt-BR', { timeZone:'America/Fortaleza', weekday:'long', day:'2-digit', month:'long' }),
+      hora: dataIso.toLocaleTimeString('pt-BR', { timeZone:'America/Fortaleza', hour:'2-digit', minute:'2-digit' }),
       iso: dataIso.toISOString()
     };
   }
@@ -1062,9 +1061,9 @@ function normalizarDisponibilidade(disponibilidade) {
     if (typeof item === 'string') {
       var texto = item.trim();
       if (!texto) return null;
-      var slotDeData = gerarDiaHoraPorIso(texto);
-      if (slotDeData) return slotDeData;
-      return { dia: 'Disponível', hora: texto, iso: agoraIso };
+      // Só instantes ISO reais viram horário clicável (texto livre não é agendável).
+      if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(texto)) return null;
+      return gerarDiaHoraPorIso(texto);
     }
 
     if (typeof item !== 'object') return null;
@@ -1082,12 +1081,14 @@ function normalizarDisponibilidade(disponibilidade) {
       }
     }
 
+    // Sem instante válido não há como reservar: descarta (antes virava "agora").
+    if (!iso || isNaN(new Date(iso).getTime())) return null;
     if (!hora && !dia) return null;
 
     return {
       dia: dia || 'Disponível',
-      hora: hora || 'Horário a combinar',
-      iso: iso || agoraIso
+      hora: hora || '',
+      iso: iso
     };
   }
 
@@ -1108,10 +1109,24 @@ function normalizarDisponibilidade(disponibilidade) {
     else return [];
   }
 
-  return lista.map(formatarSlot).filter(Boolean).sort(function(a,b){
+  // Remove passados (margem de 5 min), além de 90 dias, duplicados e os recusados (409).
+  var agoraMs = Date.now();
+  var limiteMs = agoraMs + 90 * 86400000;
+  var vistos = {};
+  return lista.slice(0, 2000).map(formatarSlot).filter(function(s) {
+    if (!s) return false;
+    var t = new Date(s.iso).getTime();
+    if (!(t > agoraMs + 5 * 60000) || t > limiteMs) return false;
+    if (vistos[s.iso] || slotsIndisponiveis[s.iso]) return false;
+    vistos[s.iso] = true;
+    return true;
+  }).sort(function(a,b){
     return new Date(a.iso) - new Date(b.iso);
   });
 }
+
+// Horários recusados pelo backend nesta visita (409: ocupado/indisponível).
+var slotsIndisponiveis = {};
 
 
 function abrirHorarios(medico) {
@@ -1124,7 +1139,7 @@ function abrirHorarios(medico) {
   if (!disponibilidade.length) {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--ink-3)">Nenhum horário disponível no momento.</div>';
   } else {
-    grid.innerHTML = disponibilidade.map(function(s) {
+    grid.innerHTML = '<div style="grid-column:1/-1;font-size:.72rem;color:var(--ink-3)">Horários de Brasília/Fortaleza (UTC-3)</div>' + disponibilidade.map(function(s) {
       return '<div class="slot-btn" onclick="selecionarSlot(this,\''+s.iso+'\')"><div style="font-weight:600">'+escHtml(s.dia || 'Disponível')+'</div><div style="font-size:.8rem;color:var(--ink-3)">'+escHtml(s.hora || '')+'</div></div>';
     }).join('');
   }
@@ -1357,6 +1372,16 @@ async function confirmarAgendamento() {
     });
     var parsed = await safeJsonFromResponse(res);
     var data = parsed.payload || {};
+    if (res.status === 409 && slotSelecionado && medicoSelecionado) {
+      // Horário ocupado/indisponível: some da lista e o paciente escolhe outro.
+      slotsIndisponiveis[slotSelecionado.iso] = true;
+      btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
+      abrirHorarios(medicoSelecionado);
+      document.getElementById('slotsGrid').insertAdjacentHTML('afterbegin',
+        '<div role="status" style="grid-column:1/-1;font-size:.8rem;color:#b45309;text-align:center">' +
+        escHtml(extractErrorMessage(data, 'Esse horário acabou de ficar indisponível. Escolha outro.')) + '</div>');
+      return;
+    }
     if (!res.ok || !parsed.isJson || !data.ok) throw new Error(extractErrorMessage(data, 'Erro ao criar agendamento'));
     
     espState.agendamentoId = data.agendamentoId || data.agendamento_id || null;
@@ -1451,7 +1476,7 @@ async function processarCartao() {
   if (!cvv || cvv.length < 3) { errEl.textContent = 'CVV inválido.'; errEl.style.display='block'; return; }
   if (!cpf || cpf.length < 11) { errEl.textContent = 'Informe o CPF do titular.'; errEl.style.display='block'; return; }
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Informe um e-mail válido.'; errEl.style.display='block'; return; }
-  if (!tel) { errEl.textContent = 'Informe o telefone.'; errEl.style.display='block'; return; }
+  if (tel.length < 10 || tel.length > 11) { errEl.textContent = 'Informe o telefone com DDD.'; errEl.style.display='block'; return; }
   if (!nascimento || nascimento.length < 10) { errEl.textContent = 'Informe a data de nascimento (DD/MM/AAAA).'; errEl.style.display='block'; return; }
 
   var btn = document.getElementById('btnPagarCartao');

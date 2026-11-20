@@ -320,6 +320,18 @@ function fmtValor(v) { return 'R$ ' + parseFloat(String(v||'0').replace(',','.')
 
 const guestPasswordToken = new URLSearchParams(location.search).get('criar_senha');
 
+// Pós-pagamento (psicologia/especialistas): o link de criar senha vai só por e-mail.
+(function avisoAcessoPorEmail() {
+  if (new URLSearchParams(location.search).get('acesso') !== 'email') return;
+  const form = document.getElementById('form-login');
+  if (!form) return;
+  const aviso = document.createElement('p');
+  aviso.setAttribute('role', 'status');
+  aviso.style.cssText = 'background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;border-radius:8px;padding:10px 12px;margin:0 0 12px;font-size:.85rem;line-height:1.45';
+  aviso.textContent = 'Enviamos para o seu e-mail o link para criar sua senha. Abra o e-mail (confira também o spam) e depois entre aqui.';
+  form.insertBefore(aviso, form.firstChild);
+})();
+
 async function ativarContaGuest() {
   const senha = document.getElementById('guest-new-password').value;
   const confirmar = document.getElementById('guest-confirm-password').value;

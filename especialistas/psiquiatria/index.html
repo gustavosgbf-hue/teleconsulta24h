@@ -984,8 +984,20 @@ async function carregarEspecialistas() {
   }
 }
 
+// Preço do topo segue o banco (menor valor entre os psiquiatras listados);
+// o texto estático do HTML é só o fallback antes da API responder.
+function atualizarPrecoHero() {
+  var valores = especialistasData.map(function(e) { return Number(e.valor_consulta); })
+    .filter(function(v) { return Number.isFinite(v) && v > 0; });
+  if (!valores.length) return;
+  var min = Math.min.apply(null, valores);
+  var txt = 'R$ ' + (Number.isInteger(min) ? String(min) : min.toFixed(2).replace('.', ','));
+  document.querySelectorAll('.spec-hero__price strong').forEach(function(el) { el.textContent = txt; });
+}
+
 function renderEspecialistas() {
   var grid = document.getElementById('doctorsGrid');
+  atualizarPrecoHero();
   if (especialistasData.length === 0) {
     grid.innerHTML = EMPTY_HTML;
     return;
@@ -1075,11 +1087,18 @@ function renderSlots(disponibilidade) {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--ink-3)">Nenhum horário disponível.</div>';
     return;
   }
+  var tzNota = document.createElement('div');
+  tzNota.style.cssText = 'grid-column:1/-1;font-size:.72rem;color:var(--ink-3)';
+  tzNota.textContent = 'Horários de Brasília/Fortaleza (UTC-3)';
+  grid.appendChild(tzNota);
   
   disponibilidade.forEach(function(s) {
     var el = document.createElement('div');
     el.className = 'slot';
-    el.innerHTML = '<div class="slot__day">'+s.dia+'</div><div class="slot__time">'+s.hora+'</div>';
+    // textContent: dia/hora podem vir do cadastro (evita HTML injetado).
+    var elDia = document.createElement('div'); elDia.className = 'slot__day'; elDia.textContent = s.dia;
+    var elHora = document.createElement('div'); elHora.className = 'slot__time'; elHora.textContent = s.hora;
+    el.appendChild(elDia); el.appendChild(elHora);
     el.onclick = function() {
       document.querySelectorAll('.slot').forEach(function(x){ x.classList.remove('selected'); });
       el.classList.add('selected');
@@ -1095,14 +1114,13 @@ function renderSlots(disponibilidade) {
 
 function normalizarDisponibilidade(disponibilidade) {
   if (!disponibilidade) return [];
-  var agoraIso = new Date().toISOString();
 
   function gerarDiaHoraPorIso(iso) {
     var dataIso = new Date(iso);
     if (isNaN(dataIso.getTime())) return null;
     return {
-      dia: dataIso.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' }),
-      hora: dataIso.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }),
+      dia: dataIso.toLocaleDateString('pt-BR', { timeZone:'America/Fortaleza', weekday:'long', day:'2-digit', month:'long' }),
+      hora: dataIso.toLocaleTimeString('pt-BR', { timeZone:'America/Fortaleza', hour:'2-digit', minute:'2-digit' }),
       iso: dataIso.toISOString()
     };
   }
@@ -1113,9 +1131,9 @@ function normalizarDisponibilidade(disponibilidade) {
     if (typeof item === 'string') {
       var texto = item.trim();
       if (!texto) return null;
-      var slotDeData = gerarDiaHoraPorIso(texto);
-      if (slotDeData) return slotDeData;
-      return { dia: 'Disponível', hora: texto, iso: agoraIso };
+      // Só instantes ISO reais viram horário clicável (texto livre não é agendável).
+      if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(texto)) return null;
+      return gerarDiaHoraPorIso(texto);
     }
 
     if (typeof item !== 'object') return null;
@@ -1133,12 +1151,14 @@ function normalizarDisponibilidade(disponibilidade) {
       }
     }
 
+    // Sem instante válido não há como reservar: descarta (antes virava "agora").
+    if (!iso || isNaN(new Date(iso).getTime())) return null;
     if (!hora && !dia) return null;
 
     return {
       dia: dia || 'Disponível',
-      hora: hora || 'Horário a combinar',
-      iso: iso || agoraIso
+      hora: hora || '',
+      iso: iso
     };
   }
 
@@ -1159,10 +1179,24 @@ function normalizarDisponibilidade(disponibilidade) {
     else return [];
   }
 
-  return lista.map(formatarSlot).filter(Boolean).sort(function(a,b){
+  // Remove passados (margem de 5 min), além de 90 dias, duplicados e os recusados (409).
+  var agoraMs = Date.now();
+  var limiteMs = agoraMs + 90 * 86400000;
+  var vistos = {};
+  return lista.slice(0, 2000).map(formatarSlot).filter(function(s) {
+    if (!s) return false;
+    var t = new Date(s.iso).getTime();
+    if (!(t > agoraMs + 5 * 60000) || t > limiteMs) return false;
+    if (vistos[s.iso] || slotsIndisponiveis[s.iso]) return false;
+    vistos[s.iso] = true;
+    return true;
+  }).sort(function(a,b){
     return new Date(a.iso) - new Date(b.iso);
   });
 }
+
+// Horários recusados pelo backend nesta visita (409: ocupado/indisponível).
+var slotsIndisponiveis = {};
 
 
 function irParaDados() {
@@ -1399,6 +1433,7 @@ async function processarCartao() {
   if (!validade || validade.length < 5) { errEl.textContent = 'Informe a validade (MM/AA).'; errEl.style.display='block'; return; }
   if (!cvv || cvv.length < 3) { errEl.textContent = 'CVV inválido.'; errEl.style.display='block'; return; }
   if (!cpf || cpf.length < 11) { errEl.textContent = 'Informe o CPF do titular.'; errEl.style.display='block'; return; }
+  if (tel.length < 10 || tel.length > 11) { errEl.textContent = 'Informe o telefone com DDD nos seus dados.'; errEl.style.display='block'; return; }
   if (!nascimento || nascimento.length < 10) { errEl.textContent = 'Informe a data de nascimento (DD/MM/AAAA).'; errEl.style.display='block'; return; }
 
   var btn = document.getElementById('btnPagarCartao');
@@ -1596,6 +1631,19 @@ async function confirmarAgendamento() {
     });
     var parsedAg = await safeJsonFromResponse(resAg);
     var dadosAg = parsedAg.payload || {};
+    if (resAg.status === 409 && slotSelecionado && medicoSelecionado) {
+      // Horário ocupado/indisponível: some da lista e o paciente escolhe outro.
+      slotsIndisponiveis[slotSelecionado.iso] = true;
+      btn.disabled = false; btn.textContent = 'Continuar para pagamento →';
+      abrirHorarios(medicoSelecionado);
+      var aviso409 = document.createElement('div');
+      aviso409.setAttribute('role', 'status');
+      aviso409.style.cssText = 'grid-column:1/-1;font-size:.8rem;color:#b45309;text-align:center';
+      aviso409.textContent = extractErrorMessage(dadosAg, 'Esse horário acabou de ficar indisponível. Escolha outro.');
+      var gridSlots = document.getElementById('slotsGrid');
+      gridSlots.insertBefore(aviso409, gridSlots.firstChild);
+      return;
+    }
     if (!resAg.ok || !parsedAg.isJson || !dadosAg.ok) {
       errEl.textContent = extractErrorMessage(dadosAg, 'Erro ao criar agendamento.');
       errEl.style.display = 'block';

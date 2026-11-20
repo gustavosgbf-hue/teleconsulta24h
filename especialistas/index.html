@@ -634,11 +634,11 @@ footer a:hover{color:var(--ink)}
         <p class="spec-card-desc">Ansiedade, depressão, insônia, TDAH. Avaliação completa e acompanhamento com psiquiatra.</p>
         <div class="spec-card-avail">
           <span class="avail-dot"></span>
-          Consulta a partir de R$ 230
+          Consulta a partir de <span data-preco-min="psiquiatria">R$ 230</span>
         </div>
       </div>
       <div class="spec-card-footer">
-        <span class="spec-card-price"><small>Consulta online</small>R$ 230</span>
+        <span class="spec-card-price"><small>Consulta online</small><span data-preco-min="psiquiatria">R$ 230</span></span>
         <span class="spec-cta">
           Escolher horário
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -844,6 +844,29 @@ footer a:hover{color:var(--ink)}
 function waPipToggle(){var p=document.getElementById('wa-pip');p.classList.toggle('open');if(p.classList.contains('open'))document.getElementById('wa-pip-nome').focus();}
 function waPipEnviar(){var nome=(document.getElementById('wa-pip-nome').value||'').trim();var queixa=(document.getElementById('wa-pip-queixa').value||'').trim();var msg='Olá! Gostaria de agendar uma consulta.';if(nome)msg+=' Me chamo '+nome+'.';if(queixa)msg+=' Estou com: '+queixa+'.';window.open('https://wa.me/5598989272727?text='+encodeURIComponent(msg),'_blank');}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('wa-pip').classList.remove('open');});
+</script>
+<script>
+/* Preço "a partir de" segue o banco (valor_consulta); o texto estático é fallback.
+   1 requisição por especialidade marcada, sem bloquear a página. */
+(function(){
+  var API = 'https://triagem-api.onrender.com';
+  var alvos = {};
+  document.querySelectorAll('[data-preco-min]').forEach(function(el){
+    var esp = el.getAttribute('data-preco-min');
+    if (/^[a-z]{3,30}$/.test(esp)) (alvos[esp] = alvos[esp] || []).push(el);
+  });
+  Object.keys(alvos).forEach(function(esp){
+    fetch(API + '/api/especialistas/' + esp).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+      var lista = d && (d.especialistas || d.data || d);
+      if (!Array.isArray(lista)) return;
+      var vals = lista.map(function(e){ return Number(e && e.valor_consulta); }).filter(function(v){ return isFinite(v) && v > 0; });
+      if (!vals.length) return;
+      var min = Math.min.apply(null, vals);
+      var txt = 'R$ ' + (min % 1 === 0 ? String(min) : min.toFixed(2).replace('.', ','));
+      alvos[esp].forEach(function(el){ el.textContent = txt; });
+    }).catch(function(){});
+  });
+})();
 </script>
 </body>
 </html>
