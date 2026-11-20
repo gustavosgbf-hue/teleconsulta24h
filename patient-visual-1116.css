@@ -313,3 +313,6 @@ html.cjv .cj-menu-v6.is-closing .cj-menu-v6__sheet{animation:cjPipClose .23s cub
 @media(prefers-reduced-motion:reduce){html.cjv .cj-menu-v6,html.cjv .cj-menu-v6__sheet,html.cjv .cj-menu-v6.is-closing,html.cjv .cj-menu-v6.is-closing .cj-menu-v6__sheet{animation:none!important}}
 /* Larger platform store mark in the floating app CTA. */
 html.cjv .cj-menu-v6__app .cj-menu-v6__icon svg{width:25px;height:25px}
+/* Align highlighted store action's icon/text with the regular menu rows. */
+html.cjv .cj-menu-v6__app{padding:0}
+html.cjv .cj-menu-v6__app .cj-menu-v6__item{padding-left:8px;padding-right:9px;min-height:58px}
