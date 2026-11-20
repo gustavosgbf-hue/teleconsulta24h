@@ -311,3 +311,5 @@ html.cjv .cj-menu-v6.is-closing .cj-menu-v6__sheet{animation:cjPipClose .23s cub
 @keyframes cjPipOpen{0%{opacity:0;transform:translateY(26px) scale(.94)}65%{opacity:1;transform:translateY(-3px) scale(1.008)}100%{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes cjPipClose{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(20px) scale(.96)}}
 @media(prefers-reduced-motion:reduce){html.cjv .cj-menu-v6,html.cjv .cj-menu-v6__sheet,html.cjv .cj-menu-v6.is-closing,html.cjv .cj-menu-v6.is-closing .cj-menu-v6__sheet{animation:none!important}}
+/* Larger platform store mark in the floating app CTA. */
+html.cjv .cj-menu-v6__app .cj-menu-v6__icon svg{width:25px;height:25px}
