@@ -294,3 +294,9 @@ html.cjv .cj-menu-v6__item-sub{font-size:.7rem;color:var(--cjv-ink2)}
 html.cjv .cj-menu-v6__arrow{color:var(--cjv-ink3)}
 html.cjv[data-cjv-theme=light] .cj-menu-v6{background:rgba(13,40,28,.24)}
 @media(max-height:650px){html.cjv .cj-menu-v6__sheet{max-height:72dvh}}
+
+/* Store download is the primary contextual action, without changing the day/night palette. */
+html.cjv .cj-menu-v6__app{margin:9px 0 6px;padding:4px;border-radius:17px;background:var(--cjv-chip);border:1px solid var(--cjv-cardbd)}
+html.cjv .cj-menu-v6__app .cj-menu-v6__icon{background:var(--cjv-card);border-color:var(--cjv-line);color:var(--cjv-chipt)}
+html.cjv .cj-menu-v6__app .cj-menu-v6__item-main{color:var(--cjv-ink);font-weight:700}
+html.cjv .cj-menu-v6__app .cj-menu-v6__item-sub{color:var(--cjv-ink2)}

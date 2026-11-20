@@ -5,6 +5,7 @@
   var PLAY_STORE_URL='https://play.google.com/store/apps/details?id=com.consultaja24h.app';
   var APP_STORE_URL='https://apps.apple.com/app/consultaj%C3%A124h/id6803718849';
   function isAndroid(){return /android/i.test(navigator.userAgent||'')}
+  function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent||'')}
   function isNativeApp(){return !!window.ReactNativeWebView||/ConsultaJa24hApp/i.test(navigator.userAgent||'')}
   function trackAppDownload(source,store){try{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:store==='apple'?'app_store_click':'google_play_click',app_store:store==='apple'?'app_store':'google_play',source:source||'pos_consulta'})}catch(e){}}
   function hasToken(){try{return !!localStorage.getItem(TOKEN_KEY)}catch(e){return false}}
@@ -14,6 +15,8 @@
     var m={
       account:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3"/><path d="M5 20c.7-4 3.2-6 7-6s6.3 2 7 6"/></svg>',
       docs:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/></svg>',
+      apple:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.1 12.6c0-2 1.6-3 1.7-3.1-.9-1.4-2.3-1.6-2.8-1.6-1.2-.1-2.3.7-2.9.7-.6 0-1.5-.7-2.5-.7-1.3 0-2.6.8-3.3 1.9-1.4 2.4-.4 5.9 1 7.8.7.9 1.4 1.9 2.4 1.8.9 0 1.3-.6 2.5-.6s1.5.6 2.5.6 1.7-.9 2.4-1.8c.8-1 1.1-2 1.1-2.1-.1 0-2.1-.8-2.1-2.9ZM15.3 6.5c.6-.7 1-1.7.9-2.7-.9.1-1.9.6-2.5 1.3-.6.6-1.1 1.6-1 2.5 1 .1 2-.4 2.6-1.1Z"/></svg>',
+      play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00C8F8" d="M3 2v20l10-10z"/><path fill="#00D87C" d="M3 2 17 9l-4 3z"/><path fill="#FFCA28" d="m13 12 4 3-14 7z"/><path fill="#F44336" d="m17 9 4 2.3c.6.4.6 1 0 1.4L17 15l-4-3z"/></svg>',
       device:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.5h4"/></svg>',
       link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg>',
       plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>',
@@ -47,16 +50,17 @@
   function closeMenu(immediate){var x=q('#cjMenuV6');if(!x)return;if(immediate){x.remove();return}if(x.classList.contains('is-closing'))return;x.classList.add('is-closing');setTimeout(function(){if(x.parentNode)x.remove()},220)}
   function go(url){setTimeout(function(){location.href=url},180)}
   function activateAccess(){closeMenu();if(hasToken())go('/conta/');else if(typeof window.cjBeginAccess==='function')window.cjBeginAccess()}
-  function deviceAction(){closeMenu();if(isAndroid()){trackAppDownload('chat_menu');window.open(PLAY_STORE_URL,'_blank','noopener');return}if(typeof window.cjDeviceAction==='function')window.cjDeviceAction()}
+  function deviceAction(){closeMenu();if(isAndroid()){trackAppDownload('chat_menu','google');window.open(PLAY_STORE_URL,'_blank','noopener');return}if(isIOS()){trackAppDownload('chat_menu','apple');window.open(APP_STORE_URL,'_blank','noopener');return}if(typeof window.cjDeviceAction==='function')window.cjDeviceAction()}
   function copyLink(){closeMenu();try{if(typeof window.copiarLinkRetorno==='function')window.copiarLinkRetorno()}catch(e){}}
   function item(main,sub,key,ico){return '<button type="button" class="cj-menu-v6__item" data-cj-v6="'+key+'"><span class="cj-menu-v6__icon">'+icon(ico)+'</span><span class="cj-menu-v6__item-copy"><span class="cj-menu-v6__item-main">'+esc(main)+'</span>'+(sub?'<span class="cj-menu-v6__item-sub">'+esc(sub)+'</span>':'')+'</span><span class="cj-menu-v6__arrow">'+icon('chevron')+'</span></button>'}
   function group(label,html){return '<div class="cj-menu-v6__group"><div class="cj-menu-v6__group-label">'+esc(label)+'</div>'+html+'</div>'}
   function openMenu(){
     closeMenu(true);
-    var active=hasToken();
     var x=document.createElement('div');x.id='cjMenuV6';x.className='cj-menu-v6';
-    x.innerHTML='<div class="cj-menu-v6__sheet" role="dialog" aria-modal="true">'+'<div class="cj-menu-v6__grab"></div><div class="cj-menu-v6__head"><div><div class="cj-menu-v6__eyebrow">ConsultaJá24h</div><div class="cj-menu-v6__title">Ações da consulta</div></div><button type="button" class="cj-menu-v6__x" data-cj-v6="close" aria-label="Fechar">×</button></div>'+group('Consulta',item('Meus documentos','Receitas, atestados e arquivos','docs','docs')+item('Copiar link do atendimento','Para retomar esta consulta','copy','link'))+group('Seu acesso',item(active?'Abrir minha área':'Ativar meu acesso',active?'Consultas e documentos organizados':'Retome consultas e documentos depois','access','account')+item(isAndroid()?'Baixar aplicativo':'Adicionar ao celular',isAndroid()?'Disponível na Google Play':'Acesso rápido neste aparelho','device','device'))+group('Quando precisar novamente',item('Nova consulta','Clínica geral · Especialidades · Psicologia','new','plus')+item('Renovar receita','Acesse a ConsultaJá24h quando precisar','renew','renew'))+'</div>';
-    x.addEventListener('click',function(e){if(e.target===x){closeMenu();return}var a=e.target.closest('[data-cj-v6]');if(!a)return;var k=a.getAttribute('data-cj-v6');if(k==='close')closeMenu();if(k==='access')activateAccess();if(k==='docs'){closeMenu();hasToken()?go('/conta/'):activateAccess()}if(k==='device')deviceAction();if(k==='copy')copyLink();if(k==='new'){closeMenu();go('/consulta/?utm_source=chat_menu&utm_medium=owned&utm_campaign=nova_consulta')}if(k==='renew'){closeMenu();go('/consulta/?utm_source=chat_menu&utm_medium=owned&utm_campaign=renovar_receita')}});
+    var storeName=isIOS()?'App Store':isAndroid()?'Google Play':'seu celular';
+    var storeIcon=isIOS()?'apple':isAndroid()?'play':'device';
+    x.innerHTML='<div class="cj-menu-v6__sheet" role="dialog" aria-modal="true">'+'<div class="cj-menu-v6__grab"></div><div class="cj-menu-v6__head"><div><div class="cj-menu-v6__eyebrow">ConsultaJá24h</div><div class="cj-menu-v6__title">Ações da consulta</div></div><button type="button" class="cj-menu-v6__x" data-cj-v6="close" aria-label="Fechar">×</button></div>'+group('Sua consulta',item('Copiar link do atendimento','Continue de onde parou quando quiser','copy','link'))+'<div class="cj-menu-v6__app">'+item('Baixar o aplicativo','Mais praticidade para suas consultas · '+storeName,'device',storeIcon)+'</div>'+group('Quando precisar',item('Renovar receita','Solicite uma avaliação médica online','renew','renew'))+'</div>';
+    x.addEventListener('click',function(e){if(e.target===x){closeMenu();return}var a=e.target.closest('[data-cj-v6]');if(!a)return;var k=a.getAttribute('data-cj-v6');if(k==='close')closeMenu();if(k==='device')deviceAction();if(k==='copy')copyLink();if(k==='renew'){closeMenu();go('/consulta/?utm_source=chat_menu&utm_medium=owned&utm_campaign=renovar_receita')}});
     document.body.appendChild(x);
   }
   function mountLivebar(){
