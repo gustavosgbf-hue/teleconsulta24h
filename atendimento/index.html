@@ -1416,7 +1416,7 @@ function setNavLabel(txt){ document.getElementById('nav-step').textContent = txt
         if(!nomePacienteValido(pacienteNome)){
           esconderLoading(); pedirDadosPacienteAntesDe('waiting'); return;
         }
-        esconderLoading(); mostrarSalaEspera(); return;
+        mostrarSalaEspera(true); return;
       }
     }catch(e){}
 
@@ -2039,7 +2039,7 @@ function mostrarTelaEspera(){
   document.getElementById('esperaBadgeText').textContent=tipoConsulta==='video'?'Consulta por vídeo':'Consulta por chat';
   tentativas=0;
 }
-function mostrarSalaEspera(){
+function mostrarSalaEspera(restaurando){
   mostrarTelaEspera();
   // Aplica aviso noturno na sala de espera usando dado já carregado na tela de pagamento
   if(dispData && typeof dispData.avisoHorario !== 'undefined'){
@@ -2051,7 +2051,13 @@ function mostrarSalaEspera(){
       .then(function(d){ dispData=d; aplicarAvisoHorario(d.avisoHorario); })
       .catch(function(){});
   }
-  verificarStatus(); esperaPoller=setInterval(verificarStatus,5000);
+  // During restoration keep the existing neutral loading overlay until the
+  // backend confirms whether this is still waiting or already in consultation.
+  var primeiraVerificacao=verificarStatus();
+  if(restaurando){
+    Promise.resolve(primeiraVerificacao).finally(esconderLoading);
+  }
+  esperaPoller=setInterval(verificarStatus,5000);
 }
 async function verificarStatus(){
   if(!atendimentoId){ atualizarContador(); return; }
