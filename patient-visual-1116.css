@@ -300,3 +300,14 @@ html.cjv .cj-menu-v6__app{margin:9px 0 6px;padding:4px;border-radius:17px;backgr
 html.cjv .cj-menu-v6__app .cj-menu-v6__icon{background:var(--cjv-card);border-color:var(--cjv-line);color:var(--cjv-chipt)}
 html.cjv .cj-menu-v6__app .cj-menu-v6__item-main{color:var(--cjv-ink);font-weight:700}
 html.cjv .cj-menu-v6__app .cj-menu-v6__item-sub{color:var(--cjv-ink2)}
+
+/* Floating PiP: gentle spring on entry, reverse lift and scale on exit. */
+html.cjv .cj-menu-v6{animation:cjPipBackdropIn .24s ease-out both}
+html.cjv .cj-menu-v6__sheet{transform-origin:bottom center;animation:cjPipOpen .34s cubic-bezier(.2,.85,.25,1) both;will-change:transform,opacity}
+html.cjv .cj-menu-v6.is-closing{animation:cjPipBackdropOut .23s ease-in both}
+html.cjv .cj-menu-v6.is-closing .cj-menu-v6__sheet{animation:cjPipClose .23s cubic-bezier(.4,0,.8,.2) both}
+@keyframes cjPipBackdropIn{from{opacity:0}to{opacity:1}}
+@keyframes cjPipBackdropOut{from{opacity:1}to{opacity:0}}
+@keyframes cjPipOpen{0%{opacity:0;transform:translateY(26px) scale(.94)}65%{opacity:1;transform:translateY(-3px) scale(1.008)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes cjPipClose{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(20px) scale(.96)}}
+@media(prefers-reduced-motion:reduce){html.cjv .cj-menu-v6,html.cjv .cj-menu-v6__sheet,html.cjv .cj-menu-v6.is-closing,html.cjv .cj-menu-v6.is-closing .cj-menu-v6__sheet{animation:none!important}}
