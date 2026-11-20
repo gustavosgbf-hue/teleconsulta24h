@@ -106,7 +106,7 @@ html.cjv #s-espera.cj-consult-active #chatErroPaciente{color:var(--cjv-pdf)!impo
 
 /* mobile real: 320–430, teclado e safe area */
 @media (max-width:760px){
-  html.cjv #s-espera.cj-consult-active{height:var(--cjv-vvh)!important}
+  html.cjv #s-espera.cj-consult-active{height:calc(var(--cjv-vvh) - 58px)!important;bottom:auto!important}
   html.cjv #s-espera.cj-consult-active .cmsg .bub{max-width:100%!important}
   html.cjv #s-espera.cj-consult-active .chat-input-row{margin-bottom:max(12px,env(safe-area-inset-bottom))!important}
   html.cjv.cjv-kb #s-espera.cj-consult-active .chat-input-row{margin-bottom:8px!important}
@@ -274,3 +274,23 @@ html.cjv #s-encerrado .cjv-quiet .cjv-next svg{width:18px;height:18px;flex:none}
 html.cjv #s-encerrado[data-consultation-completed="true"] .enc-new-consultation{display:none!important}
 @media(min-width:761px){html.cjv #s-encerrado .s-inner{max-width:820px!important;width:100%}html.cjv #s-encerrado .cj-end-cta-v6.is-app{flex-wrap:wrap}html.cjv #s-encerrado .cj-end-cta-v6__actions{flex-basis:100%;grid-template-columns:1fr!important}}
 html.cjv #s-encerrado .cj-end-cta-v6__actions{grid-template-columns:1fr!important}
+
+/* iPhone Safari: floating consultation actions, synced to the existing day/night toggle. */
+html.cjv .cj-menu-v6{align-items:flex-end;justify-content:center;padding:16px 12px max(24px,env(safe-area-inset-bottom));background:rgba(3,17,12,.36);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+html.cjv .cj-menu-v6__sheet{width:min(100%,420px);max-height:min(76dvh,640px);padding:10px 14px 14px;border-radius:25px;background:var(--cjv-card);border:1px solid var(--cjv-cardbd);box-shadow:0 18px 65px rgba(0,0,0,.24);color:var(--cjv-ink);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+html.cjv .cj-menu-v6__grab{background:var(--cjv-line);margin:1px auto 10px}
+html.cjv .cj-menu-v6__head{padding:0 4px 6px}
+html.cjv .cj-menu-v6__eyebrow{font-size:.65rem;color:var(--cjv-main)}
+html.cjv .cj-menu-v6__title{font-size:1.1rem;color:var(--cjv-ink)}
+html.cjv .cj-menu-v6__x{width:36px;height:36px;background:var(--cjv-soft);color:var(--cjv-ink2)}
+html.cjv .cj-menu-v6__group{padding:6px 0 0}
+html.cjv .cj-menu-v6__group+.cj-menu-v6__group{border-top:1px solid var(--cjv-line);margin-top:5px;padding-top:9px}
+html.cjv .cj-menu-v6__group-label{padding:0 9px 3px;font-size:.63rem;color:var(--cjv-ink2)}
+html.cjv .cj-menu-v6__item{min-height:51px;grid-template-columns:36px minmax(0,1fr) 16px;gap:10px;padding:7px 9px;color:var(--cjv-ink)}
+html.cjv .cj-menu-v6__item:active{background:var(--cjv-soft)}
+html.cjv .cj-menu-v6__icon{width:35px;height:35px;background:var(--cjv-chip);border:1px solid var(--cjv-line);color:var(--cjv-chipt)}
+html.cjv .cj-menu-v6__item-main{font-size:.84rem;color:var(--cjv-ink)}
+html.cjv .cj-menu-v6__item-sub{font-size:.7rem;color:var(--cjv-ink2)}
+html.cjv .cj-menu-v6__arrow{color:var(--cjv-ink3)}
+html.cjv[data-cjv-theme=light] .cj-menu-v6{background:rgba(13,40,28,.24)}
+@media(max-height:650px){html.cjv .cj-menu-v6__sheet{max-height:72dvh}}
