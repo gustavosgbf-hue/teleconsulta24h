@@ -77,7 +77,7 @@
     try{if(sessionStorage.getItem('cj_live_app_cta_dismissed')==='1')return}catch(e){}
     if(q('.cj-live-app-cta',msgs))return;
     var c=document.createElement('div');c.className='cj-live-app-cta';
-    c.innerHTML='<img class="cj-live-app-cta__icon" src="/icon-192.png" alt=""><div class="cj-live-app-cta__copy"><strong>Também temos aplicativo</strong><small>Consultas e documentos na Google Play</small></div><a class="cj-live-app-cta__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener">Baixar</a><button class="cj-live-app-cta__x" type="button" aria-label="Fechar">×</button>';
+    c.innerHTML='<img class="cj-live-app-cta__icon" src="/assets/perfil-consultaja-verde.svg" alt="ConsultaJá24h"><div class="cj-live-app-cta__copy"><strong>Também temos aplicativo</strong><small>Consultas e documentos na Google Play</small></div><a class="cj-live-app-cta__link" href="'+PLAY_STORE_URL+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00C8F8" d="M3 2v20l10-10z"/><path fill="#00D87C" d="M3 2 17 9l-4 3z"/><path fill="#FFCA28" d="m13 12 4 3-14 7z"/><path fill="#F44336" d="m17 9 4 2.3c.6.4.6 1 0 1.4L17 15l-4-3z"/></svg><span>Baixar</span></a><button class="cj-live-app-cta__x" type="button" aria-label="Fechar">×</button>';
     c.querySelector('a').addEventListener('click',function(){trackAppDownload('consulta_ativa')});
     c.querySelector('button').addEventListener('click',function(){try{sessionStorage.setItem('cj_live_app_cta_dismissed','1')}catch(e){}c.remove()});
     msgs.insertBefore(c,msgs.firstChild);

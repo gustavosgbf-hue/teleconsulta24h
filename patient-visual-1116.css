@@ -316,3 +316,13 @@ html.cjv .cj-menu-v6__app .cj-menu-v6__icon svg{width:25px;height:25px}
 /* Align highlighted store action's icon/text with the regular menu rows. */
 html.cjv .cj-menu-v6__app{padding:0}
 html.cjv .cj-menu-v6__app .cj-menu-v6__item{padding-left:8px;padding-right:9px;min-height:58px}
+
+/* Android in-chat app invitation: current Ja identity and toggle-aware surfaces. */
+html.cjv .cj-live-app-cta{grid-template-columns:42px minmax(0,1fr) auto 22px;gap:9px;align-items:center;padding:10px 9px;margin:10px 12px 4px;border-radius:16px;background:var(--cjv-card);border:1px solid var(--cjv-cardbd);box-shadow:0 3px 15px rgba(0,0,0,.045)}
+html.cjv .cj-live-app-cta__icon{width:42px;height:42px;object-fit:cover;border-radius:11px;display:block}
+html.cjv .cj-live-app-cta__copy strong{font:650 12px/1.25 Outfit,sans-serif;color:var(--cjv-ink)}
+html.cjv .cj-live-app-cta__copy small{font:400 10px/1.35 Outfit,sans-serif;color:var(--cjv-ink2);margin-top:3px}
+html.cjv .cj-live-app-cta__link{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:35px;padding:7px 10px;background:var(--cjv-chip);border:1px solid var(--cjv-cardbd);border-radius:10px;color:var(--cjv-ink);font:650 11px/1 Outfit,sans-serif;white-space:nowrap}
+html.cjv .cj-live-app-cta__link svg{width:19px;height:19px;display:block;flex:none}
+html.cjv .cj-live-app-cta__x{width:22px;height:30px;display:grid;place-items:center;color:var(--cjv-ink2)}
+@media(max-width:365px){html.cjv .cj-live-app-cta{grid-template-columns:36px minmax(0,1fr) auto 18px;gap:6px;padding:8px 6px}html.cjv .cj-live-app-cta__icon{width:36px;height:36px}html.cjv .cj-live-app-cta__link{padding:6px}html.cjv .cj-live-app-cta__link span{display:none}}
