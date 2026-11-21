@@ -1579,6 +1579,7 @@ async function bkCriarAgendamento() {
     if (!d || !d.ok) throw new Error((d && (d.error || d.mensagem)) || 'Erro ao criar agendamento');
 
     bk.agendamentoId = d.agendamentoId;
+    bk.acessoToken = d.acessoToken;
     bk.valorSessao = d.valor || bk.psi.valor_sessao;
     cjFunil('booking_created', { profissional_id: bk.psi.id });
     document.getElementById('bk-pay-valor').textContent = 'R$' + bk.valorSessao;
@@ -1645,7 +1646,7 @@ async function bkPagarCartao() {
   const btn=document.getElementById('bk-cc-btn');
   btn.disabled=true; btn.textContent='Abrindo pagamento seguro…';
   try {
-    const r=await fetch(API+'/api/agendamentos/stripe/checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'psicologia',agendamentoId:bk.agendamentoId})});
+    const r=await fetch(API+'/api/agendamentos/stripe/checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'psicologia',agendamentoId:bk.agendamentoId,acessoToken:bk.acessoToken})});
     const d=await r.json(); if(!r.ok||!d.url) throw new Error(d.error||'Não foi possível iniciar o pagamento');
     window.location.assign(d.url);
   }catch(e){document.getElementById('bk-cc-err').textContent=e.message;btn.disabled=false;btn.textContent='Pagar com cartão →';}

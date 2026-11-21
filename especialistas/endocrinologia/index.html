@@ -1428,7 +1428,7 @@ async function processarCartao() {
   var btn=document.getElementById('btnPagarCartao');
   if(btn){btn.disabled=true;btn.textContent='Abrindo pagamento seguro…';}
   try {
-    var r=await fetch(API+'/api/agendamentos/stripe/checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'especialista',agendamentoId:espState.agendamentoId,especialidade:'endocrinologia'})});
+    var r=await fetch(API+'/api/agendamentos/stripe/checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'especialista',agendamentoId:espState.agendamentoId,acessoToken:espState.acessoToken,especialidade:'endocrinologia'})});
     var d=await r.json();if(!r.ok||!d.url)throw new Error(d.error||'Não foi possível iniciar o pagamento');
     location.assign(d.url);
   }catch(e){alert(e.message);if(btn){btn.disabled=false;btn.textContent='Pagar com cartão';}}
