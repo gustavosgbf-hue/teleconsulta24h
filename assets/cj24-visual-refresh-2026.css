@@ -1,0 +1,44 @@
+/* CJ24 visual refresh: only paint, typography, spacing and focus. No booking logic. */
+:root{--cj24-forest:#03251a;--cj24-deep:#071d17;--cj24-cream:#f2eee4;--cj24-lime:#b4e05a;--cj24-mint:#8bdd86;--cj24-ink:#103429;--cj24-paper:#f8f8f3;--cj24-line:rgba(12,57,38,.13);--cj24-shadow:0 18px 54px rgba(4,39,26,.09)}
+body.cj24-refresh{font-family:'Outfit','Manrope',system-ui,-apple-system,sans-serif!important;-webkit-font-smoothing:antialiased}
+body.cj24-refresh :is(button,a,input,select,textarea){font-family:inherit}
+body.cj24-refresh :is(button,a,input,select,textarea):focus-visible{outline:3px solid var(--cj24-lime)!important;outline-offset:3px}
+body.cj24-refresh :is(.btn-primary,.bk-btn,.sticky-cta-btn,.spec-cta,.doctor-card__btn,.hero-cta--primary,.btn-auth){transition:transform .2s ease,box-shadow .2s ease!important}
+@media(hover:hover){body.cj24-refresh :is(.btn-primary,.bk-btn,.sticky-cta-btn,.spec-cta,.doctor-card__btn,.hero-cta--primary,.btn-auth):hover{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){body.cj24-refresh *{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+body.cj24-psi{--psi-acc:#16704f;--psi-dark:#06432f;--psi-mid:#8bdd86;--psi:#eaf4e9;--psi-glow:rgba(32,123,76,.13);--cta-from:#116c4c;--cta-to:#08412e;--cream:#f8f8f3;--cream-alt:#edf3eb;--ink:#103429;--ink-2:#34594b;--ink-3:#688076;--line:var(--cj24-line);--font-d:'Playfair Display',Georgia,serif;--font-b:'Outfit',sans-serif;background:var(--cj24-paper)!important;color:var(--cj24-ink)!important}
+body.cj24-psi .psi-nav{background:rgba(3,37,26,.97)!important;border-bottom:1px solid rgba(242,238,228,.14)!important;backdrop-filter:blur(18px)}
+body.cj24-psi .psi-nav :is(.nav-logo,.nav-phone){color:var(--cj24-cream)!important}
+body.cj24-psi .psi-nav .nav-logo em{color:var(--cj24-lime)!important}
+body.cj24-psi .psi-nav .nav-btn{background:var(--cj24-lime)!important;color:var(--cj24-deep)!important;border-color:transparent!important;border-radius:12px!important}
+body.cj24-psi .psi-main{background:var(--cj24-paper)!important}
+body.cj24-psi .psi-hero{position:relative;background:radial-gradient(ellipse at 78% 20%,rgba(180,224,90,.13),transparent 48%),linear-gradient(135deg,#03251a,#071b16)!important;color:var(--cj24-cream)!important;max-width:none!important;padding-left:max(28px,calc((100vw - 1120px)/2))!important;padding-right:max(28px,calc((100vw - 1120px)/2))!important;border-bottom:1px solid rgba(255,255,255,.1)}
+body.cj24-psi .psi-hero :is(.hero-h1,.hero-h1 em){color:var(--cj24-cream)!important}
+body.cj24-psi .psi-hero .hero-h1 em{color:var(--cj24-lime)!important}
+body.cj24-psi .psi-hero :is(.hero-sub,.hero-price,.hero-micro,.hero-trust){color:rgba(242,238,228,.76)!important}
+body.cj24-psi .psi-hero .hero-price strong{color:var(--cj24-cream)!important}
+body.cj24-psi .psi-hero .hero-badge{background:rgba(180,224,90,.1)!important;border:1px solid rgba(180,224,90,.32)!important;color:var(--cj24-lime)!important;box-shadow:none!important}
+body.cj24-psi .psi-hero .btn-primary{background:var(--cj24-lime)!important;color:var(--cj24-deep)!important;box-shadow:0 12px 34px rgba(0,0,0,.18)!important}
+body.cj24-psi :is(.real-pros,.how-section,.process-band){background:var(--cj24-paper)!important}
+body.cj24-psi :is(.real-pros-grid>*,.quiz-card,.result-card,.how-step,.process-step){border-color:var(--cj24-line)!important;box-shadow:var(--cj24-shadow)}
+body.cj24-psi :is(.section-title,.how-title,.cta-bottom-h){color:var(--cj24-ink)!important;letter-spacing:-.035em}
+body.cj24-psi :is(.btn-primary,.bk-btn,.sticky-cta-btn){border-radius:12px!important}
+body.cj24-psi :is(.bk-btn,.sticky-cta-btn){background:#116c4c!important;color:#fff!important}
+body.cj24-psi :is(.bk-slot-btn,.bk-input,.bk-pay-opt){border-radius:12px!important}
+body.cj24-psi .psi-footer{background:var(--cj24-deep)!important;color:rgba(242,238,228,.65)!important}
+body.cj24-specialist{--cj-ink:var(--cj24-forest);--cj-green:#116c4c;--cj-green-dark:#075239;--cj-green-soft:#eaf4e9;--cj-paper:var(--cj24-paper);--cj-text:var(--cj24-ink);--cj-muted:#607a6e;--cj-line:var(--cj24-line);--cj-shadow:var(--cj24-shadow)}
+body.cj24-specialist nav{background:rgba(3,37,26,.97)!important}
+body.cj24-specialist :is(.hero,.spec-hero){background:radial-gradient(circle at 84% 15%,rgba(180,224,90,.18),transparent 40%),linear-gradient(130deg,#03251a,#061b16)!important}
+body.cj24-specialist :is(.hero-h1 em,.spec-hero__h1 em,.hero-badge,.spec-hero__tag){color:var(--cj24-lime)!important}
+body.cj24-specialist :is(.hero-h1,.spec-hero__h1){color:var(--cj24-cream)!important}
+body.cj24-specialist :is(.btn-primary,.hero-cta--primary){background:var(--cj24-lime)!important;color:var(--cj24-deep)!important;border-radius:14px!important}
+body.cj24-specialist :is(.spec-card,.doctor-card,.faq-item){border-radius:22px!important;border-color:var(--cj24-line)!important;box-shadow:var(--cj24-shadow)!important}
+body.cj24-specialist :is(.spec-cta,.doctor-card__btn){background:#116c4c!important;color:white!important;border-radius:12px!important}
+body.cj24-specialist :is(.section-title,.sec-title){color:var(--cj24-ink)!important}
+body.cj24-patient{--bg:var(--cj24-paper);--ink:var(--cj24-ink);--ink-2:#34594b;--ink-3:#688076;--psi-acc:#116c4c;--psi-dark:#06432f;--psi-mid:#8bdd86;--psi:#eaf4e9;--line:var(--cj24-line);background:var(--cj24-paper)!important;color:var(--cj24-ink)!important}
+body.cj24-patient nav{background:var(--cj24-forest)!important;border-bottom:1px solid rgba(255,255,255,.1)!important}
+body.cj24-patient nav :is(.nav-logo,.nav-user,.nav-logout){color:var(--cj24-cream)!important}
+body.cj24-patient :is(.auth-card,.card,.ag-item){border-color:var(--cj24-line)!important;box-shadow:var(--cj24-shadow)!important;border-radius:20px!important}
+body.cj24-patient :is(.btn-auth,.btn-meet-pac){background:#116c4c!important;color:#fff!important;border-radius:12px!important}
+body.cj24-patient :is(.welcome-h,.card-title){color:var(--cj24-ink)!important}
+@media(max-width:760px){body.cj24-psi .psi-hero{padding:54px 24px 52px!important}body.cj24-psi .psi-nav{padding-left:20px!important;padding-right:20px!important}body.cj24-specialist :is(.hero,.spec-hero){padding-left:24px!important;padding-right:24px!important}}
