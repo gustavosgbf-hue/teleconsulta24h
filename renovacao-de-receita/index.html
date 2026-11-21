@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="pt-BR"><head>
+<!DOCTYPE html><html lang="pt-BR"><head><script>(function(){try{var p=new URL(location.href),t=p.searchParams.get('recuperar');if(!t)return;window.__cjRecoveryToken=t;p.searchParams.delete('recuperar');history.replaceState({},'',p.pathname+p.search+p.hash)}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Renovação de Receita Médica Online | ConsultaJá24h</title>
@@ -1444,6 +1444,54 @@ function finalizarPagamento(){
   }));
   const prev=document.getElementById('premium-prev'),noprev=document.getElementById('premium-noprev');
   if(prev&&noprev){const u=()=>noprev.classList.toggle('is-show',!prev.checked);prev.addEventListener('change',u);}
+})();
+</script>
+<script id="renovacao-recovery-email">
+(async function(){
+  const token=window.__cjRecoveryToken;
+  if(!token)return;
+  window.__cjRecoveryToken=null;
+  try{
+    const response=await fetch(API+'/api/payment-recovery/restore',{
+      method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})
+    });
+    const payload=await response.json();
+    if(!response.ok||!payload.ok)throw Error(payload.error||'Link inválido ou expirado');
+    if(payload.estado==='pago'){
+      alert('O pagamento já foi confirmado. Acompanhe sua renovação pelo painel do paciente.');
+      return;
+    }
+    if(payload.estado!=='pendente'||!payload.atendimento){
+      alert('Esta solicitação não está mais disponível. Inicie outra renovação se precisar.');
+      return;
+    }
+    const at=payload.atendimento;
+    if(at.tipo!=='renovacao_digital'){
+      alert('Este link pertence a outro serviço. Consulte o e-mail de recuperação.');
+      return;
+    }
+    selecModalidade('digital');
+    SOLIC.atendimentoId=at.id;
+    SOLIC.anexos.receita_anterior=at.anexo_receita_ok?'arquivo_ja_enviado':null;
+    document.getElementById('iNome').value=at.nome||at.pagador_nome||'';
+    document.getElementById('iCpf').value=at.cpf||at.pagador_cpf||'';
+    document.getElementById('iEmail').value=at.email||at.pagador_email||'';
+    document.getElementById('modal').classList.add('show');
+    document.body.style.overflow='hidden';
+    if(at.anexo_receita_ok){
+      irParaStep(7);
+      selecionarPagamento('pix');
+    } else {
+      irParaStep(1);
+      alert('Recuperamos seus dados. Anexe novamente a receita anterior para continuar.');
+    }
+    fetch(API+'/api/payment-recovery/checkout-opened',{
+      method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})
+    }).catch(()=>{});
+  }catch(err){
+    console.warn('[RENOVACAO-RECOVERY]',err.message);
+    alert('Não conseguimos retomar automaticamente: '+(err.message||'link indisponível')+'. Você pode iniciar uma nova solicitação.');
+  }
 })();
 </script>
 </body></html>
