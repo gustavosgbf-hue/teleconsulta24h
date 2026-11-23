@@ -2167,7 +2167,16 @@ function medicoAssumiu(a){
   else iniciarVideoConsulta(a);
 }
 function iniciarChatConsulta(atendimento){
-  if(atendimento.medico_nome){
+  // Renovação de receita é uma solicitação documental, não uma teleconsulta por chat.
+  // Preserva acesso aos documentos já enviados, mas não oferece composição de mensagens.
+  const renovacaoSemChat=String(atendimento?.tipo||'').toLowerCase().startsWith('renovacao_');
+  const composer=document.querySelector('#chatConsulta .chat-input-row');
+  if(composer) composer.style.display=renovacaoSemChat?'none':'';
+  if(renovacaoSemChat){
+    const rotulo=document.getElementById('chatMedicoLabel');
+    if(rotulo) rotulo.textContent='Renovação em análise. O médico avaliará a receita e as informações que você enviou.';
+  }
+  if(atendimento.medico_nome && !renovacaoSemChat){
     window._medicoNomeAtual=atendimento.medico_nome; // [UX] usado em renderMsgChat
     document.getElementById('chatMedicoLabel').textContent='Seu m\u00e9dico \u00e9 '+atendimento.medico_nome+'. Pode enviar sua mensagem.';
     document.getElementById('medicoNomeBanner').textContent=atendimento.medico_nome;
