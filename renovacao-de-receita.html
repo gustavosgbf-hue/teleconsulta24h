@@ -912,7 +912,7 @@ footer{line-height:1.5}
       <div class="field" id="fMeds"><label class="field__label">Medicamentos (um por linha)</label><textarea class="field__textarea" id="iMeds" rows="4" placeholder="Ex.: nome do remédio, dose e como você usa&#10;Um por linha"></textarea><div class="field__hint">Quanto mais detalhado (dose, posologia), mais rápido a renovação é processada.</div><div class="field__error">Liste pelo menos um medicamento</div></div>
 
       <div id="questBlock" style="display:none">
-        <div class="alert alert--info" style="margin-bottom:14px">Para receitas controladas, precisamos de algumas informações adicionais.</div>
+        <div class="alert alert--info" style="margin-bottom:14px">Informações complementares sobre seu tratamento (opcionais). Elas ajudam o médico a avaliar sua solicitação.</div>
         <div class="field"><label class="field__label">Há quanto tempo você usa esse medicamento?</label><select class="field__select" id="qTempo"><option value="">Selecione</option><option>Menos de 1 mês</option><option>1 a 3 meses</option><option>3 a 6 meses</option><option>6 meses a 1 ano</option><option>1 a 3 anos</option><option>Mais de 3 anos</option></select></div>
         <div class="field"><label class="field__label">Qual médico/especialidade prescreveu originalmente?</label><input class="field__input" id="qMedico" placeholder="Ex: Psiquiatra Dr. João Silva"/></div>
         <div class="field"><label class="field__label">Faz acompanhamento médico regular?</label><select class="field__select" id="qAcomp"><option value="">Selecione</option><option>Sim, mensal</option><option>Sim, a cada 3 meses</option><option>Sim, a cada 6 meses</option><option>Sim, anualmente</option><option>Não, há mais de 1 ano sem consulta</option></select></div>
@@ -1055,7 +1055,7 @@ function selecModalidade(t){
   document.getElementById('optFisica').classList.toggle('active',t==='fisica');
   document.getElementById('alertDigital').style.display=t==='digital'?'block':'none';
   document.getElementById('alertFisica').style.display=t==='fisica'?'block':'none';
-  document.getElementById('questBlock').style.display=t==='fisica'?'block':'none';
+  document.getElementById('questBlock').style.display='block';
   document.getElementById('upDocBlock').style.display=t==='fisica'?'block':'none';
   document.getElementById('cFisicaBlock').style.display=t==='fisica'?'flex':'none';
 }
@@ -1101,7 +1101,7 @@ function atualizarBtnStep4(){
 async function criarPreRegistro(){
   if(SOLIC.atendimentoId)return true;
   const meds=document.getElementById('iMeds').value.trim();
-  let questionario=null;
+  let questionario={};
   const emTratamentoPeso = document.querySelector('.premium-option[data-kind="peso"]')?.getAttribute('aria-pressed') === 'true';
   if(emTratamentoPeso){
     questionario={
@@ -1114,9 +1114,17 @@ async function criarPreRegistro(){
       declara_avaliacao:document.getElementById('premium-agree').checked
     };
   }
-  if(SOLIC.tipo==='fisica'){
-    questionario={...(questionario||{}),tempo_uso:document.getElementById('qTempo').value,medico_original:document.getElementById('qMedico').value,acompanhamento:document.getElementById('qAcomp').value,efeitos_colaterais:document.getElementById('qEfeitos').value,laudo_diagnostico:document.getElementById('qLaudo').value};
-  }
+  questionario={
+    ...questionario,
+    tipo_receita:window.RENOVACAO_TIPO_RECEITA||'',
+    tempo_uso:document.getElementById('qTempo').value,
+    medico_original:document.getElementById('qMedico').value.trim(),
+    acompanhamento:document.getElementById('qAcomp').value,
+    efeitos_colaterais:document.getElementById('qEfeitos').value.trim(),
+    laudo_diagnostico:document.getElementById('qLaudo').value
+  };
+  questionario=Object.fromEntries(Object.entries(questionario).filter(([k,v])=>v!==null&&v!==undefined&&v!==''));
+
   const payload={nome:document.getElementById('iNome').value.trim(),tel:document.getElementById('iTel').value,cpf:document.getElementById('iCpf').value,data_nascimento:document.getElementById('iNasc').value,email:document.getElementById('iEmail').value.trim(),tipo_renovacao:SOLIC.tipo,medicamentos:meds,questionario};
   if(SOLIC.tipo==='fisica'){
     payload.endereco_envio=getEnderecoEnvio();
@@ -1433,7 +1441,7 @@ function finalizarPagamento(){
 </script>
 <script id="rx-type-pick">
 (function(){
-  window.RENOVACAO_TIPO_RECEITA=null; // informativo, ainda não enviado ao backend
+  window.RENOVACAO_TIPO_RECEITA=null; // Tipo informado ao médico no questionário da renovação
   const opts=[...document.querySelectorAll('.rxpick__opt')];
   const btn=document.getElementById('btnStep1'),note=document.getElementById('rxpickNote');
   opts.forEach(o=>o.addEventListener('click',()=>{
