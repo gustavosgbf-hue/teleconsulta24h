@@ -7,7 +7,10 @@
      (evento pix_lento só no dataLayer; o backend ainda não aceita esse nome);
    - nova tentativa depois de uma falha reaproveita o pedido já criado para o mesmo
      atendimento e só repete o que faltou (ex.: vincular o pedido);
-   - pix_error ganha error_kind / error_substage / elapsed_ms; pix_qr_visible ganha elapsed_ms.
+   - pix_error ganha error_kind / error_substage / elapsed_ms; pix_qr_visible ganha elapsed_ms;
+   - teto absoluto de 70 s: se algo travar (ex.: corpo de resposta que nunca chega), o botão
+     volta como "Tentar novamente" e a tentativa antiga é descartada se responder depois;
+   - ao voltar do app do banco (visibilitychange/pageshow) o pagamento é conferido na hora.
 2. QR code gerado no navegador (assets/vendor/qrcode-generator.min.js, MIT), sem api.qrserver.com.
    Se a biblioteca não carregar, o PIX copia e cola continua funcionando.
 3. card_error ganha error_kind / error_substage / error_code (error_stage original mantido).
@@ -22,7 +25,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGE = ROOT / "consulta" / "index.html"
 
 NEW_GERAR_PIX = (
-    'var moPixEmAndamento=!1,moPixQrTexto="",moPixOrderAtendimento=null,moPixOrderVinculada=!1;'
+    'var moPixEmAndamento=!1,moPixTentativa=0,moPixQrTexto="",moPixOrderAtendimento=null,moPixOrderVinculada=!1;'
     'function moErroEtapa(e,o){var t=new Error(e);return t.etapa=o,t}'
     'function moClassificarErroPix(e){var o=e&&e.name||"",t=String(e&&e.message||"").toLowerCase();'
     'return"AbortError"===o?"timeout":"TypeError"===o||/failed to fetch|networkerror|load failed|network/.test(t)?"rede":'
@@ -36,15 +39,18 @@ NEW_GERAR_PIX = (
     'o.onload=function(){o.style.display="block"},o.src=a.createDataURL(r,4*r)}).catch(function(e){'
     'o.style.display="none",moTrack("pix_qr_local_falhou",{error_message:moErroSeguro(e&&e.message)})})}'
     'async function moGerarPix(){if(moPixEmAndamento)return;'
-    'var e=document.getElementById("moBtnPagar"),a=document.getElementById("moPixStatus"),i=Date.now(),l="atendimento",c=!1;'
+    'var e=document.getElementById("moBtnPagar"),a=document.getElementById("moPixStatus"),i=Date.now(),l="atendimento",c=!1,g=++moPixTentativa;'
     'moPixEmAndamento=!0,e.disabled=!0,e.textContent="Gerando PIX...",a.style.display="block",a.className="mstatus",a.textContent="Gerando código PIX...";'
-    'var o,t=setTimeout(function(){moPixEmAndamento&&(c=!0,e.textContent="Ainda gerando...",'
+    'var o,h,t=setTimeout(function(){moPixEmAndamento&&(c=!0,e.textContent="Ainda gerando...",'
     'a.textContent="Está levando mais que o normal. Seu pedido continua valendo, não precisa clicar de novo.",a.className="mstatus",'
     'moTrack("pix_lento",{error_stage:"timeout",error_kind:"lentidao",error_substage:l,elapsed_ms:Date.now()-i}))},25e3);'
+    'h=setTimeout(function(){moPixEmAndamento&&g===moPixTentativa&&(moPixEmAndamento=!1,moPixTentativa++,clearTimeout(t),e.disabled=!1,e.textContent="Tentar novamente",'
+    'a.textContent="Não conseguimos gerar o PIX agora. Toque em Tentar novamente.",a.className="mstatus err",a.style.display="block",'
+    'moTrack("pix_error",{error_stage:"timeout",error_kind:"timeout",error_substage:l,error_message:"limite_70s",elapsed_ms:Date.now()-i}))},MO_PIX_LIMITE_MS);'
     'try{if(!validarCPF(moPagadorCPFVal))return(a=document.getElementById("moPixStatus"))&&(a.textContent="⚠️ CPF inválido. Verifique os números e tente novamente.",'
-    'a.className="mstatus err",a.style.display="block"),e.disabled=!1,e.textContent="Gerar Pix de "+moValorFormatado(),clearTimeout(t),moPixEmAndamento=!1,'
+    'a.className="mstatus err",a.style.display="block"),e.disabled=!1,e.textContent="Gerar Pix de "+moValorFormatado(),clearTimeout(t),clearTimeout(h),moPixEmAndamento=!1,'
     'void moTrack("pix_error",{error_stage:"cpf_validation_late",error_kind:"preenchimento",error_message:"cpf_invalido"});'
-    'if(await moGarantirAtendimentoAntesDaTriagem(),moRetomadaPagoEmCurso)return clearTimeout(t),void(moPixEmAndamento=!1);'
+    'if(await moGarantirAtendimentoAntesDaTriagem(),g!==moPixTentativa)return;if(moRetomadaPagoEmCurso)return clearTimeout(t),clearTimeout(h),void(moPixEmAndamento=!1);'
     'if(!moAtendimentoId)throw moErroEtapa("Não foi possível abrir seu atendimento. Tente novamente.","atendimento_open");'
     'var m=moPixQrTexto,u=!!(moOrderId&&m&&moPixOrderAtendimento===moAtendimentoId);'
     'if(!u){moPostConfiavel("/api/notify",moPayloadAtendimento({atendimentoId:moAtendimentoId})),l="pagbank_order";'
@@ -52,25 +58,33 @@ NEW_GERAR_PIX = (
     'nome:moPagadorNomeVal||moNomeParaCadastro(),cpf:moPagadorCPFVal,email:moPagadorEmailVal||void 0,paciente_nome:moNomeParaCadastro(),paciente_cpf:moCPFVal||"",'
     'atendimento_para_terceiro:!!moAtendimentoTerceiro,ads:moAdsAttributionPayload()})},23e3),r=await n.json();'
     'if(!r.ok)throw moErroEtapa(r.error||"Erro ao gerar PIX","pagbank_order");'
-    'moOrderId=r.order_id,m=r.qr_code_text||"",moPixQrTexto=m,moPixOrderAtendimento=moAtendimentoId,moPixOrderVinculada=!1}'
+    'moOrderId=r.order_id,m=r.qr_code_text||"",moPixQrTexto=m,moPixOrderAtendimento=moAtendimentoId,moPixOrderVinculada=!1;if(g!==moPixTentativa)return}'
     'if(moAtendimentoId&&moOrderId&&!moPixOrderVinculada){l="vincular_order";'
     'var p=await moFetchComTimeout(MO_API+"/api/atendimento/vincular-order",{method:"POST",headers:{"Content-Type":"application/json"},'
     'body:JSON.stringify({atendimentoId:moAtendimentoId,orderId:moOrderId})},8e3),d=await p.json();'
-    'if(!d.ok)throw moErroEtapa(d.error||"Não foi possível associar o PIX ao atendimento.","vincular_order");moPixOrderVinculada=!0}'
+    'if(!d.ok)throw moErroEtapa(d.error||"Não foi possível associar o PIX ao atendimento.","vincular_order");moPixOrderVinculada=!0;if(g!==moPixTentativa)return}'
     'moSalvarCheckoutSessao(),m&&(moRenderQrLocal(m),document.getElementById("moPixChave").value=m),'
-    'document.getElementById("moQrWrap").classList.add("show"),e.style.display="none",clearTimeout(t),moPixEmAndamento=!1,'
+    'document.getElementById("moQrWrap").classList.add("show"),e.style.display="none",clearTimeout(t),clearTimeout(h),moPixEmAndamento=!1,'
     'a.textContent="Aguardando confirmação do pagamento...",a.className="mstatus",a.style.display="block",'
     'moTrack("pix_qr_visible",{contexto:moPreContexto||"geral",elapsed_ms:Date.now()-i,reused:u?"1":""}),moMostrarPushRecuperacao(),'
     'o="pix_gerado_"+(moOrderId||Date.now()),sessionStorage.getItem(o)||(sessionStorage.setItem(o,"1"),'
     'moTrack("gerou_pix",{value:moValorCentavos()/100,currency:"BRL"}),console.log("[TRACKING] gerou_pix disparado",o)),moIniciarPolling()}'
-    'catch(o){clearTimeout(t),moPixEmAndamento=!1,e.disabled=!1,'
+    'catch(o){if(g!==moPixTentativa)return;clearTimeout(t),clearTimeout(h),moPixEmAndamento=!1,e.disabled=!1,'
     'e.textContent=moOrderId&&moPixOrderAtendimento===moAtendimentoId?"Tentar novamente":"Gerar Pix de "+moValorFormatado(),'
     'a.textContent="Erro ao gerar PIX: "+(o.message||"Tente novamente."),a.className="mstatus err",a.style.display="block",'
     'moTrack("pix_error",{error_stage:"order_create",error_substage:o.etapa||l,error_kind:moClassificarErroPix(o),'
     'error_message:moErroSeguro(o.message),elapsed_ms:Date.now()-i})}}'
+    'var MO_PIX_LIMITE_MS=7e4;'
+    'function moVerificarPixAgora(){!moOrderId||moPagamentoConfirmado||!moPoller||fetch(MO_API+"/api/pagbank/order/"+moOrderId).then(function(e){return e.json()})'
+    '.then(function(e){e&&e.ok&&e.pago&&!moPagamentoConfirmado&&(clearInterval(moPoller),clearTimeout(moJaTimer),moConfirmarPagamento())}).catch(function(){})}'
+    'document.addEventListener("visibilitychange",function(){document.hidden||moVerificarPixAgora()}),'
+    'window.addEventListener("pageshow",function(e){e.persisted&&moVerificarPixAgora()});'
 )
 
 REPLACEMENTS = [
+    # polling: não confirmar duas vezes se a volta do app do banco já confirmou
+    ('t.ok&&t.pago&&(clearInterval(moPoller),clearTimeout(moJaTimer),moConfirmarPagamento())',
+     't.ok&&t.pago&&!moPagamentoConfirmado&&(clearInterval(moPoller),clearTimeout(moJaTimer),moConfirmarPagamento())', 1),
     # 2. step-2 CPF click validation: add kind
     ('moTrack("pix_error",{error_stage:"cpf_validation",error_message:"cpf_invalido"})',
      'moTrack("pix_error",{error_stage:"cpf_validation",error_kind:"preenchimento",error_message:"cpf_invalido"})', 1),
