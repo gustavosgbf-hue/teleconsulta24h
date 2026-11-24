@@ -48,7 +48,7 @@ const block = `
 
   <div class="mobile-app-home__proof">
     <strong>★★★★★ 5,0</strong>
-    <span>+2.000 atendimentos</span>
+    <span>+3.000 atendimentos</span>
     <span>Médicos com CRM ativo</span>
   </div>
 </div>`;
