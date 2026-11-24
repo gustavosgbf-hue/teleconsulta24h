@@ -1,0 +1,62 @@
+/*
+ * ConsultaJá24h · /consulta · refino visual v1
+ * Só CSS, carregado por último. Não altera animações, mockup, WebM, checkout nem rastreamento.
+ * Para desligar no teste A/B: remover o <link rel="stylesheet" href="refino-v1.css"> do index.html.
+ */
+
+/* 1. Âncoras não ficam escondidas atrás do menu fixo ("Como funciona", avaliações) */
+html body [id] { scroll-margin-top: 76px; }
+
+/* 2. Foco visível para teclado e leitores de tela, sem mudar o visual do toque */
+html body :is(a, button, [role="tab"]):focus-visible {
+  outline: 2px solid #8bdd86;
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+@media (max-width: 760px) {
+
+  /* 3. Tipografia: títulos com quebras equilibradas, parágrafos sem palavra solta na última linha */
+  html body :is(h1, h2, h3, .section-title, .cta-inline__title, .cta-final .section-title) { text-wrap: balance; }
+  html body :is(.section-sub, .cjx-sub, .cjx-disc, .cjx-trust, .cjx-note, .journey-meta p) { text-wrap: pretty; }
+  html body :is(.cjx-price__v, .sticky-cta__price, .cta-inline__btn, .dstrip-crm) { font-variant-numeric: tabular-nums; }
+  html body .section-label { letter-spacing: .16em; }
+
+  /* 4. Avaliações: título em 2 linhas em vez de 3, nota do Google embaixo dele */
+  html body .reviews-mini__head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  html body .reviews-mini__head .section-title { font-size: clamp(1.7rem, 8vw, 2.1rem) !important; line-height: 1.05; }
+  html body .reviews-mini__google { font-size: .74rem; }
+
+  /* 5. Médicos: CRM e especialidade legíveis (antes 0,56rem com 42% de opacidade) */
+  html body .dstrip-crm { font-size: .64rem; color: rgba(255, 255, 255, .66); letter-spacing: .01em; }
+  html body .dstrip-spec { font-size: .64rem; }
+
+  /* 6. Linha do tempo: etiquetas mais leves, para o título de cada etapa mandar na leitura */
+  html body .journey-chip {
+    background: transparent !important;
+    border-color: rgba(32, 116, 82, .22) !important;
+    color: #44695a !important;
+    font-weight: 600 !important;
+  }
+
+  /* 7. WhatsApp: um pouco menor e mais discreto, cobre menos títulos e textos ao rolar */
+  html body .whatsapp-float {
+    width: 46px !important;
+    height: 46px !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .28) !important;
+  }
+  html body .whatsapp-float svg { width: 24px !important; height: 24px !important; }
+
+  /* 8. Ritmo vertical: menos vazio no fim da página, antes do rodapé */
+  html body .cta-final { padding-top: 56px; padding-bottom: 48px; }
+  html body .cta-inline { padding-bottom: 40px; }
+
+  /* 9. Toque: resposta imediata e igual em todos os botões principais */
+  html body :is(.sticky-cta__button, .cta-inline__btn) {
+    -webkit-tap-highlight-color: transparent;
+    transition-property: transform, background-color, border-color, box-shadow, opacity;
+    transition-duration: .18s;
+    transition-timing-function: cubic-bezier(.2, .7, .2, 1);
+  }
+  html body :is(.sticky-cta__button, .cta-inline__btn):active { transform: scale(.985); }
+}
