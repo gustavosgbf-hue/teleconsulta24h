@@ -673,6 +673,8 @@ footer{line-height:1.5}
 /* ícone da caneta maior e legível */
 .premium-option[data-kind=peso] .premium-option-icon svg{width:27px!important;height:27px!important}
 </style>
+<!-- Google Ads: mesma tag da /consulta, para medir pagamentos de renovação -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","AW-17964942771")</script>
 </head>
 <body>
 <div class="bg-glow"></div>
@@ -1394,8 +1396,21 @@ async function verificarPagamentoStripe(sessionId){
   }
   return false;
 }
+function registrarConversaoRenovacao(){
+  try{
+    var tx=SOLIC.atendimentoId?String(SOLIC.atendimentoId):"";
+    if(!tx)return;
+    var chave="cj_renov_conv_"+tx;
+    try{if(sessionStorage.getItem(chave)==="1")return;sessionStorage.setItem(chave,"1")}catch(e){}
+    var valor=Number(SOLIC.valorBase)||59.90;
+    window.dataLayer=window.dataLayer||[];
+    window.dataLayer.push({event:"purchase",ecommerce:{transaction_id:tx,value:valor,currency:"BRL",items:[{item_id:"renovacao_"+(SOLIC.tipo||"digital"),item_name:"Renovação de receita",price:valor,quantity:1}]}});
+    if(typeof gtag==="function")gtag("event","conversion",{send_to:"AW-17964942771/AT3gCPTl0PsbELOLrfZC",value:valor,currency:"BRL",transaction_id:tx});
+  }catch(e){}
+}
 function finalizarPagamento(){
   clearInterval(POLLER_PAGAMENTO);
+  registrarConversaoRenovacao();
   irParaStep(8);
   const msg=SOLIC.tipo==='digital'?'Sua solicitação foi recebida. A receita digital será enviada por email e WhatsApp após avaliação médica.':'Sua solicitação foi recebida. A receita controlada será preparada e enviada via Correios após avaliação médica.';
   document.getElementById('sucessoMsg').textContent=msg;
