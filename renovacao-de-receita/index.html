@@ -911,6 +911,8 @@ footer{line-height:1.5}
       <div class="modal__sub">Liste o nome, dose e posologia dos medicamentos da sua receita atual.</div>
       <div class="field" id="fMeds"><label class="field__label">Medicamentos (um por linha)</label><textarea class="field__textarea" id="iMeds" rows="4" placeholder="Ex.: nome do remédio, dose e como você usa&#10;Um por linha"></textarea><div class="field__hint">Quanto mais detalhado (dose, posologia), mais rápido a renovação é processada.</div><div class="field__error">Liste pelo menos um medicamento</div></div>
 
+      <div class="field" id="fLembrete"><label class="field__label" for="qLembrete">Quer um lembrete para renovar de novo?</label><select class="field__select" id="qLembrete"><option value="">Não, obrigado</option><option value="30">Sim, daqui a cerca de 30 dias</option><option value="60">Sim, daqui a cerca de 60 dias</option><option value="90">Sim, daqui a cerca de 90 dias</option></select><div class="field__hint">Enviamos um e-mail alguns dias antes, sem citar o medicamento. Dá para cancelar pelo próprio e-mail.</div></div>
+
       <div id="questBlock" style="display:none">
         <div class="alert alert--info" style="margin-bottom:14px">Informações complementares sobre seu tratamento (opcionais). Elas ajudam o médico a avaliar sua solicitação.</div>
         <div class="field"><label class="field__label">Há quanto tempo você usa esse medicamento?</label><select class="field__select" id="qTempo"><option value="">Selecione</option><option>Menos de 1 mês</option><option>1 a 3 meses</option><option>3 a 6 meses</option><option>6 meses a 1 ano</option><option>1 a 3 anos</option><option>Mais de 3 anos</option></select></div>
@@ -1121,7 +1123,8 @@ async function criarPreRegistro(){
     medico_original:document.getElementById('qMedico').value.trim(),
     acompanhamento:document.getElementById('qAcomp').value,
     efeitos_colaterais:document.getElementById('qEfeitos').value.trim(),
-    laudo_diagnostico:document.getElementById('qLaudo').value
+    laudo_diagnostico:document.getElementById('qLaudo').value,
+    lembrete_renovacao_dias:(document.getElementById('qLembrete')||{}).value||''
   };
   questionario=Object.fromEntries(Object.entries(questionario).filter(([k,v])=>v!==null&&v!==undefined&&v!==''));
 
