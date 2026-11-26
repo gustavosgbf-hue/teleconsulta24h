@@ -344,16 +344,16 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
     }
     enviarMetaCapiPurchase();
 
-    var uetPronto = (!emDebug && typeof window.cjUetPurchase === 'function')
-      ? window.cjUetPurchase(String(txId), valorCompra)
-      : Promise.resolve();
+    if(!emDebug && typeof window.cjUetPurchase === 'function'){
+      window.cjUetPurchase(String(txId), valorCompra);
+    }
 
     if(typeof gtag === 'function'){
       var callbackChamado = false;
       function seguirDepoisDaTag(){
         if(callbackChamado) return;
         callbackChamado = true;
-        uetPronto.then(irParaTriagem, irParaTriagem);
+        irParaTriagem();
       }
       var googleConversion = {
         send_to: 'AW-17964942771/AT3gCPTl0PsbELOLrfZC',
