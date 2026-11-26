@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><script src="/acesso-atendimento.js?v=1"></script>
+<head><script src="/uet.js?v=1" data-manual="1"></script><script src="/acesso-atendimento.js?v=1"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17964942771"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -159,11 +159,13 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
 
   var clienteNovo = null;
   var customerType = 'unknown';
+  var pagoConfirmadoNoBackend = false;
   if(/^\d+$/.test(String(consultaId || ''))){
     try{
       var rc = await fetch('https://triagem-api.onrender.com/api/atendimento/status/'+encodeURIComponent(consultaId), {cache:'no-store'});
       var dc = await rc.json();
       if(dc&&dc.ok&&dc.atendimento&&dc.atendimento.pagamento_status==='confirmado'){
+        pagoConfirmadoNoBackend = true;
         if(typeof dc.atendimento.cliente_novo === 'boolean') clienteNovo = dc.atendimento.cliente_novo;
         if(dc.atendimento.customer_type === 'new' || dc.atendimento.customer_type === 'returning'){
           customerType = dc.atendimento.customer_type;
@@ -263,12 +265,16 @@ p{font-size:1rem;line-height:1.55;color:rgba(255,255,255,.66);margin-bottom:20px
       },{eventID:'purchase_'+String(txId)});
     }
 
+    var uetPronto = (pagoConfirmadoNoBackend && !emDebug && typeof window.cjUetPurchase === 'function')
+      ? window.cjUetPurchase(String(txId), valorCompra)
+      : Promise.resolve();
+
     if(typeof gtag === 'function'){
       var callbackChamado = false;
       function seguirDepoisDaTag(){
         if(callbackChamado) return;
         callbackChamado = true;
-        irParaTriagem();
+        uetPronto.then(irParaTriagem, irParaTriagem);
       }
       var googleConversion = {
         send_to: 'AW-17964942771/AT3gCPTl0PsbELOLrfZC',
