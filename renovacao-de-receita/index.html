@@ -1133,6 +1133,14 @@ async function criarPreRegistro(){
     payload.frete_servico_id=SOLIC.freteServicoId;
     payload.frete_prazo_dias=SOLIC.fretePrazoDias;
   }
+  try{
+    // Atribuição: mesmo identificador de clique salvo pela landing principal (cj_ads_params) ou presente na URL.
+    const u=new URLSearchParams(location.search);let s={};
+    try{s=JSON.parse(sessionStorage.getItem('cj_ads_params')||localStorage.getItem('cj_ads_params')||'{}')||{}}catch(_){s={}}
+    const ads={};['gclid','gbraid','wbraid','fbclid','msclkid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k=>{const v=u.get(k)||s[k];if(v)ads[k]=String(v).slice(0,300)});
+    ads.landing_url=location.href.slice(0,700);if(document.referrer)ads.referrer=document.referrer.slice(0,700);
+    ads.attribution_stage='touch';payload.ads=ads;
+  }catch(_){}
   const r=await fetch(API+'/api/renovacao/criar-pre',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   const d=await r.json();
   if(!d.ok)throw new Error(d.error||'Erro ao criar registro');
