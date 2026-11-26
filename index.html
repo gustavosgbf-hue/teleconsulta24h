@@ -497,6 +497,22 @@
   .mobile-app-home__proof span+span:before{content:'•';position:absolute;left:-7px;color:rgba(255,255,255,.24)}
 }
 </style>
+<style id="homeConsultPriority">
+.hero__price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:23px;color:#fff}
+.hero__price strong{font-size:clamp(1.65rem,3vw,2.2rem);letter-spacing:-.04em;line-height:1;font-weight:700}
+.hero__price span{color:rgba(255,255,255,.64);font-size:.8rem}
+.hero__actions{justify-content:flex-start;margin-top:17px}
+.home-consult-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 23px;min-height:52px;border-radius:12px;background:#a8d4c3;color:#071a14;font-size:.98rem;font-weight:800;text-decoration:none;transition:background .18s ease,transform .18s ease}
+.home-consult-cta:hover{background:#c4e5d8;transform:translateY(-1px)}
+.home-consult-cta:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.hero__actions .home-consult-cta{margin-right:calc(100% - 275px)}
+.hero__app-label{flex-basis:100%;font-size:.75rem;color:rgba(255,255,255,.64);margin-top:6px}
+.final-cta__actions .home-consult-cta{flex-basis:100%}
+.mobile-app-home__price{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-top:13px}
+.mobile-app-home__primary .mobile-app-home__price strong{font-size:1.33rem;margin:0;letter-spacing:-.035em}
+.mobile-app-home__price small{color:rgba(255,255,255,.65);font-size:.72rem}
+@media(max-width:680px){.hero__price{margin-top:15px}.hero__actions .home-consult-cta{margin-right:0;flex-basis:100%}.hero__app-label{margin-top:5px}}
+</style>
 </head>
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NN2WKSD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -510,7 +526,7 @@
         <a href="#vantagens">Vantagens</a>
         <a href="#como-funciona">Como funciona</a>
         <a href="#duvidas">Dúvidas</a>
-        <a class="nav__web js-web-link" href="/consulta/">Continuar no navegador</a>
+        <a class="nav__web js-web-link" href="/consulta/" data-placement="nav">Consultar agora</a>
       </nav>
     </div>
   </header>
@@ -522,14 +538,15 @@
   <h1 class="mobile-app-home__title">O que você precisa hoje?</h1>
   <p class="mobile-app-home__lead">Escolha como podemos ajudar.</p>
 
-  <a class="mobile-app-home__primary" href="/consulta">
+  <a class="mobile-app-home__primary js-web-link" href="/consulta/" data-placement="mobile_hero">
     <div class="mobile-app-home__primary-top">
       <span class="mobile-app-home__primary-kicker">CONSULTA IMEDIATA</span>
       <span class="mobile-app-home__arrow">›</span>
     </div>
     <strong>Consulta médica agora</strong>
     <span>Por chat, direto pelo celular. Sem precisar agendar.</span>
-    <b>Falar com um médico agora</b>
+    <div class="mobile-app-home__price"><strong>R$ 49,90</strong><small>Por consulta · sem mensalidade</small></div>
+    <b>Iniciar consulta agora</b>
   </a>
 
   <div class="mobile-app-home__grid">
@@ -564,11 +581,13 @@
         <div class="hero__content">
           <div class="eyebrow">Atendimento médico 24h no seu celular</div>
           <h1>Saúde online, <span>sempre à mão.</span></h1>
-          <p class="hero__lead">Baixe o app ConsultaJá24h para consultar por chat, acessar seus documentos e voltar quando precisar. Sem mensalidade, e com a opção de continuar pelo navegador.</p>
+          <p class="hero__lead">Consulte um médico por chat, sem agendar e sem sair de casa. Pelo navegador ou pelo aplicativo, sempre que precisar.</p>
+          <div class="hero__price"><strong>R$ 49,90</strong><span>Por consulta · sem mensalidade</span></div>
           <div class="hero__actions">
+            <a class="home-consult-cta js-web-link" href="/consulta/" data-placement="hero">Iniciar consulta agora <span aria-hidden="true">→</span></a>
+            <div class="hero__app-label">Prefere usar o aplicativo?</div>
             <a class="store-badge-link js-app-store-link" data-placement="hero" href="https://apps.apple.com/br/app/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
             <a class="store-badge-link js-app-link" data-placement="hero" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
-            <a class="web-link js-web-link" href="/consulta/">Continuar no navegador →</a>
             <div class="desktop-qr"><img src="/assets/qr-consultaja-links.svg" width="92" height="92" alt="QR code para baixar o app"><span>Aponte a câmera do celular para baixar</span></div>
           </div>
           <div class="hero__store-rating">★ Nota 5,0 na App Store</div>
@@ -681,9 +700,9 @@
           <p>ConsultaJá24h: telemedicina prática para usar agora e voltar quando precisar.</p>
         </div>
         <div class="final-cta__actions">
+          <a class="home-consult-cta js-web-link" href="/consulta/" data-placement="final_cta">Iniciar consulta agora <span aria-hidden="true">→</span></a>
           <a class="store-badge-link js-app-store-link" data-placement="final_cta" href="https://apps.apple.com/br/app/id6803718849" target="_blank" rel="noopener"><img src="/assets/store-badges/app-store.svg" alt="Baixar na App Store"></a>
           <a class="store-badge-link js-app-link" data-placement="final_cta" href="https://play.google.com/store/apps/details?id=com.consultaja24h.app" target="_blank" rel="noopener"><img src="/assets/store-badges/google-play.png" alt="Disponível no Google Play"></a>
-          <a class="web-link js-web-link" href="/consulta/">Continuar no navegador →</a>
         </div>
       </div>
     </section>
@@ -876,7 +895,7 @@
 
       document.querySelectorAll('.js-web-link').forEach(function(a){
         a.href=withParams('/consulta');
-        a.addEventListener('click',function(){track('web_continue_click',{placement:(a.textContent||'').trim()})});
+        a.addEventListener('click',function(){track('web_continue_click',{placement:a.getAttribute('data-placement')||(a.textContent||'').trim()})});
       });
 
       document.querySelectorAll('.js-app-link').forEach(function(a){
