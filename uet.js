@@ -1,7 +1,7 @@
 /* Microsoft Advertising (UET). Carregado apenas em páginas de entrada e na confirmação de pagamento.
    Não envia dados pessoais nem clínicos: só pageLoad e o evento "purchase" com valor. */
 (function () {
-  var TI = '__UET_TAG_ID__';
+  var TI = '187301293';
   if (!/^\d+$/.test(TI)) return;
 
   var script = document.currentScript;
@@ -14,7 +14,7 @@
       try {
         window.uetq = window.uetq || [];
         var s = document.createElement('script');
-        s.src = 'https://bat.bing.com/bat.js';
+        s.src = 'https://bat.bing.net/bat.js?ti=' + TI;
         s.async = true;
         s.onload = function () {
           try {
