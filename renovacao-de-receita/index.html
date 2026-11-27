@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="pt-BR"><head><script src="/acesso-atendimento.js?v=1"></script><script>(function(){try{var p=new URL(location.href),t=p.searchParams.get('recuperar');if(!t)return;window.__cjRecoveryToken=t;p.searchParams.delete('recuperar');history.replaceState({},'',p.pathname+p.search+p.hash)}catch(e){}})();</script>
+<!DOCTYPE html><html lang="pt-BR"><head><script>/* validade do clique: ver /cj-clique.js */!function(){var t=["gclid","gbraid","wbraid","msclkid","fbclid"],a=Date.now();function e(t,a){try{return JSON.parse(t.getItem(a)||"null")}catch(t){return null}}function r(t,a){try{var e=JSON.stringify(a);localStorage.setItem(t,e),sessionStorage.setItem(t,e)}catch(t){}}try{var c=new URLSearchParams(location.search),o=t.some(function(t){return c.get(t)}),i=e(sessionStorage,"cj_ads_params")||e(localStorage,"cj_ads_params")||{},n=t.some(function(t){return i[t]});if(o)return void localStorage.setItem("cj_ads_click_at",String(a));if(!n)return;var l=Number(localStorage.getItem("cj_ads_click_at")||0);if(!l)return void localStorage.setItem("cj_ads_click_at",String(a));if(a-l<=7776e6)return;var s=e(localStorage,"cj_ads_origem")||{};t.forEach(function(t){i[t]&&(s[t]||(s[t]=i[t]),delete i[t])}),s.click_at||(s.click_at=new Date(l).toISOString()),r("cj_ads_origem",s),r("cj_ads_params",i),localStorage.removeItem("cj_ads_click_at")}catch(t){}}();</script><script src="/acesso-atendimento.js?v=1"></script><script>(function(){try{var p=new URL(location.href),t=p.searchParams.get('recuperar');if(!t)return;window.__cjRecoveryToken=t;p.searchParams.delete('recuperar');history.replaceState({},'',p.pathname+p.search+p.hash)}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Renovar receita online com médico | Renovação de receita | ConsultaJá24h</title>
@@ -1133,6 +1133,14 @@ async function criarPreRegistro(){
     payload.frete_servico_id=SOLIC.freteServicoId;
     payload.frete_prazo_dias=SOLIC.fretePrazoDias;
   }
+  try{
+    // Atribuição: mesmo identificador de clique salvo pela landing principal (cj_ads_params) ou presente na URL.
+    const u=new URLSearchParams(location.search);let s={};
+    try{s=JSON.parse(sessionStorage.getItem('cj_ads_params')||localStorage.getItem('cj_ads_params')||'{}')||{}}catch(_){s={}}
+    const ads={};['gclid','gbraid','wbraid','fbclid','msclkid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k=>{const v=u.get(k)||s[k];if(v)ads[k]=String(v).slice(0,300)});
+    ads.landing_url=location.href.slice(0,700);if(document.referrer)ads.referrer=document.referrer.slice(0,700);
+    ads.attribution_stage='touch';payload.ads=ads;
+  }catch(_){}
   const r=await fetch(API+'/api/renovacao/criar-pre',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   const d=await r.json();
   if(!d.ok)throw new Error(d.error||'Erro ao criar registro');
